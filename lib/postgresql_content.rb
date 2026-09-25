@@ -190,7 +190,7 @@ module PostgresqlContent
               <tr><td><code>char(n)</code></td><td>Pads with spaces. Avoid.</td></tr>
               <tr><td><code>boolean</code></td><td><code>true</code>, <code>false</code> or <code>NULL</code>. Accepts <code>'yes'</code>, <code>'no'</code>, <code>'t'</code>, <code>'f'</code>, <code>'1'</code>, <code>'0'</code>.</td></tr>
               <tr><td><code>uuid</code></td><td>128-bit ID. <code>gen_random_uuid()</code> makes a random one; PostgreSQL 18 adds time-ordered <code>uuidv7()</code>.</td></tr>
-              <tr><td><code>jsonb</code>, arrays</td><td>Covered in Lessons 14 and 15.</td></tr>
+              <tr><td><code>jsonb</code>, arrays</td><td>Covered in Lessons 15 and 16.</td></tr>
             </tbody>
           </table>
         </div>
@@ -344,7 +344,7 @@ module PostgresqlContent
 
         <div class="lc-card">
           <h3>Worked Example: Watching Constraints Say No</h3>
-          <p>The starter uses a small helper, <code>try_sql()</code>, that runs a statement and returns the error text instead of stopping. (You will learn how to write it in Lesson 18.)</p>
+          <p>The starter uses a small helper, <code>try_sql()</code>, that runs a statement and returns the error text instead of stopping. (You will learn how to write it in Lesson 19.)</p>
         <div class="lc-code">SELECT 'quantity = 0' AS test,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try_sql('INSERT INTO orders (customer_id, quantity) VALUES (1, 0)') AS result;</div>
           <p><strong>Output (all five tests):</strong></p>
         <div class="lc-code">&nbsp;duplicate email  | REJECTED: duplicate key value violates unique constraint "customers_email_key"<br>&nbsp;quantity = 0     | REJECTED: new row for relation "orders" violates check constraint "orders_quantity_check"<br>&nbsp;unknown customer | REJECTED: insert or update on table "orders" violates foreign key constraint "orders_customer_id_fkey"<br>&nbsp;bad status       | REJECTED: new row for relation "orders" violates check constraint "orders_status_check"<br>&nbsp;manual id        | REJECTED: cannot insert a non-DEFAULT value into column "id"</div>
@@ -390,7 +390,7 @@ module PostgresqlContent
       starter_code: <<~'SQL'
         -- Lesson 3: Tables, identity columns and constraints
         -- Helper: runs a statement and returns OK or the error text
-        -- (PL/pgSQL is taught in Lesson 18 - just use it here)
+        -- (PL/pgSQL is taught in Lesson 19 - just use it here)
         CREATE FUNCTION try_sql(stmt text) RETURNS text
         LANGUAGE plpgsql AS $$
         BEGIN
@@ -508,6 +508,15 @@ module PostgresqlContent
           <p><strong>Output:</strong></p>
         <div class="lc-code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with_pipes        |     with_concat_ws<br>-------------------------+-------------------------<br>&nbsp;Neha Sharma - Mumbai    | Neha Sharma - Mumbai<br>&nbsp;Rahul Verma - Bengaluru | Rahul Verma - Bengaluru<br>&nbsp;Sneha Iyer - Chennai    | Sneha Iyer - Chennai<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Amit Patel<br>&nbsp;Kavya Nair - Kochi      | Kavya Nair - Kochi</div>
           <p>Amit's city is NULL, so <code>||</code> returns NULL (shown as an empty cell) while <code>concat_ws</code> skips it.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>CASE: If-Then Logic Inside a Query</h3>
+          <p><code>CASE</code> picks a value row by row. The first <code>WHEN</code> that is true wins; <code>ELSE</code> is used when none is (without <code>ELSE</code> you get NULL):</p>
+        <div class="lc-code">SELECT name, marks,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN marks IS NULL THEN 'Absent'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN marks &gt;= 75&nbsp;&nbsp;THEN 'Distinction'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN marks &gt;= 40&nbsp;&nbsp;THEN 'Pass'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE 'Fail'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END AS result<br>FROM results ORDER BY name;</div>
+          <p><strong>Output:</strong></p>
+        <div class="lc-code">&nbsp;name | marks |&nbsp;&nbsp;&nbsp;result<br>------+-------+-------------<br>&nbsp;Asha |&nbsp;&nbsp;&nbsp;&nbsp;91 | Distinction<br>&nbsp;Ravi |&nbsp;&nbsp;&nbsp;&nbsp;67 | Pass<br>&nbsp;Tara |&nbsp;&nbsp;&nbsp;&nbsp;38 | Fail<br>&nbsp;Zoya |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Absent</div>
+          <p>Order the <code>WHEN</code>s from most specific to least: if <code>&gt;= 40</code> came first, Asha would get "Pass". Two NULL helpers go with it: <code>COALESCE(a, b)</code> returns the first non-NULL value, and <code>NULLIF(a, b)</code> returns NULL when <code>a = b</code>, so <code>total / NULLIF(count, 0)</code> gives NULL instead of a division-by-zero error. You can use <code>CASE</code> in <code>SELECT</code>, <code>WHERE</code>, <code>ORDER BY</code> and <code>UPDATE ... SET</code>.</p>
         </div>
 
         <div class="lc-card">
@@ -1000,6 +1009,169 @@ module PostgresqlContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
+          <h1 class="lc-title">Database Design and Normalization</h1>
+        </div>
+        <p class="lc-lead">Before you write a single query, you decide which tables exist and how they link. Good design stores every fact exactly once, so data can't contradict itself. In this lesson you model one-to-many and many-to-many relationships, split a messy "spreadsheet" table using the first three normal forms, and choose between CHECK, ENUM and a lookup table.</p>
+
+        <div class="lc-card">
+          <h3>Three Kinds of Relationship</h3>
+          <table class="lc-table">
+            <thead><tr><th>Relationship</th><th>Example</th><th>How to build it</th></tr></thead>
+            <tbody>
+              <tr><td>One-to-many (1:N)</td><td>One customer has many orders</td><td>Foreign key on the "many" side: <code>orders.customer_id REFERENCES customers (id)</code></td></tr>
+              <tr><td>Many-to-many (M:N)</td><td>An order has many products; a product is in many orders</td><td>A <strong>junction table</strong> with two foreign keys: <code>order_items (order_id, product_id)</code></td></tr>
+              <tr><td>One-to-one (1:1)</td><td>A user has one private profile</td><td>Foreign key that is also <code>UNIQUE</code> (or the primary key): <code>profiles.user_id ... PRIMARY KEY REFERENCES users (id)</code></td></tr>
+            </tbody>
+          </table>
+          <p>A junction table often carries its own facts too. <code>order_items.qty</code> belongs to neither the order nor the product; it belongs to the pair. Its primary key is usually the pair: <code>PRIMARY KEY (order_id, product_id)</code>.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Picture It</h3>
+        <div class="lc-code">customers (id, name, city)<br>&nbsp;&nbsp;1 ----&lt; orders (id, customer_id, status)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 ----&lt; order_items (order_id, product_id, qty) &gt;---- 1 products (id, name, price)<br><br>1 ----&lt;  means "one ... to many"</div>
+          <p>Draw this kind of diagram (an ER diagram) on paper first. Each box becomes a table, each crow's foot (<code>&lt;</code>) becomes a foreign key.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Normalization: The First Three Normal Forms</h3>
+          <p>Normalization is a checklist for removing repeated data. Each form fixes one kind of problem:</p>
+          <table class="lc-table">
+            <thead><tr><th>Form</th><th>Rule in plain words</th><th>Warning sign</th><th>Fix</th></tr></thead>
+            <tbody>
+              <tr><td>1NF</td><td>One value per cell; no repeating columns</td><td><code>products = 'Pen, Notebook'</code>, or columns <code>phone1, phone2, phone3</code></td><td>One row per item in a child table</td></tr>
+              <tr><td>2NF</td><td>With a composite key, every column depends on the <em>whole</em> key</td><td><code>order_items (order_id, product_id, qty, product_name)</code>: the name depends only on <code>product_id</code></td><td>Move <code>product_name</code> to <code>products</code></td></tr>
+              <tr><td>3NF</td><td>Non-key columns depend only on the key, not on each other</td><td><code>orders (id, customer_id, customer_city)</code>: city depends on the customer, not the order</td><td>Keep <code>city</code> in <code>customers</code> only</td></tr>
+            </tbody>
+          </table>
+          <p>A short way to remember it: every column must depend on "the key, the whole key, and nothing but the key".</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Worked Example: Fixing the Spreadsheet Table</h3>
+          <p>The starter begins with <code>orders_flat</code>, where Meera's city is typed on every order. Updating only one of her rows leaves the data contradicting itself (an <strong>update anomaly</strong>):</p>
+        <div class="lc-code">UPDATE orders_flat SET city = 'Chennai' WHERE order_id = 1;<br>SELECT DISTINCT city AS meera_lives_in FROM orders_flat WHERE customer = 'Meera' ORDER BY city;</div>
+          <p><strong>Output:</strong></p>
+        <div class="lc-code">&nbsp;meera_lives_in<br>----------------<br>&nbsp;Chennai<br>&nbsp;Kochi</div>
+          <p>After splitting into <code>customers</code>, <code>products</code>, <code>orders</code> and <code>order_items</code>, the city is stored once. One <code>UPDATE</code> fixes it everywhere, and joins rebuild the old view on demand:</p>
+        <div class="lc-code">&nbsp;order_id | name  |  city   | status  |        items        | total<br>----------+-------+---------+---------+---------------------+--------<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 | Meera | Chennai | paid    | Notebook x1, Pen x3 | 120.00<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2 | Meera | Chennai | new     | Pen x2              |  40.00<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 | Rohan | Pune    | shipped | Notebook x4         | 240.00</div>
+          <p>Notice that the total is <em>computed</em>, not stored. A stored total could drift out of step with the items.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Keys: Surrogate or Natural?</h3>
+          <ul class="lc-list">
+            <li><strong>Surrogate key</strong>: a meaningless number such as <code>id integer GENERATED ALWAYS AS IDENTITY</code>. It never changes, so it is the usual choice.</li>
+            <li><strong>Natural key</strong>: a real-world value such as an email or a course code (<code>DB101</code>). Fine when it is short and truly never changes. Emails and phone numbers do change, so keep them as <code>UNIQUE</code> columns instead.</li>
+            <li>Whatever you pick as the primary key, still add <code>UNIQUE</code> on the real-world value you must not duplicate.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>A Fixed List of Values: CHECK, ENUM or Lookup Table?</h3>
+        <div class="lc-code">CREATE TYPE order_status AS ENUM ('new', 'paid', 'shipped');<br>SELECT enum_range(NULL::order_status) AS allowed,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;min(status) AS earliest_stage, max(status) AS latest_stage FROM orders;</div>
+          <p><strong>Output:</strong></p>
+        <div class="lc-code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;allowed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| earliest_stage | latest_stage<br>--------------------+----------------+--------------<br>&nbsp;{new,paid,shipped} | new            | shipped</div>
+          <p>An ENUM sorts in the order you declared, not alphabetically. Inserting <code>'lost'</code> fails with <em>invalid input value for enum order_status: "lost"</em>.</p>
+          <table class="lc-table">
+            <thead><tr><th>Option</th><th>Good for</th><th>Drawback</th></tr></thead>
+            <tbody>
+              <tr><td><code>CHECK (status IN (...))</code></td><td>Short lists that rarely change (Lesson 3)</td><td>Changing the list means dropping and re-adding the constraint</td></tr>
+              <tr><td><code>CREATE TYPE ... AS ENUM</code></td><td>Stable lists with a natural order (stages, sizes)</td><td>You can add values (<code>ALTER TYPE ... ADD VALUE</code>) but not easily remove them</td></tr>
+              <tr><td>Lookup table + foreign key</td><td>Lists that users edit, or values with extra data (a label, a price)</td><td>One more join</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lc-card">
+          <h3>When to Break the Rules (Denormalize)</h3>
+          <p>Normalize first. Copy data on purpose only when you have a clear reason, for example:</p>
+          <ul class="lc-list">
+            <li><strong>History</strong>: store the <code>unit_price</code> in <code>order_items</code> at the moment of sale, because the product's price will change later. That is a different fact, not a duplicate.</li>
+            <li><strong>Speed</strong>: a slow report measured with <code>EXPLAIN ANALYZE</code> (Lesson 14) can be cached in a materialized view (Lesson 18) instead of copying columns into tables.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Storing lists in one text cell (<code>'Pen, Notebook'</code>). You can't join, count or constrain them. Use a child table (or, for simple tags, an array: Lesson 16).</li>
+            <li>Modelling many-to-many with a foreign key on one side. A product would then belong to only one order. You need a junction table.</li>
+            <li>Forgetting the composite primary key on the junction table, so the same product can appear twice in one order.</li>
+            <li>Storing values you can calculate (order total, age from birth date). They go stale; compute them in the query or a view.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>Add a product <code>Stapler</code> (price 150) and put 1 of it in order 3. Run again: which rows of the report change?</li>
+            <li>Add <code>'cancelled'</code> to the enum with <code>ALTER TYPE order_status ADD VALUE 'cancelled';</code> and mark order 2 as cancelled.</li>
+            <li>Design on paper: students, courses and teachers, where a course has one teacher and many students. Which tables and foreign keys do you need? (Lesson 21's capstone uses the same idea.)</li>
+          </ol>
+        </div>
+
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> For every column, ask "is this a fact about <em>this row's key</em>?" If the honest answer is "no, it's about the customer" (or the product, or the city), it belongs in another table.
+        </div>
+      HTML
+      starter_code: <<~'SQL'
+        -- Lesson 8: Database design and normalization
+        -- BEFORE: one spreadsheet-style table
+        CREATE TABLE orders_flat (order_id integer, customer text, city text, products text);
+        INSERT INTO orders_flat VALUES
+          (1, 'Meera', 'Kochi', 'Pen, Notebook'),
+          (2, 'Meera', 'Kochi', 'Pen'),
+          (3, 'Rohan', 'Pune',  'Notebook');
+
+        -- 1. Update anomaly: Meera moves, but only one of her rows is changed
+        UPDATE orders_flat SET city = 'Chennai' WHERE order_id = 1;
+        SELECT DISTINCT city AS meera_lives_in FROM orders_flat WHERE customer = 'Meera' ORDER BY city;
+
+        -- AFTER: every fact is stored once
+        CREATE TYPE order_status AS ENUM ('new', 'paid', 'shipped');
+        CREATE TABLE customers (id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                                name text NOT NULL, city text NOT NULL);
+        CREATE TABLE products  (id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+                                name text NOT NULL UNIQUE, price numeric(10,2) NOT NULL);
+        CREATE TABLE orders (
+          id          integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+          customer_id integer NOT NULL REFERENCES customers (id),
+          status      order_status NOT NULL DEFAULT 'new'
+        );
+        CREATE TABLE order_items (              -- junction table (many-to-many)
+          order_id   integer REFERENCES orders (id) ON DELETE CASCADE,
+          product_id integer REFERENCES products (id),
+          qty        integer NOT NULL CHECK (qty > 0),
+          PRIMARY KEY (order_id, product_id)
+        );
+        INSERT INTO customers (name, city) VALUES ('Meera', 'Kochi'), ('Rohan', 'Pune');
+        INSERT INTO products (name, price) VALUES ('Pen', 20), ('Notebook', 60);
+        INSERT INTO orders (customer_id, status) VALUES (1, 'paid'), (1, 'new'), (2, 'shipped');
+        INSERT INTO order_items VALUES (1, 1, 3), (1, 2, 1), (2, 1, 2), (3, 2, 4);
+
+        -- 2. Meera moves: ONE row changes, and every order sees it
+        UPDATE customers SET city = 'Chennai' WHERE name = 'Meera';
+        -- 3. JOINs rebuild the "spreadsheet" whenever you need it
+        SELECT o.id AS order_id, c.name, c.city, o.status,
+               string_agg(p.name || ' x' || oi.qty, ', ' ORDER BY p.name) AS items,
+               sum(oi.qty * p.price) AS total
+        FROM orders o
+        JOIN customers c    ON c.id = o.customer_id
+        JOIN order_items oi ON oi.order_id = o.id
+        JOIN products p     ON p.id = oi.product_id
+        GROUP BY o.id, c.name, c.city, o.status
+        ORDER BY o.id;
+
+        -- 4. An ENUM allows only its values, and sorts in the order you declared
+        SELECT enum_range(NULL::order_status) AS allowed,
+               min(status) AS earliest_stage, max(status) AS latest_stage FROM orders;
+      SQL
+    },
+
+    9 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
           <h1 class="lc-title">Subqueries, EXISTS and LATERAL</h1>
         </div>
         <p class="lc-lead">A subquery is a query inside another query. You will use scalar subqueries, <code>IN</code>, <code>EXISTS</code> and correlated subqueries, avoid the famous <code>NOT IN</code> + NULL trap, and use <code>LATERAL</code> to get the "top N per group".</p>
@@ -1043,6 +1215,22 @@ module PostgresqlContent
         </div>
 
         <div class="lc-card">
+          <h3>Combining Results: UNION, INTERSECT, EXCEPT</h3>
+          <p>Set operators stack the results of two queries that return the same number of columns with compatible types:</p>
+          <table class="lc-table">
+            <thead><tr><th>Operator</th><th>Returns</th><th>Example result (online: Asha, Ravi, Zoya; shop: Ravi, Tara, Zoya, Zoya)</th></tr></thead>
+            <tbody>
+              <tr><td><code>UNION</code></td><td>Rows from either query, duplicates removed</td><td>Asha, Ravi, Tara, Zoya</td></tr>
+              <tr><td><code>UNION ALL</code></td><td>All rows, duplicates kept (faster: no de-duplication)</td><td>7 rows</td></tr>
+              <tr><td><code>INTERSECT</code></td><td>Rows found in both</td><td>Ravi, Zoya</td></tr>
+              <tr><td><code>EXCEPT</code></td><td>Rows in the first but not the second</td><td>Asha</td></tr>
+            </tbody>
+          </table>
+        <div class="lc-code">SELECT name AS online_only FROM online_buyers<br>EXCEPT<br>SELECT name FROM shop_buyers<br>ORDER BY 1;&nbsp;&nbsp;&nbsp;-- one ORDER BY at the end sorts the combined result</div>
+          <p><code>EXCEPT</code> is another NULL-safe way to answer "which ones have no match?". Column names come from the first query. Use <code>UNION ALL</code> unless you really need duplicates removed.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Which Tool When?</h3>
           <table class="lc-table">
             <thead><tr><th>Question</th><th>Good choice</th></tr></thead>
@@ -1050,7 +1238,7 @@ module PostgresqlContent
               <tr><td>"Rows that have a match"</td><td><code>EXISTS</code> or <code>IN</code></td></tr>
               <tr><td>"Rows that have no match"</td><td><code>NOT EXISTS</code> or <code>LEFT JOIN ... IS NULL</code> (not <code>NOT IN</code>)</td></tr>
               <tr><td>"Compare with an overall number"</td><td>Scalar subquery</td></tr>
-              <tr><td>"Top N per group"</td><td><code>LATERAL</code> or a window function (Lesson 10)</td></tr>
+              <tr><td>"Top N per group"</td><td><code>LATERAL</code> or a window function (Lesson 11)</td></tr>
             </tbody>
           </table>
         </div>
@@ -1074,11 +1262,11 @@ module PostgresqlContent
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> PostgreSQL's planner usually turns <code>EXISTS</code>, <code>IN</code> and joins into the same efficient plan. Choose the form that reads most clearly, and check with <code>EXPLAIN</code> (Lesson 13) if speed matters.
+          <strong>Tip:</strong> PostgreSQL's planner usually turns <code>EXISTS</code>, <code>IN</code> and joins into the same efficient plan. Choose the form that reads most clearly, and check with <code>EXPLAIN</code> (Lesson 14) if speed matters.
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 8: Subqueries, EXISTS and LATERAL
+        -- Lesson 9: Subqueries, EXISTS and LATERAL
         CREATE TABLE customers (
           id   integer PRIMARY KEY,
           name text NOT NULL
@@ -1130,7 +1318,7 @@ module PostgresqlContent
       SQL
     },
 
-    9 => {
+    10 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -1147,7 +1335,7 @@ module PostgresqlContent
         <div class="lc-card">
           <h3>CTE vs Subquery vs View</h3>
           <table class="lc-table">
-            <thead><tr><th></th><th>Subquery</th><th>CTE</th><th>View (Lesson 17)</th></tr></thead>
+            <thead><tr><th></th><th>Subquery</th><th>CTE</th><th>View (Lesson 18)</th></tr></thead>
             <tbody>
               <tr><td>Named</td><td>No</td><td>Yes</td><td>Yes</td></tr>
               <tr><td>Reuse in same query</td><td>Copy it</td><td>Refer by name</td><td>Refer by name</td></tr>
@@ -1210,7 +1398,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 9: CTEs and recursive queries
+        -- Lesson 10: CTEs and recursive queries
         CREATE TABLE staff (
           id         integer PRIMARY KEY,
           name       text NOT NULL,
@@ -1261,7 +1449,7 @@ module PostgresqlContent
       SQL
     },
 
-    10 => {
+    11 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -1349,7 +1537,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 10: Window functions
+        -- Lesson 11: Window functions
         CREATE TABLE scores (
           student text    NOT NULL,
           house   text    NOT NULL,
@@ -1402,7 +1590,7 @@ module PostgresqlContent
       SQL
     },
 
-    11 => {
+    12 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -1481,7 +1669,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 11: INSERT, UPDATE, DELETE, RETURNING, upserts and MERGE
+        -- Lesson 12: INSERT, UPDATE, DELETE, RETURNING, upserts and MERGE
         CREATE TABLE stock (
           sku     text PRIMARY KEY,
           name    text          NOT NULL,
@@ -1533,7 +1721,7 @@ module PostgresqlContent
       SQL
     },
 
-    12 => {
+    13 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -1607,6 +1795,13 @@ module PostgresqlContent
         </div>
 
         <div class="lc-card">
+          <h3>Deadlocks</h3>
+          <p>A deadlock happens when two transactions each hold a lock the other one needs:</p>
+        <div class="lc-code">Session A                                  Session B<br>BEGIN;                                     BEGIN;<br>UPDATE accounts ... WHERE id = 1;          UPDATE accounts ... WHERE id = 2;<br>UPDATE accounts ... WHERE id = 2;  (waits for B)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPDATE accounts ... WHERE id = 1;  (waits for A)<br>-&gt; after about 1 second (deadlock_timeout) PostgreSQL cancels one of them:<br>&nbsp;&nbsp;&nbsp;ERROR:&nbsp;&nbsp;deadlock detected   (SQLSTATE 40P01)</div>
+          <p>PostgreSQL detects this by itself; it never hangs forever. The cancelled transaction is rolled back, and your application should retry it. The best prevention is to lock rows in the <strong>same order</strong> everywhere, for example always by <code>id</code> ascending (<code>SELECT ... WHERE id IN (1, 2) ORDER BY id FOR UPDATE</code>).</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Leaving a transaction open ("idle in transaction"). It holds locks and stops VACUUM from cleaning up.</li>
@@ -1630,7 +1825,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 12: Transactions, MVCC and isolation
+        -- Lesson 13: Transactions, MVCC and isolation
         CREATE TABLE accounts (
           id      integer PRIMARY KEY,
           owner   text          NOT NULL,
@@ -1680,7 +1875,7 @@ module PostgresqlContent
       SQL
     },
 
-    13 => {
+    14 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -1784,7 +1979,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 13: Indexes and EXPLAIN ANALYZE
+        -- Lesson 14: Indexes and EXPLAIN ANALYZE
         CREATE TABLE users (
           id         integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
           email      text    NOT NULL,
@@ -1834,7 +2029,7 @@ module PostgresqlContent
       SQL
     },
 
-    14 => {
+    15 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -1930,7 +2125,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 14: JSON and JSONB
+        -- Lesson 15: JSON and JSONB
         CREATE TABLE events (
           id      integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
           kind    text  NOT NULL,
@@ -1978,7 +2173,7 @@ module PostgresqlContent
       SQL
     },
 
-    15 => {
+    16 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -2070,7 +2265,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 15: Arrays
+        -- Lesson 16: Arrays
         CREATE TABLE courses (
           id     integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
           title  text      NOT NULL,
@@ -2120,7 +2315,7 @@ module PostgresqlContent
       SQL
     },
 
-    16 => {
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -2208,7 +2403,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 16: Full-text search
+        -- Lesson 17: Full-text search
         CREATE TABLE articles (
           id     integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
           title  text NOT NULL,
@@ -2252,7 +2447,7 @@ module PostgresqlContent
       SQL
     },
 
-    17 => {
+    18 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -2324,7 +2519,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 17: Views and materialized views
+        -- Lesson 18: Views and materialized views
         CREATE TABLE orders (
           id       integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
           customer text          NOT NULL,
@@ -2376,7 +2571,7 @@ module PostgresqlContent
       SQL
     },
 
-    18 => {
+    19 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -2470,7 +2665,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 18: Functions, procedures and triggers
+        -- Lesson 19: Functions, procedures and triggers
         CREATE TABLE products (
           id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY, name text NOT NULL, price numeric(10,2) NOT NULL
         );
@@ -2522,7 +2717,7 @@ module PostgresqlContent
       SQL
     },
 
-    19 => {
+    20 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -2559,6 +2754,17 @@ module PostgresqlContent
           <p><strong>Output:</strong></p>
         <div class="lc-code">&nbsp;acting_as  | visible_rows | top_score<br>------------+--------------+----------<br>&nbsp;school_app |            3 |        95</div>
           <p>The table has 5 rows, but <code>school_app</code> sees only the 3 KV rows. After <code>RESET ROLE</code> the owner sees all 5. The starter also checks privileges with <code>has_table_privilege</code>: <code>can_select = t</code>, <code>can_delete = f</code>.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Schemas and search_path</h3>
+          <p>A database contains <strong>schemas</strong>: named folders for tables, views and functions. Every new database has a schema called <code>public</code>. Use schemas to separate parts of an app or to give a team its own space:</p>
+        <div class="lc-code">CREATE SCHEMA billing;<br>CREATE TABLE billing.invoices (id integer, amount numeric(10,2));<br>SELECT to_regclass('invoices') AS without_schema;   -- NULL: not found in public<br>SET search_path = billing, public;<br>SELECT * FROM invoices;                             -- now found in billing</div>
+          <p><code>search_path</code> is the list of schemas PostgreSQL searches for an unqualified name (the default is <code>"$user", public</code>). Security notes:</p>
+          <ul class="lc-list">
+            <li>Because ordinary users can no longer create objects in <code>public</code> (PostgreSQL 15+, see above), give each app its own schema: <code>GRANT USAGE, CREATE ON SCHEMA app TO app_owner;</code></li>
+            <li>In <code>SECURITY DEFINER</code> functions always set a fixed path (<code>SET search_path = app, pg_temp</code>) so nobody can slip in a look-alike table or function.</li>
+          </ul>
         </div>
 
         <div class="lc-card">
@@ -2641,7 +2847,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 19: Roles, security and backups
+        -- Lesson 20: Roles, security and backups
         DROP ROLE IF EXISTS school_app;      -- roles belong to the whole server
         CREATE ROLE school_app NOLOGIN;      -- in real life: LOGIN PASSWORD '...'
 
@@ -2688,7 +2894,7 @@ module PostgresqlContent
       SQL
     },
 
-    20 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
@@ -2714,12 +2920,13 @@ module PostgresqlContent
             <thead><tr><th>Requirement</th><th>Where it lives</th><th>Lesson</th></tr></thead>
             <tbody>
               <tr><td>Exact fees</td><td><code>numeric(10,2)</code></td><td>2</td></tr>
+              <tr><td>Many-to-many: students and courses</td><td>Junction table <code>enrollments</code></td><td>8</td></tr>
               <tr><td>Enrol once only</td><td>Composite <code>PRIMARY KEY</code></td><td>3</td></tr>
               <tr><td>Delete student → delete enrolments</td><td><code>ON DELETE CASCADE</code></td><td>3</td></tr>
               <tr><td>Can't delete a course in use</td><td>Default FK action (<code>NO ACTION</code>)</td><td>3</td></tr>
-              <tr><td>Re-registering updates the grade</td><td><code>ON CONFLICT ... DO UPDATE</code></td><td>11</td></tr>
-              <tr><td>Seats report everyone shares</td><td>A view</td><td>17</td></tr>
-              <tr><td>Class rank</td><td><code>rank() OVER (PARTITION BY ...)</code></td><td>10</td></tr>
+              <tr><td>Re-registering updates the grade</td><td><code>ON CONFLICT ... DO UPDATE</code></td><td>12</td></tr>
+              <tr><td>Seats report everyone shares</td><td>A view</td><td>18</td></tr>
+              <tr><td>Class rank</td><td><code>rank() OVER (PARTITION BY ...)</code></td><td>11</td></tr>
             </tbody>
           </table>
         </div>
@@ -2767,7 +2974,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 20 Capstone: a mini course-registration database
+        -- Lesson 21 Capstone: a mini course-registration database
         CREATE TABLE students (
           id      integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
           name    text NOT NULL,
