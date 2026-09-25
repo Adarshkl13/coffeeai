@@ -1,29 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 
-const PYODIDE_URL = "https://cdn.jsdelivr.net/pyodide/v0.29.5/full/"
-let pyodidePromise = null
-let pyodideReady = false
-
-// Loads Pyodide once per page and reuses it for every run
-function loadPyodideOnce() {
-  if (pyodidePromise) return pyodidePromise
-  pyodidePromise = new Promise((resolve, reject) => {
-    const script = document.createElement("script")
-    script.src = PYODIDE_URL + "pyodide.js"
-    script.onload = () => window.loadPyodide({ indexURL: PYODIDE_URL }).then(resolve, reject)
-    script.onerror = () => reject(new Error("network error"))
-    document.head.appendChild(script)
-  }).then((py) => { pyodideReady = true; return py })
-  pyodidePromise.catch(() => { pyodidePromise = null })
-  return pyodidePromise
-}
-
-// Keeps only the student's own frames (<exec>) so tracebacks aren't cluttered by Pyodide internals
-function cleanTraceback(message) {
-  const lines = message.trimEnd().split("\n")
-  const first = lines.findIndex(l => l.includes('File "<exec>"'))
-  if (first === -1) return lines.slice(-1).join("\n")
-  return ["Traceback (most recent call last):", ...lines.slice(first)].join("\n")
+// Languages that run on a real interpreter in the browser (app/javascript/runners/*.js)
+const REAL_RUNNERS = {
+  python: "runners/python",
+  pandas: "runners/python",
+  numpy:  "runners/python"
 }
 
 // Handles live HTML preview, JavaScript, Python, Ruby, and Java simulation
@@ -45,9 +26,9 @@ export default class extends Controller {
   // ── Run code based on mode ──────────────────────────────────────
   run() {
     const code = this.textareaTarget.value
+    if (REAL_RUNNERS[this.mode]) return this._runReal(code)
     if (this.mode === "html")            this._runHtml(code)
     else if (this.mode === "javascript") this._runJs(code)
-    else if (this.mode === "python")     this._runRealPython(code)
     else if (this.mode === "ruby")       this._runRuby(code)
     else if (this.mode === "java")       this._runJava(code)
     else if (this.mode === "php")        this._runPhp(code)
@@ -55,8 +36,6 @@ export default class extends Controller {
     else if (this.mode === "mysql")      this._runMySql(code)
     else if (this.mode === "postgresql") this._runPostgresql(code)
     else if (this.mode === "react")       this._runReact(code)
-    else if (this.mode === "pandas")      this._runRealPython(code)
-    else if (this.mode === "numpy")       this._runRealPython(code)
     else if (this.mode === "typescript")  this._runTypeScript(code)
   }
 
@@ -152,46 +131,33 @@ export default class extends Controller {
     this.previewTarget.srcdoc = wrapped
   }
 
-  // ── Python: enhanced simulator ───────────────────────────────────
-  // ── Real Python (Pyodide, CPython compiled to WebAssembly) ─────────
-  async _runRealPython(code) {
-    if (!this.hasPreviewTarget) return
-    if (this._pyRunning) return
-    this._pyRunning = true
+  // ── Real interpreters (see REAL_RUNNERS) ───────────────────────
+  async _runReal(code) {
+    if (!this.hasPreviewTarget || this._running) return
+    this._running = true
     if (this.hasRunBtnTarget) this.runBtnTarget.disabled = true
-    if (!pyodideReady) this._renderPyOutput([{ text: "Loading Python… (first run downloads about 10 MB)", cls: "info" }])
-
+    const status = (text) => this._renderOutput([{ text, cls: "info" }])
     try {
-      const py = await loadPyodideOnce()
-      const out = []
-      py.setStdout({ batched: (text) => out.push({ text }) })
-      py.setStderr({ batched: (text) => out.push({ text, cls: "err" }) })
-      await py.loadPackagesFromImports(code, {
-        messageCallback: (msg) => { if (/^Loading /.test(msg)) this._renderPyOutput([{ text: `${msg} (first time only)`, cls: "info" }]) }
-      })
-
-      const globals = py.globals.get("dict")()
-      globals.set("__name__", "__main__")
-      try {
-        await py.runPythonAsync(code, { globals })
-      } catch (e) {
-        out.push({ text: cleanTraceback(e.message), cls: "err" })
-      } finally {
-        globals.destroy()
-      }
-      this._renderPyOutput(out)
+      const runner = await import(REAL_RUNNERS[this.mode])
+      this._renderOutput(await runner.run(code, { onStatus: status }))
     } catch (e) {
-      this._renderPyOutput([{ text: `Could not load Python: ${e.message}. Check your internet connection.`, cls: "err" }])
+      this._renderOutput([{ text: `Could not start the ${this.mode} runtime: ${e.message}. Check your internet connection.`, cls: "err" }])
     } finally {
-      this._pyRunning = false
+      this._running = false
       if (this.hasRunBtnTarget) this.runBtnTarget.disabled = false
     }
   }
 
-  _renderPyOutput(lines) {
-    const esc = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-    const body = lines.length
-      ? lines.map(l => `<div class="line ${l.cls || ""}"><span class="prompt">&gt; </span>${esc(l.text)}</div>`).join("")
+  _renderOutput(items) {
+    const esc = (t) => String(t ?? "NULL").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    const table = ({ columns, rows }) =>
+      `<table><thead><tr>${columns.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>` +
+      `<tbody>${rows.map(r => `<tr>${r.map(v => `<td>${esc(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>` +
+      `<div class="line info">${rows.length} row${rows.length === 1 ? "" : "s"}</div>`
+    const body = items.length
+      ? items.map(it => it.table
+          ? table(it.table)
+          : `<div class="line ${it.cls || ""}"><span class="prompt">&gt; </span>${esc(it.text)}</div>`).join("")
       : '<div class="line info">(no output)</div>'
     this.previewTarget.srcdoc = `<!DOCTYPE html>
 <html>
@@ -203,6 +169,9 @@ export default class extends Controller {
   .err  { color:#f87171; }
   .info { color:#4b5563; font-style:italic; }
   .prompt { color:#4b5563; user-select:none; }
+  table { border-collapse:collapse; margin:6px 0 4px; color:#e5e7eb; }
+  th, td { border:1px solid #1f2937; padding:4px 10px; text-align:left; }
+  th { background:#111827; color:#a3e635; }
 </style>
 </head>
 <body><div id="out">${body}</div></body></html>`
