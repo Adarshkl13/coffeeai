@@ -1,0 +1,360 @@
+<% content_for :title, "#{@lesson.lesson_number} #{@lesson.title} — #{@course.title}" %>
+<% editor_slugs = %w[html-css javascript python ruby java php sql mysql postgresql django bootstrap react pandas numpy typescript practical-ai deep-learning nodejs] %>
+<% has_editor   = editor_slugs.include?(@course.slug) && @lesson.starter_code.present? %>
+<% editor_mode  = case @course.slug
+                  when "javascript"  then "javascript"
+                  when "python"      then "python"
+                  when "ruby"        then "ruby"
+                  when "java"        then "java"
+                  when "php"         then "php"
+                  when "sql"         then "sql"
+                  when "mysql"       then "mysql"
+                  when "postgresql"  then "postgresql"
+                  when "django"      then "python"
+                  when "react"       then "react"
+                  when "pandas"      then "pandas"
+                  when "numpy"       then "numpy"
+                  when "typescript"  then "typescript"
+                  when "practical-ai" then "python"
+                  when "deep-learning" then "python"
+                  when "nodejs"      then "javascript"
+                  else "html"
+                  end %>
+<%
+  lesson_sections =
+    if @course.slug == "deep-learning"
+      { 1 => "Fundamentals", 6 => "Neural Networks" }
+    elsif @course.slug == "git"
+      { 1 => "Foundations", 11 => "Branching and Collaboration" }
+    elsif @course.slug == "github"
+      { 1 => "Platform Basics", 11 => "Collaboration Workflows" }
+    else
+      {}
+    end
+%>
+
+<div class="app-shell <%= has_editor ? 'shell-with-editor' : '' %>" data-controller="lesson">
+
+  <%# Mobile bar %>
+  <header class="mobile-bar">
+    <button class="hamburger" data-action="click->lesson#toggleSidebar">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="mobile-logo">AI <strong>Academy</strong></span>
+    <%= link_to destroy_user_session_path, class: "logout-link mobile-user", data: { turbo_method: :delete } do %>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+    <% end %>
+  </header>
+
+  <div class="sidebar-overlay" data-action="click->lesson#toggleSidebar" data-lesson-target="overlay"></div>
+
+  <%# Sidebar %>
+  <aside class="sidebar" data-lesson-target="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon-wrap" style="background: linear-gradient(135deg, <%= @course.color %>, #3b82f6)">
+        <span style="font-size:16px"><%= @course.icon %></span>
+      </div>
+      <%= link_to course_path(@course), class: "logo-text" do %><%= @course.title %><% end %>
+    </div>
+
+    <div class="course-card">
+      <p class="course-name"><%= @course.title %></p>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" style="width:<%= @completion_pct %>%;background:linear-gradient(90deg,<%= @course.color %>,#3b82f6)"></div>
+      </div>
+      <p class="progress-label"><%= @completion_pct %>% Complete</p>
+    </div>
+
+    <div class="nav-section-label">LESSONS</div>
+    <nav class="course-nav">
+      <% @lessons_with_status.each do |lws| %>
+        <% l = lws[:lesson]; prog = lws[:progress]; locked = lws[:locked] %>
+        <% is_current = l.id == @lesson.id; is_done = %w[completed skipped].include?(prog&.status); is_skipped = prog&.status == "skipped" %>
+        <% if lesson_sections[l.position].present? %>
+          <div class="course-section-divider"><%= lesson_sections[l.position] %></div>
+        <% end %>
+        <li style="list-style:none">
+          <% if locked %>
+            <span class="lesson-link locked">
+              <span class="lesson-status-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+              <span class="lesson-link-title"><%= l.position %>. <%= l.title %></span>
+            </span>
+          <% else %>
+            <%= link_to course_lesson_path(course_slug: @course.slug, id: l.id),
+                  class: "lesson-link #{is_current ? 'current' : ''} #{is_done ? 'done' : ''} #{is_skipped ? 'skipped-item' : ''}" do %>
+              <span class="lesson-status-icon">
+                <% if is_done && !is_current %>
+                  <% if is_skipped %>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/></svg>
+                  <% else %>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3"><path d="M5 13l4 4L19 7" stroke-linecap="round"/></svg>
+                  <% end %>
+                <% elsif is_current %>
+                  <span class="dot-active" style="background:<%= @course.color %>"></span>
+                <% else %>
+                  <span class="dot-empty"></span>
+                <% end %>
+              </span>
+              <span class="lesson-link-title"><%= l.position %>. <%= l.title %></span>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-bar">
+        <div class="user-avatar"><%= current_user.email[0].upcase %></div>
+        <div class="user-info">
+          <p class="user-email"><%= current_user.email %></p>
+          <%= link_to "Sign out", destroy_user_session_path, class: "sign-out-link", data: { turbo_method: :delete } %>
+        </div>
+      </div>
+      <%= link_to dashboard_path, class: "back-to-dash" do %>← Back to Dashboard<% end %>
+    </div>
+  </aside>
+
+  <%# Main content %>
+  <main class="main-content">
+    <div class="breadcrumb">
+      <%= link_to @course.title, course_path(@course), class: "breadcrumb-link" %>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6" stroke-linecap="round"/></svg>
+      <span>Lesson <%= @lesson.lesson_number %></span>
+      <% if @current_progress&.completed? %>
+        <span class="status-pill pill-done">Completed</span>
+      <% elsif @current_progress&.skipped? %>
+        <span class="status-pill pill-skip">Skipped</span>
+      <% elsif @current_progress&.in_progress? %>
+        <span class="status-pill pill-prog">In Progress</span>
+      <% end %>
+    </div>
+
+    <div class="lesson-scroll">
+
+      <%# Rich lesson body content %>
+      <% if @lesson.body.present? %>
+        <div class="lesson-rich-body">
+          <h1 class="lesson-rich-title"><%= @lesson.title %></h1>
+          <%= raw @lesson.body %>
+        </div>
+      <% else %>
+        <div class="lesson-text-card">
+          <h1 class="lesson-text-title"><%= @lesson.title %></h1>
+          <p class="lesson-text-body"><%= @lesson.description %></p>
+        </div>
+      <% end %>
+
+      <%# Live code editor %>
+      <% if has_editor %>
+        <div class="live-editor" data-controller="code-editor"
+             data-code-editor-starter-value="<%= CGI.escapeHTML(@lesson.starter_code) %>"
+             data-code-editor-mode-value="<%= editor_mode %>">
+
+          <div class="le-header">
+            <div class="le-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+              <span>Code Editor</span>
+              <% if editor_mode == "html" %>
+                <span class="le-badge le-badge-blue">Live Preview</span>
+              <% elsif editor_mode == "javascript" %>
+                <span class="le-badge le-badge-yellow">JavaScript</span>
+              <% elsif editor_mode == "ruby" %>
+                <span class="le-badge le-badge-ruby">Ruby</span>
+              <% elsif editor_mode == "java" %>
+                <span class="le-badge le-badge-java">Java</span>
+              <% elsif editor_mode == "php" %>
+                <span class="le-badge le-badge-php">PHP</span>
+              <% elsif editor_mode == "sql" %>
+                <span class="le-badge le-badge-sql">SQL</span>
+              <% elsif editor_mode == "mysql" %>
+                <span class="le-badge le-badge-mysql">MySQL</span>
+              <% elsif @course.slug == "django" %>
+                <span class="le-badge le-badge-django">Django</span>
+              <% elsif @course.slug == "deep-learning" %>
+                <span class="le-badge le-badge-deep-learning">Deep Learning</span>
+              <% elsif @course.slug == "nodejs" %>
+                <span class="le-badge le-badge-nodejs">Node.js</span>
+              <% else %>
+                <span class="le-badge le-badge-blue">Python</span>
+              <% end %>
+            </div>
+            <div class="le-actions">
+              <button class="le-btn le-run" data-action="click->code-editor#run">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                Run
+              </button>
+              <button class="le-btn le-reset" data-action="click->code-editor#reset">Reset</button>
+            </div>
+          </div>
+
+          <div class="le-body">
+            <%# Left — code editor %>
+            <div class="le-editor-pane">
+              <div class="le-line-nums" data-code-editor-target="lineNums">1</div>
+              <textarea class="le-textarea"
+                        data-code-editor-target="textarea"
+                        data-action="input->code-editor#onInput keydown->code-editor#handleTab"
+                        spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"><%= @lesson.starter_code %></textarea>
+            </div>
+
+            <%# Right — preview or console %>
+            <% if editor_mode == "html" %>
+              <div class="le-preview-pane">
+                <div class="le-preview-bar">
+                  <span class="le-preview-dot le-dot-r"></span>
+                  <span class="le-preview-dot le-dot-y"></span>
+                  <span class="le-preview-dot le-dot-g"></span>
+                  <span class="le-preview-label">Browser Preview</span>
+                </div>
+                <iframe class="le-iframe" data-code-editor-target="preview" sandbox="allow-scripts"></iframe>
+              </div>
+            <% else %>
+              <div class="le-console-pane">
+                <div class="le-console-bar">
+                  <div class="le-console-dots">
+                    <span class="le-preview-dot le-dot-r"></span>
+                    <span class="le-preview-dot le-dot-y"></span>
+                    <span class="le-preview-dot le-dot-g"></span>
+                  </div>
+                  <span class="le-preview-label">
+                    <% if editor_mode == "javascript" %>⚡ Console Output
+                    <% elsif editor_mode == "ruby" %>💎 Ruby Output
+                    <% elsif editor_mode == "java" %>☕ Java Output
+                    <% elsif editor_mode == "php" %>🐘 PHP Output
+                    <% elsif editor_mode == "sql" %>🗄️ SQL Results
+                    <% elsif editor_mode == "mysql" %>🐬 MySQL Results
+                    <% elsif @course.slug == "django" %>🌿 Django Output
+                    <% elsif @course.slug == "deep-learning" %>🧠 Deep Learning Output
+                    <% elsif @course.slug == "nodejs" %>🟢 Node.js Output
+                    <% else %>🐍 Python Output<% end %>
+                  </span>
+                  <span class="le-console-hint">Click Run ▶ to execute</span>
+                </div>
+                <iframe class="le-iframe le-console-iframe" data-code-editor-target="preview" sandbox="allow-scripts"></iframe>
+              </div>
+            <% end %>
+          </div>
+
+        </div>
+      <% end %>
+
+    </div>
+
+    <div class="lesson-nav-bar">
+      <% if @prev_lesson %>
+        <%= link_to course_lesson_path(course_slug: @course.slug, id: @prev_lesson.id), class: "nav-btn nav-prev" do %>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" stroke-linecap="round"/></svg>
+          Previous
+        <% end %>
+      <% else %>
+        <span class="nav-btn nav-prev disabled">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6" stroke-linecap="round"/></svg>
+          Previous
+        </span>
+      <% end %>
+
+      <% if @next_lesson %>
+        <%= link_to course_lesson_path(course_slug: @course.slug, id: @next_lesson.id),
+              class: "nav-btn nav-next", style: "background:linear-gradient(135deg,#{@course.color},#3b82f6)" do %>
+          Next Lesson
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6" stroke-linecap="round"/></svg>
+        <% end %>
+      <% else %>
+        <span class="nav-btn nav-next complete">🎉 Course Complete!</span>
+      <% end %>
+    </div>
+  </main>
+
+  <%# Right panel - exercise %>
+  <aside class="right-panel">
+    <%= form_with url: complete_course_lesson_path(course_slug: @course.slug, id: @lesson.id), method: :post, id: "complete-form", data: { turbo: false } do |f|
+      f.hidden_field :_confirmed, value: "1"
+    end %>
+    <%= form_with url: skip_course_lesson_path(course_slug: @course.slug, id: @lesson.id), method: :post, id: "skip-form", data: { turbo: false } do |f|
+      f.hidden_field :_confirmed, value: "1"
+    end %>
+
+    <div class="exercise-panel" data-controller="lesson">
+
+      <div class="exercise-heading">
+        <div class="exercise-icon-wrap" style="background:rgba(79,70,229,.2);color:<%= @course.color %>">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M9 9h6M9 12h6M9 15h4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="exercise-id-label">Exercise <%= @lesson.lesson_number %>.1</span>
+      </div>
+
+      <% if @current_progress&.done? %>
+        <div class="already-done-box">
+          <% if @current_progress.completed? %>
+            <div class="done-icon">✓</div>
+            <p class="done-title">Lesson Completed!</p>
+            <p class="done-desc">You answered correctly.</p>
+          <% else %>
+            <div class="done-icon skip">→</div>
+            <p class="done-title">Lesson Skipped</p>
+            <p class="done-desc">You can always revisit this lesson.</p>
+          <% end %>
+          <% if @next_lesson %>
+            <%= link_to course_lesson_path(course_slug: @course.slug, id: @next_lesson.id),
+                  class: "next-up-btn", style: "background:linear-gradient(135deg,#{@course.color},#3b82f6)" do %>
+              Next: <%= truncate(@next_lesson.title, length: 22) %> →
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="exercise-question"><%= @exercise&.question %></p>
+
+        <div class="options-list" data-lesson-target="optionsList">
+          <% @exercise&.options&.each_with_index do |opt, i| %>
+            <% val = @exercise.multiple_choice? ? ('A'.ord + i).chr : opt %>
+            <label class="option-row" data-value="<%= val %>">
+              <input type="radio" name="ex_<%= @lesson.id %>" value="<%= val %>"
+                     data-action="change->lesson#pickOption">
+              <span class="option-radio"></span>
+              <span class="option-text"><%= opt %></span>
+            </label>
+          <% end %>
+        </div>
+
+        <div class="exercise-feedback hidden" data-lesson-target="feedback"></div>
+
+        <div class="exercise-actions">
+          <button class="check-btn" data-action="click->lesson#checkAnswerWithAttempt"
+                  data-correct="<%= CGI.escapeHTML(@exercise&.correct_answer.to_s) %>"
+                  data-exercise-id="<%= @exercise&.id %>"
+                  style="background:linear-gradient(135deg,<%= @course.color %>,#3b82f6)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7" stroke-linecap="round"/></svg>
+            Check Answer
+          </button>
+          <button class="skip-btn" data-action="click->lesson#skipLesson">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round"/></svg>
+            Skip
+          </button>
+        </div>
+        <p class="skip-note">Skipping unlocks the next lesson.</p>
+      <% end %>
+
+    </div>
+
+    <%# Notes %>
+    <div class="notes-section">
+      <div class="notes-header">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+        </svg>
+        <span>My Notes</span>
+      </div>
+      <textarea class="notes-area" placeholder="Take notes on this lesson…"
+                data-lesson-target="notesArea" data-action="input->lesson#saveNotes"></textarea>
+    </div>
+  </aside>
+
+</div>

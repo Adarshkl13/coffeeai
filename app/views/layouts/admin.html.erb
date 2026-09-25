@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin — AI Academy</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="admin-body">
+    <nav class="admin-nav">
+      <div class="admin-nav-inner">
+        <div class="admin-nav-left">
+          <%= link_to admin_root_path, class: "admin-logo" do %>
+            <span>AI Academy</span>
+            <span class="admin-badge">Admin</span>
+          <% end %>
+          <%= link_to "Dashboard", admin_root_path, class: "admin-nav-link" %>
+          <%= link_to "Users", admin_users_path, class: "admin-nav-link" %>
+          <%= link_to "Courses", admin_courses_path, class: "admin-nav-link" %>
+        </div>
+        <div class="admin-nav-right">
+          <%= link_to "← Back to Site", root_path, class: "admin-nav-link" %>
+          <%= link_to "Sign Out", destroy_user_session_path, class: "admin-nav-link", data: { turbo_method: :delete } %>
+        </div>
+      </div>
+    </nav>
+    <main class="admin-main">
+      <% if notice.present? %>
+        <div class="flash flash-notice"><%= notice %></div>
+      <% end %>
+      <% if alert.present? %>
+        <div class="flash flash-alert"><%= alert %></div>
+      <% end %>
+      <%= yield %>
+    </main>
+  </body>
+</html>

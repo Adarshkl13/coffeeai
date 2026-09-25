@@ -1,0 +1,116 @@
+<% content_for :title, "#{@course.title} — AI Academy" %>
+<% content_for :body_class, "page-scrollable" %>
+<%
+  course_category =
+    if @course.respond_to?(:category) && @course.category.present?
+      @course.category
+    elsif %w[git github].include?(@course.slug)
+      "Developer Tools"
+    elsif %w[sql mysql postgresql].include?(@course.slug)
+      "Database"
+    elsif %w[python django ruby php java practical-ai nodejs].include?(@course.slug)
+      "Backend"
+    elsif %w[html-css javascript react typescript bootstrap].include?(@course.slug)
+      "Frontend"
+    elsif %w[machine-learning artificial-intelligence data-science pandas numpy deep-learning].include?(@course.slug)
+      "AI & Data"
+    else
+      "Course"
+    end
+  lesson_sections =
+    if @course.slug == "deep-learning"
+      { 1 => "Fundamentals", 6 => "Neural Networks" }
+    elsif @course.slug == "git"
+      { 1 => "Foundations", 11 => "Branching and Collaboration" }
+    elsif @course.slug == "github"
+      { 1 => "Platform Basics", 11 => "Collaboration Workflows" }
+    else
+      {}
+    end
+%>
+
+<div class="course-detail-page">
+  <%= render "shared/navbar" %>
+
+  <div class="course-hero" style="--course-color: <%= @course.color %>">
+    <div class="course-hero-inner">
+      <div class="course-hero-icon"><%= @course.icon %></div>
+      <div class="course-hero-text">
+        <p class="course-hero-cat"><%= course_category %></p>
+        <h1 class="course-hero-title"><%= @course.title %></h1>
+        <p class="course-hero-desc"><%= @course.description %></p>
+        <div class="course-hero-meta">
+          <span><%= @course.course_lessons.count %> lessons</span>
+          <span class="meta-dot">·</span>
+          <span><%= @done_count %> completed</span>
+          <span class="meta-dot">·</span>
+          <span><%= @completion_pct %>% done</span>
+        </div>
+      </div>
+      <div class="course-hero-action">
+        <div class="course-hero-ring" style="--pct: <%= @completion_pct %>">
+          <svg class="ring-svg" viewBox="0 0 64 64">
+            <circle class="ring-bg" cx="32" cy="32" r="28" fill="none" stroke-width="6"/>
+            <circle class="ring-fill" cx="32" cy="32" r="28" fill="none" stroke-width="6"
+                    stroke-dasharray="<%= (2 * Math::PI * 28).round(2) %>"
+                    stroke-dashoffset="<%= ((1 - @completion_pct / 100.0) * 2 * Math::PI * 28).round(2) %>"/>
+          </svg>
+          <span class="ring-label"><%= @completion_pct %>%</span>
+        </div>
+        <%= link_to course_lesson_path(course_slug: @course.slug, id: @continue_lesson.id),
+              class: "course-start-btn", style: "background: #{@course.color}" do %>
+          <%= @done_count > 0 ? "Continue Learning" : "Start Course" %> →
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="course-lessons-section">
+    <div class="cls-inner">
+      <h2 class="cls-title">Course Content</h2>
+      <p class="cls-meta"><%= @lessons_with_status.size %> lessons · <%= @done_count %> completed</p>
+
+      <div class="lessons-list">
+        <% @lessons_with_status.each do |lws| %>
+          <% lesson = lws[:lesson]; prog = lws[:progress]; locked = lws[:locked] %>
+          <% status = prog&.status || "not_started" %>
+          <% if lesson_sections[lesson.position].present? %>
+            <div class="course-section-divider course-section-divider-wide"><%= lesson_sections[lesson.position] %></div>
+          <% end %>
+          <div class="lesson-row <%= status %> <%= locked ? 'locked' : '' %>">
+            <div class="lr-num"><%= lesson.position %></div>
+            <div class="lr-body">
+              <p class="lr-title"><%= lesson.title %></p>
+              <p class="lr-desc"><%= truncate(lesson.description, length: 80) %></p>
+            </div>
+            <div class="lr-status">
+              <% if locked %>
+                <span class="lr-badge badge-locked">🔒 Locked</span>
+              <% elsif status == "completed" %>
+                <span class="lr-badge badge-done">✓ Done</span>
+              <% elsif status == "skipped" %>
+                <span class="lr-badge badge-skip">→ Skipped</span>
+              <% elsif status == "in_progress" %>
+                <span class="lr-badge badge-prog">▶ In Progress</span>
+              <% else %>
+                <span class="lr-badge badge-new">New</span>
+              <% end %>
+            </div>
+            <div class="lr-action">
+              <% if locked %>
+                <span class="lr-locked-btn">Locked</span>
+              <% else %>
+                <%= link_to course_lesson_path(course_slug: @course.slug, id: lesson.id),
+                      class: "lr-btn" do %>
+                  <%= status == "not_started" ? "Start" : "Open" %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= render "shared/footer" %>
+</div>

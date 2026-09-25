@@ -1,0 +1,246 @@
+<svg width="1600" height="1100" viewBox="0 0 1600 1100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="softPanel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F8FAFC"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#CBD5E1" flood-opacity="0.35"/>
+    </filter>
+    <style>
+      .title { font: 800 66px Inter, Arial, sans-serif; fill: #0F172A; }
+      .eyebrow { font: 700 24px Inter, Arial, sans-serif; fill: #4F46E5; }
+      .subtitle { font: 400 28px Inter, Arial, sans-serif; fill: #111827; }
+      .subtitle-strong-ai { fill: #2563EB; font-weight: 600; }
+      .subtitle-strong-ml { fill: #16A34A; font-weight: 600; }
+      .subtitle-strong-dl { fill: #7C3AED; font-weight: 600; }
+      .section { font: 700 24px Inter, Arial, sans-serif; fill: #4F46E5; }
+      .cardTitleBlue { font: 700 19px Inter, Arial, sans-serif; fill: #2563EB; }
+      .cardTitleGreen { font: 700 19px Inter, Arial, sans-serif; fill: #16A34A; }
+      .cardTitlePurple { font: 700 19px Inter, Arial, sans-serif; fill: #7C3AED; }
+      .body { font: 400 16px Inter, Arial, sans-serif; fill: #1F2937; }
+      .small { font: 400 14px Inter, Arial, sans-serif; fill: #475569; }
+      .tableHead { font: 700 16px Inter, Arial, sans-serif; fill: #111827; }
+      .tableCell { font: 400 15px Inter, Arial, sans-serif; fill: #111827; }
+      .tableCellStrong { font: 700 15px Inter, Arial, sans-serif; fill: #111827; }
+      .miniTitleBlue { font: 700 16px Inter, Arial, sans-serif; fill: #2563EB; }
+      .miniTitleGreen { font: 700 16px Inter, Arial, sans-serif; fill: #16A34A; }
+      .miniTitlePurple { font: 700 16px Inter, Arial, sans-serif; fill: #7C3AED; }
+      .takeawayTitle { font: 700 20px Inter, Arial, sans-serif; fill: #4F46E5; }
+      .takeawayBody { font: 500 18px Inter, Arial, sans-serif; fill: #111827; }
+      .circleTextMainBlue { font: 800 34px Inter, Arial, sans-serif; fill: #2563EB; }
+      .circleTextMainGreen { font: 800 32px Inter, Arial, sans-serif; fill: #16A34A; }
+      .circleTextMainPurple { font: 800 30px Inter, Arial, sans-serif; fill: #7C3AED; }
+      .circleTextSub { font: 400 18px Inter, Arial, sans-serif; fill: #111827; }
+      .bullet { font: 400 15px Inter, Arial, sans-serif; fill: #1F2937; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1100" rx="24" fill="#FFFFFF"/>
+  <rect x="0" y="0" width="1600" height="1100" fill="url(#softPanel)"/>
+
+  <text x="72" y="78" class="eyebrow">Lesson 1.4</text>
+  <text x="72" y="156" class="title">AI vs ML vs DL</text>
+  <text x="72" y="214" class="subtitle">AI, ML, and DL are related but not the same.</text>
+  <text x="72" y="252" class="subtitle">Think of it like a <tspan class="subtitle-strong-ai">company</tspan>, <tspan class="subtitle-strong-ml">department</tspan>, and <tspan class="subtitle-strong-dl">team</tspan>.</text>
+
+  <!-- Top right icon -->
+  <g transform="translate(1120,36)">
+    <rect x="130" y="70" width="104" height="104" rx="20" fill="url(#titleGrad)" filter="url(#shadow)"/>
+    <text x="182" y="135" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="800" fill="#FFFFFF">AI</text>
+    <path d="M74 124c0-50 41-91 91-91s91 41 91 91" stroke="#2563EB" stroke-width="4"/>
+    <path d="M74 124c0 50 41 91 91 91s91-41 91-91" stroke="#7C3AED" stroke-width="4"/>
+    <path d="M165 30V4M120 40L102 18M209 40l18-22M264 76l28-12M46 76 18 64M54 126H10M320 126h44M58 176 26 190M262 176l32 14M120 212l-18 22M208 212l18 22M166 246v30" stroke="url(#titleGrad)" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="165" cy="4" r="7" stroke="#2563EB" stroke-width="3"/>
+    <circle cx="102" cy="18" r="7" stroke="#2563EB" stroke-width="3"/>
+    <circle cx="227" cy="18" r="7" stroke="#7C3AED" stroke-width="3"/>
+    <circle cx="292" cy="64" r="7" stroke="#7C3AED" stroke-width="3"/>
+    <circle cx="18" cy="64" r="7" stroke="#2563EB" stroke-width="3"/>
+    <circle cx="10" cy="126" r="7" stroke="#2563EB" stroke-width="3"/>
+    <circle cx="364" cy="126" r="7" stroke="#7C3AED" stroke-width="3"/>
+  </g>
+
+  <text x="72" y="324" class="section">How AI, ML &amp; DL are related</text>
+
+  <!-- Nested circles -->
+  <g transform="translate(38,346)">
+    <circle cx="172" cy="232" r="170" fill="#F8FBFF" stroke="#2563EB" stroke-width="3"/>
+    <circle cx="172" cy="252" r="110" fill="#F4FCF7" stroke="#16A34A" stroke-width="3"/>
+    <circle cx="172" cy="278" r="64" fill="#FBF8FF" stroke="#7C3AED" stroke-width="3"/>
+    <text x="172" y="118" text-anchor="middle" class="circleTextMainBlue">AI</text>
+    <text x="172" y="150" text-anchor="middle" class="circleTextSub">Artificial Intelligence</text>
+    <text x="172" y="178" text-anchor="middle" class="circleTextSub">(The big concept)</text>
+
+    <text x="172" y="212" text-anchor="middle" class="circleTextMainGreen">ML</text>
+    <text x="172" y="242" text-anchor="middle" class="circleTextSub">Machine Learning</text>
+    <text x="172" y="268" text-anchor="middle" class="circleTextSub">(Part of AI)</text>
+
+    <text x="172" y="290" text-anchor="middle" class="circleTextMainPurple">DL</text>
+    <text x="172" y="318" text-anchor="middle" class="circleTextSub">Deep Learning</text>
+    <text x="172" y="344" text-anchor="middle" class="circleTextSub">(Part of ML)</text>
+  </g>
+
+  <!-- Explanation cards -->
+  <g transform="translate(402,360)">
+    <rect x="0" y="0" width="410" height="132" rx="16" fill="#F8FBFF" stroke="#C7D2FE"/>
+    <text x="98" y="38" class="cardTitleBlue">AI (Artificial Intelligence)</text>
+    <text x="98" y="70" class="body">The big idea of making machines smart.</text>
+    <text x="98" y="100" class="body">Example: ChatGPT answering questions.</text>
+    <circle cx="46" cy="54" r="26" fill="#E0EAFF"/>
+    <rect x="30" y="40" width="32" height="22" rx="7" fill="#3B82F6"/>
+    <circle cx="40" cy="51" r="3" fill="#FFFFFF"/>
+    <circle cx="52" cy="51" r="3" fill="#FFFFFF"/>
+    <rect x="37" y="58" width="18" height="3" rx="1.5" fill="#FFFFFF"/>
+    <rect x="35" y="69" width="22" height="10" rx="5" fill="#60A5FA"/>
+  </g>
+
+  <g transform="translate(402,510)">
+    <rect x="0" y="0" width="410" height="132" rx="16" fill="#F4FCF7" stroke="#BBF7D0"/>
+    <text x="98" y="38" class="cardTitleGreen">ML (Machine Learning)</text>
+    <text x="98" y="70" class="body">How AI learns from data and improves.</text>
+    <text x="98" y="100" class="body">Example: ChatGPT learns patterns from text data.</text>
+    <path d="M40 28 70 42 40 56 10 42 40 28Z" fill="#16A34A"/>
+    <path d="M18 48v18c0 7 44 7 44 0V48" fill="#15803D"/>
+    <path d="M70 42v18" stroke="#16A34A" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="70" cy="64" r="4" fill="#16A34A"/>
+  </g>
+
+  <g transform="translate(402,660)">
+    <rect x="0" y="0" width="410" height="148" rx="16" fill="#FBF8FF" stroke="#DDD6FE"/>
+    <text x="98" y="38" class="cardTitlePurple">DL (Deep Learning)</text>
+    <text x="98" y="70" class="body">Advanced learning using neural networks</text>
+    <text x="98" y="98" class="body">(brain-like systems).</text>
+    <text x="98" y="126" class="body">Example: ChatGPT uses deep learning</text>
+    <text x="98" y="150" class="body">to understand and generate text.</text>
+    <g stroke="#7C3AED" stroke-width="3" stroke-linecap="round">
+      <circle cx="42" cy="42" r="6" fill="#FFFFFF"/>
+      <circle cx="22" cy="62" r="6" fill="#FFFFFF"/>
+      <circle cx="62" cy="62" r="6" fill="#FFFFFF"/>
+      <circle cx="42" cy="82" r="6" fill="#FFFFFF"/>
+      <circle cx="42" cy="22" r="6" fill="#FFFFFF"/>
+      <line x1="42" y1="22" x2="42" y2="82"/>
+      <line x1="22" y1="62" x2="62" y2="62"/>
+      <line x1="28" y1="30" x2="56" y2="74"/>
+      <line x1="56" y1="30" x2="28" y2="74"/>
+    </g>
+  </g>
+
+  <text x="846" y="324" class="section">Quick Comparison</text>
+
+  <!-- Table -->
+  <g transform="translate(846,344)">
+    <rect x="0" y="0" width="704" height="356" rx="14" fill="#FFFFFF" stroke="#D8DEE9"/>
+    <rect x="0" y="0" width="704" height="60" rx="14" fill="#F8FAFC"/>
+    <line x1="0" y1="60" x2="704" y2="60" stroke="#E5E7EB"/>
+    <line x1="104" y1="0" x2="104" y2="356" stroke="#E5E7EB"/>
+    <line x1="300" y1="0" x2="300" y2="356" stroke="#E5E7EB"/>
+    <line x1="490" y1="0" x2="490" y2="356" stroke="#E5E7EB"/>
+    <line x1="0" y1="150" x2="704" y2="150" stroke="#E5E7EB"/>
+    <line x1="0" y1="244" x2="704" y2="244" stroke="#E5E7EB"/>
+
+    <text x="28" y="38" class="tableHead">Term</text>
+    <text x="128" y="38" class="tableHead">What it Means</text>
+    <text x="324" y="38" class="tableHead">How it Works</text>
+    <text x="510" y="38" class="tableHead">Example with ChatGPT</text>
+
+    <circle cx="34" cy="108" r="8" fill="#2563EB"/><text x="56" y="116" class="tableCellStrong">AI</text>
+    <text x="128" y="106" class="tableCell">Smart system</text>
+    <text x="324" y="94" class="tableCell">Makes machines</text>
+    <text x="324" y="122" class="tableCell">behave smart</text>
+    <text x="510" y="94" class="tableCell">ChatGPT is an</text>
+    <text x="510" y="122" class="tableCell">AI system</text>
+
+    <circle cx="34" cy="202" r="8" fill="#16A34A"/><text x="56" y="210" class="tableCellStrong">ML</text>
+    <text x="128" y="200" class="tableCell">Learns from data</text>
+    <text x="324" y="188" class="tableCell">Finds patterns</text>
+    <text x="324" y="216" class="tableCell">and learns</text>
+    <text x="510" y="188" class="tableCell">ChatGPT learns from</text>
+    <text x="510" y="216" class="tableCell">huge text data</text>
+
+    <circle cx="34" cy="296" r="8" fill="#7C3AED"/><text x="56" y="304" class="tableCellStrong">DL</text>
+    <text x="128" y="284" class="tableCell">Deep neural</text>
+    <text x="128" y="312" class="tableCell">learning</text>
+    <text x="324" y="284" class="tableCell">Uses neural</text>
+    <text x="324" y="312" class="tableCell">networks</text>
+    <text x="510" y="284" class="tableCell">ChatGPT uses deep</text>
+    <text x="510" y="312" class="tableCell">learning models</text>
+  </g>
+
+  <text x="846" y="742" class="section">Explain: Difference Between AI, ML &amp; DL</text>
+
+  <!-- Bottom right cards -->
+  <g transform="translate(846,780)">
+    <rect x="0" y="0" width="228" height="252" rx="16" fill="#F8FBFF" stroke="#C7D2FE"/>
+    <circle cx="114" cy="44" r="22" fill="#E0EAFF"/>
+    <rect x="98" y="32" width="32" height="20" rx="6" fill="#3B82F6"/>
+    <circle cx="108" cy="42" r="3" fill="#FFFFFF"/>
+    <circle cx="120" cy="42" r="3" fill="#FFFFFF"/>
+    <rect x="106" y="48" width="16" height="3" rx="1.5" fill="#FFFFFF"/>
+    <text x="18" y="94" class="miniTitleBlue">AI (Artificial Intelligence)</text>
+    <text x="18" y="128" class="bullet">• The broadest concept.</text>
+    <text x="18" y="160" class="bullet">• Goal is to make machines smart</text>
+    <text x="18" y="184" class="bullet">  and behave like humans.</text>
+    <text x="18" y="216" class="bullet">• Includes rules, logic, and</text>
+    <text x="18" y="240" class="bullet">  learning methods.</text>
+  </g>
+
+  <g transform="translate(1094,780)">
+    <rect x="0" y="0" width="228" height="252" rx="16" fill="#F4FCF7" stroke="#BBF7D0"/>
+    <path d="M114 20 136 32 114 44 92 32 114 20Z" fill="#16A34A"/>
+    <path d="M98 38v16c0 6 32 6 32 0V38" fill="#15803D"/>
+    <text x="20" y="94" class="miniTitleGreen">ML (Machine Learning)</text>
+    <text x="20" y="128" class="bullet">• A part of AI.</text>
+    <text x="20" y="160" class="bullet">• Focuses on learning from data</text>
+    <text x="20" y="184" class="bullet">  to make predictions or decisions.</text>
+    <text x="20" y="216" class="bullet">• Uses algorithms to find</text>
+    <text x="20" y="240" class="bullet">  patterns in data.</text>
+  </g>
+
+  <g transform="translate(1342,780)">
+    <rect x="0" y="0" width="228" height="252" rx="16" fill="#FBF8FF" stroke="#DDD6FE"/>
+    <g transform="translate(114,42)" stroke="#7C3AED" stroke-width="3" stroke-linecap="round">
+      <circle cx="0" cy="-20" r="5" fill="#FFFFFF"/>
+      <circle cx="-20" cy="0" r="5" fill="#FFFFFF"/>
+      <circle cx="20" cy="0" r="5" fill="#FFFFFF"/>
+      <circle cx="0" cy="20" r="5" fill="#FFFFFF"/>
+      <circle cx="-14" cy="-14" r="5" fill="#FFFFFF"/>
+      <circle cx="14" cy="-14" r="5" fill="#FFFFFF"/>
+      <circle cx="-14" cy="14" r="5" fill="#FFFFFF"/>
+      <circle cx="14" cy="14" r="5" fill="#FFFFFF"/>
+      <line x1="0" y1="-20" x2="0" y2="20"/>
+      <line x1="-20" y1="0" x2="20" y2="0"/>
+      <line x1="-14" y1="-14" x2="14" y2="14"/>
+      <line x1="14" y1="-14" x2="-14" y2="14"/>
+    </g>
+    <text x="30" y="94" class="miniTitlePurple">DL (Deep Learning)</text>
+    <text x="18" y="128" class="bullet">• A part of ML.</text>
+    <text x="18" y="160" class="bullet">• Uses neural networks with</text>
+    <text x="18" y="184" class="bullet">  many layers.</text>
+    <text x="18" y="216" class="bullet">• Learns complex patterns</text>
+    <text x="18" y="240" class="bullet">  automatically from huge data.</text>
+  </g>
+
+  <!-- Takeaway -->
+  <g transform="translate(72,852)">
+    <rect x="0" y="0" width="730" height="240" rx="18" fill="#FFFDF7" stroke="#FCD34D" stroke-width="2"/>
+    <g transform="translate(32,38)">
+      <circle cx="24" cy="24" r="18" stroke="#FBBF24" stroke-width="3"/>
+      <path d="M24 8c-8 0-13 7-10 14 2 5 6 7 7 11h6c1-4 5-6 7-11 3-7-2-14-10-14Z" fill="#FCD34D"/>
+      <path d="M20 38h8M21 43h6" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <text x="88" y="66" class="takeawayTitle">Key Takeaway</text>
+    <circle cx="170" cy="130" r="42" fill="#FFFFFF" stroke="#2563EB" stroke-width="3"/>
+    <circle cx="350" cy="130" r="42" fill="#FFFFFF" stroke="#16A34A" stroke-width="3"/>
+    <circle cx="530" cy="130" r="42" fill="#FFFFFF" stroke="#7C3AED" stroke-width="3"/>
+    <text x="170" y="142" text-anchor="middle" class="circleTextMainBlue">AI</text>
+    <text x="350" y="142" text-anchor="middle" class="circleTextMainGreen">ML</text>
+    <text x="530" y="142" text-anchor="middle" class="circleTextMainPurple">DL</text>
+    <text x="260" y="140" font-family="Inter, Arial, sans-serif" font-size="42" fill="#111827">→</text>
+    <text x="440" y="140" font-family="Inter, Arial, sans-serif" font-size="42" fill="#111827">→</text>
+    <text x="365" y="196" text-anchor="middle" class="takeawayBody">All DL is ML, all ML is AI, but not all AI is ML.</text>
+  </g>
+</svg>

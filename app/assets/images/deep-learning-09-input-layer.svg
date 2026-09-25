@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title>Input Layer</title>
+  <desc>Dark modern illustration for the Input Layer lesson.</desc>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0ea5e9" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#34d399" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#070B14"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.04"/>
+  <g opacity="0.14">
+    <line x1='0' y1='0' x2='0' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='100' y1='0' x2='100' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='200' y1='0' x2='200' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='300' y1='0' x2='300' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='400' y1='0' x2='400' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='500' y1='0' x2='500' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='600' y1='0' x2='600' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='700' y1='0' x2='700' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='800' y1='0' x2='800' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='900' y1='0' x2='900' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='1000' y1='0' x2='1000' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='1100' y1='0' x2='1100' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='1200' y1='0' x2='1200' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='1300' y1='0' x2='1300' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='1400' y1='0' x2='1400' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='1500' y1='0' x2='1500' y2='900' stroke='#ffffff' stroke-width='1'/><line x1='1600' y1='0' x2='1600' y2='900' stroke='#ffffff' stroke-width='1'/>
+    <line x1='0' y1='0' x2='1600' y2='0' stroke='#ffffff' stroke-width='1'/><line x1='0' y1='100' x2='1600' y2='100' stroke='#ffffff' stroke-width='1'/><line x1='0' y1='200' x2='1600' y2='200' stroke='#ffffff' stroke-width='1'/><line x1='0' y1='300' x2='1600' y2='300' stroke='#ffffff' stroke-width='1'/><line x1='0' y1='400' x2='1600' y2='400' stroke='#ffffff' stroke-width='1'/><line x1='0' y1='500' x2='1600' y2='500' stroke='#ffffff' stroke-width='1'/><line x1='0' y1='600' x2='1600' y2='600' stroke='#ffffff' stroke-width='1'/><line x1='0' y1='700' x2='1600' y2='700' stroke='#ffffff' stroke-width='1'/><line x1='0' y1='800' x2='1600' y2='800' stroke='#ffffff' stroke-width='1'/><line x1='0' y1='900' x2='1600' y2='900' stroke='#ffffff' stroke-width='1'/>
+  </g>
+  <circle cx="1260" cy="180" r="220" fill="url(#glowA)"/>
+  <circle cx="1130" cy="410" r="240" fill="url(#glowB)"/>
+  <circle cx="220" cy="130" r="120" fill="url(#glowA)" opacity="0.6"/>
+
+  <g transform="translate(95,88)">
+    <rect x="0" y="0" rx="24" ry="24" width="210" height="54" fill="rgba(255,255,255,0.04)" stroke="#0ea5e9" stroke-opacity="0.6"/>
+    <text x="105" y="34" text-anchor="middle" font-size="24" fill="#34d399" font-family="Arial, Helvetica, sans-serif" font-weight="700">NEURAL NETWORKS</text>
+  </g>
+
+  <text x="100" y="230" font-size="68" fill="#F7FAFF" font-family="Arial, Helvetica, sans-serif" font-weight="800">Input Layer</text>
+  <text x="100" y="298" font-size="30" fill="#B7C3D9" font-family="Arial, Helvetica, sans-serif">The entry point where raw features enter the network.</text>
+
+  <g transform="translate(100,380)">
+    <rect x="0" y="0" rx="30" ry="30" width="620" height="210" fill="rgba(10,16,28,0.88)" stroke="#0ea5e9" stroke-opacity="0.42" stroke-width="2"/>
+    <text x="40" y="56" font-size="24" fill="#34d399" font-family="Arial, Helvetica, sans-serif" font-weight="700">Lesson Focus</text>
+    <text x="40" y="104" font-size="38" fill="#F7FAFF" font-family="Arial, Helvetica, sans-serif" font-weight="700">Input Layer</text>
+    <text x="40" y="148" font-size="24" fill="#B7C3D9" font-family="Arial, Helvetica, sans-serif">Modern deep learning concept visual</text>
+    <text x="40" y="184" font-size="24" fill="#B7C3D9" font-family="Arial, Helvetica, sans-serif">for AI Academy coursework</text>
+  </g>
+
+  <g>
+    <line x1='1010' y1='230' x2='1130' y2='230' stroke='url(#grad)' stroke-width='4' stroke-opacity='0.7'/>
+<line x1='1130' y1='230' x2='1250' y2='230' stroke='url(#grad)' stroke-width='4' stroke-opacity='0.7'/>
+<line x1='1010' y1='370' x2='1130' y2='370' stroke='url(#grad)' stroke-width='4' stroke-opacity='0.7'/>
+<line x1='1130' y1='370' x2='1250' y2='370' stroke='url(#grad)' stroke-width='4' stroke-opacity='0.7'/>
+<line x1='1010' y1='230' x2='1130' y2='370' stroke='url(#grad)' stroke-width='4' stroke-opacity='0.7'/>
+<line x1='1130' y1='230' x2='1250' y2='370' stroke='url(#grad)' stroke-width='4' stroke-opacity='0.7'/>
+<line x1='1010' y1='370' x2='1130' y2='230' stroke='url(#grad)' stroke-width='4' stroke-opacity='0.7'/>
+<line x1='1130' y1='370' x2='1250' y2='230' stroke='url(#grad)' stroke-width='4' stroke-opacity='0.7'/>
+    <circle cx='1010' cy='230' r='16' fill='#0ea5e9' fill-opacity='0.9'/>
+<circle cx='1130' cy='230' r='16' fill='#34d399' fill-opacity='0.9'/>
+<circle cx='1250' cy='230' r='16' fill='#0ea5e9' fill-opacity='0.9'/>
+<circle cx='1010' cy='370' r='16' fill='#34d399' fill-opacity='0.9'/>
+<circle cx='1130' cy='370' r='16' fill='#0ea5e9' fill-opacity='0.9'/>
+<circle cx='1250' cy='370' r='16' fill='#34d399' fill-opacity='0.9'/>
+  </g>
+
+  <g transform="translate(940,610)">
+    <rect x="0" y="0" rx="30" ry="30" width="500" height="150" fill="rgba(10,16,28,0.82)" stroke="#34d399" stroke-opacity="0.38" stroke-width="2"/>
+    <text x="40" y="52" font-size="24" fill="#F7FAFF" font-family="Arial, Helvetica, sans-serif" font-weight="700">Key Signals</text>
+    <text x="40" y="92" font-size="22" fill="#B7C3D9" font-family="Arial, Helvetica, sans-serif">Understanding this concept makes network training</text>
+    <text x="40" y="124" font-size="22" fill="#B7C3D9" font-family="Arial, Helvetica, sans-serif">and model behavior easier to explain.</text>
+  </g>
+
+  <g transform="translate(110,650)">
+  <rect x="0" y="0" rx="22" ry="22" width="140" height="44" fill="rgba(255,255,255,0.04)" stroke="#34d399" stroke-opacity="0.45"/>
+  <text x="70" y="28" text-anchor="middle" font-size="20" fill="#E5ECFF" font-family="Arial, Helvetica, sans-serif">features</text>
+</g>
+<g transform="translate(275,650)">
+  <rect x="0" y="0" rx="22" ry="22" width="140" height="44" fill="rgba(255,255,255,0.04)" stroke="#34d399" stroke-opacity="0.45"/>
+  <text x="70" y="28" text-anchor="middle" font-size="20" fill="#E5ECFF" font-family="Arial, Helvetica, sans-serif">vector</text>
+</g>
+<g transform="translate(440,650)">
+  <rect x="0" y="0" rx="22" ry="22" width="140" height="44" fill="rgba(255,255,255,0.04)" stroke="#34d399" stroke-opacity="0.45"/>
+  <text x="70" y="28" text-anchor="middle" font-size="20" fill="#E5ECFF" font-family="Arial, Helvetica, sans-serif">inputs</text>
+</g>
+
+
+  <text x="100" y="820" font-size="24" fill="#0ea5e9" font-family="Arial, Helvetica, sans-serif" font-weight="700">AI Academy • Deep Learning Course</text>
+  <text x="1460" y="820" text-anchor="end" font-size="22" fill="#93A4C2" font-family="Arial, Helvetica, sans-serif">Lesson 9</text>
+</svg>

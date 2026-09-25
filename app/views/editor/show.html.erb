@@ -1,0 +1,227 @@
+<% content_for :title, "Editor - AI Academy" %>
+<% content_for :body_class, "editor-body" %>
+
+<%
+  default_html = <<~HTML
+    <section class="hero">
+      <p class="eyebrow">AI Academy Try-It Editor</p>
+      <h1>Build something brilliant.</h1>
+      <p>Edit HTML, CSS, and JavaScript, then press Run to preview your work instantly.</p>
+      <button id="magicButton" type="button">Click for JavaScript magic</button>
+      <p id="statusText" class="status">Button clicks: 0</p>
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Student coding">
+    </section>
+  HTML
+
+  default_css = <<~CSS
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #18223d);
+      color: white;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 48px;
+    }
+
+    .eyebrow {
+      color: #8b5cf6;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 10px 0;
+      font-size: clamp(42px, 8vw, 88px);
+      line-height: 0.95;
+    }
+
+    p {
+      max-width: 620px;
+      color: #cbd5e1;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 16px 24px;
+      margin: 10px 0 4px;
+      color: #08111f;
+      background: linear-gradient(135deg, #a3ff2f, #42c8ff);
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 18px 42px rgba(66, 200, 255, 0.24);
+    }
+
+    .status {
+      color: #a3ff2f;
+      font-weight: 800;
+    }
+
+    img {
+      width: min(520px, 90vw);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.45);
+    }
+  CSS
+
+  default_js = <<~JS
+    const title = document.querySelector("h1");
+    const button = document.querySelector("#magicButton");
+    const status = document.querySelector("#statusText");
+
+    let clicks = 0;
+
+    button.addEventListener("click", () => {
+      clicks += 1;
+      title.textContent = "JavaScript is running!";
+      status.textContent = `Button clicks: ${clicks}`;
+      document.body.style.background =
+        clicks % 2 === 0
+          ? "linear-gradient(135deg, #0f172a, #18223d)"
+          : "linear-gradient(135deg, #111827, #3b0764)";
+    });
+  JS
+%>
+
+<div class="editor-page" data-controller="editor">
+  <header class="editor-shell-header">
+    <%= link_to root_path, class: "editor-brand" do %>
+      <span class="editor-brand__icon">✣</span>
+      <span>AI <strong>Academy</strong></span>
+    <% end %>
+
+    <nav class="editor-nav" aria-label="Editor navigation">
+      <%= link_to "Home", root_path %>
+      <%= link_to "Courses", courses_path %>
+      <% if user_signed_in? %>
+        <%= link_to "Dashboard", dashboard_path %>
+      <% end %>
+    </nav>
+  </header>
+
+  <main class="try-editor">
+    <section class="try-editor__left">
+      <div class="try-editor__toolbar">
+        <div class="editor-page-fields">
+          <label>
+            Page title
+            <input type="text"
+                   value="My First AI Project"
+                   data-editor-target="pageTitle"
+                   data-action="input->editor#syncSlug">
+          </label>
+          <label>
+            Slug
+            <input type="text"
+                   value="my-first-ai-project"
+                   data-editor-target="pageSlug"
+                   data-action="input->editor#markSlugEdited">
+          </label>
+        </div>
+
+        <div class="try-editor__actions">
+          <button type="button" class="try-btn try-btn--primary" data-action="editor#run">Run</button>
+          <button type="button" class="try-btn try-btn--publish" data-action="editor#updatePublishedPage">Publish</button>
+          <button type="button" class="try-btn try-btn--ghost" data-action="editor#reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="editor-upload-card">
+        <div>
+          <strong>Upload Image</strong>
+          <span>PNG, JPG, JPEG, GIF, SVG. Use the generated URL inside your HTML.</span>
+        </div>
+        <label class="editor-upload-button">
+          Choose Image
+          <input type="file"
+                 accept=".png,.jpg,.jpeg,.gif,.svg,image/png,image/jpeg,image/gif,image/svg+xml"
+                 data-editor-target="uploadInput"
+                 data-action="change->editor#upload">
+        </label>
+      </div>
+
+      <div class="editor-upload-status" data-editor-target="status" aria-live="polite"></div>
+      <div class="editor-upload-list" data-editor-target="uploadedList">
+        <% if user_signed_in? %>
+          <% @editor_images.each do |editor_image| %>
+            <div class="editor-upload-row">
+              <img src="<%= editor_image.url %>" alt="">
+              <div>
+                <strong><%= editor_image.original_filename %></strong>
+                <code><%= editor_image.url %></code>
+              </div>
+              <button type="button" data-action="editor#insertImage" data-url="<%= editor_image.url %>">Insert</button>
+              <button type="button" class="editor-upload-row__delete" data-action="editor#deleteImage" data-id="<%= editor_image.id %>">Delete</button>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="editor-upload-empty">Sign in to save uploaded images across refreshes.</div>
+        <% end %>
+      </div>
+
+      <div class="editor-publish-meta">
+        <input type="hidden" data-editor-target="publishedId">
+        <input type="checkbox" data-editor-target="publicToggle" checked hidden>
+        <div class="editor-publish-status" data-editor-target="publishStatus" aria-live="polite"></div>
+        <div class="editor-public-link" data-editor-target="publicLink" hidden></div>
+      </div>
+
+      <div class="code-panels">
+        <article class="code-panel code-panel--html">
+          <div class="code-panel__header">
+            <span>HTML</span>
+            <small>Structure</small>
+          </div>
+          <textarea spellcheck="false"
+                    data-editor-target="html"
+                    data-default-value="<%= h(default_html) %>"
+                    data-action="input->editor#queueRun"><%= default_html %></textarea>
+        </article>
+
+        <article class="code-panel code-panel--css">
+          <div class="code-panel__header">
+            <span>CSS</span>
+            <small>Style</small>
+          </div>
+          <textarea spellcheck="false"
+                    data-editor-target="css"
+                    data-default-value="<%= h(default_css) %>"
+                    data-action="input->editor#queueRun"><%= default_css %></textarea>
+        </article>
+
+        <article class="code-panel code-panel--js">
+          <div class="code-panel__header">
+            <span>JavaScript</span>
+            <small>Behavior</small>
+          </div>
+          <textarea spellcheck="false"
+                    data-editor-target="js"
+                    data-default-value="<%= h(default_js) %>"
+                    data-action="input->editor#queueRun"><%= default_js %></textarea>
+        </article>
+      </div>
+    </section>
+
+    <section class="try-editor__right">
+      <div class="preview-panel">
+        <div class="preview-panel__header">
+          <span>Live Preview</span>
+          <small>Updates when you press Run</small>
+        </div>
+        <iframe title="AI Academy live preview" sandbox="allow-scripts allow-same-origin" data-editor-target="preview"></iframe>
+      </div>
+    </section>
+  </main>
+</div>

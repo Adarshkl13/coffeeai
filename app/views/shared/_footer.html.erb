@@ -1,0 +1,55 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2a10 10 0 1 0 10 10" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span>AI <strong>Academy</strong></span>
+      </div>
+      <p class="footer-tagline">Build your future with AI skills.</p>
+    </div>
+
+    <div class="footer-cols">
+      <div class="footer-col">
+        <p class="footer-col-title">Courses</p>
+        <ul>
+          <li><%= link_to "HTML & CSS",        course_path("html-css") %></li>
+          <li><%= link_to "JavaScript",        course_path("javascript") %></li>
+          <li><%= link_to "Python",            course_path("python") %></li>
+          <li><%= link_to "Machine Learning",  course_path("machine-learning") %></li>
+          <li><%= link_to "Artificial Intelligence", course_path("artificial-intelligence") %></li>
+          <li><%= link_to "Data Science",      course_path("data-science") %></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col-title">Platform</p>
+        <ul>
+          <li><%= link_to "Dashboard", dashboard_path %></li>
+          <li><%= link_to "AI Academy Course", lesson_path(1) %></li>
+          <li><%= link_to "Sign Up", new_user_registration_path %></li>
+          <li><%= link_to "Log In", new_user_session_path %></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col-title">Company</p>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; <%= Time.current.year %> AI Academy. All rights reserved.</p>
+  </div>
+</footer>

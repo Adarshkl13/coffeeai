@@ -1,0 +1,12 @@
+<% if resource.errors.any? %>
+  <div class="auth-error" data-turbo-temporary>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <% resource.errors.full_messages.each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

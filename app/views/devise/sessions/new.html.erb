@@ -1,0 +1,51 @@
+<% content_for :title, "Sign In — AI Academy" %>
+
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2a10 10 0 1 0 10 10" stroke-linecap="round"/>
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="auth-logo-text">AI <strong>Academy</strong></span>
+    </div>
+
+    <h1 class="auth-title">Welcome back</h1>
+    <p class="auth-subtitle">Sign in to continue your learning journey</p>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |f| %>
+
+      <div class="field-group">
+        <%= f.label :email, "Email address", class: "field-label" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email",
+              class: "field-input", placeholder: "you@example.com" %>
+      </div>
+
+      <div class="field-group">
+        <%= f.label :password, "Password", class: "field-label" %>
+        <%= f.password_field :password, autocomplete: "current-password",
+              class: "field-input", placeholder: "••••••••" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field-row">
+          <label class="remember-label">
+            <%= f.check_box :remember_me, class: "remember-check" %>
+            <span>Remember me</span>
+          </label>
+          <%= link_to "Forgot password?", new_password_path(resource_name), class: "forgot-link" %>
+        </div>
+      <% end %>
+
+      <%= f.submit "Sign in", class: "auth-submit-btn" %>
+    <% end %>
+
+    <p class="auth-switch">
+      Don't have an account?
+      <%= link_to "Sign up for free", new_registration_path(resource_name), class: "auth-switch-link" %>
+    </p>
+  </div>
+</div>

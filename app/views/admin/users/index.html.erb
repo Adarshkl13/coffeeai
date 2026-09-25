@@ -1,0 +1,22 @@
+<div class="admin-page">
+  <h1 class="admin-page-title">All Users (<%= @users.count %>)</h1>
+  <div class="admin-card">
+    <table class="admin-table">
+      <thead>
+        <tr><th>Email</th><th>Admin</th><th>Correct Answers</th><th>Total Attempts</th><th>Joined</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td><% if user.admin? %><span class="badge-purple">Admin</span><% end %></td>
+            <td><span class="badge-green"><%= user.exercise_attempts.where(correct: true).count %></span></td>
+            <td><span class="badge-blue"><%= user.exercise_attempts.count %></span></td>
+            <td style="color:var(--txt3);font-size:12px"><%= user.created_at.strftime("%b %d, %Y") %></td>
+            <td><%= link_to "View", admin_user_path(user), class: "admin-link" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

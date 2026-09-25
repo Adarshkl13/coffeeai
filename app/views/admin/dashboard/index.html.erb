@@ -1,0 +1,123 @@
+<div class="admin-page">
+  <h1 class="admin-page-title">Admin Dashboard</h1>
+
+  <%# Stats row %>
+  <div class="admin-stats-grid">
+    <div class="admin-stat-card">
+      <div class="asc-icon">👥</div>
+      <div class="asc-num"><%= @total_users %></div>
+      <div class="asc-label">Total Users</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="asc-icon">📚</div>
+      <div class="asc-num"><%= @total_courses %></div>
+      <div class="asc-label">Courses</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="asc-icon">📖</div>
+      <div class="asc-num"><%= @total_lessons %></div>
+      <div class="asc-label">Lessons</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="asc-icon">✏️</div>
+      <div class="asc-num"><%= @total_exercises %></div>
+      <div class="asc-label">Exercises</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="asc-icon">⚡</div>
+      <div class="asc-num"><%= @total_attempts %></div>
+      <div class="asc-label">Total Attempts</div>
+    </div>
+    <div class="admin-stat-card asc-green">
+      <div class="asc-icon">✅</div>
+      <div class="asc-num"><%= @correct_attempts %></div>
+      <div class="asc-label">Correct Answers</div>
+    </div>
+  </div>
+
+  <div class="admin-two-col">
+
+    <%# Course stats %>
+    <div class="admin-card">
+      <h2 class="admin-card-title">Course Progress Overview</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Course</th>
+            <th>Completions</th>
+            <th>Skips</th>
+            <th>In Progress</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @course_stats.each do |cs| %>
+            <tr>
+              <td>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span><%= cs[:course].icon %></span>
+                  <%= link_to cs[:course].title, admin_course_path(cs[:course]), class: "admin-link" %>
+                </div>
+              </td>
+              <td><span class="badge-green"><%= cs[:completions] %></span></td>
+              <td><span class="badge-yellow"><%= cs[:skips] %></span></td>
+              <td><span class="badge-blue"><%= cs[:in_progress] %></span></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <%# Users list %>
+    <div class="admin-card">
+      <h2 class="admin-card-title">Recent Users</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Admin</th>
+            <th>Score</th>
+            <th>Joined</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= link_to user.email, admin_user_path(user), class: "admin-link" %></td>
+              <td><% if user.admin? %><span class="badge-purple">Admin</span><% end %></td>
+              <td><span class="badge-green"><%= user.total_score %></span></td>
+              <td style="color:var(--txt3);font-size:12px"><%= user.created_at.strftime("%b %d, %Y") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <%# Recent attempts %>
+  <div class="admin-card" style="margin-top:24px">
+    <h2 class="admin-card-title">Recent Exercise Attempts</h2>
+    <table class="admin-table">
+      <thead>
+        <tr><th>User</th><th>Course</th><th>Lesson</th><th>Answer</th><th>Result</th><th>When</th></tr>
+      </thead>
+      <tbody>
+        <% @recent_attempts.each do |a| %>
+          <tr>
+            <td style="font-size:12px"><%= a.user.email %></td>
+            <td style="font-size:12px"><%= a.exercise.course_lesson.course.title rescue "—" %></td>
+            <td style="font-size:12px"><%= a.exercise.course_lesson.title rescue "—" %></td>
+            <td style="font-family:monospace;font-size:12px"><%= a.answer %></td>
+            <td>
+              <% if a.correct %>
+                <span class="badge-green">✓ Correct</span>
+              <% else %>
+                <span class="badge-red">✗ Wrong</span>
+              <% end %>
+            </td>
+            <td style="color:var(--txt3);font-size:12px"><%= a.created_at.strftime("%b %d %H:%M") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

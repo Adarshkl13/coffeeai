@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  lesson_id: 1
+  status: 1
+  completed_at: 2026-05-03 17:08:42
+  skipped_at: 2026-05-03 17:08:42
+
+two:
+  user: two
+  lesson_id: 1
+  status: 1
+  completed_at: 2026-05-03 17:08:42
+  skipped_at: 2026-05-03 17:08:42

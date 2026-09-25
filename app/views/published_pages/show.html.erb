@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= @page.title %> - AI Academy</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+        margin: 0;
+      }
+
+      .published-page-frame {
+        min-height: 100vh;
+      }
+
+      <%= raw @page.css_content %>
+    </style>
+  </head>
+  <body>
+    <main class="published-page-frame">
+      <%= raw @page.html_content %>
+    </main>
+
+    <script>
+      <%= raw @page.js_content.to_s.gsub("</script", "<\\/script") %>
+    </script>
+  </body>
+</html>

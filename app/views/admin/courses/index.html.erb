@@ -1,0 +1,23 @@
+<div class="admin-page">
+  <h1 class="admin-page-title">Courses</h1>
+  <div class="admin-card">
+    <table class="admin-table">
+      <thead>
+        <tr><th>Icon</th><th>Title</th><th>Slug</th><th>Lessons</th><th>Exercises</th><th>Published</th><th></th></tr>
+      </thead>
+      <tbody>
+        <% @courses.each do |course| %>
+          <tr>
+            <td><%= course.icon %></td>
+            <td style="font-weight:600"><%= course.title %></td>
+            <td style="font-family:monospace;font-size:12px;color:var(--txt3)"><%= course.slug %></td>
+            <td><span class="badge-blue"><%= course.course_lessons.count %></span></td>
+            <td><span class="badge-blue"><%= Exercise.joins(:course_lesson).where(course_lessons: { course_id: course.id }).count %></span></td>
+            <td><% if course.published %><span class="badge-green">Published</span><% else %><span class="badge-red">Draft</span><% end %></td>
+            <td><%= link_to "View", admin_course_path(course), class: "admin-link" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

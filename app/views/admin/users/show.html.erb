@@ -1,0 +1,58 @@
+<div class="admin-page">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+    <%= link_to "← All Users", admin_users_path, class: "admin-link" %>
+    <h1 class="admin-page-title" style="margin:0"><%= @user.email %></h1>
+    <% if @user.admin? %><span class="badge-purple">Admin</span><% end %>
+  </div>
+
+  <div class="admin-stats-grid" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px">
+    <div class="admin-stat-card">
+      <div class="asc-num"><%= @user.exercise_attempts.where(correct:true).count %></div>
+      <div class="asc-label">Correct Answers</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="asc-num"><%= @user.exercise_attempts.count %></div>
+      <div class="asc-label">Total Attempts</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="asc-num"><%= @user.course_progresses.where(status: :completed).count %></div>
+      <div class="asc-label">Lessons Completed</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="asc-num"><%= @user.course_progresses.where(status: :skipped).count %></div>
+      <div class="asc-label">Lessons Skipped</div>
+    </div>
+  </div>
+
+  <div class="admin-card">
+    <h2 class="admin-card-title">Progress by Course</h2>
+    <table class="admin-table">
+      <thead>
+        <tr><th>Course</th><th>Completed</th><th>Skipped</th><th>In Progress</th><th>Total</th><th>%</th><th>Correct</th><th>Wrong</th></tr>
+      </thead>
+      <tbody>
+        <% @course_stats.each do |cs| %>
+          <tr>
+            <td style="display:flex;align-items:center;gap:8px">
+              <span><%= cs[:course].icon %></span><%= cs[:course].title %>
+            </td>
+            <td><span class="badge-green"><%= cs[:completed] %></span></td>
+            <td><span class="badge-yellow"><%= cs[:skipped] %></span></td>
+            <td><span class="badge-blue"><%= cs[:in_progress] %></span></td>
+            <td style="color:var(--txt2)"><%= cs[:total] %></td>
+            <td>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:60px;height:6px;background:var(--bg4);border-radius:99px;overflow:hidden">
+                  <div style="width:<%= cs[:pct] %>%;height:100%;background:<%= cs[:course].color %>"></div>
+                </div>
+                <span style="font-size:12px;color:var(--txt2)"><%= cs[:pct] %>%</span>
+              </div>
+            </td>
+            <td><span class="badge-green"><%= cs[:correct] %></span></td>
+            <td><span class="badge-red"><%= cs[:wrong] %></span></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="admin-page">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+    <%= link_to "← All Courses", admin_courses_path, class: "admin-link" %>
+    <span style="font-size:24px"><%= @course.icon %></span>
+    <h1 class="admin-page-title" style="margin:0"><%= @course.title %></h1>
+  </div>
+
+  <div class="admin-card">
+    <h2 class="admin-card-title">Lessons & Exercises</h2>
+    <table class="admin-table">
+      <thead>
+        <tr><th>#</th><th>Lesson Title</th><th>Exercise Type</th><th>Correct Answer</th><th>Completions</th><th>Skips</th></tr>
+      </thead>
+      <tbody>
+        <% @lessons.each do |lesson| %>
+          <tr>
+            <td style="color:var(--txt3)"><%= lesson.position %></td>
+            <td style="font-weight:500"><%= lesson.title %></td>
+            <td>
+              <% if lesson.exercise %>
+                <span class="badge-blue"><%= lesson.exercise.exercise_type.humanize %></span>
+              <% end %>
+            </td>
+            <td style="font-family:monospace;font-size:12px"><%= lesson.exercise&.correct_answer %></td>
+            <td><span class="badge-green"><%= lesson.course_progresses.where(status: :completed).count %></span></td>
+            <td><span class="badge-yellow"><%= lesson.course_progresses.where(status: :skipped).count %></span></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
