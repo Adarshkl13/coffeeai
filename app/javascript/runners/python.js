@@ -4,6 +4,10 @@
 //   { table: { columns, rows } }     a result table
 const PYODIDE_URL = "https://cdn.jsdelivr.net/pyodide/v0.29.5/full/"
 let pyodidePromise = null
+const installed = new Set()
+const PYPI_PACKAGES = [
+  { name: "django", spec: "django==6.1.*", pattern: /^\s*(import|from)\s+django\b/m }
+]
 
 function loadPyodideOnce() {
   if (pyodidePromise) return pyodidePromise
@@ -35,6 +39,18 @@ export async function run(code, { onStatus = () => {} } = {}) {
   await py.loadPackagesFromImports(code, {
     messageCallback: (msg) => { if (/^Loading /.test(msg)) onStatus(`${msg} (first time only)`) }
   })
+  // Pure-Python packages that aren't bundled with Pyodide come from PyPI via micropip
+  const missing = PYPI_PACKAGES.filter(p => p.pattern.test(code) && !installed.has(p.name))
+  if (missing.length) {
+    onStatus(`Installing ${missing.map(p => p.name).join(", ")}… (first time only)`)
+    await py.loadPackage("micropip")
+    const micropip = py.pyimport("micropip")
+    for (const p of missing) {
+      await micropip.install(p.spec)
+      installed.add(p.name)
+    }
+    micropip.destroy()
+  }
 
   const globals = py.globals.get("dict")()
   globals.set("__name__", "__main__")
