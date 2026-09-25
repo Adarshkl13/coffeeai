@@ -3,77 +3,106 @@ require_relative "../react_content"
 namespace :content do
   desc "Create React course and populate all 20 lessons"
   task react: :environment do
+    description = "Learn modern React 19: JSX, components, props, state, effects, safe data fetching, context, reducers, " \
+                  "custom hooks, performance, form Actions, Suspense, routing and testing, then build a full task manager app."
     course = Course.find_or_create_by!(slug: "react") do |c|
       c.title       = "React"
-      c.description = "React is the world's most popular UI library. Learn JSX, components, props, useState, useEffect, useContext, custom hooks, performance optimisation, and build real interactive applications."
+      c.description = description
       c.color       = "#61dafb"
       c.icon        = "⚛️"
       c.position    = 14
       c.published   = true
     end
+    course.update!(description: description)
     puts "Course: #{course.title}"
 
     titles = {
-      1  => "Introduction to React",            2  => "Functional Components",
-      3  => "Props",                             4  => "State with useState",
-      5  => "Event Handling",                    6  => "Lists and Keys",
-      7  => "Conditional Rendering",             8  => "useEffect Hook",
-      9  => "Forms and Controlled Components",   10 => "Lifting State Up",
-      11 => "useContext — Avoid Prop Drilling",  12 => "useRef Hook",
-      13 => "Custom Hooks",                      14 => "useMemo and useCallback",
-      15 => "useReducer Hook",                   16 => "Fetching Data with useEffect",
-      17 => "React with Bootstrap",              18 => "React Router (Simulated)",
-      19 => "Performance and Best Practices",    20 => "React Review — Full Application"
+      1  => "Introduction to React and JSX",               2  => "Components, Modules and Vite",
+      3  => "Props and children",                          4  => "State with useState",
+      5  => "Handling Events",                             6  => "Conditional Rendering and Lists",
+      7  => "Forms and Controlled Inputs",                 8  => "Lifting State Up",
+      9  => "useEffect and Side Effects",                  10 => "Fetching Data Safely",
+      11 => "useRef and the DOM",                          12 => "Sharing Data with Context",
+      13 => "useReducer for Complex State",                14 => "Custom Hooks",
+      15 => "Performance: memo, useMemo and useCallback",  16 => "Forms and Actions in React 19",
+      17 => "Suspense, use and Error Boundaries",          18 => "Routing with React Router",
+      19 => "Testing React Components",                    20 => "Capstone: Task Manager App"
+    }
+
+    descriptions = {
+      1  => "Learn what React is, how JSX compiles to JavaScript, and how createRoot renders your UI into the page.",
+      2  => "Write function components, compose them into a tree, split them into modules, and start a real project with Vite.",
+      3  => "Pass data from parent to child with props, use default values and the children prop, and keep props read-only.",
+      4  => "Give components memory with useState, use the updater form, and update objects and arrays without mutating them.",
+      5  => "Attach event handlers correctly, read the event object, and control bubbling and default browser behaviour.",
+      6  => "Show or hide UI with if, ternaries and &&, render arrays with map(), and choose stable keys.",
+      7  => "Build controlled inputs for text, checkboxes and selects, handle submit, and validate from state.",
+      8  => "Share state between components by moving it to their closest common parent and passing callbacks down.",
+      9  => "Synchronise with timers and browser APIs using useEffect, dependencies and cleanup, including StrictMode's double run.",
+      10 => "Fetch data with res.ok checks, AbortController cleanup and loading/error states, and meet TanStack Query.",
+      11 => "Use useRef to reach DOM elements and store values that should not re-render, and pass ref as a prop in React 19.",
+      12 => "Avoid prop drilling with createContext and useContext, and wrap context in a provider and custom hook.",
+      13 => "Move complex update logic into a pure reducer function and change state by dispatching actions.",
+      14 => "Extract reusable stateful logic into custom hooks such as useToggle and useDebouncedValue.",
+      15 => "Understand why components re-render and when memo, useMemo, useCallback and the React Compiler help.",
+      16 => "Handle forms with React 19 Actions using useActionState, useFormStatus and useOptimistic.",
+      17 => "Declare loading and error UI with Suspense, the use() API, lazy() code splitting and error boundaries.",
+      18 => "Map URLs to screens with React Router v8: routes, dynamic params, nested layouts and navigation.",
+      19 => "Test components the way users use them with Vitest and React Testing Library, and see how act() works.",
+      20 => "Combine reducers, context, custom hooks, lists and form actions into a complete task manager app."
     }
 
     exercises = {
-      1  => { type: "multiple_choice", q: "What does Babel compile JSX into behind the scenes?",
-              opts: ["A) HTML strings inserted with innerHTML", "B) React.createElement() calls", "C) Separate .html template files"], ans: "B" },
-      2  => { type: "true_false",      q: "React component names must start with a capital letter.",
-              opts: ["True", "False"], ans: "True" },
-      3  => { type: "multiple_choice", q: "Props in React are:",
-              opts: ["A) Read-only data passed from parent to child", "B) Mutable data owned by the component", "C) Global state"], ans: "A" },
-      4  => { type: "multiple_choice", q: "With const [user, setUser] = useState({ name: '', age: 0 }), which call updates name while keeping age?",
-              opts: ["A) user.name = 'Alice'", "B) setUser(prev => ({ ...prev, name: 'Alice' }))", "C) setUser({ name: 'Alice' })"], ans: "B" },
+      1  => { type: "multiple_choice", q: "Which of these is valid JSX for a component's return statement?",
+              opts: ["A) return <h1>Hi</h1><p>There</p>;", "B) return <><h1>Hi</h1><p>There</p></>;", "C) return <div class=\"box\"><img src=\"logo.png\"></div>;"], ans: "B" },
+      2  => { type: "true_false",      q: "In a Vite project, `npm run dev` creates the optimised production files in the dist folder.",
+              opts: ["True", "False"], ans: "False" },
+      3  => { type: "multiple_choice", q: "Given function Price({ amount = 0 }) { return <p>₹{amount}</p>; }, what does <Price /> render?",
+              opts: ["A) ₹0", "B) ₹undefined", "C) Nothing — React throws an error because a prop is missing"], ans: "A" },
+      4  => { type: "multiple_choice", q: "count starts at 0. A click handler calls setCount(count + 1) three times in a row. What does the screen show after one click?",
+              opts: ["A) 3", "B) 0, because state never updates inside an event handler", "C) 1"], ans: "C" },
       5  => { type: "true_false",      q: "onClick={handleClick()} is the correct way to attach a click handler in React.",
               opts: ["True", "False"], ans: "False" },
-      6  => { type: "multiple_choice", q: "Why does React need a key prop when rendering lists?",
-              opts: ["A) To apply a unique CSS style to each list item", "B) To help React identify which items changed, were added, or removed", "C) To keep the list sorted in the order of the keys"], ans: "B" },
-      7  => { type: "multiple_choice", q: "Which operator renders nothing when the condition is false?",
-              opts: ["A) Logical AND &&", "B) Ternary ? :", "C) Nullish ??"], ans: "A" },
-      8  => { type: "multiple_choice", q: "When does useEffect with an empty dependency array [] run?",
-              opts: ["A) After every render of the component", "B) Once, when the component mounts", "C) Never, because there is nothing to watch"], ans: "B" },
-      9  => { type: "true_false",      q: "In a React controlled input, the input value is driven by state.",
+      6  => { type: "multiple_choice", q: "const count = 0; What does <p>{count && <span>New!</span>}</p> render?",
+              opts: ["A) An empty paragraph", "B) A paragraph containing 0", "C) A paragraph containing \"New!\""], ans: "B" },
+      7  => { type: "true_false",      q: "If an input has value={name} but no onChange handler, React warns and the user cannot type in it.",
               opts: ["True", "False"], ans: "True" },
-      10 => { type: "multiple_choice", q: "Lifting state up means:",
-              opts: ["A) Moving state to a child component", "B) Using global state", "C) Moving state to the closest common ancestor"], ans: "C" },
-      11 => { type: "multiple_choice", q: "What is useContext used for?",
-              opts: ["A) Managing local state inside a single component", "B) Consuming shared data without prop drilling", "C) Fetching data from an API when a component mounts"], ans: "B" },
-      12 => { type: "true_false",      q: "Changing ref.current triggers a re-render, just like calling a useState setter.",
+      8  => { type: "multiple_choice", q: "SearchBar and ResultsList both need the current search text. Where should that state live?",
+              opts: ["A) In their closest common parent, passed down as props", "B) In SearchBar, with ResultsList keeping its own copy in sync via useEffect", "C) In a global variable outside React"], ans: "A" },
+      9  => { type: "multiple_choice", q: "In development with <StrictMode>, what happens on mount to useEffect(() => { connect(); return () => disconnect(); }, [])?",
+              opts: ["A) connect runs once", "B) Nothing runs until a dependency changes, because the array is empty", "C) connect, disconnect, then connect again"], ans: "C" },
+      10 => { type: "multiple_choice", q: "fetch() receives a 404 response from the server. What happens?",
+              opts: ["A) The fetch promise rejects straight away, so your .catch() block handles it automatically", "B) It resolves; res.ok is false, so you must check it and throw", "C) React shows the nearest error boundary"], ans: "B" },
+      11 => { type: "true_false",      q: "In React 19, a function component can receive ref as a normal prop without using forwardRef.",
+              opts: ["True", "False"], ans: "True" },
+      12 => { type: "multiple_choice", q: "A component calls useContext(ThemeContext), but there is no ThemeContext provider above it. What does it get?",
+              opts: ["A) The default value passed to createContext", "B) undefined, and React logs a warning about the missing provider", "C) An error is thrown and the app crashes"], ans: "A" },
+      13 => { type: "multiple_choice", q: "Which reducer case correctly adds an item?",
+              opts: ["A) state.items.push(action.item); return state;", "B) state.items = [...state.items, action.item]; return state;", "C) return { ...state, items: [...state.items, action.item] };"], ans: "C" },
+      14 => { type: "true_false",      q: "Two components that call the same custom hook, such as useToggle(), share one piece of state.",
               opts: ["True", "False"], ans: "False" },
-      13 => { type: "multiple_choice", q: "Custom hook names must start with:",
-              opts: ["A) 'use'", "B) 'hook'", "C) 'custom'"], ans: "A" },
-      14 => { type: "multiple_choice", q: "useMemo is used to:",
-              opts: ["A) Memoize a function reference", "B) Memoize a component", "C) Memoize a computed value"], ans: "C" },
-      15 => { type: "multiple_choice", q: "In useReducer, how do you trigger a state change?",
-              opts: ["A) setState(newValue)", "B) reducer(state, action)", "C) dispatch({ type: 'action' })"], ans: "C" },
-      16 => { type: "true_false",      q: "In a data-fetching effect, the cleanup function can set a cancelled flag so the component does not update state after it has unmounted.",
+      15 => { type: "multiple_choice", q: "A child is wrapped in memo, but the parent passes onSelect={() => pick(id)}. When the parent re-renders, the child:",
+              opts: ["A) Skips rendering, because memo always ignores function props when comparing", "B) Re-renders, because a new function is created every time", "C) Skips rendering only in development mode"], ans: "B" },
+      16 => { type: "multiple_choice", q: "What does useActionState(action, initialState) return?",
+              opts: ["A) [state, formAction, isPending]", "B) [value, setValue]", "C) { data, error, isLoading, refetch }"], ans: "A" },
+      17 => { type: "true_false",      q: "While a child component is waiting on use(promise), the nearest <Suspense> boundary shows its fallback.",
               opts: ["True", "False"], ans: "True" },
-      17 => { type: "multiple_choice", q: "In JSX, which attribute replaces HTML's 'class'?",
-              opts: ["A) className", "B) cssClass", "C) styleClass"], ans: "A" },
-      18 => { type: "multiple_choice", q: "Which React Router hook reads the :id value from a route such as /users/:id?",
+      18 => { type: "multiple_choice", q: "Which React Router hook reads courseId from the route path courses/:courseId?",
               opts: ["A) useNavigate()", "B) useLocation()", "C) useParams()"], ans: "C" },
-      19 => { type: "multiple_choice", q: "React.memo lets a component skip re-rendering when:",
-              opts: ["A) Its props haven't changed", "B) Its own internal state changes", "C) A context value it reads changes"], ans: "A" },
-      20 => { type: "multiple_choice", q: "In React, data flows:",
-              opts: ["A) Both ways (two-way binding)", "B) Up only (child to parent)", "C) Down via props, up via callbacks"], ans: "C" }
+      19 => { type: "multiple_choice", q: "In React Testing Library, which query is the best first choice for finding a Save button?",
+              opts: ["A) container.querySelector('.btn.btn-primary.save-button')", "B) screen.getByRole('button', { name: /save/i })", "C) screen.getByTestId('save-button')"], ans: "B" },
+      20 => { type: "multiple_choice", q: "In the capstone, doneCount is calculated with tasks.filter(t => t.done).length on every render. Why not keep it in state?",
+              opts: ["A) It is derived from tasks, so a stored copy could get out of sync", "B) useState cannot hold numbers", "C) Components that use useReducer are not allowed to call useState as well"], ans: "A" }
     }
 
     ReactContent::LESSONS.each do |position, data|
-      lesson = CourseLesson.find_or_create_by!(course: course, position: position) do |l|
-        l.title = titles[position]; l.description = ""
-      end
-      lesson.update!(title: titles[position], body: data[:body], starter_code: data[:starter_code])
+      lesson = CourseLesson.find_or_initialize_by(course: course, position: position)
+      lesson.update!(
+        title: titles[position],
+        description: descriptions[position],
+        body: data[:body],
+        starter_code: data[:starter_code]
+      )
 
       ex = exercises[position]
       Exercise.find_or_initialize_by(course_lesson: lesson).tap do |e|
