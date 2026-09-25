@@ -41,6 +41,7 @@ module JavaContent
             <thead><tr><th>Version</th><th>Released</th><th>Notes</th></tr></thead>
             <tbody>
               <tr><td>Java 8</td><td>2014</td><td>Old LTS: added lambdas and streams. Still found in legacy projects.</td></tr>
+              <tr><td>Java 11</td><td>2018</td><td>LTS: the <code>HttpClient</code> API, new <code>String</code> methods such as <code>isBlank()</code>, <code>strip()</code> and <code>repeat()</code>, and running a single file directly with <code>java Main.java</code>. Still common in older company projects.</td></tr>
               <tr><td>Java 17</td><td>2021</td><td>LTS: records, sealed classes, text blocks, switch expressions. <strong>The editor in this course runs Java 17.</strong></td></tr>
               <tr><td>Java 21</td><td>2023</td><td>LTS: virtual threads, record patterns, pattern matching in <code>switch</code>.</td></tr>
               <tr><td>Java 25</td><td>September 2025</td><td>Current LTS: compact source files and instance <code>main</code> methods for beginners.</td></tr>
@@ -557,7 +558,7 @@ module JavaContent
         Signal s = Signal.YELLOW;
         System.out.println(s);            // YELLOW
         System.out.println(s.ordinal());  // 1 (position, starting at 0)</code></pre></div>
-          <p>Use an <code>enum</code> instead of magic strings like <code>"red"</code>: the compiler rejects typos, and <code>switch</code> can check that you handled every value.</p>
+          <p>Use an <code>enum</code> instead of magic strings like <code>"red"</code>: the compiler rejects typos, and <code>switch</code> can check that you handled every value. Enums can also hold fields and methods, for example <code>Genre.SCIENCE.loanDays()</code> — you will build one in Lesson 10.</p>
         </div>
         <div class="lc-card">
           <h3>Old <code>switch</code> vs Switch Expression</h3>
@@ -1250,9 +1251,9 @@ module JavaContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-java">Java</div>
-          <h1 class="lc-title">Encapsulation, Immutability and Records</h1>
+          <h1 class="lc-title">Encapsulation, Records and Enums</h1>
         </div>
-        <p class="lc-lead"><strong>Encapsulation</strong> means hiding an object's data and allowing changes only through methods that keep it valid. <strong>Immutable</strong> objects go one step further: they never change at all. Java 16+ <strong>records</strong> make immutable data classes a one-liner.</p>
+        <p class="lc-lead"><strong>Encapsulation</strong> means hiding an object's data and allowing changes only through methods that keep it valid. <strong>Immutable</strong> objects go one step further: they never change at all. Java 16+ <strong>records</strong> make immutable data classes a one-liner, and <strong>enums</strong> can carry their own fields and methods.</p>
         <div class="lc-card">
           <h3>Access Modifiers</h3>
           <table class="lc-table">
@@ -1324,23 +1325,56 @@ module JavaContent
           </table>
         </div>
         <div class="lc-card">
+          <h3>Enums with Fields, Constructors and Methods</h3>
+          <p>In Lesson 5 an enum was just a list of names. An enum is really a class with a fixed set of objects, so each constant can hold data. The constants call a constructor, which is always private.</p>
+          <div class="lc-code-block"><pre><code>enum Genre {
+            FICTION(14, 2), SCIENCE(21, 5), HISTORY(7, 2);   // must come first, then a semicolon
+
+            private final int loanDays;
+            private final int finePerDay;
+
+            Genre(int loanDays, int finePerDay) {             // implicitly private
+                this.loanDays = loanDays;
+                this.finePerDay = finePerDay;
+            }
+            int loanDays() { return loanDays; }
+            int fineFor(int daysLate) { return daysLate * finePerDay; }
+        }
+
+        System.out.println(Genre.SCIENCE.loanDays());         // 21
+        System.out.println(Genre.SCIENCE.fineFor(3));         // 15
+        System.out.println(Genre.valueOf("HISTORY"));         // HISTORY
+        System.out.println(Genre.HISTORY.ordinal());          // 2 (position, starting at 0)</code></pre></div>
+          <p>Now the rule "science books are lent for 21 days" lives in one place instead of in <code>if</code> statements all over the program. Enum fields should be <code>final</code>: enum constants are shared by the whole program, so they should be immutable.</p>
+          <h3>EnumMap: a Map with Enum Keys</h3>
+          <p>When the keys of a map are enum constants, use <code>EnumMap</code>. It is faster and smaller than a <code>HashMap</code> (inside it is just an array indexed by <code>ordinal()</code>) and it always keeps the keys in <strong>declaration order</strong>.</p>
+          <div class="lc-code-block"><pre><code>Map&lt;Genre, Integer&gt; onLoan = new EnumMap&lt;&gt;(Genre.class);
+        onLoan.put(Genre.SCIENCE, 2);
+        onLoan.put(Genre.FICTION, 5);
+        System.out.println(onLoan);   // {FICTION=5, SCIENCE=2}   declaration order, not insertion order</code></pre></div>
+          <p>You will meet <code>Map</code> fully in Lesson 15, and the capstone uses an <code>EnumMap</code> to count books per genre.</p>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Public fields</strong> — anyone can put invalid data in them.</li>
             <li><strong>Returning an internal list</strong> — callers can modify it. Return <code>List.copyOf(items)</code> or an unmodifiable view.</li>
             <li><strong>Calling <code>getX()</code> on a record</strong> — record accessors are named after the component: <code>x()</code>.</li>
+            <li><strong>Comparing enums with <code>equals</code> or strings</strong> — use <code>==</code> (<code>g == Genre.SCIENCE</code>); there is only ever one object per constant. Avoid storing <code>ordinal()</code> in files or databases: it changes if someone reorders the constants.</li>
             <li><strong>Thinking records are deeply immutable</strong> — a record holding an <code>ArrayList</code> can still have that list changed. Copy it in the compact constructor.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Create <code>record Product(String name, double price)</code> with a compact constructor that rejects negative prices, and a method <code>Product withPrice(double p)</code> that returns a new record. Show that the original is unchanged.</p>
+          <p>Create <code>record Product(String name, double price)</code> with a compact constructor that rejects negative prices, and a method <code>Product withPrice(double p)</code> that returns a new record. Show that the original is unchanged. Then add a fourth constant <code>REFERENCE(0, 0)</code> to <code>Genre</code> (reference books cannot be borrowed) and a method <code>boolean canBorrow()</code> that returns <code>loanDays &gt; 0</code>.</p>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Make things immutable by default and mutable only when you must. Immutable objects have fewer bugs because nothing can change them behind your back.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.util.ArrayList;
+        import java.util.EnumMap;
         import java.util.List;
+        import java.util.Map;
 
         class BankAccount {
             private final String owner;
@@ -1348,15 +1382,9 @@ module JavaContent
             BankAccount(String owner) { this.owner = owner; }
             public long getBalance() { return balance; }
             public String getOwner() { return owner; }
-
             public void deposit(long amount) {
                 if (amount <= 0) throw new IllegalArgumentException("Deposit must be positive");
                 balance += amount;
-            }
-
-            public void withdraw(long amount) {
-                if (amount > balance) throw new IllegalArgumentException("Insufficient balance");
-                balance -= amount;
             }
         }
 
@@ -1368,23 +1396,36 @@ module JavaContent
             Product withPrice(double newPrice) { return new Product(name, newPrice, tags); }
         }
 
+        enum Genre {
+            FICTION(14, 2), SCIENCE(21, 5), HISTORY(7, 2);   // each constant calls the constructor
+            private final int loanDays;
+            private final int finePerDay;
+            Genre(int loanDays, int finePerDay) { this.loanDays = loanDays; this.finePerDay = finePerDay; }
+            int loanDays() { return loanDays; }
+            int fineFor(int daysLate) { return daysLate * finePerDay; }
+        }
+
         public class Main {
             public static void main(String[] args) {
                 BankAccount acc = new BankAccount("Neha");
                 acc.deposit(5000);
-                acc.withdraw(1200);
                 System.out.println(acc.getOwner() + " balance: " + acc.getBalance());
-                try { acc.withdraw(10000); } catch (IllegalArgumentException e) { System.out.println("Blocked: " + e.getMessage()); }
+                try { acc.deposit(-10); } catch (IllegalArgumentException e) { System.out.println("Blocked: " + e.getMessage()); }
 
                 List<String> tags = new ArrayList<>(List.of("stationery"));
                 Product pen = new Product("Pen", 20.0, tags);
-                Product cheaper = pen.withPrice(15.0);
                 tags.add("sale");   // does NOT affect the record: it stored a copy
-                System.out.println(pen);
-                System.out.println(cheaper);
-                System.out.println("Accessor: " + pen.name() + ", equal? "
-                        + pen.equals(new Product("Pen", 20.0, List.of("stationery"))));
-                try { new Product("Bad", -1, List.of()); } catch (IllegalArgumentException e) { System.out.println("Rejected: " + e.getMessage()); }
+                System.out.println(pen + " -> " + pen.withPrice(15.0));
+                System.out.println("equal? " + pen.equals(new Product("Pen", 20.0, List.of("stationery"))));
+
+                for (Genre g : Genre.values()) {
+                    System.out.println(g + " (#" + g.ordinal() + "): " + g.loanDays() + " days, fine for 3 days late: Rs " + g.fineFor(3));
+                }
+                System.out.println("valueOf: " + Genre.valueOf("HISTORY").loanDays());
+                Map<Genre, Integer> onLoan = new EnumMap<>(Genre.class);
+                onLoan.put(Genre.SCIENCE, 2);   // put out of order...
+                onLoan.put(Genre.FICTION, 5);
+                System.out.println("EnumMap: " + onLoan);   // ...printed in declaration order
             }
         }
       JAVA
@@ -1394,9 +1435,9 @@ module JavaContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-java">Java</div>
-          <h1 class="lc-title">Inheritance</h1>
+          <h1 class="lc-title">Inheritance and Polymorphism</h1>
         </div>
-        <p class="lc-lead">Inheritance lets a new class <strong>reuse and extend</strong> an existing one. A <code>Manager</code> <em>is an</em> <code>Employee</code> with extra features, so <code>class Manager extends Employee</code> gets all of Employee's fields and methods and can add or change behaviour.</p>
+        <p class="lc-lead"><strong>Inheritance</strong> lets a new class <strong>reuse and extend</strong> an existing one: a <code>Manager</code> <em>is an</em> <code>Employee</code>, so <code>class Manager extends Employee</code> gets Employee's fields and methods and can change some of them. <strong>Polymorphism</strong> ("many forms") is the payoff: one variable type can refer to many kinds of objects, and each object runs <em>its own</em> version of a method. An <strong>abstract class</strong> is a parent that says what every child must do without being usable on its own.</p>
         <div class="lc-card">
           <h3><code>extends</code>, <code>super</code> and <code>@Override</code></h3>
           <div class="lc-code-block"><pre><code>class Employee {
@@ -1441,112 +1482,12 @@ module JavaContent
               <tr><td>Single inheritance</td><td>A class can extend only <strong>one</strong> class (but can implement many interfaces).</td></tr>
               <tr><td><code>Object</code> is the root</td><td>Every class ultimately extends <code>java.lang.Object</code>, which provides <code>toString</code>, <code>equals</code> and <code>hashCode</code>.</td></tr>
               <tr><td>Constructors are not inherited</td><td>Each subclass writes its own and calls <code>super(...)</code>.</td></tr>
-              <tr><td>Parent is built first</td><td>The parent constructor always runs before the child constructor's body.</td></tr>
+              <tr><td>Parent is built first</td><td>The parent constructor always runs before the child constructor's body. If you do not call <code>super(...)</code> yourself, Java inserts a call to the parent's no-argument constructor, so the chain always runs from the top down.</td></tr>
               <tr><td><code>final</code> stops it</td><td>A <code>final</code> class cannot be extended (<code>String</code> is final); a <code>final</code> method cannot be overridden.</td></tr>
               <tr><td><code>private</code> is hidden</td><td>Subclasses cannot access private fields of the parent directly.</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="lc-card">
-          <h3>Inheritance vs Composition</h3>
-          <div class="lc-code-block"><pre><code>// "is-a": a Car IS a Vehicle -&gt; inheritance is reasonable
-        class Car extends Vehicle { }
-
-        // "has-a": a Car HAS an Engine -&gt; composition (a field)
-        class Car {
-            private final Engine engine = new Engine();
-        }</code></pre></div>
-          <p>Use inheritance only for a true <em>is-a</em> relationship. For reusing code, <strong>prefer composition</strong>: it keeps classes loosely connected, and you can change the part without breaking a family of subclasses.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Worked Example: Constructor Order</h3>
-          <div class="lc-code-block"><pre><code>class A { A() { System.out.println("A built"); } }
-        class B extends A { B() { System.out.println("B built"); } }
-        class C extends B { C() { System.out.println("C built"); } }
-
-        new C();</code></pre></div>
-          <p>Output:</p>
-          <div class="lc-code-block"><pre><code>A built
-        B built
-        C built</code></pre></div>
-          <p>If a constructor does not call <code>super(...)</code> itself, Java inserts a call to the parent's no-argument constructor automatically, so the chain always runs from the top of the hierarchy down.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Common Mistakes</h3>
-          <ul class="lc-list">
-            <li><strong>Forgetting <code>super(...)</code></strong> — if the parent has no no-argument constructor, the child will not compile.</li>
-            <li><strong>Accidental overloading</strong> — writing <code>double annualPay(int x)</code> in the child creates a new method instead of overriding. <code>@Override</code> catches this.</li>
-            <li><strong>Deep hierarchies</strong> — five levels of <code>extends</code> is hard to understand. Keep hierarchies shallow.</li>
-            <li><strong>Inheriting just to reuse one method</strong> — use composition or a helper method instead.</li>
-          </ul>
-        </div>
-        <div class="lc-card">
-          <h3>Try it</h3>
-          <p>Create <code>class Intern extends Employee</code> whose <code>annualPay()</code> returns only 6 months of salary and whose <code>role()</code> returns <code>"Intern"</code>. Add a print in each constructor to see the order in which they run.</p>
-        </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Ask "Can I say <em>X is a Y</em> in every situation?" A square is a shape — yes. A stack is an <code>ArrayList</code> — no, because a stack must not allow inserting in the middle. If the answer is not always yes, use composition.</p></div>
-      HTML
-      starter_code: <<~'JAVA'
-        class Employee {
-            protected final String name;
-            protected final double salary;   // monthly
-
-            Employee(String name, double salary) {
-                System.out.println("  Employee constructor for " + name);
-                this.name = name;
-                this.salary = salary;
-            }
-
-            double annualPay() { return salary * 12; }
-            String role() { return "Employee"; }
-
-            @Override
-            public String toString() {
-                return String.format("%-8s %-9s Rs %.0f", name, role(), annualPay());
-            }
-        }
-
-        class Manager extends Employee {
-            private final double bonus;
-
-            Manager(String name, double salary, double bonus) {
-                super(name, salary);   // parent part is built first
-                System.out.println("  Manager constructor for " + name);
-                this.bonus = bonus;
-            }
-
-            @Override
-            double annualPay() { return super.annualPay() + bonus; }
-
-            @Override
-            String role() { return "Manager"; }
-        }
-
-        public class Main {
-            public static void main(String[] args) {
-                System.out.println("Creating objects:");
-                Employee e = new Employee("Arjun", 50000);
-                Manager m = new Manager("Divya", 90000, 150000);
-
-                System.out.println("\nPayroll:");
-                System.out.println(e);
-                System.out.println(m);   // toString is inherited, but role() and annualPay() are Manager's
-
-                System.out.println("\nm is an Employee? " + (m instanceof Employee));
-                System.out.println("Parent class of Manager: " + Manager.class.getSuperclass().getSimpleName());
-                System.out.println("Parent class of Employee: " + Employee.class.getSuperclass().getSimpleName());
-            }
-        }
-      JAVA
-    },
-
-    12 => {
-      body: <<~'HTML',
-        <div class="lc-header">
-          <div class="lc-badge le-badge le-badge-java">Java</div>
-          <h1 class="lc-title">Polymorphism and Abstract Classes</h1>
-        </div>
-        <p class="lc-lead"><strong>Polymorphism</strong> ("many forms") means one variable type can refer to many kinds of objects, and each object runs <em>its own</em> version of a method. An <strong>abstract class</strong> is a parent that defines what every child must do without being usable on its own.</p>
         <div class="lc-card">
           <h3>Abstract Classes</h3>
           <div class="lc-code-block"><pre><code>abstract class Shape {
@@ -1614,31 +1555,42 @@ module JavaContent
           <p>Upcasting loses nothing — the object is unchanged — but through a <code>Shape</code> variable you can only call <code>Shape</code> methods. Downcast only after checking the type, which is exactly what pattern matching does for you.</p>
         </div>
         <div class="lc-card">
+          <h3>Inheritance vs Composition</h3>
+          <div class="lc-code-block"><pre><code>// "is-a": a Car IS a Vehicle -&gt; inheritance is reasonable
+        class Car extends Vehicle { }
+
+        // "has-a": a Car HAS an Engine -&gt; composition (a field)
+        class Car {
+            private final Engine engine = new Engine();
+        }</code></pre></div>
+          <p>Use inheritance only for a true <em>is-a</em> relationship. For reusing code, <strong>prefer composition</strong>: it keeps classes loosely connected, and you can change the part without breaking a family of subclasses.</p>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Long <code>instanceof</code> chains instead of polymorphism</strong> — if every subclass needs different behaviour, put an overridden method in each class.</li>
+            <li><strong>Forgetting <code>super(...)</code></strong> — if the parent has no no-argument constructor, the child will not compile.</li>
+            <li><strong>Accidental overloading</strong> — writing <code>double annualPay(int x)</code> in the child creates a new method instead of overriding. <code>@Override</code> catches this.</li>
             <li><strong>Calling a child-only method through a parent variable</strong> — <code>Shape s = new Circle(1); s.radius();</code> does not compile.</li>
-            <li><strong>Forgetting to implement an abstract method</strong> — the subclass must implement it or be declared <code>abstract</code> itself.</li>
+            <li><strong>Long <code>instanceof</code> chains instead of polymorphism</strong> — if every subclass needs different behaviour, put an overridden method in each class.</li>
             <li><strong>Thinking static methods are polymorphic</strong> — static methods are not overridden; they are chosen by the variable's type.</li>
+            <li><strong>Deep hierarchies, or inheriting just to reuse one method</strong> — keep hierarchies shallow and prefer composition.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Add a <code>Triangle(base, height)</code> subclass to the starter code. Without changing the loop in <code>main</code>, it should appear in the output with the correct area. That is the power of polymorphism: new types, no changes to existing code.</p>
+          <p>Add a <code>Triangle(base, height)</code> subclass of <code>Shape</code> to the starter code and put one in the array. Without changing either loop in <code>main</code>, it should appear with the correct area — new types, no changes to existing code. Then run it and check the constructor messages: which constructor prints first for the <code>Square</code>, and why?</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Write code against the most general type that has what you need: <code>Shape s</code>, <code>List&lt;String&gt; names</code>. Then you can swap in a different implementation without changing the code that uses it.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Ask "Can I say <em>X is a Y</em> in every situation?" A square is a shape — yes. A stack is an <code>ArrayList</code> — no, because a stack must not allow inserting in the middle. If the answer is not always yes, use composition. And write code against the most general type you need (<code>Shape s</code>, <code>List&lt;String&gt; names</code>) so you can swap implementations later.</p></div>
       HTML
       starter_code: <<~'JAVA'
         abstract class Shape {
             private final String name;
-
-            Shape(String name) { this.name = name; }
-
-            abstract double area();   // every subclass must implement
-
-            String describe() {
-                return String.format("%-9s area = %6.2f", name, area());
+            Shape(String name) {
+                System.out.println("  Shape constructor for " + name);
+                this.name = name;
             }
+            abstract double area();   // every concrete subclass must implement this
+            String describe() { return String.format("%-9s area = %6.2f", name, area()); }
         }
 
         class Circle extends Shape {
@@ -1649,39 +1601,48 @@ module JavaContent
         }
 
         class Rectangle extends Shape {
-            private final double w, h;
-            Rectangle(double w, double h) { super("Rectangle"); this.w = w; this.h = h; }
-            boolean isSquare() { return w == h; }
+            protected final double w, h;   // protected: visible to subclasses
+            Rectangle(String name, double w, double h) { super(name); this.w = w; this.h = h; }
+            Rectangle(double w, double h) { this("Rectangle", w, h); }
             @Override double area() { return w * h; }
+        }
+
+        class Square extends Rectangle {   // a Square IS a Rectangle
+            Square(double side) {
+                super("Square", side, side);   // parent part is built first
+                System.out.println("  Square constructor, side " + side);
+            }
+            @Override String describe() { return super.describe() + "  (all sides " + w + ")"; }
         }
 
         public class Main {
             public static void main(String[] args) {
-                Shape[] shapes = { new Circle(1), new Rectangle(2, 3), new Circle(2.5), new Rectangle(4, 4) };
+                System.out.println("Building shapes:");
+                Shape[] shapes = { new Circle(1), new Rectangle(2, 3), new Square(4) };
 
+                System.out.println("Dynamic dispatch:");
                 double total = 0;
                 for (Shape s : shapes) {
-                    System.out.println(s.describe());   // dynamic dispatch
+                    System.out.println(s.describe());   // each object runs its own version
                     total += s.area();
                 }
                 System.out.printf("Total area = %.2f%n", total);
 
-                // Pattern matching for instanceof (Java 16+)
+                System.out.println("Pattern matching for instanceof:");
                 for (Shape s : shapes) {
-                    if (s instanceof Circle c) {
-                        System.out.println("Circle with radius " + c.radius());
-                    } else if (s instanceof Rectangle r && r.isSquare()) {
-                        System.out.println("A square!");
-                    }
+                    if (s instanceof Circle c) System.out.println("  circle, radius " + c.radius());
+                    else if (s instanceof Square) System.out.println("  square (also a Rectangle? " + (s instanceof Rectangle) + ")");
+                    else System.out.println("  other: " + s.getClass().getSimpleName());
                 }
-
+                System.out.println("Parent of Square: " + Square.class.getSuperclass().getSimpleName()
+                        + ", parent of Shape: " + Shape.class.getSuperclass().getSimpleName());
                 // Shape x = new Shape("x");   // does not compile: Shape is abstract
             }
         }
       JAVA
     },
 
-    13 => {
+    12 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-java">Java</div>
@@ -1698,7 +1659,7 @@ module JavaContent
             }
 
             static Payable of(double value) {        // static helper
-                return () -&gt; value;                  // a lambda (lesson 17)
+                return () -&gt; value;                  // a lambda (lesson 16)
             }
         }
 
@@ -1836,7 +1797,7 @@ module JavaContent
       JAVA
     },
 
-    14 => {
+    13 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-java">Java</div>
@@ -1983,7 +1944,7 @@ module JavaContent
       JAVA
     },
 
-    15 => {
+    14 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-java">Java</div>
@@ -2128,7 +2089,7 @@ module JavaContent
       JAVA
     },
 
-    16 => {
+    15 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-java">Java</div>
@@ -2272,7 +2233,7 @@ module JavaContent
       JAVA
     },
 
-    17 => {
+    16 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-java">Java</div>
@@ -2414,7 +2375,7 @@ module JavaContent
       JAVA
     },
 
-    18 => {
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-java">Java</div>
@@ -2547,6 +2508,201 @@ module JavaContent
       JAVA
     },
 
+    18 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-java">Java</div>
+          <h1 class="lc-title">Files and Basic Concurrency</h1>
+        </div>
+        <p class="lc-lead">Real programs save data to <strong>files</strong> and do several things <strong>at the same time</strong>. Modern Java reads and writes files in one line with <code>java.nio.file.Files</code> and <code>Path</code>, and runs tasks in parallel with an <code>ExecutorService</code> (a pool of threads) and <code>CompletableFuture</code> (a pipeline of steps that run in the background).</p>
+        <div class="lc-card">
+          <h3>Path and Files</h3>
+          <p>A <code>Path</code> is the location of a file; the static methods of <code>Files</code> do the work. The whole-file methods below open and close the file for you.</p>
+          <table class="lc-table">
+            <thead><tr><th>Task</th><th>Code</th></tr></thead>
+            <tbody>
+              <tr><td>Make a path</td><td><code>Path p = Path.of("data", "marks.csv");</code> (Java 11+; old way: <code>Paths.get</code>)</td></tr>
+              <tr><td>Write text / lines</td><td><code>Files.writeString(p, text)</code>, <code>Files.write(p, List.of("a", "b"))</code></td></tr>
+              <tr><td>Read everything</td><td><code>Files.readString(p)</code>, <code>Files.readAllLines(p)</code></td></tr>
+              <tr><td>Read lazily (big files)</td><td><code>try (Stream&lt;String&gt; s = Files.lines(p)) { ... }</code></td></tr>
+              <tr><td>Check and inspect</td><td><code>Files.exists(p)</code>, <code>Files.size(p)</code>, <code>Files.isDirectory(p)</code></td></tr>
+              <tr><td>Create / delete</td><td><code>Files.createDirectories(p)</code>, <code>Files.createTempFile("pre", ".txt")</code>, <code>Files.delete(p)</code>, <code>Files.deleteIfExists(p)</code></td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code-block"><pre><code>Path file = Files.createTempFile("marks", ".csv");   // new empty file in the temp folder
+        Files.write(file, List.of("Asha,88", "Ben,92", "Chen,79"));
+        System.out.println(Files.readAllLines(file));         // [Asha,88, Ben,92, Chen,79]
+        System.out.println(Files.size(file));                 // 23  (bytes, including 3 newlines)
+
+        try (Stream&lt;String&gt; lines = Files.lines(file)) {      // must be closed: use try-with-resources
+            double avg = lines.mapToInt(l -&gt; Integer.parseInt(l.split(",")[1])).average().orElse(0);
+            System.out.printf("%.1f%n", avg);                  // 86.3
+        }
+        Files.delete(file);
+        System.out.println(Files.exists(file));               // false</code></pre></div>
+          <p>All text methods use <strong>UTF-8</strong> by default, so ₹ and Hindi text are safe. File methods throw the checked <code>IOException</code> (Lesson 13): catch it, or add <code>throws IOException</code> to the method. A missing file gives its subclass <code>NoSuchFileException</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Appending and Open Options</h3>
+          <p><code>writeString</code> and <code>write</code> normally <strong>replace</strong> the whole file. Pass <code>StandardOpenOption</code> values to change that:</p>
+          <div class="lc-code-block"><pre><code>Files.writeString(log, "started\n");                                   // create or replace
+        Files.writeString(log, "saved\n", StandardOpenOption.APPEND);          // add to the end
+        System.out.print(Files.readString(log));                               // started / saved
+        Files.writeString(log, "x", StandardOpenOption.CREATE_NEW);            // FileAlreadyExistsException</code></pre></div>
+          <p><strong>Note for this course's editor:</strong> the in-browser Java runtime has its own small file system that does not handle <code>APPEND</code> and <code>CREATE_NEW</code> correctly (it writes from the start of the file instead). Everything else in this lesson works there exactly as in real Java, so the starter code writes the complete list of lines instead of appending. Try <code>APPEND</code> on your own computer with a JDK.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Threads and Why We Use a Pool</h3>
+          <p>A <strong>thread</strong> is a separate path of execution inside your program. You can start one by hand, but creating a thread per task is slow and hard to control, so real code hands tasks to an <strong>ExecutorService</strong>: a fixed group of worker threads that take tasks from a queue.</p>
+          <div class="lc-code-block"><pre><code>Thread worker = new Thread(() -&gt; System.out.println("hello from " + Thread.currentThread().getName()), "worker-1");
+        worker.start();   // runs the lambda on the new thread (calling run() would NOT start a thread)
+        worker.join();    // wait for it to finish
+        // hello from worker-1</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th></th><th><code>Runnable</code></th><th><code>Callable&lt;T&gt;</code></th></tr></thead>
+            <tbody>
+              <tr><td>Lambda shape</td><td><code>() -&gt; { doWork(); }</code></td><td><code>() -&gt; computeValue()</code></td></tr>
+              <tr><td>Returns</td><td>nothing</td><td>a value of type <code>T</code></td></tr>
+              <tr><td>May throw checked exceptions</td><td>no</td><td>yes</td></tr>
+              <tr><td><code>pool.submit(...)</code> gives</td><td><code>Future&lt;?&gt;</code></td><td><code>Future&lt;T&gt;</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>ExecutorService and Future</h3>
+          <div class="lc-code-block"><pre><code>ExecutorService pool = Executors.newFixedThreadPool(3);
+        try {
+            List&lt;Future&lt;Integer&gt;&gt; futures = new ArrayList&lt;&gt;();
+            for (String t : texts) {
+                futures.add(pool.submit(() -&gt; countWords(t)));   // returns at once; work runs on the pool
+            }
+            int total = 0;
+            for (Future&lt;Integer&gt; f : futures) {
+                total += f.get();                                // waits until that task is done
+            }
+            System.out.println("total words: " + total);         // total words: 11
+        } finally {
+            pool.shutdown();                                     // no new tasks; threads end when idle
+        }
+        pool.awaitTermination(5, TimeUnit.SECONDS);</code></pre></div>
+          <ul class="lc-list">
+            <li>A <code>Future</code> is a "receipt" for a result that may not exist yet. <code>get()</code> blocks until it does; <code>get(1, TimeUnit.SECONDS)</code> gives up with a <code>TimeoutException</code>.</li>
+            <li>If the task threw an exception, <code>get()</code> throws <code>ExecutionException</code>; the original error is <code>e.getCause()</code>.</li>
+            <li>Submit <strong>all</strong> tasks first, then collect the results. Calling <code>get()</code> straight after each <code>submit</code> makes the tasks run one by one.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Shared Data Needs Care</h3>
+          <p><code>count++</code> is really three steps (read, add, write). Two threads doing it at the same time can overwrite each other's update — a <strong>race condition</strong>. On a multi-core computer the plain counter below may print less than 200000, and a different number each run. Use thread-safe tools instead:</p>
+          <div class="lc-code-block"><pre><code>int[] plain = {0};                       // NOT thread-safe
+        AtomicInteger safe = new AtomicInteger(); // thread-safe counter
+        Runnable job = () -&gt; {
+            for (int i = 0; i &lt; 100_000; i++) { plain[0]++; safe.incrementAndGet(); }
+        };
+        // ...run job on two threads, then join both...
+        System.out.println(safe.get());          // always 200000</code></pre></div>
+          <p>For shared maps use <code>ConcurrentHashMap</code> (<code>map.merge(word, 1, Integer::sum)</code> is safe). The simplest fix of all is to share nothing: let each task <strong>return</strong> its result, as <code>countWords</code> does above.</p>
+        </div>
+        <div class="lc-card">
+          <h3>CompletableFuture: Chain Steps Without Blocking</h3>
+          <div class="lc-code-block"><pre><code>CompletableFuture&lt;Integer&gt; price = CompletableFuture.supplyAsync(() -&gt; 1000);  // runs in the background
+        String bill = price
+                .thenApply(p -&gt; p * 118 / 100)                 // next step when the value arrives
+                .thenApply(p -&gt; "Total with GST: Rs " + p)
+                .join();                                        // wait for the final value
+        System.out.println(bill);                               // Total with GST: Rs 1180
+
+        CompletableFuture&lt;Integer&gt; fees = CompletableFuture.supplyAsync(() -&gt; 500);
+        System.out.println(price.thenCombine(fees, Integer::sum).join());           // 1500
+        System.out.println(CompletableFuture.supplyAsync(() -&gt; Integer.parseInt("?"))
+                .exceptionally(e -&gt; -1).join());                                     // -1</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th></th><th><code>Future</code></th><th><code>CompletableFuture</code></th></tr></thead>
+            <tbody>
+              <tr><td>Get the result</td><td><code>get()</code> (checked exceptions)</td><td><code>join()</code> (unchecked) or <code>get()</code></td></tr>
+              <tr><td>Next step</td><td>you wait, then call your code</td><td><code>thenApply</code>, <code>thenCombine</code>, <code>thenAccept</code></td></tr>
+              <tr><td>Errors</td><td><code>ExecutionException</code></td><td><code>exceptionally</code>, <code>handle</code></td></tr>
+            </tbody>
+          </table>
+          <p>Without an executor argument, <code>supplyAsync</code> uses Java's shared common pool. Pass your own pool as a second argument for slow I/O work: <code>supplyAsync(task, pool)</code>. The editor's Java runtime runs threads on one CPU core, so you see the same results as real Java but no speed-up; Java 21 adds cheap <strong>virtual threads</strong> (see Lesson 20).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Forgetting <code>shutdown()</code></strong> — the pool's threads keep the JVM alive, so the program never ends. Shut down in a <code>finally</code> block.</li>
+            <li><strong>Calling <code>thread.run()</code> instead of <code>start()</code></strong> — <code>run()</code> just runs the code on the current thread.</li>
+            <li><strong>Updating a shared variable from many threads</strong> with <code>++</code> or a plain <code>HashMap</code>. Use <code>AtomicInteger</code>, <code>ConcurrentHashMap</code>, or return results instead.</li>
+            <li><strong>Not closing <code>Files.lines</code></strong> — it keeps the file open. Always use try-with-resources.</li>
+            <li><strong>Ignoring the cause</strong> — print <code>e.getCause()</code> of an <code>ExecutionException</code>, not just the wrapper.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <p>In the starter, add a fourth sentence to <code>texts</code> and check the new word total. Then write the three word counts (one per line) to a new temp file with <code>Files.write</code>, read it back with <code>Files.readAllLines</code>, and print the largest count. Finally, add a <code>CompletableFuture</code> step with <code>thenApply</code> that applies a 10% discount before GST.</p>
+        </div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Reach for concurrency only when tasks are slow and independent (downloads, file processing, calls to other services). Keep each task self-contained: take input, return a result, touch no shared state. That one habit prevents most threading bugs.</p></div>
+      HTML
+      starter_code: <<~'JAVA'
+        import java.io.IOException;
+        import java.nio.file.Files;
+        import java.nio.file.NoSuchFileException;
+        import java.nio.file.Path;
+        import java.util.ArrayList;
+        import java.util.List;
+        import java.util.concurrent.*;
+        import java.util.stream.Stream;
+
+        public class Main {
+            static int countWords(String line) { return line.isBlank() ? 0 : line.strip().split("\\s+").length; }
+
+            public static void main(String[] args) throws IOException, InterruptedException, ExecutionException {
+                System.out.println("--- Files and Path ---");
+                Path file = Files.createTempFile("marks", ".csv");   // a new, empty file in the temp folder
+                Files.write(file, List.of("Asha,88", "Ben,92", "Chen,79"));
+                List<String> lines = Files.readAllLines(file);
+                System.out.println("lines: " + lines + " | size: " + Files.size(file) + " bytes");
+                try (Stream<String> stream = Files.lines(file)) {   // lazy: good for big files
+                    double avg = stream.mapToInt(l -> Integer.parseInt(l.split(",")[1])).average().orElse(0);
+                    System.out.printf("average: %.1f%n", avg);
+                }
+                Files.writeString(file, "replaced\n");   // writing again replaces the contents
+                System.out.println("after writeString: " + Files.readString(file).strip());
+                Files.delete(file);
+                System.out.println("exists after delete? " + Files.exists(file));
+                try {
+                    Files.readString(Path.of("missing.txt"));
+                } catch (NoSuchFileException e) {
+                    System.out.println("NoSuchFileException: " + e.getMessage());
+                }
+
+                System.out.println("--- ExecutorService + Future ---");
+                List<String> texts = List.of("the quick brown fox", "hello world", "java runs on the jvm");
+                ExecutorService pool = Executors.newFixedThreadPool(3);
+                try {
+                    List<Future<Integer>> futures = new ArrayList<>();
+                    for (String t : texts) futures.add(pool.submit(() -> countWords(t)));   // runs on pool threads
+                    int total = 0;
+                    for (Future<Integer> f : futures) total += f.get();                    // get() waits for the result
+                    System.out.println("total words: " + total);
+
+                    Future<Integer> bad = pool.submit(() -> Integer.parseInt("ten"));
+                    try { bad.get(); } catch (ExecutionException e) { System.out.println("task failed: " + e.getCause()); }
+                } finally {
+                    pool.shutdown();   // always shut the pool down, or the program may never exit
+                }
+                System.out.println("finished in time? " + pool.awaitTermination(5, TimeUnit.SECONDS));
+
+                System.out.println("--- CompletableFuture ---");
+                CompletableFuture<Integer> price = CompletableFuture.supplyAsync(() -> 1000);
+                CompletableFuture<String> bill = price.thenApply(p -> p * 118 / 100).thenApply(p -> "Total with GST: Rs " + p);
+                System.out.println(bill.join());
+                CompletableFuture<Integer> fees = CompletableFuture.supplyAsync(() -> 500);
+                System.out.println("combined: " + price.thenCombine(fees, Integer::sum).join());
+            }
+        }
+      JAVA
+    },
+
     19 => {
       body: <<~'HTML',
         <div class="lc-header">
@@ -2561,11 +2717,11 @@ module JavaContent
             <li>JUnit 4 (<code>org.junit.Test</code>, <code>@Before</code>) is the old way — don't use it in new projects.</li>
             <li>Tests live in <code>src/test/java</code>, next to your code in <code>src/main/java</code>, and run with <code>mvn test</code> or <code>./gradlew test</code>. IDEs such as IntelliJ IDEA show a green or red result for each test.</li>
           </ul>
-          <p>Add JUnit to a Maven project (use the latest 6.x version shown on Maven Central):</p>
+          <p>Add JUnit to a Maven project. <code>6.1.3</code> is the newest release as of September 2026; if Maven Central shows a newer 6.x.y, use that:</p>
           <div class="lc-code-block"><pre><code>&lt;dependency&gt;
           &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
           &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
-          &lt;version&gt;6.0.0&lt;/version&gt;
+          &lt;version&gt;6.1.3&lt;/version&gt;
           &lt;scope&gt;test&lt;/scope&gt;
         &lt;/dependency&gt;</code></pre></div>
         </div>
@@ -2726,14 +2882,14 @@ module JavaContent
           <table class="lc-table">
             <thead><tr><th>Part</th><th>Java feature</th><th>Lesson</th></tr></thead>
             <tbody>
-              <tr><td><code>Genre</code></td><td>enum</td><td>5</td></tr>
+              <tr><td><code>Genre</code></td><td>enum</td><td>5, 10</td></tr>
               <tr><td><code>Book</code>, <code>Loan</code></td><td>immutable records with methods</td><td>10</td></tr>
               <tr><td><code>Library</code></td><td>encapsulated class with private collections</td><td>9, 10</td></tr>
-              <tr><td>books by ISBN, loans by ISBN</td><td><code>LinkedHashMap</code> (keeps insertion order)</td><td>16</td></tr>
-              <tr><td><code>find</code></td><td><code>Optional&lt;Book&gt;</code></td><td>18</td></tr>
-              <tr><td>due dates and fines</td><td><code>LocalDate</code>, <code>ChronoUnit.DAYS.between</code></td><td>18</td></tr>
-              <tr><td>failed borrow</td><td>custom checked exception</td><td>14</td></tr>
-              <tr><td>report</td><td>streams, <code>groupingBy</code>, <code>EnumMap</code></td><td>17</td></tr>
+              <tr><td>books by ISBN, loans by ISBN</td><td><code>LinkedHashMap</code> (keeps insertion order)</td><td>15</td></tr>
+              <tr><td><code>find</code></td><td><code>Optional&lt;Book&gt;</code></td><td>17</td></tr>
+              <tr><td>due dates and fines</td><td><code>LocalDate</code>, <code>ChronoUnit.DAYS.between</code></td><td>17</td></tr>
+              <tr><td>failed borrow</td><td>custom checked exception</td><td>13</td></tr>
+              <tr><td>report</td><td>streams, <code>groupingBy</code> into an <code>EnumMap</code></td><td>10, 16</td></tr>
             </tbody>
           </table>
         </div>
@@ -2770,6 +2926,8 @@ module JavaContent
         <div class="lc-card">
           <h3>Extend It (Choose Two or More)</h3>
           <ul class="lc-list">
+            <li>Give <code>Genre</code> a <code>loanDays</code> field (Lesson 10), for example <code>SCIENCE(21)</code>, and use it instead of the fixed 14 days.</li>
+            <li>Save the loans to a file with <code>Files.write</code> and load them back at start-up (Lesson 18).</li>
             <li>Limit each member to <strong>2 books</strong> at a time; throw an exception on the third.</li>
             <li>Add a <code>sealed interface Member permits Student, Faculty</code> where faculty get 30 days and pay no fines.</li>
             <li>Add <code>search(String word)</code> that returns all titles containing a word, ignoring case, using a stream.</li>

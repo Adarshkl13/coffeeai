@@ -454,7 +454,7 @@ module PythonContent
                 print("Stopping")
             case _:
                 print("Unknown command")</code></pre></div>
-          <p><code>case _</code> is the "anything else" branch. For simple ranges like grades, <code>if/elif</code> is still the right tool.</p>
+          <p>With <code>command = "quit"</code> this prints <code>Stopping</code>; with <code>"dance"</code> it prints <code>Unknown command</code>. The <code>|</code> means "or", and <code>case _</code> is the "anything else" branch. For simple ranges like grades, <code>if/elif</code> is still the right tool.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Nested Conditions</h2>
@@ -529,9 +529,15 @@ module PythonContent
         if city in ("Mumbai", "Pune", "Nagpur"):
             print(city, "is in Maharashtra")
 
-        result = None
-        if result is None:
-            print("No result yet")
+        print("--- match ---")
+        for command in ["start", "quit", "dance"]:
+            match command:
+                case "start":
+                    print(command, "-> Starting")
+                case "stop" | "quit":
+                    print(command, "-> Stopping")
+                case _:
+                    print(command, "-> Unknown command")
       PY
     },
 
@@ -879,7 +885,7 @@ module PythonContent
           <p><code>x in my_list</code> checks items one by one, so it gets slower as the list grows. <code>x in my_set</code> jumps straight to the answer using a <strong>hash</strong>, so it stays fast even with millions of items. That is also why set items (and dict keys) must be immutable, hashable values.</p>
           <div class="lc-code-block"><pre><code>banned = {"spam", "scam", "fake"}
         comment = "this is a fake offer"
-        flagged = [w for w in comment.split() if w in banned]   # comprehensions: Lesson 11
+        flagged = [w for w in comment.split() if w in banned]   # comprehensions: Lesson 10
         print(flagged)   # ['fake']</code></pre></div>
         </div>
         <div class="lc-section lc-card">
@@ -1017,14 +1023,14 @@ module PythonContent
             ],
         }
         print(course["students"][1]["name"])   # Ben</code></pre></div>
-          <p>This is exactly the shape of JSON data from web APIs (Lesson 13).</p>
+          <p>This is exactly the shape of JSON data from web APIs (Lesson 12).</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Sorting a Dictionary by Value</h2>
           <div class="lc-code-block"><pre><code>marks = {"Asha": 88, "Ben": 95, "Chen": 79}
         ranking = sorted(marks, key=marks.get, reverse=True)   # sort keys by their values
         print(ranking)          # ['Ben', 'Asha', 'Chen']</code></pre></div>
-          <p><code>key=marks.get</code> tells <code>sorted</code> to compare each key by its value. You will see more <code>key=</code> tricks in Lesson 10.</p>
+          <p><code>key=marks.get</code> tells <code>sorted</code> to compare each key by its value. You will see more <code>key=</code> tricks in Lesson 9.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common Mistakes</h2>
@@ -1093,10 +1099,10 @@ module PythonContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
-          <h1 class="lc-title">Functions</h1>
+          <h1 class="lc-title">Functions, Lambdas and Scope</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">A <strong>function</strong> is a named, reusable block of code. You define it once with <code>def</code> and call it as many times as you like. Functions make programs shorter, easier to test and easier to read.</p>
+          <p class="lc-lead">A <strong>function</strong> is a named, reusable block of code. You define it once with <code>def</code> and call it as many times as you like. Functions make programs shorter, easier to test and easier to read. Functions are also <strong>values</strong>: you can pass them to other functions, write tiny ones with <code>lambda</code>, and you need to know where Python looks up the names they use (<strong>scope</strong>).</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Defining and Calling</h2>
@@ -1163,115 +1169,27 @@ module PythonContent
             return basket</code></pre></div>
         </div>
         <div class="lc-section lc-card">
-          <h2>Common Mistakes</h2>
-          <ul class="lc-list">
-            <li>Printing inside a function instead of returning, then getting <code>None</code> when you try to use the result.</li>
-            <li>Forgetting the brackets: <code>greet</code> is the function itself; <code>greet("Asha")</code> calls it.</li>
-            <li>Using a list or dict as a default value (see the trap above).</li>
-            <li>Putting a default parameter before a normal one: <code>def f(a=1, b):</code> is a <code>SyntaxError</code>.</li>
-          </ul>
-        </div>
-        <div class="lc-section lc-card">
-          <h2>Try It</h2>
-          <p>Write <code>bmi(weight_kg, height_m)</code> that returns the BMI rounded to 1 decimal place, and <code>bmi_category(value)</code> that returns <code>"Underweight"</code> (below 18.5), <code>"Normal"</code> (below 25) or <code>"Overweight"</code>. Call both for three people.</p>
-        </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> A good function does <strong>one job</strong> and has a name that starts with a verb: <code>calculate_total</code>, <code>send_email</code>, <code>is_valid</code>.</p></div>
-      HTML
-      starter_code: <<~'PY'
-        # Lesson 9: Functions
-
-        def greet(name):
-            """Return a friendly greeting."""
-            return f"Hello, {name}!"
-        print(greet("Asha"))
-        print("docstring:", greet.__doc__)
-
-        def price_with_gst(amount, rate=0.18):
-            return round(amount * (1 + rate), 2)
-        print("default rate:", price_with_gst(100))
-        print("5% rate:", price_with_gst(100, 0.05))
-        print("keyword args:", price_with_gst(rate=0.12, amount=50))
-
-        def total(*nums):
-            return sum(nums)
-
-        def profile(**info):
-            return info
-
-        print("total(1, 2, 3):", total(1, 2, 3))
-        print("profile:", profile(name="Ben", city="Kochi"))
-
-        def stats(nums):
-            return min(nums), max(nums), sum(nums) / len(nums)
-        low, high, avg = stats([4, 8, 6])
-        print(f"low={low} high={high} avg={avg}")
-
-        def shout(text):
-            print(text.upper())    # prints, but returns nothing
-        result = shout("no return here")
-        print("shout returned:", result)
-
-        print("--- mutable default trap ---")
-        def add_bad(item, basket=[]):
-            basket.append(item)
-            return basket
-
-        def add_good(item, basket=None):
-            if basket is None:
-                basket = []
-            basket.append(item)
-            return basket
-
-        add_bad("apple")
-        print("bad :", add_bad("mango"))
-        add_good("apple")
-        print("good:", add_good("mango"))
-      PY
-    },
-
-    10 => {
-      body: <<~'HTML',
-        <div class="lc-header">
-          <div class="lc-badge le-badge le-badge-yellow">Python</div>
-          <h1 class="lc-title">Lambdas, Scope and Closures</h1>
-        </div>
-        <div class="lc-intro">
-          <p class="lc-lead">In Python, functions are <strong>values</strong>: you can store them in variables, pass them to other functions and return them. This lesson covers small anonymous functions (<code>lambda</code>), how Python finds variable names (<strong>scope</strong>), and functions that remember values (<strong>closures</strong>).</p>
-        </div>
-        <div class="lc-section lc-card">
-          <h2>Functions Are Objects</h2>
+          <h2>Functions Are Values; lambda</h2>
+          <p>Without brackets, <code>double</code> is the function itself, so you can store it or pass it to another function. <code>lambda params: expression</code> makes a small nameless function whose expression is returned automatically. It can hold only <strong>one expression</strong> — no <code>for</code>, <code>return</code> or other statements.</p>
           <div class="lc-code-block"><pre><code>def double(x):
             return x * 2
 
-        f = double              # no brackets: we store the function itself
-        print(f(5))             # 10
-
-        def apply_twice(func, value):   # a higher-order function
+        def apply_twice(func, value):     # takes a function as an argument
             return func(func(value))
-        print(apply_twice(double, 3))   # 12</code></pre></div>
-        </div>
-        <div class="lc-section lc-card">
-          <h2>lambda: A One-Expression Function</h2>
-          <p><code>lambda params: expression</code> creates a small function with no name. The expression's value is returned automatically. It can hold only <strong>one expression</strong> — no statements like <code>for</code>, <code>if</code> blocks or <code>return</code>.</p>
-          <div class="lc-code-block"><pre><code>students = [("Asha", 88), ("Ben", 95), ("Chen", 79)]
+        print(apply_twice(double, 3))     # 12
 
-        by_marks = sorted(students, key=lambda s: s[1], reverse=True)
-        print(by_marks)   # [('Ben', 95), ('Asha', 88), ('Chen', 79)]
-
-        print(max(students, key=lambda s: s[1]))    # ('Ben', 95)
-        print(sorted(["kiwi", "fig", "banana"], key=len))   # ['fig', 'kiwi', 'banana']</code></pre></div>
-          <p>The <code>key</code> function is called once per item; Python sorts by the values it returns.</p>
-        </div>
-        <div class="lc-section lc-card">
-          <h2>map() and filter()</h2>
-          <div class="lc-code-block"><pre><code>nums = [1, 2, 3, 4, 5]
-        print(list(map(lambda n: n * n, nums)))         # [1, 4, 9, 16, 25]
-        print(list(filter(lambda n: n % 2 == 0, nums))) # [2, 4]</code></pre></div>
-          <p>Both return lazy objects, so we wrap them in <code>list()</code>. In modern Python, a <strong>comprehension</strong> (next lesson) is usually clearer than <code>map</code>/<code>filter</code> with a lambda.</p>
+        students = [("Asha", 88), ("Ben", 95), ("Chen", 79)]
+        print(sorted(students, key=lambda s: s[1], reverse=True))
+        # [('Ben', 95), ('Asha', 88), ('Chen', 79)]
+        print(max(students, key=lambda s: s[1]))            # ('Ben', 95)
+        print(sorted(["kiwi", "fig", "banana"], key=len))   # ['fig', 'kiwi', 'banana']
+        print(list(map(lambda n: n * n, [1, 2, 3])))        # [1, 4, 9]
+        print(list(filter(lambda n: n % 2 == 0, [1, 2, 3, 4])))  # [2, 4]</code></pre></div>
+          <p>The <code>key</code> function is called once per item and Python sorts by what it returns. <code>map</code> and <code>filter</code> return lazy objects, so we wrap them in <code>list()</code>; a comprehension (Lesson 10) is usually clearer.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Scope: The LEGB Rule</h2>
-          <p>When Python sees a name, it searches in this order:</p>
+          <p>When Python meets a name, it searches four places in order:</p>
           <table class="lc-table">
             <thead><tr><th>Level</th><th>Meaning</th></tr></thead>
             <tbody>
@@ -1281,100 +1199,85 @@ module PythonContent
               <tr><td><strong>B</strong>uilt-in</td><td>Python's own names: <code>print</code>, <code>len</code>…</td></tr>
             </tbody>
           </table>
-          <p>Assigning to a name inside a function makes it <strong>local</strong>. To change an outer variable you need <code>global</code> (top level) or <code>nonlocal</code> (enclosing function). Use them rarely — returning a value is usually cleaner.</p>
-        </div>
-        <div class="lc-section lc-card">
-          <h2>Closures</h2>
-          <p>An inner function that uses a variable from its outer function <strong>remembers</strong> that variable, even after the outer function has finished.</p>
-          <div class="lc-code-block"><pre><code>def make_multiplier(n):
-            def multiply(x):
-                return x * n        # n comes from the enclosing scope
-            return multiply
+          <div class="lc-code-block"><pre><code>rate = 0.18                    # global
 
-        triple = make_multiplier(3)
-        print(triple(10))           # 30
+        def add_tax(price):
+            total = price * (1 + rate) # reads the global rate; total is local
+            return round(total, 2)
 
-        def make_counter():
-            count = 0
-            def step():
-                nonlocal count      # we want to change the outer count
-                count += 1
-                return count
-            return step
-
-        c = make_counter()
-        print(c(), c(), c())        # 1 2 3</code></pre></div>
-          <p>Closures are the building block of <strong>decorators</strong> (Lesson 18).</p>
+        print(add_tax(200))            # 236.0
+        print(rate)                    # 0.18
+        # print(total)                 # NameError: total only exists inside add_tax</code></pre></div>
+          <p>Assigning to a name inside a function makes it <strong>local</strong> to that function. To change an outer variable you would need <code>global</code> — use it rarely; returning a value is cleaner. Inner functions that remember outer variables (<strong>closures</strong>) come in Lesson 17, just before decorators.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common Mistakes</h2>
           <ul class="lc-list">
-            <li>Writing <code>key=len()</code> instead of <code>key=len</code>. Pass the function, don't call it.</li>
-            <li>Assigning a lambda to a name: <code>square = lambda x: x * x</code>. PEP 8 says use <code>def square(x):</code> instead.</li>
-            <li><code>UnboundLocalError</code>: reading a global and then assigning to it in the same function without <code>global</code>.</li>
-            <li>Forgetting that <code>map()</code>/<code>filter()</code> give a lazy object, not a list.</li>
+            <li>Printing inside a function instead of returning, then getting <code>None</code> when you try to use the result.</li>
+            <li>Forgetting the brackets: <code>greet</code> is the function itself; <code>greet("Asha")</code> calls it.</li>
+            <li>Using a list or dict as a default value (see the trap above).</li>
+            <li>Putting a default parameter before a normal one: <code>def f(a=1, b):</code> is a <code>SyntaxError</code>.</li>
+            <li>Writing <code>key=len()</code> instead of <code>key=len</code>. Pass the function; don't call it.</li>
+            <li><code>UnboundLocalError</code>: reading a global and then assigning to it in the same function makes Python treat it as local everywhere in that function.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try It</h2>
-          <p>Sort <code>["Mumbai", "Goa", "Bengaluru", "Delhi"]</code> by the <strong>last letter</strong> of each name using a lambda. Then write <code>make_discount(percent)</code> that returns a function which applies that discount to a price.</p>
+          <p>Write <code>bmi(weight_kg, height_m)</code> that returns the BMI rounded to 1 decimal place, and <code>bmi_category(value)</code> that returns <code>"Underweight"</code> (below 18.5), <code>"Normal"</code> (below 25) or <code>"Overweight"</code>. Call both for three people. Finally, sort <code>["Mumbai", "Goa", "Bengaluru", "Delhi"]</code> by the <strong>last letter</strong> of each name using a lambda.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Use a lambda only when it is short and used once, usually as a <code>key=</code> argument. If you need a name or more than one line, write a normal <code>def</code>.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> A good function does <strong>one job</strong> and has a name that starts with a verb: <code>calculate_total</code>, <code>send_email</code>, <code>is_valid</code>.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 10: Lambdas, scope and closures
+        # Lesson 9: Functions, lambdas and scope
 
-        def double(x):
-            return x * 2
+        def greet(name):
+            """Return a friendly greeting."""
+            return f"Hello, {name}!"
+        print(greet("Asha"), "| docstring:", greet.__doc__)
 
+        def price_with_gst(amount, rate=0.18):
+            return round(amount * (1 + rate), 2)
+        print("default rate:", price_with_gst(100))
+        print("keyword args:", price_with_gst(rate=0.12, amount=50))
+
+        def total(*nums):
+            return sum(nums)
+        def profile(**info):
+            return info
+        print("total(1, 2, 3):", total(1, 2, 3), "| profile:", profile(name="Ben", city="Kochi"))
+
+        def stats(nums):
+            return min(nums), max(nums), sum(nums) / len(nums)
+        low, high, avg = stats([4, 8, 6])
+        print(f"low={low} high={high} avg={avg}")
+
+        print("--- mutable default trap ---")
+        def add_bad(item, basket=[]):
+            basket.append(item)
+            return basket
+        add_bad("apple")
+        print("shared list surprise:", add_bad("mango"))
+
+        print("--- functions as values and lambda ---")
         def apply_twice(func, value):
             return func(func(value))
-
-        print("apply_twice(double, 3):", apply_twice(double, 3))
-
-        print("--- lambda as a sort key ---")
+        print("apply_twice(lambda x: x * 2, 3):", apply_twice(lambda x: x * 2, 3))
         students = [("Asha", 88), ("Ben", 95), ("Chen", 79)]
-        print("by marks, high first:", sorted(students, key=lambda s: s[1], reverse=True))
-        print("top student:", max(students, key=lambda s: s[1]))
-        cities = ["Mumbai", "Goa", "Bengaluru", "Delhi"]
-        print("by length (key=len):", sorted(cities, key=len))
-        print("by last letter:", sorted(cities, key=lambda c: c[-1]))
-
-        print("--- map and filter ---")
-        nums = [1, 2, 3, 4, 5]
-        print("squares:", list(map(lambda n: n * n, nums)))
-        print("evens:", list(filter(lambda n: n % 2 == 0, nums)))
+        print("by marks:", sorted(students, key=lambda s: s[1], reverse=True))
+        print("top:", max(students, key=lambda s: s[1]))
+        print("squares:", list(map(lambda n: n * n, [1, 2, 3])))
 
         print("--- scope ---")
-        rate = 0.18                  # global
+        rate = 0.18                        # global
         def add_tax(price):
-            total = price * (1 + rate)   # reads the global rate
-            return round(total, 2)       # total is local
+            total_price = price * (1 + rate)   # local variable, reads global rate
+            return round(total_price, 2)
         print("add_tax(200):", add_tax(200))
-
-        print("--- closures ---")
-        def make_multiplier(n):
-            def multiply(x):
-                return x * n
-            return multiply
-
-        triple = make_multiplier(3)
-        print("triple(10):", triple(10))
-
-        def make_counter():
-            count = 0
-            def step():
-                nonlocal count
-                count += 1
-                return count
-            return step
-
-        counter = make_counter()
-        print("counter calls:", counter(), counter(), counter())
+        print("is total_price global?", "total_price" in globals())
       PY
     },
 
-    11 => {
+    10 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -1434,7 +1337,7 @@ module PythonContent
           <p>Use round brackets and you get a <strong>generator expression</strong>. It produces values one at a time instead of building a whole list, so it saves memory. It is perfect inside <code>sum()</code>, <code>max()</code>, <code>any()</code> and <code>all()</code>:</p>
           <div class="lc-code-block"><pre><code>total = sum(n * n for n in range(1, 1_000_001))   # no big list in memory
         has_fail = any(m &lt; 35 for m in [88, 45, 30])     # True</code></pre></div>
-          <p>You will learn how generators work in Lesson 17.</p>
+          <p>You will learn how generators work in Lesson 16.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Which Brackets Give What?</h2>
@@ -1464,7 +1367,7 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Comprehensions are usually a little faster than the equivalent append loop, but choose them mainly because they are <em>clearer</em>. Readability comes first.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 11: Comprehensions
+        # Lesson 10: Comprehensions
 
         squares_loop = []
         for n in range(1, 6):
@@ -1506,7 +1409,7 @@ module PythonContent
       PY
     },
 
-    12 => {
+    11 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -1584,7 +1487,7 @@ module PythonContent
             if amount &gt; balance:
                 raise InsufficientFundsError(f"need ₹{amount - balance} more")
             return balance - amount</code></pre></div>
-          <p>A custom exception is just a class that inherits from <code>Exception</code> (you will learn classes in Lesson 15). Inside an <code>except</code> block, a bare <code>raise</code> re-raises the same error after, for example, logging it.</p>
+          <p>A custom exception is just a class that inherits from <code>Exception</code> (you will learn classes in Lesson 14). Inside an <code>except</code> block, a bare <code>raise</code> re-raises the same error after, for example, logging it.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>EAFP: Python's Style</h2>
@@ -1606,7 +1509,7 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Error messages are for humans. Say what went wrong <em>and</em> what was expected: <code>"age must be 0–130, got 200"</code> is far more useful than <code>"bad input"</code>.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 12: Exception handling
+        # Lesson 11: Exception handling
 
         def safe_divide(a, b):
             try:
@@ -1656,7 +1559,7 @@ module PythonContent
       PY
     },
 
-    13 => {
+    12 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -1685,6 +1588,17 @@ module PythonContent
               <tr><td><code>"b"</code> (e.g. <code>"rb"</code>)</td><td>Binary (images, PDFs)</td><td colspan="2">Works with bytes instead of text</td></tr>
             </tbody>
           </table>
+          <p><strong>In this course's editor</strong> Python runs in your browser with a temporary in-memory file system, so real files work: you can create, append to and read files. They stay between runs until the page reloads, which is why the starter deletes its old files first with <code>Path.unlink(missing_ok=True)</code>.</p>
+          <div class="lc-code-block"><pre><code>with open("notes.txt", "a", encoding="utf-8") as f:   # append keeps Line 1 and Line 2
+            f.write("Line 3\n")
+
+        try:
+            with open("notes.txt", "x", encoding="utf-8") as f:   # "x" refuses to overwrite
+                f.write("oops")
+        except FileExistsError as err:
+            print("FileExistsError for", err.filename)</code></pre></div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code-block"><pre><code>FileExistsError for notes.txt</code></pre></div>
           <p>Always pass <code>encoding="utf-8"</code> for text, so Hindi, Tamil or ₹ symbols work the same on every computer.</p>
         </div>
         <div class="lc-section lc-card">
@@ -1709,6 +1623,13 @@ module PythonContent
         report.write_text("name,marks\nAsha,88\n", encoding="utf-8")
         print(report.read_text(encoding="utf-8"))
         print(report.exists())                           # True</code></pre></div>
+          <p><strong>Output</strong> (on Windows the parent prints as <code>reports\2026</code>):</p>
+          <div class="lc-code-block"><pre><code>marks.csv marks .csv
+        reports/2026
+        name,marks
+        Asha,88
+
+        True</code></pre></div>
           <p>Old code uses <code>os.path.join()</code> for this — it still works, but <code>pathlib</code> is the recommended style today.</p>
         </div>
         <div class="lc-section lc-card">
@@ -1729,7 +1650,7 @@ module PythonContent
         </div>
         <div class="lc-section lc-card">
           <h2>CSV and In-Memory Files</h2>
-          <p>The <code>csv</code> module reads spreadsheets correctly, including commas inside quotes. <code>io.StringIO</code> is a string that behaves <strong>exactly like an open text file</strong> — great for testing, and it is what the starter code uses.</p>
+          <p>The <code>csv</code> module reads spreadsheets correctly, including commas inside quotes. <code>io.StringIO</code> is a string that behaves <strong>like an open text file</strong> — handy in tests when you don't want a real file.</p>
           <div class="lc-code-block"><pre><code>import csv, io
 
         fake_file = io.StringIO("name,marks\nAsha,88\nBen,92\n")
@@ -1739,7 +1660,7 @@ module PythonContent
         </div>
         <div class="lc-section lc-card">
           <h2>What Is a Context Manager?</h2>
-          <p>Any object that works with <code>with</code> is a <strong>context manager</strong>. It runs setup code when the block starts and cleanup code when it ends — even if an exception happens. Files close themselves; locks release; database connections commit or roll back. You can write your own with <code>contextlib.contextmanager</code> once you know generators (Lesson 17).</p>
+          <p>Any object that works with <code>with</code> is a <strong>context manager</strong>. It runs setup code when the block starts and cleanup code when it ends — even if an exception happens. Files close themselves; locks release; database connections commit or roll back. You can write your own with <code>contextlib.contextmanager</code> once you know generators (Lesson 16).</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common Mistakes</h2>
@@ -1752,65 +1673,63 @@ module PythonContent
         </div>
         <div class="lc-section lc-card">
           <h2>Try It</h2>
-          <p>In the starter, add a third student to the CSV text, then compute the class average. Finally, save the list of students as a JSON string with <code>indent=2</code> and print it.</p>
+          <p>In the starter, append a third student (<code>Chen,79</code>) to <code>marks.csv</code> using mode <code>"a"</code>, read the file again and compute the class average. Finally, save the list of students to <code>students.json</code> with <code>indent=2</code>, read it back with <code>json.load</code> and print it.</p>
         </div>
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Write functions that take a file <em>object</em> (anything with <code>.read()</code> or lines) instead of a file <em>name</em>. Then you can test them with <code>io.StringIO</code> and use them with real files unchanged.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 13: Files, JSON and context managers
-        # io.StringIO behaves like an open text file, so no real file is needed.
+        # Lesson 12: Files, JSON and context managers
+        # The editor has an in-memory file system, so these are real files.
         import csv
-        import io
         import json
-        from pathlib import PurePosixPath
+        from pathlib import Path
 
-        print("--- write and read with 'with' ---")
-        with io.StringIO() as f:
+        # Files stay between runs until the page reloads, so start clean each time
+        for old in ["notes.txt", "data.json", "reports/2026/marks.csv"]:
+            Path(old).unlink(missing_ok=True)
+
+        print("--- write, append, read ---")
+        with open("notes.txt", "w", encoding="utf-8") as f:   # "w" creates or erases
             f.write("Line 1\n")
             f.write("Line 2\n")
-            print("contents:", repr(f.getvalue()))
         print("closed after with?", f.closed)
-
-        notes = io.StringIO("first line\nsecond line\nthird line\n")
-        for number, line in enumerate(notes, start=1):
-            print(number, line.strip())
+        with open("notes.txt", "a", encoding="utf-8") as f:   # "a" adds to the end
+            f.write("Line 3\n")
+        with open("notes.txt", encoding="utf-8") as f:        # "r" is the default
+            for number, line in enumerate(f, start=1):
+                print(number, line.strip())
+        try:
+            with open("notes.txt", "x", encoding="utf-8") as f:
+                f.write("never written")
+        except FileExistsError as err:
+            print("FileExistsError for", err.filename)
 
         print("--- pathlib ---")
-        report = PurePosixPath("reports") / "2026" / "marks.csv"
-        print("path:", report)
+        report = Path("reports") / "2026" / "marks.csv"
         print("name:", report.name, "| stem:", report.stem, "| suffix:", report.suffix)
-        print("parent:", report.parent)
-        print("as .json:", report.with_suffix(".json"))
+        print("exists before?", report.exists())
+        report.parent.mkdir(parents=True, exist_ok=True)
+        report.write_text("name,marks\nAsha,88\nBen,92\n", encoding="utf-8")
+        print("exists after?", report.exists())
+        print(report.read_text(encoding="utf-8"), end="")
 
         print("--- CSV ---")
-        csv_file = io.StringIO("name,marks\nAsha,88\nBen,92\n")
-        students = []
-        for row in csv.DictReader(csv_file):
-            students.append({"name": row["name"], "marks": int(row["marks"])})
+        with open(report, newline="", encoding="utf-8") as f:
+            students = [{"name": r["name"], "marks": int(r["marks"])} for r in csv.DictReader(f)]
         print("students:", students)
-
-        out = io.StringIO()
-        writer = csv.writer(out, lineterminator="\n")
-        writer.writerow(["name", "grade"])
-        for s in students:
-            writer.writerow([s["name"], "A" if s["marks"] >= 90 else "B"])
-        print(out.getvalue(), end="")
 
         print("--- JSON ---")
         data = {"course": "Python", "students": students, "active": True, "mentor": None}
-        text = json.dumps(data, indent=2)
-        print(text)
-        back = json.loads(text)
-        print("type after loads:", type(back).__name__, "| first:", back["students"][0]["name"])
-
-        json_file = io.StringIO()
-        json.dump({"saved": True}, json_file)
-        json_file.seek(0)               # go back to the start before reading
-        print("json.load from file:", json.load(json_file))
+        print(json.dumps(data))
+        with open("data.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+        with open("data.json", encoding="utf-8") as f:
+            back = json.load(f)
+        print("type after load:", type(back).__name__, "| first:", back["students"][0]["name"])
       PY
     },
 
-    14 => {
+    13 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -1864,10 +1783,33 @@ module PythonContent
               <tr><td><code>datetime</code></td><td>Dates, times, date arithmetic</td></tr>
               <tr><td><code>collections</code></td><td><code>Counter</code>, <code>defaultdict</code>, <code>deque</code>, <code>namedtuple</code></td></tr>
               <tr><td><code>itertools</code>, <code>functools</code></td><td>Looping tools, caching, decorators</td></tr>
-              <tr><td><code>json</code>, <code>csv</code>, <code>pathlib</code></td><td>Data files and paths (Lesson 13)</td></tr>
-              <tr><td><code>re</code></td><td>Regular expressions (text patterns)</td></tr>
+              <tr><td><code>json</code>, <code>csv</code>, <code>pathlib</code></td><td>Data files and paths (Lesson 12)</td></tr>
+              <tr><td><code>re</code></td><td>Regular expressions (text patterns) — see below</td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Text Patterns with re</h2>
+          <p>A <strong>regular expression</strong> describes a text pattern. Always write patterns as raw strings (<code>r"..."</code>) so backslashes reach <code>re</code> unchanged.</p>
+          <table class="lc-table">
+            <thead><tr><th>Pattern</th><th>Matches</th></tr></thead>
+            <tbody>
+              <tr><td><code>\d</code>, <code>\w</code>, <code>\s</code></td><td>A digit, a word character (letter, digit, _), a space/tab/newline</td></tr>
+              <tr><td><code>[6-9]</code>, <code>.</code></td><td>One character from the set; any one character</td></tr>
+              <tr><td><code>+</code>, <code>*</code>, <code>?</code>, <code>{10}</code></td><td>1 or more, 0 or more, optional, exactly 10 times</td></tr>
+              <tr><td><code>^</code>, <code>$</code></td><td>Start and end of the text</td></tr>
+              <tr><td><code>( )</code></td><td>A group you can read back</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code-block"><pre><code>import re
+
+        print(bool(re.fullmatch(r"[6-9]\d{9}", "9876543210")))  # True: whole text is a mobile number
+        print(bool(re.fullmatch(r"[6-9]\d{9}", "12345")))       # False
+        print(re.findall(r"\d+", "Order 12 costs 450 rupees"))   # ['12', '450']
+        m = re.search(r"(\w+)@(\w+)\.com", "Mail asha@example.com today")
+        print(m.group(1), m.group(2))                           # asha example
+        print(re.sub(r"\s+", " ", "too    many   spaces"))      # too many spaces</code></pre></div>
+          <p><code>re.search</code> finds the first match anywhere and returns <code>None</code> if there is none; <code>re.fullmatch</code> checks the <em>whole</em> string, which is what you want for validation. For simple fixed text, plain string methods like <code>in</code> and <code>.replace()</code> are clearer.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>pip and Virtual Environments</h2>
@@ -1890,21 +1832,22 @@ module PythonContent
             <li>Installing packages globally instead of in a virtual environment.</li>
             <li>Committing the <code>.venv</code> folder to Git. Commit <code>requirements.txt</code> or <code>pyproject.toml</code> instead.</li>
             <li>Thinking <code>pip freeze &gt; requirements.txt</code> installs packages. It only <em>writes the list</em>.</li>
+            <li>Writing a regex without <code>r"..."</code>: in <code>"\bword"</code> Python turns <code>\b</code> into a backspace character before <code>re</code> ever sees it.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try It</h2>
-          <p>Use <code>datetime.date</code> to calculate how many days are left from 25 September 2026 until 1 January 2027. Then use <code>random.seed(7)</code> and <code>random.sample</code> to pick 3 quiz winners from a list of 8 names.</p>
+          <p>Use <code>datetime.date</code> to calculate how many days are left from 25 September 2026 until 1 January 2027. Then use <code>random.seed(7)</code> and <code>random.sample</code> to pick 3 quiz winners from a list of 8 names. Finally, use <code>re.findall</code> to pull every PIN code (six digits) out of <code>"Kochi 682001, Pune 411001"</code>.</p>
         </div>
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Before installing a package, check the standard library. Many tasks — dates, JSON, CSV, statistics, zip files — need no install at all.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 14: Modules, packages and the standard library
+        # Lesson 13: Modules, packages and the standard library
         import math
         import random
         import datetime as dt
         from statistics import mean, median
-        from collections import namedtuple
+        import re
 
         print("--- math ---")
         print("math.sqrt(144):", math.sqrt(144))
@@ -1930,10 +1873,12 @@ module PythonContent
         random.seed(7)
         print("same seed, same winners:", random.sample(names, 3) == winners)
 
-        print("--- collections.namedtuple ---")
-        City = namedtuple("City", ["name", "state"])
-        c = City("Kochi", "Kerala")
-        print(c, "->", c.name, "is in", c.state)
+        print("--- re (regular expressions) ---")
+        print("valid mobile?", bool(re.fullmatch(r"[6-9]\d{9}", "9876543210")))
+        print("numbers:", re.findall(r"\d+", "Order 12 costs 450 rupees"))
+        m = re.search(r"(\w+)@(\w+)\.com", "Mail asha@example.com today")
+        print("user:", m.group(1), "| domain:", m.group(2))
+        print("tidy:", re.sub(r"\s+", " ", "too    many   spaces"))
 
         print("--- module names ---")
         print("math.__name__:", math.__name__)
@@ -1947,7 +1892,7 @@ module PythonContent
       PY
     },
 
-    15 => {
+    14 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -2041,10 +1986,10 @@ module PythonContent
           <h2>Try It</h2>
           <p>Add a <code>withdraw(amount)</code> method to <code>BankAccount</code> in the starter that raises <code>ValueError</code> if the amount is more than the balance. Then add a <code>__str__</code> that prints like <code>Asha: ₹1,500</code>.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Not everything needs a class. If you only need to group data, a dict or a dataclass (Lesson 19) is simpler. Use a class when data and the behaviour that changes it belong together.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Not everything needs a class. If you only need to group data, a dict or a dataclass (Lesson 18) is simpler. Use a class when data and the behaviour that changes it belong together.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 15: Classes and objects
+        # Lesson 14: Classes and objects
 
         class BankAccount:
             bank_name = "AI Bank"      # class attributes (shared by all objects)
@@ -2101,7 +2046,7 @@ module PythonContent
       PY
     },
 
-    16 => {
+    15 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -2219,7 +2164,7 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Always write a <code>__repr__</code> for your classes. It makes debugging, logging and testing much easier, because you can see what an object contains at a glance.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 16: Inheritance and special methods
+        # Lesson 15: Inheritance and special methods
         from abc import ABC, abstractmethod
         import math
 
@@ -2275,7 +2220,7 @@ module PythonContent
       PY
     },
 
-    17 => {
+    16 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -2379,7 +2324,7 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> If you only need to loop over results once — especially large ones — return a generator instead of building a list. You can always call <code>list()</code> on it later if you need a list.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 17: Iterators and generators
+        # Lesson 16: Iterators and generators
         import io
         from itertools import islice, count, chain
 
@@ -2437,18 +2382,41 @@ module PythonContent
       PY
     },
 
-    18 => {
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
-          <h1 class="lc-title">Decorators</h1>
+          <h1 class="lc-title">Closures and Decorators</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">A <strong>decorator</strong> is a function that takes a function and returns a new, improved one. It lets you add behaviour — logging, timing, caching, access checks — <em>without changing the original function's code</em>. You have already used some: <code>@property</code> and <code>@abstractmethod</code>.</p>
+          <p class="lc-lead">A <strong>closure</strong> is an inner function that remembers variables from the function that created it. A <strong>decorator</strong> is a function that takes a function and returns a new, improved one. It lets you add behaviour — logging, timing, caching, access checks — <em>without changing the original function's code</em>. You have already used some: <code>@property</code> and <code>@abstractmethod</code>. Closures are what make decorators work, so we start there.</p>
         </div>
         <div class="lc-section lc-card">
-          <h2>Building One Step by Step</h2>
-          <p>Decorators combine two ideas from Lesson 10: functions are values, and closures remember variables.</p>
+          <h2>Closures</h2>
+          <p>An inner function that uses a variable from its outer function <strong>remembers</strong> that variable, even after the outer function has returned. To <em>change</em> the remembered variable, declare it <code>nonlocal</code>.</p>
+          <div class="lc-code-block"><pre><code>def make_multiplier(n):
+            def multiply(x):
+                return x * n        # n comes from the enclosing scope (the E in LEGB)
+            return multiply         # return the function, don't call it
+
+        triple = make_multiplier(3)
+        print(triple(10))           # 30
+
+        def make_counter():
+            count = 0
+            def step():
+                nonlocal count      # change the outer count, don't make a new local
+                count += 1
+                return count
+            return step
+
+        c = make_counter()
+        print(c(), c(), c())        # 1 2 3</code></pre></div>
+          <p>Without <code>nonlocal</code>, <code>count += 1</code> raises <code>UnboundLocalError</code>, because assigning makes <code>count</code> local to <code>step</code>.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Building a Decorator Step by Step</h2>
+          <p>Decorators combine two ideas: functions are values (Lesson 9), and closures remember variables (above). Here <code>wrapper</code> is a closure that remembers <code>func</code>.</p>
           <div class="lc-code-block"><pre><code>def shout(func):                 # takes a function...
             def wrapper(name):
                 result = func(name)      # ...calls the original...
@@ -2515,10 +2483,10 @@ module PythonContent
             <thead><tr><th>Decorator</th><th>What it does</th></tr></thead>
             <tbody>
               <tr><td><code>@functools.lru_cache(maxsize=None)</code> / <code>@functools.cache</code></td><td>Remembers results for arguments it has seen (memoisation)</td></tr>
-              <tr><td><code>@property</code></td><td>Turns a method into a read-only attribute (Lesson 15)</td></tr>
+              <tr><td><code>@property</code></td><td>Turns a method into a read-only attribute (Lesson 14)</td></tr>
               <tr><td><code>@staticmethod</code></td><td>A method that needs neither <code>self</code> nor the class</td></tr>
               <tr><td><code>@classmethod</code></td><td>Receives the class (<code>cls</code>) instead of the object; often used for alternative constructors</td></tr>
-              <tr><td><code>@dataclass</code></td><td>Writes <code>__init__</code>, <code>__repr__</code> and <code>__eq__</code> for you (Lesson 19)</td></tr>
+              <tr><td><code>@dataclass</code></td><td>Writes <code>__init__</code>, <code>__repr__</code> and <code>__eq__</code> for you (Lesson 18)</td></tr>
             </tbody>
           </table>
           <div class="lc-code-block"><pre><code>@functools.cache
@@ -2531,6 +2499,7 @@ module PythonContent
         <div class="lc-section lc-card">
           <h2>Common Mistakes</h2>
           <ul class="lc-list">
+            <li>Forgetting <code>nonlocal</code> when a closure changes an outer variable, which gives <code>UnboundLocalError</code>.</li>
             <li>Forgetting <code>return result</code> in the wrapper, so the decorated function always returns <code>None</code>.</li>
             <li>Writing <code>return wrapper()</code> (calling it) instead of <code>return wrapper</code>.</li>
             <li>Skipping <code>@functools.wraps</code>, which makes every decorated function show up as <code>wrapper</code> in errors and tools.</li>
@@ -2544,18 +2513,27 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Frameworks use decorators everywhere: Flask and FastAPI routes (<code>@app.get("/")</code>), pytest fixtures, Django's <code>@login_required</code>. Once you understand the <code>f = deco(f)</code> idea, they stop looking like magic.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 18: Decorators
+        # Lesson 17: Closures and decorators
         import functools
 
+        def make_counter():
+            count = 0
+            def step():
+                nonlocal count          # closure changes the outer variable
+                count += 1
+                return count
+            return step
+        counter = make_counter()
+        print("closure counter:", counter(), counter(), counter())
+
         def shout(func):
-            def wrapper(name):
+            def wrapper(name):          # a closure that remembers func
                 return func(name).upper()
             return wrapper
         def greet(name):
             return f"hello, {name}"
-
         print("before:", greet("asha"))
-        greet = shout(greet)                 # what @shout does
+        greet = shout(greet)            # what @shout does
         print("after :", greet("asha"))
 
         def log_calls(func):
@@ -2574,30 +2552,16 @@ module PythonContent
         total = add(2, 3)
         print("total:", total, "| name:", add.__name__, "| doc:", add.__doc__)
 
-        def repeat(times):
-            def decorator(func):
-                @functools.wraps(func)
-                def wrapper(*args, **kwargs):
-                    return [func(*args, **kwargs) for _ in range(times)]
-                return wrapper
-            return decorator
-        @repeat(3)
-        def cheer(team):
-            return f"Go {team}!"
-        print("--- @repeat(3) ---")
-        print(cheer("India"))
-
         print("--- @functools.lru_cache ---")
         @functools.lru_cache(maxsize=None)
         def fib(n):
             return n if n < 2 else fib(n - 1) + fib(n - 2)
-
         print("fib(80) =", fib(80))
         print("cache info:", fib.cache_info())
       PY
     },
 
-    19 => {
+    18 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -2701,7 +2665,7 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Add type hints to every function you write from now on. It takes seconds, your editor becomes much smarter, and many bugs are caught before the code ever runs.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 19: Type hints and dataclasses
+        # Lesson 18: Type hints and dataclasses
         from dataclasses import dataclass, field, asdict, FrozenInstanceError
 
         def add_gst(amount: float, rate: float = 0.18) -> float:
@@ -2754,6 +2718,183 @@ module PythonContent
       PY
     },
 
+    19 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Testing with unittest and pytest</h1>
+        </div>
+        <div class="lc-intro">
+          <p class="lc-lead">A <strong>test</strong> is a small piece of code that calls your code and checks the result. Once written, tests run in seconds every time you change something, so you find bugs before your users do. Python ships with <code>unittest</code>, and most professional projects use the third-party tool <strong>pytest</strong>.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>What a Test Looks Like</h2>
+          <p>Every test follows the same three steps, often called <strong>Arrange – Act – Assert</strong>: prepare some input, call the function, then check the answer. An <strong>assertion</strong> is the check; if it is false, the test fails and tells you what it got.</p>
+          <div class="lc-code-block"><pre><code>def grade_for(avg):
+            if avg &gt;= 90:
+                return "A"
+            if avg &gt;= 75:
+                return "B"
+            if avg &gt;= 50:
+                return "C"
+            return "F"
+
+        marks = 75                      # Arrange
+        result = grade_for(marks)       # Act
+        assert result == "B"            # Assert: silent when true, AssertionError when false
+        print("check passed")           # check passed</code></pre></div>
+          <p>A bare <code>assert</code> is fine for a quick check. Test frameworks add three things: they <strong>find</strong> all your tests, <strong>run</strong> each one even if another fails, and <strong>report</strong> clearly what went wrong.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>unittest: Built In</h2>
+          <p>Write a class that inherits from <code>unittest.TestCase</code>. Every method whose name starts with <code>test</code> is one test. Use the <code>self.assert…</code> methods to check results.</p>
+          <div class="lc-code-block"><pre><code>import unittest
+        from grades import grade_for
+
+        class TestGradeFor(unittest.TestCase):
+            def test_top_grade(self):
+                self.assertEqual(grade_for(95), "A")
+
+            def test_boundaries(self):
+                for avg, expected in [(49, "F"), (50, "C"), (75, "B"), (90, "A")]:
+                    with self.subTest(avg=avg):          # reports each case separately
+                        self.assertEqual(grade_for(avg), expected)
+
+            def test_rejects_text(self):
+                with self.assertRaises(TypeError):       # passes only if TypeError is raised
+                    grade_for("ninety")
+
+        if __name__ == "__main__":
+            unittest.main()</code></pre></div>
+          <p>On your computer, run <code>python -m unittest -v</code> in the project folder. It finds every file named <code>test*.py</code>:</p>
+          <div class="lc-code-block"><pre><code>test_boundaries (test_grades.TestGradeFor.test_boundaries) ... ok
+        test_rejects_text (test_grades.TestGradeFor.test_rejects_text) ... ok
+        test_top_grade (test_grades.TestGradeFor.test_top_grade) ... ok
+
+        ----------------------------------------------------------------------
+        Ran 3 tests in 0.001s
+
+        OK</code></pre></div>
+          <p>The timing changes on every run. The starter code runs the same kind of tests inside the browser editor.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Assertion Methods</h2>
+          <table class="lc-table">
+            <thead><tr><th>unittest</th><th>pytest</th><th>Checks</th></tr></thead>
+            <tbody>
+              <tr><td><code>self.assertEqual(a, b)</code></td><td><code>assert a == b</code></td><td>Equal values</td></tr>
+              <tr><td><code>self.assertTrue(x)</code> / <code>assertFalse(x)</code></td><td><code>assert x</code> / <code>assert not x</code></td><td>Truthy / falsy</td></tr>
+              <tr><td><code>self.assertIn(item, box)</code></td><td><code>assert item in box</code></td><td>Membership</td></tr>
+              <tr><td><code>self.assertIsNone(x)</code></td><td><code>assert x is None</code></td><td>Is <code>None</code></td></tr>
+              <tr><td><code>self.assertAlmostEqual(a, b)</code></td><td><code>assert a == pytest.approx(b)</code></td><td>Floats close enough (0.1 + 0.2 vs 0.3)</td></tr>
+              <tr><td><code>with self.assertRaises(E):</code></td><td><code>with pytest.raises(E):</code></td><td>The block raises exception <code>E</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>pytest: Less Code, Better Messages</h2>
+          <p>pytest is installed with <code>python -m pip install pytest</code> (it cannot run in this browser editor). Tests are plain functions named <code>test_…</code> in files named <code>test_….py</code>, and you check results with the ordinary <code>assert</code> statement. <code>@pytest.mark.parametrize</code> runs one test function for many inputs.</p>
+          <div class="lc-code-block"><pre><code># test_grades.py
+        import pytest
+        from grades import grade_for
+
+        def test_top_grade():
+            assert grade_for(95) == "A"
+
+        def test_boundary_b():
+            assert grade_for(75) == "B"
+
+        @pytest.mark.parametrize("avg, expected", [(49, "F"), (50, "C"), (90, "A")])
+        def test_boundaries(avg, expected):
+            assert grade_for(avg) == expected
+
+        def test_bad_input():
+            with pytest.raises(TypeError):
+                grade_for("ninety")</code></pre></div>
+          <p>Suppose <code>grades.py</code> has a bug: <code>if avg &gt; 75:</code> instead of <code>&gt;=</code>. Running <code>python -m pytest -q</code> shows each test as a dot or an <code>F</code>, then explains the failure:</p>
+          <div class="lc-code-block"><pre><code>.F....                                                                   [100%]
+        =================================== FAILURES ===================================
+        _______________________________ test_boundary_b ________________________________
+
+            def test_boundary_b():
+        &gt;       assert grade_for(75) == "B"
+        E       AssertionError: assert 'C' == 'B'
+        ...
+        =========================== short test summary info ============================
+        FAILED test_grades.py::test_boundary_b - AssertionError: assert 'C' == 'B'
+        1 failed, 5 passed in 0.02s</code></pre></div>
+          <p>Six tests ran (the parametrized one counts three times). Fix the bug, run again, and you get <code>6 passed</code>. pytest also runs existing <code>unittest</code> test classes, so you can switch tools without rewriting.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>What to Test</h2>
+          <ul class="lc-list">
+            <li><strong>A normal case</strong> — typical input, expected answer.</li>
+            <li><strong>Boundaries</strong> — exactly 50, 75 and 90, plus one value on each side. Most bugs live here (remember the tip from Lesson 4).</li>
+            <li><strong>Bad input</strong> — check that the right exception is raised.</li>
+            <li>Keep each test small and independent, and give it a name that says what it checks: <code>test_75_is_grade_b</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Naming a test method <code>check_top_grade</code> — it silently never runs. Names must start with <code>test</code>.</li>
+            <li>Naming your file <code>unittest.py</code> or <code>pytest.py</code>, which hides the real module.</li>
+            <li>Only testing the "happy path" and never the boundaries or bad input.</li>
+            <li>Testing a function that <code>print</code>s instead of <code>return</code>s. Return values are easy to check; printed text is not.</li>
+            <li>Comparing floats with <code>assertEqual(0.1 + 0.2, 0.3)</code>, which fails. Use <code>assertAlmostEqual</code> or <code>pytest.approx</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>In the starter, break <code>grade_for</code> on purpose by changing <code>avg &gt;= 75</code> to <code>avg &gt; 75</code> and run it. Read the <code>FAIL</code> report: which sub-test failed and what did it get? Fix it, then add a test method <code>test_float_average</code> that checks <code>grade_for(89.99)</code> is <code>"B"</code>.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> When you find a bug, first write a test that fails because of it, then fix the code until the test passes. The test stays forever and makes sure that bug never comes back.</p></div>
+      HTML
+      starter_code: <<~'PY'
+        # Lesson 19: Testing with unittest and pytest
+        import io
+        import re
+        import unittest
+
+        def grade_for(avg: float) -> str:
+            if not isinstance(avg, (int, float)):
+                raise TypeError(f"average must be a number, not {type(avg).__name__}")
+            if avg >= 90:
+                return "A"
+            if avg >= 75:
+                return "B"
+            if avg >= 50:
+                return "C"
+            return "F"
+
+        class TestGradeFor(unittest.TestCase):
+            def test_top_grade(self):
+                self.assertEqual(grade_for(95), "A")
+
+            def test_boundaries(self):
+                for avg, expected in [(49, "F"), (50, "C"), (75, "B"), (90, "A")]:
+                    with self.subTest(avg=avg):
+                        self.assertEqual(grade_for(avg), expected)
+
+            def test_rejects_text(self):
+                with self.assertRaises(TypeError):
+                    grade_for("ninety")
+
+            def test_passing_grades(self):
+                self.assertIn(grade_for(62.5), ["A", "B", "C"])
+                self.assertNotEqual(grade_for(49.9), "C")
+
+        # In the browser editor we run the tests ourselves instead of unittest.main()
+        suite = unittest.defaultTestLoader.loadTestsFromTestCase(TestGradeFor)
+        buffer = io.StringIO()
+        result = unittest.TextTestRunner(stream=buffer, verbosity=2).run(suite)
+        print(re.sub(r"in \d+\.\d+s", "in 0.000s", buffer.getvalue()))  # hide the timing
+        print("tests run:", result.testsRun)
+        print("failures:", len(result.failures), "| errors:", len(result.errors))
+        print("all passed?", result.wasSuccessful())
+      PY
+    },
+
     20 => {
       body: <<~'HTML',
         <div class="lc-header">
@@ -2766,11 +2907,11 @@ module PythonContent
         <div class="lc-section lc-card">
           <h2>Requirements</h2>
           <ul class="lc-list">
-            <li>Read student records from JSON text: each has a <code>name</code> and a dict of <code>marks</code> per subject.</li>
+            <li>Read student records from a JSON file (<code>students.json</code>): each has a <code>name</code> and a dict of <code>marks</code> per subject.</li>
             <li><strong>Skip bad records</strong> (missing name, marks outside 0–100) and report why, without crashing.</li>
             <li>For each student, compute the <strong>average</strong> and a <strong>grade</strong>: A (90+), B (75+), C (50+), otherwise F.</li>
             <li>Print a report table sorted by average (highest first), the class topper, and the subject averages.</li>
-            <li>List students who need support (any subject below 40) using a generator.</li>
+            <li>List students who need support (any subject below 40) using a generator, and print a banner above the report with a decorator (both in Try It).</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
@@ -2778,14 +2919,15 @@ module PythonContent
           <table class="lc-table">
             <thead><tr><th>Part</th><th>Python feature</th><th>Lesson</th></tr></thead>
             <tbody>
-              <tr><td>A student record</td><td><code>@dataclass</code> with type hints, <code>@property</code></td><td>15, 19</td></tr>
-              <tr><td>Loading data</td><td><code>json.load</code> on <code>io.StringIO</code></td><td>13</td></tr>
-              <tr><td>Bad data</td><td>Custom exception, <code>try/except</code></td><td>12</td></tr>
-              <tr><td>Grade rules</td><td><code>if/elif/else</code> in a function</td><td>4, 9</td></tr>
-              <tr><td>Sorting</td><td><code>sorted(key=lambda ...)</code></td><td>10</td></tr>
-              <tr><td>Subject averages</td><td>Dict comprehension</td><td>8, 11</td></tr>
-              <tr><td>"Needs support" list</td><td>Generator function</td><td>17</td></tr>
-              <tr><td>Report heading</td><td>Decorator</td><td>18</td></tr>
+              <tr><td>A student record</td><td><code>@dataclass</code> with type hints, <code>@property</code></td><td>14, 18</td></tr>
+              <tr><td>Loading data</td><td><code>json.load</code> on a file object</td><td>12</td></tr>
+              <tr><td>Bad data</td><td>Custom exception, <code>try/except</code></td><td>11</td></tr>
+              <tr><td>Grade rules</td><td>Loop over cutoffs, first match wins (like <code>if/elif</code>)</td><td>4, 5, 9</td></tr>
+              <tr><td>Sorting</td><td><code>sorted(key=lambda ...)</code></td><td>9</td></tr>
+              <tr><td>Subject averages</td><td>Dict comprehension</td><td>8, 10</td></tr>
+              <tr><td>"Needs support" list (Try It)</td><td>Generator function</td><td>16</td></tr>
+              <tr><td>Report heading (Try It)</td><td>Decorator with an argument</td><td>17</td></tr>
+              <tr><td>Checking <code>grade_for</code> (extension)</td><td><code>unittest</code> test case</td><td>19</td></tr>
             </tbody>
           </table>
         </div>
@@ -2822,16 +2964,23 @@ module PythonContent
         </div>
         <div class="lc-section lc-card">
           <h2>Step 3: Report</h2>
-          <p>Sort with <code>sorted(students, key=lambda s: s.average, reverse=True)</code>, format columns with f-strings like <code>f"{s.name:&lt;8}{s.average:&gt;6}"</code>, and build subject averages with a dict comprehension. The expected output of the finished program is:</p>
+          <p>Sort with <code>sorted(students, key=lambda s: s.average, reverse=True)</code>, format columns with f-strings like <code>f"{s.name:&lt;8}{s.average:&gt;6}"</code>, and build subject averages with a dict comprehension. The starter prints:</p>
           <div class="lc-code-block"><pre><code>Skipped: missing name
         Skipped: Farah: invalid marks in ['Science']
-        ========== CLASS REPORT ==========
         Name        Maths  Science  English    Avg  Grade
         Divya          95       92       96   94.3  A
         Asha           88       92       79   86.3  B
         Chen           72       35       81   62.7  C
         Ben            45       60       38   47.7  F
         Topper: Divya (94.3)
+        Subject averages: {'Maths': 75.0, 'Science': 69.8, 'English': 73.5}</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Step 4: Finish It Yourself</h2>
+          <p>Two requirements are left for you (see Try It): a <strong>generator</strong> for the "needs support" list and a <strong>decorator</strong> for the banner. When both are done, the report starts with a banner line and ends with a support line:</p>
+          <div class="lc-code-block"><pre><code>========== CLASS REPORT ==========
+        Name        Maths  Science  English    Avg  Grade
+        ...
         Subject averages: {'Maths': 75.0, 'Science': 69.8, 'English': 73.5}
         Needs support: Chen (Science 35), Ben (English 38)</code></pre></div>
         </div>
@@ -2841,6 +2990,7 @@ module PythonContent
             <li>Add a <code>rank</code> column, giving equal ranks to equal averages.</li>
             <li>Export the report as CSV text with the <code>csv</code> module.</li>
             <li>Add a <code>@dataclass(frozen=True)</code> <code>Subject</code> with a pass mark, and use it instead of the fixed value 40.</li>
+            <li>Write a <code>unittest.TestCase</code> for <code>grade_for</code> that checks the boundaries 49, 50, 75 and 90, and one for <code>parse</code> that uses <code>assertRaises(BadRecord)</code> (Lesson 19).</li>
             <li>Run <code>mypy</code> on your code locally and fix any type errors it reports.</li>
             <li>Move the model, loader and report into separate modules inside a <code>tracker/</code> package with a <code>main()</code> guarded by <code>if __name__ == "__main__":</code>.</li>
           </ul>
@@ -2856,49 +3006,43 @@ module PythonContent
         </div>
         <div class="lc-section lc-card">
           <h2>Try It</h2>
-          <p>Add a new student <code>{"name": "Gopal", "marks": {"Maths": 100, "Science": 98, "English": 91}}</code> to the JSON in the starter and run it. Predict first: who is the new topper, and what grade does Gopal get? Then add a record with an empty <code>marks</code> dict and make the loader reject it with a clear message.</p>
+          <p><strong>1. Needs support.</strong> Write a generator <code>needs_support(students, pass_mark=40)</code> that <code>yield</code>s strings like <code>"Chen (Science 35)"</code> for every mark below the pass mark. At the end of <code>report</code>, print <code>"Needs support:", ", ".join(needs_support(ranked))</code>.</p>
+          <p><strong>2. Banner.</strong> Write a decorator with an argument, <code>@banner("CLASS REPORT")</code>, whose wrapper prints <code>f" {title} ".center(34, "=")</code> and then calls the function. Use <code>functools.wraps</code> and apply it to <code>report</code>.</p>
+          <p><strong>3. New data.</strong> Add <code>{"name": "Gopal", "marks": {"Maths": 100, "Science": 98, "English": 91}}</code> to the JSON. Predict first: who is the new topper, and what grade does Gopal get? Then add a record with an empty <code>marks</code> dict and make <code>parse</code> reject it with a clear message.</p>
         </div>
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Build projects in small steps: first load and print the raw data, then add the dataclass, then validation, then the report. Run the code after each step. This is exactly how professional developers work.</p></div>
       HTML
       starter_code: <<~'PY'
         # Lesson 20: Capstone project - Grade Tracker
-        import functools, io, json
+        import json
         from dataclasses import dataclass
+        from pathlib import Path
 
-        DATA = io.StringIO("""[
+        Path("students.json").write_text("""[
           {"name": "Asha",  "marks": {"Maths": 88, "Science": 92, "English": 79}},
           {"name": "Ben",   "marks": {"Maths": 45, "Science": 60, "English": 38}},
           {"marks": {"Maths": 70}},
           {"name": "Chen",  "marks": {"Maths": 72, "Science": 35, "English": 81}},
           {"name": "Divya", "marks": {"Maths": 95, "Science": 92, "English": 96}},
           {"name": "Farah", "marks": {"Maths": 80, "Science": 120, "English": 70}}
-        ]""")
-
+        ]""", encoding="utf-8")
         class BadRecord(Exception):
             pass
-
         def grade_for(avg: float) -> str:
-            if avg >= 90:
-                return "A"
-            if avg >= 75:
-                return "B"
-            if avg >= 50:
-                return "C"
+            for cutoff, grade in [(90, "A"), (75, "B"), (50, "C")]:
+                if avg >= cutoff:
+                    return grade
             return "F"
-
         @dataclass
         class Student:
             name: str
             marks: dict[str, int]
-
             @property
             def average(self) -> float:
                 return round(sum(self.marks.values()) / len(self.marks), 1)
-
             @property
             def grade(self) -> str:
                 return grade_for(self.average)
-
         def parse(record: dict) -> Student:
             name, marks = record.get("name"), record.get("marks", {})
             if not name:
@@ -2907,32 +3051,16 @@ module PythonContent
             if bad:
                 raise BadRecord(f"{name}: invalid marks in {bad}")
             return Student(name, marks)
-
-        def load(file) -> list[Student]:
+        def load(path: str) -> list[Student]:
             students = []
-            for record in json.load(file):
-                try:
-                    students.append(parse(record))
-                except BadRecord as err:
-                    print("Skipped:", err)
+            with open(path, encoding="utf-8") as f:
+                for record in json.load(f):
+                    try:
+                        students.append(parse(record))
+                    except BadRecord as err:
+                        print("Skipped:", err)
             return students
 
-        def needs_support(students: list[Student], pass_mark: int = 40):
-            for s in students:
-                for subject, m in s.marks.items():
-                    if m < pass_mark:
-                        yield f"{s.name} ({subject} {m})"
-
-        def banner(title: str):
-            def decorator(func):
-                @functools.wraps(func)
-                def wrapper(*args, **kwargs):
-                    print(f" {title} ".center(34, "="))
-                    return func(*args, **kwargs)
-                return wrapper
-            return decorator
-
-        @banner("CLASS REPORT")
         def report(students: list[Student]) -> None:
             subjects = list(students[0].marks)
             print(f"{'Name':<8}" + "".join(f"{s:>9}" for s in subjects) + f"{'Avg':>7}  Grade")
@@ -2943,9 +3071,8 @@ module PythonContent
             print(f"Topper: {ranked[0].name} ({ranked[0].average})")
             avgs = {sub: round(sum(s.marks[sub] for s in students) / len(students), 1) for sub in subjects}
             print("Subject averages:", avgs)
-            print("Needs support:", ", ".join(needs_support(ranked)))
 
-        report(load(DATA))
+        report(load("students.json"))
       PY
     }
   }

@@ -5,7 +5,7 @@ namespace :content do
   task java: :environment do
     course = Course.find_or_create_by!(slug: "java") do |c|
       c.title       = "Java"
-      c.description = "Learn modern Java (17+) from your first program to records, sealed types, collections, streams, java.time and JUnit testing — then build a complete library management project."
+      c.description = "Learn modern Java (17+) from your first program to records, enums, sealed types, collections, streams, java.time, files, basic concurrency and JUnit testing — then build a complete library management project."
       c.color       = "#f97316"
       c.icon        = "☕"
       c.position    = 8
@@ -18,11 +18,11 @@ namespace :content do
       3  => "Operators and Math",                      4  => "Strings and Text Blocks",
       5  => "Conditionals and Switch Expressions",     6  => "Loops",
       7  => "Arrays",                                  8  => "Methods",
-      9  => "Classes and Objects",                     10 => "Encapsulation, Immutability and Records",
-      11 => "Inheritance",                             12 => "Polymorphism and Abstract Classes",
-      13 => "Interfaces and Sealed Types",             14 => "Exceptions and Error Handling",
-      15 => "Generics",                                16 => "Collections: List, Set and Map",
-      17 => "Lambdas and Streams",                     18 => "Optional and the java.time API",
+      9  => "Classes and Objects",                     10 => "Encapsulation, Records and Enums",
+      11 => "Inheritance and Polymorphism",            12 => "Interfaces and Sealed Types",
+      13 => "Exceptions and Error Handling",           14 => "Generics",
+      15 => "Collections: List, Set and Map",          16 => "Lambdas and Streams",
+      17 => "Optional and the java.time API",          18 => "Files and Basic Concurrency",
       19 => "Unit Testing with JUnit",                 20 => "Capstone Project: Library Management System"
     }
 
@@ -36,15 +36,15 @@ namespace :content do
       7  => "Store fixed-size data in arrays, use the Arrays helpers, and understand that arrays are references.",
       8  => "Write reusable methods with parameters and return values, overloading, varargs and recursion.",
       9  => "Model real things with classes, constructors, this, static members and object references.",
-      10 => "Protect data with private fields, design immutable objects and create data classes in one line with records.",
-      11 => "Reuse and extend classes with extends, super and @Override, and know when to prefer composition.",
-      12 => "Let one variable type run many behaviours with dynamic dispatch, abstract classes and instanceof patterns.",
-      13 => "Define contracts with interfaces and default methods, and model closed sets of types with sealed interfaces.",
-      14 => "Handle errors with try/catch/finally, understand checked vs unchecked exceptions and use try-with-resources.",
-      15 => "Write type-safe classes and methods with generics, bounded types and wildcards.",
-      16 => "Choose the right collection — ArrayList, HashSet, TreeSet, HashMap, TreeMap or ArrayDeque — for each job.",
-      17 => "Pass behaviour as lambdas and method references, and process collections with stream pipelines and collectors.",
-      18 => "Replace null with Optional return values and handle dates, times and durations with java.time.",
+      10 => "Protect data with private fields, design immutable objects, create data classes in one line with records, and give enums fields, constructors and methods, with EnumMap for enum keys.",
+      11 => "Reuse and extend classes with extends, super and @Override, then let one variable type run many behaviours with abstract classes, dynamic dispatch and instanceof patterns.",
+      12 => "Define contracts with interfaces and default methods, and model closed sets of types with sealed interfaces.",
+      13 => "Handle errors with try/catch/finally, understand checked vs unchecked exceptions and use try-with-resources.",
+      14 => "Write type-safe classes and methods with generics, bounded types and wildcards.",
+      15 => "Choose the right collection — ArrayList, HashSet, TreeSet, HashMap, TreeMap or ArrayDeque — for each job.",
+      16 => "Pass behaviour as lambdas and method references, and process collections with stream pipelines and collectors.",
+      17 => "Replace null with Optional return values and handle dates, times and durations with java.time.",
+      18 => "Read and write files with java.nio.file Files and Path, and run tasks at the same time with an ExecutorService, Future and CompletableFuture without sharing unsafe state.",
       19 => "Write automated tests with JUnit: @Test, assertions, assertThrows and parameterised tests.",
       20 => "Combine records, enums, collections, Optional, java.time, exceptions and streams in a working library system."
     }
@@ -70,22 +70,22 @@ namespace :content do
               opts: ["A) \"Anu\", because the constructor received it", "B) \"name\", the name of the parameter", "C) null"], ans: "C" },
       10 => { type: "multiple_choice", q: "Given record Point(int x, int y) { } and Point p = new Point(3, 4); how do you read the x value?",
               opts: ["A) p.getX()", "B) p.x()", "C) Point.x(p)"], ans: "B" },
-      11 => { type: "true_false",      q: "Every Java class, directly or indirectly, extends java.lang.Object.",
-              opts: ["True", "False"], ans: "True" },
-      12 => { type: "multiple_choice", q: "Shape s = new Circle(2); Circle overrides the abstract method area(). Which area() runs when you call s.area()?",
+      11 => { type: "multiple_choice", q: "Shape s = new Circle(2); Circle overrides the abstract method area(). Which area() runs when you call s.area()?",
               opts: ["A) Shape's version, because the variable's type is Shape", "B) Circle's version, chosen at runtime by dynamic dispatch", "C) Neither: calling a method through an abstract type is a compile error"], ans: "B" },
-      13 => { type: "multiple_choice", q: "sealed interface Payment permits Upi, Card, Cash { } — what happens if you add class Crypto implements Payment { }?",
+      12 => { type: "multiple_choice", q: "sealed interface Payment permits Upi, Card, Cash { } — what happens if you add class Crypto implements Payment { }?",
               opts: ["A) It compiles, because permits is only documentation", "B) It compiles, but throws an exception when a Crypto object is created", "C) A compile error, because Crypto is not in the permits list"], ans: "C" },
-      14 => { type: "true_false",      q: "Unchecked exceptions such as NullPointerException must be declared with throws in the method signature, or the code will not compile.",
+      13 => { type: "true_false",      q: "Unchecked exceptions such as NullPointerException must be declared with throws in the method signature, or the code will not compile.",
               opts: ["True", "False"], ans: "False" },
-      15 => { type: "multiple_choice", q: "Which method can be called with both a List<Integer> and a List<Double> to add up their values?",
+      14 => { type: "multiple_choice", q: "Which method can be called with both a List<Integer> and a List<Double> to add up their values?",
               opts: ["A) double sum(List<? extends Number> nums)", "B) double sum(List<Number> nums)", "C) double sum(List<? super Number> nums)"], ans: "A" },
-      16 => { type: "multiple_choice", q: "An app must check very often whether a username is already taken, and each username may appear only once. Which collection fits best?",
+      15 => { type: "multiple_choice", q: "An app must check very often whether a username is already taken, and each username may appear only once. Which collection fits best?",
               opts: ["A) ArrayList<String>", "B) TreeMap<String, String>", "C) HashSet<String>"], ans: "C" },
-      17 => { type: "true_false",      q: "names.stream().filter(n -> n.startsWith(\"A\")).map(String::toUpperCase); processes every element even though no terminal operation such as toList() is called.",
+      16 => { type: "true_false",      q: "names.stream().filter(n -> n.startsWith(\"A\")).map(String::toUpperCase); processes every element even though no terminal operation such as toList() is called.",
               opts: ["True", "False"], ans: "False" },
-      18 => { type: "multiple_choice", q: "LocalDate d = LocalDate.of(2026, 9, 25); d.plusDays(10); System.out.println(d); — what is printed?",
+      17 => { type: "multiple_choice", q: "LocalDate d = LocalDate.of(2026, 9, 25); d.plusDays(10); System.out.println(d); — what is printed?",
               opts: ["A) 2026-10-05", "B) 2026-09-25", "C) Nothing: plusDays does not compile without an assignment"], ans: "B" },
+      18 => { type: "true_false",      q: "If a program submits tasks to an ExecutorService from Executors.newFixedThreadPool(3) but never calls shutdown(), the JVM may keep running after main() returns, because the pool's worker threads are still alive.",
+              opts: ["True", "False"], ans: "True" },
       19 => { type: "true_false",      q: "In JUnit, assertThrows(IllegalArgumentException.class, () -> calc.withGst(-1)) fails if withGst(-1) returns normally without throwing.",
               opts: ["True", "False"], ans: "True" },
       20 => { type: "multiple_choice", q: "In the capstone, why does borrow() take LocalDate today as a parameter instead of calling LocalDate.now() inside the method?",
