@@ -1,7 +1,7 @@
 require_relative "../ruby_content"
 
 namespace :content do
-  desc "Create Ruby course and populate all 20 lessons"
+  desc "Create Ruby course and populate all 22 lessons"
   task ruby: :environment do
     course = Course.find_or_create_by!(slug: "ruby") do |c|
       c.title       = "Ruby"
@@ -19,11 +19,12 @@ namespace :content do
       5  => "Loops, Ranges and Iterators",        6  => "Arrays",
       7  => "Hashes and Symbols",                 8  => "Methods and Keyword Arguments",
       9  => "Blocks, Procs and Lambdas",          10 => "Enumerable in Depth",
-      11 => "Classes and Objects",                12 => "Inheritance and Polymorphism",
-      13 => "Modules and Mixins",                 14 => "Comparable and Enumerable Mixins",
-      15 => "Exception Handling",                 16 => "Struct and Data",
-      17 => "Pattern Matching",                   18 => "JSON, Files and the Standard Library",
-      19 => "Testing with Minitest",              20 => "Capstone Project: Library Manager"
+      11 => "Regular Expressions",                12 => "Classes and Objects",
+      13 => "Inheritance and Polymorphism",       14 => "Modules and Mixins",
+      15 => "Comparable and Enumerable Mixins",   16 => "Metaprogramming Basics",
+      17 => "Exception Handling",                 18 => "Struct and Data",
+      19 => "Pattern Matching",                   20 => "JSON, Files and the Standard Library",
+      21 => "Testing with Minitest",              22 => "Capstone Project: Library Manager"
     }
 
     descriptions = {
@@ -37,16 +38,18 @@ namespace :content do
       8  => "Write reusable methods with default, keyword, splat and double-splat parameters, implicit returns and endless definitions.",
       9  => "Pass blocks with yield, store behaviour in procs and lambdas, and understand closures and the proc vs lambda differences.",
       10 => "Replace hand-written loops with map, select, reduce, group_by, partition, tally, each_slice, lazy and other Enumerable methods.",
-      11 => "Define classes with initialize, instance variables, attribute macros, custom setters, class methods and private methods.",
-      12 => "Reuse and extend classes with inheritance and super, and write flexible code with polymorphism and duck typing.",
-      13 => "Organise code with module namespaces, share behaviour with include, extend and prepend, and limit monkey patches with refinements.",
-      14 => "Define <=> to make objects Comparable and each to make them Enumerable, and get dozens of methods for free.",
-      15 => "Handle errors with begin, rescue, else, ensure and retry, raise exceptions, and design your own error classes.",
-      16 => "Build lightweight value objects with Data.define and mutable records with Struct, and choose between them and hashes.",
-      17 => "Match the shape of arrays, hashes and Data objects with case/in, bind variables, use guards, pins and one-line patterns.",
-      18 => "Convert data to and from JSON and CSV, work with dates, sets and digests, and read and write files on your own computer.",
-      19 => "Write automated tests with Minitest assertions, read failure output, and follow the red-green-refactor cycle.",
-      20 => "Combine Data, Enumerable, exceptions, pattern matching and JSON to build a complete library manager, then extend it."
+      11 => "Match, validate, extract and replace text with Regexp literals, match?, match, scan, gsub and named captures, and avoid the ^/$ validation trap.",
+      12 => "Define classes with initialize, instance variables, attribute macros, custom setters, class methods and private methods.",
+      13 => "Reuse and extend classes with inheritance and super, and write flexible code with polymorphism and duck typing.",
+      14 => "Organise code with module namespaces, share behaviour with include, extend and prepend, and limit monkey patches with refinements.",
+      15 => "Define <=> to make objects Comparable and each to make them Enumerable, and get dozens of methods for free.",
+      16 => "Inspect objects at runtime, call methods by name with public_send, generate methods with define_method, and use method_missing safely.",
+      17 => "Handle errors with begin, rescue, else, ensure and retry, raise exceptions, and design your own error classes.",
+      18 => "Build lightweight value objects with Data.define and mutable records with Struct, and choose between them and hashes.",
+      19 => "Match the shape of arrays, hashes and Data objects with case/in, bind variables, use guards, pins and one-line patterns.",
+      20 => "Convert data to and from JSON and CSV, work with dates, sets and digests, and read and write files on your own computer.",
+      21 => "Write automated tests with Minitest assertions, read failure output, and follow the red-green-refactor cycle.",
+      22 => "Combine Data, Enumerable, exceptions, pattern matching and JSON to build a complete library manager, then extend it."
     }
 
     exercises = {
@@ -70,25 +73,29 @@ namespace :content do
               opts: ["A) It raises ArgumentError", "B) It returns 1", "C) It returns nil"], ans: "A" },
       10 => { type: "multiple_choice", q: "Which call on [1, 2, 3, 4] returns [[2, 4], [1, 3]]?",
               opts: ["A) group_by(&:even?)", "B) partition(&:even?)", "C) each_slice(2).to_a"], ans: "B" },
-      11 => { type: "true_false",      q: "Inside an instance method, writing marks = 50 (without self.) calls the marks= setter method.",
+      11 => { type: "multiple_choice", q: "Which pattern correctly checks that the WHOLE string is a 6-digit PIN code, even when the input contains a newline?",
+              opts: ["A) /^\\d{6}$/", "B) /\\d{6}/", "C) /\\A\\d{6}\\z/"], ans: "C" },
+      12 => { type: "true_false",      q: "Inside an instance method, writing marks = 50 (without self.) calls the marks= setter method.",
               opts: ["True", "False"], ans: "False" },
-      12 => { type: "multiple_choice", q: "Manager < Employee. Manager#initialize(name, salary, bonus) must pass only name and salary to Employee#initialize(name, salary). Which call is correct?",
+      13 => { type: "multiple_choice", q: "Manager < Employee. Manager#initialize(name, salary, bonus) must pass only name and salary to Employee#initialize(name, salary). Which call is correct?",
               opts: ["A) super", "B) super(name, salary)", "C) super()"], ans: "B" },
-      13 => { type: "true_false",      q: "After class Student includes the module Greetable, Student.ancestors lists Greetable right after Student.",
+      14 => { type: "true_false",      q: "After class Student includes the module Greetable, Student.ancestors lists Greetable right after Student.",
               opts: ["True", "False"], ans: "True" },
-      14 => { type: "multiple_choice", q: "You want your Version objects to support <, >, between? and sort. What is the idiomatic way?",
+      15 => { type: "multiple_choice", q: "You want your Version objects to support <, >, between? and sort. What is the idiomatic way?",
               opts: ["A) Define <=> and include Comparable", "B) Define each and include Enumerable", "C) Define <, > and == separately in every class"], ans: "A" },
-      15 => { type: "true_false",      q: "Writing rescue Exception => e is the recommended way to catch all normal errors in an application.",
-              opts: ["True", "False"], ans: "False" },
-      16 => { type: "multiple_choice", q: "Point = Data.define(:x, :y) and pt = Point.new(x: 1, y: 2). How do you get a point with y = 5?",
-              opts: ["A) pt.y = 5", "B) pt.update(y: 5)", "C) pt.with(y: 5)"], ans: "C" },
-      17 => { type: "multiple_choice", q: "What does the expression { status: 200, extra: 1 } in { status: 200 } return?",
-              opts: ["A) true", "B) false", "C) It raises NoMatchingPatternError"], ans: "A" },
-      18 => { type: "true_false",      q: "JSON.parse(text, symbolize_names: true) returns hashes whose keys are symbols such as :name.",
+      16 => { type: "true_false",      q: "obj.send(:secret) can call a private method named secret, while obj.public_send(:secret) raises NoMethodError.",
               opts: ["True", "False"], ans: "True" },
-      19 => { type: "multiple_choice", q: "Which Minitest assertion is written correctly to check that the cart total is 280?",
+      17 => { type: "true_false",      q: "Writing rescue Exception => e is the recommended way to catch all normal errors in an application.",
+              opts: ["True", "False"], ans: "False" },
+      18 => { type: "multiple_choice", q: "Point = Data.define(:x, :y) and pt = Point.new(x: 1, y: 2). How do you get a point with y = 5?",
+              opts: ["A) pt.y = 5", "B) pt.update(y: 5)", "C) pt.with(y: 5)"], ans: "C" },
+      19 => { type: "multiple_choice", q: "What does the expression { status: 200, extra: 1 } in { status: 200 } return?",
+              opts: ["A) true", "B) false", "C) It raises NoMatchingPatternError"], ans: "A" },
+      20 => { type: "true_false",      q: "JSON.parse(text, symbolize_names: true) returns hashes whose keys are symbols such as :name.",
+              opts: ["True", "False"], ans: "True" },
+      21 => { type: "multiple_choice", q: "Which Minitest assertion is written correctly to check that the cart total is 280?",
               opts: ["A) assert_equal @cart.total, 280", "B) assert 280, @cart.total", "C) assert_equal 280, @cart.total"], ans: "C" },
-      20 => { type: "true_false",      q: 'A hash pattern such as in { action: "lend" } does NOT match the string-keyed hash { "action" => "lend" }.',
+      22 => { type: "true_false",      q: 'A hash pattern such as in { action: "lend" } does NOT match the string-keyed hash { "action" => "lend" }.',
               opts: ["True", "False"], ans: "True" }
     }
 
