@@ -5,7 +5,7 @@ namespace :content do
   task pandas: :environment do
     course = Course.find_or_create_by!(slug: "pandas") do |c|
       c.title       = "Pandas"
-      c.description = "Pandas is Python's essential data analysis library. Master DataFrames, filtering, GroupBy, merging, missing data, string operations, datetime handling, pivot tables, and end-to-end analysis pipelines."
+      c.description = "Pandas is Python's essential data analysis library. Master DataFrames, loc/iloc, query, dtypes and missing data, GroupBy, merging, strings, dates, reshaping, Copy-on-Write and method chaining for pandas 2 and 3, ending with an end-to-end analysis project."
       c.color       = "#150458"
       c.icon        = "🐼"
       c.position    = 15
@@ -14,66 +14,102 @@ namespace :content do
     puts "Course: #{course.title}"
 
     titles = {
-      1  => "Introduction to Pandas",           2  => "DataFrame Basics — Exploring Data",
-      3  => "Selecting and Filtering Data",      4  => "Sorting and Ranking",
-      5  => "Adding and Modifying Columns",      6  => "Aggregation Functions",
-      7  => "GroupBy — Split, Apply, Combine",   8  => "Merging and Joining DataFrames",
-      9  => "Handling Missing Data",             10 => "String Operations",
-      11 => "DateTime Operations",               12 => "Pivot Tables and Crosstab",
-      13 => "apply(), map(), and applymap()",    14 => "Reshaping Data — melt and stack",
-      15 => "Window Functions and Rolling",      16 => "Reading and Writing Data",
-      17 => "Data Cleaning Workflow",            18 => "Performance Tips and Best Practices",
-      19 => "Pandas for Machine Learning Prep",  20 => "Pandas Review — End-to-End Analysis"
+      1  => "Introduction to Pandas",
+      2  => "Reading, Writing and Exploring Data",
+      3  => "Selecting Data with loc and iloc",
+      4  => "Filtering Rows and query()",
+      5  => "Sorting and Ranking",
+      6  => "Adding and Modifying Columns",
+      7  => "Data Types: Numeric, Nullable, Category and String",
+      8  => "Handling Missing Data",
+      9  => "Aggregation and value_counts",
+      10 => "GroupBy — Split, Apply, Combine",
+      11 => "Merging, Joining and Concatenating",
+      12 => "String Operations",
+      13 => "Working with Dates and Times",
+      14 => "Pivot Tables and Crosstab",
+      15 => "Reshaping — melt, stack and unstack",
+      16 => "apply(), map() and Vectorisation",
+      17 => "Window Functions — rolling, expanding, shift",
+      18 => "Copy-on-Write and Method Chaining",
+      19 => "Data Cleaning and ML Preparation",
+      20 => "Capstone Project: End-to-End Sales Analysis",
+    }
+
+    descriptions = {
+      1  => "Meet pandas' two core structures, Series and DataFrame, and create your first labelled tables from dictionaries and lists.",
+      2  => "Load CSV data with read_csv and its key options, explore it with head, info and describe, and save it with to_csv.",
+      3  => "Select rows and columns by label with loc and by position with iloc, understand inclusive slices, and update values safely.",
+      4  => "Keep the rows you need with boolean masks, & | ~, isin, between and string tests, or write readable filters with query().",
+      5  => "Order rows with sort_values and sort_index, pick top rows with nlargest, and rank values while handling ties correctly.",
+      6  => "Create columns with arithmetic, np.where, np.select and assign, and rename, drop, insert and convert columns cleanly.",
+      7  => "Check and convert dtypes, fix numbers stored as text, keep integers with missing values using Int64 and pd.NA, and use category and string types.",
+      8  => "Detect missing values with isna, drop them with dropna options, and fill them with values, statistics, ffill/bfill, interpolate or group-wise means.",
+      9  => "Summarise columns with sum, mean, count, idxmax and agg, and count categories with value_counts, normalize and bins.",
+      10 => "Summarise data per group with groupby and named aggregation, and use transform and filter to compare rows with their group.",
+      11 => "Combine tables with merge (inner, left, right, outer), validate keys, find unmatched rows with indicator, and stack tables with concat.",
+      12 => "Clean and analyse text columns with the .str accessor: strip, case, contains, split, replace with or without regex, and extract.",
+      13 => "Parse dates with to_datetime (including dd/mm/yyyy), use the .dt accessor and Timedelta arithmetic, and group by time with resample.",
+      14 => "Summarise data across two dimensions with pivot_table and crosstab, add totals with margins, and know when pivot or groupby fits better.",
+      15 => "Convert between wide and long formats with melt and pivot, and work with MultiIndex data using stack, unstack and explode.",
+      16 => "Apply custom logic with Series.map, apply and DataFrame.map, avoid the removed applymap, and prefer faster vectorised operations.",
+      17 => "Compute moving averages, running totals, lags and growth rates with rolling, expanding, cumsum, shift, diff and pct_change, also per group.",
+      18 => "Understand SettingWithCopyWarning and chained assignment, use .loc and .copy() correctly, learn Copy-on-Write from pandas 3.0, and chain steps with assign and pipe.",
+      19 => "Follow a repeatable cleaning workflow for text, duplicates, outliers and gaps, then encode, split and scale data for machine learning without leakage.",
+      20 => "Clean a messy order export, merge it with a product table, and build revenue, customer, pivot and monthly-trend reports with pandas.",
     }
 
     exercises = {
-      1  => { type: "multiple_choice", q: "What are pandas' two core data structures?",
-              opts: ["A) Array (1D) and Matrix (2D grid)", "B) Series (1D) and DataFrame (2D table)", "C) List (ordered) and Dictionary (key-value)"], ans: "B" },
-      2  => { type: "multiple_choice", q: "Which method returns descriptive statistics (mean, std, min, max) for all numeric columns?",
-              opts: ["A) df.info()", "B) df.describe()", "C) df.stats()"], ans: "B" },
-      3  => { type: "true_false",      q: "To combine filter conditions in pandas, use Python's and/or, e.g. df[df['salary'] > 70000 and df['dept'] == 'Eng'].",
-              opts: ["True", "False"], ans: "False" },
-      4  => { type: "multiple_choice", q: "Which method sorts a DataFrame by a column in descending order?",
-              opts: ["A) df.sort_values('col', ascending=False)", "B) df.order_by('col', desc=True)", "C) df.sort('col', reverse=True)"], ans: "A" },
-      5  => { type: "multiple_choice", q: "How do you add a new column 'bonus' equal to 10% of 'salary'?",
-              opts: ["A) df.add('bonus', df['salary'] * 0.10)", "B) df['bonus'] = df['salary'] * 0.10", "C) df.insert('bonus', df['salary'] / 10)"], ans: "B" },
-      6  => { type: "multiple_choice", q: "Which method counts the occurrences of each unique value in a Series?",
-              opts: ["A) df['col'].count_unique()", "B) df['col'].unique_count()", "C) df['col'].value_counts()"], ans: "C" },
-      7  => { type: "true_false",      q: "df.groupby('department')['salary'].mean() returns the average salary for each department.",
+      1  => { type: "multiple_choice", q: "df = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]}). What is df.shape?",
+              opts: ["A) (2, 3)", "B) (3, 2)", "C) 6"], ans: "B" },
+      2  => { type: "multiple_choice", q: "A CSV has a pincode column with values like 012345. How do you keep the leading zero when loading it?",
+              opts: ["A) pd.read_csv(f, dtype={'pincode': str})", "B) pd.read_csv(f, parse_dates=['pincode'])", "C) pd.read_csv(f, index_col='pincode')"], ans: "A" },
+      3  => { type: "true_false", q: "With the default index 0, 1, 2, 3, 4, df.loc[0:2] returns three rows but df.iloc[0:2] returns two rows.",
               opts: ["True", "False"], ans: "True" },
-      8  => { type: "multiple_choice", q: "Which function combines two DataFrames like a SQL JOIN?",
-              opts: ["A) pd.concat()", "B) pd.merge()", "C) pd.join()"], ans: "B" },
-      9  => { type: "multiple_choice", q: "Which method fills NaN values with the column mean?",
-              opts: ["A) df['col'].fillna(df['col'].mean())", "B) df['col'].replace_nan(mean=True)", "C) df.fill_missing('col')"], ans: "A" },
-      10 => { type: "multiple_choice", q: "Which accessor provides string methods for a pandas Series?",
-              opts: ["A) .string", "B) .text", "C) .str"], ans: "C" },
-      11 => { type: "true_false",      q: "Comparing dates stored as strings always gives the same results as comparing datetime values, so converting with pd.to_datetime() is optional.",
+      4  => { type: "multiple_choice", q: "Which line correctly keeps rows where marks is above 70 AND city is Pune?",
+              opts: ["A) df[df['marks'] > 70 and df['city'] == 'Pune']", "B) df[df['marks'] > 70 & df['city'] == 'Pune']", "C) df[(df['marks'] > 70) & (df['city'] == 'Pune')]"], ans: "C" },
+      5  => { type: "multiple_choice", q: "Scores are 90, 85, 85, 70. What does rank(ascending=False, method='min') give?",
+              opts: ["A) 1, 2, 2, 4", "B) 1, 2, 3, 4", "C) 1, 2.5, 2.5, 4"], ans: "A" },
+      6  => { type: "true_false", q: "df.drop('gst') removes the column named gst from df.",
               opts: ["True", "False"], ans: "False" },
-      12 => { type: "multiple_choice", q: "Which method reshapes a DataFrame like an Excel pivot table?",
-              opts: ["A) df.reshape()", "B) df.crosstab()", "C) df.pivot_table()"], ans: "C" },
-      13 => { type: "multiple_choice", q: "What does df['department'].map({'Engineering': 'ENG', 'Marketing': 'MKT'}) do?",
-              opts: ["A) Replaces each value using the dictionary; values not in the dict become NaN", "B) Renames the 'department' column to 'ENG' or 'MKT'", "C) Keeps only the rows whose department is Engineering or Marketing"], ans: "A" },
-      14 => { type: "multiple_choice", q: "Which method from the lesson converts wide data (columns q1–q4) into long format, with var_name and value_name naming the new columns?",
-              opts: ["A) df.pivot()", "B) df.transpose()", "C) df.melt()"], ans: "C" },
-      15 => { type: "true_false",      q: "df['revenue'].shift(1) moves values up one row, so each row shows the next period's revenue.",
-              opts: ["True", "False"], ans: "False" },
-      16 => { type: "multiple_choice", q: "Which argument prevents pandas from writing the row index to a CSV file?",
-              opts: ["A) save_index=False", "B) index=False", "C) header=False"], ans: "B" },
-      17 => { type: "multiple_choice", q: "Which method removes duplicate rows from a DataFrame?",
-              opts: ["A) df.drop_duplicates()", "B) df.remove_duplicates()", "C) df.unique()"], ans: "A" },
-      18 => { type: "true_false",      q: "Vectorised operations like df['salary'] * 0.1 are much faster than using iterrows() for the same task.",
+      7  => { type: "multiple_choice", q: "s = pd.Series([10, None, 30]). What is s.dtype?",
+              opts: ["A) int64", "B) float64", "C) object"], ans: "B" },
+      8  => { type: "multiple_choice", q: "Which is the modern replacement for the old df.fillna(method='ffill'), which was removed in pandas 3.0?",
+              opts: ["A) df.fillna(forward=True)", "B) df.interpolate(method='pad')", "C) df.ffill()"], ans: "C" },
+      9  => { type: "true_false", q: "For s = pd.Series([10, None, 30]), s.count() returns 2 while len(s) returns 3.",
               opts: ["True", "False"], ans: "True" },
-      19 => { type: "multiple_choice", q: "Which function creates one-hot encoded dummy variables from a categorical column?",
-              opts: ["A) pd.one_hot()", "B) pd.encode()", "C) pd.get_dummies()"], ans: "C" },
-      20 => { type: "multiple_choice", q: "Which method computes the cumulative sum of a column?",
-              opts: ["A) df['col'].cumsum()", "B) df['col'].sum(cumulative=True)", "C) df['col'].rolling_sum()"], ans: "A" }
+      10 => { type: "multiple_choice", q: "You want a new column holding each employee's department average salary, on every row. Which code does this?",
+              opts: ["A) df['avg'] = df.groupby('dept')['salary'].transform('mean')", "B) df['avg'] = df.groupby('dept')['salary'].mean()", "C) df['avg'] = df.groupby('dept').size()"], ans: "A" },
+      11 => { type: "multiple_choice", q: "orders has 100 rows. After orders.merge(customers, on='cust_id', how='left') the result has 104 rows. What is the most likely cause?",
+              opts: ["A) A left join always adds a few extra rows for missing values", "B) Some cust_id values appear more than once in customers", "C) Some orders have a cust_id that is not in customers"], ans: "B" },
+      12 => { type: "true_false", q: "For a text column s, you can write s.lower() to convert every value to lower case.",
+              opts: ["True", "False"], ans: "False" },
+      13 => { type: "multiple_choice", q: "Which call correctly parses Indian-style dates like '05/03/2024' meaning 5 March 2024?",
+              opts: ["A) pd.to_datetime(s)", "B) pd.to_datetime(s, format='%m/%d/%Y')", "C) pd.to_datetime(s, format='%d/%m/%Y')"], ans: "C" },
+      14 => { type: "multiple_choice", q: "You call df.pivot_table(values='amount', index='city') without aggfunc. What does each cell contain?",
+              opts: ["A) The mean amount for that city", "B) The total amount for that city", "C) The number of rows for that city"], ans: "A" },
+      15 => { type: "true_false", q: "df.melt(id_vars='name') turns a wide table with columns name, q1, q2 into a long table with one row per name-quarter pair.",
+              opts: ["True", "False"], ans: "True" },
+      16 => { type: "multiple_choice", q: "s = pd.Series(['HR', 'IT', 'Legal']). What does s.map({'HR': 'Human Resources', 'IT': 'Tech'}) give for 'Legal'?",
+              opts: ["A) 'Legal' (unchanged)", "B) NaN", "C) A KeyError is raised"], ans: "B" },
+      17 => { type: "multiple_choice", q: "s = pd.Series([5, 8, 6]). What is s.shift(1).tolist()?",
+              opts: ["A) [8, 6, nan]", "B) [5, 8, 6]", "C) [nan, 5.0, 8.0]"], ans: "C" },
+      18 => { type: "true_false", q: "In pandas 3.0, df[df['city'] == 'Pune']['temp'] = 0 sets temp to 0 for the Pune rows of df.",
+              opts: ["True", "False"], ans: "False" },
+      19 => { type: "multiple_choice", q: "You scale the age column with its mean and std. Where should those statistics come from?",
+              opts: ["A) From the training rows only, then applied to both train and test", "B) From the test rows only, because that is what the model is judged on", "C) From all rows together, so both sets use the most data"], ans: "A" },
+      20 => { type: "multiple_choice", q: "In the capstone, why is drop_duplicates() run before merging orders with products?",
+              opts: ["A) Because merge() cannot run on a DataFrame that contains duplicate rows", "B) So a duplicated order is removed once instead of being carried into the joined table and counted twice in revenue", "C) Because drop_duplicates() also converts the date column to datetime"], ans: "B" },
     }
 
     PandasContent::LESSONS.each do |position, data|
-      lesson = CourseLesson.find_or_create_by!(course: course, position: position) do |l|
-        l.title = titles[position]; l.description = ""
-      end
-      lesson.update!(title: titles[position], body: data[:body], starter_code: data[:starter_code])
+      lesson = CourseLesson.find_or_initialize_by(course: course, position: position)
+      lesson.update!(
+        title: titles[position],
+        description: descriptions[position],
+        body: data[:body],
+        starter_code: data[:starter_code]
+      )
 
       ex = exercises[position]
       Exercise.find_or_initialize_by(course_lesson: lesson).tap do |e|
