@@ -2,1682 +2,2951 @@ module PythonContent
   LESSONS = {
     1 => {
       body: <<~'HTML',
-        <div class="lc-intro">
-          <p>Python is a <strong>high-level, interpreted programming language</strong> created by Guido van Rossum in 1991. It is famous for its clean, readable syntax that reads almost like English — making it the ideal first language for beginners and a powerful tool for professionals.</p>
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Introduction to Python</h1>
         </div>
-        <div class="lc-section">
-          <h2>Why Python?</h2>
+        <div class="lc-intro">
+          <p class="lc-lead">Python is a <strong>high-level, general-purpose programming language</strong> with clean, readable syntax. It was created by Guido van Rossum and first released in 1991. Today it is the most popular language for AI, data science, automation and scripting.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>How Python Runs Your Code</h2>
+          <p>You write a <code>.py</code> file. The Python interpreter (usually <strong>CPython</strong>) first turns it into <em>bytecode</em>, then runs that bytecode line by line. You never run a separate compile step yourself, so Python is called an <strong>interpreted</strong> language.</p>
           <ul class="lc-list">
-            <li><strong>#1 language for AI and data science</strong> — TensorFlow, PyTorch, scikit-learn are all Python</li>
-            <li>Beginner-friendly — less boilerplate than Java or C++</li>
-            <li>Huge ecosystem — 400,000+ packages on PyPI</li>
-            <li>Used at Google, Netflix, Instagram, NASA, and everywhere</li>
+            <li><strong>Python 3</strong> is the only version you should learn. Python 2 reached end of life in 2020.</li>
+            <li>The latest stable release in 2026 is <strong>Python 3.14</strong>. The editor in this course runs <strong>Python 3.13</strong> inside your browser (using Pyodide), so everything you learn here works on current Python.</li>
+            <li>You can also try code line by line in the <strong>REPL</strong>: type <code>python</code> (or <code>python3</code>, or <code>py</code> on Windows) in a terminal and you get a <code>&gt;&gt;&gt;</code> prompt.</li>
           </ul>
         </div>
-        <div class="lc-section">
-          <h2>Python vs Other Languages</h2>
+        <div class="lc-section lc-card">
+          <h2>Why Learn Python?</h2>
           <table class="lc-table">
-            <thead><tr><th></th><th>Python</th><th>Java</th><th>C++</th></tr></thead>
+            <thead><tr><th>Area</th><th>What Python is used for</th><th>Popular tools</th></tr></thead>
             <tbody>
-              <tr><td>Hello World</td><td><code>print("Hi")</code></td><td>5 lines</td><td>7 lines</td></tr>
-              <tr><td>Type declarations</td><td>❌ Optional</td><td>✅ Required</td><td>✅ Required</td></tr>
-              <tr><td>Semicolons</td><td>❌ None</td><td>✅ Required</td><td>✅ Required</td></tr>
-              <tr><td>Indentation</td><td>✅ Meaningful</td><td>Style only</td><td>Style only</td></tr>
+              <tr><td>AI and machine learning</td><td>Training and using models</td><td>PyTorch, scikit-learn</td></tr>
+              <tr><td>Data science</td><td>Cleaning and analysing data</td><td>pandas, NumPy</td></tr>
+              <tr><td>Web back-ends</td><td>Websites and APIs</td><td>Django, FastAPI, Flask</td></tr>
+              <tr><td>Automation</td><td>Renaming files, sending reports, scraping</td><td>Standard library</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="lc-section">
-          <h2>Your First Python Program</h2>
+        <div class="lc-section lc-card">
+          <h2>Your First Program</h2>
+          <p><code>print()</code> shows a value on the screen. Text goes inside quotes. Numbers do not need quotes.</p>
           <div class="lc-code-block"><pre><code>print("Hello, World!")
-print("Python is amazing!")
-print(2 + 2)   # Comments start with #</code></pre></div>
+        print("Python", "is", "fun")        # several values: a space goes between them
+        print("2026", "09", "25", sep="-")  # sep changes the separator
+        print("Loading", end="... ")        # end changes what comes after
+        print("done!")
+        print(10 + 5)</code></pre></div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code-block"><pre><code>Hello, World!
+        Python is fun
+        2026-09-25
+        Loading... done!
+        15</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>print()</strong> is Python's main output function. Unlike many languages, Python uses <strong>indentation</strong> (spaces) instead of curly braces to define code blocks. Consistent indentation (4 spaces) is required!</p></div>
+        <div class="lc-section lc-card">
+          <h2>Comments and Indentation</h2>
+          <p>A <code>#</code> starts a <strong>comment</strong>. Python ignores everything after it on that line. Use comments to explain <em>why</em> the code does something.</p>
+          <p>Python uses <strong>indentation</strong> (spaces at the start of a line) to group lines into a block. Other languages use <code>{ }</code> for this. The standard is <strong>4 spaces</strong>.</p>
+          <div class="lc-code-block"><pre><code>for step in [1, 2, 3]:
+            print("step", step)    # indented: runs 3 times
+        print("finished")          # not indented: runs once</code></pre></div>
+          <p>You will learn loops properly in Lesson 5. For now, notice that the indented line belongs to the <code>for</code> line above it.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Reading an Error Message</h2>
+          <p>Errors are normal. Python tells you the line number and the <strong>type</strong> of error on the last line of the message.</p>
+          <div class="lc-code-block"><pre><code>print("Hi)
+        # SyntaxError: unterminated string literal
+
+        Print("Hi")
+        # NameError: name 'Print' is not defined</code></pre></div>
+          <p>Always read the <strong>last line</strong> of the error first, then look at the line number above it.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Python on Your Own Computer</h2>
+          <p>Download Python from <strong>python.org</strong>. On Windows, the recommended way is now the <strong>Python install manager</strong> (from python.org or the Microsoft Store). macOS and Linux users can use the python.org installer or their package manager. Then check it in a terminal and open the interactive REPL:</p>
+          <div class="lc-code-block"><pre><code>$ python --version
+        Python 3.14.7
+        $ python
+        &gt;&gt;&gt; 7 * 6
+        42
+        &gt;&gt;&gt; print("Namaste")
+        Namaste
+        &gt;&gt;&gt; exit()</code></pre></div>
+          <p>Your exact version number may differ. In the REPL you don't even need <code>print()</code> — typing an expression shows its value. For real programs, save the code in a file such as <code>hello.py</code> and run <code>python hello.py</code>.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Writing <code>Print</code> instead of <code>print</code> — Python is <strong>case-sensitive</strong>.</li>
+            <li>Forgetting a closing quote or bracket, which gives a <code>SyntaxError</code>.</li>
+            <li>Copying old Python 2 code like <code>print "hi"</code> — in Python 3, <code>print</code> is a function and needs brackets.</li>
+            <li>Mixing tabs and spaces for indentation. Set your editor to insert 4 spaces.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>In the editor, add lines that print your name, your city and your favourite subject on one line separated by <code> | </code> using <code>sep</code>. Then print the result of <code>365 * 24</code> with a label, like <code>Hours in a year: 8760</code>.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Run your code often — after every two or three new lines. Small steps make errors easy to find.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Introduction to Python ──
+        # Lesson 1: Your first Python program
 
-        # print() outputs to the console
         print("Hello, World!")
-        print("Python is beginner-friendly!")
+        print("Welcome to Python")
 
-        # Arithmetic
-        print(10 + 5)
-        print(100 / 4)
-        print(2 ** 10)   # 2 to the power of 10
+        # print() can take several values; it puts a space between them
+        print("Python", "is", "fun")
 
-        # print with multiple values
-        name = "AI Academy"
-        print("Welcome to", name)
+        # sep changes the separator, end changes what comes after the line
+        print("2026", "09", "25", sep="-")
+        print("Loading", end="... ")
+        print("done!")
 
-        # String with variables
-        language = "Python"
-        year = 1991
-        print("Python was created in", year)
-        print("Learning", language, "is fun!")
+        # Python can do maths straight away
+        print("10 + 5 =", 10 + 5)
+        print("2 ** 10 =", 2 ** 10)
+        print("Hours in a day:", 24)
+
+        # Comments start with # and are ignored by Python
+        # print("This line will not run")
+
+        # Indentation groups lines into a block
+        for step in [1, 2, 3]:
+            print("  step", step)
+        print("Finished all steps")
+
+        # Which Python version is running this code?
+        import sys
+        print("Python version:", sys.version.split()[0])
       PY
     },
 
     2 => {
       body: <<~'HTML',
-        <div class="lc-intro">
-          <p>Variables in Python are created by simply assigning a value — <strong>no type declaration needed</strong>. Python automatically figures out the type. This is called <em>dynamic typing</em>.</p>
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Variables, Numbers and Types</h1>
         </div>
-        <div class="lc-section">
-          <h2>Python's Built-in Data Types</h2>
+        <div class="lc-intro">
+          <p class="lc-lead">A <strong>variable</strong> is a name that refers to a value. You create one by assigning with <code>=</code>. Python works out the type of the value by itself — this is called <strong>dynamic typing</strong>.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Creating Variables</h2>
+          <div class="lc-code-block"><pre><code>name = "Priya"        # str
+        age = 21              # int
+        height_m = 1.62       # float
+        is_student = True     # bool
+        nickname = None       # NoneType: "no value yet"
+
+        age = age + 1         # a variable can be updated
+        x, y = 10, 20         # assign two variables at once</code></pre></div>
+          <p><strong>Naming rules:</strong> letters, digits and <code>_</code>; cannot start with a digit; case-sensitive (<code>Age</code> and <code>age</code> are different). The Python style guide (PEP 8) uses <code>snake_case</code>: <code>total_marks</code>, not <code>totalMarks</code>.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>The Basic Types</h2>
           <table class="lc-table">
-            <thead><tr><th>Type</th><th>Example</th><th>Description</th></tr></thead>
+            <thead><tr><th>Type</th><th>Example</th><th>Meaning</th></tr></thead>
             <tbody>
-              <tr><td><code>int</code></td><td><code>42</code>, <code>-7</code></td><td>Whole numbers</td></tr>
-              <tr><td><code>float</code></td><td><code>3.14</code>, <code>-0.5</code></td><td>Decimal numbers</td></tr>
-              <tr><td><code>str</code></td><td><code>"hello"</code>, <code>'world'</code></td><td>Text (use either quote)</td></tr>
-              <tr><td><code>bool</code></td><td><code>True</code>, <code>False</code></td><td>Boolean (capital T/F!)</td></tr>
-              <tr><td><code>NoneType</code></td><td><code>None</code></td><td>Absence of a value</td></tr>
+              <tr><td><code>int</code></td><td><code>42</code>, <code>-7</code>, <code>2 ** 100</code></td><td>Whole numbers of any size</td></tr>
+              <tr><td><code>float</code></td><td><code>3.14</code>, <code>1e6</code></td><td>Decimal numbers (approximate)</td></tr>
+              <tr><td><code>str</code></td><td><code>"hello"</code>, <code>'hi'</code></td><td>Text</td></tr>
+              <tr><td><code>bool</code></td><td><code>True</code>, <code>False</code></td><td>Yes / no (capital T and F)</td></tr>
+              <tr><td><code>NoneType</code></td><td><code>None</code></td><td>No value</td></tr>
             </tbody>
           </table>
+          <p>Use <code>type(x)</code> to see a type, and <code>isinstance(x, int)</code> to check one.</p>
         </div>
-        <div class="lc-section">
-          <h2>The type() Function</h2>
-          <div class="lc-code-block"><pre><code>x = 42
-print(type(x))      # &lt;class 'int'&gt;
-
-y = 3.14
-print(type(y))      # &lt;class 'float'&gt;
-
-name = "Alice"
-print(type(name))   # &lt;class 'str'&gt;</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Arithmetic Operators</h2>
+          <table class="lc-table">
+            <thead><tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td><code>+ - *</code></td><td>Add, subtract, multiply</td><td><code>17 * 5</code></td><td>85</td></tr>
+              <tr><td><code>/</code></td><td>Division (always a float)</td><td><code>17 / 5</code></td><td>3.4</td></tr>
+              <tr><td><code>//</code></td><td>Floor division</td><td><code>17 // 5</code></td><td>3</td></tr>
+              <tr><td><code>%</code></td><td>Remainder (modulo)</td><td><code>17 % 5</code></td><td>2</td></tr>
+              <tr><td><code>**</code></td><td>Power</td><td><code>2 ** 10</code></td><td>1024</td></tr>
+            </tbody>
+          </table>
+          <p>Precedence is like school maths: <code>**</code> first, then <code>* / // %</code>, then <code>+ -</code>. Use brackets to make it clear: <code>(a + b) / 2</code>. Short forms like <code>score += 5</code> mean <code>score = score + 5</code>.</p>
+          <p><code>//</code> rounds <strong>down</strong> (toward minus infinity), so <code>-17 // 5</code> is <code>-4</code>, not <code>-3</code>.</p>
         </div>
-        <div class="lc-section">
-          <h2>Type Conversion</h2>
-          <div class="lc-code-block"><pre><code>int("42")       # 42
-float("3.14")   # 3.14
-str(100)        # "100"
-bool(0)         # False
-bool("hello")   # True</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Converting Between Types</h2>
+          <div class="lc-code-block"><pre><code>print(int("85") + 10)     # 95
+        print(int(3.9))           # 3   (cuts off the decimal part, no rounding)
+        print(float("2.5"))       # 2.5
+        print(str(99) + "%")      # 99%
+        print(bool(0), bool(""), bool("hi"))   # False False True
+        int("3.5")                # ValueError: invalid literal for int()</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>In Python, <code>True</code> and <code>False</code> start with a capital letter. Using lowercase <code>true</code> or <code>false</code> will cause a <code>NameError</code>!</p></div>
+        <div class="lc-section lc-card">
+          <h2>Float Surprises</h2>
+          <p>Floats are stored in binary, so some decimals cannot be stored exactly:</p>
+          <div class="lc-code-block"><pre><code>print(0.1 + 0.2)              # 0.30000000000000004
+        print(round(0.1 + 0.2, 2))    # 0.3
+        print(round(2.5), round(3.5)) # 2 4  (ties go to the even number)</code></pre></div>
+          <p>For money, work in whole paise (<code>int</code>) or use the <code>decimal</code> module.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Reading Input from the User</h2>
+          <p>On your own computer, <code>input()</code> shows a prompt and waits for the user to type. It <strong>always returns a string</strong>, so convert it before doing maths:</p>
+          <div class="lc-code-block"><pre><code>age_text = input("Your age: ")   # user types 21  -&gt;  "21" (a str)
+        age = int(age_text)               # 21 (an int)
+        print("Next year you will be", age + 1)</code></pre></div>
+          <p>The starter programs in this course use fixed values instead of <code>input()</code>, so every run gives the same output.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li><code>"5" + 3</code> gives a <code>TypeError</code>. Convert first: <code>int("5") + 3</code>.</li>
+            <li>Writing <code>true</code> instead of <code>True</code> gives a <code>NameError</code>.</li>
+            <li>Expecting <code>int(3.9)</code> to be 4. It is 3; use <code>round(3.9)</code> to round.</li>
+            <li>Comparing floats with <code>==</code>: <code>0.1 + 0.2 == 0.3</code> is <code>False</code>. Use <code>math.isclose()</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>A mobile plan costs ₹299 per month. Store it in a variable, then print the cost for one year, the cost per day (<code>/ 30</code>), and how many full weeks are in 100 days (<code>//</code>) with the days left over (<code>%</code>).</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Choose names that explain the value: <code>price_per_kg</code> is much clearer than <code>p</code>. Good names are the cheapest documentation.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Variables and Data Types ──
+        # Lesson 2: Variables, numbers and types
 
-        # Integers
+        name = "Priya"
         age = 21
-        year = 2024
-        print("Age:", age, "| Type:", type(age))
-
-        # Float
-        gpa = 3.85
-        pi = 3.14159
-        print("GPA:", gpa)
-
-        # String
-        name = "Adarsh"
-        language = "Python"
-        print("Name:", name)
-        print("Learning:", language)
-
-        # Boolean
+        height_m = 1.62
         is_student = True
-        has_degree = False
-        print("Student:", is_student)
-        print("Has degree:", has_degree)
+        nickname = None
 
-        # None
-        result = None
-        print("Result:", result)
+        print("name:", name, type(name))
+        print("age:", age, type(age))
+        print("height_m:", height_m, type(height_m))
+        print("is_student:", is_student, type(is_student))
+        print("nickname:", nickname, type(nickname))
 
-        # Type checking
-        print("--- Types ---")
-        print(type(age))
-        print(type(gpa))
-        print(type(name))
-        print(type(is_student))
+        print("--- Arithmetic with a = 17, b = 5 ---")
+        a, b = 17, 5
+        print("a + b  =", a + b)
+        print("a / b  =", a / b)
+        print("a // b =", a // b)
+        print("a % b  =", a % b)
+        print("a ** 2 =", a ** 2)
+        print("-17 // 5 =", -17 // 5)
 
-        # Type conversion
         print("--- Conversion ---")
-        num_str = "100"
-        num = int(num_str)
-        print(num + 50)
-        print(str(2024) + " is a great year!")
+        marks = int("85")
+        print("int('85') + 10 =", marks + 10)
+        print("int(3.9) =", int(3.9))
+        print("float('2.5') =", float("2.5"))
+        print("str(99) + '%' =", str(99) + "%")
+        print("bool(0), bool(''), bool('hi') =", bool(0), bool(""), bool("hi"))
+
+        print("--- Floats and big ints ---")
+        print("0.1 + 0.2 =", 0.1 + 0.2)
+        print("round(0.1 + 0.2, 2) =", round(0.1 + 0.2, 2))
+        print("round(2.5), round(3.5) =", round(2.5), round(3.5))
+        print("2 ** 100 =", 2 ** 100)
+
+        score = 10
+        score += 5
+        score *= 2
+        print("score after += 5 and *= 2:", score)
       PY
     },
 
     3 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Working with Strings</h1>
+        </div>
         <div class="lc-intro">
-          <p>Strings are <strong>sequences of characters</strong> used to represent text. Python provides a rich set of string methods and f-strings to make working with text easy and readable.</p>
+          <p class="lc-lead">A <strong>string</strong> (<code>str</code>) is a sequence of characters. Python strings support indexing, slicing, dozens of useful methods, and <strong>f-strings</strong> for neat formatting.</p>
         </div>
-        <div class="lc-section">
+        <div class="lc-section lc-card">
           <h2>Creating Strings</h2>
-          <div class="lc-code-block"><pre><code>s1 = "Double quotes"
-s2 = 'Single quotes'
-s3 = """Multi-line
-string"""
-s4 = f"Hello, {name}!"   # f-string (Python 3.6+)</code></pre></div>
+          <div class="lc-code-block"><pre><code>a = "double quotes"
+        b = 'single quotes'
+        c = "It's easy"                 # mix quotes to avoid escaping
+        d = "Line 1\nLine 2\tTabbed"    # \n new line, \t tab
+        e = """A string that
+        spans several lines"""</code></pre></div>
         </div>
-        <div class="lc-section">
-          <h2>Essential String Methods</h2>
+        <div class="lc-section lc-card">
+          <h2>Indexing and Slicing</h2>
+          <p>Each character has a position, starting at <strong>0</strong>. Negative positions count from the end. A slice <code>s[start:stop:step]</code> includes <code>start</code> but <strong>excludes</strong> <code>stop</code>.</p>
+          <div class="lc-code-block"><pre><code>word = "Python"
+        #       P  y  t  h  o  n
+        #       0  1  2  3  4  5
+        #      -6 -5 -4 -3 -2 -1
+        print(word[0], word[-1])   # P n
+        print(word[1:4])           # yth
+        print(word[:2])            # Py
+        print(word[::-1])          # nohtyP  (reversed)</code></pre></div>
+          <p>Strings are <strong>immutable</strong>: <code>word[0] = "J"</code> raises a <code>TypeError</code>. Build a new string instead: <code>"J" + word[1:]</code>.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Essential Methods</h2>
+          <p>Methods <strong>return a new string</strong>; the original never changes.</p>
           <table class="lc-table">
             <thead><tr><th>Method</th><th>Example</th><th>Result</th></tr></thead>
             <tbody>
-              <tr><td><code>.upper()</code></td><td><code>"hello".upper()</code></td><td>"HELLO"</td></tr>
-              <tr><td><code>.lower()</code></td><td><code>"HELLO".lower()</code></td><td>"hello"</td></tr>
-              <tr><td><code>.strip()</code></td><td><code>"  hi  ".strip()</code></td><td>"hi"</td></tr>
-              <tr><td><code>.replace(a,b)</code></td><td><code>"cat".replace("c","b")</code></td><td>"bat"</td></tr>
-              <tr><td><code>.split(sep)</code></td><td><code>"a,b,c".split(",")</code></td><td>["a","b","c"]</td></tr>
-              <tr><td><code>.startswith()</code></td><td><code>"Hello".startswith("H")</code></td><td>True</td></tr>
-              <tr><td><code>len()</code></td><td><code>len("hello")</code></td><td>5</td></tr>
+              <tr><td><code>upper()</code> / <code>lower()</code></td><td><code>"Hi".upper()</code></td><td><code>'HI'</code></td></tr>
+              <tr><td><code>title()</code></td><td><code>"ada lovelace".title()</code></td><td><code>'Ada Lovelace'</code></td></tr>
+              <tr><td><code>strip()</code></td><td><code>"  hi  ".strip()</code></td><td><code>'hi'</code></td></tr>
+              <tr><td><code>replace(a, b)</code></td><td><code>"cat".replace("c", "b")</code></td><td><code>'bat'</code></td></tr>
+              <tr><td><code>split(sep)</code></td><td><code>"a,b,c".split(",")</code></td><td><code>['a', 'b', 'c']</code></td></tr>
+              <tr><td><code>sep.join(list)</code></td><td><code>"-".join(["a", "b"])</code></td><td><code>'a-b'</code></td></tr>
+              <tr><td><code>find(sub)</code></td><td><code>"banana".find("n")</code></td><td><code>2</code> (or <code>-1</code> if missing)</td></tr>
+              <tr><td><code>count(sub)</code></td><td><code>"banana".count("a")</code></td><td><code>3</code></td></tr>
+              <tr><td><code>startswith()</code></td><td><code>"Hello".startswith("He")</code></td><td><code>True</code></td></tr>
+              <tr><td><code>isdigit()</code></td><td><code>"2026".isdigit()</code></td><td><code>True</code></td></tr>
             </tbody>
           </table>
+          <p>Use <code>len(s)</code> for the length and <code>"sub" in s</code> to check if text is inside.</p>
         </div>
-        <div class="lc-section">
-          <h2>f-Strings (Modern Python)</h2>
-          <div class="lc-code-block"><pre><code>name = "Alice"
-score = 95
-grade = "A"
-print(f"{name} scored {score}/100 — Grade: {grade}")
-print(f"Next year age: {21 + 1}")       # Can put expressions!
-print(f"PI = {3.14159:.2f}")            # Formatting: 2 decimal places</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>f-Strings: The Modern Way to Format</h2>
+          <p>Put <code>f</code> before the quotes and write any expression inside <code>{ }</code>. After a colon you can add a <strong>format spec</strong>.</p>
+          <div class="lc-code-block"><pre><code>name, price, qty = "Notebook", 45.5, 3
+        print(f"{name} x {qty} = ₹{price * qty:.2f}")   # Notebook x 3 = ₹136.50
+        print(f"{1234567:,}")                          # 1,234,567
+        print(f"[{'left':&lt;8}] [{'right':&gt;8}]")         # [left    ] [   right]
+        print(f"{qty=}")                               # qty=3  (handy for debugging)</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always use <strong>f-strings</strong> for string formatting in modern Python — they are faster and more readable than <code>+</code> concatenation or <code>.format()</code>. Just prefix the string with <code>f</code>.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Checking Text</h2>
+          <table class="lc-table">
+            <thead><tr><th>Method</th><th>True when…</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><code>isdigit()</code></td><td>All characters are digits</td><td><code>"2026".isdigit()</code> → True</td></tr>
+              <tr><td><code>isalpha()</code></td><td>All characters are letters</td><td><code>"Asha".isalpha()</code> → True</td></tr>
+              <tr><td><code>isspace()</code></td><td>Only whitespace</td><td><code>"   ".isspace()</code> → True</td></tr>
+              <tr><td><code>endswith()</code></td><td>Ends with the given text</td><td><code>"notes.txt".endswith(".txt")</code> → True</td></tr>
+            </tbody>
+          </table>
+          <p><code>isdigit()</code>, <code>isalpha()</code> and <code>isspace()</code> all return <code>False</code> for an empty string <code>""</code>.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Calling <code>name.upper()</code> and expecting <code>name</code> to change. Save the result: <code>name = name.upper()</code>.</li>
+            <li>Forgetting the <code>f</code>: <code>"Hi {name}"</code> prints the braces literally.</li>
+            <li><code>"Age: " + 21</code> is a <code>TypeError</code>. Use an f-string: <code>f"Age: {21}"</code>.</li>
+            <li>Joining in a loop with <code>+=</code> for thousands of pieces is slow; collect pieces in a list and use <code>"".join(pieces)</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Given <code>email = "  Ravi.Kumar@Example.COM "</code>, clean it (strip and lower-case), then print the username (text before <code>@</code>) and the domain (text after <code>@</code>) using <code>split("@")</code>.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Prefer f-strings over <code>+</code> joins and the older <code>%</code> and <code>.format()</code> styles. They are shorter, faster and easier to read.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Strings in Python ──
+        # Lesson 3: Working with strings
 
-        name = "Ada Lovelace"
-        message = "  Hello, Python!  "
+        word = "Python"
+        print("word[0], word[-1]:", word[0], word[-1])
+        print("word[1:4]:", word[1:4])
+        print("word[:2]:", word[:2])
+        print("word[::-1]:", word[::-1])
+        print("len(word):", len(word))
+
+        # Methods return NEW strings
+        raw = "   ada lovelace   "
+        clean = raw.strip().title()
+        print("clean:", repr(clean))
+        print("raw is unchanged:", repr(raw))
+
         sentence = "the quick brown fox jumps over the lazy dog"
+        words = sentence.split()
+        print("word count:", len(words))
+        print("joined with -:", "-".join(words[:4]))
+        print("replace:", sentence.replace("fox", "cat"))
+        print("find 'fox':", sentence.find("fox"))
+        print("count 'o':", sentence.count("o"))
+        print("'dog' in sentence:", "dog" in sentence)
 
-        # Basic operations
-        print(len(name))
-        print(name.upper())
-        print(name.lower())
-        print(message.strip())
+        # Cleaning an email address
+        email = "  Ravi.Kumar@Example.COM "
+        email = email.strip().lower()
+        user, domain = email.split("@")
+        print("user:", user, "| domain:", domain)
 
-        # Slicing
-        print(name[0:3])     # First 3 chars
-        print(name[-8:])     # Last 8 chars
-
-        # Replace and split
-        print(sentence.replace("fox", "cat"))
-        words = sentence.split(" ")
-        print("Word count:", len(words))
-
-        # Check content
-        email = "adarsh@example.com"
-        print("Has @:", "@" in email)
-        print("Starts with a:", email.startswith("a"))
-
-        # f-strings (modern and clean)
-        score = 96
-        grade = "A+"
-        language = "Python"
-        print(f"{name} — Score: {score} — Grade: {grade}")
-        print(f"Learning {language} is {score}% awesome!")
-
-        # Number formatting in f-strings
-        price = 1234.5678
-        print(f"Price: ₹{price:.2f}")
-        print(f"Pi: {3.14159:.3f}")
+        # f-strings with format specs
+        item, price, qty = "Notebook", 45.5, 3
+        print(f"{item} x {qty} = ₹{price * qty:.2f}")
+        print(f"Population: {1428627663:,}")
+        print(f"[{'left':<8}] [{'right':>8}] [{'mid':^7}]")
+        print(f"{qty=}")
       PY
     },
 
     4 => {
       body: <<~'HTML',
-        <div class="lc-intro">
-          <p>Python handles numbers with ease. It supports <strong>integers, floats, and complex numbers</strong> out of the box, and provides a rich <code>math</code> module for advanced calculations.</p>
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Conditional Statements</h1>
         </div>
-        <div class="lc-section">
-          <h2>Arithmetic Operators</h2>
+        <div class="lc-intro">
+          <p class="lc-lead">Conditions let your program make decisions. Python uses <code>if</code>, <code>elif</code> and <code>else</code>, and uses <strong>indentation</strong> — not braces — to show which lines belong to each branch.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>if / elif / else</h2>
+          <div class="lc-code-block"><pre><code>marks = 72
+
+        if marks &gt;= 90:
+            grade = "A"
+        elif marks &gt;= 75:
+            grade = "B"
+        elif marks &gt;= 50:
+            grade = "C"
+        else:
+            grade = "F"
+
+        print(grade)   # C</code></pre></div>
+          <p>Python checks the conditions <strong>top to bottom</strong> and runs only the <strong>first</strong> branch that is true. So order matters: put the strictest test first.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Comparison and Logical Operators</h2>
           <table class="lc-table">
-            <thead><tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr></thead>
+            <thead><tr><th>Operator</th><th>Meaning</th><th>Example (x = 7)</th></tr></thead>
             <tbody>
-              <tr><td><code>+</code></td><td>Addition</td><td><code>7 + 3</code></td><td>10</td></tr>
-              <tr><td><code>-</code></td><td>Subtraction</td><td><code>7 - 3</code></td><td>4</td></tr>
-              <tr><td><code>*</code></td><td>Multiplication</td><td><code>7 * 3</code></td><td>21</td></tr>
-              <tr><td><code>/</code></td><td>Division</td><td><code>7 / 3</code></td><td>2.333…</td></tr>
-              <tr><td><code>//</code></td><td>Floor division</td><td><code>7 // 3</code></td><td>2</td></tr>
-              <tr><td><code>%</code></td><td>Modulus</td><td><code>7 % 3</code></td><td>1</td></tr>
-              <tr><td><code>**</code></td><td>Exponent</td><td><code>2 ** 8</code></td><td>256</td></tr>
+              <tr><td><code>==</code> / <code>!=</code></td><td>Equal / not equal</td><td><code>x == 7</code> → True</td></tr>
+              <tr><td><code>&lt; &lt;= &gt; &gt;=</code></td><td>Less / greater</td><td><code>x &gt; 10</code> → False</td></tr>
+              <tr><td><code>and</code></td><td>Both must be true</td><td><code>x &gt; 0 and x &lt; 10</code> → True</td></tr>
+              <tr><td><code>or</code></td><td>At least one true</td><td><code>x &lt; 0 or x == 7</code> → True</td></tr>
+              <tr><td><code>not</code></td><td>Flips True/False</td><td><code>not x == 7</code> → False</td></tr>
+              <tr><td><code>in</code></td><td>Membership</td><td><code>x in [1, 7]</code> → True</td></tr>
             </tbody>
           </table>
+          <p>Python allows <strong>chained comparisons</strong>: <code>18 &lt;= age &lt; 60</code> means <code>18 &lt;= age and age &lt; 60</code>.</p>
         </div>
-        <div class="lc-section">
-          <h2>Useful Built-in Number Functions</h2>
-          <div class="lc-code-block"><pre><code>abs(-7)         # 7  — absolute value
-round(3.7)      # 4  — round to nearest
-round(3.14159, 2) # 3.14 — round to 2 dp
-max(1, 5, 3)    # 5
-min(1, 5, 3)    # 1
-sum([1, 2, 3])  # 6</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Truthy and Falsy Values</h2>
+          <p>Any value can be used as a condition. These count as <strong>False</strong>: <code>False</code>, <code>None</code>, <code>0</code>, <code>0.0</code>, <code>""</code>, <code>[]</code>, <code>{}</code>, <code>()</code>, <code>set()</code>. Almost everything else is <strong>True</strong>.</p>
+          <div class="lc-code-block"><pre><code>cart = []
+        if not cart:
+            print("Your cart is empty")</code></pre></div>
+          <p>To check for <code>None</code>, use <code>is</code>: <code>if result is None:</code>. Use <code>==</code> for comparing ordinary values.</p>
         </div>
-        <div class="lc-section">
-          <h2>The math Module</h2>
-          <div class="lc-code-block"><pre><code>import math
+        <div class="lc-section lc-card">
+          <h2>One-Line Conditional Expression</h2>
+          <div class="lc-code-block"><pre><code>age = 20
+        status = "adult" if age &gt;= 18 else "minor"
+        print(status)   # adult</code></pre></div>
+          <p>Use it for simple either/or values. For anything longer, a normal <code>if</code> block is clearer.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>match (Python 3.10+)</h2>
+          <p>For checking one value against many fixed options, newer Python has <code>match</code>:</p>
+          <div class="lc-code-block"><pre><code>match command:
+            case "start":
+                print("Starting")
+            case "stop" | "quit":
+                print("Stopping")
+            case _:
+                print("Unknown command")</code></pre></div>
+          <p><code>case _</code> is the "anything else" branch. For simple ranges like grades, <code>if/elif</code> is still the right tool.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Nested Conditions</h2>
+          <p>An <code>if</code> can sit inside another. Keep nesting shallow — combining conditions with <code>and</code> is often clearer:</p>
+          <div class="lc-code-block"><pre><code>has_ticket, age = True, 15
 
-math.sqrt(25)      # 5.0
-math.floor(3.9)    # 3
-math.ceil(3.1)     # 4
-math.pi            # 3.141592…</code></pre></div>
+        # nested
+        if has_ticket:
+            if age &gt;= 18:
+                print("Enter")
+            else:
+                print("Adults only")
+        else:
+            print("Buy a ticket first")
+
+        # same idea, flatter
+        if not has_ticket:
+            print("Buy a ticket first")
+        elif age &lt; 18:
+            print("Adults only")
+        else:
+            print("Enter")</code></pre></div>
+          <p>Both print <code>Adults only</code>.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><code>//</code> (floor division) and <code>%</code> (modulus) are very useful. <code>n % 2 == 0</code> checks if a number is even. <code>n // 10</code> strips the last digit. These patterns appear everywhere in algorithms.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Using <code>=</code> (assignment) instead of <code>==</code> (comparison) in a condition — a <code>SyntaxError</code>.</li>
+            <li>Writing <code>if x == 1 or 2:</code>. This is always true because <code>2</code> is truthy. Write <code>if x == 1 or x == 2:</code> or <code>if x in (1, 2):</code>.</li>
+            <li>Putting a weaker condition first, e.g. <code>marks &gt;= 50</code> before <code>marks &gt;= 90</code>, so the top grade is never reached.</li>
+            <li>Forgetting the colon <code>:</code> at the end of the <code>if</code> line.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Write a ticket-price checker: children under 5 are free, ages 5–17 pay ₹100, ages 60 and over pay ₹120, everyone else pays ₹200. Test it with ages 3, 12, 35 and 65.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Test the <em>edges</em> of every condition — for a <code>&gt;= 50</code> check, try 49, 50 and 51. Most bugs hide at the boundaries.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Numbers and Math ──
+        # Lesson 4: Conditional statements
 
-        # Basic arithmetic
-        print("7 + 3 =", 7 + 3)
-        print("7 - 3 =", 7 - 3)
-        print("7 * 3 =", 7 * 3)
-        print("7 / 3 =", 7 / 3)
-        print("7 // 3 =", 7 // 3)   # floor division
-        print("7 % 3 =", 7 % 3)     # remainder
-        print("2 ** 10 =", 2 ** 10) # exponent
+        test_marks = [95, 80, 72, 49, 50]   # a loop tries each value (loops: Lesson 5)
 
-        # Built-in functions
-        print("abs(-42) =", abs(-42))
-        print("round(3.14159, 2) =", round(3.14159, 2))
-        print("max(3, 7, 2) =", max(3, 7, 2))
-        print("min(3, 7, 2) =", min(3, 7, 2))
+        for marks in test_marks:
+            if marks >= 90:
+                grade = "A"
+            elif marks >= 75:
+                grade = "B"
+            elif marks >= 50:
+                grade = "C"
+            else:
+                grade = "F"
+            print(f"marks {marks:3} -> grade {grade}")
 
-        # Even/Odd check
-        for n in [1, 2, 3, 4, 5]:
-            result = "even" if n % 2 == 0 else "odd"
-            print(n, "is", result)
+        print("--- Chained comparison ---")
+        for age in [15, 18, 45, 60]:
+            working_age = 18 <= age < 60
+            print(f"age {age}: working age? {working_age}")
 
-        # Practical: price calculation
-        price = 1500
-        tax_rate = 0.18
-        discount = 100
-        tax = price * tax_rate
-        total = price + tax - discount
-        print(f"\nPrice: ₹{price}")
-        print(f"Tax (18%): ₹{tax:.2f}")
-        print(f"Discount: -₹{discount}")
-        print(f"Total: ₹{total:.2f}")
+        print("--- Truthy and falsy ---")
+        for value in [0, 7, "", "hi", [], [1], None]:
+            result = "truthy" if value else "falsy"
+            print(f"{value!r:6} is {result}")
+
+        print("--- and / or / not / in ---")
+        temperature = 31
+        is_raining = False
+        if temperature > 30 and not is_raining:
+            print("Hot and dry: drink water!")
+        city = "Pune"
+        if city in ("Mumbai", "Pune", "Nagpur"):
+            print(city, "is in Maharashtra")
+
+        result = None
+        if result is None:
+            print("No result yet")
       PY
     },
 
     5 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Loops</h1>
+        </div>
         <div class="lc-intro">
-          <p>A <strong>list</strong> is an ordered, mutable collection of items. It is Python's most used data structure — you can store any mix of data types, and lists can grow or shrink dynamically.</p>
+          <p class="lc-lead">Loops repeat code. A <code>for</code> loop goes through each item of a sequence. A <code>while</code> loop repeats as long as a condition stays true.</p>
         </div>
-        <div class="lc-section">
-          <h2>Creating and Accessing Lists</h2>
-          <div class="lc-code-block"><pre><code>fruits = ["apple", "banana", "cherry"]
+        <div class="lc-section lc-card">
+          <h2>for Loops and range()</h2>
+          <div class="lc-code-block"><pre><code>for fruit in ["mango", "banana", "guava"]:
+            print(fruit)
 
-print(fruits[0])    # "apple"    (first)
-print(fruits[-1])   # "cherry"   (last)
-print(len(fruits))  # 3</code></pre></div>
-        </div>
-        <div class="lc-section">
-          <h2>Essential List Methods</h2>
+        for i in range(5):           # 0 1 2 3 4
+            print(i, end=" ")
+        print()
+        for i in range(2, 11, 4):    # 2 6 10
+            print(i, end=" ")
+        print()</code></pre></div>
           <table class="lc-table">
-            <thead><tr><th>Method</th><th>Effect</th></tr></thead>
+            <thead><tr><th>Call</th><th>Numbers produced</th></tr></thead>
             <tbody>
-              <tr><td><code>.append(item)</code></td><td>Add to end</td></tr>
-              <tr><td><code>.insert(idx, item)</code></td><td>Add at position</td></tr>
-              <tr><td><code>.remove(item)</code></td><td>Remove first occurrence</td></tr>
-              <tr><td><code>.pop()</code></td><td>Remove and return last item</td></tr>
-              <tr><td><code>.sort()</code></td><td>Sort in place (ascending)</td></tr>
-              <tr><td><code>.reverse()</code></td><td>Reverse in place</td></tr>
-              <tr><td><code>.count(item)</code></td><td>Count occurrences</td></tr>
-              <tr><td><code>item in list</code></td><td>Check membership</td></tr>
+              <tr><td><code>range(5)</code></td><td>0, 1, 2, 3, 4 (stop is excluded)</td></tr>
+              <tr><td><code>range(1, 6)</code></td><td>1, 2, 3, 4, 5</td></tr>
+              <tr><td><code>range(0, 10, 3)</code></td><td>0, 3, 6, 9</td></tr>
+              <tr><td><code>range(10, 0, -3)</code></td><td>10, 7, 4, 1</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="lc-section">
-          <h2>Slicing</h2>
-          <div class="lc-code-block"><pre><code>nums = [0, 1, 2, 3, 4, 5]
-print(nums[1:4])   # [1, 2, 3]  (start:end, end excluded)
-print(nums[:3])    # [0, 1, 2]  (from beginning)
-print(nums[3:])    # [3, 4, 5]  (to end)
-print(nums[::2])   # [0, 2, 4]  (every 2nd item)</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>enumerate() and zip()</h2>
+          <p><code>enumerate</code> gives you the position <em>and</em> the item. <code>zip</code> walks through two lists side by side.</p>
+          <div class="lc-code-block"><pre><code>names = ["Asha", "Ben", "Chen"]
+        marks = [88, 92, 79]
+
+        for pos, name in enumerate(names, start=1):
+            print(pos, name)            # 1 Asha / 2 Ben / 3 Chen
+
+        for name, m in zip(names, marks):
+            print(f"{name}: {m}")       # Asha: 88 ...</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use <code>nums[:]</code> or <code>list(nums)</code> to make a <strong>copy</strong> of a list. Writing <code>copy = original</code> does NOT copy — both variables point to the same list!</p></div>
+        <div class="lc-section lc-card">
+          <h2>while Loops</h2>
+          <div class="lc-code-block"><pre><code>balance = 1000
+        years = 0
+        while balance &lt; 2000:
+            balance = balance * 1.08    # 8% interest per year
+            years += 1
+        print(years, "years")           # 10 years</code></pre></div>
+          <p>Make sure something inside the loop moves it toward the end, or it will run forever (an <strong>infinite loop</strong>).</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>break, continue and else</h2>
+          <ul class="lc-list">
+            <li><code>break</code> — leave the loop immediately.</li>
+            <li><code>continue</code> — skip the rest of this round and go to the next item.</li>
+            <li><code>else</code> on a loop — runs only if the loop finished <strong>without</strong> a <code>break</code>. Handy for "search and not found".</li>
+          </ul>
+          <div class="lc-code-block"><pre><code>for n in [4, 9, 15, 21]:
+            if n % 7 == 0:
+                print("First multiple of 7:", n)
+                break
+        else:
+            print("No multiple of 7 found")</code></pre></div>
+          <p><strong>Output:</strong> <code>First multiple of 7: 21</code></p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>for or while?</h2>
+          <table class="lc-table">
+            <thead><tr><th>Use</th><th>When</th></tr></thead>
+            <tbody>
+              <tr><td><code>for</code></td><td>You know what to loop over: a list, a string, a <code>range</code></td></tr>
+              <tr><td><code>while</code></td><td>You repeat until something happens, and you don't know how many rounds it takes</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Expecting <code>range(1, 5)</code> to include 5. The stop value is never included.</li>
+            <li>Writing <code>for i in range(len(names)):</code> and then <code>names[i]</code>. Loop over the list directly, or use <code>enumerate</code>.</li>
+            <li>Forgetting to update the variable in a <code>while</code> loop, causing an infinite loop.</li>
+            <li>Adding or removing items from a list while looping over the same list. Loop over a copy instead.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Print the numbers from 1 to 20, but print <code>Fizz</code> for multiples of 3, <code>Buzz</code> for multiples of 5, and <code>FizzBuzz</code> for multiples of both.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> If a loop "does nothing", add a <code>print()</code> inside it to see each value. Printing is the simplest debugger.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Lists ──
+        # Lesson 5: Loops
 
-        # Create a list
-        scores = [88, 95, 72, 61, 99, 84]
-        print("Scores:", scores)
-        print("Length:", len(scores))
-        print("First:", scores[0])
-        print("Last:", scores[-1])
+        print("--- range ---")
+        for i in range(1, 6):
+            print(f"5 x {i} = {5 * i}")
+        print("range(10, 0, -3):", list(range(10, 0, -3)))
 
-        # Modifying lists
-        scores.append(91)
-        print("After append:", scores)
+        print("--- enumerate and zip ---")
+        names = ["Asha", "Ben", "Chen"]
+        marks = [88, 92, 79]
+        for pos, name in enumerate(names, start=1):
+            print(pos, name)
+        for name, m in zip(names, marks):
+            print(f"{name}: {m}")
 
-        scores.remove(61)
-        print("After remove:", scores)
+        print("--- accumulate a total ---")
+        total = 0
+        for m in marks:
+            total += m
+        print("total:", total, "| average:", round(total / len(marks), 1))
 
-        scores.sort()
-        print("Sorted:", scores)
+        print("--- while: years to double at 8% ---")
+        balance = 1000
+        years = 0
+        while balance < 2000:
+            balance *= 1.08
+            years += 1
+        print(f"{years} years, balance ₹{balance:.2f}")
 
-        # Useful operations
-        print("Max:", max(scores))
-        print("Min:", min(scores))
-        print("Sum:", sum(scores))
-        print("Average:", sum(scores) / len(scores))
+        print("--- continue and break ---")
+        for n in range(1, 10):
+            if n % 2 == 0:
+                continue          # skip even numbers
+            if n > 7:
+                break             # stop completely
+            print("odd:", n)
 
-        # Membership check
-        print("95 in scores:", 95 in scores)
-
-        # Slicing
-        top3 = scores[-3:]
-        print("Top 3:", top3)
-
-        # Iterating
-        fruits = ["Apple", "Banana", "Cherry", "Mango"]
-        for i in range(len(fruits)):
-            print(i + 1, ".", fruits[i])
+        print("--- for ... else ---")
+        for n in [4, 9, 15, 21]:
+            if n % 7 == 0:
+                print("First multiple of 7:", n)
+                break
+        else:
+            print("No multiple of 7 found")
       PY
     },
 
     6 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Lists</h1>
+        </div>
         <div class="lc-intro">
-          <p>Python has two more sequence types: <strong>tuples</strong> (immutable ordered sequences) and <strong>sets</strong> (unordered collections of unique values). Each has specific use cases where it outperforms a regular list.</p>
+          <p class="lc-lead">A <strong>list</strong> is an ordered, changeable (<em>mutable</em>) collection written in square brackets. It is the data structure you will use most in Python.</p>
         </div>
-        <div class="lc-section">
-          <h2>Tuples — Immutable Lists</h2>
-          <div class="lc-code-block"><pre><code>point = (10, 20)          # x, y coordinates
-rgb   = (255, 128, 0)     # Colour values
+        <div class="lc-section lc-card">
+          <h2>Creating and Accessing Lists</h2>
+          <div class="lc-code-block"><pre><code>scores = [88, 95, 72, 61]
+        mixed = ["Asha", 21, True, None]   # any types are allowed
+        empty = []
 
-print(point[0])           # 10
-# point[0] = 5            # ❌ TypeError — cannot change!</code></pre></div>
-          <p>Use tuples when data should <strong>not change</strong>: coordinates, RGB colours, database rows, function return values.</p>
+        print(scores[0], scores[-1])   # 88 61
+        print(scores[1:3])             # [95, 72]
+        print(len(scores))             # 4
+        scores[0] = 90                 # lists CAN be changed
+        print(scores)                  # [90, 95, 72, 61]</code></pre></div>
+          <p>Indexing and slicing work exactly like strings (Lesson 3). A slice always gives you a <strong>new</strong> list.</p>
         </div>
-        <div class="lc-section">
-          <h2>Tuple Unpacking</h2>
-          <div class="lc-code-block"><pre><code>person = ("Alice", 28, "Engineer")
-name, age, job = person    # Unpack into variables
-print(name, age, job)
-
-# Swap two variables
-a, b = 10, 20
-a, b = b, a
-print(a, b)   # 20, 10</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>List Methods</h2>
+          <table class="lc-table">
+            <thead><tr><th>Method</th><th>What it does</th><th>Returns</th></tr></thead>
+            <tbody>
+              <tr><td><code>append(x)</code></td><td>Add one item at the end</td><td><code>None</code></td></tr>
+              <tr><td><code>extend(list2)</code></td><td>Add every item from another list</td><td><code>None</code></td></tr>
+              <tr><td><code>insert(i, x)</code></td><td>Add at position <code>i</code></td><td><code>None</code></td></tr>
+              <tr><td><code>remove(x)</code></td><td>Remove the first <code>x</code> (<code>ValueError</code> if missing)</td><td><code>None</code></td></tr>
+              <tr><td><code>pop()</code> / <code>pop(i)</code></td><td>Remove and give back the last / i-th item</td><td>the item</td></tr>
+              <tr><td><code>index(x)</code></td><td>Position of the first <code>x</code></td><td>an int</td></tr>
+              <tr><td><code>count(x)</code></td><td>How many times <code>x</code> appears</td><td>an int</td></tr>
+              <tr><td><code>sort()</code> / <code>reverse()</code></td><td>Sort / reverse <strong>in place</strong></td><td><code>None</code></td></tr>
+            </tbody>
+          </table>
+          <p>Useful built-ins: <code>len()</code>, <code>sum()</code>, <code>min()</code>, <code>max()</code>, <code>sorted()</code>, and the <code>in</code> operator.</p>
         </div>
-        <div class="lc-section">
-          <h2>Sets — Unique Values Only</h2>
-          <div class="lc-code-block"><pre><code>tags = {"python", "ai", "coding", "python"}  # Duplicate removed!
-print(tags)  # {"python", "ai", "coding"}
+        <div class="lc-section lc-card">
+          <h2>sort() vs sorted()</h2>
+          <div class="lc-code-block"><pre><code>nums = [3, 1, 2]
+        new = sorted(nums)     # returns a NEW sorted list
+        print(new, nums)       # [1, 2, 3] [3, 1, 2]
 
-tags.add("machine learning")
-tags.discard("coding")
+        result = nums.sort()   # sorts nums itself, returns None
+        print(result, nums)    # None [1, 2, 3]
 
-# Set operations
-a = {1, 2, 3, 4}
-b = {3, 4, 5, 6}
-print(a & b)   # Intersection: {3, 4}
-print(a | b)   # Union: {1, 2, 3, 4, 5, 6}
-print(a - b)   # Difference: {1, 2}</code></pre></div>
+        print(sorted(nums, reverse=True))   # [3, 2, 1]</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Sets are <strong>very fast</strong> for membership testing — <code>item in my_set</code> is O(1) vs O(n) for lists. Use a set when you need to check if something exists and duplicates don't matter.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Aliasing: Two Names, One List</h2>
+          <p>Assignment does <strong>not</strong> copy a list. Both names point to the same object in memory.</p>
+          <div class="lc-code-block"><pre><code>a = [1, 2, 3]
+        b = a            # alias, not a copy
+        b.append(4)
+        print(a)         # [1, 2, 3, 4]  (a changed too!)
+
+        c = a.copy()     # a real (shallow) copy; a[:] and list(a) also work
+        c.append(5)
+        print(a, c)      # [1, 2, 3, 4] [1, 2, 3, 4, 5]</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Nested Lists</h2>
+          <div class="lc-code-block"><pre><code>grid = [[1, 2, 3],
+                [4, 5, 6]]
+        print(grid[1][2])     # 6  (row 1, column 2)
+        for row in grid:
+            print(sum(row))   # 6, then 15</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li><code>nums = nums.sort()</code> sets <code>nums</code> to <code>None</code>. Use <code>nums.sort()</code> alone, or <code>nums = sorted(nums)</code>.</li>
+            <li><code>a.append([4, 5])</code> adds <strong>one</strong> item (a list). Use <code>extend</code> to add 4 and 5 separately.</li>
+            <li>Thinking <code>b = a</code> makes a copy.</li>
+            <li>Using an index past the end: <code>scores[10]</code> raises <code>IndexError</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Start with <code>cart = ["rice", "dal", "oil"]</code>. Add <code>"salt"</code>, insert <code>"tea"</code> at the front, remove <code>"oil"</code>, then print the cart sorted alphabetically <em>without</em> changing the original order.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Methods that change a list in place (<code>append</code>, <code>sort</code>, <code>reverse</code>…) return <code>None</code>. If a method returns <code>None</code>, it probably changed the object itself.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Tuples and Sets ──
+        # Lesson 6: Lists
 
-        # Tuples
-        coordinates = (40.7128, -74.0060)  # New York City
-        rgb_red = (255, 0, 0)
-        person = ("Alice", 25, "Engineer")
+        scores = [88, 95, 72, 61, 99, 84]
+        print("scores:", scores)
+        print("first, last:", scores[0], scores[-1])
+        print("middle slice [1:4]:", scores[1:4])
 
-        print("Latitude:", coordinates[0])
-        print("Longitude:", coordinates[1])
+        scores.append(91)
+        print("after append(91):", scores)
+        scores.extend([70, 65])
+        print("after extend([70, 65]):", scores)
+        scores.insert(0, 100)
+        print("after insert(0, 100):", scores)
+        scores.remove(61)
+        last = scores.pop()
+        print("popped:", last, "| now:", scores)
 
-        # Tuple unpacking
-        name, age, job = person
-        print(f"{name} is {age} and works as {job}")
+        print("--- built-ins ---")
+        print("len:", len(scores), "| max:", max(scores), "| min:", min(scores))
+        print("average:", round(sum(scores) / len(scores), 2))
+        print("95 in scores:", 95 in scores, "| index of 95:", scores.index(95))
 
-        # Swap without temp variable
-        x, y = 10, 20
-        x, y = y, x
-        print(f"Swapped: x={x}, y={y}")
+        print("--- sorted() vs sort() ---")
+        top_first = sorted(scores, reverse=True)
+        print("sorted copy:", top_first)
+        print("original   :", scores)
+        result = scores.sort()
+        print("sort() returned:", result, "| scores now:", scores)
 
-        # Sets — unique values
-        tags = ["python", "ai", "python", "coding", "ai", "ml"]
-        unique_tags = set(tags)
-        print("Original:", tags)
-        print("Unique tags:", unique_tags)
-        print("Count before:", len(tags), "| After:", len(unique_tags))
+        print("--- aliasing vs copying ---")
+        a = [1, 2, 3]
+        b = a
+        c = a.copy()
+        b.append(4)
+        print("a:", a, "| b:", b, "| c:", c)
+        print("a is b:", a is b, "| a is c:", a is c)
 
-        # Set operations
-        python_devs = {"Alice", "Bob", "Charlie"}
-        ml_devs     = {"Bob", "Dave", "Charlie"}
-
-        print("Both skills:", python_devs & ml_devs)
-        print("All devs:", python_devs | ml_devs)
-        print("Python only:", python_devs - ml_devs)
+        print("--- nested list ---")
+        grid = [[1, 2, 3], [4, 5, 6]]
+        print("grid[1][2]:", grid[1][2])
+        for row in grid:
+            print("row", row, "sum", sum(row))
       PY
     },
 
     7 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Tuples and Sets</h1>
+        </div>
         <div class="lc-intro">
-          <p>A <strong>dictionary</strong> stores data as <code>key: value</code> pairs, like a real dictionary where each word (key) has a definition (value). Dictionaries are used everywhere in Python — APIs return JSON which becomes dicts, and configs are dicts.</p>
+          <p class="lc-lead">A <strong>tuple</strong> is an ordered collection that cannot be changed after it is made. A <strong>set</strong> is an unordered collection of <strong>unique</strong> values with very fast membership tests.</p>
         </div>
-        <div class="lc-section">
-          <h2>Creating and Accessing</h2>
-          <div class="lc-code-block"><pre><code>person = {
-  "name": "Alice",
-  "age": 28,
-  "skills": ["Python", "ML"]
-}
+        <div class="lc-section lc-card">
+          <h2>Tuples</h2>
+          <div class="lc-code-block"><pre><code>point = (10, 20)
+        rgb = (255, 128, 0)
+        single = (5,)          # the comma makes it a tuple; (5) is just 5
+        print(point[0])        # 10
+        point[0] = 99          # TypeError: 'tuple' object does not support item assignment</code></pre></div>
+          <p>Use tuples for fixed groups of values: coordinates, RGB colours, a date <code>(2026, 9, 25)</code>, or a row from a database. Because they are immutable, tuples can be <strong>dictionary keys</strong> and set members; lists cannot.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Unpacking</h2>
+          <div class="lc-code-block"><pre><code>name, age, city = ("Asha", 21, "Chennai")
+        a, b = 1, 2
+        a, b = b, a                  # swap in one line
+        first, *rest = [1, 2, 3, 4]  # first = 1, rest = [2, 3, 4]
 
-print(person["name"])          # "Alice"
-print(person.get("age"))       # 28
-print(person.get("email", "N/A"))  # "N/A" (safe default)</code></pre></div>
+        def min_max(nums):
+            return min(nums), max(nums)   # returns a tuple
+        low, high = min_max([4, 9, 1])
+        print(low, high)             # 1 9</code></pre></div>
         </div>
-        <div class="lc-section">
-          <h2>Dictionary Methods</h2>
+        <div class="lc-section lc-card">
+          <h2>Sets</h2>
+          <div class="lc-code-block"><pre><code>tags = {"python", "ai", "python", "web"}
+        print(len(tags))          # 3 (duplicates removed)
+        tags.add("data")
+        tags.discard("web")       # no error if missing (remove() would raise KeyError)
+        print("ai" in tags)       # True, and very fast even for millions of items
+
+        empty = set()             # NOT {} (that is an empty dict)
+        unique = set([3, 1, 3, 2])   # {1, 2, 3}</code></pre></div>
+          <p>Sets have <strong>no order and no indexes</strong>: <code>tags[0]</code> is a <code>TypeError</code>. Their print order may differ from the order you typed.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Set Operations</h2>
           <table class="lc-table">
-            <thead><tr><th>Method</th><th>Returns</th></tr></thead>
+            <thead><tr><th>Operation</th><th>Symbol</th><th><code>{1,2,3}</code> with <code>{2,3,4}</code></th></tr></thead>
             <tbody>
-              <tr><td><code>.keys()</code></td><td>All keys</td></tr>
-              <tr><td><code>.values()</code></td><td>All values</td></tr>
-              <tr><td><code>.items()</code></td><td>All (key, value) pairs</td></tr>
-              <tr><td><code>.get(key, default)</code></td><td>Value or default (safe)</td></tr>
-              <tr><td><code>.update(other_dict)</code></td><td>Merge dicts</td></tr>
-              <tr><td><code>.pop(key)</code></td><td>Remove and return value</td></tr>
+              <tr><td>Union (in either)</td><td><code>a | b</code></td><td><code>{1, 2, 3, 4}</code></td></tr>
+              <tr><td>Intersection (in both)</td><td><code>a &amp; b</code></td><td><code>{2, 3}</code></td></tr>
+              <tr><td>Difference (in a, not b)</td><td><code>a - b</code></td><td><code>{1}</code></td></tr>
+              <tr><td>Symmetric difference (in one only)</td><td><code>a ^ b</code></td><td><code>{1, 4}</code></td></tr>
+              <tr><td>Subset</td><td><code>a &lt;= b</code></td><td><code>False</code></td></tr>
             </tbody>
           </table>
         </div>
-        <div class="lc-section">
-          <h2>Looping Over Dicts</h2>
-          <div class="lc-code-block"><pre><code>grades = {"Alice": 92, "Bob": 78, "Carol": 88}
-
-for name, score in grades.items():
-    print(f"{name}: {score}")</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Choosing a Collection</h2>
+          <table class="lc-table">
+            <thead><tr><th></th><th>list</th><th>tuple</th><th>set</th></tr></thead>
+            <tbody>
+              <tr><td>Syntax</td><td><code>[1, 2]</code></td><td><code>(1, 2)</code></td><td><code>{1, 2}</code></td></tr>
+              <tr><td>Ordered / indexable</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+              <tr><td>Can change</td><td>Yes</td><td>No</td><td>Yes (add/remove)</td></tr>
+              <tr><td>Duplicates</td><td>Allowed</td><td>Allowed</td><td>Removed</td></tr>
+              <tr><td>Best for</td><td>A changing sequence</td><td>A fixed record</td><td>Uniqueness, fast <code>in</code></td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always use <code>.get(key)</code> instead of <code>dict[key]</code> when the key might not exist. <code>dict[key]</code> raises a <code>KeyError</code>; <code>.get(key)</code> returns <code>None</code> safely.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Why Sets Are Fast</h2>
+          <p><code>x in my_list</code> checks items one by one, so it gets slower as the list grows. <code>x in my_set</code> jumps straight to the answer using a <strong>hash</strong>, so it stays fast even with millions of items. That is also why set items (and dict keys) must be immutable, hashable values.</p>
+          <div class="lc-code-block"><pre><code>banned = {"spam", "scam", "fake"}
+        comment = "this is a fake offer"
+        flagged = [w for w in comment.split() if w in banned]   # comprehensions: Lesson 11
+        print(flagged)   # ['fake']</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Writing <code>(5)</code> for a one-item tuple. You need the comma: <code>(5,)</code>.</li>
+            <li>Writing <code>{}</code> for an empty set. That creates a dictionary; use <code>set()</code>.</li>
+            <li>Expecting a set to keep your order, or trying <code>my_set[0]</code>.</li>
+            <li>Putting a list inside a set: <code>{[1, 2]}</code> raises <code>TypeError: unhashable type: 'list'</code>. Use a tuple.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Two classes chose electives: <code>class_a = {"AI", "Web", "Cloud"}</code> and <code>class_b = {"Web", "Data", "AI"}</code>. Print the electives chosen by both classes, the ones chosen only by class A, and the full list of all electives in sorted order.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> To remove duplicates <em>and</em> keep the original order, use <code>list(dict.fromkeys(items))</code> instead of <code>list(set(items))</code>.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Dictionaries ──
+        # Lesson 7: Tuples and sets
 
-        student = {
-            "name": "Adarsh",
-            "age": 21,
-            "courses": ["HTML", "Python", "ML"],
-            "gpa": 3.9,
-            "is_active": True
-        }
+        print("--- tuples ---")
+        point = (10, 20)
+        today = (2026, 9, 25)
+        single = (5,)
+        print("point:", point, "| x =", point[0])
+        print("type of (5,):", type(single), "| type of (5):", type((5)))
 
-        # Access values
-        print("Name:", student["name"])
-        print("GPA:", student["gpa"])
-        print("Courses:", student["courses"])
+        # point[0] = 99   # would raise TypeError: tuples cannot change
+        moved = (point[0] + 5, point[1])   # make a NEW tuple instead
+        print("moved point:", moved)
 
-        # Safe access with .get()
-        print("Email:", student.get("email", "Not provided"))
+        year, month, day = today
+        print(f"unpacked: day {day}, month {month}, year {year}")
 
-        # Add / update
-        student["email"] = "adarsh@example.com"
-        student["age"] = 22
-        print("Updated age:", student["age"])
+        a, b = 1, 2
+        a, b = b, a
+        print("after swap: a =", a, "b =", b)
 
-        # All keys, values, items
-        print("Keys:", list(student.keys()))
+        first, *rest = [1, 2, 3, 4]
+        print("first:", first, "| rest:", rest)
 
-        # Loop with .items()
-        grades = {
-            "Math": 95,
-            "Python": 98,
-            "AI": 92,
-            "Physics": 88
-        }
-        total = 0
-        for subject, score in grades.items():
-            total += score
-            status = "Pass" if score >= 90 else "Good"
-            print(f"  {subject}: {score} ({status})")
+        def min_max(nums):
+            return min(nums), max(nums)
 
-        print(f"Average: {total / len(grades):.1f}")
+        low, high = min_max([4, 9, 1, 7])
+        print("low:", low, "| high:", high)
+
+        # Tuples can be dictionary keys
+        distances = {("Delhi", "Agra"): 233, ("Mumbai", "Pune"): 148}
+        print("Mumbai to Pune:", distances[("Mumbai", "Pune")], "km")
+
+        print("--- sets ---")
+        tags = {"python", "ai", "python", "web"}
+        print("unique tags (sorted):", sorted(tags), "| count:", len(tags))
+        tags.add("data")
+        tags.discard("web")
+        print("'ai' in tags:", "ai" in tags)
+
+        class_a = {"AI", "Web", "Cloud"}
+        class_b = {"Web", "Data", "AI"}
+        print("both  (&):", sorted(class_a & class_b))
+        print("either(|):", sorted(class_a | class_b))
+        print("only A(-):", sorted(class_a - class_b))
+        print("one only (^):", sorted(class_a ^ class_b))
+
+        items = ["b", "a", "b", "c", "a"]
+        print("dedupe, keep order:", list(dict.fromkeys(items)))
       PY
     },
 
     8 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Dictionaries</h1>
+        </div>
         <div class="lc-intro">
-          <p>Conditional statements let Python programs <strong>make decisions</strong>. Python uses <code>if</code>, <code>elif</code>, and <code>else</code> — and a unique single-line <em>ternary expression</em>. Indentation defines the code blocks.</p>
+          <p class="lc-lead">A <strong>dictionary</strong> (<code>dict</code>) stores <strong>key → value</strong> pairs. You look up a value by its key instead of by a position. Dictionaries are everywhere in Python: JSON data, settings, counting, caching.</p>
         </div>
-        <div class="lc-section">
-          <h2>if / elif / else Structure</h2>
-          <div class="lc-code-block"><pre><code>bmi = 22.5
+        <div class="lc-section lc-card">
+          <h2>Creating and Reading</h2>
+          <div class="lc-code-block"><pre><code>student = {"name": "Asha", "age": 21, "city": "Chennai"}
 
-if bmi &lt; 18.5:
-    print("Underweight")
-elif bmi &lt; 25.0:
-    print("Normal weight ✓")
-elif bmi &lt; 30.0:
-    print("Overweight")
-else:
-    print("Obese")</code></pre></div>
+        print(student["name"])              # Asha
+        print(student.get("email"))         # None  (no error)
+        print(student.get("email", "N/A"))  # N/A   (your default)
+        print(student["email"])             # KeyError: 'email'</code></pre></div>
+          <p>Keys must be <strong>unique</strong> and <strong>immutable</strong> (strings, numbers, tuples). Values can be anything, even other dicts or lists. Since Python 3.7, dictionaries keep the order in which keys were added.</p>
         </div>
-        <div class="lc-section">
-          <h2>Ternary Expression (one-liner)</h2>
-          <div class="lc-code-block"><pre><code># value_if_true if condition else value_if_false
-age = 20
-status = "Adult" if age >= 18 else "Minor"
-print(status)  # "Adult"</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Changing a Dictionary</h2>
+          <div class="lc-code-block"><pre><code>student["age"] = 22                  # update an existing key
+        student["email"] = "asha@example.com" # add a new key
+        student.update({"city": "Madurai", "year": 3})
+        removed = student.pop("year")        # remove and return the value
+        del student["email"]                 # remove a key
+        merged = {"a": 1} | {"b": 2}         # {'a': 1, 'b': 2}  (Python 3.9+)</code></pre></div>
         </div>
-        <div class="lc-section">
-          <h2>Comparison and Logical Operators</h2>
+        <div class="lc-section lc-card">
+          <h2>Looping</h2>
           <table class="lc-table">
-            <thead><tr><th>Python</th><th>Meaning</th><th>Example</th></tr></thead>
+            <thead><tr><th>Loop over</th><th>Code</th><th>You get</th></tr></thead>
             <tbody>
-              <tr><td><code>==</code></td><td>Equal</td><td><code>x == 5</code></td></tr>
-              <tr><td><code>!=</code></td><td>Not equal</td><td><code>x != 0</code></td></tr>
-              <tr><td><code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code></td><td>Comparison</td><td><code>x &gt; 10</code></td></tr>
-              <tr><td><code>and</code></td><td>Both true</td><td><code>x &gt; 0 and x &lt; 10</code></td></tr>
-              <tr><td><code>or</code></td><td>Either true</td><td><code>x == 1 or x == 2</code></td></tr>
-              <tr><td><code>not</code></td><td>Invert</td><td><code>not is_active</code></td></tr>
-              <tr><td><code>in</code></td><td>Membership</td><td><code>x in [1, 2, 3]</code></td></tr>
+              <tr><td>Keys (default)</td><td><code>for k in d:</code></td><td>each key</td></tr>
+              <tr><td>Values</td><td><code>for v in d.values():</code></td><td>each value</td></tr>
+              <tr><td>Both</td><td><code>for k, v in d.items():</code></td><td>(key, value) pairs</td></tr>
             </tbody>
           </table>
+          <p><code>"age" in student</code> checks the <strong>keys</strong>, not the values.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Python allows chaining comparisons: <code>0 &lt; x &lt; 10</code> checks if x is between 0 and 10. This is more readable than <code>x &gt; 0 and x &lt; 10</code> — use it!</p></div>
+        <div class="lc-section lc-card">
+          <h2>Counting and Grouping</h2>
+          <div class="lc-code-block"><pre><code>words = "to be or not to be".split()
+
+        counts = {}
+        for w in words:
+            counts[w] = counts.get(w, 0) + 1
+        print(counts)   # {'to': 2, 'be': 2, 'or': 1, 'not': 1}
+
+        from collections import Counter, defaultdict
+        print(Counter(words).most_common(2))   # [('to', 2), ('be', 2)]
+
+        by_letter = defaultdict(list)          # missing keys start as []
+        for w in words:
+            by_letter[w[0]].append(w)
+        print(dict(by_letter))  # {'t': ['to', 'to'], 'b': ['be', 'be'], 'o': ['or'], 'n': ['not']}</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Nested Data</h2>
+          <div class="lc-code-block"><pre><code>course = {
+            "title": "Python",
+            "students": [
+                {"name": "Asha", "marks": 88},
+                {"name": "Ben", "marks": 92},
+            ],
+        }
+        print(course["students"][1]["name"])   # Ben</code></pre></div>
+          <p>This is exactly the shape of JSON data from web APIs (Lesson 13).</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Sorting a Dictionary by Value</h2>
+          <div class="lc-code-block"><pre><code>marks = {"Asha": 88, "Ben": 95, "Chen": 79}
+        ranking = sorted(marks, key=marks.get, reverse=True)   # sort keys by their values
+        print(ranking)          # ['Ben', 'Asha', 'Chen']</code></pre></div>
+          <p><code>key=marks.get</code> tells <code>sorted</code> to compare each key by its value. You will see more <code>key=</code> tricks in Lesson 10.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Using <code>d[key]</code> when the key might be missing. Use <code>d.get(key, default)</code> or check <code>if key in d</code>.</li>
+            <li>Changing a dict's size while looping over it (<code>RuntimeError</code>). Loop over <code>list(d)</code> instead.</li>
+            <li>Using a list as a key — <code>TypeError: unhashable type</code>. Use a tuple.</li>
+            <li>Expecting <code>value in d</code> to search values. Use <code>value in d.values()</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Make a dict of five Indian states and their capitals. Print each pair with <code>.items()</code>, then ask for a state that is not in the dict using <code>.get()</code> with the default <code>"Unknown"</code>.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Looking up a key in a dict is very fast, no matter how big it is. If you keep searching a list for an item, a dict or set is usually the better tool.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Conditional Statements ──
+        # Lesson 8: Dictionaries
+        from collections import Counter, defaultdict
 
-        # Grade calculator
-        def get_grade(score):
-            if score >= 90:
-                return "A — Excellent!"
-            elif score >= 80:
-                return "B — Good"
-            elif score >= 70:
-                return "C — Average"
-            elif score >= 60:
-                return "D — Below Average"
-            else:
-                return "F — Failed"
+        student = {"name": "Asha", "age": 21, "city": "Chennai"}
+        print("name:", student["name"])
+        print("get email:", student.get("email"))
+        print("get email with default:", student.get("email", "N/A"))
 
-        for score in [95, 83, 71, 62, 45]:
-            print(f"Score {score}: {get_grade(score)}")
+        student["age"] = 22
+        student["email"] = "asha@example.com"
+        student.update({"city": "Madurai", "year": 3})
+        print("updated:", student)
+        print("popped year:", student.pop("year"))
+        del student["email"]
+        print("after del:", student)
+        print("'age' in student:", "age" in student, "| 22 in student:", 22 in student)
 
-        # Ternary expression
-        temperature = 38
-        weather = "Hot" if temperature > 30 else "Comfortable"
-        print(f"\n{temperature}°C is {weather}")
+        print("--- looping ---")
+        for key, value in student.items():
+            print(f"  {key:>5}: {value}")
 
-        # Multiple conditions
-        age = 22
-        has_id = True
-        has_ticket = True
+        print("--- counting words ---")
+        words = "to be or not to be".split()
+        counts = {}
+        for w in words:
+            counts[w] = counts.get(w, 0) + 1
+        print("manual:", counts)
+        print("Counter top 2:", Counter(words).most_common(2))
 
-        if age >= 18 and has_id and has_ticket:
-            print("Entry allowed!")
-        elif age >= 18 and has_id:
-            print("Buy a ticket first")
-        else:
-            print("Not eligible")
+        by_letter = defaultdict(list)
+        for w in words:
+            by_letter[w[0]].append(w)
+        print("grouped:", dict(by_letter))
 
-        # in operator
-        allowed_roles = ["admin", "moderator", "editor"]
-        user_role = "editor"
-        if user_role in allowed_roles:
-            print(f"Access granted for: {user_role}")
+        print("--- nested data ---")
+        course = {
+            "title": "Python",
+            "students": [{"name": "Asha", "marks": 88}, {"name": "Ben", "marks": 92}],
+        }
+        print("second student:", course["students"][1]["name"])
+        for s in course["students"]:
+            print(f"  {s['name']} scored {s['marks']}")
+
+        print("merged:", {"a": 1, "b": 2} | {"b": 20, "c": 3})
       PY
     },
 
     9 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Functions</h1>
+        </div>
         <div class="lc-intro">
-          <p>Loops execute a block of code <strong>repeatedly</strong>. Python's <code>for</code> loop is elegant and powerful — it iterates directly over any sequence (list, string, range, dict). The <code>while</code> loop runs while a condition is true.</p>
+          <p class="lc-lead">A <strong>function</strong> is a named, reusable block of code. You define it once with <code>def</code> and call it as many times as you like. Functions make programs shorter, easier to test and easier to read.</p>
         </div>
-        <div class="lc-section">
-          <h2>for Loop with range()</h2>
-          <div class="lc-code-block"><pre><code># range(stop)        → 0, 1, 2, ..., stop-1
-# range(start, stop) → start, ..., stop-1
-# range(start, stop, step)
+        <div class="lc-section lc-card">
+          <h2>Defining and Calling</h2>
+          <div class="lc-code-block"><pre><code>def greet(name):
+            """Return a friendly greeting."""   # docstring: what the function does
+            return f"Hello, {name}!"
 
-for i in range(5):
-    print(i)           # 0 1 2 3 4
+        message = greet("Asha")   # "Asha" is the argument; name is the parameter
+        print(message)            # Hello, Asha!</code></pre></div>
+          <ul class="lc-list">
+            <li><code>return</code> sends a value back and <strong>ends</strong> the function.</li>
+            <li>A function with no <code>return</code> (or a bare <code>return</code>) gives back <code>None</code>.</li>
+            <li><code>print()</code> only shows a value; <code>return</code> lets the caller <em>use</em> it.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Kinds of Parameters</h2>
+          <div class="lc-code-block"><pre><code>def price_with_gst(amount, rate=0.18):          # rate has a default
+            return round(amount * (1 + rate), 2)
 
-for i in range(1, 6):
-    print(i)           # 1 2 3 4 5
+        print(price_with_gst(100))                 # 118.0
+        print(price_with_gst(100, 0.05))           # 105.0
+        print(price_with_gst(rate=0.12, amount=50))# 56.0  (keyword arguments)
 
-for i in range(0, 10, 2):
-    print(i)           # 0 2 4 6 8</code></pre></div>
-        </div>
-        <div class="lc-section">
-          <h2>enumerate() — Index + Value</h2>
-          <div class="lc-code-block"><pre><code>fruits = ["apple", "banana", "cherry"]
+        def total(*nums):          # any number of positional arguments -&gt; tuple
+            return sum(nums)
+        print(total(1, 2, 3))      # 6
 
-for index, fruit in enumerate(fruits):
-    print(f"{index + 1}. {fruit}")</code></pre></div>
+        def profile(**info):       # any number of keyword arguments -&gt; dict
+            return info
+        print(profile(name="Ben", city="Kochi"))   # {'name': 'Ben', 'city': 'Kochi'}</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Form</th><th>Example</th><th>Inside the function</th></tr></thead>
+            <tbody>
+              <tr><td>Positional</td><td><code>f(1, 2)</code></td><td>matched by order</td></tr>
+              <tr><td>Keyword</td><td><code>f(b=2, a=1)</code></td><td>matched by name</td></tr>
+              <tr><td>Default</td><td><code>def f(a, b=0)</code></td><td>used when not passed</td></tr>
+              <tr><td><code>*args</code></td><td><code>f(1, 2, 3)</code></td><td>a tuple</td></tr>
+              <tr><td><code>**kwargs</code></td><td><code>f(x=1, y=2)</code></td><td>a dict</td></tr>
+            </tbody>
+          </table>
         </div>
-        <div class="lc-section">
-          <h2>while Loop</h2>
-          <div class="lc-code-block"><pre><code>count = 1
-while count &lt;= 5:
-    print(count)
-    count += 1      # Must update condition or infinite loop!</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Returning Several Values</h2>
+          <div class="lc-code-block"><pre><code>def stats(nums):
+            return min(nums), max(nums), sum(nums) / len(nums)
+
+        low, high, avg = stats([4, 8, 6])
+        print(low, high, avg)   # 4 8 6.0</code></pre></div>
         </div>
-        <div class="lc-section">
-          <h2>break, continue, else</h2>
-          <div class="lc-code-block"><pre><code>for n in range(10):
-    if n == 3: continue    # Skip 3
-    if n == 7: break       # Stop at 7
-    print(n)               # 0 1 2 4 5 6</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>The Mutable Default Trap</h2>
+          <p>Default values are created <strong>once</strong>, when the function is defined — not on every call. A list default is therefore shared between calls:</p>
+          <div class="lc-code-block"><pre><code>def add_item(item, basket=[]):     # BAD
+            basket.append(item)
+            return basket
+        add_item("apple")
+        print(add_item("mango"))           # ['apple', 'mango']  surprise!
+
+        def add_item(item, basket=None):   # GOOD
+            if basket is None:
+                basket = []
+            basket.append(item)
+            return basket</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use <code>enumerate()</code> whenever you need both the index and the value while looping — it is more Pythonic than <code>for i in range(len(list)): item = list[i]</code>.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Printing inside a function instead of returning, then getting <code>None</code> when you try to use the result.</li>
+            <li>Forgetting the brackets: <code>greet</code> is the function itself; <code>greet("Asha")</code> calls it.</li>
+            <li>Using a list or dict as a default value (see the trap above).</li>
+            <li>Putting a default parameter before a normal one: <code>def f(a=1, b):</code> is a <code>SyntaxError</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Write <code>bmi(weight_kg, height_m)</code> that returns the BMI rounded to 1 decimal place, and <code>bmi_category(value)</code> that returns <code>"Underweight"</code> (below 18.5), <code>"Normal"</code> (below 25) or <code>"Overweight"</code>. Call both for three people.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> A good function does <strong>one job</strong> and has a name that starts with a verb: <code>calculate_total</code>, <code>send_email</code>, <code>is_valid</code>.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Loops ──
+        # Lesson 9: Functions
 
-        # range() patterns
-        print("Count to 5:")
-        for i in range(1, 6):
-            print(i, end=" ")
-        print()
+        def greet(name):
+            """Return a friendly greeting."""
+            return f"Hello, {name}!"
+        print(greet("Asha"))
+        print("docstring:", greet.__doc__)
 
-        # Even numbers
-        print("Evens 0-20:")
-        for n in range(0, 21, 2):
-            print(n, end=" ")
-        print()
+        def price_with_gst(amount, rate=0.18):
+            return round(amount * (1 + rate), 2)
+        print("default rate:", price_with_gst(100))
+        print("5% rate:", price_with_gst(100, 0.05))
+        print("keyword args:", price_with_gst(rate=0.12, amount=50))
 
-        # Iterating a list with enumerate
-        languages = ["HTML", "CSS", "JavaScript", "Python", "SQL"]
-        print("\nLearning path:")
-        for i, lang in enumerate(languages):
-            print(f"  Step {i+1}: Learn {lang}")
+        def total(*nums):
+            return sum(nums)
 
-        # Accumulator pattern
-        numbers = [10, 25, 8, 42, 15, 30]
-        total = 0
-        for n in numbers:
-            total += n
-        print(f"\nSum: {total}")
-        print(f"Average: {total / len(numbers):.1f}")
+        def profile(**info):
+            return info
 
-        # Nested loops (multiplication table)
-        print("\n3× Table:")
-        for i in range(1, 6):
-            print(f"3 × {i} = {3 * i}")
+        print("total(1, 2, 3):", total(1, 2, 3))
+        print("profile:", profile(name="Ben", city="Kochi"))
 
-        # while loop
-        n = 256
-        print(f"\nHalving {n}:")
-        while n >= 1:
-            print(n, end=" ")
-            n //= 2
+        def stats(nums):
+            return min(nums), max(nums), sum(nums) / len(nums)
+        low, high, avg = stats([4, 8, 6])
+        print(f"low={low} high={high} avg={avg}")
+
+        def shout(text):
+            print(text.upper())    # prints, but returns nothing
+        result = shout("no return here")
+        print("shout returned:", result)
+
+        print("--- mutable default trap ---")
+        def add_bad(item, basket=[]):
+            basket.append(item)
+            return basket
+
+        def add_good(item, basket=None):
+            if basket is None:
+                basket = []
+            basket.append(item)
+            return basket
+
+        add_bad("apple")
+        print("bad :", add_bad("mango"))
+        add_good("apple")
+        print("good:", add_good("mango"))
       PY
     },
 
     10 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Lambdas, Scope and Closures</h1>
+        </div>
         <div class="lc-intro">
-          <p>Functions are <strong>reusable blocks of code</strong> defined with the <code>def</code> keyword. They take inputs (parameters), do work, and optionally return a value. Functions are the cornerstone of organised, maintainable code.</p>
+          <p class="lc-lead">In Python, functions are <strong>values</strong>: you can store them in variables, pass them to other functions and return them. This lesson covers small anonymous functions (<code>lambda</code>), how Python finds variable names (<strong>scope</strong>), and functions that remember values (<strong>closures</strong>).</p>
         </div>
-        <div class="lc-section">
-          <h2>Defining Functions</h2>
-          <div class="lc-code-block"><pre><code>def greet(name):
-    """Brief description — this is a docstring."""
-    return f"Hello, {name}!"
+        <div class="lc-section lc-card">
+          <h2>Functions Are Objects</h2>
+          <div class="lc-code-block"><pre><code>def double(x):
+            return x * 2
 
-print(greet("Alice"))   # "Hello, Alice!"</code></pre></div>
+        f = double              # no brackets: we store the function itself
+        print(f(5))             # 10
+
+        def apply_twice(func, value):   # a higher-order function
+            return func(func(value))
+        print(apply_twice(double, 3))   # 12</code></pre></div>
         </div>
-        <div class="lc-section">
-          <h2>Parameters</h2>
-          <div class="lc-code-block"><pre><code># Default parameter
-def power(base, exponent=2):
-    return base ** exponent
+        <div class="lc-section lc-card">
+          <h2>lambda: A One-Expression Function</h2>
+          <p><code>lambda params: expression</code> creates a small function with no name. The expression's value is returned automatically. It can hold only <strong>one expression</strong> — no statements like <code>for</code>, <code>if</code> blocks or <code>return</code>.</p>
+          <div class="lc-code-block"><pre><code>students = [("Asha", 88), ("Ben", 95), ("Chen", 79)]
 
-power(3)      # 9  (uses default exponent=2)
-power(2, 8)   # 256
+        by_marks = sorted(students, key=lambda s: s[1], reverse=True)
+        print(by_marks)   # [('Ben', 95), ('Asha', 88), ('Chen', 79)]
 
-# Multiple return values
-def min_max(numbers):
-    return min(numbers), max(numbers)
-
-lo, hi = min_max([3, 1, 7, 2, 9])
-print(lo, hi)   # 1 9</code></pre></div>
+        print(max(students, key=lambda s: s[1]))    # ('Ben', 95)
+        print(sorted(["kiwi", "fig", "banana"], key=len))   # ['fig', 'kiwi', 'banana']</code></pre></div>
+          <p>The <code>key</code> function is called once per item; Python sorts by the values it returns.</p>
         </div>
-        <div class="lc-section">
-          <h2>*args and **kwargs</h2>
-          <div class="lc-code-block"><pre><code>def total(*numbers):   # Any number of arguments
-    return sum(numbers)
-
-total(1, 2, 3)         # 6
-total(10, 20, 30, 40)  # 100</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>map() and filter()</h2>
+          <div class="lc-code-block"><pre><code>nums = [1, 2, 3, 4, 5]
+        print(list(map(lambda n: n * n, nums)))         # [1, 4, 9, 16, 25]
+        print(list(filter(lambda n: n % 2 == 0, nums))) # [2, 4]</code></pre></div>
+          <p>Both return lazy objects, so we wrap them in <code>list()</code>. In modern Python, a <strong>comprehension</strong> (next lesson) is usually clearer than <code>map</code>/<code>filter</code> with a lambda.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Functions should do <strong>one thing</strong> and do it well. If a function is more than ~20 lines, consider splitting it. Short, focused functions are easier to test, debug, and reuse.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Scope: The LEGB Rule</h2>
+          <p>When Python sees a name, it searches in this order:</p>
+          <table class="lc-table">
+            <thead><tr><th>Level</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><strong>L</strong>ocal</td><td>Names created inside the current function</td></tr>
+              <tr><td><strong>E</strong>nclosing</td><td>Names in an outer function (for nested functions)</td></tr>
+              <tr><td><strong>G</strong>lobal</td><td>Names at the top level of the file</td></tr>
+              <tr><td><strong>B</strong>uilt-in</td><td>Python's own names: <code>print</code>, <code>len</code>…</td></tr>
+            </tbody>
+          </table>
+          <p>Assigning to a name inside a function makes it <strong>local</strong>. To change an outer variable you need <code>global</code> (top level) or <code>nonlocal</code> (enclosing function). Use them rarely — returning a value is usually cleaner.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Closures</h2>
+          <p>An inner function that uses a variable from its outer function <strong>remembers</strong> that variable, even after the outer function has finished.</p>
+          <div class="lc-code-block"><pre><code>def make_multiplier(n):
+            def multiply(x):
+                return x * n        # n comes from the enclosing scope
+            return multiply
+
+        triple = make_multiplier(3)
+        print(triple(10))           # 30
+
+        def make_counter():
+            count = 0
+            def step():
+                nonlocal count      # we want to change the outer count
+                count += 1
+                return count
+            return step
+
+        c = make_counter()
+        print(c(), c(), c())        # 1 2 3</code></pre></div>
+          <p>Closures are the building block of <strong>decorators</strong> (Lesson 18).</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Writing <code>key=len()</code> instead of <code>key=len</code>. Pass the function, don't call it.</li>
+            <li>Assigning a lambda to a name: <code>square = lambda x: x * x</code>. PEP 8 says use <code>def square(x):</code> instead.</li>
+            <li><code>UnboundLocalError</code>: reading a global and then assigning to it in the same function without <code>global</code>.</li>
+            <li>Forgetting that <code>map()</code>/<code>filter()</code> give a lazy object, not a list.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Sort <code>["Mumbai", "Goa", "Bengaluru", "Delhi"]</code> by the <strong>last letter</strong> of each name using a lambda. Then write <code>make_discount(percent)</code> that returns a function which applies that discount to a price.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Use a lambda only when it is short and used once, usually as a <code>key=</code> argument. If you need a name or more than one line, write a normal <code>def</code>.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Functions ──
+        # Lesson 10: Lambdas, scope and closures
 
-        # Basic function
-        def square(n):
-            return n * n
+        def double(x):
+            return x * 2
 
-        print("5² =", square(5))
-        print("12² =", square(12))
+        def apply_twice(func, value):
+            return func(func(value))
 
-        # Default parameters
-        def greet(name, greeting="Hello"):
-            return f"{greeting}, {name}!"
+        print("apply_twice(double, 3):", apply_twice(double, 3))
 
-        print(greet("Alice"))
-        print(greet("Bob", "Hi"))
-        print(greet("Carol", "Hey"))
+        print("--- lambda as a sort key ---")
+        students = [("Asha", 88), ("Ben", 95), ("Chen", 79)]
+        print("by marks, high first:", sorted(students, key=lambda s: s[1], reverse=True))
+        print("top student:", max(students, key=lambda s: s[1]))
+        cities = ["Mumbai", "Goa", "Bengaluru", "Delhi"]
+        print("by length (key=len):", sorted(cities, key=len))
+        print("by last letter:", sorted(cities, key=lambda c: c[-1]))
 
-        # Multiple return values
-        def stats(numbers):
-            return min(numbers), max(numbers), sum(numbers) / len(numbers)
+        print("--- map and filter ---")
+        nums = [1, 2, 3, 4, 5]
+        print("squares:", list(map(lambda n: n * n, nums)))
+        print("evens:", list(filter(lambda n: n % 2 == 0, nums)))
 
-        data = [88, 95, 72, 61, 99]
-        low, high, avg = stats(data)
-        print(f"\nData: {data}")
-        print(f"Min: {low} | Max: {high} | Avg: {avg:.1f}")
+        print("--- scope ---")
+        rate = 0.18                  # global
+        def add_tax(price):
+            total = price * (1 + rate)   # reads the global rate
+            return round(total, 2)       # total is local
+        print("add_tax(200):", add_tax(200))
 
-        # Function calling another
-        def is_prime(n):
-            if n < 2:
-                return False
-            for i in range(2, int(n**0.5) + 1):
-                if n % i == 0:
-                    return False
-            return True
+        print("--- closures ---")
+        def make_multiplier(n):
+            def multiply(x):
+                return x * n
+            return multiply
 
-        primes = [n for n in range(2, 30) if is_prime(n)]
-        print(f"\nPrimes under 30: {primes}")
+        triple = make_multiplier(3)
+        print("triple(10):", triple(10))
 
-        # Accumulator with function
-        def celsius_to_fahrenheit(c):
-            return (c * 9/5) + 32
+        def make_counter():
+            count = 0
+            def step():
+                nonlocal count
+                count += 1
+                return count
+            return step
 
-        for temp in [0, 37, 100]:
-            print(f"{temp}°C = {celsius_to_fahrenheit(temp)}°F")
+        counter = make_counter()
+        print("counter calls:", counter(), counter(), counter())
       PY
     },
 
     11 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Comprehensions</h1>
+        </div>
         <div class="lc-intro">
-          <p>A <strong>lambda function</strong> is an anonymous, single-expression function defined with the <code>lambda</code> keyword. They are compact and powerful when used with functions like <code>map()</code>, <code>filter()</code>, and <code>sorted()</code>.</p>
+          <p class="lc-lead">A <strong>comprehension</strong> builds a new list, dict or set from an existing sequence in one readable line. It replaces the common "make an empty list, loop, append" pattern.</p>
         </div>
-        <div class="lc-section">
-          <h2>Lambda Syntax</h2>
-          <div class="lc-code-block"><pre><code># lambda arguments: expression
-square = lambda x: x ** 2
-add    = lambda x, y: x + y
+        <div class="lc-section lc-card">
+          <h2>From Loop to Comprehension</h2>
+          <div class="lc-code-block"><pre><code># The loop way
+        squares = []
+        for n in range(1, 6):
+            squares.append(n * n)
 
-print(square(5))      # 25
-print(add(3, 7))      # 10</code></pre></div>
+        # The comprehension way: [expression for item in iterable]
+        squares = [n * n for n in range(1, 6)]
+        print(squares)   # [1, 4, 9, 16, 25]</code></pre></div>
+          <p>Read it left to right: "<em>n times n</em>, for each <em>n</em> in the range".</p>
         </div>
-        <div class="lc-section">
-          <h2>Lambda with map() and filter()</h2>
-          <div class="lc-code-block"><pre><code>numbers = [1, 2, 3, 4, 5]
+        <div class="lc-section lc-card">
+          <h2>Filtering vs Choosing a Value</h2>
+          <p>An <code>if</code> at the <strong>end</strong> filters items out. An <code>if … else</code> at the <strong>start</strong> picks a value for every item.</p>
+          <div class="lc-code-block"><pre><code>nums = [0, 1, 2, 3, 4]
 
-# map(): apply function to every item
-doubled = list(map(lambda x: x * 2, numbers))
-# [2, 4, 6, 8, 10]
+        evens = [x for x in nums if x % 2 == 0]
+        print(evens)          # [0, 2, 4]           (3 items kept)
 
-# filter(): keep items where function returns True
-evens = list(filter(lambda x: x % 2 == 0, numbers))
-# [2, 4]</code></pre></div>
+        marked = [x if x % 2 == 0 else 0 for x in nums]
+        print(marked)         # [0, 0, 2, 0, 4]     (all 5 items, some replaced)</code></pre></div>
         </div>
-        <div class="lc-section">
-          <h2>Lambda with sorted()</h2>
-          <div class="lc-code-block"><pre><code>students = [("Alice", 92), ("Bob", 78), ("Carol", 88)]
+        <div class="lc-section lc-card">
+          <h2>Dict and Set Comprehensions</h2>
+          <div class="lc-code-block"><pre><code>names = ["asha", "ben", "chen"]
 
-# Sort by score (second element)
-sorted_students = sorted(students, key=lambda s: s[1], reverse=True)
-# [("Alice", 92), ("Carol", 88), ("Bob", 78)]</code></pre></div>
+        lengths = {name: len(name) for name in names}
+        print(lengths)        # {'asha': 4, 'ben': 3, 'chen': 4}
+
+        marks = {"Asha": 88, "Ben": 45, "Chen": 72}
+        passed = {n: m for n, m in marks.items() if m &gt;= 50}
+        print(passed)         # {'Asha': 88, 'Chen': 72}
+
+        first_letters = {name[0] for name in names}
+        print(sorted(first_letters))   # ['a', 'b', 'c']</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use lambdas for <strong>short, simple operations</strong> passed as arguments. If your lambda is complex (multiple lines or operations), write a proper named <code>def</code> function instead — it will be more readable.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Nested Comprehensions</h2>
+          <div class="lc-code-block"><pre><code>grid = [[1, 2], [3, 4], [5, 6]]
+        flat = [x for row in grid for x in row]      # loops run in the same order as nested for-loops
+        print(flat)   # [1, 2, 3, 4, 5, 6]
+
+        table = [[r * c for c in range(1, 4)] for r in range(1, 4)]
+        print(table)  # [[1, 2, 3], [2, 4, 6], [3, 6, 9]]</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Generator Expressions</h2>
+          <p>Use round brackets and you get a <strong>generator expression</strong>. It produces values one at a time instead of building a whole list, so it saves memory. It is perfect inside <code>sum()</code>, <code>max()</code>, <code>any()</code> and <code>all()</code>:</p>
+          <div class="lc-code-block"><pre><code>total = sum(n * n for n in range(1, 1_000_001))   # no big list in memory
+        has_fail = any(m &lt; 35 for m in [88, 45, 30])     # True</code></pre></div>
+          <p>You will learn how generators work in Lesson 17.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Which Brackets Give What?</h2>
+          <table class="lc-table">
+            <thead><tr><th>Syntax</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td><code>[x * 2 for x in data]</code></td><td>list</td></tr>
+              <tr><td><code>{x * 2 for x in data}</code></td><td>set (duplicates removed)</td></tr>
+              <tr><td><code>{k: v for k, v in pairs}</code></td><td>dict</td></tr>
+              <tr><td><code>(x * 2 for x in data)</code></td><td>generator (lazy, not a tuple!)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Putting <code>else</code> at the end: <code>[x for x in nums if x &gt; 0 else 0]</code> is a <code>SyntaxError</code>. With <code>else</code>, the condition goes at the front.</li>
+            <li>Expecting <code>(x for x in data)</code> to be a tuple. Use <code>tuple(x for x in data)</code>.</li>
+            <li>Writing huge comprehensions with three loops and two conditions. If it doesn't fit on one or two lines, use a normal loop.</li>
+            <li>Using a comprehension only for side effects, like <code>[print(x) for x in data]</code>. Use a <code>for</code> loop.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>From <code>prices = {"pen": 10, "bag": 850, "book": 320, "ruler": 25}</code>, build a dict of only the items that cost more than ₹100, with prices increased by 10%. Then use a generator expression to find the total cost of all items.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Comprehensions are usually a little faster than the equivalent append loop, but choose them mainly because they are <em>clearer</em>. Readability comes first.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Lambda Functions ──
+        # Lesson 11: Comprehensions
 
-        # Basic lambdas
-        square = lambda x: x ** 2
-        add = lambda x, y: x + y
-        is_even = lambda n: n % 2 == 0
+        squares_loop = []
+        for n in range(1, 6):
+            squares_loop.append(n * n)
+        squares = [n * n for n in range(1, 6)]
+        print("loop         :", squares_loop)
+        print("comprehension:", squares)
 
-        print("5² =", square(5))
-        print("3 + 7 =", add(3, 7))
-        print("8 even?", is_even(8))
+        nums = [0, 1, 2, 3, 4]
+        print("filter (if at end)       :", [x for x in nums if x % 2 == 0])
+        print("choose (if-else at start):", [x if x % 2 == 0 else 0 for x in nums])
 
-        # map() — transform every item
-        numbers = [1, 2, 3, 4, 5]
-        doubled = list(map(lambda x: x * 2, numbers))
-        squared = list(map(lambda x: x ** 2, numbers))
-        print("Original:", numbers)
-        print("Doubled:", doubled)
-        print("Squared:", squared)
+        words = ["  Mango ", "apple", " KIWI"]
+        print("cleaned:", [w.strip().lower() for w in words])
 
-        # filter() — keep matching items
-        evens = list(filter(lambda x: x % 2 == 0, range(1, 11)))
-        big = list(filter(lambda x: x > 50, [10, 75, 30, 88, 45, 62]))
-        print("Evens 1-10:", evens)
-        print("Values > 50:", big)
+        print("--- dict and set comprehensions ---")
+        names = ["asha", "ben", "chen"]
+        print("lengths:", {name: len(name) for name in names})
+        marks = {"Asha": 88, "Ben": 45, "Chen": 72}
+        print("passed:", {n: m for n, m in marks.items() if m >= 50})
+        print("first letters:", sorted({name[0] for name in names}))
 
-        # sorted() with key
-        students = [
-            {"name": "Alice", "score": 92},
-            {"name": "Bob",   "score": 78},
-            {"name": "Carol", "score": 88},
-        ]
-        top = sorted(students, key=lambda s: s["score"], reverse=True)
-        print("\nRanking:")
-        for i, s in enumerate(top):
-            print(f"  {i+1}. {s['name']}: {s['score']}")
+        prices = {"pen": 10, "bag": 850, "book": 320, "ruler": 25}
+        costly = {item: round(p * 1.1, 2) for item, p in prices.items() if p > 100}
+        print("costly +10%:", costly)
+
+        print("--- nested ---")
+        grid = [[1, 2], [3, 4], [5, 6]]
+        print("flat:", [x for row in grid for x in row])
+        print("table:", [[r * c for c in range(1, 4)] for r in range(1, 4)])
+
+        print("--- generator expressions ---")
+        print("sum of squares 1..1,000,000:", sum(n * n for n in range(1, 1_000_001)))
+        print("any mark below 35?", any(m < 35 for m in [88, 45, 30]))
+        print("all marks above 25?", all(m > 25 for m in [88, 45, 30]))
+        print("total price:", sum(p for p in prices.values()))
+        gen = (x * 2 for x in [1, 2, 3])
+        print("type of (x * 2 for ...):", type(gen).__name__)
       PY
     },
 
     12 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Exception Handling</h1>
+        </div>
         <div class="lc-intro">
-          <p>List comprehensions are a <strong>concise, Pythonic way to create lists</strong>. They replace multi-line for loops with a clean one-liner. Mastering them is a big step toward writing professional Python code.</p>
+          <p class="lc-lead">An <strong>exception</strong> is an error that happens while the program runs — dividing by zero, a missing key, bad user input. With <code>try</code> / <code>except</code> you can catch it and respond, instead of letting the program crash.</p>
         </div>
-        <div class="lc-section">
-          <h2>Basic Syntax</h2>
-          <div class="lc-code-block"><pre><code># [expression for item in iterable if condition]
+        <div class="lc-section lc-card">
+          <h2>Common Built-in Exceptions</h2>
+          <table class="lc-table">
+            <thead><tr><th>Exception</th><th>Typical cause</th></tr></thead>
+            <tbody>
+              <tr><td><code>ValueError</code></td><td>Right type, wrong value: <code>int("abc")</code></td></tr>
+              <tr><td><code>TypeError</code></td><td>Wrong type: <code>"5" + 3</code></td></tr>
+              <tr><td><code>ZeroDivisionError</code></td><td><code>10 / 0</code></td></tr>
+              <tr><td><code>KeyError</code></td><td>Missing dict key: <code>d["nope"]</code></td></tr>
+              <tr><td><code>IndexError</code></td><td>List index out of range</td></tr>
+              <tr><td><code>FileNotFoundError</code></td><td>Opening a file that doesn't exist</td></tr>
+              <tr><td><code>AttributeError</code></td><td>Missing method: <code>(5).upper()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>try / except / else / finally</h2>
+          <div class="lc-code-block"><pre><code>def safe_divide(a, b):
+            try:
+                result = a / b
+            except ZeroDivisionError:
+                print("Cannot divide by zero")
+                return None
+            else:
+                print("Worked!")          # runs only if NO exception happened
+                return result
+            finally:
+                print("Done dividing")    # ALWAYS runs, error or not
 
-# Old way (for loop)
-squares = []
-for n in range(1, 6):
-    squares.append(n ** 2)
+        safe_divide(10, 2)   # Worked! / Done dividing
+        safe_divide(10, 0)   # Cannot divide by zero / Done dividing</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Block</th><th>Runs when…</th></tr></thead>
+            <tbody>
+              <tr><td><code>try</code></td><td>Always — the risky code</td></tr>
+              <tr><td><code>except</code></td><td>A matching exception was raised in <code>try</code></td></tr>
+              <tr><td><code>else</code></td><td><code>try</code> finished with no exception</td></tr>
+              <tr><td><code>finally</code></td><td>Always, even after <code>return</code> — use it for cleanup</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Catching Specific Errors</h2>
+          <div class="lc-code-block"><pre><code>for text in ["42", "abc", "0"]:
+            try:
+                value = 100 / int(text)
+            except ValueError as err:           # 'as err' gives you the exception object
+                print("Not a number:", err)
+            except ZeroDivisionError:
+                print("Zero is not allowed")
+            else:
+                print("Result:", value)</code></pre></div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code-block"><pre><code>Result: 2.380952380952381
+        Not a number: invalid literal for int() with base 10: 'abc'
+        Zero is not allowed</code></pre></div>
+          <p>You can catch several types in one line: <code>except (ValueError, TypeError):</code>.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Raising Your Own Exceptions</h2>
+          <div class="lc-code-block"><pre><code>class InsufficientFundsError(Exception):
+            """Raised when a withdrawal is bigger than the balance."""
 
-# New way (list comprehension)
-squares = [n ** 2 for n in range(1, 6)]
-# [1, 4, 9, 16, 25]</code></pre></div>
+        def withdraw(balance, amount):
+            if amount &lt;= 0:
+                raise ValueError("amount must be positive")
+            if amount &gt; balance:
+                raise InsufficientFundsError(f"need ₹{amount - balance} more")
+            return balance - amount</code></pre></div>
+          <p>A custom exception is just a class that inherits from <code>Exception</code> (you will learn classes in Lesson 15). Inside an <code>except</code> block, a bare <code>raise</code> re-raises the same error after, for example, logging it.</p>
         </div>
-        <div class="lc-section">
-          <h2>With Condition (filtering)</h2>
-          <div class="lc-code-block"><pre><code># Only even squares
-even_squares = [n**2 for n in range(1, 11) if n % 2 == 0]
-# [4, 16, 36, 64, 100]
-
-# Passing students
-students = [85, 92, 60, 45, 78]
-passing = [s for s in students if s >= 70]
-# [85, 92, 78]</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>EAFP: Python's Style</h2>
+          <p>Python code often follows "<strong>E</strong>asier to <strong>A</strong>sk <strong>F</strong>orgiveness than <strong>P</strong>ermission": just try the operation and handle the failure, instead of checking every condition first. For example, <code>try: int(text)</code> is simpler and more reliable than checking every character yourself.</p>
         </div>
-        <div class="lc-section">
-          <h2>Dictionary Comprehensions</h2>
-          <div class="lc-code-block"><pre><code># {key: value for item in iterable}
-names = ["Alice", "Bob", "Carol"]
-lengths = {name: len(name) for name in names}
-# {"Alice": 5, "Bob": 3, "Carol": 5}</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>A bare <code>except:</code> or <code>except Exception:</code> that hides every bug, including typos. Catch the specific error you expect.</li>
+            <li>Putting too much code inside <code>try</code>. Keep only the line that can fail there; put the rest in <code>else</code>.</li>
+            <li>Catching an error and doing nothing (<code>except ValueError: pass</code>) so problems disappear silently.</li>
+            <li>Thinking <code>finally</code> only runs on errors. It always runs.</li>
+          </ul>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>List comprehensions are faster than equivalent for loops because Python optimises them internally. But keep them simple — if the expression is complex, a regular loop is more readable.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Write <code>parse_age(text)</code> that returns an <code>int</code>, raises <code>ValueError</code> with a clear message if the age is below 0 or above 130, and test it in a loop with <code>"25"</code>, <code>"-3"</code>, <code>"old"</code> and <code>"200"</code>, printing either the age or the error message.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Error messages are for humans. Say what went wrong <em>and</em> what was expected: <code>"age must be 0–130, got 200"</code> is far more useful than <code>"bad input"</code>.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── List Comprehensions ──
+        # Lesson 12: Exception handling
 
-        # Basic: squares
-        squares = [n ** 2 for n in range(1, 11)]
-        print("Squares:", squares)
+        def safe_divide(a, b):
+            try:
+                result = a / b
+            except ZeroDivisionError:
+                print("  Cannot divide by zero")
+                return None
+            else:
+                print("  Worked!")
+                return result
+            finally:
+                print("  (finally always runs)")
 
-        # With filter: only even squares
-        even_squares = [n**2 for n in range(1, 11) if n % 2 == 0]
-        print("Even squares:", even_squares)
+        r = safe_divide(10, 2)
+        print("10 / 2 ->", r)
+        r = safe_divide(10, 0)
+        print("10 / 0 ->", r)
 
-        # String comprehension
-        words = ["  hello  ", "  Python  ", "  world  "]
-        cleaned = [w.strip().capitalize() for w in words]
-        print("Cleaned:", cleaned)
+        print("--- catching specific errors ---")
+        for text in ["42", "abc", "0"]:
+            try:
+                value = 100 / int(text)
+            except ValueError as err:
+                print(f"{text!r}: not a number ({err})")
+            except ZeroDivisionError:
+                print(f"{text!r}: zero is not allowed")
+            else:
+                print(f"{text!r}: result {value:.2f}")
 
-        # Filter passing grades
-        scores = [88, 55, 92, 63, 78, 41, 95, 70]
-        passing = [s for s in scores if s >= 70]
-        failing = [s for s in scores if s < 70]
-        print("Passing:", passing)
-        print("Failing:", failing)
+        print("--- raising custom exceptions ---")
+        class InsufficientFundsError(Exception):
+            """Raised when a withdrawal is bigger than the balance."""
 
-        # Celsius to Fahrenheit
-        celsius = [0, 20, 37, 100]
-        fahrenheit = [round((c * 9/5) + 32, 1) for c in celsius]
-        print("\nTemperature conversion:")
-        for c, f in zip(celsius, fahrenheit):
-            print(f"  {c}°C = {f}°F")
+        def withdraw(balance, amount):
+            if amount <= 0:
+                raise ValueError("amount must be positive")
+            if amount > balance:
+                raise InsufficientFundsError(f"need ₹{amount - balance} more")
+            return balance - amount
 
-        # Dictionary comprehension
-        names = ["Alice", "Bob", "Carol", "Dave"]
-        name_lengths = {name: len(name) for name in names}
-        print("\nName lengths:", name_lengths)
+        for amount in [300, -50, 2000]:
+            try:
+                left = withdraw(1000, amount)
+                print(f"withdraw {amount}: balance now ₹{left}")
+            except (ValueError, InsufficientFundsError) as err:
+                print(f"withdraw {amount}: {type(err).__name__} - {err}")
       PY
     },
 
     13 => {
       body: <<~'HTML',
-        <div class="lc-intro">
-          <p>Python can <strong>read from and write to files</strong> on your computer. File I/O (Input/Output) is essential for saving program data, reading configurations, and processing data files like CSVs.</p>
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Files, JSON and Context Managers</h1>
         </div>
-        <div class="lc-section">
-          <h2>File Modes</h2>
+        <div class="lc-intro">
+          <p class="lc-lead">Real programs read and write data: text files, CSV spreadsheets, JSON from web APIs. Python's <code>with</code> statement opens a file and <strong>guarantees it is closed</strong>, and the <code>pathlib</code>, <code>json</code> and <code>csv</code> modules do the rest.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>open() and the with Statement</h2>
+          <div class="lc-code-block"><pre><code>with open("notes.txt", "w", encoding="utf-8") as f:
+            f.write("Line 1\n")
+            f.write("Line 2\n")
+        # the file is closed here, even if an error happened inside the block
+
+        with open("notes.txt", encoding="utf-8") as f:   # "r" (read) is the default
+            for line in f:                               # read line by line (memory friendly)
+                print(line.strip())</code></pre></div>
           <table class="lc-table">
-            <thead><tr><th>Mode</th><th>Description</th></tr></thead>
+            <thead><tr><th>Mode</th><th>Meaning</th><th>If the file exists</th><th>If it doesn't</th></tr></thead>
             <tbody>
-              <tr><td><code>"r"</code></td><td>Read (default) — file must exist</td></tr>
-              <tr><td><code>"w"</code></td><td>Write — creates or overwrites file</td></tr>
-              <tr><td><code>"a"</code></td><td>Append — adds to end of file</td></tr>
-              <tr><td><code>"r+"</code></td><td>Read and write</td></tr>
+              <tr><td><code>"r"</code></td><td>Read (default)</td><td>Reads it</td><td><code>FileNotFoundError</code></td></tr>
+              <tr><td><code>"w"</code></td><td>Write</td><td><strong>Erases</strong> it first</td><td>Creates it</td></tr>
+              <tr><td><code>"a"</code></td><td>Append</td><td>Adds to the end</td><td>Creates it</td></tr>
+              <tr><td><code>"x"</code></td><td>Create</td><td><code>FileExistsError</code></td><td>Creates it</td></tr>
+              <tr><td><code>"b"</code> (e.g. <code>"rb"</code>)</td><td>Binary (images, PDFs)</td><td colspan="2">Works with bytes instead of text</td></tr>
             </tbody>
           </table>
+          <p>Always pass <code>encoding="utf-8"</code> for text, so Hindi, Tamil or ₹ symbols work the same on every computer.</p>
         </div>
-        <div class="lc-section">
-          <h2>Reading Files</h2>
-          <div class="lc-code-block"><pre><code># Always use with — it closes the file automatically
-with open("data.txt", "r") as file:
-    content = file.read()        # Read entire file
-    # OR
-    lines = file.readlines()     # List of lines</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Reading Methods</h2>
+          <ul class="lc-list">
+            <li><code>f.read()</code> — the whole file as one string.</li>
+            <li><code>f.readline()</code> — the next single line.</li>
+            <li><code>for line in f:</code> — one line at a time (best for big files).</li>
+            <li><code>f.readlines()</code> — a list of all lines.</li>
+          </ul>
         </div>
-        <div class="lc-section">
-          <h2>Writing Files</h2>
-          <div class="lc-code-block"><pre><code>with open("output.txt", "w") as file:
-    file.write("Hello, File!\n")
-    file.write("Second line\n")
+        <div class="lc-section lc-card">
+          <h2>pathlib: Modern File Paths</h2>
+          <p><code>pathlib.Path</code> is the modern way to work with paths. Join parts with <code>/</code> and it uses the right separator on Windows, macOS and Linux.</p>
+          <div class="lc-code-block"><pre><code>from pathlib import Path
 
-# Append to file
-with open("log.txt", "a") as file:
-    file.write("New log entry\n")</code></pre></div>
+        report = Path("reports") / "2026" / "marks.csv"
+        print(report.name, report.stem, report.suffix)   # marks.csv marks .csv
+        print(report.parent)                             # reports/2026
+
+        report.parent.mkdir(parents=True, exist_ok=True)
+        report.write_text("name,marks\nAsha,88\n", encoding="utf-8")
+        print(report.read_text(encoding="utf-8"))
+        print(report.exists())                           # True</code></pre></div>
+          <p>Old code uses <code>os.path.join()</code> for this — it still works, but <code>pathlib</code> is the recommended style today.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always use the <code>with</code> statement for file operations. It automatically closes the file even if an exception occurs — no need for manual <code>file.close()</code> calls.</p></div>
+        <div class="lc-section lc-card">
+          <h2>JSON</h2>
+          <p>JSON is the standard text format for web APIs and config files. It maps neatly to Python dicts and lists.</p>
+          <div class="lc-code-block"><pre><code>import json
+
+        data = {"name": "Asha", "skills": ["Python", "SQL"], "active": True}
+        text = json.dumps(data, indent=2)    # dict  -&gt; JSON string ("dump string")
+        back = json.loads(text)              # JSON string -&gt; dict ("load string")
+        print(back["skills"][0])             # Python
+
+        with open("user.json", "w", encoding="utf-8") as f:
+            json.dump(data, f)               # write straight to a file
+        with open("user.json", encoding="utf-8") as f:
+            loaded = json.load(f)            # read straight from a file</code></pre></div>
+          <p>Note the conversions: Python <code>True</code>/<code>None</code> become JSON <code>true</code>/<code>null</code>, and tuples become lists.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>CSV and In-Memory Files</h2>
+          <p>The <code>csv</code> module reads spreadsheets correctly, including commas inside quotes. <code>io.StringIO</code> is a string that behaves <strong>exactly like an open text file</strong> — great for testing, and it is what the starter code uses.</p>
+          <div class="lc-code-block"><pre><code>import csv, io
+
+        fake_file = io.StringIO("name,marks\nAsha,88\nBen,92\n")
+        for row in csv.DictReader(fake_file):
+            print(row["name"], int(row["marks"]))    # Asha 88 / Ben 92</code></pre></div>
+          <p>With a real file, open it with <code>open("marks.csv", newline="", encoding="utf-8")</code> as the <code>csv</code> docs recommend.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>What Is a Context Manager?</h2>
+          <p>Any object that works with <code>with</code> is a <strong>context manager</strong>. It runs setup code when the block starts and cleanup code when it ends — even if an exception happens. Files close themselves; locks release; database connections commit or roll back. You can write your own with <code>contextlib.contextmanager</code> once you know generators (Lesson 17).</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Opening with <code>"w"</code> when you meant <code>"a"</code> — the old content is erased instantly.</li>
+            <li>Calling <code>open()</code> without <code>with</code> and forgetting <code>close()</code>.</li>
+            <li>Mixing up <code>json.dumps</code>/<code>json.loads</code> (strings) with <code>json.dump</code>/<code>json.load</code> (files).</li>
+            <li>Building paths by gluing strings with <code>+</code> and hard-coded <code>\</code> separators, which breaks on other operating systems. Use <code>Path</code> and <code>/</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>In the starter, add a third student to the CSV text, then compute the class average. Finally, save the list of students as a JSON string with <code>indent=2</code> and print it.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Write functions that take a file <em>object</em> (anything with <code>.read()</code> or lines) instead of a file <em>name</em>. Then you can test them with <code>io.StringIO</code> and use them with real files unchanged.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── File I/O ──
-        # Simulating file operations (output shown as if running)
+        # Lesson 13: Files, JSON and context managers
+        # io.StringIO behaves like an open text file, so no real file is needed.
+        import csv
+        import io
+        import json
+        from pathlib import PurePosixPath
 
-        # Simulating writing to a file
-        data = [
-            "Name,Score,Grade",
-            "Alice,92,A",
-            "Bob,78,B",
-            "Carol,88,B+",
-            "Dave,55,F"
-        ]
+        print("--- write and read with 'with' ---")
+        with io.StringIO() as f:
+            f.write("Line 1\n")
+            f.write("Line 2\n")
+            print("contents:", repr(f.getvalue()))
+        print("closed after with?", f.closed)
 
-        print("=== Writing to grades.csv ===")
-        for line in data:
-            print(line)
+        notes = io.StringIO("first line\nsecond line\nthird line\n")
+        for number, line in enumerate(notes, start=1):
+            print(number, line.strip())
 
-        print("\n=== Reading back (simulated) ===")
-        print("Rows read:", len(data))
+        print("--- pathlib ---")
+        report = PurePosixPath("reports") / "2026" / "marks.csv"
+        print("path:", report)
+        print("name:", report.name, "| stem:", report.stem, "| suffix:", report.suffix)
+        print("parent:", report.parent)
+        print("as .json:", report.with_suffix(".json"))
 
-        # Simulating reading and processing
-        print("\n=== Processing data ===")
-        header = data[0].split(",")
-        print("Columns:", header)
-
+        print("--- CSV ---")
+        csv_file = io.StringIO("name,marks\nAsha,88\nBen,92\n")
         students = []
-        for row in data[1:]:
-            parts = row.split(",")
-            students.append({
-                "name": parts[0],
-                "score": int(parts[1]),
-                "grade": parts[2]
-            })
+        for row in csv.DictReader(csv_file):
+            students.append({"name": row["name"], "marks": int(row["marks"])})
+        print("students:", students)
 
+        out = io.StringIO()
+        writer = csv.writer(out, lineterminator="\n")
+        writer.writerow(["name", "grade"])
         for s in students:
-            print(f"  {s['name']}: {s['score']} ({s['grade']})")
+            writer.writerow([s["name"], "A" if s["marks"] >= 90 else "B"])
+        print(out.getvalue(), end="")
 
-        avg = sum(s["score"] for s in students) / len(students)
-        print(f"\nClass average: {avg:.1f}")
-        print("Passing:", sum(1 for s in students if s["score"] >= 60))
+        print("--- JSON ---")
+        data = {"course": "Python", "students": students, "active": True, "mentor": None}
+        text = json.dumps(data, indent=2)
+        print(text)
+        back = json.loads(text)
+        print("type after loads:", type(back).__name__, "| first:", back["students"][0]["name"])
+
+        json_file = io.StringIO()
+        json.dump({"saved": True}, json_file)
+        json_file.seek(0)               # go back to the start before reading
+        print("json.load from file:", json.load(json_file))
       PY
     },
 
     14 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Modules, Packages and pip</h1>
+        </div>
         <div class="lc-intro">
-          <p>Exceptions are <strong>errors that occur during program execution</strong>. Instead of letting your program crash, Python's <code>try/except</code> lets you catch and handle errors gracefully.</p>
+          <p class="lc-lead">A <strong>module</strong> is simply a <code>.py</code> file you can import. A <strong>package</strong> is a folder of modules. Python ships with a huge <strong>standard library</strong>, and <code>pip</code> installs hundreds of thousands of third-party packages from PyPI.</p>
         </div>
-        <div class="lc-section">
-          <h2>try / except / else / finally</h2>
-          <div class="lc-code-block"><pre><code>try:
-    result = 10 / 0
-except ZeroDivisionError:
-    print("Cannot divide by zero!")
-except ValueError as e:
-    print(f"Value error: {e}")
-else:
-    print("Success!", result)  # Only runs if no exception
-finally:
-    print("Always runs")       # Cleanup code here</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Ways to Import</h2>
+          <div class="lc-code-block"><pre><code>import math                    # use as math.sqrt(16)
+        from math import sqrt, pi      # use as sqrt(16), pi
+        import datetime as dt          # alias: dt.date(2026, 9, 25)
+        from statistics import mean
+
+        from math import *             # AVOID: you can't tell where names come from</code></pre></div>
         </div>
-        <div class="lc-section">
-          <h2>Common Exception Types</h2>
+        <div class="lc-section lc-card">
+          <h2>Your Own Modules and Packages</h2>
+          <div class="lc-code-block"><pre><code>my_project/
+            main.py
+            helpers.py          # a module
+            shop/               # a package
+                __init__.py
+                cart.py
+                billing.py</code></pre></div>
+          <div class="lc-code-block"><pre><code># main.py
+        import helpers
+        from shop.billing import add_gst
+
+        print(helpers.greet("Asha"))
+        print(add_gst(100))</code></pre></div>
+          <p>An <code>__init__.py</code> file marks a folder as a regular package (it can be empty).</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>if __name__ == "__main__"</h2>
+          <p>Every module has a <code>__name__</code>. When you <strong>run</strong> a file directly, its <code>__name__</code> is <code>"__main__"</code>. When it is <strong>imported</strong>, <code>__name__</code> is the module's name. So this pattern runs code only when the file is the main program:</p>
+          <div class="lc-code-block"><pre><code>def main():
+            print("Running the report...")
+
+        if __name__ == "__main__":
+            main()      # not run when another file does "import report"</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Standard Library Highlights</h2>
           <table class="lc-table">
-            <thead><tr><th>Exception</th><th>Cause</th></tr></thead>
+            <thead><tr><th>Module</th><th>Use it for</th></tr></thead>
             <tbody>
-              <tr><td><code>ValueError</code></td><td>Wrong value type: <code>int("abc")</code></td></tr>
-              <tr><td><code>ZeroDivisionError</code></td><td>Division by zero</td></tr>
-              <tr><td><code>IndexError</code></td><td>List index out of range</td></tr>
-              <tr><td><code>KeyError</code></td><td>Dict key not found</td></tr>
-              <tr><td><code>TypeError</code></td><td>Wrong type operation</td></tr>
-              <tr><td><code>FileNotFoundError</code></td><td>File does not exist</td></tr>
+              <tr><td><code>math</code>, <code>statistics</code></td><td>Maths functions, mean/median</td></tr>
+              <tr><td><code>random</code></td><td>Random numbers, shuffling, sampling (<code>seed()</code> makes results repeatable)</td></tr>
+              <tr><td><code>datetime</code></td><td>Dates, times, date arithmetic</td></tr>
+              <tr><td><code>collections</code></td><td><code>Counter</code>, <code>defaultdict</code>, <code>deque</code>, <code>namedtuple</code></td></tr>
+              <tr><td><code>itertools</code>, <code>functools</code></td><td>Looping tools, caching, decorators</td></tr>
+              <tr><td><code>json</code>, <code>csv</code>, <code>pathlib</code></td><td>Data files and paths (Lesson 13)</td></tr>
+              <tr><td><code>re</code></td><td>Regular expressions (text patterns)</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="lc-section">
-          <h2>Raising Custom Exceptions</h2>
-          <div class="lc-code-block"><pre><code>def set_age(age):
-    if age &lt; 0:
-        raise ValueError("Age cannot be negative")
-    return age</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>pip and Virtual Environments</h2>
+          <p>A <strong>virtual environment</strong> is a private folder of packages for one project, so project A can use one version of a library and project B another. Creating one per project is standard professional practice.</p>
+          <div class="lc-code-block"><pre><code>python -m venv .venv                 # create (use "py" instead of "python" on Windows)
+        source .venv/bin/activate            # activate on macOS / Linux
+        .venv\Scripts\activate               # activate on Windows
+
+        python -m pip install requests       # install a package from PyPI
+        python -m pip freeze &gt; requirements.txt   # SAVE the exact versions you use
+        python -m pip install -r requirements.txt # INSTALL them on another machine
+        deactivate                           # leave the environment</code></pre></div>
+          <p>Modern projects also describe their dependencies in a <code>pyproject.toml</code> file, and newer tools such as <strong>uv</strong> create environments and install packages much faster. The ideas are the same.</p>
+          <p><strong>In this course's editor:</strong> you cannot run <code>pip</code>, but popular packages such as NumPy and pandas are loaded automatically when you import them.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Catch <strong>specific</strong> exceptions, not just bare <code>except:</code>. Catching everything hides bugs and makes debugging very hard. Be precise: <code>except ValueError</code> is better than <code>except Exception</code>.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Naming your own file <code>random.py</code> or <code>json.py</code>. It hides the standard module and <code>import random</code> loads your file instead.</li>
+            <li>Installing packages globally instead of in a virtual environment.</li>
+            <li>Committing the <code>.venv</code> folder to Git. Commit <code>requirements.txt</code> or <code>pyproject.toml</code> instead.</li>
+            <li>Thinking <code>pip freeze &gt; requirements.txt</code> installs packages. It only <em>writes the list</em>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Use <code>datetime.date</code> to calculate how many days are left from 25 September 2026 until 1 January 2027. Then use <code>random.seed(7)</code> and <code>random.sample</code> to pick 3 quiz winners from a list of 8 names.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Before installing a package, check the standard library. Many tasks — dates, JSON, CSV, statistics, zip files — need no install at all.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Exception Handling ──
+        # Lesson 14: Modules, packages and the standard library
+        import math
+        import random
+        import datetime as dt
+        from statistics import mean, median
+        from collections import namedtuple
 
-        # Basic try/except
-        def safe_divide(a, b):
-            try:
-                result = a / b
-                return result
-            except ZeroDivisionError:
-                print(f"Error: Cannot divide {a} by 0")
-                return None
+        print("--- math ---")
+        print("math.sqrt(144):", math.sqrt(144))
+        print("math.ceil(4.1), math.floor(4.9):", math.ceil(4.1), math.floor(4.9))
+        print("math.isclose(0.1 + 0.2, 0.3):", math.isclose(0.1 + 0.2, 0.3))
 
-        print(safe_divide(10, 2))
-        print(safe_divide(10, 0))
+        print("--- statistics ---")
+        marks = [72, 88, 95, 61, 88]
+        print("mean:", mean(marks), "| median:", median(marks))
 
-        # Multiple exception types
-        def safe_parse(value):
-            try:
-                number = int(value)
-                result = 100 / number
-                print(f"100 / {number} = {result}")
-            except ValueError:
-                print(f"'{value}' is not a valid number")
-            except ZeroDivisionError:
-                print("Cannot divide by zero")
+        print("--- datetime ---")
+        today = dt.date(2026, 9, 25)
+        new_year = dt.date(2027, 1, 1)
+        print("days until new year:", (new_year - today).days)
+        print("in 30 days:", today + dt.timedelta(days=30))
+        print("weekday:", today.strftime("%A"))
 
-        safe_parse("5")
-        safe_parse("hello")
-        safe_parse("0")
+        print("--- random (seeded, so results repeat every run) ---")
+        random.seed(7)
+        names = ["Asha", "Ben", "Chen", "Divya", "Eli", "Farah", "Gopal", "Hina"]
+        winners = random.sample(names, 3)
+        print("3 winners:", winners)
+        random.seed(7)
+        print("same seed, same winners:", random.sample(names, 3) == winners)
 
-        # Custom exception
-        class AgeError(Exception):
-            pass
+        print("--- collections.namedtuple ---")
+        City = namedtuple("City", ["name", "state"])
+        c = City("Kochi", "Kerala")
+        print(c, "->", c.name, "is in", c.state)
 
-        def validate_age(age):
-            try:
-                if not isinstance(age, int):
-                    raise TypeError("Age must be an integer")
-                if age < 0 or age > 150:
-                    raise AgeError(f"Invalid age: {age}")
-                print(f"Valid age: {age}")
-            except TypeError as e:
-                print(f"TypeError: {e}")
-            except AgeError as e:
-                print(f"AgeError: {e}")
+        print("--- module names ---")
+        print("math.__name__:", math.__name__)
+        print("this file's __name__:", __name__)
 
-        validate_age(25)
-        validate_age(-5)
-        validate_age("twenty")
-        validate_age(200)
+        def main():
+            print("main() runs because this file is the main program")
+
+        if __name__ == "__main__":
+            main()
       PY
     },
 
     15 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Classes and Objects</h1>
+        </div>
         <div class="lc-intro">
-          <p>Object-Oriented Programming (OOP) organises code around <strong>objects</strong> — which combine data (attributes) and behaviour (methods). A <code>class</code> is a blueprint; an <em>object</em> is an instance created from that blueprint.</p>
+          <p class="lc-lead">A <strong>class</strong> is a blueprint that bundles data (<em>attributes</em>) and behaviour (<em>methods</em>) together. An <strong>object</strong> is one thing built from that blueprint. This style is called <strong>object-oriented programming</strong> (OOP).</p>
         </div>
-        <div class="lc-section">
+        <div class="lc-section lc-card">
           <h2>Defining a Class</h2>
-          <div class="lc-code-block"><pre><code>class Dog:
-    # __init__ is the constructor — called when creating an object
-    def __init__(self, name, breed):
-        self.name  = name    # Instance attribute
-        self.breed = breed
+          <div class="lc-code-block"><pre><code>class BankAccount:
+            bank_name = "AI Bank"                 # class attribute: shared by all accounts
 
-    def bark(self):
-        return f"{self.name} says: Woof!"
-
-    def describe(self):
-        return f"{self.name} is a {self.breed}"
-
-# Creating instances
-rex = Dog("Rex", "German Shepherd")
-max = Dog("Max", "Labrador")
-
-print(rex.bark())       # "Rex says: Woof!"
-print(max.describe())   # "Max is a Labrador"</code></pre></div>
-        </div>
-        <div class="lc-section">
-          <h2>Key OOP Terms</h2>
-          <table class="lc-table">
-            <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Class</strong></td><td>Blueprint/template for objects</td></tr>
-              <tr><td><strong>Object / Instance</strong></td><td>A specific item created from the class</td></tr>
-              <tr><td><strong>Attribute</strong></td><td>Data stored inside the object (<code>self.name</code>)</td></tr>
-              <tr><td><strong>Method</strong></td><td>Function defined inside a class</td></tr>
-              <tr><td><strong><code>__init__</code></strong></td><td>Constructor — runs when object is created</td></tr>
-              <tr><td><strong><code>self</code></strong></td><td>Reference to the current instance</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Every method in a class must have <code>self</code> as its first parameter. <code>self</code> refers to the specific instance calling the method. Python passes it automatically — you don't include it when calling.</p></div>
-      HTML
-      starter_code: <<~'PY'
-        # ── Classes and Objects ──
-
-        class BankAccount:
             def __init__(self, owner, balance=0):
-                self.owner = owner
+                self.owner = owner                # instance attributes: one set per object
                 self.balance = balance
-                self.transactions = []
 
             def deposit(self, amount):
                 self.balance += amount
-                self.transactions.append(f"+{amount}")
-                print(f"Deposited ₹{amount}. Balance: ₹{self.balance}")
+                return self.balance
 
-            def withdraw(self, amount):
-                if amount > self.balance:
-                    print("Insufficient funds!")
-                else:
-                    self.balance -= amount
-                    self.transactions.append(f"-{amount}")
-                    print(f"Withdrew ₹{amount}. Balance: ₹{self.balance}")
+        acc = BankAccount("Asha", 1000)           # create an object; __init__ runs
+        acc.deposit(500)
+        print(acc.owner, acc.balance)             # Asha 1500
+        print(acc.bank_name)                      # AI Bank</code></pre></div>
+          <ul class="lc-list">
+            <li><code>__init__</code> is the <strong>initialiser</strong>: it runs automatically when an object is created and sets up its attributes.</li>
+            <li><code>self</code> is the object the method is working on. Python passes it for you: <code>acc.deposit(500)</code> means <code>BankAccount.deposit(acc, 500)</code>.</li>
+            <li>Class names use <code>CapWords</code>; methods and attributes use <code>snake_case</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Class vs Instance Attributes</h2>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Class attribute</th><th>Instance attribute</th></tr></thead>
+            <tbody>
+              <tr><td>Defined</td><td>In the class body</td><td>On <code>self</code>, usually in <code>__init__</code></td></tr>
+              <tr><td>Shared?</td><td>One value for all objects</td><td>Each object has its own</td></tr>
+              <tr><td>Example</td><td><code>bank_name</code>, a counter of accounts</td><td><code>owner</code>, <code>balance</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>__str__ and __repr__</h2>
+          <div class="lc-code-block"><pre><code>class Point:
+            def __init__(self, x, y):
+                self.x, self.y = x, y
+            def __repr__(self):                 # for developers: unambiguous
+                return f"Point(x={self.x}, y={self.y})"
+            def __str__(self):                  # for users: friendly
+                return f"({self.x}, {self.y})"
 
-            def statement(self):
-                print(f"\n=== {self.owner}'s Account ===")
-                for t in self.transactions:
-                    print(f"  {t}")
-                print(f"Balance: ₹{self.balance}")
+        p = Point(2, 3)
+        print(p)          # (2, 3)            print() uses __str__
+        print([p])        # [Point(x=2, y=3)] containers use __repr__</code></pre></div>
+          <p>Without these methods, printing an object shows something like <code>&lt;__main__.Point object at 0x...&gt;</code>.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Properties: Controlled Attributes</h2>
+          <p>A <code>@property</code> looks like a normal attribute but runs code — perfect for validation or computed values.</p>
+          <div class="lc-code-block"><pre><code>class Student:
+            def __init__(self, name, marks):
+                self.name = name
+                self.marks = marks            # goes through the setter below
 
+            @property
+            def marks(self):
+                return self._marks
 
-        # Create objects
-        alice = BankAccount("Alice", 1000)
-        bob   = BankAccount("Bob")
+            @marks.setter
+            def marks(self, value):
+                if not 0 &lt;= value &lt;= 100:
+                    raise ValueError("marks must be 0-100")
+                self._marks = value
 
-        # Use methods
-        alice.deposit(500)
-        alice.withdraw(200)
-        alice.withdraw(2000)
+            @property
+            def passed(self):                 # computed, read-only
+                return self._marks &gt;= 35</code></pre></div>
+          <p>A leading underscore (<code>_marks</code>) is a convention meaning "internal — don't touch from outside". Python does not enforce it.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Forgetting <code>self</code> as the first method parameter — you get <code>TypeError: ... takes 1 positional argument but 2 were given</code>.</li>
+            <li>Writing <code>balance = 0</code> instead of <code>self.balance = 0</code> in <code>__init__</code>. Without <code>self.</code> it is just a local variable.</li>
+            <li>Using a mutable class attribute like <code>items = []</code> expecting each object to get its own list. Create it in <code>__init__</code>.</li>
+            <li>Calling <code>__init__</code> directly. Create objects with <code>ClassName(...)</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Add a <code>withdraw(amount)</code> method to <code>BankAccount</code> in the starter that raises <code>ValueError</code> if the amount is more than the balance. Then add a <code>__str__</code> that prints like <code>Asha: ₹1,500</code>.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Not everything needs a class. If you only need to group data, a dict or a dataclass (Lesson 19) is simpler. Use a class when data and the behaviour that changes it belong together.</p></div>
+      HTML
+      starter_code: <<~'PY'
+        # Lesson 15: Classes and objects
 
-        bob.deposit(300)
-        bob.deposit(700)
+        class BankAccount:
+            bank_name = "AI Bank"      # class attributes (shared by all objects)
+            accounts_opened = 0
 
-        # Print statements
-        alice.statement()
-        bob.statement()
+            def __init__(self, owner, balance=0):
+                self.owner = owner      # instance attributes (one set per object)
+                self.balance = balance
+                BankAccount.accounts_opened += 1
+
+            def deposit(self, amount):
+                self.balance += amount
+                return self.balance
+
+            def __repr__(self):
+                return f"BankAccount(owner={self.owner!r}, balance={self.balance})"
+
+            def __str__(self):
+                return f"{self.owner}: ₹{self.balance:,}"
+
+        asha = BankAccount("Asha", 1000)
+        ben = BankAccount("Ben")
+        asha.deposit(500)
+        print(asha, "|", ben)       # print() uses __str__
+        print([asha, ben])          # a list shows __repr__
+        print("bank:", asha.bank_name, "| accounts opened:", BankAccount.accounts_opened)
+
+        print("--- property with validation ---")
+        class Student:
+            def __init__(self, name, marks):
+                self.name = name
+                self.marks = marks      # goes through the setter
+
+            @property
+            def marks(self):
+                return self._marks
+
+            @marks.setter
+            def marks(self, value):
+                if not 0 <= value <= 100:
+                    raise ValueError(f"marks must be 0-100, got {value}")
+                self._marks = value
+
+            @property
+            def passed(self):
+                return self._marks >= 35
+
+        s = Student("Chen", 72)
+        print(s.name, s.marks, "passed:", s.passed)
+        try:
+            s.marks = 150
+        except ValueError as err:
+            print("Rejected:", err)
       PY
     },
 
     16 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Inheritance and Special Methods</h1>
+        </div>
         <div class="lc-intro">
-          <p><strong>Inheritance</strong> allows a class (child) to inherit all attributes and methods from another class (parent). This promotes code reuse and models real-world "is-a" relationships: a Dog IS-A Animal.</p>
+          <p class="lc-lead"><strong>Inheritance</strong> lets a new class reuse and extend an existing one. <strong>Special methods</strong> (also called <em>dunder</em> methods, like <code>__len__</code> and <code>__add__</code>) let your objects work with Python's built-in operators and functions.</p>
         </div>
-        <div class="lc-section">
-          <h2>Inheritance Syntax</h2>
-          <div class="lc-code-block"><pre><code>class Animal:
-    def __init__(self, name):
-        self.name = name
-    def speak(self):
-        return "..."
-
-class Dog(Animal):       # Dog inherits from Animal
-    def speak(self):     # Override parent method
-        return f"{self.name}: Woof!"
-
-class Cat(Animal):
-    def speak(self):
-        return f"{self.name}: Meow!"
-
-dog = Dog("Rex")
-cat = Cat("Whiskers")
-print(dog.speak())   # "Rex: Woof!"
-print(cat.speak())   # "Whiskers: Meow!"</code></pre></div>
-        </div>
-        <div class="lc-section">
-          <h2>super() — Call Parent's Method</h2>
+        <div class="lc-section lc-card">
+          <h2>A Child Class</h2>
           <div class="lc-code-block"><pre><code>class Employee:
-    def __init__(self, name, salary):
-        self.name   = name
-        self.salary = salary
+            def __init__(self, name, salary):
+                self.name = name
+                self.salary = salary
 
-class Manager(Employee):
-    def __init__(self, name, salary, team_size):
-        super().__init__(name, salary)  # Calls Employee.__init__
-        self.team_size = team_size</code></pre></div>
+            def yearly_pay(self):
+                return self.salary * 12
+
+        class Manager(Employee):                     # Manager IS AN Employee
+            def __init__(self, name, salary, bonus):
+                super().__init__(name, salary)       # let the parent set name and salary
+                self.bonus = bonus
+
+            def yearly_pay(self):                    # override the parent's method
+                return super().yearly_pay() + self.bonus
+
+        m = Manager("Divya", 90_000, 200_000)
+        print(m.name, m.yearly_pay())                # Divya 1280000</code></pre></div>
+          <ul class="lc-list">
+            <li>The child gets every attribute and method of the parent.</li>
+            <li><strong>Overriding</strong>: define a method with the same name to change its behaviour.</li>
+            <li><code>super()</code> calls the parent's version. If the child defines <code>__init__</code>, the parent's <code>__init__</code> runs <strong>only</strong> if you call <code>super().__init__(...)</code>.</li>
+          </ul>
         </div>
-        <div class="lc-section">
-          <h2>isinstance() and issubclass()</h2>
-          <div class="lc-code-block"><pre><code>isinstance(dog, Dog)     # True
-isinstance(dog, Animal)  # True — Dog is a type of Animal
-issubclass(Dog, Animal)  # True</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Polymorphism</h2>
+          <p>Different classes can offer the same method name. Code that calls that method works with all of them:</p>
+          <div class="lc-code-block"><pre><code>staff = [Employee("Asha", 50_000), Manager("Divya", 90_000, 200_000)]
+        for person in staff:
+            print(person.name, person.yearly_pay())   # each object uses its own version
+
+        print(isinstance(m, Employee))    # True: a Manager is also an Employee
+        print(issubclass(Manager, Employee))   # True</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use <code>super()</code> when overriding <code>__init__</code> so the parent's constructor runs too. Without it, parent attributes like <code>self.name</code> won't be set for the child class.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Abstract Base Classes</h2>
+          <p>An abstract class defines methods that every child <strong>must</strong> implement. You cannot create an object from it directly.</p>
+          <div class="lc-code-block"><pre><code>from abc import ABC, abstractmethod
+
+        class Shape(ABC):
+            @abstractmethod
+            def area(self): ...
+
+        class Square(Shape):
+            def __init__(self, side):
+                self.side = side
+            def area(self):
+                return self.side ** 2
+
+        Shape()       # TypeError: Can't instantiate abstract class Shape ...
+        Square(3).area()   # 9</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Special (Dunder) Methods</h2>
+          <table class="lc-table">
+            <thead><tr><th>You write</th><th>Python calls</th></tr></thead>
+            <tbody>
+              <tr><td><code>str(obj)</code>, <code>print(obj)</code></td><td><code>obj.__str__()</code></td></tr>
+              <tr><td><code>repr(obj)</code></td><td><code>obj.__repr__()</code></td></tr>
+              <tr><td><code>len(obj)</code></td><td><code>obj.__len__()</code></td></tr>
+              <tr><td><code>a + b</code></td><td><code>a.__add__(b)</code></td></tr>
+              <tr><td><code>a == b</code></td><td><code>a.__eq__(b)</code></td></tr>
+              <tr><td><code>a &lt; b</code> (and <code>sorted()</code>)</td><td><code>a.__lt__(b)</code></td></tr>
+              <tr><td><code>obj[i]</code></td><td><code>obj.__getitem__(i)</code></td></tr>
+              <tr><td><code>x in obj</code></td><td><code>obj.__contains__(x)</code></td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code-block"><pre><code>class Money:
+            def __init__(self, rupees):
+                self.rupees = rupees
+            def __add__(self, other):
+                return Money(self.rupees + other.rupees)
+            def __eq__(self, other):
+                return isinstance(other, Money) and self.rupees == other.rupees
+            def __repr__(self):
+                return f"Money({self.rupees})"
+
+        print(Money(100) + Money(50))        # Money(150)
+        print(Money(5) == Money(5))          # True (without __eq__ it would be False)</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Inheritance or Composition?</h2>
+          <table class="lc-table">
+            <thead><tr><th>Relationship</th><th>Use</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>"is a"</td><td>Inheritance</td><td>A <code>Manager</code> is an <code>Employee</code></td></tr>
+              <tr><td>"has a"</td><td>Composition (store an object as an attribute)</td><td>A <code>Car</code> has an <code>Engine</code></td></tr>
+            </tbody>
+          </table>
+          <p>Prefer shallow hierarchies. Deep chains of inheritance are hard to follow.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Overriding <code>__init__</code> and forgetting <code>super().__init__()</code>, so parent attributes like <code>self.name</code> never get set.</li>
+            <li>Using inheritance for a "has a" relationship (e.g. <code>class Car(Engine)</code>).</li>
+            <li>Defining <code>__eq__</code> on a class and then being surprised it can no longer be used in sets or as dict keys. Python sets <code>__hash__</code> to <code>None</code> unless you also define <code>__hash__</code>.</li>
+            <li>Returning a string from <code>__len__</code>. It must return a non-negative <code>int</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>In the starter, add a <code>Triangle(base, height)</code> class that inherits from <code>Shape</code> and add it to the list of shapes. Then add a <code>__lt__</code> method to <code>Shape</code> that compares areas, so <code>sorted(shapes)</code> works.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Always write a <code>__repr__</code> for your classes. It makes debugging, logging and testing much easier, because you can see what an object contains at a glance.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Inheritance ──
+        # Lesson 16: Inheritance and special methods
+        from abc import ABC, abstractmethod
+        import math
 
-        class Shape:
-            def __init__(self, color="white"):
-                self.color = color
+        class Shape(ABC):
+            def __init__(self, name):
+                self.name = name
 
-            def describe(self):
-                return f"A {self.color} {self.__class__.__name__}"
-
+            @abstractmethod
             def area(self):
-                return 0
-
-
-        class Circle(Shape):
-            def __init__(self, radius, color="white"):
-                super().__init__(color)
-                self.radius = radius
-
-            def area(self):
-                return round(3.14159 * self.radius ** 2, 2)
-
+                ...
 
         class Rectangle(Shape):
-            def __init__(self, width, height, color="white"):
-                super().__init__(color)
-                self.width = width
-                self.height = height
+            def __init__(self, width, height):
+                super().__init__("Rectangle")
+                self.width, self.height = width, height
 
             def area(self):
                 return self.width * self.height
 
+        class Square(Rectangle):
+            def __init__(self, side):
+                super().__init__(side, side)
+                self.name = "Square"
 
-        class Square(Rectangle):      # Square IS-A Rectangle
-            def __init__(self, side, color="white"):
-                super().__init__(side, side, color)
+        class Circle(Shape):
+            def __init__(self, radius):
+                super().__init__("Circle")
+                self.radius = radius
 
+            def area(self):
+                return math.pi * self.radius ** 2
 
-        # Create shapes
-        shapes = [
-            Circle(5, "red"),
-            Rectangle(4, 6, "blue"),
-            Square(3, "green"),
-            Circle(2, "yellow"),
-        ]
+        shapes = [Rectangle(4, 3), Square(5), Circle(1)]
+        for s in shapes:                  # polymorphism: each uses its own area()
+            print(f"{s.name} with area {s.area():.2f}")
+        print("Square is a Rectangle?", isinstance(shapes[1], Rectangle))
 
-        for shape in shapes:
-            print(f"{shape.describe()} — Area: {shape.area()}")
+        print("--- special methods ---")
+        class Playlist:
+            def __init__(self, *songs):
+                self.songs = list(songs)
+            def __len__(self):
+                return len(self.songs)
+            def __getitem__(self, i):
+                return self.songs[i]
+            def __add__(self, other):
+                return Playlist(*(self.songs + other.songs))
+            def __repr__(self):
+                return f"Playlist({self.songs})"
 
-        # isinstance check
-        c = Circle(3)
-        print(f"\nCircle is Shape: {isinstance(c, Shape)}")
-        print(f"Square is Rectangle: {issubclass(Square, Rectangle)}")
+        both = Playlist("Kesariya", "Naatu Naatu") + Playlist("Jai Ho")
+        print(both, "| len:", len(both), "| first:", both[0])
       PY
     },
 
     17 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Iterators and Generators</h1>
+        </div>
         <div class="lc-intro">
-          <p>Python's <strong>module system</strong> lets you organise code into reusable files and use code written by others. The vast ecosystem of third-party packages (installed with <code>pip</code>) is one of Python's biggest strengths.</p>
+          <p class="lc-lead">Every <code>for</code> loop in Python uses the <strong>iterator protocol</strong> behind the scenes. A <strong>generator</strong> is the easiest way to write your own iterator: a function that uses <code>yield</code> to produce values <em>one at a time</em>, only when they are needed.</p>
         </div>
-        <div class="lc-section">
-          <h2>Importing Modules</h2>
-          <div class="lc-code-block"><pre><code>import math                # Import entire module
-import math as m           # Alias
-from math import sqrt, pi  # Import specific names
-from math import *         # Import all (avoid!)
-
-print(math.sqrt(25))       # 5.0
-print(m.pi)                # 3.14159…
-print(sqrt(16))            # 4.0</code></pre></div>
-        </div>
-        <div class="lc-section">
-          <h2>Useful Standard Library Modules</h2>
+        <div class="lc-section lc-card">
+          <h2>Iterables and Iterators</h2>
           <table class="lc-table">
-            <thead><tr><th>Module</th><th>Use Case</th></tr></thead>
+            <thead><tr><th>Term</th><th>Meaning</th><th>Examples</th></tr></thead>
             <tbody>
-              <tr><td><code>math</code></td><td>sqrt, floor, ceil, pi, trig</td></tr>
-              <tr><td><code>random</code></td><td>Random numbers, shuffle, choice</td></tr>
-              <tr><td><code>datetime</code></td><td>Dates, times, time zones</td></tr>
-              <tr><td><code>os</code></td><td>File system, environment variables</td></tr>
-              <tr><td><code>json</code></td><td>Parse and generate JSON</td></tr>
-              <tr><td><code>collections</code></td><td>Counter, defaultdict, OrderedDict</td></tr>
-              <tr><td><code>re</code></td><td>Regular expressions</td></tr>
+              <tr><td><strong>Iterable</strong></td><td>Something you can loop over; <code>iter(x)</code> gives an iterator</td><td>list, str, dict, range, file</td></tr>
+              <tr><td><strong>Iterator</strong></td><td>An object that gives the next value with <code>next()</code> and remembers its position</td><td><code>iter([1, 2])</code>, generators, <code>enumerate(...)</code></td></tr>
             </tbody>
           </table>
+          <div class="lc-code-block"><pre><code>it = iter(["a", "b"])
+        print(next(it))   # a
+        print(next(it))   # b
+        print(next(it))   # StopIteration: nothing left</code></pre></div>
+          <p>A <code>for</code> loop simply calls <code>iter()</code> once, then <code>next()</code> again and again, and stops quietly at <code>StopIteration</code>.</p>
         </div>
-        <div class="lc-section">
-          <h2>Installing Packages</h2>
-          <div class="lc-code-block"><pre><code># In terminal:
-pip install numpy          # Scientific computing
-pip install pandas         # Data analysis
-pip install matplotlib     # Visualisation
-pip install requests       # HTTP requests
-pip install scikit-learn   # Machine learning</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>Generator Functions</h2>
+          <p>A function that contains <code>yield</code> becomes a generator function. Calling it does <strong>not</strong> run the body; it returns a generator object. Each <code>next()</code> runs the code until the next <code>yield</code>, then <strong>pauses</strong> there.</p>
+          <div class="lc-code-block"><pre><code>def countdown(n):
+            print("starting")
+            while n &gt; 0:
+                yield n        # hand out n, then pause here
+                n -= 1
+            print("lift-off!")
+
+        for x in countdown(3):
+            print(x)</code></pre></div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code-block"><pre><code>starting
+        3
+        2
+        1
+        lift-off!</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Python's standard library is called "batteries included" — it covers almost everything from networking to date handling. Always check if a module exists before installing a third-party package.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Why Generators? Lazy Evaluation</h2>
+          <table class="lc-table">
+            <thead><tr><th></th><th>List</th><th>Generator</th></tr></thead>
+            <tbody>
+              <tr><td>Values created</td><td>All at once</td><td>One at a time, on demand</td></tr>
+              <tr><td>Memory</td><td>Grows with the size</td><td>Tiny and constant</td></tr>
+              <tr><td>Reuse</td><td>Loop as many times as you like</td><td><strong>Single use</strong> — exhausted after one pass</td></tr>
+              <tr><td>Indexing / <code>len()</code></td><td>Yes</td><td>No</td></tr>
+              <tr><td>Infinite sequences</td><td>Impossible</td><td>Easy</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code-block"><pre><code>nums = (n * n for n in range(3))
+        print(sum(nums))   # 5
+        print(sum(nums))   # 0  (already used up!)</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Infinite Generators and itertools</h2>
+          <div class="lc-code-block"><pre><code>from itertools import islice, count, chain
+
+        def fibonacci():
+            a, b = 0, 1
+            while True:            # never ends on its own...
+                yield a
+                a, b = b, a + b
+
+        print(list(islice(fibonacci(), 8)))     # ...so take only 8: [0, 1, 1, 2, 3, 5, 8, 13]
+        print(list(islice(count(10, 5), 3)))    # [10, 15, 20]
+        print(list(chain([1, 2], (3, 4))))      # [1, 2, 3, 4]</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Pipelines</h2>
+          <p>Generators can feed each other. Each stage handles one item at a time, so this works even for a log file with millions of lines:</p>
+          <div class="lc-code-block"><pre><code>def read_lines(file):
+            for line in file:
+                yield line.strip()
+
+        def only_errors(lines):
+            for line in lines:
+                if line.startswith("ERROR"):
+                    yield line
+
+        errors = only_errors(read_lines(log_file))</code></pre></div>
+          <p><code>yield from other_iterable</code> is a shortcut for "yield every item of <code>other_iterable</code>".</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Looping over the same generator twice and getting nothing the second time. Create a new one, or store the values in a list.</li>
+            <li>Calling <code>len()</code> or using <code>[0]</code> on a generator — a <code>TypeError</code>.</li>
+            <li>Writing <code>return value</code> instead of <code>yield value</code>, so the function stops after the first item.</li>
+            <li>Calling <code>list()</code> on an infinite generator — the program never finishes. Use <code>islice</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Write a generator <code>evens(limit)</code> that yields even numbers from 0 up to <code>limit</code>. Then write <code>running_total(numbers)</code> that yields the total so far after each number, and test it with <code>[5, 10, 15]</code> (expected <code>5, 15, 30</code>).</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> If you only need to loop over results once — especially large ones — return a generator instead of building a list. You can always call <code>list()</code> on it later if you need a list.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Modules and Packages ──
+        # Lesson 17: Iterators and generators
+        import io
+        from itertools import islice, count, chain
 
-        # math module
-        import math
+        print("--- iter() and next() ---")
+        it = iter(["a", "b"])
+        print(next(it), next(it))
+        try:
+            next(it)
+        except StopIteration:
+            print("StopIteration: the iterator is used up")
 
-        print("=== math module ===")
-        print("sqrt(144):", math.sqrt(144))
-        print("floor(3.9):", math.floor(3.9))
-        print("ceil(3.1):", math.ceil(3.1))
-        print("pi:", round(math.pi, 5))
-        print("Circle area r=5:", round(math.pi * 5**2, 2))
+        print("--- a generator pauses at each yield ---")
+        def countdown(n):
+            print("starting")
+            while n > 0:
+                yield n
+                n -= 1
+            print("lift-off!")
+        gen = countdown(3)
+        print("created:", type(gen).__name__)   # nothing has run yet
+        for x in gen:
+            print(x)
 
-        # random module
-        import random
+        print("--- single use ---")
+        nums = (n * n for n in range(3))
+        print("first sum:", sum(nums), "| second sum:", sum(nums))
 
-        print("\n=== random module ===")
-        print("Random 1-10:", random.randint(1, 10))
-        print("Random float:", round(random.random(), 3))
+        print("--- infinite generator + islice ---")
+        def fibonacci():
+            a, b = 0, 1
+            while True:
+                yield a
+                a, b = b, a + b
+        print("first 10 Fibonacci:", list(islice(fibonacci(), 10)))
+        print("count(10, 5):", list(islice(count(10, 5), 3)))
+        print("chain:", list(chain([1, 2], (3, 4))))
 
-        dice = [1, 2, 3, 4, 5, 6]
-        print("Dice roll:", random.choice(dice))
+        print("--- a generator pipeline ---")
+        log_file = io.StringIO("INFO start\nERROR disk full\nINFO retry\nERROR timeout\n")
+        def read_lines(file):
+            for line in file:
+                yield line.strip()
+        def only_errors(lines):
+            for line in lines:
+                if line.startswith("ERROR"):
+                    yield line
 
-        cards = list(range(1, 14))
-        random.shuffle(cards)
-        print("Shuffled cards:", cards[:5], "...")
+        for problem in only_errors(read_lines(log_file)):
+            print("found:", problem)
+        def flatten(groups):
+            for group in groups:
+                yield from group
 
-        # collections module
-        from collections import Counter
-
-        print("\n=== collections.Counter ===")
-        words = ["python", "ai", "python", "ml", "ai", "python", "data"]
-        count = Counter(words)
-        print("Word counts:", dict(count))
-        print("Most common:", count.most_common(2))
-
-        # String operations (no import needed)
-        print("\n=== String ops ===")
-        import string
-        print("Digits:", string.digits)
-        print("Uppercase:", string.ascii_uppercase)
+        print("yield from:", list(flatten([[1, 2], [3], [4, 5]])))
       PY
     },
 
     18 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Decorators</h1>
+        </div>
         <div class="lc-intro">
-          <p>A <strong>virtual environment</strong> is an isolated Python environment for a specific project with its own packages and Python version. It prevents conflicts between projects that need different package versions.</p>
+          <p class="lc-lead">A <strong>decorator</strong> is a function that takes a function and returns a new, improved one. It lets you add behaviour — logging, timing, caching, access checks — <em>without changing the original function's code</em>. You have already used some: <code>@property</code> and <code>@abstractmethod</code>.</p>
         </div>
-        <div class="lc-section">
-          <h2>The Problem Virtual Environments Solve</h2>
-          <div class="lc-flow">
-            <div class="lc-flow-step">Project A<br><small>needs Django 4.0</small></div>
-            <div class="lc-flow-arrow">⚡</div>
-            <div class="lc-flow-step">Project B<br><small>needs Django 3.2</small></div>
-          </div>
-          <p style="margin-top:12px">Without virtual environments, you can only install one version globally. They conflict. Virtual environments solve this by giving each project its own isolated space.</p>
+        <div class="lc-section lc-card">
+          <h2>Building One Step by Step</h2>
+          <p>Decorators combine two ideas from Lesson 10: functions are values, and closures remember variables.</p>
+          <div class="lc-code-block"><pre><code>def shout(func):                 # takes a function...
+            def wrapper(name):
+                result = func(name)      # ...calls the original...
+                return result.upper()    # ...and changes the result
+            return wrapper               # returns the new function
+
+        def greet(name):
+            return f"hello, {name}"
+
+        greet = shout(greet)             # wrap it by hand
+        print(greet("asha"))             # HELLO, ASHA</code></pre></div>
         </div>
-        <div class="lc-section">
-          <h2>Creating and Using Venvs</h2>
-          <div class="lc-code-block"><pre><code># Create
-python -m venv myenv
-
-# Activate (macOS/Linux)
-source myenv/bin/activate
-
-# Activate (Windows)
-myenv\Scripts\activate
-
-# Install packages (only for this project)
-pip install requests pandas
-
-# Save dependencies
-pip freeze &gt; requirements.txt
-
-# Deactivate
-deactivate</code></pre></div>
+        <div class="lc-section lc-card">
+          <h2>The @ Syntax</h2>
+          <p>Writing <code>@shout</code> above a function is exactly the same as writing <code>greet = shout(greet)</code> after it:</p>
+          <div class="lc-code-block"><pre><code>@shout
+        def greet(name):
+            return f"hello, {name}"</code></pre></div>
         </div>
-        <div class="lc-section">
-          <h2>requirements.txt</h2>
-          <div class="lc-code-block"><pre><code># requirements.txt
-numpy==1.24.0
-pandas==2.0.1
-scikit-learn==1.3.0
-matplotlib==3.7.1
+        <div class="lc-section lc-card">
+          <h2>A Reusable Decorator</h2>
+          <p>Use <code>*args, **kwargs</code> so the wrapper works for any function, and <code>functools.wraps</code> so the wrapped function keeps its own name and docstring.</p>
+          <div class="lc-code-block"><pre><code>import functools
 
-# Install all from file
-pip install -r requirements.txt</code></pre></div>
+        def log_calls(func):
+            @functools.wraps(func)
+            def wrapper(*args, **kwargs):
+                print(f"calling {func.__name__}{args}")
+                result = func(*args, **kwargs)
+                print(f"{func.__name__} returned {result}")
+                return result
+            return wrapper
+
+        @log_calls
+        def add(a, b):
+            return a + b
+
+        add(2, 3)
+        print(add.__name__)    # add   (without @wraps it would be "wrapper")</code></pre></div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code-block"><pre><code>calling add(2, 3)
+        add returned 5
+        add</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always create a virtual environment at the start of every new Python project. It is a professional habit that prevents hours of debugging "it works on my machine" dependency issues.</p></div>
+        <div class="lc-section lc-card">
+          <h2>Decorators With Arguments</h2>
+          <p>To pass settings, add one more outer function that <em>returns</em> the decorator:</p>
+          <div class="lc-code-block"><pre><code>def repeat(times):
+            def decorator(func):
+                @functools.wraps(func)
+                def wrapper(*args, **kwargs):
+                    return [func(*args, **kwargs) for _ in range(times)]
+                return wrapper
+            return decorator
+
+        @repeat(3)
+        def roll():
+            return "🎲"
+        print(roll())     # ['🎲', '🎲', '🎲']</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Useful Built-in Decorators</h2>
+          <table class="lc-table">
+            <thead><tr><th>Decorator</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><code>@functools.lru_cache(maxsize=None)</code> / <code>@functools.cache</code></td><td>Remembers results for arguments it has seen (memoisation)</td></tr>
+              <tr><td><code>@property</code></td><td>Turns a method into a read-only attribute (Lesson 15)</td></tr>
+              <tr><td><code>@staticmethod</code></td><td>A method that needs neither <code>self</code> nor the class</td></tr>
+              <tr><td><code>@classmethod</code></td><td>Receives the class (<code>cls</code>) instead of the object; often used for alternative constructors</td></tr>
+              <tr><td><code>@dataclass</code></td><td>Writes <code>__init__</code>, <code>__repr__</code> and <code>__eq__</code> for you (Lesson 19)</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code-block"><pre><code>@functools.cache
+        def fib(n):
+            return n if n &lt; 2 else fib(n - 1) + fib(n - 2)
+
+        print(fib(80))    # 23416728348467685 — instant, because results are cached</code></pre></div>
+          <p>When you stack decorators, the one <strong>closest to the function</strong> is applied first.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Forgetting <code>return result</code> in the wrapper, so the decorated function always returns <code>None</code>.</li>
+            <li>Writing <code>return wrapper()</code> (calling it) instead of <code>return wrapper</code>.</li>
+            <li>Skipping <code>@functools.wraps</code>, which makes every decorated function show up as <code>wrapper</code> in errors and tools.</li>
+            <li>Writing <code>@repeat</code> without brackets for a decorator that needs arguments. It must be <code>@repeat(3)</code>.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Write a decorator <code>@require_positive</code> that raises <code>ValueError</code> if any positional argument is a negative number, and apply it to a <code>square_root(x)</code> function. Test it with <code>16</code> and <code>-4</code>.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Frameworks use decorators everywhere: Flask and FastAPI routes (<code>@app.get("/")</code>), pytest fixtures, Django's <code>@login_required</code>. Once you understand the <code>f = deco(f)</code> idea, they stop looking like magic.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Virtual Environments ──
-        # Simulating virtual environment workflow
+        # Lesson 18: Decorators
+        import functools
 
-        # Step 1: Show current environment info
-        import sys
+        def shout(func):
+            def wrapper(name):
+                return func(name).upper()
+            return wrapper
+        def greet(name):
+            return f"hello, {name}"
 
-        print("=== Python Environment ===")
-        print("Python version:", sys.version.split()[0])
-        print("Platform:", sys.platform)
+        print("before:", greet("asha"))
+        greet = shout(greet)                 # what @shout does
+        print("after :", greet("asha"))
 
-        # Step 2: Simulate checking installed packages
-        packages = {
-            "numpy": "1.24.0",
-            "pandas": "2.0.1",
-            "matplotlib": "3.7.1",
-            "scikit-learn": "1.3.0",
-            "requests": "2.31.0"
-        }
+        def log_calls(func):
+            @functools.wraps(func)
+            def wrapper(*args, **kwargs):
+                print(f"  calling {func.__name__}{args}")
+                result = func(*args, **kwargs)
+                print(f"  {func.__name__} returned {result}")
+                return result
+            return wrapper
+        @log_calls
+        def add(a, b):
+            """Add two numbers."""
+            return a + b
+        print("--- @log_calls ---")
+        total = add(2, 3)
+        print("total:", total, "| name:", add.__name__, "| doc:", add.__doc__)
 
-        print("\n=== Installed Packages (simulated) ===")
-        for pkg, version in packages.items():
-            print(f"  {pkg}=={version}")
+        def repeat(times):
+            def decorator(func):
+                @functools.wraps(func)
+                def wrapper(*args, **kwargs):
+                    return [func(*args, **kwargs) for _ in range(times)]
+                return wrapper
+            return decorator
+        @repeat(3)
+        def cheer(team):
+            return f"Go {team}!"
+        print("--- @repeat(3) ---")
+        print(cheer("India"))
 
-        # Step 3: Simulate requirements.txt content
-        print("\n=== requirements.txt content ===")
-        for pkg, version in packages.items():
-            print(f"{pkg}=={version}")
+        print("--- @functools.lru_cache ---")
+        @functools.lru_cache(maxsize=None)
+        def fib(n):
+            return n if n < 2 else fib(n - 1) + fib(n - 2)
 
-        # Why virtual environments matter
-        print("\n=== Project Isolation ===")
-        projects = [
-            ("Project A — ML App", "tensorflow==2.12.0"),
-            ("Project B — Web App", "django==4.2.0"),
-            ("Project C — Data Analysis", "pandas==1.5.0"),
-        ]
-        for project, dependency in projects:
-            print(f"  {project}")
-            print(f"    └── {dependency}")
-
-        print("\n✅ Each project has its own isolated environment!")
-        print("   No version conflicts. Clean dependencies.")
+        print("fib(80) =", fib(80))
+        print("cache info:", fib.cache_info())
       PY
     },
 
     19 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Type Hints and Dataclasses</h1>
+        </div>
         <div class="lc-intro">
-          <p>Python's <strong>standard library</strong> includes hundreds of built-in modules — no installation required. These cover everything from file handling to networking, cryptography, and more. This is why Python is called "batteries included."</p>
+          <p class="lc-lead">Professional Python code uses <strong>type hints</strong> to document what types a function expects and returns, and <strong>dataclasses</strong> to create clean data-holding classes with almost no boilerplate. Both are standard in modern codebases, frameworks like FastAPI, and AI tools.</p>
         </div>
-        <div class="lc-section">
-          <h2>os Module — File System</h2>
-          <div class="lc-code-block"><pre><code>import os
+        <div class="lc-section lc-card">
+          <h2>Type Hint Syntax</h2>
+          <div class="lc-code-block"><pre><code>def add_gst(amount: float, rate: float = 0.18) -&gt; float:
+            return round(amount * (1 + rate), 2)
 
-os.getcwd()               # Current directory
-os.listdir(".")           # List files
-os.path.exists("file.txt") # Check if file exists
-os.path.join("dir", "file") # Build safe paths
-os.environ.get("HOME")    # Environment variables</code></pre></div>
+        count: int = 0
+        names: list[str] = ["Asha", "Ben"]
+        marks: dict[str, int] = {"Asha": 88}
+        point: tuple[int, int] = (3, 4)
+
+        def find_student(name: str) -&gt; dict | None:   # "a dict or None" (Python 3.10+)
+            ...</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Hint</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><code>int</code>, <code>str</code>, <code>float</code>, <code>bool</code></td><td>Basic types</td></tr>
+              <tr><td><code>list[str]</code></td><td>A list of strings (Python 3.9+)</td></tr>
+              <tr><td><code>dict[str, int]</code></td><td>Keys are <code>str</code>, values are <code>int</code></td></tr>
+              <tr><td><code>int | None</code></td><td>An int or <code>None</code> (3.10+). Old way: <code>Optional[int]</code> from <code>typing</code></td></tr>
+              <tr><td><code>-&gt; None</code></td><td>The function returns nothing</td></tr>
+            </tbody>
+          </table>
+          <p>Old code writes <code>List[str]</code> and <code>Dict[str, int]</code> imported from <code>typing</code>. That still works, but the built-in lower-case forms are the modern style.</p>
         </div>
-        <div class="lc-section">
-          <h2>datetime Module</h2>
-          <div class="lc-code-block"><pre><code>from datetime import datetime, date, timedelta
+        <div class="lc-section lc-card">
+          <h2>Hints Are Not Enforced</h2>
+          <p>Python itself <strong>ignores</strong> type hints when running your code. They are read by your editor (for autocomplete and warnings) and by <strong>type checkers</strong> such as <code>mypy</code> and <code>pyright</code>.</p>
+          <div class="lc-code-block"><pre><code>def double(n: int) -&gt; int:
+            return n * 2
 
-now = datetime.now()
-print(now.strftime("%Y-%m-%d %H:%M:%S"))  # "2024-01-15 14:30:00"
+        print(double("ha"))    # haha  — runs fine! Python doesn't check the hint
 
-today = date.today()
-birthday = date(2000, 6, 15)
-age = (today - birthday).days // 365</code></pre></div>
+        # But a type checker catches it before you run anything:
+        # $ mypy app.py
+        # error: Argument 1 to "double" has incompatible type "str"; expected "int"</code></pre></div>
         </div>
-        <div class="lc-section">
-          <h2>json Module</h2>
-          <div class="lc-code-block"><pre><code>import json
+        <div class="lc-section lc-card">
+          <h2>Dataclasses</h2>
+          <p>The <code>@dataclass</code> decorator reads the type-hinted fields of a class and writes <code>__init__</code>, <code>__repr__</code> and <code>__eq__</code> for you.</p>
+          <div class="lc-code-block"><pre><code>from dataclasses import dataclass, field
 
-# Dict → JSON string
-data = {"name": "Alice", "age": 28}
-json_str = json.dumps(data)        # '{"name": "Alice", "age": 28}'
+        @dataclass
+        class Product:
+            name: str
+            price: float
+            tags: list[str] = field(default_factory=list)   # a NEW list for each object
 
-# JSON string → Dict
-parsed = json.loads(json_str)      # {"name": "Alice", ...}</code></pre></div>
+            def __post_init__(self):                         # runs after __init__: validate here
+                if self.price &lt; 0:
+                    raise ValueError("price cannot be negative")
+
+        pen = Product("Pen", 10.0)
+        print(pen)                          # Product(name='Pen', price=10.0, tags=[])
+        print(pen == Product("Pen", 10.0))  # True: compares field values</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Before installing a third-party package, always check the standard library docs. <code>urllib</code> handles HTTP, <code>csv</code> handles CSV files, <code>sqlite3</code> handles databases — all built-in, zero installation!</p></div>
+        <div class="lc-section lc-card">
+          <h2>Useful Options</h2>
+          <table class="lc-table">
+            <thead><tr><th>Option</th><th>Effect</th></tr></thead>
+            <tbody>
+              <tr><td><code>@dataclass(frozen=True)</code></td><td>Fields cannot be changed after creation; objects can be dict keys</td></tr>
+              <tr><td><code>@dataclass(order=True)</code></td><td>Adds <code>&lt;</code>, <code>&gt;</code> etc., comparing fields in order, so <code>sorted()</code> works</td></tr>
+              <tr><td><code>field(default_factory=list)</code></td><td>Safe mutable default (remember the trap from Lesson 9)</td></tr>
+              <tr><td><code>dataclasses.asdict(obj)</code></td><td>Convert to a dict, e.g. for <code>json.dumps</code></td></tr>
+              <tr><td><code>@dataclass(slots=True)</code> (3.10+)</td><td>Uses less memory per object</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Plain Class, dict or Dataclass?</h2>
+          <table class="lc-table">
+            <thead><tr><th></th><th>dict</th><th>Plain class</th><th>Dataclass</th></tr></thead>
+            <tbody>
+              <tr><td>Boilerplate</td><td>None</td><td>You write <code>__init__</code>, <code>__repr__</code>…</td><td>Generated</td></tr>
+              <tr><td>Typos caught</td><td>No (<code>d["nmae"]</code> is a KeyError at runtime)</td><td>By editors and type checkers</td><td>By editors and type checkers</td></tr>
+              <tr><td>Best for</td><td>Loose data, JSON</td><td>Lots of custom behaviour</td><td>Records with some behaviour</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Believing hints make Python check types at runtime. They don't — run <code>mypy</code> or <code>pyright</code>.</li>
+            <li>Writing <code>tags: list = []</code> in a dataclass. Python raises <code>ValueError: mutable default ... is not allowed</code>; use <code>field(default_factory=list)</code>.</li>
+            <li>Putting a field without a default after one with a default — a <code>TypeError</code>.</li>
+            <li>Forgetting the type hint: a class variable without an annotation is <strong>not</strong> a dataclass field.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Create a frozen dataclass <code>Book(title: str, author: str, year: int)</code> with <code>order=True</code>. Make a list of three books and print them sorted. Then try to change one book's year and catch the error.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Add type hints to every function you write from now on. It takes seconds, your editor becomes much smarter, and many bugs are caught before the code ever runs.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Python Standard Library ──
+        # Lesson 19: Type hints and dataclasses
+        from dataclasses import dataclass, field, asdict, FrozenInstanceError
 
-        # datetime module
-        from datetime import datetime, date, timedelta
+        def add_gst(amount: float, rate: float = 0.18) -> float:
+            return round(amount * (1 + rate), 2)
 
-        now = datetime.now()
-        print("Now:", now.strftime("%Y-%m-%d %H:%M"))
+        def double(n: int) -> int:
+            return n * 2
 
-        today = date.today()
-        print("Today:", today)
+        print("add_gst(100):", add_gst(100))
+        print("hints stored on the function:", add_gst.__annotations__)
+        print("double('ha') still runs:", double("ha"))   # hints are not enforced
 
-        future = today + timedelta(days=30)
-        print("30 days from now:", future)
+        @dataclass
+        class Product:
+            name: str
+            price: float
+            tags: list[str] = field(default_factory=list)
 
-        new_year = date(today.year + 1, 1, 1)
-        days_until = (new_year - today).days
-        print(f"Days until New Year: {days_until}")
+            def __post_init__(self) -> None:
+                if self.price < 0:
+                    raise ValueError(f"price cannot be negative: {self.price}")
 
-        # json module
-        import json
+            def with_gst(self) -> float:
+                return add_gst(self.price)
 
-        person = {
-            "name": "Adarsh",
-            "age": 21,
-            "skills": ["Python", "AI", "ML"],
-            "active": True
-        }
+        pen = Product("Pen", 10.0)
+        bag = Product("Bag", 850.0, ["school"])
+        pen.tags.append("stationery")
+        print(pen)
+        print(bag, "| with GST:", bag.with_gst())
+        print("equal by value:", pen == Product("Pen", 10.0, ["stationery"]))
+        print("as dict:", asdict(bag))
+        try:
+            Product("Broken", -5)
+        except ValueError as err:
+            print("ValueError:", err)
 
-        # Dict to JSON
-        json_str = json.dumps(person, indent=2)
-        print("\n=== JSON Output ===")
-        print(json_str)
+        @dataclass(frozen=True, order=True)
+        class Version:
+            major: int
+            minor: int
 
-        # JSON to Dict
-        parsed = json.loads(json_str)
-        print("\nParsed name:", parsed["name"])
-        print("Skills:", parsed["skills"])
-
-        # math module quick reference
-        import math
-        print("\n=== Math ===")
-        print(f"sqrt(2) = {math.sqrt(2):.4f}")
-        print(f"log(100) = {math.log10(100):.1f}")
-        print(f"sin(90°) = {math.sin(math.radians(90)):.1f}")
+        versions = [Version(3, 13), Version(3, 9), Version(3, 14)]
+        print("sorted:", sorted(versions))
+        print("latest:", max(versions))
+        try:
+            versions[0].minor = 99
+        except FrozenInstanceError as err:
+            print("FrozenInstanceError:", err)
       PY
     },
 
     20 => {
       body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Capstone Project: Grade Tracker</h1>
+        </div>
         <div class="lc-intro">
-          <p>Congratulations on completing the Python course! You have learned the fundamentals of one of the world's most powerful and versatile programming languages. This review brings everything together.</p>
+          <p class="lc-lead">Time to combine everything. You will build a small but realistic <strong>grade tracker</strong> that loads student data from JSON, validates it, calculates averages and grades, and prints a clean report — using dataclasses, type hints, exceptions, comprehensions, generators and a decorator.</p>
         </div>
-        <div class="lc-section">
-          <h2>Core Python ✓</h2>
-          <ul class="lc-list lc-list-check">
-            <li>Variables and data types: int, float, str, bool, None</li>
-            <li>Strings: methods, slicing, f-strings</li>
-            <li>Numbers and math operations: <code>//</code>, <code>%</code>, <code>**</code></li>
-            <li>Control flow: if/elif/else, ternary expressions</li>
-            <li>Loops: for, while, enumerate, break, continue</li>
+        <div class="lc-section lc-card">
+          <h2>Requirements</h2>
+          <ul class="lc-list">
+            <li>Read student records from JSON text: each has a <code>name</code> and a dict of <code>marks</code> per subject.</li>
+            <li><strong>Skip bad records</strong> (missing name, marks outside 0–100) and report why, without crashing.</li>
+            <li>For each student, compute the <strong>average</strong> and a <strong>grade</strong>: A (90+), B (75+), C (50+), otherwise F.</li>
+            <li>Print a report table sorted by average (highest first), the class topper, and the subject averages.</li>
+            <li>List students who need support (any subject below 40) using a generator.</li>
           </ul>
         </div>
-        <div class="lc-section">
-          <h2>Data Structures ✓</h2>
-          <ul class="lc-list lc-list-check">
-            <li>Lists: append, remove, sort, slice, list comprehensions</li>
-            <li>Tuples: immutable sequences, packing/unpacking</li>
-            <li>Sets: unique values, intersection, union</li>
-            <li>Dictionaries: key-value pairs, .get(), .items()</li>
+        <div class="lc-section lc-card">
+          <h2>Design: Which Tool for Which Job?</h2>
+          <table class="lc-table">
+            <thead><tr><th>Part</th><th>Python feature</th><th>Lesson</th></tr></thead>
+            <tbody>
+              <tr><td>A student record</td><td><code>@dataclass</code> with type hints, <code>@property</code></td><td>15, 19</td></tr>
+              <tr><td>Loading data</td><td><code>json.load</code> on <code>io.StringIO</code></td><td>13</td></tr>
+              <tr><td>Bad data</td><td>Custom exception, <code>try/except</code></td><td>12</td></tr>
+              <tr><td>Grade rules</td><td><code>if/elif/else</code> in a function</td><td>4, 9</td></tr>
+              <tr><td>Sorting</td><td><code>sorted(key=lambda ...)</code></td><td>10</td></tr>
+              <tr><td>Subject averages</td><td>Dict comprehension</td><td>8, 11</td></tr>
+              <tr><td>"Needs support" list</td><td>Generator function</td><td>17</td></tr>
+              <tr><td>Report heading</td><td>Decorator</td><td>18</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Step 1: The Data Model</h2>
+          <div class="lc-code-block"><pre><code>@dataclass
+        class Student:
+            name: str
+            marks: dict[str, int]
+
+            @property
+            def average(self) -&gt; float:
+                return round(sum(self.marks.values()) / len(self.marks), 1)
+
+            @property
+            def grade(self) -&gt; str:
+                return grade_for(self.average)</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Step 2: Validate While Loading</h2>
+          <div class="lc-code-block"><pre><code>class BadRecord(Exception):
+            pass
+
+        def parse(record: dict) -&gt; Student:
+            name = record.get("name")
+            marks = record.get("marks", {})
+            if not name:
+                raise BadRecord("missing name")
+            bad = [s for s, m in marks.items() if not 0 &lt;= m &lt;= 100]
+            if bad:
+                raise BadRecord(f"{name}: invalid marks in {bad}")
+            return Student(name, marks)</code></pre></div>
+          <p>The loader calls <code>parse</code> inside <code>try/except BadRecord</code>, so one bad record is reported and skipped while the rest still load.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Step 3: Report</h2>
+          <p>Sort with <code>sorted(students, key=lambda s: s.average, reverse=True)</code>, format columns with f-strings like <code>f"{s.name:&lt;8}{s.average:&gt;6}"</code>, and build subject averages with a dict comprehension. The expected output of the finished program is:</p>
+          <div class="lc-code-block"><pre><code>Skipped: missing name
+        Skipped: Farah: invalid marks in ['Science']
+        ========== CLASS REPORT ==========
+        Name        Maths  Science  English    Avg  Grade
+        Divya          95       92       96   94.3  A
+        Asha           88       92       79   86.3  B
+        Chen           72       35       81   62.7  C
+        Ben            45       60       38   47.7  F
+        Topper: Divya (94.3)
+        Subject averages: {'Maths': 75.0, 'Science': 69.8, 'English': 73.5}
+        Needs support: Chen (Science 35), Ben (English 38)</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Extension Challenges</h2>
+          <ul class="lc-list">
+            <li>Add a <code>rank</code> column, giving equal ranks to equal averages.</li>
+            <li>Export the report as CSV text with the <code>csv</code> module.</li>
+            <li>Add a <code>@dataclass(frozen=True)</code> <code>Subject</code> with a pass mark, and use it instead of the fixed value 40.</li>
+            <li>Run <code>mypy</code> on your code locally and fix any type errors it reports.</li>
+            <li>Move the model, loader and report into separate modules inside a <code>tracker/</code> package with a <code>main()</code> guarded by <code>if __name__ == "__main__":</code>.</li>
           </ul>
         </div>
-        <div class="lc-section">
-          <h2>Functions and OOP ✓</h2>
-          <ul class="lc-list lc-list-check">
-            <li>Functions: def, parameters, defaults, return, *args</li>
-            <li>Lambda functions with map() and filter()</li>
-            <li>Classes: __init__, self, methods, attributes</li>
-            <li>Inheritance: super(), method overriding</li>
-            <li>Exceptions: try/except/finally, custom exceptions</li>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Letting one bad record crash the whole program. Catch the <em>specific</em> exception per record.</li>
+            <li>Dividing by <code>len(marks)</code> when a student has no marks (<code>ZeroDivisionError</code>). Validate that marks is not empty.</li>
+            <li>Mixing calculation and printing in one giant function. Keep loading, calculating and reporting in separate functions so each can be tested.</li>
+            <li>Hard-coding subject names in many places. Derive them from the data once.</li>
           </ul>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">🎉</span><p><strong>What's Next?</strong> Jump into <strong>Data Science</strong> with NumPy and Pandas, or start <strong>Machine Learning</strong> with scikit-learn. Build projects: a data analyser, a web scraper, or a chatbot. Python opens every door!</p></div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Add a new student <code>{"name": "Gopal", "marks": {"Maths": 100, "Science": 98, "English": 91}}</code> to the JSON in the starter and run it. Predict first: who is the new topper, and what grade does Gopal get? Then add a record with an empty <code>marks</code> dict and make the loader reject it with a clear message.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Build projects in small steps: first load and print the raw data, then add the dataclass, then validation, then the report. Run the code after each step. This is exactly how professional developers work.</p></div>
       HTML
       starter_code: <<~'PY'
-        # ── Python Review — Complete Mini Project ──
-        # Student Grade Management System
+        # Lesson 20: Capstone project - Grade Tracker
+        import functools, io, json
+        from dataclasses import dataclass
 
+        DATA = io.StringIO("""[
+          {"name": "Asha",  "marks": {"Maths": 88, "Science": 92, "English": 79}},
+          {"name": "Ben",   "marks": {"Maths": 45, "Science": 60, "English": 38}},
+          {"marks": {"Maths": 70}},
+          {"name": "Chen",  "marks": {"Maths": 72, "Science": 35, "English": 81}},
+          {"name": "Divya", "marks": {"Maths": 95, "Science": 92, "English": 96}},
+          {"name": "Farah", "marks": {"Maths": 80, "Science": 120, "English": 70}}
+        ]""")
+
+        class BadRecord(Exception):
+            pass
+
+        def grade_for(avg: float) -> str:
+            if avg >= 90:
+                return "A"
+            if avg >= 75:
+                return "B"
+            if avg >= 50:
+                return "C"
+            return "F"
+
+        @dataclass
         class Student:
-            def __init__(self, name, student_id):
-                self.name = name
-                self.id = student_id
-                self.grades = {}
+            name: str
+            marks: dict[str, int]
 
-            def add_grade(self, subject, score):
-                self.grades[subject] = score
+            @property
+            def average(self) -> float:
+                return round(sum(self.marks.values()) / len(self.marks), 1)
 
-            def average(self):
-                if not self.grades:
-                    return 0
-                return sum(self.grades.values()) / len(self.grades)
+            @property
+            def grade(self) -> str:
+                return grade_for(self.average)
 
-            def letter_grade(self):
-                avg = self.average()
-                if avg >= 90: return "A"
-                if avg >= 80: return "B"
-                if avg >= 70: return "C"
-                if avg >= 60: return "D"
-                return "F"
+        def parse(record: dict) -> Student:
+            name, marks = record.get("name"), record.get("marks", {})
+            if not name:
+                raise BadRecord("missing name")
+            bad = [s for s, m in marks.items() if not 0 <= m <= 100]
+            if bad:
+                raise BadRecord(f"{name}: invalid marks in {bad}")
+            return Student(name, marks)
 
-            def report(self):
-                print(f"\n{'='*35}")
-                print(f"  {self.name} (ID: {self.id})")
-                print(f"{'='*35}")
-                for subject, score in self.grades.items():
-                    bar = "█" * (score // 10)
-                    print(f"  {subject:<12} {score:3}  {bar}")
-                print(f"  {'Average':<12} {self.average():.1f} — Grade: {self.letter_grade()}")
+        def load(file) -> list[Student]:
+            students = []
+            for record in json.load(file):
+                try:
+                    students.append(parse(record))
+                except BadRecord as err:
+                    print("Skipped:", err)
+            return students
 
+        def needs_support(students: list[Student], pass_mark: int = 40):
+            for s in students:
+                for subject, m in s.marks.items():
+                    if m < pass_mark:
+                        yield f"{s.name} ({subject} {m})"
 
-        # Create students
-        students = [
-            Student("Alice Kumar", "S001"),
-            Student("Bob Singh", "S002"),
-            Student("Carol Patel", "S003"),
-        ]
+        def banner(title: str):
+            def decorator(func):
+                @functools.wraps(func)
+                def wrapper(*args, **kwargs):
+                    print(f" {title} ".center(34, "="))
+                    return func(*args, **kwargs)
+                return wrapper
+            return decorator
 
-        # Add grades
-        subjects = ["Python", "Math", "AI", "Data Sci"]
-        import random
-        random.seed(42)
-        for s in students:
-            for sub in subjects:
-                s.add_grade(sub, random.randint(65, 99))
+        @banner("CLASS REPORT")
+        def report(students: list[Student]) -> None:
+            subjects = list(students[0].marks)
+            print(f"{'Name':<8}" + "".join(f"{s:>9}" for s in subjects) + f"{'Avg':>7}  Grade")
+            ranked = sorted(students, key=lambda s: s.average, reverse=True)
+            for s in ranked:
+                cols = "".join(f"{s.marks[sub]:>9}" for sub in subjects)
+                print(f"{s.name:<8}{cols}{s.average:>7}  {s.grade}")
+            print(f"Topper: {ranked[0].name} ({ranked[0].average})")
+            avgs = {sub: round(sum(s.marks[sub] for s in students) / len(students), 1) for sub in subjects}
+            print("Subject averages:", avgs)
+            print("Needs support:", ", ".join(needs_support(ranked)))
 
-        # Print reports
-        for s in students:
-            s.report()
-
-        # Class statistics
-        averages = [s.average() for s in students]
-        print(f"\n{'='*35}")
-        print(f"  CLASS STATISTICS")
-        print(f"  Top student: {students[averages.index(max(averages))].name}")
-        print(f"  Class average: {sum(averages)/len(averages):.1f}")
-        print(f"  Passing all (≥70): {sum(1 for s in students if s.average() >= 70)}/{len(students)}")
+        report(load(DATA))
       PY
     }
-  }.freeze
+  }
 end
