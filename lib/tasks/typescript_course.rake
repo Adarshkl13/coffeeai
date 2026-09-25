@@ -1,11 +1,11 @@
 require_relative "../typescript_content"
 
 namespace :content do
-  desc "Create TypeScript course and populate all 20 lessons"
+  desc "Create TypeScript course and populate all 21 lessons"
   task typescript: :environment do
     course = Course.find_or_create_by!(slug: "typescript") do |c|
       c.title       = "TypeScript"
-      c.description = "TypeScript adds a static type system to JavaScript. Learn types, inference, unions and narrowing, generics, utility types, classes, safe JSON handling, tsconfig and React with TypeScript 7, then build a fully typed project."
+      c.description = "TypeScript adds a static type system to JavaScript. Learn types, inference, unions and narrowing, generics, utility types, classes, safe JSON handling, tsconfig, the DOM and React with TypeScript 7, then build a fully typed project."
       c.color       = "#3178c6"
       c.icon        = "🔷"
       c.position    = 17
@@ -32,8 +32,9 @@ namespace :content do
       16 => "The satisfies Operator and Type Assertions",
       17 => "Async TypeScript and Safe JSON",
       18 => "Modules, Declaration Files and tsconfig",
-      19 => "TypeScript with React",
-      20 => "Capstone Project: Typed Expense Tracker"
+      19 => "TypeScript and the DOM",
+      20 => "TypeScript with React",
+      21 => "Capstone Project: Typed Expense Tracker"
     }
 
     descriptions = {
@@ -55,8 +56,9 @@ namespace :content do
       16 => "Annotations vs as vs satisfies: check values without losing precise types, and avoid unsafe assertions.",
       17 => "Type async code and turn untrusted JSON into safely typed data with unknown and type guards.",
       18 => "import type, declaration files, @types packages, the strict family and the TypeScript 6/7 tsconfig defaults.",
-      19 => "Start with Vite and type React props, children, state, refs, events and reducers.",
-      20 => "Build a typed expense tracker that brings together every major feature of the course."
+      19 => "Type querySelector results, narrow elements with instanceof, and use typed events and FormData without any or unsafe assertions.",
+      20 => "Start with Vite and type React props, children, state, refs, events and reducers.",
+      21 => "Build a typed expense tracker that brings together every major feature of the course."
     }
 
     exercises = {
@@ -96,9 +98,11 @@ namespace :content do
               opts: ["A) Store it as unknown and check it with a type guard before use", "B) Write (await response.json()) as User to tell the compiler its shape", "C) Return it directly from a function declared as Promise<User>"], ans: "A" },
       18 => { type: "true_false",      q: "Since TypeScript 6.0, every @types package in node_modules is still included automatically, so you never need a \"types\" setting in tsconfig.json.",
               opts: ["True", "False"], ans: "False" },
-      19 => { type: "multiple_choice", q: "How does the lesson recommend starting a new React + TypeScript project today?",
+      19 => { type: "multiple_choice", q: "Under strict mode, what is the type of box in const box = document.getElementById(\"total\");?",
+              opts: ["A) HTMLDivElement | null", "B) HTMLElement | null", "C) HTMLElement"], ans: "B" },
+      20 => { type: "multiple_choice", q: "How does the lesson recommend starting a new React + TypeScript project today?",
               opts: ["A) npx create-react-app my-app --template typescript", "B) npm create vite@latest my-app -- --template react-ts", "C) Write JSX in .js files and add TypeScript to the project later"], ans: "B" },
-      20 => { type: "true_false",      q: "In the capstone, filtering imported rows with the type predicate isNewExpense gives a NewExpense[] without needing any as assertion.",
+      21 => { type: "true_false",      q: "In the capstone, filtering imported rows with the type predicate isNewExpense gives a NewExpense[] without needing any as assertion.",
               opts: ["True", "False"], ans: "True" }
     }
 

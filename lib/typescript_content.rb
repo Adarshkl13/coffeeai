@@ -1212,7 +1212,7 @@ module TypescriptContent
         <div class="lc-card">
           <h3>Where You Will Meet Tagged Unions</h3>
           <ul class="lc-list">
-            <li><strong>Redux / <code>useReducer</code> actions</strong> — <code>{ type: "add"; item } | { type: "remove"; id }</code> (Lesson 19).</li>
+            <li><strong>Redux / <code>useReducer</code> actions</strong> — <code>{ type: "add"; item } | { type: "remove"; id }</code> (Lesson 20).</li>
             <li><strong>API responses</strong> — success and error bodies with a <code>status</code> field.</li>
             <li><strong>Events and messages</strong> — WebSocket or worker messages with a <code>type</code>.</li>
             <li><strong>Form steps and wizards</strong> — each step has its own fields.</li>
@@ -2197,7 +2197,7 @@ module TypescriptContent
           <p>A <strong>type assertion</strong> says "I know better than you, treat this value as type T". It does <em>no</em> checking and <em>no</em> conversion at runtime:</p>
           <div class="lc-code">type User = { name: string; age: number };<br><br>const data = JSON.parse('{"name":"Asha"}') as User;   // a lie: age is missing<br>console.log(data.age.toFixed(0));<br>// compiles fine … then crashes: TypeError: Cannot read properties of undefined (reading 'toFixed')</div>
           <p>TypeScript only blocks assertions between clearly unrelated types (<code>"hello" as number</code> is an error). Forcing it with <code>as unknown as T</code> — a <strong>double assertion</strong> — is a red flag in code review.</p>
-          <p>Legitimate uses are rare: DOM elements you know the kind of (<code>document.querySelector("#email") as HTMLInputElement</code>), or code that TypeScript can't follow. For outside data, validate instead (Lessons 8 and 17).</p>
+          <p>Legitimate uses are rare: DOM elements you know the kind of (<code>document.querySelector("#email") as HTMLInputElement</code>), or code that TypeScript can't follow. For outside data, validate instead (Lessons 8 and 17); for DOM elements, an <code>instanceof</code> check is safer still (Lesson 19).</p>
         </div>
         <div class="lc-card">
           <h3>The Non-Null Assertion !</h3>
@@ -2613,6 +2613,161 @@ module TypescriptContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-typescript">TypeScript</div>
+          <h1 class="lc-title">TypeScript and the DOM</h1>
+        </div>
+        <p class="lc-lead">Most TypeScript runs in a browser, and the browser's objects — elements, events, forms — all have types. Knowing what <code>querySelector</code> really returns, how to narrow an <code>Element</code> to an <code>HTMLInputElement</code> and how event types are chosen lets you write DOM code with no <code>any</code> and almost no <code>as</code>.</p>
+        <div class="lc-card">
+          <h3>Where DOM Types Come From</h3>
+          <p>The types for <code>document</code>, <code>HTMLElement</code>, <code>MouseEvent</code> and friends live in TypeScript's built-in <code>lib.dom.d.ts</code>. They are available when <code>"lib"</code> includes <code>"dom"</code> (the default when you don't set <code>lib</code>, and set by the Vite templates). A Node.js project usually leaves <code>"dom"</code> out — then <code>document</code> is correctly "not found".</p>
+          <p>Element types form a family: <code>EventTarget</code> → <code>Node</code> → <code>Element</code> → <code>HTMLElement</code> → specific types such as <code>HTMLInputElement</code>, <code>HTMLButtonElement</code>, <code>HTMLFormElement</code>. Only the specific types know about <code>value</code>, <code>disabled</code> or <code>checked</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>What Selecting Returns</h3>
+          <table class="lc-table">
+            <thead><tr><th>Call</th><th>Type</th></tr></thead>
+            <tbody>
+              <tr><td><code>document.querySelector("input")</code></td><td><code>HTMLInputElement | null</code> — tag names are understood</td></tr>
+              <tr><td><code>document.querySelector(".price")</code></td><td><code>Element | null</code> — a class could be on any element</td></tr>
+              <tr><td><code>document.getElementById("total")</code></td><td><code>HTMLElement | null</code></td></tr>
+              <tr><td><code>document.querySelectorAll("li")</code></td><td><code>NodeListOf&lt;HTMLLIElement&gt;</code> (never null, may be empty)</td></tr>
+              <tr><td><code>document.createElement("button")</code></td><td><code>HTMLButtonElement</code> (never null)</td></tr>
+              <tr><td><code>document.querySelector&lt;HTMLInputElement&gt;("#email")</code></td><td><code>HTMLInputElement | null</code> — your claim, not checked</td></tr>
+            </tbody>
+          </table>
+          <p>Every "find" can return <code>null</code>, because the element might not be on the page. <code>strict</code> makes you deal with that:</p>
+          <div class="lc-code">const price = document.querySelector(".price");<br>price.textContent = "₹60";<br>// Error: 'price' is possibly 'null'.<br><br>const qty = document.querySelector("#qty");<br>console.log(qty?.value);<br>// Error: Property 'value' does not exist on type 'Element'.</div>
+        </div>
+        <div class="lc-card">
+          <h3>Narrow With instanceof, Not as</h3>
+          <p>The safest way from <code>Element | null</code> to the type you need is a runtime check — <code>instanceof</code> narrows <em>and</em> handles <code>null</code> in one step:</p>
+          <div class="lc-code">const qty = document.querySelector("#qty");<br>if (qty instanceof HTMLInputElement) {<br>&nbsp;&nbsp;console.log(qty.valueAsNumber + 1);   // qty: HTMLInputElement here<br>}<br><br>// A reusable helper: find it and check its kind, or fail loudly<br>function mustFind&lt;T extends Element&gt;(selector: string, kind: { new (): T }): T {<br>&nbsp;&nbsp;const el = document.querySelector(selector);<br>&nbsp;&nbsp;if (!(el instanceof kind)) throw new Error(`${selector} is missing or not the right element`);<br>&nbsp;&nbsp;return el;<br>}<br>const email = mustFind("#email", HTMLInputElement);   // HTMLInputElement</div>
+          <table class="lc-table">
+            <thead><tr><th>Way</th><th>Checks at runtime?</th><th>If the HTML changes</th></tr></thead>
+            <tbody>
+              <tr><td><code>el instanceof HTMLInputElement</code></td><td>yes</td><td>your <code>else</code> branch or error runs</td></tr>
+              <tr><td><code>querySelector("input")</code> (tag name)</td><td>the tag is part of the query</td><td>you get <code>null</code>, which you must handle</td></tr>
+              <tr><td><code>as HTMLInputElement</code> / <code>querySelector&lt;T&gt;</code></td><td>no</td><td>crash later with a confusing error</td></tr>
+              <tr><td><code>el!</code></td><td>no</td><td><code>TypeError: Cannot read properties of null</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Event Types Come From the Event Name</h3>
+          <p><code>addEventListener</code> looks the event name up in a map inside <code>lib.dom.d.ts</code>, so an inline handler gets the right type without annotations:</p>
+          <table class="lc-table">
+            <thead><tr><th>Event name</th><th><code>event</code> type</th><th>Useful properties</th></tr></thead>
+            <tbody>
+              <tr><td><code>"click"</code></td><td><code>PointerEvent</code> (a kind of <code>MouseEvent</code>)</td><td><code>clientX</code>, <code>button</code></td></tr>
+              <tr><td><code>"keydown"</code></td><td><code>KeyboardEvent</code></td><td><code>key</code>, <code>ctrlKey</code></td></tr>
+              <tr><td><code>"input"</code>, <code>"change"</code></td><td><code>Event</code></td><td><code>target</code></td></tr>
+              <tr><td><code>"submit"</code></td><td><code>SubmitEvent</code></td><td><code>submitter</code>, <code>preventDefault()</code></td></tr>
+            </tbody>
+          </table>
+          <p>But <code>event.target</code> is only <code>EventTarget | null</code> — TypeScript can't know which child was clicked or typed into. Narrow it:</p>
+          <div class="lc-code">button.addEventListener("click", (event) =&gt; {<br>&nbsp;&nbsp;event.target.disabled = true;<br>&nbsp;&nbsp;// Error: 'event.target' is possibly 'null'.<br>&nbsp;&nbsp;// Error: Property 'disabled' does not exist on type 'EventTarget'.<br>&nbsp;&nbsp;if (event.target instanceof HTMLButtonElement) event.target.disabled = true;   // OK<br>});</div>
+          <p>A handler written as a separate function needs the type written out: <code>function onKey(event: KeyboardEvent) { … }</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: A Typed Order Form</h3>
+          <div class="lc-code">form.addEventListener("submit", (event) =&gt; {<br>&nbsp;&nbsp;event.preventDefault();<br>&nbsp;&nbsp;const data = new FormData(form);<br>&nbsp;&nbsp;const item = data.get("item");         // FormDataEntryValue | null = string | File | null<br>&nbsp;&nbsp;const qty = Number(data.get("qty"));   // inputs always give strings: convert<br>&nbsp;&nbsp;if (typeof item !== "string" || !Number.isInteger(qty) || qty &lt; 1) {<br>&nbsp;&nbsp;&nbsp;&nbsp;totalText.textContent = "Invalid order";<br>&nbsp;&nbsp;} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;totalText.textContent = `${qty} x ${item} = ₹${qty * 60}`;<br>&nbsp;&nbsp;}<br>});</div>
+          <p>With item "Notebook" and quantity 5, the paragraph shows:</p>
+          <div class="lc-code">5 x Notebook = ₹300</div>
+          <p>Two more DOM values that are always strings: <code>input.value</code> (use <code>valueAsNumber</code> or <code>Number()</code>) and <code>el.dataset.id</code>, typed <code>string | undefined</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Summary</h3>
+          <ul class="lc-list">
+            <li>DOM types come from <code>lib.dom.d.ts</code>; include <code>"dom"</code> in <code>lib</code> for browser code.</li>
+            <li>Tag-name selectors and <code>createElement</code> give specific types; class and id selectors give <code>Element</code> or <code>HTMLElement</code>, always <code>| null</code>.</li>
+            <li>Narrow with <code>instanceof</code>; treat <code>as</code>, <code>querySelector&lt;T&gt;</code> and <code>!</code> as unchecked promises.</li>
+            <li>Inline handlers get their event type from the event name; <code>event.target</code> still needs narrowing.</li>
+            <li><code>FormData.get</code> returns <code>string | File | null</code>, and input values are strings.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Starter Output</h3>
+          <p>The starter builds a small form in code, finds its parts with typed helpers and fires real events. Running it prints:</p>
+          <div class="lc-code">button type: submit<br>qty value: 3 | as a number: 3<br>li: LI | data-id: 42<br>input event, new value: 5<br>submitted: 5 x Notebook = ₹300<br>page reload prevented: true</div>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Writing <code>document.querySelector("#qty") as HTMLInputElement</code> everywhere — it hides both "missing element" and "wrong element" bugs.</li>
+            <li>Adding <code>!</code> after every selector to silence <code>possibly 'null'</code>.</li>
+            <li>Reading <code>event.target.value</code> directly — narrow <code>event.target</code> with <code>instanceof</code> first.</li>
+            <li>Doing maths with <code>input.value</code>: <code>"3" + 1</code> is <code>"31"</code>. Convert with <code>valueAsNumber</code> or <code>Number()</code>.</li>
+            <li>Leaving <code>"dom"</code> out of <code>lib</code> in a browser project (or adding it to a Node.js project, which then accepts <code>document</code> code that will crash).</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>In the starter, change <code>mustFind(".total", HTMLParagraphElement)</code> to <code>HTMLInputElement</code> and run it. Which error do you get, and when?</li>
+            <li>Set the quantity to <code>"0"</code> before the submit event and check that "Invalid order" is shown.</li>
+            <li>Add a <code>keydown</code> listener to <code>qtyInput</code> that logs <code>event.key</code>, and fire it with <code>new KeyboardEvent("keydown", { key: "Enter" })</code>. Hover over <code>event</code> in a real editor to see its type.</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> When you're not sure what an element or event is, hover over it in VS Code. If the type is <code>Element</code> or <code>EventTarget</code>, add an <code>instanceof</code> check rather than reaching for <code>as</code>.
+        </div>
+      HTML
+      starter_code: <<~'TS'
+        // Lesson 19: TypeScript and the DOM (the page is built in code so the example runs anywhere)
+        const form = document.createElement("form");
+        form.innerHTML = `
+          <input name="item" value="Notebook">
+          <input name="qty" type="number" value="3">
+          <button type="submit">Add</button>
+          <p class="total"></p>`;
+
+        // Tag-name selectors give the exact element type (or null)
+        const button = form.querySelector("button"); // HTMLButtonElement | null
+        if (button) console.log("button type:", button.type);
+
+        // Class selectors only give Element | null, so check the kind with instanceof
+        function mustFind<T extends Element>(selector: string, kind: { new (): T }): T {
+          const el = form.querySelector(selector);
+          if (!(el instanceof kind)) throw new Error(`${selector} is missing or not the right element`);
+          return el; // narrowed to T
+        }
+        const qtyInput = mustFind('input[name="qty"]', HTMLInputElement);
+        const totalText = mustFind(".total", HTMLParagraphElement);
+        console.log("qty value:", qtyInput.value, "| as a number:", qtyInput.valueAsNumber);
+
+        // createElement("li") is typed as HTMLLIElement automatically
+        const li = document.createElement("li");
+        li.dataset.id = "42";
+        const id: string | undefined = li.dataset.id; // dataset values are string | undefined
+        console.log("li:", li.tagName, "| data-id:", id);
+
+        // Event types come from the event name: "input" gives Event, "submit" gives SubmitEvent
+        qtyInput.addEventListener("input", (event) => {
+          if (event.target instanceof HTMLInputElement) console.log("input event, new value:", event.target.value);
+        });
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const data = new FormData(form);
+          const item = data.get("item"); // FormDataEntryValue | null  (string | File | null)
+          const qty = Number(data.get("qty"));
+          if (typeof item !== "string" || !Number.isInteger(qty) || qty < 1) {
+            totalText.textContent = "Invalid order";
+          } else {
+            totalText.textContent = `${qty} x ${item} = ₹${qty * 60}`;
+          }
+          console.log("submitted:", totalText.textContent);
+        });
+
+        qtyInput.value = "5";
+        qtyInput.dispatchEvent(new Event("input"));
+        const notCancelled = form.dispatchEvent(new Event("submit", { cancelable: true }));
+        console.log("page reload prevented:", !notCancelled);
+      TS
+    },
+
+    20 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-typescript">TypeScript</div>
           <h1 class="lc-title">TypeScript with React</h1>
         </div>
         <p class="lc-lead">React and TypeScript are the most common pairing in front-end jobs today. Types describe each component's props, state and events, so your editor catches a missing prop or a wrong event handler before you open the browser.</p>
@@ -2708,7 +2863,7 @@ module TypescriptContent
         </div>
       HTML
       starter_code: <<~'TS'
-        // Lesson 19: TypeScript with React (modelled without JSX - this editor can't run JSX)
+        // Lesson 20: TypeScript with React (modelled without JSX - this editor can't run JSX)
         type ProductCardProps = {
           name: string;
           price: number;
@@ -2760,7 +2915,7 @@ module TypescriptContent
       TS
     },
 
-    20 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-typescript">TypeScript</div>
@@ -2840,7 +2995,7 @@ module TypescriptContent
             <li>Add a <code>{ type: "clear" }</code> action and handle it in the reducer.</li>
             <li>Add <code>monthly(month: string)</code> to the store that returns only that month's expenses.</li>
             <li>Replace the hand-written guard with a Zod schema in a real Vite project and infer <code>NewExpense</code> from it.</li>
-            <li>Build a React UI (Lesson 19) that dispatches the same <code>Action</code> type.</li>
+            <li>Build a UI that dispatches the same <code>Action</code> type: a plain form with typed events (Lesson 19) or React components (Lesson 20).</li>
           </ol>
         </div>
         <div class="lc-card">
@@ -2857,7 +3012,7 @@ module TypescriptContent
         </div>
       HTML
       starter_code: <<~'TS'
-        // Lesson 20 capstone: a typed expense tracker in one file
+        // Lesson 21 capstone: a typed expense tracker in one file
         const CATEGORIES = ["food", "travel", "bills", "fun"] as const;
         type Category = (typeof CATEGORIES)[number];
         type Expense = { readonly id: number; title: string; amount: number; category: Category; date: string };

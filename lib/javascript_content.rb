@@ -50,7 +50,7 @@ module JavaScriptContent
             <tbody>
               <tr><td><code>&lt;script src="app.js"&gt;</code> in <code>&lt;head&gt;</code></td><td>Immediately — before the page's HTML exists, and it blocks page loading</td><td>Avoid</td></tr>
               <tr><td><code>&lt;script src="app.js" defer&gt;</code></td><td>After the HTML is parsed, in order</td><td>Yes — the usual choice</td></tr>
-              <tr><td><code>&lt;script type="module" src="app.js"&gt;</code></td><td>Deferred automatically; lets you use <code>import</code>/<code>export</code></td><td>Yes — for modern projects (Lesson 19)</td></tr>
+              <tr><td><code>&lt;script type="module" src="app.js"&gt;</code></td><td>Deferred automatically; lets you use <code>import</code>/<code>export</code></td><td>Yes — for modern projects (Lesson 21)</td></tr>
             </tbody>
           </table>
         </div>
@@ -60,7 +60,7 @@ module JavaScriptContent
             <thead><tr><th>Method</th><th>Where the output appears</th><th>Verdict</th></tr></thead>
             <tbody>
               <tr><td><code>console.log()</code></td><td>Browser DevTools console</td><td>Your main debugging tool</td></tr>
-              <tr><td><code>element.textContent = …</code></td><td>Inside the web page</td><td>How real apps show results (Lesson 14)</td></tr>
+              <tr><td><code>element.textContent = …</code></td><td>Inside the web page</td><td>How real apps show results (Lesson 16)</td></tr>
               <tr><td><code>alert()</code></td><td>A pop-up box that blocks the page</td><td>Rarely — annoying for users</td></tr>
               <tr><td><code>document.write()</code></td><td>Writes raw HTML into the page</td><td>Old way — don't use</td></tr>
             </tbody>
@@ -147,7 +147,7 @@ module JavaScriptContent
               <tr><td><code>var</code></td><td>Yes (and can be redeclared)</td><td>Whole function</td><td>Old way — don't use</td></tr>
             </tbody>
           </table>
-          <p><code>var</code> is from before 2015. It ignores <code>{ }</code> blocks and is "hoisted" as <code>undefined</code>, which causes confusing bugs (Lesson 7 explains why). You will still see it in old code, but never write it in new code.</p>
+          <p><code>var</code> is from before 2015. It ignores <code>{ }</code> blocks and is "hoisted" as <code>undefined</code>, which causes confusing bugs (Lesson 8 explains why). You will still see it in old code, but never write it in new code.</p>
         </div>
         <div class="lc-card">
           <h3>Naming Rules</h3>
@@ -566,6 +566,140 @@ module JavaScriptContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
+          <h1 class="lc-title">Regular Expressions</h1>
+        </div>
+        <p class="lc-lead">A <strong>regular expression</strong> (regex) is a small pattern language for text. String methods like <code>includes</code> find one fixed piece of text; a regex describes a <em>shape</em> — "ten digits starting with 6–9", "₹ followed by a number" — so you can validate input, find every match, pull out parts and replace text in one line.</p>
+        <div class="lc-card">
+          <h3>Creating a Regex</h3>
+          <div class="lc-code">const pin = /^\d{6}$/;                  // regex literal: /pattern/flags<br>const word = new RegExp("^" + prefix + "-\d+$");   // built from a string at runtime<br><br>console.log(pin.test("560034"));   // true<br>console.log(pin.test("5600"));     // false</div>
+          <p>Use the <strong>literal</strong> form <code>/…/</code> when you know the pattern while writing the code. Use <code>new RegExp(text)</code> only when the pattern is built from a variable — and remember that inside a normal string every backslash must be doubled (<code>"\d"</code>).</p>
+        </div>
+        <div class="lc-card">
+          <h3>The Building Blocks</h3>
+          <table class="lc-table">
+            <thead><tr><th>Pattern</th><th>Matches</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><code>\d</code> / <code>\D</code></td><td>a digit / anything except a digit</td><td><code>/\d\d/</code> finds <code>"42"</code></td></tr>
+              <tr><td><code>\w</code></td><td>a letter, digit or <code>_</code> (English letters only)</td><td><code>/\w+/</code> finds <code>"Asha"</code></td></tr>
+              <tr><td><code>\s</code></td><td>whitespace: space, tab, new line</td><td><code>/\s+/</code></td></tr>
+              <tr><td><code>.</code></td><td>any single character (except a new line)</td><td><code>/c.t/</code> finds <code>"cat"</code>, <code>"cut"</code></td></tr>
+              <tr><td><code>[abc]</code> / <code>[^abc]</code></td><td>one of these / none of these</td><td><code>/[6-9]/</code> is one digit from 6 to 9</td></tr>
+              <tr><td><code>^</code> and <code>$</code></td><td>start and end of the text</td><td><code>/^\d{6}$/</code>: exactly six digits</td></tr>
+              <tr><td><code>\b</code></td><td>a word boundary</td><td><code>/\bcat\b/</code> skips <code>"category"</code></td></tr>
+              <tr><td><code>a|b</code></td><td>either side</td><td><code>/UPI|Card/</code></td></tr>
+              <tr><td><code>\.</code>, <code>\$</code>, <code>\(</code></td><td>the real character (escaped)</td><td><code>/\d+\.\d\d/</code> finds <code>"49.50"</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Quantifiers and Flags</h3>
+          <table class="lc-table">
+            <thead><tr><th>Quantifier</th><th>Means</th><th></th><th>Flag</th><th>Means</th></tr></thead>
+            <tbody>
+              <tr><td><code>+</code></td><td>one or more</td><td></td><td><code>g</code></td><td>global: every match, not just the first</td></tr>
+              <tr><td><code>*</code></td><td>zero or more</td><td></td><td><code>i</code></td><td>ignore upper/lower case</td></tr>
+              <tr><td><code>?</code></td><td>optional (zero or one)</td><td></td><td><code>m</code></td><td><code>^</code> and <code>$</code> work per line</td></tr>
+              <tr><td><code>{6}</code> / <code>{2,4}</code></td><td>exactly 6 / between 2 and 4</td><td></td><td><code>u</code></td><td>full Unicode mode (emoji, Indian scripts)</td></tr>
+            </tbody>
+          </table>
+          <p>Quantifiers are <strong>greedy</strong>: they take as much text as they can. Add <code>?</code> to make one lazy:</p>
+          <div class="lc-code">const html = "&lt;b&gt;one&lt;/b&gt;&lt;b&gt;two&lt;/b&gt;";<br>console.log(html.match(/&lt;b&gt;.*&lt;\/b&gt;/)[0]);    // &lt;b&gt;one&lt;/b&gt;&lt;b&gt;two&lt;/b&gt;  (greedy)<br>console.log(html.match(/&lt;b&gt;.*?&lt;\/b&gt;/)[0]);   // &lt;b&gt;one&lt;/b&gt;              (lazy)</div>
+        </div>
+        <div class="lc-card">
+          <h3>The Methods You Will Use</h3>
+          <table class="lc-table">
+            <thead><tr><th>Method</th><th>Returns</th><th>Use it to</th></tr></thead>
+            <tbody>
+              <tr><td><code>regex.test(text)</code></td><td><code>true</code> / <code>false</code></td><td>validate input</td></tr>
+              <tr><td><code>text.match(regex)</code></td><td>first match with its groups, or <code>null</code></td><td>pull parts out of one match</td></tr>
+              <tr><td><code>text.match(/…/g)</code></td><td>array of all matched strings, or <code>null</code></td><td>find every match</td></tr>
+              <tr><td><code>text.matchAll(/…/g)</code></td><td>an iterator of full matches with groups</td><td>loop over matches and their parts</td></tr>
+              <tr><td><code>text.replace(regex, new)</code></td><td>new string</td><td>clean or reformat text</td></tr>
+              <tr><td><code>text.split(regex)</code></td><td>array of pieces</td><td>split on several separators</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Groups: Pulling Out Parts</h3>
+          <p>Round brackets <code>( )</code> <strong>capture</strong> part of the match. Name a group with <code>(?&lt;name&gt; )</code> so you don't have to count brackets. In <code>replace</code>, <code>$1</code>, <code>$2</code>… insert the groups.</p>
+          <div class="lc-code">const found = "Order ORD-2026-0457 shipped".match(/ORD-(?&lt;year&gt;\d{4})-(?&lt;num&gt;\d+)/);<br>console.log(found[0]);            // ORD-2026-0457   (the whole match)<br>console.log(found.groups.year);   // 2026<br>console.log(found.groups.num);    // 0457<br><br>console.log("2026-09-25".replace(/(\d+)-(\d+)-(\d+)/, "$3/$2/$1"));   // 25/09/2026<br>console.log("Ananya Rao".replace(/(\w+) (\w+)/, "$2, $1"));          // Rao, Ananya<br>console.log("hello world".replace(/\b\w/g, (c) =&gt; c.toUpperCase()));  // Hello World</div>
+          <p>The last line passes a <strong>function</strong> to <code>replace</code>: it is called for every match and its return value is used as the replacement.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Validating a Form Field</h3>
+          <div class="lc-code">const mobile = /^[6-9]\d{9}$/;   // start, one digit 6–9, nine more digits, end<br><br>for (const m of ["9876543210", "12345", "5876543210", "98765432101"]) {<br>&nbsp;&nbsp;console.log(m.padEnd(12), mobile.test(m) ? "valid" : "invalid");<br>}</div>
+          <p>Output:</p>
+          <div class="lc-code">9876543210   valid<br>12345        invalid<br>5876543210   invalid<br>98765432101  invalid</div>
+          <p>Without <code>^</code> and <code>$</code>, <code>/[6-9]\d{9}/</code> would also accept <code>"98765432101"</code>, because ten valid digits appear <em>somewhere</em> inside it. For validation, always anchor both ends.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Forgetting <code>^…$</code> when validating, so extra characters before or after are accepted.</li>
+            <li>Forgetting to escape special characters: <code>/./</code> matches <em>any</em> character — <code>"a.b.c".replace(/./g, "-")</code> gives <code>"-----"</code>; write <code>/\./g</code>. For text typed by a user, <code>RegExp.escape(text)</code> (in all major browsers since 2025) escapes it for you.</li>
+            <li>Reusing a <code>/…/g</code> regex with <code>test()</code>: it remembers <code>lastIndex</code>, so <code>r.test("cat")</code> can give <code>true</code> and then <code>false</code>. Don't use <code>g</code> with <code>test</code>.</li>
+            <li>Forgetting that <code>match</code> returns <code>null</code> when nothing matches — <code>text.match(r)[0]</code> then throws. Check first, or use <code>text.match(r)?.[0]</code>.</li>
+            <li>Writing one giant regex for emails or HTML. Keep patterns short, and use real parsers (<code>DOMParser</code>, <code>URL</code>) or <code>&lt;input type="email"&gt;</code> for complex formats.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>In the starter, add <code>"7012345678"</code> and <code>"98765 43210"</code> to the mobile list and predict the results before running.</li>
+            <li>Write a regex for a vehicle number like <code>"KA01AB1234"</code>: two capital letters, two digits, two capital letters, four digits.</li>
+            <li>Use <code>replace</code> with a <code>g</code> flag to change every <code>"colour"</code> or <code>"Colour"</code> in a sentence to <code>"color"</code> (hint: the <code>i</code> flag).</li>
+            <li>Change the <code>matchAll</code> pattern so it also works for names with spaces, such as <code>"Ravi Kumar=78"</code>.</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Build a pattern one piece at a time and test it on good <em>and</em> bad examples. Sites like regex101.com (choose the JavaScript flavour) explain every part of a pattern as you type it.
+        </div>
+      HTML
+      starter_code: <<~'JS'
+        // Lesson 5: regular expressions
+        // 1. test(): does the text match the pattern?
+        const mobile = /^[6-9]\d{9}$/;           // Indian mobile: 10 digits, starts with 6-9
+        for (const m of ["9876543210", "12345", "5876543210", "98765432101"]) {
+          console.log(m.padEnd(12), mobile.test(m) ? "valid" : "invalid");
+        }
+        console.log("PIN 560034:", /^\d{6}$/.test("560034"), "| PIN 5600:", /^\d{6}$/.test("5600"));
+        console.log("");
+
+        // 2. match() with the g flag: find every match
+        const message = "Paid ₹250 for tea and ₹1200 for books, ₹75 tip";
+        const amounts = message.match(/₹\d+/g);
+        console.log("Amounts:", amounts.join(", "));
+        const total = amounts.map((a) => Number(a.slice(1))).reduce((s, n) => s + n, 0);
+        console.log("Total: ₹" + total);
+        console.log("");
+
+        // 3. Named groups pull out parts of a match
+        const order = "Order ORD-2026-0457 shipped";
+        const found = order.match(/ORD-(?<year>\d{4})-(?<num>\d+)/);
+        console.log("Full match:", found[0]);
+        console.log("Year:", found.groups.year, "| Number:", Number(found.groups.num));
+        console.log("");
+
+        // 4. replace() with groups and flags
+        console.log("Date:", "2026-09-25".replace(/(\d+)-(\d+)-(\d+)/, "$3/$2/$1"));
+        console.log("Spaces:", "too    many     spaces".replace(/\s+/g, " "));
+        console.log("Case-insensitive:", "Java java JAVA".replace(/java/gi, "JS"));
+        console.log("Masked:", "Card 4111 2222 3333 4444".replace(/\d{4}(?= )/g, "XXXX"));
+        console.log("");
+
+        // 5. split() on a pattern and matchAll() for every match with its groups
+        console.log("Tags:", "html, css ;js;  react".split(/\s*[,;]\s*/).join(" | "));
+        const scores = "Asha=91 Ravi=78 Meera=85";
+        for (const m of scores.matchAll(/(\w+)=(\d+)/g)) {
+          console.log(`  ${m[1]} scored ${m[2]}`);
+        }
+      JS
+    },
+
+    6 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
           <h1 class="lc-title">Conditionals and Loops</h1>
         </div>
         <p class="lc-lead">Programs make <strong>decisions</strong> ("if the cart is empty, show a message") and <strong>repeat</strong> work ("add up every item in the bill"). Conditional statements choose which code runs; loops run code again and again. Together they are the control flow of every program you will write.</p>
@@ -584,7 +718,7 @@ module JavaScriptContent
           <h3>switch</h3>
           <p><code>switch</code> compares one value against fixed options using strict <code>===</code>. Without <code>break</code>, execution <strong>falls through</strong> into the next case — you can use that on purpose to group cases:</p>
           <div class="lc-code">const day = "Sun";<br>switch (day) {<br>&nbsp;&nbsp;case "Sat":<br>&nbsp;&nbsp;case "Sun":<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Weekend");<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;case "Mon":<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Back to work");<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;default:<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Weekday");<br>}<br>// Output: Weekend</div>
-          <p>When every case just picks a value, an object lookup (Lesson 10) is shorter: <code>({ red: "Stop", green: "Go" })[signal] ?? "Broken"</code>.</p>
+          <p>When every case just picks a value, an object lookup (Lesson 11) is shorter: <code>({ red: "Stop", green: "Go" })[signal] ?? "Broken"</code>.</p>
           <table class="lc-table">
             <thead><tr><th>Situation</th><th>Best tool</th></tr></thead>
             <tbody>
@@ -610,7 +744,7 @@ module JavaScriptContent
         <div class="lc-card">
           <h3>for...of and for...in</h3>
           <div class="lc-code">const fruits = ["mango", "banana"];<br>for (const fruit of fruits) console.log(fruit);   // mango, banana (values)<br><br>const scores = { Asha: 88, Vikram: 92 };<br>for (const name in scores) console.log(name + ": " + scores[name]);<br>// Asha: 88<br>// Vikram: 92</div>
-          <p><code>for...of</code> visits the <strong>values</strong> of an array, string, Map or Set (Lesson 12 shows how it works inside). <code>for...in</code> visits the <strong>keys</strong> of an object. Do <strong>not</strong> use <code>for...in</code> on arrays: it gives indexes as <em>strings</em> (<code>"0"</code>, <code>"1"</code>).</p>
+          <p><code>for...of</code> visits the <strong>values</strong> of an array, string, Map or Set (Lesson 13 shows how it works inside). <code>for...in</code> visits the <strong>keys</strong> of an object. Do <strong>not</strong> use <code>for...in</code> on arrays: it gives indexes as <em>strings</em> (<code>"0"</code>, <code>"1"</code>).</p>
         </div>
         <div class="lc-card">
           <h3>break and continue</h3>
@@ -626,7 +760,7 @@ module JavaScriptContent
               <tr><td><code>do...while</code></td><td>Body must run at least once</td></tr>
             </tbody>
           </table>
-          <p>For transforming and filtering arrays, the array methods <code>map</code>, <code>filter</code> and <code>reduce</code> (Lesson 9) are often even clearer than a loop.</p>
+          <p>For transforming and filtering arrays, the array methods <code>map</code>, <code>filter</code> and <code>reduce</code> (Lesson 10) are often even clearer than a loop.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: A Bill with Conditions Inside a Loop</h3>
@@ -660,7 +794,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 5: conditionals and loops
+        // Lesson 6: conditionals and loops
         console.log("-- if / else if / else --");
         const marks = 72;
         if (marks >= 90) {
@@ -713,7 +847,7 @@ module JavaScriptContent
       JS
     },
 
-    6 => {
+    7 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -727,7 +861,7 @@ module JavaScriptContent
             <li><strong>Parameters</strong> are the names in the definition; <strong>arguments</strong> are the actual values you pass in.</li>
             <li><code>return</code> sends a value back <em>and stops the function</em> immediately.</li>
             <li>A function with no <code>return</code> gives back <code>undefined</code>.</li>
-            <li>Variables declared inside (<code>tax</code>) exist only inside the function (Lesson 7).</li>
+            <li>Variables declared inside (<code>tax</code>) exist only inside the function (Lesson 8).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -765,7 +899,7 @@ module JavaScriptContent
               <tr><td>Arrow</td><td><code>const add = (a, b) =&gt; a + b;</code></td><td>No</td><td>Short helpers and callbacks</td></tr>
             </tbody>
           </table>
-          <p>Arrow functions also do not have their own <code>this</code> — they use the <code>this</code> of the surrounding code. That matters inside classes and objects (Lesson 11). For now: don't use arrow functions as object methods that need <code>this</code>.</p>
+          <p>Arrow functions also do not have their own <code>this</code> — they use the <code>this</code> of the surrounding code. That matters inside classes and objects (Lesson 12). For now: don't use arrow functions as object methods that need <code>this</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Functions as Values: Callbacks</h3>
@@ -773,7 +907,7 @@ module JavaScriptContent
           <div class="lc-code">function repeat(times, action) {<br>&nbsp;&nbsp;for (let i = 1; i &lt;= times; i++) action(i);<br>}<br><br>repeat(3, (n) =&gt; console.log("Round " + n));</div>
           <p>Output:</p>
           <div class="lc-code">Round 1<br>Round 2<br>Round 3</div>
-          <p>Callbacks are everywhere in JavaScript: array methods (Lesson 9), event listeners (Lesson 15) and timers (Lesson 16).</p>
+          <p>Callbacks are everywhere in JavaScript: array methods (Lesson 10), event listeners (Lesson 17) and timers (Lesson 18).</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Small Functions Working Together</h3>
@@ -786,6 +920,16 @@ module JavaScriptContent
         <div class="lc-card">
           <h3>Pure Functions</h3>
           <p>A <strong>pure function</strong> always returns the same output for the same input and changes nothing outside itself. <code>addGst</code> is pure. A function that changes a global variable or prints is not. Prefer pure functions — they are easy to test and reuse.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Recursion: A Function That Calls Itself</h3>
+          <p>A <strong>recursive</strong> function solves a problem by calling itself on a smaller version of the same problem. Every recursive function needs two parts:</p>
+          <ul class="lc-list">
+            <li>a <strong>base case</strong> that stops — an answer it knows without calling itself;</li>
+            <li>a <strong>recursive case</strong> that calls itself with input that moves <em>towards</em> the base case.</li>
+          </ul>
+          <div class="lc-code">function factorial(n) {<br>&nbsp;&nbsp;if (n &lt;= 1) return 1;           // base case<br>&nbsp;&nbsp;return n * factorial(n - 1);     // recursive case: a smaller problem<br>}<br>console.log(factorial(5));   // 120   (5 * 4 * 3 * 2 * 1)<br><br>function countdown(n) {<br>&nbsp;&nbsp;if (n === 0) { console.log("Go!"); return; }<br>&nbsp;&nbsp;console.log(n);<br>&nbsp;&nbsp;countdown(n - 1);<br>}<br>countdown(3);   // 3, 2, 1, Go!  (one per line)</div>
+          <p>Each call waits on the <strong>call stack</strong> until the smaller call returns. Forget the base case and the stack overflows: Chrome reports <code>RangeError: Maximum call stack size exceeded</code>. A loop is usually simpler for counting; recursion shines for data that contains smaller copies of itself — folders inside folders, comments with replies, menus with sub-menus.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -805,6 +949,7 @@ module JavaScriptContent
             <li>Give <code>calculateEmi</code> in the starter a default of 12 months and call it with only two arguments.</li>
             <li>Call <code>applyToAll</code> with a new callback that adds ₹10 to each price.</li>
             <li>Write <code>isEven(n)</code> as a one-line arrow function and test it with 4 and 7.</li>
+            <li>Write a recursive <code>sumTo(n)</code> that returns 1 + 2 + … + n. What is its base case? Check that <code>sumTo(100)</code> gives 5050.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -812,7 +957,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 6: functions and arrow functions
+        // Lesson 7: functions and arrow functions
 
         // Function declaration with a return value
         function addGst(amount) {
@@ -862,7 +1007,7 @@ module JavaScriptContent
       JS
     },
 
-    7 => {
+    8 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -920,7 +1065,7 @@ module JavaScriptContent
           <ul class="lc-list">
             <li><strong>Function factories</strong> — <code>makeMultiplier(3)</code> returns a function that triples.</li>
             <li><strong>Private data</strong> — a bank balance that can only change through <code>deposit</code> and <code>withdraw</code>.</li>
-            <li><strong>Callbacks and event handlers</strong> — a click handler remembers which item it belongs to (Lesson 15).</li>
+            <li><strong>Callbacks and event handlers</strong> — a click handler remembers which item it belongs to (Lesson 17).</li>
             <li><strong>Run-once helpers</strong> — a function that only lets an action happen the first time.</li>
           </ul>
         </div>
@@ -956,7 +1101,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 7: scope, hoisting and closures
+        // Lesson 8: scope, hoisting and closures
 
         // Block scope: badge only exists inside the if block
         const score = 10;
@@ -1007,7 +1152,7 @@ module JavaScriptContent
       JS
     },
 
-    8 => {
+    9 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1036,7 +1181,7 @@ module JavaScriptContent
         <div class="lc-card">
           <h3>Searching</h3>
           <div class="lc-code">const marks = [72, 85, 90, 85];<br>console.log(marks.includes(90));    // true<br>console.log(marks.indexOf(85));     // 1  (first match)<br>console.log(marks.lastIndexOf(85)); // 3<br>console.log(marks.indexOf(100));    // -1 (not found)</div>
-          <p>For searching with a condition ("the first mark above 80"), use <code>find</code> and <code>findIndex</code> in Lesson 9.</p>
+          <p>For searching with a condition ("the first mark above 80"), use <code>find</code> and <code>findIndex</code> in Lesson 10.</p>
         </div>
         <div class="lc-card">
           <h3>slice vs splice</h3>
@@ -1063,7 +1208,7 @@ module JavaScriptContent
             </tbody>
           </table>
           <div class="lc-code">const scores = [40, 10, 30];<br>const sorted = scores.toSorted((a, b) =&gt; a - b);<br>console.log(sorted);   // [10, 30, 40]<br>console.log(scores);   // [40, 10, 30] — unchanged</div>
-          <p>The <code>(a, b) =&gt; a - b</code> part tells <code>sort</code> to compare as numbers — Lesson 9 explains why you need it.</p>
+          <p>The <code>(a, b) =&gt; a - b</code> part tells <code>sort</code> to compare as numbers — Lesson 10 explains why you need it.</p>
         </div>
         <div class="lc-card">
           <h3>Arrays Are References</h3>
@@ -1079,7 +1224,7 @@ module JavaScriptContent
           <h3>Unique Values with Set</h3>
           <p>A <code>Set</code> is a collection where every value appears only once. The quickest way to remove duplicates:</p>
           <div class="lc-code">const tags = ["js", "css", "js", "html", "css"];<br>const unique = [...new Set(tags)];<br>console.log(unique);   // ["js", "css", "html"]</div>
-          <p>Lesson 12 covers the full <code>Set</code> API, including union and intersection.</p>
+          <p>Lesson 13 covers the full <code>Set</code> API, including union and intersection.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1104,7 +1249,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 8: arrays
+        // Lesson 9: arrays
         const cities = ["Delhi", "Mumbai", "Chennai", "Kolkata"];
         console.log("Count:", cities.length);
         console.log("First:", cities[0], "| Last:", cities.at(-1));
@@ -1149,7 +1294,7 @@ module JavaScriptContent
       JS
     },
 
-    9 => {
+    10 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1249,7 +1394,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 9: array methods
+        // Lesson 10: array methods
         const students = [
           { name: "Aditi", marks: 88, house: "Red" },
           { name: "Kabir", marks: 54, house: "Blue" },
@@ -1297,7 +1442,7 @@ module JavaScriptContent
       JS
     },
 
-    10 => {
+    11 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1358,7 +1503,7 @@ module JavaScriptContent
         </div>
         <div class="lc-card">
           <h3>Object or Map?</h3>
-          <p>A <code>Map</code> is a key-value collection built for lookups (Lesson 12 covers it in depth):</p>
+          <p>A <code>Map</code> is a key-value collection built for lookups (Lesson 13 covers it in depth):</p>
           <div class="lc-code">const visits = new Map();<br>visits.set("home", 3).set("cart", 1);<br>visits.set("home", visits.get("home") + 1);<br>console.log(visits.get("home"), visits.size, visits.has("cart"));   // 4 2 true<br>console.log([...visits]);   // [["home", 4], ["cart", 1]]</div>
           <table class="lc-table">
             <thead><tr><th></th><th>Object</th><th>Map</th></tr></thead>
@@ -1377,7 +1522,7 @@ module JavaScriptContent
             <li>Thinking spread makes a deep copy — nested objects are shared.</li>
             <li>Comparing objects with <code>===</code>: two objects with the same contents are still different objects.</li>
             <li>Checking a key with <code>if (stock.sugar)</code> when the value may be <code>0</code> — use <code>Object.hasOwn</code> or <code>"sugar" in stock</code>.</li>
-            <li>Using an arrow function as a method that needs <code>this</code> (Lesson 11).</li>
+            <li>Using an arrow function as a method that needs <code>this</code> (Lesson 12).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1393,7 +1538,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 10: objects, destructuring and optional chaining
+        // Lesson 11: objects, destructuring and optional chaining
         const profile = {
           name: "Priya",
           age: 24,
@@ -1440,7 +1585,7 @@ module JavaScriptContent
       JS
     },
 
-    11 => {
+    12 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1455,7 +1600,7 @@ module JavaScriptContent
             <li><strong>Protection</strong> — private fields stop other code from breaking the rules.</li>
             <li><strong>Common in real code</strong> — browser APIs (<code>Date</code>, <code>Map</code>, <code>Error</code>), libraries and frameworks all use classes.</li>
           </ul>
-          <p>For a single one-off object, a plain object literal (Lesson 10) is simpler. Reach for a class when you need <em>many</em> objects of the same shape.</p>
+          <p>For a single one-off object, a plain object literal (Lesson 11) is simpler. Reach for a class when you need <em>many</em> objects of the same shape.</p>
         </div>
         <div class="lc-card">
           <h3>A First Class</h3>
@@ -1484,7 +1629,20 @@ module JavaScriptContent
           <h3>Inheritance: extends and super</h3>
           <div class="lc-code">class SavingsAccount extends BankAccount {<br>&nbsp;&nbsp;constructor(owner, rate) {<br>&nbsp;&nbsp;&nbsp;&nbsp;super(owner);                // must call the parent constructor first<br>&nbsp;&nbsp;&nbsp;&nbsp;this.rate = rate;<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;addInterest() {<br>&nbsp;&nbsp;&nbsp;&nbsp;this.deposit(this.balance * this.rate);   // reuse parent methods<br>&nbsp;&nbsp;}<br>}<br><br>const s = new SavingsAccount("Ravi", 0.05);<br>s.deposit(2000);<br>s.addInterest();<br>console.log(s.balance);                    // 2100<br>console.log(s instanceof BankAccount);     // true</div>
           <p>A child class can <strong>override</strong> a parent method by defining one with the same name, and call the parent version with <code>super.methodName()</code>. Keep inheritance shallow — one or two levels. Often it is simpler to put one object <em>inside</em> another (composition).</p>
-          <p>Under the hood, classes are built on JavaScript's <strong>prototypes</strong>: methods live on <code>Product.prototype</code> and are shared by all instances. The <code>class</code> syntax is the modern, readable way to use them.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Under the Hood: Prototypes</h3>
+          <p>JavaScript classes are built on <strong>prototypes</strong>. Every object has a hidden link to another object, its prototype. When you read a property the object doesn't have, JavaScript follows that link — and the next one — until it finds it or reaches the end of the <strong>prototype chain</strong>.</p>
+          <div class="lc-code">const phone = new Product("Phone", 15000);<br>console.log(Object.getPrototypeOf(phone) === Product.prototype);   // true<br>console.log(Object.hasOwn(phone, "name"));           // true  — stored on the object itself<br>console.log(Object.hasOwn(phone, "priceWithGst"));   // false — found on Product.prototype<br>console.log(typeof Product);                         // "function" — a class is a special function<br>console.log(phone.toString());                       // [object Object] — from Object.prototype</div>
+          <p>Chain: <code>phone</code> → <code>Product.prototype</code> (methods) → <code>Object.prototype</code> (<code>toString</code>, …) → <code>null</code>. That is why methods are stored once and shared by every instance, and why <code>extends</code> simply adds one more link to the chain.</p>
+          <table class="lc-table">
+            <thead><tr><th>Way to share methods</th><th>Example</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td><code>class</code></td><td><code>class Product { describe() { … } }</code></td><td>modern — use this</td></tr>
+              <tr><td><code>Object.create(proto)</code></td><td><code>const user = Object.create(base)</code></td><td>fine for a quick object that shares another's methods</td></tr>
+              <tr><td>Constructor function + <code>prototype</code></td><td><code>function Product(n) { this.name = n }</code><br><code>Product.prototype.describe = function () { … }</code></td><td>old way — you will read it in older code, don't write it</td></tr>
+            </tbody>
+          </table>
         </div>
         <div class="lc-card">
           <h3>Inheritance or Composition?</h3>
@@ -1536,7 +1694,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 11: classes and this
+        // Lesson 12: classes and this
         class BankAccount {
           #balance = 0;              // private: only this class can touch it
           static count = 0;          // shared by the class
@@ -1589,7 +1747,7 @@ module JavaScriptContent
       JS
     },
 
-    12 => {
+    13 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1646,12 +1804,12 @@ module JavaScriptContent
         </div>
         <div class="lc-card">
           <h3>Map: Key-Value Lookups</h3>
-          <p>You met <code>Map</code> briefly in Lesson 10. Here is its full API:</p>
+          <p>You met <code>Map</code> briefly in Lesson 11. Here is its full API:</p>
           <div class="lc-code">const stock = new Map([["pen", 40], ["book", 12]]);   // from [key, value] pairs<br>stock.set("bag", 5).set("pen", 35);                  // set() chains; same key = update<br>stock.delete("book");<br><br>console.log(stock.get("pen"), stock.size, stock.has("book"));   // 35 2 false<br>console.log(stock.get("pencil"));                             // undefined<br>for (const [item, qty] of stock) console.log(item, qty);      // pen 35, then bag 5<br>console.log([...stock.keys()].join(", "));                    // pen, bag</div>
           <ul class="lc-list">
             <li><code>keys()</code>, <code>values()</code> and <code>entries()</code> return <strong>iterators</strong> — spread them or use <code>for...of</code>.</li>
             <li>Convert both ways: <code>new Map(Object.entries(obj))</code> and <code>Object.fromEntries(map)</code>.</li>
-            <li><code>Map.groupBy(items, fn)</code> groups into a Map (like <code>Object.groupBy</code> from Lesson 9).</li>
+            <li><code>Map.groupBy(items, fn)</code> groups into a Map (like <code>Object.groupBy</code> from Lesson 10).</li>
             <li>New in ES2026: <code>map.getOrInsert(key, defaultValue)</code> returns the value, first inserting the default if the key is missing (Baseline 2026, so check your users' browsers).</li>
           </ul>
         </div>
@@ -1700,7 +1858,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 12: iterators, generators, Map and Set
+        // Lesson 13: iterators, generators, Map and Set
 
         // 1. The iterator protocol: next() returns { value, done }
         const it = ["UPI", "Card"][Symbol.iterator]();
@@ -1751,7 +1909,7 @@ module JavaScriptContent
       JS
     },
 
-    13 => {
+    14 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1777,7 +1935,7 @@ module JavaScriptContent
           <p>Good places for <code>try/catch</code>:</p>
           <ul class="lc-list">
             <li>Parsing data you don't control (<code>JSON.parse</code>, user input).</li>
-            <li>Calls to servers and browser storage (Lessons 17 and 18).</li>
+            <li>Calls to servers and browser storage (Lessons 19 and 20).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1812,7 +1970,7 @@ module JavaScriptContent
         </div>
         <div class="lc-card">
           <h3>Custom Error Classes</h3>
-          <p>Extend <code>Error</code> (Lesson 11) to create errors that describe <em>your</em> problems. Then <code>instanceof</code> tells you which kind you caught:</p>
+          <p>Extend <code>Error</code> (Lesson 12) to create errors that describe <em>your</em> problems. Then <code>instanceof</code> tells you which kind you caught:</p>
           <div class="lc-code">class ValidationError extends Error {<br>&nbsp;&nbsp;constructor(field, message) {<br>&nbsp;&nbsp;&nbsp;&nbsp;super(message);<br>&nbsp;&nbsp;&nbsp;&nbsp;this.name = "ValidationError";<br>&nbsp;&nbsp;&nbsp;&nbsp;this.field = field;<br>&nbsp;&nbsp;}<br>}<br><br>try {<br>&nbsp;&nbsp;throw new ValidationError("phone", "Phone must have 10 digits");<br>} catch (e) {<br>&nbsp;&nbsp;if (e instanceof ValidationError) {<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Fix the " + e.field + " field: " + e.message);<br>&nbsp;&nbsp;} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;throw e;   // not ours — rethrow so it isn't hidden<br>&nbsp;&nbsp;}<br>}</div>
           <p><strong>Rethrowing</strong> errors you don't know how to handle is important. A <code>catch</code> that swallows everything hides real bugs.</p>
         </div>
@@ -1821,7 +1979,7 @@ module JavaScriptContent
           <p>When you catch a low-level error and throw a clearer one, keep the original as the <code>cause</code>:</p>
           <div class="lc-code">function loadSettings(text) {<br>&nbsp;&nbsp;try {<br>&nbsp;&nbsp;&nbsp;&nbsp;return JSON.parse(text);<br>&nbsp;&nbsp;} catch (err) {<br>&nbsp;&nbsp;&nbsp;&nbsp;throw new Error("Settings file is corrupted", { cause: err });<br>&nbsp;&nbsp;}<br>}</div>
           <p>Whoever catches the new error sees a clear message, and <code>error.cause</code> still holds the original <code>SyntaxError</code> for debugging.</p>
-          <p>Errors in asynchronous code (timers, <code>fetch</code>) need a little more care: a <code>try</code> around <code>setTimeout</code> does <em>not</em> catch an error thrown later inside the timer callback. Lessons 16 and 17 show the right tools.</p>
+          <p>Errors in asynchronous code (timers, <code>fetch</code>) need a little more care: a <code>try</code> around <code>setTimeout</code> does <em>not</em> catch an error thrown later inside the timer callback. Lessons 18 and 19 show the right tools.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1848,7 +2006,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 13: error handling
+        // Lesson 14: error handling
         class ValidationError extends Error {
           constructor(field, message) {
             super(message);
@@ -1900,7 +2058,154 @@ module JavaScriptContent
       JS
     },
 
-    14 => {
+    15 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
+          <h1 class="lc-title">Debugging and Testing</h1>
+        </div>
+        <p class="lc-lead">Every programmer writes bugs; good programmers find them quickly and stop them coming back. <strong>Debugging</strong> means finding out <em>why</em> code does the wrong thing — with the browser's DevTools instead of guessing. <strong>Testing</strong> means writing small pieces of code that check your code automatically, so a fix today doesn't break something tomorrow.</p>
+        <div class="lc-card">
+          <h3>A Debugging Routine That Works</h3>
+          <ol class="lc-list">
+            <li><strong>Reproduce</strong> — find the exact input that goes wrong (for example, marks = 75).</li>
+            <li><strong>Read the error</strong> — the message says <em>what</em> failed, the stack trace says <em>where</em> (file and line), newest call first.</li>
+            <li><strong>Inspect</strong> — look at the real values with <code>console.log</code> or a breakpoint. Don't assume.</li>
+            <li><strong>Fix one thing</strong> — then run again.</li>
+            <li><strong>Add a test</strong> for that input so the bug can never return unnoticed.</li>
+          </ol>
+        </div>
+        <div class="lc-card">
+          <h3>Console Tools Beyond console.log</h3>
+          <p>Open DevTools with <strong>F12</strong> (or Ctrl+Shift+I / Cmd+Option+I) and choose the Console tab. It has more than <code>log</code>:</p>
+          <table class="lc-table">
+            <thead><tr><th>Method</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><code>console.log({ marks, result })</code></td><td>label values by wrapping them in an object</td></tr>
+              <tr><td><code>console.error()</code> / <code>console.warn()</code></td><td>red / yellow message, easy to spot</td></tr>
+              <tr><td><code>console.table(students)</code></td><td>shows an array of objects as a table</td></tr>
+              <tr><td><code>console.assert(total &gt; 0, "total is zero")</code></td><td>prints only when the condition is false</td></tr>
+              <tr><td><code>console.time("load")</code> … <code>console.timeEnd("load")</code></td><td>measures how long code takes</td></tr>
+            </tbody>
+          </table>
+          <p>This course's editor shows <code>log</code>, <code>error</code>, <code>warn</code> and <code>info</code>; try the others in the browser's own DevTools console.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Breakpoints and the debugger Statement</h3>
+          <p>A <strong>breakpoint</strong> pauses the program on a line so you can look around. In DevTools, open the <strong>Sources</strong> panel, find your file and click a line number. Or write <code>debugger;</code> in your code — it pauses there whenever DevTools is open (and does nothing otherwise; delete it before you ship).</p>
+          <div class="lc-code">function grade(marks) {<br>&nbsp;&nbsp;debugger;                          // execution pauses here<br>&nbsp;&nbsp;if (marks &gt; 75) return "Distinction";<br>&nbsp;&nbsp;if (marks &gt;= 35) return "Pass";<br>&nbsp;&nbsp;return "Fail";<br>}</div>
+          <table class="lc-table">
+            <thead><tr><th>While paused</th><th>Use it to</th></tr></thead>
+            <tbody>
+              <tr><td>Scope panel</td><td>see every variable's current value</td></tr>
+              <tr><td>Step over (F10)</td><td>run the current line and stop at the next</td></tr>
+              <tr><td>Step into (F11)</td><td>go inside the function being called</td></tr>
+              <tr><td>Call Stack</td><td>see which functions led to this line</td></tr>
+              <tr><td>Watch</td><td>keep an expression such as <code>marks &gt; 75</code> visible</td></tr>
+              <tr><td>Conditional breakpoint (right-click a line number)</td><td>pause only when, say, <code>marks === 75</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>What a Test Is</h3>
+          <p>A test calls your function with a known input and checks the result. Each test follows <strong>Arrange, Act, Assert</strong>: prepare the data, call the code, compare with the expected value. Test normal cases, <strong>boundaries</strong> (exactly 35, exactly 75) and errors.</p>
+          <p>The starter builds a tiny test runner in about 15 lines, so you can see there is no magic. The <code>grade</code> function has a bug on purpose, and one test catches it:</p>
+          <div class="lc-code">PASS 90 is a Distinction<br>FAIL boundary: 75 is a Distinction -&gt; expected "Distinction" but got "Pass"<br>PASS boundary: 35 is a Pass<br>PASS 34 is a Fail<br>PASS marks above 100 throw a RangeError<br>PASS coupon gives 10% off every item<br><br>5 passed, 1 failed</div>
+          <p>The failing test tells you the input (75), the expected value and the actual value — that is already most of the debugging done. Change <code>&gt;</code> to <code>&gt;=</code> and all six pass.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Real Test Tools: Vitest and node:test</h3>
+          <p>In real projects you use a test runner. <strong>Vitest</strong> (works with Vite projects) and <strong>Jest</strong> are the most common; Node.js also has one built in (<code>node:test</code>).</p>
+          <div class="lc-code">// grade.test.js  — install once with: npm install -D vitest<br>import { test, expect } from "vitest";<br>import { grade } from "./grade.js";<br><br>test("75 is a Distinction", () =&gt; {<br>&nbsp;&nbsp;expect(grade(75)).toBe("Distinction");<br>});<br>test("marks above 100 throw", () =&gt; {<br>&nbsp;&nbsp;expect(() =&gt; grade(101)).toThrow(RangeError);<br>});<br><br>// run all *.test.js files:  npx vitest</div>
+          <table class="lc-table">
+            <thead><tr><th>Matcher</th><th>Checks</th><th>Use for</th></tr></thead>
+            <tbody>
+              <tr><td><code>toBe(x)</code></td><td>same value with <code>Object.is</code> (like <code>===</code>)</td><td>numbers, strings, booleans</td></tr>
+              <tr><td><code>toEqual(x)</code></td><td>same contents, compared deeply</td><td>arrays and objects</td></tr>
+              <tr><td><code>toThrow(Type)</code></td><td>the function throws</td><td>error cases (pass a function!)</td></tr>
+              <tr><td><code>toContain(x)</code></td><td>an array or string includes <code>x</code></td><td>lists, messages</td></tr>
+            </tbody>
+          </table>
+          <p>Writing the test <em>before</em> the code is called <strong>test-driven development (TDD)</strong>: red (the test fails), green (make it pass), refactor (tidy up while the tests stay green).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Changing code at random until it "seems to work" instead of inspecting the real values first.</li>
+            <li>Using <code>toBe</code> for arrays or objects: <code>expect([1, 2]).toBe([1, 2])</code> fails because they are two different arrays — use <code>toEqual</code>.</li>
+            <li>Writing <code>expect(grade(101)).toThrow()</code>: the error is thrown <em>before</em> <code>expect</code> runs. Wrap the call: <code>expect(() =&gt; grade(101))</code>.</li>
+            <li>Testing only the happy path and skipping boundaries, empty arrays and invalid input — that is where bugs live.</li>
+            <li>Leaving <code>debugger;</code> statements and noisy <code>console.log</code> calls in finished code.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>Run the starter, read the FAIL line, fix the bug in <code>grade</code> and run again until you see <code>6 passed, 0 failed</code>.</li>
+            <li>Add a test that <code>grade(-1)</code> throws a <code>RangeError</code>.</li>
+            <li>Add a test for <code>applyCoupon([], 10)</code> — what should an empty cart return?</li>
+            <li>Paste the starter's <code>grade</code> function into your browser's DevTools console, add <code>debugger;</code> as its first line, call <code>grade(75)</code> and step through it with F10.</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> When you fix a bug, first write a test that fails because of it, then fix the code and watch the test pass. Your test suite slowly becomes a list of every bug that can never come back.
+        </div>
+      HTML
+      starter_code: <<~'JS'
+        // Lesson 15: debugging and testing - a tiny test runner in plain JavaScript
+        let passed = 0;
+        let failed = 0;
+
+        function test(name, fn) {
+          try {
+            fn();
+            passed++;
+            console.log("PASS", name);
+          } catch (err) {
+            failed++;
+            console.error("FAIL", name, "->", err.message);
+          }
+        }
+
+        function expectEqual(actual, expected) {
+          const a = JSON.stringify(actual);
+          const e = JSON.stringify(expected);
+          if (a !== e) throw new Error(`expected ${e} but got ${a}`);
+        }
+
+        // Code under test
+        function grade(marks) {
+          if (marks < 0 || marks > 100) throw new RangeError("marks must be 0-100");
+          if (marks > 75) return "Distinction"; // BUG on purpose: 75 itself should be a Distinction
+          if (marks >= 35) return "Pass";
+          return "Fail";
+        }
+
+        const applyCoupon = (cart, percent) =>
+          cart.map((item) => ({ ...item, price: Math.round(item.price * (1 - percent / 100)) }));
+
+        // Tests: arrange, act, assert
+        test("90 is a Distinction", () => expectEqual(grade(90), "Distinction"));
+        test("boundary: 75 is a Distinction", () => expectEqual(grade(75), "Distinction"));
+        test("boundary: 35 is a Pass", () => expectEqual(grade(35), "Pass"));
+        test("34 is a Fail", () => expectEqual(grade(34), "Fail"));
+        test("marks above 100 throw a RangeError", () => {
+          let error = null;
+          try { grade(101); } catch (err) { error = err; }
+          expectEqual(error instanceof RangeError, true);
+        });
+        test("coupon gives 10% off every item", () => {
+          const cart = [{ name: "Pen", price: 20 }, { name: "Bag", price: 999 }];
+          expectEqual(applyCoupon(cart, 10), [{ name: "Pen", price: 18 }, { name: "Bag", price: 899 }]);
+          expectEqual(cart[0].price, 20); // the original cart is unchanged
+        });
+
+        console.log("");
+        console.log(`${passed} passed, ${failed} failed`);
+      JS
+    },
+
+    16 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1967,7 +2272,7 @@ module JavaScriptContent
               <tr><td><code>el.closest(".card")</code></td><td>the nearest ancestor (or itself) matching a selector</td></tr>
             </tbody>
           </table>
-          <p><code>closest</code> becomes very useful with events in Lesson 15: from the button that was clicked, find the product card it belongs to.</p>
+          <p><code>closest</code> becomes very useful with events in Lesson 17: from the button that was clicked, find the product card it belongs to.</p>
         </div>
         <div class="lc-card">
           <h3>Make Sure the Elements Exist</h3>
@@ -1996,7 +2301,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 14: the DOM
+        // Lesson 16: the DOM
         // Build a small menu card under the output panel
         const card = document.createElement("section");
         const heading = document.createElement("h2");
@@ -2042,7 +2347,7 @@ module JavaScriptContent
       JS
     },
 
-    15 => {
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -2094,6 +2399,9 @@ module JavaScriptContent
           <p>By default, submitting a form reloads the page. For JavaScript-handled forms, stop that with <code>event.preventDefault()</code>:</p>
           <div class="lc-code">form.addEventListener("submit", (event) =&gt; {<br>&nbsp;&nbsp;event.preventDefault();                  // no page reload<br>&nbsp;&nbsp;const email = form.elements.email.value.trim();<br>&nbsp;&nbsp;if (!email.includes("@")) {<br>&nbsp;&nbsp;&nbsp;&nbsp;message.textContent = "Please enter a valid email";<br>&nbsp;&nbsp;&nbsp;&nbsp;return;<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;message.textContent = "Subscribed: " + email;<br>});</div>
           <p>Listen for <code>submit</code> on the <strong>form</strong>, not <code>click</code> on the button — that way pressing Enter works too.</p>
+          <p>For forms with many fields, read them all at once with <strong>FormData</strong>. It uses each input's <code>name</code> attribute, and every value arrives as a <strong>string</strong>:</p>
+          <div class="lc-code">&lt;form id="signup"&gt;&lt;input name="city" value="Pune"&gt;&lt;input name="age" type="number" value="21"&gt;&lt;/form&gt;<br><br>const signup = document.querySelector("#signup");<br>const data = Object.fromEntries(new FormData(signup));<br>console.log(data);                   // { city: "Pune", age: "21" }  — age is a string!<br>console.log(Number(data.age) + 1);   // 22</div>
+          <p>Let the browser do simple validation with HTML attributes (<code>required</code>, <code>type="email"</code>, <code>minlength</code>, <code>pattern</code>): it blocks the <code>submit</code> event and shows a message until the fields are valid. Still check the data again in JavaScript and on the server — HTML validation is a convenience, not security.</p>
         </div>
         <div class="lc-card">
           <h3>Bubbling and Event Delegation</h3>
@@ -2137,7 +2445,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 15: DOM events (events are triggered in code so output is predictable)
+        // Lesson 17: DOM events (events are triggered in code so output is predictable)
         const likeBtn = document.createElement("button");
         likeBtn.textContent = "Like";
         let likes = 0;
@@ -2186,7 +2494,7 @@ module JavaScriptContent
       JS
     },
 
-    16 => {
+    18 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -2201,6 +2509,21 @@ module JavaScriptContent
           </ul>
           <div class="lc-code">console.log("1. Order placed");<br>setTimeout(() =&gt; console.log("3. Food delivered"), 1000);<br>console.log("2. Keep browsing");</div>
           <p>Output: 1, 2, then 3 a second later. If JavaScript waited for the timer, the whole page would freeze.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Timers: setTimeout, setInterval and Debouncing</h3>
+          <table class="lc-table">
+            <thead><tr><th>Function</th><th>Does</th><th>Cancel with</th></tr></thead>
+            <tbody>
+              <tr><td><code>setTimeout(fn, ms)</code></td><td>runs <code>fn</code> once, after <em>at least</em> <code>ms</code> milliseconds</td><td><code>clearTimeout(id)</code></td></tr>
+              <tr><td><code>setInterval(fn, ms)</code></td><td>runs <code>fn</code> again and again, every <code>ms</code> milliseconds</td><td><code>clearInterval(id)</code></td></tr>
+            </tbody>
+          </table>
+          <p>Both return an <strong>id</strong>; keep it if you may need to cancel. An interval never stops on its own:</p>
+          <div class="lc-code">let ticks = 0;<br>const id = setInterval(() =&gt; {<br>&nbsp;&nbsp;ticks++;<br>&nbsp;&nbsp;console.log("tick", ticks);<br>&nbsp;&nbsp;if (ticks === 3) { clearInterval(id); console.log("stopped"); }<br>}, 1000);<br>// tick 1, tick 2, tick 3, stopped — one second apart</div>
+          <p>A classic use of <code>clearTimeout</code> is <strong>debouncing</strong>: wait until the user stops typing before searching, instead of searching on every key press.</p>
+          <div class="lc-code">function debounce(fn, ms) {<br>&nbsp;&nbsp;let timer;<br>&nbsp;&nbsp;return (...args) =&gt; {<br>&nbsp;&nbsp;&nbsp;&nbsp;clearTimeout(timer);                       // cancel the previous wait<br>&nbsp;&nbsp;&nbsp;&nbsp;timer = setTimeout(() =&gt; fn(...args), ms);   // start a new one<br>&nbsp;&nbsp;};<br>}<br>const search = debounce((q) =&gt; console.log("Searching for", q), 300);<br>search("p"); search("pa"); search("pan");<br>// Searching for pan   — printed once, 300 ms after the last call</div>
+          <p><code>debounce</code> uses a closure (Lesson 8) to remember <code>timer</code> between calls. The delay is a <em>minimum</em>: a timer callback is a task, so it waits for the current code to finish.</p>
         </div>
         <div class="lc-card">
           <h3>How the Event Loop Works</h3>
@@ -2281,7 +2604,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 16: promises and the event loop
+        // Lesson 18: promises and the event loop
         // Part 1: predict the order before running!
         console.log("1. sync start");
         setTimeout(() => console.log("5. setTimeout (task)"), 0);
@@ -2324,7 +2647,7 @@ module JavaScriptContent
       JS
     },
 
-    17 => {
+    19 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -2339,12 +2662,12 @@ module JavaScriptContent
           <ul class="lc-list">
             <li>An <code>async</code> function <strong>always returns a Promise</strong> — here a Promise of <code>"Chai ready"</code>.</li>
             <li><code>await</code> pauses only the <em>async function it is in</em>; everything else keeps running.</li>
-            <li><code>await</code> can only be used inside an <code>async</code> function — or at the top level of an ES module (Lesson 19).</li>
+            <li><code>await</code> can only be used inside an <code>async</code> function — or at the top level of an ES module (Lesson 21).</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Errors with try/catch</h3>
-          <p>A rejected Promise makes <code>await</code> <strong>throw</strong>, so you handle it with the familiar <code>try/catch/finally</code> from Lesson 13:</p>
+          <p>A rejected Promise makes <code>await</code> <strong>throw</strong>, so you handle it with the familiar <code>try/catch/finally</code> from Lesson 14:</p>
           <div class="lc-code">async function loadProfile() {<br>&nbsp;&nbsp;showSpinner();<br>&nbsp;&nbsp;try {<br>&nbsp;&nbsp;&nbsp;&nbsp;const user = await getUser(42);<br>&nbsp;&nbsp;&nbsp;&nbsp;render(user);<br>&nbsp;&nbsp;} catch (error) {<br>&nbsp;&nbsp;&nbsp;&nbsp;showMessage("Could not load profile: " + error.message);<br>&nbsp;&nbsp;} finally {<br>&nbsp;&nbsp;&nbsp;&nbsp;hideSpinner();   // runs on success AND failure<br>&nbsp;&nbsp;}<br>}</div>
         </div>
         <div class="lc-card">
@@ -2422,7 +2745,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 17: async/await and fetch
+        // Lesson 19: async/await and fetch
         // The editor has no internet, so fakeFetch imitates a server with real Response objects.
         const db = { 1: { name: "Asha", city: "Pune" }, 2: { name: "Ravi", city: "Kochi" } };
         const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -2470,7 +2793,7 @@ module JavaScriptContent
       JS
     },
 
-    18 => {
+    20 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -2570,7 +2893,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 18: JSON and localStorage
+        // Lesson 20: JSON and localStorage
         const settings = { theme: "dark", fontSize: 16, notify: undefined, lastSeen: new Date(0) };
         const text = JSON.stringify(settings); // undefined is dropped, Date becomes a string
         console.log("As JSON:", text);
@@ -2622,7 +2945,7 @@ module JavaScriptContent
       JS
     },
 
-    19 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -2719,7 +3042,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 19: ES modules
+        // Lesson 21: ES modules
         // This editor runs ONE classic script, so real import/export lines cannot run here.
         // Each function below plays the role of a FILE. Its return value = that file's exports.
         // In a real project you would write the import/export syntax from the lesson instead.
@@ -2765,7 +3088,7 @@ module JavaScriptContent
       JS
     },
 
-    20 => {
+    22 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -2787,14 +3110,15 @@ module JavaScriptContent
           <table class="lc-table">
             <thead><tr><th>Feature</th><th>Tools</th><th>Lesson</th></tr></thead>
             <tbody>
-              <tr><td>Task data and rules</td><td><code>class TaskList</code> with a <code>#tasks</code> private field</td><td>11</td></tr>
-              <tr><td>Validation</td><td><code>throw new Error</code>, <code>try/catch</code></td><td>13</td></tr>
-              <tr><td>Filtering and summary</td><td><code>filter</code>, <code>toSorted</code>, <code>Object.groupBy</code></td><td>9</td></tr>
-              <tr><td>Showing tasks</td><td><code>createElement</code>, <code>textContent</code>, <code>classList</code></td><td>14</td></tr>
-              <tr><td>Clicks and the form</td><td><code>submit</code>, <code>preventDefault</code>, event delegation</td><td>15</td></tr>
-              <tr><td>Saving</td><td><code>JSON.stringify</code>/<code>parse</code>, <code>localStorage</code></td><td>18</td></tr>
-              <tr><td>Syncing to a server (extension)</td><td><code>async</code>/<code>await</code>, <code>fetch</code></td><td>17</td></tr>
-              <tr><td>Files</td><td><code>tasks.js</code>, <code>storage.js</code>, <code>ui.js</code>, <code>main.js</code> as ES modules</td><td>19</td></tr>
+              <tr><td>Task data and rules</td><td><code>class TaskList</code> with a <code>#tasks</code> private field</td><td>12</td></tr>
+              <tr><td>Validation</td><td><code>throw new Error</code>, <code>try/catch</code></td><td>14</td></tr>
+              <tr><td>Checking the rules</td><td>small tests before the UI</td><td>15</td></tr>
+              <tr><td>Filtering and summary</td><td><code>filter</code>, <code>toSorted</code>, <code>Object.groupBy</code></td><td>10</td></tr>
+              <tr><td>Showing tasks</td><td><code>createElement</code>, <code>textContent</code>, <code>classList</code></td><td>16</td></tr>
+              <tr><td>Clicks and the form</td><td><code>submit</code>, <code>preventDefault</code>, event delegation</td><td>17</td></tr>
+              <tr><td>Saving</td><td><code>JSON.stringify</code>/<code>parse</code>, <code>localStorage</code></td><td>20</td></tr>
+              <tr><td>Syncing to a server (extension)</td><td><code>async</code>/<code>await</code>, <code>fetch</code></td><td>19</td></tr>
+              <tr><td>Files</td><td><code>tasks.js</code>, <code>storage.js</code>, <code>ui.js</code>, <code>main.js</code> as ES modules</td><td>21</td></tr>
             </tbody>
           </table>
         </div>
@@ -2820,7 +3144,7 @@ module JavaScriptContent
           <h3>Step 5: Test the Rules Before the UI</h3>
           <p>Because <code>TaskList</code> doesn't touch the page, you can check it with plain <code>console.log</code> calls:</p>
           <div class="lc-code">const t = new TaskList();<br>t.add("Revise arrays", "high");<br>t.add("Watch lecture", "low");<br>t.toggle(1);<br>console.log(t.view("done").length);     // 1<br>console.log(t.view("active")[0].title); // "Watch lecture"<br>try { t.add("   "); } catch (e) { console.log(e.message); }   // Task title cannot be empty</div>
-          <p>Checks like these are the start of <strong>automated testing</strong>: in a real project you'd put them in a test file and run them with a tool such as Vitest.</p>
+          <p>Checks like these are the start of <strong>automated testing</strong> (Lesson 15): in a real project you'd put them in a <code>tasks.test.js</code> file with <code>expect(…).toBe(…)</code> and run them with Vitest.</p>
         </div>
         <div class="lc-card">
           <h3>Project Checklist</h3>
@@ -2863,7 +3187,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 20 capstone: Task Tracker (compact single-script version)
+        // Lesson 22 capstone: Task Tracker (compact single-script version)
         class TaskList {
           #tasks = [];
           #nextId = 1;
