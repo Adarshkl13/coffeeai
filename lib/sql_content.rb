@@ -504,6 +504,13 @@ module SqlContent
         </div>
 
         <div class="lc-card">
+          <h3>Values From Users: Always Use Parameters</h3>
+          <p>In a real app the value in WHERE usually comes from a form or a URL. Never glue it into the SQL text — that is how <strong>SQL injection</strong> happens:</p>
+        <div class="lc-code">-- The app builds: "SELECT * FROM orders WHERE customer = '" + name + "'"<br>-- An attacker types:&nbsp;&nbsp;x' OR '1'='1<br>SELECT * FROM orders WHERE customer = 'x' OR '1'='1';&nbsp;&nbsp;&nbsp;-- returns EVERY order<br><br>-- Safe: the SQL has a placeholder; the driver sends the value separately<br>SELECT * FROM orders WHERE customer = ?;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- value: x' OR '1'='1 -&gt; 0 rows</div>
+          <p>Every driver supports this: <code>?</code> in SQLite, MySQL and JDBC, <code>$1</code> in PostgreSQL, <code>%s</code> in Python's psycopg. The value is only ever treated as data, so it cannot change the query.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Mixing AND and OR without parentheses.</li>
@@ -604,7 +611,7 @@ module SqlContent
 
         <div class="lc-card">
           <h3>Aggregates Skip NULL</h3>
-        <div class="lc-code">-- bonus values: 5000, NULL, 3000, NULL<br>SELECT COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS all_rows,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUNT(bonus)&nbsp;&nbsp;AS with_bonus,&nbsp;&nbsp;&nbsp;-- 2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUM(bonus)&nbsp;&nbsp;&nbsp;&nbsp;AS total,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 8000<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AVG(bonus)&nbsp;&nbsp;&nbsp;&nbsp;AS avg_known,&nbsp;&nbsp;&nbsp;&nbsp;-- 4000.0 (average of 2 known values)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AVG(COALESCE(bonus, 0)) AS avg_all;&nbsp;&nbsp;-- 2000.0 (NULL counted as 0)</div>
+        <div class="lc-code">-- bonus values: 5000, NULL, 3000, NULL<br>SELECT COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS all_rows,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUNT(bonus)&nbsp;&nbsp;AS with_bonus,&nbsp;&nbsp;&nbsp;-- 2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUM(bonus)&nbsp;&nbsp;&nbsp;&nbsp;AS total,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 8000<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AVG(bonus)&nbsp;&nbsp;&nbsp;&nbsp;AS avg_known,&nbsp;&nbsp;&nbsp;&nbsp;-- 4000 (average of 2 known values)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AVG(COALESCE(bonus, 0)) AS avg_all;&nbsp;&nbsp;-- 2000 (NULL counted as 0; the sqlite3 CLI prints 4000.0 / 2000.0)</div>
           <p>Decide which average is correct for your question. "Average bonus of people who got one" and "average bonus per employee" are different numbers.</p>
         </div>
 
@@ -917,7 +924,7 @@ module SqlContent
         <div class="lc-card">
           <h3>GROUP BY: One Row per Group</h3>
         <div class="lc-code">SELECT city,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS orders,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUM(amount)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS revenue,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROUND(AVG(amount))&nbsp;&nbsp;AS avg_order<br>FROM sales<br>GROUP BY city<br>ORDER BY revenue DESC;</div>
-        <div class="lc-code">city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orders&nbsp;&nbsp;revenue&nbsp;&nbsp;avg_order<br>---------&nbsp;&nbsp;------&nbsp;&nbsp;-------&nbsp;&nbsp;---------<br>Hyderabad&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3167.0<br>Kochi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4300&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1433.0<br>Indore&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1900&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;950.0</div>
+        <div class="lc-code">city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orders&nbsp;&nbsp;revenue&nbsp;&nbsp;avg_order<br>---------&nbsp;&nbsp;------&nbsp;&nbsp;-------&nbsp;&nbsp;---------<br>Hyderabad&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3167<br>Kochi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4300&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1433<br>Indore&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1900&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;950</div>
           <p>The rule: every column in SELECT must either be <strong>in GROUP BY</strong> or <strong>inside an aggregate</strong>. <code>SELECT city, product, SUM(amount) ... GROUP BY city</code> is an error in PostgreSQL and in MySQL's default mode, because there are many products per city. SQLite allows it but picks a product from an arbitrary row — do not rely on it.</p>
         </div>
 
@@ -1618,7 +1625,7 @@ module SqlContent
         <div class="lc-card">
           <h3>Date Functions in SQLite</h3>
           <p>SQLite stores dates as ISO text and gives you functions to work with them:</p>
-        <div class="lc-code">SELECT date('2026-09-25', '+30 days')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS due,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 2026-10-25<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date('2026-09-25', 'start of month')&nbsp;&nbsp;&nbsp;&nbsp;AS month_start, -- 2026-09-01<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;strftime('%d/%m/%Y', '2026-09-25')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS indian_fmt,&nbsp;&nbsp;-- 25/09/2026<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;julianday('2026-12-25') - julianday('2026-09-25') AS days_to_xmas; -- 91.0</div>
+        <div class="lc-code">SELECT date('2026-09-25', '+30 days')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS due,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 2026-10-25<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date('2026-09-25', 'start of month')&nbsp;&nbsp;&nbsp;&nbsp;AS month_start, -- 2026-09-01<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;strftime('%d/%m/%Y', '2026-09-25')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS indian_fmt,&nbsp;&nbsp;-- 25/09/2026<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;julianday('2026-12-25') - julianday('2026-09-25') AS days_to_xmas; -- 91 (the sqlite3 CLI prints 91.0)</div>
           <table class="lc-table">
             <thead><tr><th>Task</th><th>SQLite</th><th>PostgreSQL</th><th>MySQL</th></tr></thead>
             <tbody>
@@ -1636,6 +1643,13 @@ module SqlContent
         <div class="lc-code">SELECT name, dob,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(strftime('%Y', '2026-09-25') - strftime('%Y', dob))<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- (strftime('%m-%d', '2026-09-25') &lt; strftime('%m-%d', dob)) AS age<br>FROM people;</div>
         <div class="lc-code">name&nbsp;&nbsp;&nbsp;dob&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;age<br>-----&nbsp;&nbsp;----------&nbsp;&nbsp;---<br>Tanvi&nbsp;&nbsp;2000-03-10&nbsp;&nbsp;26<br>Uday&nbsp;&nbsp;&nbsp;2000-12-01&nbsp;&nbsp;25</div>
           <p>Uday is born in 2000 but turns 26 only in December, so he is still 25. The comparison <code>(...) &lt; (...)</code> is 1 when true and 0 when false, which does the adjustment. We use a fixed date here so the output never changes; in real code use <code>date('now')</code>.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>JSON Values in a Column</h3>
+          <p>Modern databases can store JSON text and read inside it. In SQLite, <code>-&gt;&gt;</code> returns a plain SQL value and <code>-&gt;</code> returns JSON text:</p>
+        <div class="lc-code">CREATE TABLE gadgets (name TEXT, specs TEXT);&nbsp;&nbsp;&nbsp;-- specs holds JSON<br>INSERT INTO gadgets VALUES<br>&nbsp;&nbsp;('Earbuds', '{"brand":"Boat","tags":["audio","wireless"]}');<br><br>SELECT specs -&gt;&gt; '$.brand'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS brand,&nbsp;&nbsp;&nbsp;&nbsp;-- Boat<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;specs -&gt;&gt; '$.tags[1]'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS second_tag, -- wireless<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;json_array_length(specs, '$.tags') AS tag_count&nbsp;&nbsp;-- 2<br>FROM gadgets;</div>
+          <p>PostgreSQL (<code>jsonb</code>) and MySQL (<code>JSON</code>) use the same <code>-&gt;</code>/<code>-&gt;&gt;</code> idea with slightly different path rules. Use JSON for flexible, rarely-filtered extras; keep values you filter, join or sum on in normal columns.</p>
         </div>
 
         <div class="lc-card">
@@ -2149,6 +2163,149 @@ module SqlContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-sql">SQL</div>
+          <h1 class="lc-title">Triggers</h1>
+        </div>
+        <p class="lc-lead">A <strong>trigger</strong> is SQL that the database runs automatically when a row is inserted, updated or deleted. Use it to keep an audit log, to reject a change that no CHECK constraint can express, or to keep a stock count in step with orders — without trusting every app to remember.</p>
+
+        <div class="lc-card">
+          <h3>Anatomy of a Trigger</h3>
+        <div class="lc-code">CREATE TRIGGER log_price_change&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- a name, so you can DROP TRIGGER it later<br>AFTER UPDATE OF price_paise ON products&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- WHEN it fires: timing + event + table<br>WHEN OLD.price_paise &lt;&gt; NEW.price_paise&nbsp;&nbsp;&nbsp;&nbsp;-- optional condition<br>BEGIN<br>&nbsp;&nbsp;&nbsp;&nbsp;INSERT INTO price_log (product_id, old_price, new_price)<br>&nbsp;&nbsp;&nbsp;&nbsp;VALUES (NEW.id, OLD.price_paise, NEW.price_paise);<br>END;</div>
+          <ul class="lc-list">
+            <li><strong>Timing:</strong> <code>BEFORE</code> (check or stop the change), <code>AFTER</code> (react to it), or <code>INSTEAD OF</code> (only on views).</li>
+            <li><strong>Event:</strong> <code>INSERT</code>, <code>UPDATE</code> (optionally <code>UPDATE OF col</code>) or <code>DELETE</code>.</li>
+            <li><strong>Body:</strong> one or more statements between <code>BEGIN</code> and <code>END</code>, each ending with a semicolon.</li>
+          </ul>
+          <p>The trigger runs once <strong>for each affected row</strong>. An UPDATE that changes 500 rows fires it 500 times.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>NEW and OLD</h3>
+          <p>Inside the body, <code>NEW</code> is the row as it will be saved and <code>OLD</code> is the row as it was.</p>
+          <table class="lc-table">
+            <thead><tr><th>Event</th><th>OLD</th><th>NEW</th></tr></thead>
+            <tbody>
+              <tr><td>INSERT</td><td>not available</td><td>the row being added</td></tr>
+              <tr><td>UPDATE</td><td>values before the change</td><td>values after the change</td></tr>
+              <tr><td>DELETE</td><td>the row being removed</td><td>not available</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lc-card">
+          <h3>Worked Example: an Audit Log</h3>
+          <p>With the trigger above in place, run three updates:</p>
+        <div class="lc-code">UPDATE products SET price_paise = 119900 WHERE id = 1;&nbsp;&nbsp;&nbsp;-- 129900 -&gt; 119900: logged<br>UPDATE products SET price_paise = 49900&nbsp;&nbsp;WHERE id = 2;&nbsp;&nbsp;&nbsp;-- same price: WHEN is false<br>UPDATE products SET name = 'Mechanical Keyboard' WHERE id = 1; -- other column: does not fire<br><br>SELECT product_id, old_price, new_price FROM price_log;</div>
+        <div class="lc-code">product_id&nbsp;&nbsp;old_price&nbsp;&nbsp;new_price<br>----------&nbsp;&nbsp;---------&nbsp;&nbsp;---------<br>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;129900&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;119900</div>
+          <p>Only one row was logged. <code>UPDATE OF price_paise</code> ignores updates to other columns, and the <code>WHEN</code> clause skips "changes" that keep the same value.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>BEFORE Triggers: Reject a Bad Change</h3>
+          <p>A CHECK constraint can only look at the row itself. A trigger can look at <em>other</em> tables. In SQLite, <code>RAISE(ABORT, 'message')</code> stops the statement and undoes everything it changed:</p>
+        <div class="lc-code">CREATE TRIGGER check_stock<br>BEFORE INSERT ON orders<br>WHEN NEW.qty &gt; (SELECT stock FROM products WHERE id = NEW.product_id)<br>BEGIN<br>&nbsp;&nbsp;&nbsp;&nbsp;SELECT RAISE(ABORT, 'not enough stock');<br>END;<br><br>INSERT INTO orders (product_id, qty) VALUES (1, 50);<br>-- Error: not enough stock</div>
+          <p>A trigger runs inside the same transaction as the statement that fired it (Lesson 19). If the statement fails, the trigger's changes are rolled back too, so you never get a log row for an order that was refused.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Trigger, Constraint or App Code?</h3>
+          <table class="lc-table">
+            <thead><tr><th>Need</th><th>Best tool</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td>Price must be positive</td><td>CHECK constraint</td><td>simpler, faster, visible in the schema</td></tr>
+              <tr><td>Order must point to a real product</td><td>FOREIGN KEY</td><td>built in; no code to maintain</td></tr>
+              <tr><td>Keep a history of every price change</td><td>AFTER UPDATE trigger</td><td>works no matter which app or script made the change</td></tr>
+              <tr><td>Rule that reads another table</td><td>BEFORE trigger</td><td>constraints cannot see other tables</td></tr>
+              <tr><td>Send an email or call an API</td><td>app code</td><td>triggers cannot (and should not) talk to the outside world</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lc-card">
+          <h3>Dialect Note</h3>
+          <table class="lc-table">
+            <thead><tr><th>Database</th><th>How triggers look</th></tr></thead>
+            <tbody>
+              <tr><td>SQLite</td><td>body inline between BEGIN and END; row-level only; stop with <code>RAISE(ABORT, '...')</code></td></tr>
+              <tr><td>PostgreSQL</td><td>write a PL/pgSQL function that <code>RETURNS trigger</code> (a BEFORE row trigger returns <code>NEW</code>), then <code>CREATE TRIGGER ... FOR EACH ROW EXECUTE FUNCTION fn()</code>; also has statement-level triggers; stop with <code>RAISE EXCEPTION</code></td></tr>
+              <tr><td>MySQL</td><td><code>CREATE TRIGGER ... FOR EACH ROW</code>; change values with <code>SET NEW.col = ...</code> in a BEFORE trigger; stop with <code>SIGNAL SQLSTATE '45000'</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Using a trigger where a CHECK or FOREIGN KEY would do — hidden logic is harder to find and debug.</li>
+            <li>Writing <code>OLD</code> in an INSERT trigger or <code>NEW</code> in a DELETE trigger; that row does not exist.</li>
+            <li>Forgetting that a trigger fires once per row, so a slow body makes big UPDATEs very slow.</li>
+            <li>Chains of triggers that fire other triggers — the order becomes hard to reason about.</li>
+            <li>Forgetting the trigger exists, then wondering why a table changes "by itself". List them with <code>SELECT name FROM sqlite_master WHERE type = 'trigger';</code></li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <p>In the starter, uncomment the order for 50 keyboards and run it: you should see <code>Error: not enough stock</code>. Comment it out again, then write an <code>AFTER DELETE ON orders</code> trigger that puts <code>OLD.qty</code> back into stock. Delete order 2 and check that the Mouse stock returns to 25.</p>
+        </div>
+
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Keep trigger bodies short and boring: log a row, adjust a counter, or reject a change. Anything with business decisions, emails or payments belongs in application code, where it is easy to test and to see.
+        </div>
+      HTML
+      starter_code: <<~'SQL'
+        -- Triggers
+        PRAGMA foreign_keys = ON;
+        CREATE TABLE products (
+            id          INTEGER PRIMARY KEY,
+            name        TEXT    NOT NULL,
+            price_paise INTEGER NOT NULL,
+            stock       INTEGER NOT NULL CHECK (stock >= 0)
+        );
+        CREATE TABLE price_log (id INTEGER PRIMARY KEY, product_id INTEGER, old_price INTEGER,
+            new_price INTEGER, changed_at TEXT DEFAULT (datetime('now')));
+        CREATE TABLE orders (id INTEGER PRIMARY KEY, qty INTEGER NOT NULL CHECK (qty > 0),
+            product_id INTEGER NOT NULL REFERENCES products (id));
+        INSERT INTO products VALUES (1, 'Keyboard', 129900, 10), (2, 'Mouse', 49900, 25);
+
+        -- 1. AFTER UPDATE: write an audit row, but only when the price really changed
+        CREATE TRIGGER log_price_change
+        AFTER UPDATE OF price_paise ON products
+        WHEN OLD.price_paise <> NEW.price_paise
+        BEGIN
+            INSERT INTO price_log (product_id, old_price, new_price)
+            VALUES (NEW.id, OLD.price_paise, NEW.price_paise);
+        END;
+
+        -- 2. BEFORE INSERT: reject an order when there is not enough stock
+        CREATE TRIGGER check_stock
+        BEFORE INSERT ON orders
+        WHEN NEW.qty > (SELECT stock FROM products WHERE id = NEW.product_id)
+        BEGIN
+            SELECT RAISE(ABORT, 'not enough stock');
+        END;
+
+        -- 3. AFTER INSERT: take the ordered quantity out of stock
+        CREATE TRIGGER reduce_stock
+        AFTER INSERT ON orders
+        BEGIN
+            UPDATE products SET stock = stock - NEW.qty WHERE id = NEW.product_id;
+        END;
+
+        UPDATE products SET price_paise = 119900 WHERE id = 1;   -- logged
+        UPDATE products SET price_paise = 49900  WHERE id = 2;   -- same price: not logged
+        UPDATE products SET name = 'Mechanical Keyboard' WHERE id = 1;  -- other column: not logged
+        SELECT product_id, old_price, new_price FROM price_log;
+
+        INSERT INTO orders (product_id, qty) VALUES (1, 3), (2, 5), (1, 2);
+        -- INSERT INTO orders (product_id, qty) VALUES (1, 50);   -- Try it: fails with 'not enough stock'
+        SELECT id, name, stock FROM products;
+      SQL
+    },
+
+    21 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-sql">SQL</div>
           <h1 class="lc-title">Capstone: Online Store Analytics</h1>
         </div>
         <p class="lc-lead">Time to use everything together. You will design a small online-store database for a shop called <em>Kirana Online</em>, load it safely inside a transaction, and answer the questions a real business owner asks every week.</p>
@@ -2210,6 +2367,7 @@ module SqlContent
             <li>Find each customer's first order date and days since then (use <code>julianday</code>).</li>
             <li>Show the top product per category by quantity sold, using <code>ROW_NUMBER()</code>.</li>
             <li>Run <code>EXPLAIN QUERY PLAN</code> on your category report before and after dropping the index.</li>
+            <li>Add an <code>AFTER UPDATE OF price_paise ON products</code> trigger that writes old and new prices to a <code>price_history</code> table (Lesson 20).</li>
           </ol>
         </div>
 

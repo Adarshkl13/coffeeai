@@ -1,11 +1,11 @@
 require_relative "../sql_content"
 
 namespace :content do
-  desc "Create SQL course and populate all 20 lessons"
+  desc "Create SQL course and populate all lessons"
   task sql: :environment do
     course = Course.find_or_create_by!(slug: "sql") do |c|
       c.title       = "SQL"
-      c.description = "SQL is the universal language of data. Design tables with the right types and constraints, query and join data, handle NULLs, write CTEs and window functions, tune queries with indexes, and keep data safe with transactions — all on real SQLite."
+      c.description = "SQL is the universal language of data. Design tables with the right types and constraints, query and join data, handle NULLs, write CTEs and window functions, tune queries with indexes, keep data safe with transactions, and automate rules with triggers — all on real SQLite."
       c.color       = "#0ea5e9"
       c.icon        = "🗄️"
       c.position    = 10
@@ -23,7 +23,8 @@ namespace :content do
       13 => "Normalization and Schema Design",  14 => "Subqueries and Set Operations",
       15 => "CASE and Built-in Functions",      16 => "CTEs and Views",
       17 => "Window Functions",                 18 => "Indexes and Query Plans",
-      19 => "Transactions and ACID",            20 => "Capstone: Online Store Analytics"
+      19 => "Transactions and ACID",            20 => "Triggers",
+      21 => "Capstone: Online Store Analytics"
     }
 
     exercises = {
@@ -65,7 +66,9 @@ namespace :content do
               opts: ["A) WHERE status = 'paid'", "B) WHERE status = 'paid' AND order_date >= '2026-09-01'", "C) WHERE order_date >= '2026-09-01'"], ans: "C" },
       19 => { type: "true_false",      q: "ROLLBACK TO SAVEPOINT undoes only the changes made after that savepoint, and the transaction stays open.",
               opts: ["True", "False"], ans: "True" },
-      20 => { type: "multiple_choice", q: "Product prices change every month. Which expression gives the correct revenue for past orders?",
+      20 => { type: "multiple_choice", q: "Inside an AFTER UPDATE trigger on products, what does OLD.price_paise hold?",
+              opts: ["A) The price before the UPDATE ran", "B) The new price the UPDATE is saving", "C) The first price the row was inserted with"], ans: "A" },
+      21 => { type: "multiple_choice", q: "Product prices change every month. Which expression gives the correct revenue for past orders?",
               opts: ["A) SUM(i.qty * i.unit_price_paise) from order_items", "B) SUM(p.price_paise) from products", "C) SUM(i.qty) * MAX(p.price_paise)"], ans: "A" }
     }
 

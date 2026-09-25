@@ -196,7 +196,8 @@ module MysqlContent
       HTML
       starter_code: <<~'SQL'
         -- MySQL Data Types
-        -- (Simulator note: it may print DECIMAL 499.00 as 499)
+        -- (Simulator notes: it may print DECIMAL 499.00 as 499, and DESCRIBE shows
+        --  is_active as boolean with default TRUE; real MySQL shows tinyint(1) and 1)
         CREATE TABLE products (
             id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             sku         CHAR(8)          NOT NULL,        -- fixed-length code
@@ -850,7 +851,7 @@ module MysqlContent
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Show each student's email domain using <code>SUBSTRING_INDEX</code>, then list the students in each batch whose fees are due in the next 15 days after <code>'2026-09-25'</code>, with the due date formatted as <code>'Fri 10 Oct'</code> (<code>'%a %e %b'</code>).</p>
+          <p>Show each student's email domain using <code>SUBSTRING_INDEX</code>, then list the students in each batch whose fees are due in the next 15 days after <code>'2026-09-25'</code>, with the due date formatted as <code>'Sat 10 Oct'</code> (<code>'%a %e %b'</code>).</p>
         </div>
 
         <div class="lc-card lc-card--tip">
@@ -1388,6 +1389,21 @@ module MysqlContent
         </div>
 
         <div class="lc-card">
+          <h3>Changing a Live Table: Online DDL</h3>
+          <p><code>ALTER TABLE</code> on a busy production table is a locking question too. InnoDB picks the cheapest <strong>algorithm</strong>; you can name one so MySQL fails fast instead of silently copying a huge table:</p>
+        <div class="lc-code">ALTER TABLE orders ADD COLUMN coupon VARCHAR(20), ALGORITHM=INSTANT;&nbsp;&nbsp;&nbsp;-- metadata only, any size<br>ALTER TABLE orders ADD INDEX idx_status (status), ALGORITHM=INPLACE, LOCK=NONE;&nbsp;&nbsp;-- reads and writes continue<br>ALTER TABLE orders MODIFY total BIGINT, ALGORITHM=COPY;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- type change: full table copy</div>
+          <table class="lc-table">
+            <thead><tr><th>Algorithm</th><th>What happens</th><th>Typical operations</th></tr></thead>
+            <tbody>
+              <tr><td>INSTANT (default when possible)</td><td>only the table definition changes</td><td>add or drop a column, rename a column, change a default</td></tr>
+              <tr><td>INPLACE</td><td>rebuilt inside InnoDB; DML usually allowed</td><td>add a secondary index, add a foreign key (with <code>foreign_key_checks=0</code>)</td></tr>
+              <tr><td>COPY</td><td>a new table is built row by row; writes blocked</td><td>change a column's data type</td></tr>
+            </tbody>
+          </table>
+          <p>Every ALTER also needs a brief <strong>metadata lock</strong>: one long-running transaction that has touched <code>orders</code> makes the ALTER wait — and every new query on <code>orders</code> queues behind it. Check <code>SHOW PROCESSLIST</code> for long transactions first. Instant add/drop is limited to 64 row versions per table in 8.4 (255 from 9.1); after that use INPLACE or COPY.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Expecting ROLLBACK to undo a <code>CREATE</code> or <code>ALTER</code> (implicit commit).</li>
@@ -1501,6 +1517,13 @@ module MysqlContent
           <h3>FULLTEXT Search</h3>
         <div class="lc-code">CREATE FULLTEXT INDEX ft_articles ON articles (title, body);<br><br>SELECT title, MATCH(title, body) AGAINST ('monsoon farming') AS score<br>FROM articles<br>WHERE MATCH(title, body) AGAINST ('monsoon farming')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- natural language mode<br>ORDER BY score DESC;<br><br>SELECT title FROM articles<br>WHERE MATCH(title, body) AGAINST ('+monsoon -flood' IN BOOLEAN MODE);&nbsp;&nbsp;&nbsp;-- must / must not</div>
           <p><code>LIKE '%monsoon%'</code> cannot use a B-tree index and scans every row; a FULLTEXT index can. InnoDB ignores words shorter than 3 characters (<code>innodb_ft_min_token_size</code>) and common stopwords. For Chinese, Japanese or Korean text, create the index <code>WITH PARSER ngram</code>. For large-scale search with typo tolerance, teams often add a dedicated engine such as OpenSearch.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Partitioning Very Large Tables</h3>
+          <p><strong>Partitioning</strong> splits one table into pieces stored separately, while queries still see one table. It helps mainly with <em>data lifecycle</em>: dropping a whole month of old logs is instant, while <code>DELETE</code> of millions of rows is slow.</p>
+        <div class="lc-code">CREATE TABLE page_views (<br>&nbsp;&nbsp;id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,<br>&nbsp;&nbsp;viewed_on DATE NOT NULL,<br>&nbsp;&nbsp;url&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VARCHAR(255) NOT NULL,<br>&nbsp;&nbsp;PRIMARY KEY (id, viewed_on)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- must include the partitioning column<br>)<br>PARTITION BY RANGE COLUMNS (viewed_on) (<br>&nbsp;&nbsp;PARTITION p2026_08 VALUES LESS THAN ('2026-09-01'),<br>&nbsp;&nbsp;PARTITION p2026_09 VALUES LESS THAN ('2026-10-01'),<br>&nbsp;&nbsp;PARTITION pmax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUES LESS THAN (MAXVALUE)<br>);<br><br>ALTER TABLE page_views DROP PARTITION p2026_08;&nbsp;&nbsp;&nbsp;-- removes August in a moment<br>EXPLAIN SELECT COUNT(*) FROM page_views WHERE viewed_on &gt;= '2026-09-10';<br>-- partitions: p2026_09,pmax&nbsp;&nbsp;&nbsp;(partition pruning)</div>
+          <p>Rules: every PRIMARY KEY and UNIQUE key must contain all partitioning columns; partitioned InnoDB tables cannot have or be referenced by <strong>foreign keys</strong>; queries that do not filter on the partition column must check every partition. Partitioning is not a replacement for a good index — reach for it only for tables with hundreds of millions of rows or time-based cleanup. (The browser sandbox cannot run PARTITION BY; try it on a real server.)</p>
         </div>
 
         <div class="lc-card">
@@ -1965,6 +1988,21 @@ module MysqlContent
         <div class="lc-card">
           <h3>Replication Is Not a Backup</h3>
           <p>If someone runs <code>DROP TABLE orders</code> on the source, every replica drops it within a second. Replication protects you from a <em>server</em> failing, not from a <em>mistake</em>. You need both.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Watching a Running Server</h3>
+          <table class="lc-table">
+            <thead><tr><th>Tool</th><th>What it tells you</th></tr></thead>
+            <tbody>
+              <tr><td><code>my.cnf</code> / <code>SET PERSIST</code></td><td>server settings; <code>SET PERSIST max_connections = 300;</code> changes a variable now and keeps it after a restart</td></tr>
+              <tr><td>Error log</td><td>startup problems, crashes and replication errors — the first place to look (<code>SELECT @@log_error;</code>)</td></tr>
+              <tr><td>Slow query log</td><td>every query slower than <code>long_query_time</code>; summarise it with <code>mysqldumpslow</code></td></tr>
+              <tr><td><code>SHOW PROCESSLIST</code></td><td>who is connected and what each connection is running right now</td></tr>
+              <tr><td><code>information_schema</code></td><td>metadata as tables: <code>SELECT table_name, table_rows FROM information_schema.tables WHERE table_schema = 'shop';</code></td></tr>
+              <tr><td><code>performance_schema</code> and <code>sys</code></td><td>live statistics; for example <code>SELECT * FROM sys.statement_analysis LIMIT 5;</code> (heaviest queries) and <code>sys.schema_unused_indexes</code></td></tr>
+            </tbody>
+          </table>
         </div>
 
         <div class="lc-card">
