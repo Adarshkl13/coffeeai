@@ -1,7 +1,7 @@
 require_relative "../github_content"
 
 namespace :content do
-  desc "Create GitHub course and populate all 20 lessons"
+  desc "Create GitHub course and populate all 21 lessons"
   task github: :environment do
     course = Course.find_or_create_by!(slug: "github") do |c|
       c.title = "GitHub"
@@ -29,11 +29,12 @@ namespace :content do
       13 => "GitHub Actions Basics",
       14 => "Continuous Integration with GitHub Actions",
       15 => "Secrets, Variables and Token Permissions",
-      16 => "Security Features and Dependabot",
-      17 => "Releases and Tags",
-      18 => "GitHub Pages",
-      19 => "GitHub Copilot and Codespaces",
-      20 => "Capstone: Ship a Project on GitHub"
+      16 => "Reusable Workflows and Custom Actions",
+      17 => "Security Features and Dependabot",
+      18 => "Releases and Tags",
+      19 => "GitHub Pages",
+      20 => "GitHub Copilot and Codespaces",
+      21 => "Capstone: Ship a Project on GitHub"
     }
 
     descriptions = {
@@ -52,11 +53,12 @@ namespace :content do
       13 => "Understand workflows, events, jobs, steps and runners, and run your first workflow.",
       14 => "Run your tests automatically on every push and pull request, with a matrix of Python versions.",
       15 => "Store API keys safely for workflows and give the GITHUB_TOKEN only the permissions it needs.",
-      16 => "Protect your account and code with 2FA, Dependabot, secret scanning, push protection and code scanning.",
-      17 => "Publish versioned releases with notes and downloadable files, by hand or automatically.",
-      18 => "Publish a free static website from a repository with GitHub Pages and a deployment workflow.",
-      19 => "Use Copilot code review and Copilot cloud agent safely, and code in the browser with github.dev and Codespaces dev containers.",
-      20 => "Combine repositories, issues, pull requests, CI, security, releases and Pages in one real project."
+      16 => "Stop copy-pasting YAML: package steps as a composite action, share whole jobs with workflow_call, and choose actions from the Marketplace safely.",
+      17 => "Protect your account and code with 2FA, Dependabot, secret scanning, push protection and code scanning.",
+      18 => "Publish versioned releases with notes and downloadable files, by hand or automatically.",
+      19 => "Publish a free static website from a repository with GitHub Pages and a deployment workflow.",
+      20 => "Use Copilot code review and Copilot cloud agent safely, and code in the browser with github.dev and Codespaces dev containers.",
+      21 => "Combine repositories, issues, pull requests, CI, security, releases and Pages in one real project."
     }
 
     exercises = {
@@ -75,18 +77,16 @@ namespace :content do
       13 => { type: "multiple_choice", q: "Where must a GitHub Actions workflow file be saved?", opts: ["A) .github/actions/ci.yml", "B) workflows/ci.yml in the repository root", "C) .github/workflows/ci.yml"], ans: "C" },
       14 => { type: "multiple_choice", q: "A job has matrix python-version: [\"3.12\", \"3.13\", \"3.14\"]. How many times does the job run for one push?", opts: ["A) Once, using the newest version", "B) Three times, once per version", "C) Nine times, once per pair of versions"], ans: "B" },
       15 => { type: "true_false", q: "Your repository's secrets are passed to pull_request workflow runs that come from forks.", opts: ["True", "False"], ans: "False" },
-      16 => { type: "multiple_choice", q: "You discover that a real API key was pushed to a public repository. What should you do first?", opts: ["A) Delete the file in a new commit", "B) Make the repository private", "C) Revoke or rotate the key"], ans: "C" },
-      17 => { type: "true_false", q: "gh release create v1.0.0 --generate-notes builds release notes from the pull requests merged since the previous release.", opts: ["True", "False"], ans: "True" },
-      18 => { type: "multiple_choice", q: "User asha publishes a Pages site from her repository chai-menu. What is its default URL?", opts: ["A) https://github.com/asha/chai-menu.io", "B) https://asha.github.io/chai-menu/", "C) https://chai-menu.github.io/asha/"], ans: "B" },
-      19 => { type: "multiple_choice", q: "Which statement about a pull request opened by Copilot cloud agent is correct?", opts: ["A) A human must review and merge it; Copilot can't approve or merge it itself", "B) Copilot merges it automatically as soon as its own tests pass in GitHub Actions", "C) It skips your ruleset, because Copilot is a GitHub app and not a normal user"], ans: "A" },
-      20 => { type: "multiple_choice", q: "A required status check in your ruleset stays at \"Expected — Waiting for status to be reported\". What is the most likely cause?", opts: ["A) The repository has too many open issues for checks to start", "B) Pull requests need at least two reviewers before checks can run", "C) The required check name does not match any job that actually runs"], ans: "C" }
+      16 => { type: "multiple_choice", q: "Which job correctly calls the reusable workflow .github/workflows/tests.yml?", opts: ["A) A job with runs-on: ubuntu-latest and a step \"- uses: ./.github/workflows/tests.yml\"", "B) A job with uses: ./.github/workflows/tests.yml and no runs-on or steps", "C) Any job with a step \"- run: gh workflow run tests.yml\" at the end"], ans: "B" },
+      17 => { type: "multiple_choice", q: "You discover that a real API key was pushed to a public repository. What should you do first?", opts: ["A) Delete the file in a new commit", "B) Make the repository private", "C) Revoke or rotate the key"], ans: "C" },
+      18 => { type: "true_false", q: "gh release create v1.0.0 --generate-notes builds release notes from the pull requests merged since the previous release.", opts: ["True", "False"], ans: "True" },
+      19 => { type: "multiple_choice", q: "User asha publishes a Pages site from her repository chai-menu. What is its default URL?", opts: ["A) https://github.com/asha/chai-menu.io", "B) https://asha.github.io/chai-menu/", "C) https://chai-menu.github.io/asha/"], ans: "B" },
+      20 => { type: "multiple_choice", q: "Which statement about a pull request opened by Copilot cloud agent is correct?", opts: ["A) A human must review and merge it; Copilot can't approve or merge it itself", "B) Copilot merges it automatically as soon as its own tests pass in GitHub Actions", "C) It skips your ruleset, because Copilot is a GitHub app and not a normal user"], ans: "A" },
+      21 => { type: "multiple_choice", q: "A required status check in your ruleset stays at \"Expected \u2014 Waiting for status to be reported\". What is the most likely cause?", opts: ["A) The repository has too many open issues for checks to start", "B) Pull requests need at least two reviewers before checks can run", "C) The required check name does not match any job that actually runs"], ans: "C" }
     }
 
     GithubContent::LESSONS.each do |position, data|
-      lesson = CourseLesson.find_or_create_by!(course: course, position: position) do |l|
-        l.title = titles[position]
-        l.description = descriptions[position]
-      end
+      lesson = CourseLesson.find_or_initialize_by(course: course, position: position)
 
       lesson.update!(
         title: titles[position],

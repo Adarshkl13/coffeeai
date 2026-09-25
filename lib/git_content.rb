@@ -274,7 +274,7 @@ module GitContent
             <thead><tr><th>Command</th><th>Use when</th><th>Lesson</th></tr></thead>
             <tbody>
               <tr><td><code>git init</code></td><td>You are starting a new project (or an existing folder has no Git yet)</td><td>This lesson</td></tr>
-              <tr><td><code>git clone &lt;url&gt;</code></td><td>The project already exists on GitHub or another server</td><td>Lesson 18</td></tr>
+              <tr><td><code>git clone &lt;url&gt;</code></td><td>The project already exists on GitHub or another server</td><td>Lesson 19</td></tr>
             </tbody>
           </table>
         </div>
@@ -465,7 +465,7 @@ module GitContent
               <tr><td><code>M&nbsp;</code></td><td>Modified and staged</td></tr>
               <tr><td><code>MM</code></td><td>Staged, then modified again</td></tr>
               <tr><td><code>D&nbsp;</code> / <code>&nbsp;D</code></td><td>Deleted (staged / not staged)</td></tr>
-              <tr><td><code>UU</code></td><td>Merge conflict — both sides changed it (lesson 13)</td></tr>
+              <tr><td><code>UU</code></td><td>Merge conflict — both sides changed it (lesson 14)</td></tr>
             </tbody>
           </table>
         </div>
@@ -781,7 +781,7 @@ module GitContent
             <tbody>
               <tr><td><code>--oneline</code></td><td>Short hash + summary, one line each</td></tr>
               <tr><td><code>-n 5</code> or <code>-5</code></td><td>Only the newest 5 commits</td></tr>
-              <tr><td><code>--graph --all</code></td><td>Draw branches and merges as ASCII art (lesson 11+)</td></tr>
+              <tr><td><code>--graph --all</code></td><td>Draw branches and merges as ASCII art (lesson 12+)</td></tr>
               <tr><td><code>--author="Ravi"</code></td><td>Commits whose author matches</td></tr>
               <tr><td><code>--grep="price"</code></td><td>Commits whose message contains the word</td></tr>
               <tr><td><code>--since="2 weeks ago"</code></td><td>Commits newer than a date</td></tr>
@@ -824,6 +824,49 @@ module GitContent
         </div>
 
         <div class="lc-card">
+          <h3>Terminal Walkthrough: Searching History with -S, git grep and git blame</h3>
+          <p>In a bigger project you often ask "when did this text appear?" or "who changed this line?". Here is a small menu repository with five commits by two people:</p>
+          <div class="lc-code-block"><pre><code>$ git log --oneline
+        baaf681 Add cardamom chai
+        a779437 Raise ginger chai price
+        9f319a1 Add snacks
+        5c4d2ce Add ginger chai
+        7901826 Add menu
+        $ git log -S &quot;Ginger chai&quot; --oneline
+        5c4d2ce Add ginger chai
+        $ git log -G &quot;chai - 3[0-9]&quot; --oneline
+        baaf681 Add cardamom chai
+        a779437 Raise ginger chai price
+        $ git grep -n &quot;chai&quot;
+        menu.txt:1:Masala chai - 20
+        menu.txt:2:Ginger chai - 30
+        menu.txt:3:Cardamom chai - 30
+        $ git grep -n &quot;Ginger&quot; HEAD~3
+        HEAD~3:menu.txt:2:Ginger chai - 25
+        $ git blame menu.txt
+        ^7901826 (Asha Rao   2026-09-01 10:04:00 +0530 1) Masala chai - 20
+        a779437b (Ravi Kumar 2026-09-01 10:11:00 +0530 2) Ginger chai - 30
+        baaf6815 (Asha Rao   2026-09-01 10:13:00 +0530 3) Cardamom chai - 30
+        $ git blame -L 2,2 menu.txt
+        a779437b (Ravi Kumar 2026-09-01 10:11:00 +0530 2) Ginger chai - 30</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Command</th><th>Answers</th></tr></thead>
+            <tbody>
+              <tr><td><code>git log -S "text"</code></td><td>Which commits <strong>added or removed</strong> this text? (the "pickaxe")</td></tr>
+              <tr><td><code>git log -G "regex"</code></td><td>Which commits changed a line matching this pattern?</td></tr>
+              <tr><td><code>git grep -n "text" [commit]</code></td><td>Where is this text in the tracked files now (or in any old commit)?</td></tr>
+              <tr><td><code>git blame file</code></td><td>Which commit and author last changed each line?</td></tr>
+              <tr><td><code>git blame -L 2,2 file</code></td><td>The same for only line 2</td></tr>
+            </tbody>
+          </table>
+          <ul class="lc-list">
+            <li><code>-S "Ginger chai"</code> lists only <code>5c4d2ce</code>. "Raise ginger chai price" changed the line but did not change <em>how many times</em> "Ginger chai" appears, so <code>-S</code> skips it; <code>-G</code> matches any changed line and finds it.</li>
+            <li><code>git grep</code> searches only tracked files, so it is fast and ignores <code>node_modules/</code> and other ignored folders.</li>
+            <li>In <code>git blame</code>, the <code>^</code> before <code>7901826</code> marks a line that has not changed since the first commit shown.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Feeling "stuck" in the pager — press <kbd>q</kbd>.</li>
@@ -840,10 +883,11 @@ module GitContent
             <li>List only the commits that changed one of the files.</li>
             <li>Show the commit two steps before <code>HEAD</code> with <code>git show HEAD~2</code>.</li>
             <li>Create an alias: <code>git config --global alias.last "log -1 --stat"</code> and run <code>git last</code>.</li>
+            <li>Use <code>git log -S</code> to find the commit that first added a word to your file, then run <code>git blame</code> on that file.</li>
           </ol>
         </div>
 
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>To find <em>who last changed each line</em> of a file, use <code>git blame menu.txt</code>. It is not about blaming people — it points you to the commit whose message explains the line.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><code>git blame</code> is not about blaming people — it points you to the commit whose message explains the line. Add <code>-w</code> to ignore whitespace-only changes, and on GitHub click <strong>Blame</strong> on any file for the same view.</p></div>
       HTML
     },
 
@@ -987,7 +1031,7 @@ module GitContent
               <tr><td>Forgot a file in the last commit</td><td><code>git add file</code> then <code>git commit --amend --no-edit</code></td><td>—</td></tr>
             </tbody>
           </table>
-          <p><code>git restore</code> (and <code>git switch</code>, lesson 11) were added in Git 2.23 to split the confusing old <code>git checkout</code> into clearer commands.</p>
+          <p><code>git restore</code> (and <code>git switch</code>, lesson 12) were added in Git 2.23 to split the confusing old <code>git checkout</code> into clearer commands.</p>
         </div>
 
         <div class="lc-card">
@@ -999,7 +1043,7 @@ module GitContent
         $ cat menu.txt
         Masala chai - 22
         Ginger chai - 25</code></pre></div>
-          <p>The file is back to its last committed version. <strong>Warning:</strong> the discarded edit is gone for good — Git never saved it, so even the reflog (lesson 17) cannot bring it back.</p>
+          <p>The file is back to its last committed version. <strong>Warning:</strong> the discarded edit is gone for good — Git never saved it, so even the reflog (lesson 18) cannot bring it back.</p>
           <div class="lc-code-block"><pre><code>$ echo &quot;Tea bun - 10&quot; &gt; snacks.txt
         $ git add snacks.txt
         $ git restore --staged snacks.txt
@@ -1058,7 +1102,7 @@ module GitContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Amending a commit you have <strong>already pushed</strong> to a shared branch. Your teammates still have the old commit, so histories diverge. On shared branches, make a new commit instead (or use <code>git revert</code>, lesson 16).</li>
+            <li>Amending a commit you have <strong>already pushed</strong> to a shared branch. Your teammates still have the old commit, so histories diverge. On shared branches, make a new commit instead (or use <code>git revert</code>, lesson 17).</li>
             <li>Running <code>git restore file</code> when you meant <code>git restore --staged file</code> — the first one deletes your edits.</li>
             <li>Running <code>git restore .</code> in the project root — it discards <em>every</em> unstaged change.</li>
           </ul>
@@ -1167,7 +1211,7 @@ module GitContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Expecting <code>git push</code> to upload tags — it does not. Push them explicitly (<code>git push origin v1.0.0</code>, lesson 19).</li>
+            <li>Expecting <code>git push</code> to upload tags — it does not. Push them explicitly (<code>git push origin v1.0.0</code>, lesson 20).</li>
             <li>Moving or re-using a tag that others already downloaded. Tags should never change; make <code>v1.0.1</code> instead.</li>
             <li>Using lightweight tags for releases — you lose who tagged it, when, and why.</li>
             <li>Inconsistent names (<code>v1</code>, <code>1.0</code>, <code>release-1</code>). Pick one style, usually <code>v1.2.3</code>.</li>
@@ -1184,11 +1228,183 @@ module GitContent
           </ol>
         </div>
 
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>You can check out the code of any release to test it: <code>git switch --detach v1.0.0</code>. Lesson 11 explains what "detached" means.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>You can check out the code of any release to test it: <code>git switch --detach v1.0.0</code>. Lesson 12 explains what "detached" means.</p></div>
       HTML
     },
 
     11 => {
+      body: <<~'HTML'
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-git">Git</div>
+          <h1 class="lc-title">How Git Stores Data: Objects and Refs</h1>
+        </div>
+        <p class="lc-lead">So far you have used Git's everyday commands. Before we start branching, let us open the <code>.git</code> folder and see how Git really stores your work. Once you know this simple model — <strong>objects</strong> plus <strong>refs</strong> — branches, merges, reset and reflog all make much more sense.</p>
+
+        <div class="lc-card">
+          <h3>Four Kinds of Objects</h3>
+          <p>Everything Git saves goes into an <strong>object database</strong> in <code>.git/objects</code>. Each object is named by a <strong>hash</strong> of its content, so the same content always gets the same name.</p>
+          <table class="lc-table">
+            <thead><tr><th>Object</th><th>Stores</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><strong>blob</strong></td><td>The content of one file (no file name)</td><td>the text <code>Masala chai - 20</code></td></tr>
+              <tr><td><strong>tree</strong></td><td>A folder listing: names, modes and the hashes of blobs and sub-trees</td><td><code>menu.txt</code> → blob <code>8cdd008</code></td></tr>
+              <tr><td><strong>commit</strong></td><td>One tree (the snapshot), parent commit(s), author, committer, message</td><td>"Add menu"</td></tr>
+              <tr><td><strong>tag</strong></td><td>An annotated tag: which object it points to, tagger and message (lesson 10)</td><td><code>v1.0.0</code></td></tr>
+            </tbody>
+          </table>
+          <div class="lc-flow">
+            <div class="lc-flow-step">main<small>ref</small></div>
+            <div class="lc-flow-arrow">→</div>
+            <div class="lc-flow-step">commit<small>message, parent</small></div>
+            <div class="lc-flow-arrow">→</div>
+            <div class="lc-flow-step">tree<small>file names</small></div>
+            <div class="lc-flow-arrow">→</div>
+            <div class="lc-flow-step">blobs<small>file contents</small></div>
+          </div>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: Read the Objects of a Commit</h3>
+          <p><code>git cat-file</code> is a <strong>plumbing</strong> command: a low-level tool that shows raw objects. <code>-t</code> prints the type, <code>-p</code> pretty-prints the content. (Full hashes are 40 characters; we shorten them to 7 here.)</p>
+          <div class="lc-code-block"><pre><code>$ git init -q
+        $ echo &quot;Masala chai - 20&quot; &gt; menu.txt
+        $ echo &quot;# Chai Menu&quot; &gt; README.md
+        $ git add .
+        $ git commit -q -m &quot;Add menu&quot;
+        $ git cat-file -t HEAD
+        commit
+        $ git cat-file -p HEAD
+        tree dafe3bb...
+        author Asha Rao &lt;asha@example.com&gt; 1788237300 +0530
+        committer Asha Rao &lt;asha@example.com&gt; 1788237300 +0530
+
+        Add menu
+        $ git cat-file -p &quot;HEAD^{tree}&quot;
+        100644 blob ae90c44...	README.md
+        100644 blob 8cdd008...	menu.txt
+        $ git cat-file -p HEAD:menu.txt
+        Masala chai - 20</code></pre></div>
+          <ul class="lc-list">
+            <li>The commit does not contain your files. It points to one <strong>tree</strong>, and the tree points to one <strong>blob</strong> per file.</li>
+            <li>The first commit has no <code>parent</code> line. The long number after the email is the time in seconds since 1970, followed by the time zone (<code>+0530</code> is IST).</li>
+            <li><code>HEAD^{tree}</code> means "the tree of HEAD", and <code>HEAD:menu.txt</code> means "the blob for <code>menu.txt</code> in HEAD".</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: Same Content, Same Hash</h3>
+          <div class="lc-code-block"><pre><code>$ git hash-object menu.txt
+        8cdd008...
+        $ echo &quot;Masala chai - 20&quot; | git hash-object --stdin
+        8cdd008...
+        $ git rev-parse --show-object-format
+        sha1</code></pre></div>
+          <p><code>git hash-object</code> calculates the name Git would give some content. The file and the typed text produce the same hash as the blob in the tree: objects are <strong>content-addressed</strong>. This repository uses <code>sha1</code> (Git uses a hardened SHA-1 by default); new repositories can choose SHA-256 with <code>git init --object-format=sha256</code>, and Git 3.0 plans to make SHA-256 the default.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: A Second Commit Reuses Unchanged Files</h3>
+          <div class="lc-code-block"><pre><code>$ echo &quot;Ginger chai - 25&quot; &gt;&gt; menu.txt
+        $ git commit -q -am &quot;Add ginger chai&quot;
+        $ git cat-file -p HEAD
+        tree bb3f812...
+        parent 6900d55...
+        author Asha Rao &lt;asha@example.com&gt; 1788237840 +0530
+        committer Asha Rao &lt;asha@example.com&gt; 1788237840 +0530
+
+        Add ginger chai
+        $ git ls-tree HEAD~1
+        100644 blob ae90c44...	README.md
+        100644 blob 8cdd008...	menu.txt
+        $ git ls-tree HEAD
+        100644 blob ae90c44...	README.md
+        100644 blob 4e64776...	menu.txt</code></pre></div>
+          <ul class="lc-list">
+            <li>The new commit has a <code>parent</code> line — this chain of parents <em>is</em> your history.</li>
+            <li><code>README.md</code> did not change, so both trees point to the <strong>same blob</strong> <code>ae90c44</code>. Git stores full snapshots, but unchanged files are never stored twice.</li>
+            <li><code>menu.txt</code> changed, so it got a new blob (<code>4e64776</code>).</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: Refs Are Just Names for Hashes</h3>
+          <p>A <strong>ref</strong> is a human-friendly name that points to a commit. A branch is a ref in <code>.git/refs/heads/</code>, a tag lives in <code>.git/refs/tags/</code>, and <code>HEAD</code> says which branch you are on.</p>
+          <div class="lc-code-block"><pre><code>$ cat .git/HEAD
+        ref: refs/heads/main
+        $ cat .git/refs/heads/main
+        aca45b0...
+        $ git rev-parse main HEAD~1
+        aca45b0...
+        6900d55...
+        $ git branch feature/snacks
+        $ cat .git/refs/heads/feature/snacks
+        aca45b0...
+        $ git show-ref
+        aca45b0... refs/heads/feature/snacks
+        aca45b0... refs/heads/main</code></pre></div>
+          <p>Creating <code>feature/snacks</code> just wrote a tiny file containing a hash — no files were copied. That is why branches in Git are instant and cheap, which is exactly what the next lesson uses. When you commit, Git writes new objects and then moves the current branch's ref to the new commit.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: Packing Objects</h3>
+          <div class="lc-code-block"><pre><code>$ git count-objects
+        7 objects, 28 kilobytes
+        $ git gc -q
+        $ git count-objects -v
+        count: 0
+        size: 0
+        in-pack: 7
+        packs: 1
+        size-pack: 1
+        prune-packable: 0
+        garbage: 0
+        size-garbage: 0
+        $ cat .git/packed-refs
+        # pack-refs with: peeled fully-peeled sorted
+        aca45b0... refs/heads/feature/snacks
+        aca45b0... refs/heads/main</code></pre></div>
+          <p>At first each object is a separate compressed ("loose") file. <code>git gc</code> (garbage collection) packs them into one <strong>packfile</strong> that stores similar objects as small differences, and moves refs into <code>.git/packed-refs</code>. Git runs this automatically from time to time, so you rarely need it by hand. The kilobyte numbers depend on your file system.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Plumbing vs Porcelain</h3>
+          <table class="lc-table">
+            <thead><tr><th>Everyday (porcelain)</th><th>What happens underneath (plumbing)</th></tr></thead>
+            <tbody>
+              <tr><td><code>git add menu.txt</code></td><td>Writes a blob (like <code>git hash-object -w</code>) and records it in the index</td></tr>
+              <tr><td><code>git commit</code></td><td>Writes a tree from the index and a commit object, then moves the branch ref</td></tr>
+              <tr><td><code>git branch name</code></td><td>Writes a new ref file containing the current commit's hash</td></tr>
+              <tr><td><code>git log</code></td><td>Starts at a ref and follows the <code>parent</code> lines</td></tr>
+              <tr><td><code>git show HEAD:menu.txt</code></td><td>Same as <code>git cat-file -p HEAD:menu.txt</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Thinking Git stores only the differences between versions. Each commit records a full snapshot; packfiles compress it later behind the scenes.</li>
+            <li>Editing files inside <code>.git</code> by hand. Read them to learn, but change them only with Git commands.</li>
+            <li>Believing a deleted branch deletes its commits at once. Only the ref is removed; the objects stay until Git cleans up unreachable objects much later (lesson 18 shows how to recover them).</li>
+            <li>Expecting <code>.git/refs/heads/main</code> to always exist. After <code>git gc</code> the ref may live in <code>packed-refs</code> instead — use <code>git rev-parse main</code>, which always works.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>In any repository, run <code>git cat-file -p HEAD</code>, then follow the <code>tree</code> hash with <code>git cat-file -p &lt;hash&gt;</code> until you reach a file's content.</li>
+            <li>Run <code>echo "hello" | git hash-object --stdin</code> on your computer and on a friend's. Are the hashes the same?</li>
+            <li>Create a branch and run <code>cat .git/HEAD</code> and <code>git show-ref</code>. Switch to the branch and read <code>.git/HEAD</code> again.</li>
+            <li>Make a commit that changes one file only, then compare <code>git ls-tree HEAD~1</code> and <code>git ls-tree HEAD</code>. Which blob hashes stayed the same?</li>
+          </ol>
+        </div>
+
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Remember the model in one line: <strong>objects never change; refs move</strong>. Commit, merge, rebase and reset all create objects and move refs — nothing more.</p></div>
+      HTML
+    },
+
+    12 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
@@ -1198,7 +1414,7 @@ module GitContent
 
         <div class="lc-card">
           <h3>What a Branch Really Is</h3>
-          <p>A branch is just a <strong>movable pointer to a commit</strong> — a tiny file containing a hash. That is why creating a branch is instant, even in a huge project. <code>HEAD</code> points to the branch you are on; when you commit, that branch moves forward.</p>
+          <p>A branch is just a <strong>movable pointer to a commit</strong> — a tiny file containing a hash (you saw it in <code>.git/refs/heads/</code> in lesson 11). That is why creating a branch is instant, even in a huge project. <code>HEAD</code> points to the branch you are on; when you commit, that branch moves forward.</p>
           <svg viewBox="0 0 560 170" width="100%" style="max-width:560px" role="img" aria-label="Two commits on main, one extra commit on feature/snacks, HEAD pointing to feature/snacks">
             <circle cx="70" cy="110" r="18" fill="var(--bg3)" stroke="#f97316" stroke-width="2"/>
             <text x="70" y="115" text-anchor="middle" fill="var(--txt)" font-size="11">7901826</text>
@@ -1279,13 +1495,17 @@ module GitContent
         	snacks.txt
         Please commit your changes or stash them before you switch branches.
         Aborting</code></pre></div>
-          <p>Commit or stash (lesson 15) your work first.</p>
+          <p>Commit or stash (lesson 16) your work first.</p>
         </div>
 
         <div class="lc-card">
           <h3>Detached HEAD</h3>
           <p>If you switch to a commit or tag instead of a branch, <code>HEAD</code> points directly at a commit — "detached HEAD". Fine for looking around; but commits made here belong to no branch.</p>
-          <div class="lc-code-block"><pre><code>$ git switch --detach HEAD~1
+          <p>We are still on <code>feature/snacks</code> with the unfinished <code>Vada pav</code> edit from above. First throw that edit away and go back to <code>main</code>, then look at an older commit:</p>
+          <div class="lc-code-block"><pre><code>$ git restore snacks.txt
+        $ git switch main
+        Switched to branch &#39;main&#39;
+        $ git switch --detach HEAD~1
         HEAD is now at 7901826 Add menu
         $ git switch -
         Previous HEAD position was 7901826 Add menu
@@ -1332,7 +1552,7 @@ module GitContent
       HTML
     },
 
-    12 => {
+    13 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
@@ -1447,6 +1667,20 @@ module GitContent
         </div>
 
         <div class="lc-card">
+          <h3>Branching Workflows Teams Use</h3>
+          <p>Merging is the same everywhere, but teams agree on <em>which</em> branches exist and how work reaches <code>main</code>:</p>
+          <table class="lc-table">
+            <thead><tr><th>Workflow</th><th>Branches</th><th>Good for</th></tr></thead>
+            <tbody>
+              <tr><td><strong>GitHub Flow</strong></td><td><code>main</code> + short feature branches merged by pull request</td><td>Most web apps and student projects; deploy from <code>main</code></td></tr>
+              <tr><td><strong>Trunk-based development</strong></td><td>Everyone merges very small branches into <code>main</code> at least daily; unfinished features are hidden behind feature flags</td><td>Teams with strong automated tests and frequent releases</td></tr>
+              <tr><td><strong>Git Flow</strong></td><td><code>main</code>, <code>develop</code>, <code>feature/*</code>, <code>release/*</code>, <code>hotfix/*</code></td><td>Products with planned versions that need several releases supported at once</td></tr>
+            </tbody>
+          </table>
+          <p>Whatever the workflow, the rule is the same: short-lived branches merge more easily. The GitHub course practises GitHub Flow step by step.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Merging in the wrong direction — running <code>git merge main</code> while on <code>main</code> does nothing; switch to the target branch first.</li>
@@ -1459,7 +1693,7 @@ module GitContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>Merge your <code>feature/about</code> branch from lesson 11 into <code>main</code>. Was it a fast-forward?</li>
+            <li>Merge your <code>feature/about</code> branch from lesson 12 into <code>main</code>. Was it a fast-forward?</li>
             <li>Create <code>feature/contact</code> with one commit; then commit something different on <code>main</code>.</li>
             <li>Merge <code>feature/contact</code> into <code>main</code> and view the result with <code>git log --oneline --graph</code>.</li>
             <li>List merged branches with <code>git branch --merged</code> and delete them with <code>-d</code>.</li>
@@ -1470,7 +1704,7 @@ module GitContent
       HTML
     },
 
-    13 => {
+    14 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
@@ -1604,7 +1838,7 @@ module GitContent
       HTML
     },
 
-    14 => {
+    15 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
@@ -1779,7 +2013,7 @@ module GitContent
             <li>Rebasing <code>main</code> or another shared branch.</li>
             <li>Using <code>git push --force</code> instead of <code>--force-with-lease</code> after a rebase.</li>
             <li>Panicking in the middle of a rebase — <code>git status</code> tells you where you are, and <code>git rebase --abort</code> always gets you out.</li>
-            <li>Deleting lines in the todo list by accident — that drops those commits (the reflog in lesson 17 can rescue them).</li>
+            <li>Deleting lines in the todo list by accident — that drops those commits (the reflog in lesson 18 can rescue them).</li>
             <li>Cherry-picking many commits from a branch and later merging that branch too — the same change now exists twice with different hashes, which can cause confusing conflicts.</li>
           </ul>
         </div>
@@ -1799,7 +2033,7 @@ module GitContent
       HTML
     },
 
-    15 => {
+    16 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
@@ -1899,8 +2133,11 @@ module GitContent
 
         <div class="lc-card">
           <h3>Terminal Walkthrough: Removing Untracked Files with git clean</h3>
-          <p>Stash <em>keeps</em> work for later. Sometimes you want the opposite: throw away leftover untracked files (test output, a build folder, drafts). <code>git clean</code> deletes files that Git is <strong>not tracking</strong>. There is no undo, so always do a dry run first:</p>
-          <div class="lc-code-block"><pre><code>$ echo &quot;draft&quot; &gt; offers.txt
+          <p>Stash <em>keeps</em> work for later. Sometimes you want the opposite: throw away leftover untracked files (test output, a build folder, drafts). <code>git clean</code> deletes files that Git is <strong>not tracking</strong>. There is no undo, so always do a dry run first. This practice repo has one commit with <code>menu.txt</code>; we first ignore <code>*.log</code> files (lesson 6), so you can see how <code>git clean</code> treats ignored files:</p>
+          <div class="lc-code-block"><pre><code>$ echo &quot;*.log&quot; &gt;&gt; .gitignore
+        $ git add .gitignore
+        $ git commit -q -m &quot;Ignore logs&quot;
+        $ echo &quot;draft&quot; &gt; offers.txt
         $ mkdir build &amp;&amp; echo &quot;temp&quot; &gt; build/out.txt
         $ echo &quot;debug&quot; &gt; server.log
         $ echo &quot;Cold coffee - 40&quot; &gt;&gt; menu.txt
@@ -1935,6 +2172,41 @@ module GitContent
         </div>
 
         <div class="lc-card">
+          <h3>Terminal Walkthrough: A Second Working Folder with git worktree</h3>
+          <p>Stashing is one way to handle an urgent fix. Another is <code>git worktree</code>: a <strong>second folder</strong> linked to the same repository, with a different branch checked out. Your half-finished work stays exactly where it is:</p>
+          <div class="lc-code-block"><pre><code>$ git status -s
+         M snacks.txt
+        $ git worktree add -b fix/ginger-price ../chai-hotfix main
+        Preparing worktree (new branch &#39;fix/ginger-price&#39;)
+        HEAD is now at e93823f Add menu
+        $ git worktree list
+        /home/asha/chai-menu   7bd7b39 [feature/snacks]
+        /home/asha/chai-hotfix e93823f [fix/ginger-price]
+        $ cd ../chai-hotfix
+        $ sed -i.bak &quot;s/Ginger chai - 25/Ginger chai - 30/&quot; menu.txt &amp;&amp; rm menu.txt.bak
+        $ git commit -am &quot;Fix ginger chai price&quot;
+        [fix/ginger-price 46e7aee] Fix ginger chai price
+         1 file changed, 1 insertion(+), 1 deletion(-)
+        $ cd ../chai-menu
+        $ git status -s
+         M snacks.txt
+        $ git log --oneline --all --graph
+        * 46e7aee Fix ginger chai price
+        | * 7bd7b39 Add snacks
+        |/
+        * e93823f Add menu
+        $ git worktree remove ../chai-hotfix
+        $ git worktree list
+        /home/asha/chai-menu 7bd7b39 [feature/snacks]</code></pre></div>
+          <ul class="lc-list">
+            <li><code>git worktree add -b fix/ginger-price ../chai-hotfix main</code> creates the folder <code>../chai-hotfix</code> and a new branch starting at <code>main</code>.</li>
+            <li>Both folders share one <code>.git</code> history, so the hotfix commit is visible from the first folder at once — no push or fetch needed.</li>
+            <li>The unfinished <code>snacks.txt</code> edit was never touched. <code>git worktree remove</code> deletes the extra folder (the branch and its commit stay).</li>
+            <li>A branch can be checked out in only one worktree at a time. Worktrees are also how people run several AI coding agents in parallel, each in its own folder.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Forgetting <code>-u</code>, so new files are left in the working tree.</li>
@@ -1953,6 +2225,7 @@ module GitContent
             <li>Run <code>git stash list</code>, then <code>git stash pop</code>, and check your changes are back.</li>
             <li>Bonus: stash again and use <code>git stash branch experiment</code> to turn the stash into a branch.</li>
             <li>Create an untracked file and an untracked folder. Preview with <code>git clean -nd</code>, then remove them with <code>git clean -fd</code>.</li>
+            <li>With uncommitted work in progress, create a worktree for a hotfix branch, commit there, check <code>git worktree list</code>, then remove it.</li>
           </ol>
         </div>
 
@@ -1960,7 +2233,7 @@ module GitContent
       HTML
     },
 
-    16 => {
+    17 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
@@ -2065,7 +2338,7 @@ module GitContent
       HTML
     },
 
-    17 => {
+    18 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
@@ -2228,7 +2501,7 @@ module GitContent
       HTML
     },
 
-    18 => {
+    19 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
@@ -2324,6 +2597,44 @@ module GitContent
         </div>
 
         <div class="lc-card">
+          <h3>Terminal Walkthrough: A Repository Inside a Repository with Submodules</h3>
+          <p>Sometimes a project needs code from another repository that is developed separately — for example a shared <code>tea-utils</code> library. A <strong>submodule</strong> stores a link to that repository <em>and one exact commit of it</em>:</p>
+          <div class="lc-code-block"><pre><code>$ git submodule add https://github.com/asha/tea-utils.git libs/tea-utils
+        Cloning into &#39;/home/asha/chai-menu/libs/tea-utils&#39;...
+        $ cat .gitmodules
+        [submodule &quot;libs/tea-utils&quot;]
+        	path = libs/tea-utils
+        	url = https://github.com/asha/tea-utils.git
+        $ git status -s
+        A  .gitmodules
+        A  libs/tea-utils
+        $ git commit -q -m &quot;Add tea-utils as a submodule&quot;
+        $ git submodule status
+         d42af36... libs/tea-utils (heads/main)</code></pre></div>
+          <p><code>.gitmodules</code> records the URL and path. The main repository stores only the submodule's commit hash, not its files. When someone clones the project, the submodule folder is empty until they ask for it (here a teammate clones our folder; real clones from GitHub also print progress lines):</p>
+          <div class="lc-code-block"><pre><code>$ cd ..
+        $ git clone -q chai-menu chai-copy
+        $ ls chai-copy/libs/tea-utils
+        $ cd chai-copy
+        $ git submodule update --init
+        Submodule &#39;libs/tea-utils&#39; (https://github.com/asha/tea-utils.git) registered for path &#39;libs/tea-utils&#39;
+        Cloning into &#39;/home/asha/chai-copy/libs/tea-utils&#39;...
+        Submodule path &#39;libs/tea-utils&#39;: checked out &#39;d42af36...&#39;
+        $ ls libs/tea-utils
+        gst.py</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Task</th><th>Command</th></tr></thead>
+            <tbody>
+              <tr><td>Clone a project and its submodules</td><td><code>git clone --recurse-submodules url</code></td></tr>
+              <tr><td>Fill submodules after a normal clone</td><td><code>git submodule update --init</code></td></tr>
+              <tr><td>Move a submodule to its newest commit</td><td><code>git submodule update --remote libs/tea-utils</code>, then commit the change</td></tr>
+              <tr><td>See which commit each submodule uses</td><td><code>git submodule status</code></td></tr>
+            </tbody>
+          </table>
+          <p>Submodules suit shared code that must be pinned to an exact version. For ordinary libraries, a package manager (pip, npm) is usually simpler.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Creating the GitHub repo <em>with</em> a README, then pushing an existing local repo — the push is rejected because histories differ. Create it empty, or pull first.</li>
@@ -2347,7 +2658,7 @@ module GitContent
       HTML
     },
 
-    19 => {
+    20 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
@@ -2434,7 +2745,7 @@ module GitContent
         $ git push
         To https://github.com/asha/tiffin.git
            e244adf..9fd263f  main -&gt; main</code></pre></div>
-          <p>Asha's commit was replayed on top of Ravi's, and the push now succeeds. If the same lines had changed, you would resolve a conflict as in lessons 13–14.</p>
+          <p>Asha's commit was replayed on top of Ravi's, and the push now succeeds. If the same lines had changed, you would resolve a conflict as in lessons 14–15.</p>
         </div>
 
         <div class="lc-card">
@@ -2487,7 +2798,171 @@ module GitContent
       HTML
     },
 
-    20 => {
+    21 => {
+      body: <<~'HTML'
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-git">Git</div>
+          <h1 class="lc-title">Automating Checks with Git Hooks</h1>
+        </div>
+        <p class="lc-lead">A <strong>hook</strong> is a script that Git runs automatically at a certain moment — for example just before a commit is created. If the script fails, Git stops. Teams use hooks to catch secrets, badly formatted code and unclear commit messages <em>before</em> they ever reach GitHub.</p>
+
+        <div class="lc-card">
+          <h3>The Hooks You Will Use Most</h3>
+          <table class="lc-table">
+            <thead><tr><th>Hook</th><th>Runs</th><th>Typical use</th><th>Can it stop Git?</th></tr></thead>
+            <tbody>
+              <tr><td><code>pre-commit</code></td><td>Before the commit message is asked for</td><td>Run a linter or formatter, block secrets</td><td>Yes (exit non-zero)</td></tr>
+              <tr><td><code>commit-msg</code></td><td>After you write the message; gets the message file as <code>$1</code></td><td>Enforce a message format</td><td>Yes</td></tr>
+              <tr><td><code>pre-push</code></td><td>Before <code>git push</code> sends anything</td><td>Run the test suite</td><td>Yes</td></tr>
+              <tr><td><code>post-commit</code>, <code>post-merge</code></td><td>After the action finished</td><td>Notifications, reinstalling packages</td><td>No</td></tr>
+              <tr><td><code>pre-receive</code></td><td>On the <strong>server</strong>, when a push arrives</td><td>Server-side rules (GitHub uses rulesets instead)</td><td>Yes</td></tr>
+            </tbody>
+          </table>
+          <p>Hooks live in <code>.git/hooks/</code>. Every new repository gets some examples there:</p>
+          <div class="lc-code-block"><pre><code>$ ls .git/hooks
+        applypatch-msg.sample
+        commit-msg.sample
+        fsmonitor-watchman.sample
+        post-update.sample
+        pre-applypatch.sample
+        pre-commit.sample
+        pre-merge-commit.sample
+        pre-push.sample
+        pre-rebase.sample
+        pre-receive.sample
+        prepare-commit-msg.sample
+        push-to-checkout.sample
+        sendemail-validate.sample
+        update.sample</code></pre></div>
+          <p>Files ending in <code>.sample</code> are ignored. A hook runs only when a file with the exact hook name (no extension) exists and is <strong>executable</strong>.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: A pre-commit Hook That Blocks Secrets</h3>
+          <div class="lc-code-block"><pre><code>$ cat &gt; .git/hooks/pre-commit &lt;&lt;&#39;EOF&#39;
+        #!/bin/sh
+        # Block commits whose staged changes add a line containing API_KEY=
+        if git diff --cached -U0 | grep -q &#39;^+.*API_KEY=&#39;; then
+          echo &quot;pre-commit: staged changes contain API_KEY= . Remove the secret first.&quot;
+          exit 1
+        fi
+        EOF
+        $ chmod +x .git/hooks/pre-commit
+        $ echo &quot;API_KEY=sk-live-12345&quot; &gt; config.txt
+        $ git add config.txt
+        $ git commit -m &quot;Add config&quot;
+        pre-commit: staged changes contain API_KEY= . Remove the secret first.
+        $ git log --oneline
+        7901826 Add menu
+        $ echo &quot;API_URL=https://api.example.com&quot; &gt; config.txt
+        $ git add config.txt
+        $ git commit -m &quot;Add config&quot;
+        [main 25722e1] Add config
+         1 file changed, 1 insertion(+)
+         create mode 100644 config.txt</code></pre></div>
+          <ul class="lc-list">
+            <li><code>git diff --cached -U0</code> shows only the staged changes; lines starting with <code>+</code> are being added.</li>
+            <li>The hook printed its message and exited with <code>1</code>, so Git did <strong>not</strong> create the commit — the log still has only "Add menu". The file stays staged, ready for you to fix.</li>
+            <li>After replacing the secret with a harmless setting, the same commit command succeeds.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: A commit-msg Hook and --no-verify</h3>
+          <div class="lc-code-block"><pre><code>$ cat &gt; .git/hooks/commit-msg &lt;&lt;&#39;EOF&#39;
+        #!/bin/sh
+        # $1 is the file that holds the commit message
+        if ! head -n 1 &quot;$1&quot; | grep -Eq &#39;^(feat|fix|docs|chore|test): .{3,}&#39;; then
+          echo &quot;commit-msg: start the message with feat:, fix:, docs:, chore: or test:&quot;
+          exit 1
+        fi
+        EOF
+        $ chmod +x .git/hooks/commit-msg
+        $ echo &quot;Ginger chai - 25&quot; &gt;&gt; menu.txt
+        $ git commit -am &quot;stuff&quot;
+        commit-msg: start the message with feat:, fix:, docs:, chore: or test:
+        $ git commit -am &quot;feat: add ginger chai&quot;
+        [main db66505] feat: add ginger chai
+         1 file changed, 1 insertion(+)
+        $ git commit --allow-empty -m &quot;oops&quot; --no-verify
+        [main 5ece8ae] oops
+        $ git log --oneline
+        5ece8ae oops
+        db66505 feat: add ginger chai
+        25722e1 Add config
+        7901826 Add menu</code></pre></div>
+          <p>The <code>commit-msg</code> hook reads the first line of the message from the file named in <code>$1</code> and rejects "stuff". The prefixes <code>feat:</code>, <code>fix:</code>, <code>docs:</code> follow the popular <strong>Conventional Commits</strong> style. <code>--no-verify</code> (short <code>-n</code>) skips the <code>pre-commit</code> and <code>commit-msg</code> hooks — that is how "oops" got in. (<code>--allow-empty</code> only lets us commit without changes for this demo.)</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: Share a Hook with Your Team</h3>
+          <p>The <code>.git</code> folder is never pushed, so hooks in <code>.git/hooks</code> stay on your laptop. To share one, commit the script in the project and point Git to it. Since Git 2.54 you can define hooks in <code>git config</code>:</p>
+          <div class="lc-code-block"><pre><code>$ rm .git/hooks/pre-commit .git/hooks/commit-msg
+        $ mkdir -p scripts
+        $ cat &gt; scripts/check-secrets.sh &lt;&lt;&#39;EOF&#39;
+        #!/bin/sh
+        if git diff --cached -U0 | grep -q &#39;^+.*API_KEY=&#39;; then
+          echo &quot;check-secrets: staged changes contain API_KEY= . Commit blocked.&quot;
+          exit 1
+        fi
+        EOF
+        $ chmod +x scripts/check-secrets.sh
+        $ git add scripts
+        $ git commit -q -m &quot;chore: add secret check script&quot;
+        $ git config hook.no-secrets.event pre-commit
+        $ git config hook.no-secrets.command scripts/check-secrets.sh
+        $ git hook list pre-commit
+        no-secrets
+        $ echo &quot;API_KEY=abc&quot; &gt;&gt; config.txt
+        $ git commit -am &quot;fix: update config&quot;
+        check-secrets: staged changes contain API_KEY= . Commit blocked.</code></pre></div>
+          <ul class="lc-list">
+            <li><code>hook.&lt;name&gt;.event</code> says when to run, and <code>hook.&lt;name&gt;.command</code> says what to run. You can add several named hooks for the same event.</li>
+            <li><code>git hook list pre-commit</code> shows which hooks will run.</li>
+            <li>Each teammate still has to run the two <code>git config</code> lines once — Git never runs code from a clone automatically, for security.</li>
+          </ul>
+          <p>Older but still common ways: <code>git config core.hooksPath .githooks</code> (use a committed folder of hook scripts), or tools such as <strong>pre-commit</strong> (Python) and <strong>Husky</strong> (JavaScript) that install hooks for you.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Hooks vs CI</h3>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Local hook</th><th>CI on GitHub (Actions)</th></tr></thead>
+            <tbody>
+              <tr><td>Feedback</td><td>Instant, before the commit exists</td><td>Minutes later, after the push</td></tr>
+              <tr><td>Can be skipped?</td><td>Yes (<code>--no-verify</code>, or never installed)</td><td>No, if branch rules require the check</td></tr>
+              <tr><td>Best for</td><td>Fast checks: secrets, formatting, message style</td><td>Full test suite, the final gate</td></tr>
+            </tbody>
+          </table>
+          <p>Use both: hooks for speed, CI as the rule nobody can skip.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Forgetting <code>chmod +x</code>. A hook that is not executable is ignored (Git prints a hint that it was ignored).</li>
+            <li>Naming the file <code>pre-commit.sh</code> or leaving <code>.sample</code> on it — the name must be exactly <code>pre-commit</code>.</li>
+            <li>Expecting hooks in <code>.git/hooks</code> to reach teammates through <code>git push</code>. They never do.</li>
+            <li>Slow hooks (a 5-minute test run on every commit). People start using <code>--no-verify</code>; keep hooks fast and put long tests in CI.</li>
+            <li>Treating a local hook as security. It is a helpful reminder; the real protection is push protection and CI on the server.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>In a practice repository, add the <code>pre-commit</code> hook from this lesson. Stage a line with <code>API_KEY=</code> and check that the commit is blocked.</li>
+            <li>Add the <code>commit-msg</code> hook. Try the messages <code>update</code> and <code>docs: explain setup</code>. Which one passes?</li>
+            <li>Change the <code>pre-commit</code> hook so it also blocks lines containing <code>TODO</code>.</li>
+            <li>Move your check into <code>scripts/</code>, commit it, and register it with <code>hook.&lt;name&gt;.event</code> and <code>hook.&lt;name&gt;.command</code>. Confirm with <code>git hook list pre-commit</code>.</li>
+          </ol>
+        </div>
+
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Test a hook without committing by running it directly: <code>git hook run pre-commit</code>. Then echo <code>$?</code> — <code>0</code> means it would allow the commit.</p></div>
+      HTML
+    },
+
+    22 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
@@ -2500,13 +2975,15 @@ module GitContent
           <div class="lc-flow">
             <div class="lc-flow-step">init + .gitignore<small>L3, L6</small></div>
             <div class="lc-flow-arrow">→</div>
-            <div class="lc-flow-step">branch<small>L11</small></div>
+            <div class="lc-flow-step">branch<small>L12</small></div>
             <div class="lc-flow-arrow">→</div>
             <div class="lc-flow-step">commit + diff<small>L5, L8</small></div>
             <div class="lc-flow-arrow">→</div>
-            <div class="lc-flow-step">merge<small>L12–13</small></div>
+            <div class="lc-flow-step">merge<small>L13–14</small></div>
             <div class="lc-flow-arrow">→</div>
-            <div class="lc-flow-step">tag + push<small>L10, L18–19</small></div>
+            <div class="lc-flow-step">tag + push<small>L10, L19–20</small></div>
+            <div class="lc-flow-arrow">→</div>
+            <div class="lc-flow-step">hooks<small>L21</small></div>
           </div>
         </div>
 
@@ -2577,6 +3054,8 @@ module GitContent
             <li><strong>Stash:</strong> stash unfinished work, fix something on <code>main</code>, then pop it back.</li>
             <li><strong>Release:</strong> tag <code>v0.1.0</code> and later <code>v0.2.0</code> (annotated); push both with the branch.</li>
             <li><strong>Sync:</strong> clone the repo into a second folder, push a change from there, and <code>git pull</code> it in the first.</li>
+            <li><strong>Automate:</strong> add a <code>pre-commit</code> hook that blocks <code>API_KEY=</code> lines and a <code>commit-msg</code> hook for <code>feat:</code>/<code>fix:</code> messages, and show one blocked commit.</li>
+            <li><strong>Look inside:</strong> for your <code>v0.1.0</code> commit, follow <code>git cat-file -p</code> from the commit to its tree and to one blob.</li>
           </ol>
         </div>
 
@@ -2595,6 +3074,38 @@ module GitContent
         </div>
 
         <div class="lc-card">
+          <h3>Try It: Check Your Capstone</h3>
+          <p>Do these in your own <code>study-planner</code> repository. Each task says what you should see; your hashes and dates will differ.</p>
+          <ol class="lc-list">
+            <li><strong>Undo safely:</strong> run <code>git revert --no-edit HEAD</code> on <code>main</code>. Expect a new commit named <code>Revert "…"</code> on top, and the old commit still in <code>git log --oneline</code>.</li>
+            <li><strong>Tag:</strong> create <code>v0.2.0</code> with <code>git tag -a v0.2.0 -m "Second release"</code>. Expect <code>git describe</code> to print exactly <code>v0.2.0</code>, and <code>git tag -n</code> to list both tags with their messages.</li>
+            <li><strong>Clean state:</strong> <code>git status</code> must end with <code>nothing to commit, working tree clean</code>.</li>
+            <li><strong>Publish:</strong> <code>git push --follow-tags</code>, then <code>git ls-remote --tags origin</code> must list <code>refs/tags/v0.1.0</code> and <code>refs/tags/v0.2.0</code>.</li>
+            <li><strong>Hook:</strong> stage a line with <code>API_KEY=</code> and commit. Expect your hook's message and <em>no</em> new commit in <code>git log --oneline</code>.</li>
+          </ol>
+          <p>Tasks 1–3 on a small practice repository look like this:</p>
+          <div class="lc-code-block"><pre><code>$ git revert --no-edit HEAD
+        [main 21a1a6c] Revert &quot;Print tasks&quot;
+         Date: Tue Sep 1 10:11:00 2026 +0530
+         1 file changed, 1 deletion(-)
+        $ git log --oneline
+        21a1a6c Revert &quot;Print tasks&quot;
+        79c909e Print tasks
+        f8ad7f8 Add task list
+        8bb386b Add .gitignore
+        $ git tag -a v0.2.0 -m &quot;Second release&quot;
+        $ git describe
+        v0.2.0
+        $ git tag -n
+        v0.1.0          First release
+        v0.2.0          Second release
+        $ git status
+        On branch main
+        nothing to commit, working tree clean</code></pre></div>
+          <p>The <code>Date:</code> line after the revert appears here only because this demo sets fixed commit dates; you will usually not see it.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Adding <code>.gitignore</code> <em>after</em> committing the files it should ignore.</li>
@@ -2607,13 +3118,16 @@ module GitContent
         <div class="lc-card">
           <h3>Your Git Command Map</h3>
           <table class="lc-table">
-            <thead><tr><th>Goal</th><th>Commands</th></tr></thead>
+            <thead><tr><th>Goal</th><th>Commands</th><th>Lessons</th></tr></thead>
             <tbody>
-              <tr><td>Save work</td><td><code>status</code>, <code>add</code>, <code>commit</code>, <code>diff</code></td></tr>
-              <tr><td>Explore</td><td><code>log</code>, <code>show</code>, <code>blame</code>, <code>bisect</code></td></tr>
-              <tr><td>Parallel work</td><td><code>switch</code>, <code>branch</code>, <code>merge</code>, <code>rebase</code>, <code>stash</code></td></tr>
-              <tr><td>Fix mistakes</td><td><code>restore</code>, <code>commit --amend</code>, <code>reset</code>, <code>revert</code>, <code>reflog</code></td></tr>
-              <tr><td>Share</td><td><code>clone</code>, <code>remote</code>, <code>push</code>, <code>fetch</code>, <code>pull</code>, <code>tag</code></td></tr>
+              <tr><td>Set up</td><td><code>config</code>, <code>init</code>, <code>.gitignore</code>, <code>.gitattributes</code></td><td>2, 3, 6</td></tr>
+              <tr><td>Save work</td><td><code>status</code>, <code>add</code>, <code>commit</code>, <code>diff</code></td><td>4, 5, 8</td></tr>
+              <tr><td>Explore</td><td><code>log</code>, <code>show</code>, <code>log -S</code>, <code>grep</code>, <code>blame</code>, <code>bisect</code></td><td>7, 18</td></tr>
+              <tr><td>Understand</td><td><code>cat-file</code>, <code>ls-tree</code>, <code>rev-parse</code>, <code>show-ref</code></td><td>11</td></tr>
+              <tr><td>Parallel work</td><td><code>switch</code>, <code>branch</code>, <code>merge</code>, <code>rebase</code>, <code>cherry-pick</code>, <code>stash</code>, <code>worktree</code></td><td>12–16</td></tr>
+              <tr><td>Fix mistakes</td><td><code>restore</code>, <code>commit --amend</code>, <code>reset</code>, <code>revert</code>, <code>reflog</code></td><td>9, 17, 18</td></tr>
+              <tr><td>Share</td><td><code>clone</code>, <code>remote</code>, <code>push</code>, <code>fetch</code>, <code>pull</code>, <code>tag</code>, <code>submodule</code></td><td>10, 19, 20</td></tr>
+              <tr><td>Automate</td><td>hooks, <code>git hook list</code>, <code>--no-verify</code></td><td>21</td></tr>
             </tbody>
           </table>
         </div>

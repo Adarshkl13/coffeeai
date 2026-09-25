@@ -29,11 +29,11 @@ module GithubContent
             <tbody>
               <tr><td><strong>Code</strong></td><td>Files, branches, README, the green <em>Code</em> button with clone URLs</td><td>4, 5</td></tr>
               <tr><td><strong>Issues</strong></td><td>Bugs, tasks and ideas</td><td>6</td></tr>
-              <tr><td><strong>Pull requests</strong></td><td>Proposed changes waiting for review</td><td>8, 9</td></tr>
-              <tr><td><strong>Actions</strong></td><td>Automated workflows (tests, deployments)</td><td>14–16</td></tr>
-              <tr><td><strong>Projects</strong></td><td>Boards and tables for planning</td><td>7</td></tr>
+              <tr><td><strong>Pull requests</strong></td><td>Proposed changes waiting for review</td><td>7, 8</td></tr>
+              <tr><td><strong>Actions</strong></td><td>Automated workflows (tests, deployments)</td><td>13–16</td></tr>
+              <tr><td><strong>Projects</strong></td><td>Boards and tables for planning</td><td>6</td></tr>
               <tr><td><strong>Security</strong></td><td>Dependabot alerts, code and secret scanning</td><td>17</td></tr>
-              <tr><td><strong>Settings</strong></td><td>Collaborators, branch rules, Pages (admins only)</td><td>10, 13, 19</td></tr>
+              <tr><td><strong>Settings</strong></td><td>Collaborators, branch rules, Pages (admins only)</td><td>9, 12, 19</td></tr>
             </tbody>
           </table>
           <p>Top right of every repo: <strong>Watch</strong> (get notifications), <strong>Fork</strong> (your own copy, lesson 11) and <strong>Star</strong> (a bookmark and a "like").</p>
@@ -76,6 +76,20 @@ module GithubContent
               <tr><td>Who can see it</td><td>Everyone on the internet</td><td>Only you and people you invite</td></tr>
               <tr><td>Good for</td><td>Open source, portfolio projects</td><td>Client work, assignments, early experiments</td></tr>
               <tr><td>Free plan limits</td><td>Most features free (Actions minutes are free on standard runners)</td><td>Unlimited repos, but some features (e.g. branch rules, Pages) need a paid plan</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lc-card">
+          <h3>More GitHub Tools You Will Meet</h3>
+          <table class="lc-table">
+            <thead><tr><th>Tool</th><th>What it is</th><th>Use it for</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Notifications</strong></td><td>The inbox at <code>github.com/notifications</code>, fed by what you <em>watch</em>, are @mentioned in, or are asked to review</td><td>Keeping up with reviews and issues; choose <em>Watch → Participating and @mentions</em> to cut noise</td></tr>
+              <tr><td><strong>Gists</strong></td><td>Tiny repositories at <code>gist.github.com</code> for one or a few files</td><td>Sharing a snippet, a config file or notes (a "secret" gist is unlisted, not private)</td></tr>
+              <tr><td><strong>Wiki</strong></td><td>A built-in set of Markdown pages for a repository</td><td>Longer documentation that does not belong in the README</td></tr>
+              <tr><td><strong>Search</strong></td><td>The search bar with filters such as <code>repo:</code>, <code>language:</code>, <code>is:issue is:open</code></td><td>Finding code, issues and projects across GitHub</td></tr>
+              <tr><td><strong>GitHub Desktop / Mobile</strong></td><td>A free desktop Git app, and phone apps</td><td>Desktop: Git without the terminal; Mobile: reviewing and replying on the go</td></tr>
             </tbody>
           </table>
         </div>
@@ -552,6 +566,23 @@ module GithubContent
         </div>
 
         <div class="lc-card">
+          <h3>Community Health Files and Template Repositories</h3>
+          <p>Besides README and LICENSE, GitHub recognises a few more standard files and shows them in the repository sidebar and when people open issues or PRs:</p>
+          <table class="lc-table">
+            <thead><tr><th>File</th><th>Tells people</th><th>Lesson</th></tr></thead>
+            <tbody>
+              <tr><td><code>CONTRIBUTING.md</code></td><td>How to set up the project, run tests and send a PR</td><td>11</td></tr>
+              <tr><td><code>CODE_OF_CONDUCT.md</code></td><td>Expected behaviour and how to report problems</td><td>11</td></tr>
+              <tr><td><code>SECURITY.md</code></td><td>How to report a vulnerability privately</td><td>17</td></tr>
+              <tr><td><code>.github/ISSUE_TEMPLATE/</code>, <code>pull_request_template.md</code></td><td>What to write in a new issue or PR</td><td>6, 7</td></tr>
+              <tr><td><code>CODEOWNERS</code></td><td>Who reviews which files</td><td>9</td></tr>
+            </tbody>
+          </table>
+          <p>Put these files in the repository root, in <code>docs/</code> or in <code>.github/</code>. An organisation can create a public repository named <code>.github</code> to provide default versions for all its repositories.</p>
+          <p><strong>Template repositories:</strong> in <em>Settings → General</em>, tick <em>Template repository</em>. Others then click <strong>Use this template</strong> to start a new repository with the same files and folders, but a fresh history — unlike a fork, which keeps the history and a link to the original. With gh: <code>gh repo create my-app --template asha/python-starter --public --clone</code>.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>A README that only says the project name. Add setup steps a stranger can follow.</li>
@@ -697,6 +728,34 @@ module GithubContent
         </div>
 
         <div class="lc-card">
+          <h3>Writing Well: GitHub Flavored Markdown in Issues and PRs</h3>
+          <p>Issue descriptions, comments and PR bodies all use <strong>GitHub Flavored Markdown</strong>, which adds a few team features to normal Markdown. This comment source:</p>
+          <div class="lc-code-block"><pre><code>Thanks @ravi! This fixes #12 and is related to asha/chai-menu#3.
+
+        - [x] Update the price list
+        - [ ] Add a photo of the stall
+
+        &gt; [!WARNING]
+        &gt; Prices change on 1 October.
+
+        ```python
+        print(round(100 / 3, 2))
+        ```</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Markdown</th><th>What GitHub shows</th></tr></thead>
+            <tbody>
+              <tr><td><code>@ravi</code></td><td>A mention: Ravi gets a notification</td></tr>
+              <tr><td><code>#12</code>, <code>asha/chai-menu#3</code></td><td>Links to issue or PR 12 in this repo, and #3 in another repo, with a live open/closed status</td></tr>
+              <tr><td><code>- [ ]</code> / <code>- [x]</code></td><td>A task list with clickable checkboxes</td></tr>
+              <tr><td><code>&gt; [!WARNING]</code></td><td>A coloured alert box (also <code>NOTE</code>, <code>TIP</code>, <code>IMPORTANT</code>, <code>CAUTION</code>)</td></tr>
+              <tr><td><code>```python</code> … <code>```</code></td><td>A code block with syntax highlighting (<code>```mermaid</code> draws a diagram)</td></tr>
+              <tr><td>A pasted commit hash</td><td>A short link to that commit</td></tr>
+            </tbody>
+          </table>
+          <p>Use the <em>Preview</em> tab before posting. <strong>Saved replies</strong> (the reply icon in the comment toolbar) store answers you type often, such as "Thanks — could you add a test?".</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Vague titles like "Help!!" or "Error". Nobody can search for them later.</li>
@@ -770,6 +829,16 @@ module GithubContent
         | * 4fc6e86 Add samosa
         |/
         * 7901826 Add menu</code></pre></div>
+          <p>We want to try all three methods on the <em>same</em> starting point, so we make three throw-away copies of <code>main</code> — <code>m1</code>, <code>m2</code> and <code>m3</code> — one per method (on GitHub you would simply pick one button):</p>
+          <div class="lc-code-block"><pre><code>$ git branch m1 main
+        $ git branch m2 main
+        $ git branch m3 main
+        $ git branch
+          feature/snacks
+          m1
+          m2
+          m3
+        * main</code></pre></div>
           <h4>1. Create a merge commit</h4>
           <div class="lc-code-block"><pre><code>$ git switch m1
         Switched to branch &#39;m1&#39;
@@ -779,7 +848,7 @@ module GithubContent
          1 file changed, 2 insertions(+)
          create mode 100644 snacks.txt
         $ git log --oneline --graph -5
-        *   51a8c62 Merge pull request #7 from asha/feature/snacks
+        *   cd771b8 Merge pull request #7 from asha/feature/snacks
         |\
         | * cbd8134 Add kachori
         | * 4fc6e86 Add samosa
@@ -794,11 +863,11 @@ module GithubContent
         Automatic merge went well; stopped before committing as requested
         Squash commit -- not updating HEAD
         $ git commit -m &quot;Add snacks list (#7)&quot;
-        [m2 0e03983] Add snacks list (#7)
+        [m2 cfa8ab5] Add snacks list (#7)
          1 file changed, 2 insertions(+)
          create mode 100644 snacks.txt
         $ git log --oneline --graph -3
-        * 0e03983 Add snacks list (#7)
+        * cfa8ab5 Add snacks list (#7)
         * 09ad44f Add README
         * 7901826 Add menu</code></pre></div>
           <p>The two commits become <strong>one</strong> new commit on <code>main</code>, titled with the PR number. Messy "fix typo" commits disappear from <code>main</code>'s history.</p>
@@ -810,17 +879,17 @@ module GithubContent
         $ git switch m3
         Switched to branch &#39;m3&#39;
         $ git merge --ff-only feature/snacks
-        Updating 09ad44f..dc5d84a
+        Updating 09ad44f..b97cf7c
         Fast-forward
          snacks.txt | 2 ++
          1 file changed, 2 insertions(+)
          create mode 100644 snacks.txt
         $ git log --oneline --graph -4
-        * dc5d84a Add kachori
-        * 84fa2f7 Add samosa
+        * b97cf7c Add kachori
+        * 24e8742 Add samosa
         * 09ad44f Add README
         * 7901826 Add menu</code></pre></div>
-          <p>The commits are replayed on top of <code>main</code> with new hashes; no merge commit, a straight line.</p>
+          <p>The commits are replayed on top of <code>main</code> (here the copy <code>m3</code>) with new hashes; no merge commit, a straight line. When you are done experimenting, delete the copies with <code>git branch -D m1 m2 m3</code>.</p>
           <table class="lc-table">
             <thead><tr><th>Method</th><th>History on main</th><th>Good when</th></tr></thead>
             <tbody>
@@ -1126,6 +1195,54 @@ module GithubContent
             <li>Deploy from <code>main</code> — often automatically with Actions.</li>
           </ul>
           <p>Other workflows exist (like Git Flow with <code>develop</code> and <code>release</code> branches), but GitHub Flow is the simplest and the most common for web projects.</p>
+          <h4>Ways to bring a new <code>main</code> into your PR branch</h4>
+          <table class="lc-table">
+            <thead><tr><th>Method</th><th>Where</th><th>History of your branch</th><th>Use when</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Update branch</strong> (merge)</td><td>Button on the PR page</td><td>Adds a merge commit; nothing is rewritten</td><td>No conflicts; the easiest choice</td></tr>
+              <tr><td><strong>Update with rebase</strong></td><td>Arrow next to the same button</td><td>Your commits get new hashes on top of <code>main</code></td><td>The team wants a straight history</td></tr>
+              <tr><td><code>git merge origin/main</code></td><td>Your terminal</td><td>Adds a merge commit</td><td>There are conflicts to resolve and test locally</td></tr>
+              <tr><td><code>git rebase origin/main</code> + <code>git push --force-with-lease</code></td><td>Your terminal</td><td>Rewritten, straight line</td><td>Only your own branch, and nobody else has pulled it</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: When Your Pull Request Has a Conflict</h3>
+          <p>While your PR <code>feature/ginger-price</code> waited for review, Ravi's PR changed the <strong>same line</strong> on <code>main</code>. GitHub now shows "This branch has conflicts that must be resolved" and the merge button is disabled. Fix it locally by merging the new <code>main</code> into your branch:</p>
+          <div class="lc-code-block"><pre><code>$ git fetch origin
+        From https://github.com/asha/chai-stall
+           e93823f..f3238cd  main       -&gt; origin/main
+        $ git merge origin/main
+        Auto-merging menu.txt
+        CONFLICT (content): Merge conflict in menu.txt
+        Automatic merge failed; fix conflicts and then commit the result.
+        $ cat menu.txt
+        Masala chai - 20
+        &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+        Ginger chai - 30
+        =======
+        Ginger chai - 28
+        &gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main
+        $ printf &quot;Masala chai - 20\nGinger chai - 30\n&quot; &gt; menu.txt
+        $ git add menu.txt
+        $ git commit -m &quot;Merge origin/main into feature/ginger-price&quot;
+        [feature/ginger-price 14c38ce] Merge origin/main into feature/ginger-price
+        $ git push
+        To https://github.com/asha/chai-stall.git
+           cadf939..14c38ce  feature/ginger-price -&gt; feature/ginger-price
+        $ git log --oneline --graph -4
+        *   14c38ce Merge origin/main into feature/ginger-price
+        |\
+        | * f3238cd Ginger chai costs 28 (#4)
+        * | cadf939 Raise ginger chai price
+        |/
+        * e93823f Add menu</code></pre></div>
+          <ul class="lc-list">
+            <li><code>HEAD</code> is your branch (<code>30</code>); <code>origin/main</code> is Ravi's merged change (<code>28</code>). Talk to Ravi, decide the right value, remove the markers, then <code>add</code> and <code>commit</code>.</li>
+            <li>A normal <code>git push</code> updates the PR. The conflict message disappears and CI runs again.</li>
+            <li>For small text conflicts you can also click <strong>Resolve conflicts</strong> on the PR page and edit in the browser. (If the team prefers a straight history, use <code>git rebase origin/main</code> and <code>git push --force-with-lease</code> instead — only on your own branch.)</li>
+          </ul>
         </div>
 
         <div class="lc-card">
@@ -1254,6 +1371,20 @@ module GithubContent
         </div>
 
         <div class="lc-card">
+          <h3>The Wider GitHub Community</h3>
+          <table class="lc-table">
+            <thead><tr><th>Feature</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Stars and Follow</strong></td><td>Star a repository to bookmark it; follow people and organisations to see their activity on your home feed</td></tr>
+              <tr><td><strong>Topics and Explore</strong></td><td>Tag repositories with topics (<code>python</code>, <code>good-first-issue</code>); <code>github.com/explore</code> and <code>github.com/topics</code> help you find projects</td></tr>
+              <tr><td><strong>GitHub Sponsors</strong></td><td>Pay open-source maintainers you depend on, monthly or once; a <code>.github/FUNDING.yml</code> file adds a Sponsor button</td></tr>
+              <tr><td><strong>GitHub Marketplace</strong></td><td>Apps and Actions that extend GitHub (lesson 16)</td></tr>
+              <tr><td><strong>InnerSource</strong></td><td>Using open-source habits — public issues, PRs from other teams, CONTRIBUTING files — <em>inside</em> a company</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Committing on your fork's <code>main</code>. It then diverges from upstream and every sync becomes painful. Always branch.</li>
@@ -1329,9 +1460,13 @@ module GithubContent
 
         <div class="lc-card">
           <h3>Terminal Walkthrough: Move a Commit Off main</h3>
-          <p>You committed on <code>main</code> by mistake and the push was blocked. Move the commit to a new branch and reset <code>main</code> to match GitHub:</p>
-          <div class="lc-code-block"><pre><code>$ git commit -am &quot;Raise masala chai price&quot;
-        [main c52c514] Raise masala chai price
+          <p>You committed on <code>main</code> by mistake and the push was blocked. Move the commit to a new branch and reset <code>main</code> to match GitHub. Here is the whole story, starting with the edit (we use <code>sed</code>; changing the file in your editor is the same):</p>
+          <div class="lc-code-block"><pre><code>$ sed -i.bak &#39;s/Masala chai - 20/Masala chai - 25/&#39; menu.txt &amp;&amp; rm menu.txt.bak
+        $ git diff --stat
+         menu.txt | 2 +-
+         1 file changed, 1 insertion(+), 1 deletion(-)
+        $ git commit -am &quot;Raise masala chai price&quot;
+        [main 967ed7f] Raise masala chai price
          1 file changed, 1 insertion(+), 1 deletion(-)
         $ git status -sb
         ## main...origin/main [ahead 1]
@@ -1345,6 +1480,7 @@ module GithubContent
          * [new branch]      fix/price -&gt; fix/price
         branch &#39;fix/price&#39; set up to track &#39;origin/fix/price&#39;.</code></pre></div>
           <ul class="lc-list">
+            <li><code>sed -i.bak</code> replaces the price in <code>menu.txt</code> (the <code>.bak</code> backup is removed at once); <code>git diff --stat</code> confirms one changed line.</li>
             <li><code>[ahead 1]</code> — one local commit that GitHub does not have.</li>
             <li><code>git branch fix/price</code> saves the commit on a new branch first.</li>
             <li><code>git reset --hard origin/main</code> makes local <code>main</code> identical to GitHub again (safe here because the commit is saved on <code>fix/price</code>).</li>
@@ -1475,7 +1611,7 @@ module GithubContent
             <li>Saving the file in the wrong place (<code>.github/workflow/</code> or <code>github/workflows/</code>). It must be <code>.github/workflows/*.yml</code>.</li>
             <li>Tabs or wrong indentation in YAML — the Actions tab shows "Invalid workflow file".</li>
             <li>Forgetting <code>actions/checkout</code> and wondering why your files are missing.</li>
-            <li>Copying old examples with <code>actions/checkout@v2</code> or <code>@v3</code>. Old majors run on outdated Node versions and show deprecation warnings; use the current major (<code>@v7</code> in 2026) — Dependabot can keep it updated (lesson 16).</li>
+            <li>Copying old examples with <code>actions/checkout@v2</code> or <code>@v3</code>. Old majors run on outdated Node versions and show deprecation warnings; use the current major (<code>@v7</code> in 2026) — Dependabot can keep it updated (lesson 17).</li>
           </ul>
         </div>
 
@@ -1581,6 +1717,16 @@ module GithubContent
             <li>Make CI mandatory: in your ruleset (lesson 12) enable <strong>Require status checks to pass</strong> and add the <code>test</code> checks.</li>
             <li>Add a badge to the README: <code>![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)</code>.</li>
           </ul>
+          <table class="lc-table">
+            <thead><tr><th>What the PR shows</th><th>Meaning</th><th>What to do</th></tr></thead>
+            <tbody>
+              <tr><td>✓ <code>test (3.13)</code> Successful</td><td>That matrix job passed</td><td>Nothing — wait for the others</td></tr>
+              <tr><td>✗ <code>test (3.12)</code> Failing</td><td>A step exited with an error on Python 3.12 only</td><td>Click <strong>Details</strong>, open the red step, reproduce with that version locally</td></tr>
+              <tr><td>● In progress / Queued</td><td>The job is running or waiting for a runner</td><td><code>gh pr checks --watch</code></td></tr>
+              <tr><td>Expected — Waiting for status to be reported</td><td>A <em>required</em> check never started (wrong check name in the ruleset, or a <code>paths</code> filter skipped the workflow)</td><td>Compare the ruleset's check names with the job names</td></tr>
+              <tr><td>Cancelled</td><td>Someone cancelled it, or a newer push replaced the run</td><td><em>Re-run jobs</em>, or push again</td></tr>
+            </tbody>
+          </table>
         </div>
 
         <div class="lc-card">
@@ -1725,6 +1871,252 @@ module GithubContent
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
+          <h1 class="lc-title">Reusable Workflows and Custom Actions</h1>
+        </div>
+        <p class="lc-lead">After a few projects you will notice the same YAML in every repository: check out, set up Python, run the tests. GitHub Actions has two ways to write that logic <strong>once</strong> and reuse it: a <strong>custom action</strong> (a reusable <em>step</em>) and a <strong>reusable workflow</strong> (a reusable <em>job</em> or group of jobs).</p>
+
+        <div class="lc-card">
+          <h3>Which Tool for Which Job?</h3>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Composite action</th><th>Reusable workflow</th><th>JavaScript / Docker action</th></tr></thead>
+            <tbody>
+              <tr><td>Reuses</td><td>A few <strong>steps</strong> inside a job</td><td>Whole <strong>jobs</strong>, each with its own runner</td><td>One step with custom code</td></tr>
+              <tr><td>File</td><td><code>action.yml</code> in any folder</td><td>A workflow in <code>.github/workflows/</code> with <code>on: workflow_call</code></td><td><code>action.yml</code> + JavaScript code or a Dockerfile</td></tr>
+              <tr><td>Used with</td><td>A step: <code>uses: ./path</code> or <code>owner/repo@v1</code></td><td>A job: <code>uses: ./.github/workflows/file.yml</code></td><td>A step, like any Marketplace action</td></tr>
+              <tr><td>Good for</td><td>"Run our checks" in many workflows</td><td>A standard CI pipeline for all team repos</td><td>Publishing on the Marketplace, complex logic</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lc-card">
+          <h3>Step 1: A Composite Action</h3>
+          <p>Our chai stall wants every pull request to check that no menu item costs more than a limit. Save as <code>.github/actions/price-check/action.yml</code>:</p>
+          <div class="lc-code-block"><pre><code>name: Price check
+        description: Fail if any menu item costs more than a limit
+        inputs:
+          file:
+            description: Menu file to check
+            required: true
+          max-price:
+            description: Highest allowed price in rupees
+            default: &quot;50&quot;
+        outputs:
+          items:
+            description: Number of items checked
+            value: ${{ steps.check.outputs.items }}
+        runs:
+          using: composite
+          steps:
+            - id: check
+              shell: bash
+              run: ${{ github.action_path }}/check_prices.sh &quot;${{ inputs.file }}&quot; &quot;${{ inputs.max-price }}&quot;</code></pre></div>
+          <ul class="lc-list">
+            <li><code>inputs</code> are the action's parameters, read as <code>${{ inputs.file }}</code>. <code>max-price</code> has a default, so it is optional.</li>
+            <li><code>runs.using: composite</code> means "a list of normal steps". Every <code>run</code> step in a composite action <strong>must</strong> say which <code>shell</code> to use.</li>
+            <li><code>${{ github.action_path }}</code> is the folder of the action, so the script is found wherever the action is used.</li>
+            <li><code>outputs.items.value</code> passes a step's output out of the action.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: Test the Script Locally</h3>
+          <p>The real work is in a small shell script next to <code>action.yml</code>. Test it on your laptop before pushing — Actions just runs the same command:</p>
+          <div class="lc-code-block"><pre><code>$ cat .github/actions/price-check/check_prices.sh
+        #!/bin/sh
+        # Usage: check_prices.sh FILE MAX_PRICE
+        # Each line of FILE looks like &quot;Masala chai - 20&quot;.
+        file=&quot;$1&quot;
+        max=&quot;$2&quot;
+        count=0
+        bad=0
+        while IFS= read -r line; do
+          item=&quot;${line% - *}&quot;
+          price=&quot;${line##* - }&quot;
+          count=$((count + 1))
+          if [ &quot;$price&quot; -gt &quot;$max&quot; ]; then
+            echo &quot;::error::$item costs $price (limit $max)&quot;
+            bad=$((bad + 1))
+          else
+            echo &quot;ok: $item ($price)&quot;
+          fi
+        done &lt; &quot;$file&quot;
+        echo &quot;items=$count&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;
+        [ &quot;$bad&quot; -eq 0 ]
+        $ chmod +x .github/actions/price-check/check_prices.sh
+        $ GITHUB_OUTPUT=out.txt .github/actions/price-check/check_prices.sh menu.txt 30; echo &quot;exit code: $?&quot;
+        ok: Masala chai (20)
+        ok: Ginger chai (25)
+        ok: Samosa (15)
+        exit code: 0
+        $ cat out.txt
+        items=3
+        $ GITHUB_OUTPUT=out.txt .github/actions/price-check/check_prices.sh menu.txt 22; echo &quot;exit code: $?&quot;
+        ok: Masala chai (20)
+        ::error::Ginger chai costs 25 (limit 22)
+        ok: Samosa (15)
+        exit code: 1
+        $ rm out.txt</code></pre></div>
+          <ul class="lc-list">
+            <li>Writing <code>name=value</code> to the file in <code>$GITHUB_OUTPUT</code> is how a step sets an output. Locally we point it at <code>out.txt</code>.</li>
+            <li>A line starting with <code>::error::</code> is a <strong>workflow command</strong>: on GitHub it becomes a red annotation on the run and in the PR.</li>
+            <li>Exit code <code>1</code> makes the step, the job and the check fail.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Step 2: Use the Action in a Workflow</h3>
+          <p><code>.github/workflows/menu-check.yml</code>:</p>
+          <div class="lc-code-block"><pre><code>name: Menu check
+
+        on:
+          pull_request:
+            paths: [&quot;menu.txt&quot;]
+
+        permissions:
+          contents: read
+
+        jobs:
+          prices:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v7
+              - id: prices
+                uses: ./.github/actions/price-check
+                with:
+                  file: menu.txt
+                  max-price: &quot;30&quot;
+              - run: echo &quot;Checked ${{ steps.prices.outputs.items }} items&quot;</code></pre></div>
+          <p>A <strong>local</strong> action (<code>./…</code>) needs <code>actions/checkout</code> first, because the action's files come from your repository. An action in its own public repository is used like any Marketplace action: <code>uses: asha/price-check@v1</code>.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Step 3: A Reusable Workflow</h3>
+          <p>A reusable workflow is triggered by <code>workflow_call</code> and can take inputs, secrets and return outputs. <code>.github/workflows/python-tests.yml</code>:</p>
+          <div class="lc-code-block"><pre><code>name: Python tests (reusable)
+
+        on:
+          workflow_call:
+            inputs:
+              python-version:
+                type: string
+                default: &quot;3.13&quot;
+            outputs:
+              result:
+                description: Summary line from the test job
+                value: ${{ jobs.test.outputs.result }}
+
+        permissions:
+          contents: read
+
+        jobs:
+          test:
+            runs-on: ubuntu-latest
+            outputs:
+              result: ${{ steps.run.outputs.result }}
+            steps:
+              - uses: actions/checkout@v7
+              - uses: actions/setup-python@v7
+                with:
+                  python-version: ${{ inputs.python-version }}
+              - id: run
+                run: |
+                  python -m unittest discover -v
+                  echo &quot;result=tests passed on Python ${{ inputs.python-version }}&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;</code></pre></div>
+          <p>The caller uses it as a whole <strong>job</strong> — note that the job has <code>uses:</code> and no <code>runs-on</code> or <code>steps</code>. <code>.github/workflows/ci.yml</code>:</p>
+          <div class="lc-code-block"><pre><code>name: CI
+
+        on:
+          push:
+            branches: [main]
+          pull_request:
+
+        permissions:
+          contents: read
+
+        jobs:
+          tests:
+            uses: ./.github/workflows/python-tests.yml
+            with:
+              python-version: &quot;3.14&quot;
+
+          report:
+            needs: tests
+            runs-on: ubuntu-latest
+            steps:
+              - run: echo &quot;${{ needs.tests.outputs.result }}&quot;</code></pre></div>
+          <ul class="lc-list">
+            <li><code>with:</code> passes inputs; <code>needs.tests.outputs.result</code> reads the reusable workflow's output.</li>
+            <li>Secrets are <strong>not</strong> passed automatically. Pass them one by one under <code>secrets:</code>, or use <code>secrets: inherit</code> for workflows in the same organization.</li>
+            <li>From another repository: <code>uses: chai-org/ci-templates/.github/workflows/python-tests.yml@v1</code> — the repository must allow access if it is private.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: Push and Open a PR</h3>
+          <div class="lc-code-block"><pre><code>$ git switch -c ci/reusable
+        Switched to a new branch &#39;ci/reusable&#39;
+        $ git add .github
+        $ git status -s
+        A  .github/actions/price-check/action.yml
+        A  .github/actions/price-check/check_prices.sh
+        A  .github/workflows/ci.yml
+        A  .github/workflows/menu-check.yml
+        A  .github/workflows/python-tests.yml
+        $ git commit -m &quot;Add price-check action and reusable test workflow&quot;
+        [ci/reusable 9495011] Add price-check action and reusable test workflow
+         5 files changed, 110 insertions(+)
+         create mode 100644 .github/actions/price-check/action.yml
+         create mode 100755 .github/actions/price-check/check_prices.sh
+         create mode 100644 .github/workflows/ci.yml
+         create mode 100644 .github/workflows/menu-check.yml
+         create mode 100644 .github/workflows/python-tests.yml
+        $ git push -u origin ci/reusable
+        To https://github.com/asha/chai-menu.git
+         * [new branch]      ci/reusable -&gt; ci/reusable
+        branch &#39;ci/reusable&#39; set up to track &#39;origin/ci/reusable&#39;.</code></pre></div>
+          <p>Git kept the script's executable bit (<code>create mode 100755</code>), so the runner can execute it. Open the PR: the <strong>CI</strong> workflow shows two jobs, <code>tests / test</code> (from the reusable workflow) and <code>report</code>. The Menu check workflow did not run, because this PR does not change <code>menu.txt</code>.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Actions from the Marketplace</h3>
+          <p>The <strong>GitHub Marketplace</strong> lists thousands of ready-made actions. Before you use one:</p>
+          <ul class="lc-list">
+            <li>Prefer official (<code>actions/*</code>) and verified creators; read the source and check it is maintained.</li>
+            <li>Pin to a release tag (<code>@v7</code>) or, for third-party actions, a full commit SHA — a tag can be moved to different code.</li>
+            <li>Give the workflow the smallest <code>permissions</code> it needs (lesson 15); an action can use the <code>GITHUB_TOKEN</code> your job has.</li>
+            <li>Let Dependabot keep action versions up to date (lesson 17).</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Leaving out <code>shell: bash</code> on a <code>run</code> step in a composite action — the action fails to load.</li>
+            <li>Using a local action (<code>uses: ./.github/actions/…</code>) before <code>actions/checkout</code>, so the action's files are not there.</li>
+            <li>Putting <code>uses: ./.github/workflows/x.yml</code> inside <code>steps:</code>. Reusable workflows are called at the <strong>job</strong> level.</li>
+            <li>Forgetting that the called workflow needs <code>on: workflow_call</code>, or expecting secrets to be passed without <code>secrets:</code>.</li>
+            <li>Committing the script without the executable bit (common on Windows). Fix it with <code>git update-index --chmod=+x path/to/script.sh</code>.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>Create the <code>price-check</code> action and script in a practice repository and test the script locally with limits 30 and 22, as above.</li>
+            <li>Add <code>menu-check.yml</code>, open a PR that raises a price above 30, and find the red annotation on the Files changed tab.</li>
+            <li>Turn your CI job from lesson 14 into a reusable workflow with a <code>python-version</code> input, and call it twice from <code>ci.yml</code> with <code>"3.13"</code> and <code>"3.14"</code>.</li>
+            <li>Give the action an extra output <code>too-expensive</code> (the number of failing items) and print it in the workflow.</li>
+          </ol>
+        </div>
+
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Many teams keep their shared actions and reusable workflows in one repository (for example <code>chai-org/ci-templates</code>) and tag releases like <code>v1</code>, so every project gets fixes by updating one line.</p></div>
+      HTML
+    },
+
+    17 => {
+      body: <<~'HTML'
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-github">GitHub</div>
           <h1 class="lc-title">Security Features and Dependabot</h1>
         </div>
         <p class="lc-lead">Most security problems in small projects come from three places: a stolen account, a leaked secret, or an outdated library with a known vulnerability. GitHub has free tools for all three.</p>
@@ -1817,7 +2209,7 @@ module GithubContent
       HTML
     },
 
-    17 => {
+    18 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -1894,6 +2286,31 @@ module GithubContent
         </div>
 
         <div class="lc-card">
+          <h3>GitHub Packages: Publishing a Container Image</h3>
+          <p>A release holds files for people to download. <strong>GitHub Packages</strong> hosts packages for tools to install: container images (<code>ghcr.io</code>), npm, Maven, NuGet and RubyGems packages. A workflow can publish a Docker image whenever you push a version tag:</p>
+          <div class="lc-code-block"><pre><code>on:
+          push:
+            tags: [&quot;v*&quot;]
+
+        permissions:
+          contents: read
+          packages: write        # allow GITHUB_TOKEN to publish packages
+
+        jobs:
+          image:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v7
+              - name: Log in to ghcr.io
+                run: echo &quot;${{ secrets.GITHUB_TOKEN }}&quot; | docker login ghcr.io -u &quot;${{ github.actor }}&quot; --password-stdin
+              - name: Build and push
+                run: |
+                  docker build -t ghcr.io/${{ github.repository }}:${{ github.ref_name }} .
+                  docker push ghcr.io/${{ github.repository }}:${{ github.ref_name }}</code></pre></div>
+          <p>The image then appears under <strong>Packages</strong> on the repository page, and anyone with access can run <code>docker pull ghcr.io/asha/expense-splitter:v1.0.0</code>. Image names must be lowercase, so use a lowercase repository name. For Python and JavaScript libraries, most projects publish to PyPI or npmjs.com instead.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Forgetting to push the tag, then wondering why the release form cannot find it.</li>
@@ -1908,7 +2325,7 @@ module GithubContent
           <ol class="lc-list">
             <li>Tag your practice project <code>v1.0.0</code> (annotated) and push the tag.</li>
             <li>Create a release with generated notes on the website or with <code>gh release create</code>.</li>
-            <li>Add <code>release.yml</code>, then tag and push <code>v1.0.1</code>. Watch the workflow create the release with a zip attached.</li>
+            <li>Add the workflow as <code>.github/workflows/release.yml</code>, then tag and push <code>v1.0.1</code>. Watch the workflow create the release with a zip attached.</li>
             <li>Create a pre-release <code>v1.1.0-beta.1</code> and see how GitHub labels it.</li>
           </ol>
         </div>
@@ -1917,7 +2334,7 @@ module GithubContent
       HTML
     },
 
-    18 => {
+    19 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -2045,7 +2462,7 @@ module GithubContent
       HTML
     },
 
-    19 => {
+    20 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -2137,16 +2554,39 @@ module GithubContent
 
         <div class="lc-card">
           <h3>Terminal Walkthrough: Commit the Setup Files</h3>
-          <p>Both files are ordinary files in the repository, so they go through a normal pull request:</p>
+          <p>Both files are ordinary files in the repository, so they go through a normal pull request. Here we write them with heredocs (<code>cat &gt; file &lt;&lt;'EOF'</code> … <code>EOF</code>); creating them in your editor works just as well:</p>
           <div class="lc-code-block"><pre><code>$ git switch -c chore/dev-setup
         Switched to a new branch &#39;chore/dev-setup&#39;
         $ mkdir -p .devcontainer
+        $ cat &gt; .devcontainer/devcontainer.json &lt;&lt;&#39;EOF&#39;
+        {
+          &quot;name&quot;: &quot;Expense Splitter&quot;,
+          &quot;image&quot;: &quot;mcr.microsoft.com/devcontainers/python:3.13&quot;,
+          &quot;postCreateCommand&quot;: &quot;python3 -m unittest discover -v&quot;,
+          &quot;customizations&quot;: {
+            &quot;vscode&quot;: {
+              &quot;extensions&quot;: [&quot;ms-python.python&quot;]
+            }
+          },
+          &quot;forwardPorts&quot;: [8000]
+        }
+        EOF
+        $ cat &gt; .github/copilot-instructions.md &lt;&lt;&#39;EOF&#39;
+        # Copilot instructions for expense-splitter
+
+        - This is a Python 3.13 project with no third-party packages.
+        - Run the tests with: python3 -m unittest discover -v
+        - Every new function needs a unit test in tests/.
+        - Money values are rounded to 2 decimals; never use float equality in tests
+          without rounding first.
+        - Keep functions small and add a one-line docstring.
+        EOF
         $ git status -s
         ?? .devcontainer/
         ?? .github/copilot-instructions.md
         $ git add .devcontainer .github/copilot-instructions.md
         $ git commit -m &quot;Add dev container and Copilot instructions&quot;
-        [chore/dev-setup 05b78ec] Add dev container and Copilot instructions
+        [chore/dev-setup f6b014c] Add dev container and Copilot instructions
          2 files changed, 19 insertions(+)
          create mode 100644 .devcontainer/devcontainer.json
          create mode 100644 .github/copilot-instructions.md
@@ -2209,7 +2649,7 @@ module GithubContent
       HTML
     },
 
-    20 => {
+    21 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -2293,15 +2733,15 @@ module GithubContent
           <div class="lc-code-block"><pre><code>$ gh pr create --fill
         $ gh pr checks --watch
         $ gh pr merge --squash --delete-branch</code></pre></div>
-          <p><code>--fill</code> uses the commit message, so the PR body contains <code>Closes #1</code> and the issue closes on merge. Wait for green checks before merging. If a friend can review, ask them to — otherwise review your own diff carefully in <em>Files changed</em>. If you have Copilot, also request a review from Copilot (lesson 19) as an extra reviewer.</p>
+          <p><code>--fill</code> uses the commit message, so the PR body contains <code>Closes #1</code> and the issue closes on merge. Wait for green checks before merging. If a friend can review, ask them to — otherwise review your own diff carefully in <em>Files changed</em>. If you have Copilot, also request a review from Copilot (lesson 20) as an extra reviewer.</p>
         </div>
 
         <div class="lc-card">
           <h3>Step 4: Security, Release and Pages</h3>
           <ul class="lc-list">
-            <li>Add <code>.github/dependabot.yml</code> for <code>pip</code> and <code>github-actions</code>; enable Dependabot alerts and CodeQL default setup (lesson 16).</li>
-            <li>Tag <code>v1.0.0</code>, push the tag and create a release with generated notes (lesson 17).</li>
-            <li>Add a <code>site/index.html</code> describing the project and deploy it with the Pages workflow (lesson 18). Link it in the README.</li>
+            <li>Add <code>.github/dependabot.yml</code> for <code>pip</code> and <code>github-actions</code>; enable Dependabot alerts and CodeQL default setup (lesson 17).</li>
+            <li>Tag <code>v1.0.0</code>, push the tag and create a release with generated notes (lesson 18).</li>
+            <li>Add a <code>site/index.html</code> describing the project and deploy it with the Pages workflow (lesson 19). Link it in the README.</li>
           </ul>
         </div>
 
@@ -2323,6 +2763,28 @@ module GithubContent
         </div>
 
         <div class="lc-card">
+          <h3>Try It: Check Your Capstone</h3>
+          <ol class="lc-list">
+            <li><strong>Protection works:</strong> commit a tiny change on local <code>main</code> and run <code>git push origin main</code>. Expect <code>! [remote rejected] main -&gt; main</code> with a message that changes must be made through a pull request. Move the commit to a branch as in lesson 12.</li>
+            <li><strong>CI gates the PR:</strong> open a PR that breaks a test. Expect <code>gh pr checks</code> to show a failing <code>test</code> job and the merge button to be blocked. Fix it and push: the checks turn green.</li>
+            <li><strong>Issue closing:</strong> merge a PR whose body says <code>Closes #2</code>. Expect issue #2 to show "Closed" with a link to the PR.</li>
+            <li><strong>Release:</strong> tag and push <code>v1.0.0</code> (below), then <code>gh release create v1.0.0 --generate-notes</code>. Expect <code>gh release list</code> to show <code>v1.0.0</code> marked <code>Latest</code>.</li>
+            <li><strong>Pages:</strong> after the Pages workflow finishes, <code>https://&lt;you&gt;.github.io/expense-splitter/</code> loads your page.</li>
+          </ol>
+          <p>Pushing the tag for task 4 (on GitHub the push also prints progress lines):</p>
+          <div class="lc-code-block"><pre><code>$ git tag -a v1.0.0 -m &quot;First release&quot;
+        $ git push origin v1.0.0
+        To https://github.com/asha/expense-splitter.git
+         * [new tag]         v1.0.0 -&gt; v1.0.0
+        $ git ls-remote --tags origin
+        a5a36d2...	refs/tags/v1.0.0
+        4d193bd...	refs/tags/v1.0.0^{}
+        $ git status -sb
+        ## main...origin/main</code></pre></div>
+          <p><code>ls-remote</code> shows the tag twice: the tag object itself and, with <code>^{}</code>, the commit it points to. <code>## main...origin/main</code> with nothing after it means you are in sync.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Turning on the ruleset before the first push of the workflow file — the required check name does not exist yet. Push CI first, let it run once, then require it.</li>
@@ -2338,8 +2800,9 @@ module GithubContent
             <li>Add an issue form and a pull request template.</li>
             <li>Invite a friend as a collaborator and review each other's PRs, including one <code>suggestion</code> block.</li>
             <li>Add the automatic release workflow and ship <code>v1.1.0</code> just by pushing a tag.</li>
+            <li>Move your test job into a reusable workflow with a <code>python-version</code> input and call it from <code>ci.yml</code> (lesson 16).</li>
             <li>Contribute one small PR to someone else's project through a fork.</li>
-            <li>Add the dev container from lesson 19 so anyone can open the project in a codespace and run the tests with one click.</li>
+            <li>Add the dev container from lesson 20 so anyone can open the project in a codespace and run the tests with one click.</li>
             <li>Turn on SSH commit signing (lesson 2) and require signed commits in your ruleset.</li>
           </ol>
         </div>
