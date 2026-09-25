@@ -60,7 +60,7 @@ module DataScienceContent
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Starting with the tool, not the question</strong> — "let's use pandas on the orders file" produces tables, not answers.</li>
-            <li><strong>Trusting the first comparison</strong> — a difference between groups can be caused by another variable (here, distance). Lesson 14 covers confounders.</li>
+            <li><strong>Trusting the first comparison</strong> — a difference between groups can be caused by another variable (here, distance). Lesson 15 covers confounders.</li>
             <li><strong>Ignoring sample size</strong> — an average of 3 orders can change completely with one more order.</li>
             <li><strong>Skipping the "communicate" stage</strong> — an insight nobody acts on has no value.</li>
           </ul>
@@ -450,7 +450,7 @@ module DataScienceContent
             <tbody>
               <tr><td>A number column has dtype <code>object</code></td><td>Sums and means fail or join text together</td><td>pandas course, lesson 7</td></tr>
               <tr><td>count in <code>describe()</code> &lt; number of rows</td><td>Every average is based on fewer rows than you think</td><td>Lesson 6</td></tr>
-              <tr><td>mean far above the median</td><td>"Average" misdescribes the typical row</td><td>Lessons 7 and 9</td></tr>
+              <tr><td>mean far above the median</td><td>"Average" misdescribes the typical row</td><td>Lessons 7 and 10</td></tr>
               <tr><td>One label spelled three ways</td><td>A group-by splits one city into three</td><td>pandas course, lesson 12</td></tr>
               <tr><td>Repeated rows</td><td>Counts and revenue are double-counted</td><td>Lesson 7</td></tr>
             </tbody>
@@ -596,7 +596,7 @@ module DataScienceContent
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Calling <code>dropna()</code> on the whole table</strong> — it drops a row if <em>any</em> column is missing, which can silently remove half your data. Use <code>subset=</code>.</li>
-            <li><strong>Filling before splitting for a model</strong> — the fill value then uses information from test rows. Compute it on training data only (Machine Learning course, lessons 16–17).</li>
+            <li><strong>Filling before splitting for a model</strong> — the fill value then uses information from test rows. Compute it on training data only (Machine Learning course, lessons 15–16).</li>
             <li><strong>Treating 0 as "missing"</strong> — zero rainfall is a real measurement; a broken gauge is not.</li>
             <li><strong>Not reporting what you did</strong> — "3 of 15 values filled with the station median" belongs in your write-up.</li>
           </ul>
@@ -885,6 +885,125 @@ module DataScienceContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
+          <h1 class="lc-title">Combining and Reshaping Data</h1>
+        </div>
+        <p class="lc-lead">Real answers rarely live in one table. Orders are in one file, customers in another, and each month arrives as a new CSV. This lesson shows how to <strong>stack</strong> tables, <strong>join</strong> them on a key without losing or duplicating rows, and <strong>reshape</strong> wide sheets into the long "tidy" format that group-bys and charts expect.</p>
+        <div class="lc-card">
+          <h3>Stack or Join?</h3>
+          <table class="lc-table">
+            <thead><tr><th>Situation</th><th>Operation</th><th>pandas</th></tr></thead>
+            <tbody>
+              <tr><td>Same columns, more rows (June file + July file)</td><td>Stack (concatenate)</td><td><code>pd.concat([june, july])</code></td></tr>
+              <tr><td>Different columns about the same thing (orders + customer city)</td><td>Join (merge) on a key</td><td><code>orders.merge(customers, on='cust_id')</code></td></tr>
+              <tr><td>One column per subject/month (wide sheet)</td><td>Reshape to long</td><td><code>wide.melt(id_vars='student')</code></td></tr>
+              <tr><td>Long table you want to read as a grid</td><td>Reshape to wide</td><td><code>long.pivot(index=..., columns=..., values=...)</code></td></tr>
+            </tbody>
+          </table>
+          <p>(The pandas course, lessons 11 and 15, covers every option of <code>merge</code>, <code>concat</code>, <code>melt</code> and <code>pivot</code>.) Here we focus on the decisions that keep your numbers correct.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Join Types: Which Rows Survive?</h3>
+          <table class="lc-table">
+            <thead><tr><th><code>how=</code></th><th>Keeps</th><th>Use when</th></tr></thead>
+            <tbody>
+              <tr><td><code>'left'</code></td><td>Every row of the left table; missing matches become NaN</td><td>Adding details to your main table — the safe default for analysis</td></tr>
+              <tr><td><code>'inner'</code></td><td>Only rows whose key is in both tables</td><td>You truly want matched rows only (and you have counted what is dropped)</td></tr>
+              <tr><td><code>'outer'</code></td><td>All rows from both tables</td><td>Reconciling two lists, e.g. bank records vs app records</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Three Checks for Every Join</h3>
+          <ol class="lc-list">
+            <li><strong>Know the grain</strong> (lesson 4). Orders have one row per order; customers should have one row per customer. That makes it a <em>many-to-one</em> join.</li>
+            <li><strong>Enforce it</strong> with <code>validate='many_to_one'</code>. If the lookup table has a repeated key, pandas raises a <code>MergeError</code> instead of silently multiplying rows.</li>
+            <li><strong>Count unmatched keys</strong> with <code>indicator=True</code>, which adds a <code>_merge</code> column: <code>both</code>, <code>left_only</code> or <code>right_only</code>. Then compare row counts before and after.</li>
+          </ol>
+          <p>Clean the keys first (lesson 8): <code>'Pune '</code> and <code>'pune'</code> will not match, and a key stored as text (<code>'101'</code>) will not match a number (<code>101</code>).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Tidy (Long) Data</h3>
+          <p>A table is <strong>tidy</strong> when each row is one observation, each column is one variable, and each cell is one value. A marks sheet with a <code>maths</code> column and a <code>science</code> column is wide: "subject" is hidden in the column names. <code>melt</code> turns it into one row per student per subject, so <code>groupby('subject')</code> and most plotting tools work directly. Use <code>pivot</code> to go back to wide for a report.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Stacked orders: (6, 4)<br>  month  order_id  cust_id  amount     city     _merge<br>0   Jun         1      101     450     Pune       both<br>1   Jun         2      102     320  Chennai       both<br>2   Jun         3      101     610     Pune       both<br>3   Jul         4      103     280     Pune       both<br>4   Jul         5      109     520      NaN  left_only<br>5   Jul         6      102     390  Chennai       both<br><br>Match check: {'both': 5, 'left_only': 1, 'right_only': 0}<br>Rows: orders=6, left join=6, inner join=5<br>With a duplicate customer 101: 8 rows instead of 6<br>validate caught it: Merge keys are not unique in right dataset; not a many-to-one merge<br><br>Long format:<br>   student  subject  marks<br>0    Asha    maths     78<br>1    Ravi    maths     64<br>2    Asha  science     85<br>3    Ravi  science     71<br><br>Mean marks by subject: {'maths': 71.0, 'science': 78.0}<br><br>Back to wide:<br> subject  maths  science<br>student<br>Asha        78       85<br>Ravi        64       71</div>
+          <ul class="lc-list">
+            <li><code>keys=['Jun', 'Jul']</code> in <code>concat</code> records which file each row came from — useful when one month turns out to be broken.</li>
+            <li>Customer 109 is not in the customer table. The left join keeps order 5 with a missing city; the inner join silently drops ₹520 of revenue.</li>
+            <li>A second row for customer 101 (<code>'Pune '</code> with a space) turns 6 orders into 8 rows: both of 101's orders are copied, so revenue would be over-counted. <code>validate</code> stops this at once.</li>
+            <li>After <code>melt</code>, one <code>groupby</code> gives the mean per subject.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Using an inner join by habit</strong> — <code>merge</code> defaults to <code>how='inner'</code>, so unmatched rows vanish without a warning. Say <code>how='left'</code> when you are adding details.</li>
+            <li><strong>Not checking the row count</strong> — if a left join returns more rows than the left table, the right table has duplicate keys.</li>
+            <li><strong>Joining on dirty keys</strong> — spaces, capitals and text-vs-number keys cause false "no match" results.</li>
+            <li><strong>Summing after a one-to-many join</strong> — joining orders to <em>order items</em> repeats each order's delivery fee on every item row; aggregate first, then join.</li>
+            <li><strong>Keeping data wide</strong> — computing "average per subject" across columns by hand instead of melting once and grouping.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter. Change the left join to <code>how='outer'</code>. Which new row appears, and what does its <code>_merge</code> value say?</li>
+            <li>Add customer <code>109</code> in <code>'Mumbai'</code> to <code>customers</code>. How does the match check change?</li>
+            <li>Add an <code>'english'</code> column to <code>wide</code> with marks 90 and 58, and rerun. How many rows does the long table have now?</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Write every join as a three-line habit: <code>merge(..., how='left', validate='many_to_one', indicator=True)</code>, then print <code>len()</code> before and after, then print <code>_merge.value_counts()</code>. Ten seconds of checking saves a report built on double-counted rows.
+        </div>
+      HTML
+      starter_code: <<~'PYTHON'
+        import pandas as pd
+
+        pd.set_option('display.width', 200)
+
+        # Two monthly order files with the same columns -> stack them with concat
+        june = pd.DataFrame({'order_id': [1, 2, 3], 'cust_id': [101, 102, 101], 'amount': [450, 320, 610]})
+        july = pd.DataFrame({'order_id': [4, 5, 6], 'cust_id': [103, 109, 102], 'amount': [280, 520, 390]})
+        orders = pd.concat([june, july], keys=['Jun', 'Jul'], names=['month', None]).reset_index(level=0)
+        print("Stacked orders:", orders.shape)
+
+        # A lookup table: one row per customer
+        customers = pd.DataFrame({'cust_id': [101, 102, 103, 104],
+                                  'city': ['Pune', 'Chennai', 'Pune', 'Delhi']})
+
+        # Left join + indicator: which orders found no customer?
+        merged = orders.merge(customers, on='cust_id', how='left',
+                              validate='many_to_one', indicator=True)
+        print(merged)
+        print("\nMatch check:", merged['_merge'].value_counts().to_dict())
+
+        # Inner join silently drops the unmatched order
+        inner = orders.merge(customers, on='cust_id', how='inner')
+        print(f"Rows: orders={len(orders)}, left join={len(merged)}, inner join={len(inner)}")
+
+        # A duplicated key in the lookup table makes rows multiply
+        dup_customers = pd.concat([customers, pd.DataFrame({'cust_id': [101], 'city': ['Pune ']})])
+        exploded = orders.merge(dup_customers, on='cust_id', how='left')
+        print(f"With a duplicate customer 101: {len(exploded)} rows instead of {len(orders)}")
+        try:
+            orders.merge(dup_customers, on='cust_id', how='left', validate='many_to_one')
+        except pd.errors.MergeError as err:
+            print("validate caught it:", err)
+
+        # Reshape: a wide marks sheet -> long (tidy) format with melt
+        wide = pd.DataFrame({'student': ['Asha', 'Ravi'], 'maths': [78, 64], 'science': [85, 71]})
+        long = wide.melt(id_vars='student', var_name='subject', value_name='marks')
+        print("\nLong format:\n", long)
+        print("\nMean marks by subject:", long.groupby('subject')['marks'].mean().to_dict())
+        print("\nBack to wide:\n", long.pivot(index='student', columns='subject', values='marks'))
+      PYTHON
+    },
+
+    10 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge">Data Science</div>
           <h1 class="lc-title">Descriptive Statistics</h1>
         </div>
         <p class="lc-lead">Descriptive statistics squeeze a whole column into a few numbers that answer two questions: <strong>where is the centre?</strong> and <strong>how spread out is it?</strong> They are the first thing you report about any variable.</p>
@@ -988,7 +1107,7 @@ module DataScienceContent
       PYTHON
     },
 
-    10 => {
+    11 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -1086,7 +1205,7 @@ module DataScienceContent
       PYTHON
     },
 
-    11 => {
+    12 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -1125,7 +1244,7 @@ module DataScienceContent
           <h3>Worked Example: Output of the Starter</h3>
           <div class="lc-code">P(late)          = 0.183<br>P(on time)       = 0.817<br><br>Conditional table (rows sum to 1):<br>late     False  True<br>raining<br>False    0.903  0.097<br>True     0.565  0.435<br><br>P(late | raining) = 0.435<br>P(late | dry)     = 0.097<br>P(raining | late) = 0.608   &lt;- not the same as P(late | raining)!<br><br>P(infected | positive test) = 0.279<br>P(shared birthday in a class of 30) ~ 0.69</div>
           <ul class="lc-list">
-            <li>The data was simulated with P(late | rain) = 0.40 and P(late | dry) = 0.10; from 2,000 orders we estimate 0.435 and 0.097 — close, but not exact. Estimates from data always carry sampling error (lesson 12).</li>
+            <li>The data was simulated with P(late | rain) = 0.40 and P(late | dry) = 0.10; from 2,000 orders we estimate 0.435 and 0.097 — close, but not exact. Estimates from data always carry sampling error (lesson 13).</li>
             <li>Rain makes lateness about 4.5 times more likely. But only 25% of days are rainy, so 61% of late orders happen on rainy days — P(raining | late) answers a different question.</li>
             <li>The birthday simulation matches the exact answer (about 0.71) closely; with 5,000 trials the estimate is within a couple of percentage points.</li>
           </ul>
@@ -1188,7 +1307,7 @@ module DataScienceContent
       PYTHON
     },
 
-    12 => {
+    13 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -1298,7 +1417,7 @@ module DataScienceContent
       PYTHON
     },
 
-    13 => {
+    14 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -1396,7 +1515,7 @@ module DataScienceContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> With huge samples, even a 0.1-mark difference becomes "significant". Always report the <strong>effect size</strong> (the actual difference, ideally with a confidence interval from lesson 12) alongside the p-value.
+          <strong>Tip:</strong> With huge samples, even a 0.1-mark difference becomes "significant". Always report the <strong>effect size</strong> (the actual difference, ideally with a confidence interval from lesson 13) alongside the p-value.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1451,7 +1570,7 @@ module DataScienceContent
       PYTHON
     },
 
-    14 => {
+    15 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -1553,7 +1672,132 @@ module DataScienceContent
       PYTHON
     },
 
-    15 => {
+    16 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge">Data Science</div>
+          <h1 class="lc-title">Fitting a Trend Line: Simple Linear Regression</h1>
+        </div>
+        <p class="lc-lead">Correlation (lesson 15) says <em>how strongly</em> two numbers move together. A <strong>regression line</strong> says <em>by how much</em>: "each extra hour of study goes with about 5 more marks". In this lesson you fit a line by least squares, read its slope, check its residuals, and put a confidence interval on the slope.</p>
+        <div class="lc-card">
+          <h3>The Line and What It Means</h3>
+          <div class="lc-code">predicted y = intercept + slope &times; x<br><br>slope, intercept = np.polyfit(df['hours'], df['marks'], deg=1)</div>
+          <ul class="lc-list">
+            <li><strong>Slope</strong> — the change in predicted y for a one-unit increase in x (marks per hour).</li>
+            <li><strong>Intercept</strong> — the predicted y when x = 0. Only meaningful if x = 0 is inside the data.</li>
+            <li><strong>Least squares</strong> — of all possible lines, choose the one with the smallest sum of squared residuals.</li>
+            <li><strong>Residual</strong> — actual minus predicted. Positive means the point is above the line.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Reading the Numbers</h3>
+          <table class="lc-table">
+            <thead><tr><th>Number</th><th>Question it answers</th><th>Starter value</th></tr></thead>
+            <tbody>
+              <tr><td>Slope</td><td>How much does y change per unit of x?</td><td>5.28 marks per hour</td></tr>
+              <tr><td>RMSE of residuals</td><td>How far off is a typical prediction?</td><td>5.0 marks</td></tr>
+              <tr><td>R² (= r² for one x)</td><td>What share of the spread in y does the line explain?</td><td>0.88</td></tr>
+              <tr><td>Bootstrap 95% CI for slope</td><td>How sure are we about the slope?</td><td>4.84 to 5.76</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Check the Residuals</h3>
+          <p>A straight line is only a fair summary if the residuals look like random noise. Two quick text checks, no plot needed:</p>
+          <ul class="lc-list">
+            <li><strong>Average residual by band of x</strong> — every band should be close to 0. A band that is clearly positive or negative means the line is wrong there.</li>
+            <li><strong>Pattern in sorted residuals</strong> — positive, then negative, then positive again (a U-shape) means the true relationship is curved. Try a transform (lesson 8) or a different model.</li>
+          </ul>
+          <p>The overall mean residual is always 0 for a least-squares line with an intercept, so it proves nothing on its own.</p>
+        </div>
+        <div class="lc-card">
+          <h3>How Sure Is the Slope? Bootstrap It</h3>
+          <p>A different sample of 60 students would give a slightly different slope. As in lesson 13, resample the rows <strong>with replacement</strong> 2,000 times, refit the line each time, and take the middle 95% of the slopes. If the interval excludes 0, the data support a real positive (or negative) trend.</p>
+          <div class="lc-code">slopes = []<br>for _ in range(2000):<br>    sample = df.sample(n, replace=True, random_state=rng)<br>    slopes.append(np.polyfit(sample['hours'], sample['marks'], 1)[0])<br>low, high = np.percentile(slopes, [2.5, 97.5])</div>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Fitted line: marks = 32.9 + 5.28 x hours<br>Mean residual: 0.00   Typical size (RMSE): 5.0 marks<br>r = 0.94   R-squared = r^2 = 0.88<br>Mean residual by band: {'1-4 h': -0.6, '4-7 h': 0.9, '7-10 h': -0.4}<br>95% bootstrap CI for the slope: 4.84 to 5.76 marks per hour<br>Prediction for 6 hours: 65 marks<br>Prediction for 20 hours: 138 marks  &lt;- outside 1-10 h: do not trust<br><br>Curved data residuals: [12.0, 4.0, -2.0, -6.0, -8.0, -8.0, -6.0, -2.0, 4.0, 12.0]</div>
+          <ul class="lc-list">
+            <li>The data were simulated as 35 + 5 &times; hours + noise; the line recovered 32.9 and 5.28 from 60 students, and the CI (4.84 to 5.76) contains the true 5.</li>
+            <li>The band averages are all within about 1 mark of 0, so a straight line fits well.</li>
+            <li>138 marks out of 100 is impossible: outside the observed 1–10 hours, the line has no evidence (extrapolation).</li>
+            <li>For the curved data the residuals go +, −, + — the U-shape tells you a straight line is the wrong summary, even though the fitted slope is exactly 0.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Reading the slope as a cause</strong> — "5 marks per hour" is an association in observational data; motivated students may both study more and score more (lesson 15).</li>
+            <li><strong>Extrapolating</strong> — predicting far outside the range of x, like 20 hours of study.</li>
+            <li><strong>Skipping the residual check</strong> — a high r can still hide a curved pattern or one extreme point pulling the line.</li>
+            <li><strong>Swapping x and y</strong> — regressing hours on marks gives a different line; put the variable you want to predict on the y side.</li>
+            <li><strong>Reporting the slope without uncertainty</strong> — give the interval, not just the single number.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and explain the slope in one sentence a teacher would understand.</li>
+            <li>Change the noise from <code>6</code> to <code>20</code> in the <code>marks</code> line. What happens to R² and to the width of the slope CI?</li>
+            <li>Add one extreme student: <code>df.loc[len(df)] = [10, 20]</code> before fitting (move the <code>predicted</code> and <code>residual</code> lines after it). How much does the slope move?</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Always report a trend as three things together: the slope with its interval ("5.3 marks per hour, 95% CI 4.8 to 5.8"), the typical error (RMSE 5 marks) and the range of x it was fitted on (1 to 10 hours). Lesson 20 extends this to several features and held-out testing.
+        </div>
+      HTML
+      starter_code: <<~'PYTHON'
+        import numpy as np
+        import pandas as pd
+
+        rng = np.random.default_rng(7)
+        n = 60
+        hours = rng.uniform(1, 10, n).round(1)
+        marks = (35 + 5 * hours + rng.normal(0, 6, n)).round(0)
+        df = pd.DataFrame({'hours': hours, 'marks': marks})
+
+        # 1. Least-squares line: marks = intercept + slope * hours
+        slope, intercept = np.polyfit(df['hours'], df['marks'], deg=1)
+        print(f"Fitted line: marks = {intercept:.1f} + {slope:.2f} x hours")
+
+        # 2. Residuals = actual - predicted
+        df['predicted'] = intercept + slope * df['hours']
+        df['residual'] = df['marks'] - df['predicted']
+        print(f"Mean residual: {df['residual'].mean():.2f}   Typical size (RMSE): "
+              f"{np.sqrt((df['residual'] ** 2).mean()):.1f} marks")
+
+        # 3. r and R-squared: how much of the spread the line explains
+        r = df['hours'].corr(df['marks'])
+        print(f"r = {r:.2f}   R-squared = r^2 = {r ** 2:.2f}")
+
+        # 4. Residual check: average residual in three bands of hours (should all be near 0)
+        bands = pd.cut(df['hours'], bins=[0, 4, 7, 10], labels=['1-4 h', '4-7 h', '7-10 h'])
+        print("Mean residual by band:", df.groupby(bands, observed=True)['residual'].mean().round(1).to_dict())
+
+        # 5. Bootstrap: how sure are we about the slope?
+        slopes = []
+        for _ in range(2000):
+            sample = df.sample(n, replace=True, random_state=rng)
+            slopes.append(np.polyfit(sample['hours'], sample['marks'], 1)[0])
+        low, high = np.percentile(slopes, [2.5, 97.5])
+        print(f"95% bootstrap CI for the slope: {low:.2f} to {high:.2f} marks per hour")
+
+        # 6. Predict inside the data range only
+        for h in [6, 20]:
+            note = "" if df['hours'].min() <= h <= df['hours'].max() else "  <- outside 1-10 h: do not trust"
+            print(f"Prediction for {h} hours: {intercept + slope * h:.0f} marks{note}")
+
+        # 7. A curved pattern: the straight line leaves a U-shaped residual pattern
+        x = np.arange(1, 11)
+        y = (x - 5.5) ** 2
+        s2, i2 = np.polyfit(x, y, 1)
+        res = y - (i2 + s2 * x)
+        print("\nCurved data residuals:", res.round(1).tolist())
+      PYTHON
+    },
+
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -1599,11 +1843,19 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Is the Gap Between Groups Real?</h3>
-          <p>A group comparison is only an insight if the difference is bigger than chance. For a rate across several groups, test the <code>city &times; late</code> crosstab with the chi-square test from lesson 13:</p>
+          <p>A group comparison is only an insight if the difference is bigger than chance. For a rate across several groups, test the <code>city &times; late</code> crosstab with the chi-square test from lesson 14:</p>
           <div class="lc-code">table = pd.crosstab(df['city'], df['late'])<br>chi2, p, dof, expected = stats.chi2_contingency(table)</div>
           <p><strong>Output:</strong></p>
           <div class="lc-code">Chi-square city vs late: chi2 = 11.8, dof = 3, p = 0.0082<br>Smallest expected count: 4.9 (rule of thumb: at least 5)</div>
           <p>p = 0.008, so late rates really do differ between cities. The test says <em>that</em> they differ, not <em>which</em> city is different &mdash; the table shows that it is Kolkata. Jaipur's expected late count (4.9) is just under 5, so treat the p-value as approximate; with more Jaipur orders it would be trustworthy.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Grouping by Time</h3>
+          <p>"How do sales change by month or weekday?" is a group-by on time. Use <code>resample</code> on a date index for calendar periods, or group by a date part (lesson 8). (The pandas course, lessons 13 and 17, covers dates and rolling windows.)</p>
+          <div class="lc-code">sales = pd.DataFrame({'date': pd.date_range('2024-01-01', periods=120, freq='D')})<br>sales['amount'] = 1000 + sales.index * 5 + (sales['date'].dt.dayofweek &gt;= 5) * 400<br>monthly = sales.set_index('date')['amount'].resample('MS').sum()<br>print(monthly)<br>print(sales.groupby(sales['date'].dt.day_name())['amount'].mean().round(0).sort_values().tail(3))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">date<br>2024-01-01    36525<br>2024-02-01    38725<br>2024-03-01    46625<br>2024-04-01    47425<br>Freq: MS, Name: amount, dtype: int64<br>date<br>Friday      1300.0<br>Saturday    1705.0<br>Sunday      1710.0<br>Name: amount, dtype: float64</div>
+          <p>Watch the calendar: February 2024 has 29 days and the data stops on 29 April, so April is a <strong>partial month</strong>. Compare periods with a per-day average (<code>resample('MS').mean()</code>) rather than raw totals, and never report an unfinished month as a drop or rise.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
@@ -1629,7 +1881,7 @@ module DataScienceContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Use <strong>share of total</strong> (e.g. <code>revenue / revenue.sum()</code>) to turn raw numbers into insight: "Hyderabad brings 38% of revenue" is easier to act on than "&#8377;18,400".
+          <strong>Tip:</strong> Use <strong>share of total</strong> (e.g. <code>revenue / revenue.sum()</code>) to turn raw numbers into insight: "Hyderabad brings 42.8% of revenue" is easier to act on than "&#8377;66,097".
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1677,7 +1929,7 @@ module DataScienceContent
       PYTHON
     },
 
-    16 => {
+    18 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -1736,7 +1988,7 @@ module DataScienceContent
             <li><strong>Jumping straight to a model</strong> — you would have missed the seasonal pattern that explains most of the AQI.</li>
             <li><strong>Looking only at overall numbers</strong> — the overall median AQI (169.5) describes no real city-season.</li>
             <li><strong>Not writing notes as you go</strong> — findings you do not record are lost by the time you write the report.</li>
-            <li><strong>Treating EDA findings as proven</strong> — EDA suggests hypotheses; testing them is a separate step (lesson 13).</li>
+            <li><strong>Treating EDA findings as proven</strong> — EDA suggests hypotheses; testing them is a separate step (lesson 14).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1794,7 +2046,7 @@ module DataScienceContent
       PYTHON
     },
 
-    17 => {
+    19 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -1892,7 +2144,7 @@ module DataScienceContent
       PYTHON
     },
 
-    18 => {
+    20 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -1997,7 +2249,7 @@ module DataScienceContent
       PYTHON
     },
 
-    19 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -2105,7 +2357,7 @@ module DataScienceContent
       PYTHON
     },
 
-    20 => {
+    22 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
@@ -2134,14 +2386,16 @@ module DataScienceContent
         <div class="lc-card">
           <h3>Course Review: Key Ideas</h3>
           <ul class="lc-list">
-            <li>Start with a <strong>sharp question</strong> and a metric.</li>
-            <li>Inspect before you trust; <strong>clean deliberately</strong> and record every change.</li>
-            <li>Report <strong>centre and spread</strong>; prefer the median for skewed data.</li>
-            <li>Samples give <strong>estimates with uncertainty</strong>; bigger samples shrink the error by &radic;n.</li>
-            <li>A small p-value means "unlikely to be chance", not "large" or "important".</li>
-            <li><strong>Correlation is not causation</strong>; look for confounders.</li>
-            <li>Compare groups, show counts next to rates, and <strong>beat a baseline</strong> before trusting a model.</li>
-            <li>Communicate clearly and <strong>protect the people</strong> behind the data.</li>
+            <li>Start with a <strong>sharp question</strong> and a metric (lessons 1–2).</li>
+            <li>Inspect before you trust; <strong>clean deliberately</strong> and record every change (lessons 5–8).</li>
+            <li>Join tables with a <strong>left join, validate and a row count</strong>; reshape to tidy long format (lesson 9).</li>
+            <li>Report <strong>centre and spread</strong>; prefer the median for skewed data (lessons 10–11).</li>
+            <li>Samples give <strong>estimates with uncertainty</strong>; bigger samples shrink the error by &radic;n (lesson 13).</li>
+            <li>A small p-value means "unlikely to be chance", not "large" or "important" (lesson 14).</li>
+            <li><strong>Correlation is not causation</strong>; look for confounders (lesson 15).</li>
+            <li>A trend line's slope needs an interval and a <strong>residual check</strong> (lesson 16).</li>
+            <li>Compare groups, show counts next to rates, and <strong>beat a baseline</strong> before trusting a model (lessons 17 and 20).</li>
+            <li>Communicate clearly and <strong>protect the people</strong> behind the data (lesson 21).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2177,7 +2431,7 @@ module DataScienceContent
             <li>Run the starter and write a five-line report (question, data and cleaning, finding, confidence, action).</li>
             <li>Compare Maths marks by section with <code>df.groupby('section')['maths'].agg(['count', 'mean', 'median'])</code>. Is any section clearly different?</li>
             <li>Change the long-commute cut-off from 60 to 45 minutes. Do the gap, CI and p-value change?</li>
-            <li>Challenge: build a simple model that flags students at risk (lesson 18) and compare its accuracy with a baseline.</li>
+            <li>Challenge: build a simple model that flags students at risk (lesson 20) and compare its accuracy with a baseline.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">

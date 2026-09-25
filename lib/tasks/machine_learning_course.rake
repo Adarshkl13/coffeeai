@@ -1,7 +1,7 @@
 require_relative "../machine_learning_content"
 
 namespace :content do
-  desc "Create Machine Learning course and populate all 20 lessons"
+  desc "Create Machine Learning course and populate all 21 lessons"
   task machine_learning: :environment do
     course = Course.find_or_create_by!(slug: "machine-learning") do |c|
       c.title       = "Machine Learning"
@@ -22,8 +22,9 @@ namespace :content do
       11 => "Decision Trees",                     12 => "Random Forests and Gradient Boosting",
       13 => "Overfitting and Regularisation",     14 => "Cross-Validation",
       15 => "Feature Scaling and Encoding",       16 => "Pipelines",
-      17 => "Support Vector Machines (SVM)",      18 => "K-Means Clustering",
-      19 => "Principal Component Analysis (PCA)", 20 => "End-to-End Project and Review"
+      17 => "Support Vector Machines (SVM)",      18 => "Neural Networks (Multi-Layer Perceptrons)",
+      19 => "K-Means Clustering",                 20 => "Principal Component Analysis (PCA)",
+      21 => "End-to-End Project and Review"
     }
 
     descriptions = {
@@ -44,9 +45,10 @@ namespace :content do
       15 => "Put numeric features on a common scale, turn text categories into numbers with one-hot encoding, and fill missing values.",
       16 => "Chain imputing, scaling, encoding and a model into one Pipeline to avoid data leakage and simplify your code.",
       17 => "Separate classes with the widest possible margin using SVC, choose linear or RBF kernels, and tune C and gamma inside a scaled pipeline.",
-      18 => "Group unlabelled data into clusters with k-means and choose k using the elbow method and silhouette score.",
-      19 => "Compress many features into a few principal components while keeping most of the information.",
-      20 => "Build a complete leak-free ML project from raw data to final test report, and review the whole course."
+      18 => "Stack neurons into layers with MLPClassifier, see how backpropagation and adam train the weights, and control network size and alpha to avoid overfitting.",
+      19 => "Group unlabelled data into clusters with k-means and choose k using the elbow method and silhouette score.",
+      20 => "Compress many features into a few principal components while keeping most of the information.",
+      21 => "Build a complete leak-free ML project from raw data to final test report, and review the whole course."
     }
 
     exercises = {
@@ -84,11 +86,13 @@ namespace :content do
               opts: ["True", "False"], ans: "True" },
       17 => { type: "multiple_choice", q: "An RBF SVC inside a scaled pipeline scores 1.00 on training data but 0.83 on test data. Which change is most likely to help?",
               opts: ["A) Remove the StandardScaler step", "B) Lower C and gamma, choosing them with cross-validation", "C) Raise C and gamma so the boundary fits the training data even better"], ans: "B" },
-      18 => { type: "multiple_choice", q: "What must you provide to k-means before it can run?",
+      18 => { type: "multiple_choice", q: "An MLPClassifier trained on unscaled features stops with a ConvergenceWarning after the default 200 epochs. What is the most sensible first fix?",
+              opts: ["A) Scale the features in a pipeline and raise max_iter", "B) Add two more hidden layers so it learns faster", "C) Ignore it, because the warning never changes the results"], ans: "A" },
+      19 => { type: "multiple_choice", q: "What must you provide to k-means before it can run?",
               opts: ["A) A correct label for every data point", "B) The number of clusters, k", "C) A probability threshold such as 0.5"], ans: "B" },
-      19 => { type: "true_false",      q: "PCA is a supervised method that uses the labels (y) to choose its principal components.",
+      20 => { type: "true_false",      q: "PCA is a supervised method that uses the labels (y) to choose its principal components.",
               opts: ["True", "False"], ans: "False" },
-      20 => { type: "multiple_choice", q: "Which order of steps gives an honest final score for an ML project?",
+      21 => { type: "multiple_choice", q: "Which order of steps gives an honest final score for an ML project?",
               opts: ["A) Split, tune settings on the test set, report the test score", "B) Scale all data, split, tune with cross-validation, test once", "C) Split, tune with cross-validation on train, test once"], ans: "C" }
     }
 

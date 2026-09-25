@@ -188,7 +188,7 @@ module MachineLearningContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Most real business ML is supervised learning. We will spend lessons 4–17 on it, then cover unsupervised learning (k-means, PCA) in lessons 18–19.
+          <strong>Tip:</strong> Most real business ML is supervised learning. We will spend lessons 4–18 on it, then cover unsupervised learning (k-means, PCA) in lessons 19–20.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1897,6 +1897,14 @@ module MachineLearningContent
           <p>For regression the same ideas live in <code>sklearn.svm.SVR</code>.</p>
         </div>
         <div class="lc-card">
+          <h3>Another Fast Baseline: Naive Bayes</h3>
+          <p><strong>Naive Bayes</strong> applies Bayes' rule and "naively" assumes the features are independent given the class. It trains in one pass (it just counts), needs little data and is a classic first model for <strong>text</strong> such as spam filtering. Use <code>MultinomialNB</code> for word counts and <code>GaussianNB</code> for continuous features.</p>
+          <div class="lc-code">from sklearn.feature_extraction.text import CountVectorizer<br>from sklearn.naive_bayes import MultinomialNB<br>from sklearn.pipeline import make_pipeline<br><br>texts = ["win a free recharge now", "free cashback offer, click now", "claim your free prize",<br>         "meeting moved to 3 pm", "can you send the notes", "lunch at the canteen?"]<br>labels = ["spam", "spam", "spam", "ham", "ham", "ham"]<br>nb = make_pipeline(CountVectorizer(), MultinomialNB()).fit(texts, labels)<br>print(nb.predict(["free prize offer", "send the meeting notes"]))<br>print(nb.predict_proba(["free prize offer"]).round(3), nb.classes_)</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">['spam' 'ham']<br>[[0.059 0.941]] ['ham' 'spam']</div>
+          <p><code>CountVectorizer</code> turns each message into word counts (a very wide, sparse table), which is also why <code>LinearSVC</code> and logistic regression work well on text. Naive Bayes probabilities are often over-confident, so use it for ranking and quick baselines, not for exact risk numbers.</p>
+        </div>
+        <div class="lc-card">
           <h3>Quick Check</h3>
           <p>An RBF SVM scores 1.000 on the training set and 0.83 on the test set. Which change is most likely to help?</p>
           <p><strong>Answer:</strong> lower <code>C</code> and/or <code>gamma</code> (a softer, smoother boundary), chosen with cross-validation. The big train–test gap is overfitting.</p>
@@ -1965,6 +1973,145 @@ module MachineLearningContent
     },
 
     18 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
+          <h1 class="lc-title">Neural Networks (Multi-Layer Perceptrons)</h1>
+        </div>
+        <p class="lc-lead">A <strong>neural network</strong> is many small logistic-regression-like units stacked in layers. One unit can only draw a straight boundary; a few layers of them can learn curved boundaries and complex patterns. In this lesson you train a <strong>multi-layer perceptron (MLP)</strong> with scikit-learn's <code>MLPClassifier</code> and see what its settings do.</p>
+        <div class="lc-card">
+          <h3>From One Neuron to a Network</h3>
+          <p>A <strong>neuron</strong> takes a weighted sum of its inputs plus a bias, then applies an <strong>activation function</strong>. With a sigmoid activation, one neuron is exactly logistic regression (lesson 8).</p>
+          <div class="lc-code">neuron output = activation(w1*x1 + w2*x2 + ... + b)<br><br>input layer (features) → hidden layer(s) → output layer (class probabilities)</div>
+          <ul class="lc-list">
+            <li><strong>Input layer</strong> — one value per feature. It has no weights of its own.</li>
+            <li><strong>Hidden layers</strong> — each unit mixes all outputs of the previous layer. The default activation is <strong>ReLU</strong>: <code>max(0, z)</code>. Without a non-linear activation, stacking layers would still give a straight line.</li>
+            <li><strong>Output layer</strong> — a sigmoid for two classes (softmax for more) turns scores into probabilities.</li>
+          </ul>
+          <p><strong>Counting parameters:</strong> a layer with <em>a</em> inputs and <em>b</em> units has <em>a × b</em> weights + <em>b</em> biases. With 2 features and <code>hidden_layer_sizes=(16,)</code>: 2×16 + 16 = 48 for the hidden layer, 16×1 + 1 = 17 for the output — 65 in total, as the starter prints.</p>
+        </div>
+        <div class="lc-card">
+          <h3>How a Network Learns</h3>
+          <ol class="lc-list">
+            <li><strong>Forward pass</strong> — push a mini-batch of rows through the layers to get predicted probabilities.</li>
+            <li><strong>Loss</strong> — measure how wrong they are with log loss (lesson 8), plus an L2 penalty controlled by <code>alpha</code> (lesson 13).</li>
+            <li><strong>Backpropagation</strong> — the chain rule computes the gradient of the loss for every weight, layer by layer from the output backwards.</li>
+            <li><strong>Update</strong> — an optimiser takes a small step downhill. This is the gradient descent of lesson 6; the default optimiser, <code>adam</code>, adapts the step size for each weight.</li>
+          </ol>
+          <p>One pass over all training rows is an <strong>epoch</strong>. Training stops when the loss stops improving or when <code>max_iter</code> epochs are reached (then scikit-learn shows a <code>ConvergenceWarning</code>).</p>
+        </div>
+        <div class="lc-card">
+          <h3>In scikit-learn</h3>
+          <div class="lc-code">from sklearn.neural_network import MLPClassifier<br>from sklearn.pipeline import make_pipeline<br>from sklearn.preprocessing import StandardScaler<br><br>model = make_pipeline(<br>    StandardScaler(),                        # networks need scaled inputs<br>    MLPClassifier(hidden_layer_sizes=(16, 16), max_iter=2000, random_state=0),<br>)<br>model.fit(X_tr, y_tr)<br>print(model.score(X_te, y_te))<br>print(model.predict_proba(X_te[:3]))</div>
+          <p>For numbers instead of classes, use <code>MLPRegressor</code> with the same settings.</p>
+          <table class="lc-table">
+            <thead><tr><th>Setting</th><th>Default</th><th>What it controls</th></tr></thead>
+            <tbody>
+              <tr><td><code>hidden_layer_sizes</code></td><td><code>(100,)</code></td><td>Units per hidden layer; <code>(16, 16)</code> = two layers of 16. More units = more flexible, easier to overfit.</td></tr>
+              <tr><td><code>activation</code></td><td><code>"relu"</code></td><td>Non-linearity in hidden layers (<code>"tanh"</code> and <code>"logistic"</code> also exist).</td></tr>
+              <tr><td><code>alpha</code></td><td><code>0.0001</code></td><td>Strength of the L2 penalty. Larger = smoother, simpler model.</td></tr>
+              <tr><td><code>learning_rate_init</code></td><td><code>0.001</code></td><td>Step size for <code>adam</code>. Too large and the loss jumps around (lesson 6).</td></tr>
+              <tr><td><code>max_iter</code></td><td><code>200</code></td><td>Maximum epochs. Small data often needs more.</td></tr>
+              <tr><td><code>early_stopping</code></td><td><code>False</code></td><td>If <code>True</code>, holds out 10% of training rows and stops when their score stops improving.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <p>The starter trains logistic regression and three networks on the curved "moons" data (450 training rows, 150 test rows).</p>
+          <div class="lc-code">=== One neuron vs small networks (all scaled) ===<br>LogisticRegression  | params    3 | train 0.889 | test 0.853<br>MLP (2,)            | params    9 | train 0.887 | test 0.853 | epochs 505<br>MLP (16,)           | params   65 | train 0.887 | test 0.860 | epochs 245<br>MLP (16, 16)        | params  337 | train 0.958 | test 0.900 | epochs 715<br><br>=== The loss falls as the network learns (hidden=(16,)) ===<br>epoch    1: log loss 0.878<br>epoch   10: log loss 0.783<br>epoch   50: log loss 0.519<br>epoch  200: log loss 0.282<br>epoch  245: log loss 0.277<br><br>=== A big network: alpha (L2 penalty) controls overfitting ===<br>alpha=0.0001 | train 0.958 | test 0.900<br>alpha=1.0    | train 0.933 | test 0.893<br><br>=== Probabilities for new points (hidden=(16,)) ===<br>[0. 1.] -&gt; P(class 1) = 0.014<br>[ 1.  -0.5] -&gt; P(class 1) = 0.966<br>[0.5  0.25] -&gt; P(class 1) = 0.526</div>
+          <ul class="lc-list">
+            <li>Logistic regression and the tiny <code>(2,)</code> network both stop at 0.853: a boundary that is almost straight cannot follow the moons.</li>
+            <li>Two hidden layers of 16 units (337 parameters) bend the boundary and reach 0.900 on the test set.</li>
+            <li>The loss curve (<code>loss_curve_</code>) falls quickly at first and then flattens; training stopped at epoch 245 because the loss stopped improving.</li>
+            <li>The big <code>(100, 100)</code> network with a strong penalty (<code>alpha=1.0</code>) fits the training set less closely (0.958 → 0.933) and its train–test gap shrinks from 0.058 to 0.040. On noisy or small data, choose <code>alpha</code> with cross-validation.</li>
+            <li>The point <code>[0.5, 0.25]</code> sits near the boundary, so the model is unsure (0.526).</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>When Should You Use a Neural Network?</h3>
+          <table class="lc-table">
+            <thead><tr><th>Data</th><th>Good first choice</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td>Small or medium tables (marks, sales, loans)</td><td>Gradient boosting or random forest (lesson 12)</td><td>Little tuning, no scaling, usually as accurate or better</td></tr>
+              <tr><td>Tables where you need to explain each weight</td><td>Logistic / linear regression</td><td>A network's thousands of weights are hard to explain</td></tr>
+              <tr><td>Images, audio, long text</td><td>Deep learning (CNNs, transformers) in PyTorch or Keras</td><td>Needs special layers, big data and a GPU — see the Deep Learning course</td></tr>
+              <tr><td>Medium tables with smooth, curved patterns</td><td><code>MLPClassifier</code> / <code>MLPRegressor</code></td><td>Flexible, and fits into the same pipelines and <code>GridSearchCV</code></td></tr>
+            </tbody>
+          </table>
+          <p>scikit-learn's MLP runs on the CPU only and has no convolution or attention layers; it is for learning the ideas and for modest tabular problems.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Skipping scaling</strong> — gradient-based training is slow and unstable when one feature is in thousands and another in fractions. Put <code>StandardScaler</code> in the pipeline.</li>
+            <li><strong>Ignoring <code>ConvergenceWarning</code></strong> — the network stopped before it finished learning. Raise <code>max_iter</code> (or scale the data) and check <code>n_iter_</code>.</li>
+            <li><strong>Starting with a huge network</strong> — <code>(100, 100)</code> has over 10,000 weights for 450 rows. Start small and grow only if cross-validation improves.</li>
+            <li><strong>Expecting a network to beat trees on every table</strong> — on typical tabular data, boosted trees are often better. Compare against them with cross-validation.</li>
+            <li><strong>Forgetting <code>random_state</code></strong> — weights start at random values, so each run gives slightly different results unless you fix it.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check the parameter count for <code>(16, 16)</code> by hand: 2×16+16, 16×16+16, 16×1+1.</li>
+            <li>Remove <code>StandardScaler()</code> from the <code>(16, 16)</code> pipeline. Does anything change on this data? (Both features are already about −1 to 2.) Now multiply <code>X[:, 1]</code> by 1000 before splitting and compare again.</li>
+            <li>Set <code>max_iter=20</code> for the <code>(16,)</code> network. What warning appears, and what happens to the test score?</li>
+            <li>Challenge: tune <code>mlpclassifier__hidden_layer_sizes</code> over <code>[(8,), (16, 16), (32, 32)]</code> and <code>mlpclassifier__alpha</code> over <code>[0.0001, 0.01, 1]</code> with <code>GridSearchCV(cv=5)</code> on the training set, then score the test set once.</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> A neural network is "logistic regression, repeated and stacked". Everything from this course still applies: split first, scale inside a pipeline, compare with a baseline and a tree ensemble, and tune <code>alpha</code> and the layer sizes with cross-validation. The Deep Learning course builds on exactly this idea.
+        </div>
+      HTML
+      starter_code: <<~'PYTHON'
+        import numpy as np
+        from sklearn.datasets import make_moons
+        from sklearn.model_selection import train_test_split
+        from sklearn.pipeline import make_pipeline
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.linear_model import LogisticRegression
+        from sklearn.neural_network import MLPClassifier
+
+        # Two curved half-moons: a straight line cannot separate them
+        X, y = make_moons(n_samples=600, noise=0.25, random_state=0)
+        X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=0, stratify=y)
+
+        def count_params(net):
+            return sum(w.size for w in net.coefs_) + sum(b.size for b in net.intercepts_)
+
+        print("=== One neuron vs small networks (all scaled) ===")
+        logreg = make_pipeline(StandardScaler(), LogisticRegression()).fit(X_tr, y_tr)
+        print(f"LogisticRegression  | params    3 | train {logreg.score(X_tr, y_tr):.3f} | test {logreg.score(X_te, y_te):.3f}")
+        for hidden in [(2,), (16,), (16, 16)]:
+            pipe = make_pipeline(StandardScaler(),
+                                 MLPClassifier(hidden_layer_sizes=hidden, max_iter=2000, random_state=0))
+            pipe.fit(X_tr, y_tr)
+            net = pipe[-1]
+            print(f"MLP {str(hidden):15} | params {count_params(net):4} | train {pipe.score(X_tr, y_tr):.3f}"
+                  f" | test {pipe.score(X_te, y_te):.3f} | epochs {net.n_iter_}")
+
+        print("\n=== The loss falls as the network learns (hidden=(16,)) ===")
+        net = MLPClassifier(hidden_layer_sizes=(16,), max_iter=2000, random_state=0)
+        model = make_pipeline(StandardScaler(), net).fit(X_tr, y_tr)
+        for epoch in [1, 10, 50, 200, net.n_iter_]:
+            print(f"epoch {epoch:4}: log loss {net.loss_curve_[epoch - 1]:.3f}")
+
+        print("\n=== A big network: alpha (L2 penalty) controls overfitting ===")
+        for alpha in [0.0001, 1.0]:
+            big = make_pipeline(StandardScaler(),
+                                MLPClassifier(hidden_layer_sizes=(100, 100), alpha=alpha,
+                                              max_iter=2000, random_state=0)).fit(X_tr, y_tr)
+            print(f"alpha={alpha:<6} | train {big.score(X_tr, y_tr):.3f} | test {big.score(X_te, y_te):.3f}")
+
+        print("\n=== Probabilities for new points (hidden=(16,)) ===")
+        new = np.array([[0.0, 1.0], [1.0, -0.5], [0.5, 0.25]])
+        for point, p in zip(new, model.predict_proba(new)):
+            print(f"{point} -> P(class 1) = {p[1]:.3f}")
+      PYTHON
+    },
+
+    19 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -2069,7 +2216,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    19 => {
+    20 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -2175,7 +2322,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    20 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -2212,17 +2359,19 @@ module MachineLearningContent
         <div class="lc-card">
           <h3>Course Review: Choosing a Model</h3>
           <table class="lc-table">
-            <thead><tr><th>Model</th><th>Task</th><th>Needs scaling?</th><th>Key setting</th></tr></thead>
+            <thead><tr><th>Model</th><th>Lesson</th><th>Task</th><th>Needs scaling?</th><th>Key setting</th></tr></thead>
             <tbody>
-              <tr><td>Linear Regression</td><td>Regression</td><td>For regularisation</td><td>alpha (Ridge/Lasso)</td></tr>
-              <tr><td>Logistic Regression</td><td>Classification</td><td>Yes</td><td>C</td></tr>
-              <tr><td>k-NN</td><td>Both</td><td>Yes</td><td>n_neighbors</td></tr>
-              <tr><td>SVM (SVC / SVR)</td><td>Both</td><td>Yes</td><td>C, gamma, kernel</td></tr>
-              <tr><td>Decision Tree</td><td>Both</td><td>No</td><td>max_depth</td></tr>
-              <tr><td>Random Forest</td><td>Both</td><td>No</td><td>n_estimators, max_depth</td></tr>
-              <tr><td>Gradient Boosting</td><td>Both</td><td>No</td><td>learning_rate, max_iter</td></tr>
-              <tr><td>K-Means</td><td>Clustering</td><td>Yes</td><td>n_clusters</td></tr>
-              <tr><td>PCA</td><td>Dimensionality reduction</td><td>Yes</td><td>n_components</td></tr>
+              <tr><td>Linear Regression (Ridge/Lasso)</td><td>5, 13</td><td>Regression</td><td>For regularisation</td><td>alpha (Ridge/Lasso)</td></tr>
+              <tr><td>Logistic Regression</td><td>8</td><td>Classification</td><td>Yes</td><td>C</td></tr>
+              <tr><td>k-NN</td><td>10</td><td>Both</td><td>Yes</td><td>n_neighbors</td></tr>
+              <tr><td>Decision Tree</td><td>11</td><td>Both</td><td>No</td><td>max_depth</td></tr>
+              <tr><td>Random Forest</td><td>12</td><td>Both</td><td>No</td><td>n_estimators, max_depth</td></tr>
+              <tr><td>Gradient Boosting</td><td>12</td><td>Both</td><td>No</td><td>learning_rate, max_iter</td></tr>
+              <tr><td>SVM (SVC / SVR)</td><td>17</td><td>Both</td><td>Yes</td><td>C, gamma, kernel</td></tr>
+              <tr><td>Naive Bayes</td><td>17</td><td>Classification</td><td>No</td><td>alpha (smoothing)</td></tr>
+              <tr><td>Neural Network (MLP)</td><td>18</td><td>Both</td><td>Yes</td><td>hidden_layer_sizes, alpha</td></tr>
+              <tr><td>K-Means</td><td>19</td><td>Clustering</td><td>Yes</td><td>n_clusters</td></tr>
+              <tr><td>PCA</td><td>20</td><td>Dimensionality reduction</td><td>Yes</td><td>n_components</td></tr>
             </tbody>
           </table>
         </div>
@@ -2261,7 +2410,7 @@ module MachineLearningContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Next steps:</strong> Topics to explore after this course: probability calibration (<code>CalibratedClassifierCV</code>), model explanation tools (permutation importance, SHAP) and monitoring models after deployment. Then move on to the Deep Learning course to see how neural networks extend these ideas.
+          <strong>Next steps:</strong> Topics to explore after this course: probability calibration (<code>CalibratedClassifierCV</code>), model explanation tools (permutation importance, SHAP) and monitoring models after deployment. Then move on to the Deep Learning course, which grows the small networks of lesson 18 into deep models for images and text.
         </div>
       HTML
       starter_code: <<~'PYTHON'
