@@ -147,7 +147,7 @@ module JavaScriptContent
               <tr><td><code>var</code></td><td>Yes (and can be redeclared)</td><td>Whole function</td><td>Old way — don't use</td></tr>
             </tbody>
           </table>
-          <p><code>var</code> is from before 2015. It ignores <code>{ }</code> blocks and is "hoisted" as <code>undefined</code>, which causes confusing bugs (Lesson 8 explains why). You will still see it in old code, but never write it in new code.</p>
+          <p><code>var</code> is from before 2015. It ignores <code>{ }</code> blocks and is "hoisted" as <code>undefined</code>, which causes confusing bugs (Lesson 7 explains why). You will still see it in old code, but never write it in new code.</p>
         </div>
         <div class="lc-card">
           <h3>Naming Rules</h3>
@@ -566,140 +566,6 @@ module JavaScriptContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
-          <h1 class="lc-title">Regular Expressions</h1>
-        </div>
-        <p class="lc-lead">A <strong>regular expression</strong> (regex) is a small pattern language for text. String methods like <code>includes</code> find one fixed piece of text; a regex describes a <em>shape</em> — "ten digits starting with 6–9", "₹ followed by a number" — so you can validate input, find every match, pull out parts and replace text in one line.</p>
-        <div class="lc-card">
-          <h3>Creating a Regex</h3>
-          <div class="lc-code">const pin = /^\d{6}$/;                  // regex literal: /pattern/flags<br>const word = new RegExp("^" + prefix + "-\d+$");   // built from a string at runtime<br><br>console.log(pin.test("560034"));   // true<br>console.log(pin.test("5600"));     // false</div>
-          <p>Use the <strong>literal</strong> form <code>/…/</code> when you know the pattern while writing the code. Use <code>new RegExp(text)</code> only when the pattern is built from a variable — and remember that inside a normal string every backslash must be doubled (<code>"\d"</code>).</p>
-        </div>
-        <div class="lc-card">
-          <h3>The Building Blocks</h3>
-          <table class="lc-table">
-            <thead><tr><th>Pattern</th><th>Matches</th><th>Example</th></tr></thead>
-            <tbody>
-              <tr><td><code>\d</code> / <code>\D</code></td><td>a digit / anything except a digit</td><td><code>/\d\d/</code> finds <code>"42"</code></td></tr>
-              <tr><td><code>\w</code></td><td>a letter, digit or <code>_</code> (English letters only)</td><td><code>/\w+/</code> finds <code>"Asha"</code></td></tr>
-              <tr><td><code>\s</code></td><td>whitespace: space, tab, new line</td><td><code>/\s+/</code></td></tr>
-              <tr><td><code>.</code></td><td>any single character (except a new line)</td><td><code>/c.t/</code> finds <code>"cat"</code>, <code>"cut"</code></td></tr>
-              <tr><td><code>[abc]</code> / <code>[^abc]</code></td><td>one of these / none of these</td><td><code>/[6-9]/</code> is one digit from 6 to 9</td></tr>
-              <tr><td><code>^</code> and <code>$</code></td><td>start and end of the text</td><td><code>/^\d{6}$/</code>: exactly six digits</td></tr>
-              <tr><td><code>\b</code></td><td>a word boundary</td><td><code>/\bcat\b/</code> skips <code>"category"</code></td></tr>
-              <tr><td><code>a|b</code></td><td>either side</td><td><code>/UPI|Card/</code></td></tr>
-              <tr><td><code>\.</code>, <code>\$</code>, <code>\(</code></td><td>the real character (escaped)</td><td><code>/\d+\.\d\d/</code> finds <code>"49.50"</code></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="lc-card">
-          <h3>Quantifiers and Flags</h3>
-          <table class="lc-table">
-            <thead><tr><th>Quantifier</th><th>Means</th><th></th><th>Flag</th><th>Means</th></tr></thead>
-            <tbody>
-              <tr><td><code>+</code></td><td>one or more</td><td></td><td><code>g</code></td><td>global: every match, not just the first</td></tr>
-              <tr><td><code>*</code></td><td>zero or more</td><td></td><td><code>i</code></td><td>ignore upper/lower case</td></tr>
-              <tr><td><code>?</code></td><td>optional (zero or one)</td><td></td><td><code>m</code></td><td><code>^</code> and <code>$</code> work per line</td></tr>
-              <tr><td><code>{6}</code> / <code>{2,4}</code></td><td>exactly 6 / between 2 and 4</td><td></td><td><code>u</code></td><td>full Unicode mode (emoji, Indian scripts)</td></tr>
-            </tbody>
-          </table>
-          <p>Quantifiers are <strong>greedy</strong>: they take as much text as they can. Add <code>?</code> to make one lazy:</p>
-          <div class="lc-code">const html = "&lt;b&gt;one&lt;/b&gt;&lt;b&gt;two&lt;/b&gt;";<br>console.log(html.match(/&lt;b&gt;.*&lt;\/b&gt;/)[0]);    // &lt;b&gt;one&lt;/b&gt;&lt;b&gt;two&lt;/b&gt;  (greedy)<br>console.log(html.match(/&lt;b&gt;.*?&lt;\/b&gt;/)[0]);   // &lt;b&gt;one&lt;/b&gt;              (lazy)</div>
-        </div>
-        <div class="lc-card">
-          <h3>The Methods You Will Use</h3>
-          <table class="lc-table">
-            <thead><tr><th>Method</th><th>Returns</th><th>Use it to</th></tr></thead>
-            <tbody>
-              <tr><td><code>regex.test(text)</code></td><td><code>true</code> / <code>false</code></td><td>validate input</td></tr>
-              <tr><td><code>text.match(regex)</code></td><td>first match with its groups, or <code>null</code></td><td>pull parts out of one match</td></tr>
-              <tr><td><code>text.match(/…/g)</code></td><td>array of all matched strings, or <code>null</code></td><td>find every match</td></tr>
-              <tr><td><code>text.matchAll(/…/g)</code></td><td>an iterator of full matches with groups</td><td>loop over matches and their parts</td></tr>
-              <tr><td><code>text.replace(regex, new)</code></td><td>new string</td><td>clean or reformat text</td></tr>
-              <tr><td><code>text.split(regex)</code></td><td>array of pieces</td><td>split on several separators</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="lc-card">
-          <h3>Groups: Pulling Out Parts</h3>
-          <p>Round brackets <code>( )</code> <strong>capture</strong> part of the match. Name a group with <code>(?&lt;name&gt; )</code> so you don't have to count brackets. In <code>replace</code>, <code>$1</code>, <code>$2</code>… insert the groups.</p>
-          <div class="lc-code">const found = "Order ORD-2026-0457 shipped".match(/ORD-(?&lt;year&gt;\d{4})-(?&lt;num&gt;\d+)/);<br>console.log(found[0]);            // ORD-2026-0457   (the whole match)<br>console.log(found.groups.year);   // 2026<br>console.log(found.groups.num);    // 0457<br><br>console.log("2026-09-25".replace(/(\d+)-(\d+)-(\d+)/, "$3/$2/$1"));   // 25/09/2026<br>console.log("Ananya Rao".replace(/(\w+) (\w+)/, "$2, $1"));          // Rao, Ananya<br>console.log("hello world".replace(/\b\w/g, (c) =&gt; c.toUpperCase()));  // Hello World</div>
-          <p>The last line passes a <strong>function</strong> to <code>replace</code>: it is called for every match and its return value is used as the replacement.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Worked Example: Validating a Form Field</h3>
-          <div class="lc-code">const mobile = /^[6-9]\d{9}$/;   // start, one digit 6–9, nine more digits, end<br><br>for (const m of ["9876543210", "12345", "5876543210", "98765432101"]) {<br>&nbsp;&nbsp;console.log(m.padEnd(12), mobile.test(m) ? "valid" : "invalid");<br>}</div>
-          <p>Output:</p>
-          <div class="lc-code">9876543210   valid<br>12345        invalid<br>5876543210   invalid<br>98765432101  invalid</div>
-          <p>Without <code>^</code> and <code>$</code>, <code>/[6-9]\d{9}/</code> would also accept <code>"98765432101"</code>, because ten valid digits appear <em>somewhere</em> inside it. For validation, always anchor both ends.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Common Mistakes</h3>
-          <ul class="lc-list">
-            <li>Forgetting <code>^…$</code> when validating, so extra characters before or after are accepted.</li>
-            <li>Forgetting to escape special characters: <code>/./</code> matches <em>any</em> character — <code>"a.b.c".replace(/./g, "-")</code> gives <code>"-----"</code>; write <code>/\./g</code>. For text typed by a user, <code>RegExp.escape(text)</code> (in all major browsers since 2025) escapes it for you.</li>
-            <li>Reusing a <code>/…/g</code> regex with <code>test()</code>: it remembers <code>lastIndex</code>, so <code>r.test("cat")</code> can give <code>true</code> and then <code>false</code>. Don't use <code>g</code> with <code>test</code>.</li>
-            <li>Forgetting that <code>match</code> returns <code>null</code> when nothing matches — <code>text.match(r)[0]</code> then throws. Check first, or use <code>text.match(r)?.[0]</code>.</li>
-            <li>Writing one giant regex for emails or HTML. Keep patterns short, and use real parsers (<code>DOMParser</code>, <code>URL</code>) or <code>&lt;input type="email"&gt;</code> for complex formats.</li>
-          </ul>
-        </div>
-        <div class="lc-card">
-          <h3>Try It</h3>
-          <ol class="lc-list">
-            <li>In the starter, add <code>"7012345678"</code> and <code>"98765 43210"</code> to the mobile list and predict the results before running.</li>
-            <li>Write a regex for a vehicle number like <code>"KA01AB1234"</code>: two capital letters, two digits, two capital letters, four digits.</li>
-            <li>Use <code>replace</code> with a <code>g</code> flag to change every <code>"colour"</code> or <code>"Colour"</code> in a sentence to <code>"color"</code> (hint: the <code>i</code> flag).</li>
-            <li>Change the <code>matchAll</code> pattern so it also works for names with spaces, such as <code>"Ravi Kumar=78"</code>.</li>
-          </ol>
-        </div>
-        <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Build a pattern one piece at a time and test it on good <em>and</em> bad examples. Sites like regex101.com (choose the JavaScript flavour) explain every part of a pattern as you type it.
-        </div>
-      HTML
-      starter_code: <<~'JS'
-        // Lesson 5: regular expressions
-        // 1. test(): does the text match the pattern?
-        const mobile = /^[6-9]\d{9}$/;           // Indian mobile: 10 digits, starts with 6-9
-        for (const m of ["9876543210", "12345", "5876543210", "98765432101"]) {
-          console.log(m.padEnd(12), mobile.test(m) ? "valid" : "invalid");
-        }
-        console.log("PIN 560034:", /^\d{6}$/.test("560034"), "| PIN 5600:", /^\d{6}$/.test("5600"));
-        console.log("");
-
-        // 2. match() with the g flag: find every match
-        const message = "Paid ₹250 for tea and ₹1200 for books, ₹75 tip";
-        const amounts = message.match(/₹\d+/g);
-        console.log("Amounts:", amounts.join(", "));
-        const total = amounts.map((a) => Number(a.slice(1))).reduce((s, n) => s + n, 0);
-        console.log("Total: ₹" + total);
-        console.log("");
-
-        // 3. Named groups pull out parts of a match
-        const order = "Order ORD-2026-0457 shipped";
-        const found = order.match(/ORD-(?<year>\d{4})-(?<num>\d+)/);
-        console.log("Full match:", found[0]);
-        console.log("Year:", found.groups.year, "| Number:", Number(found.groups.num));
-        console.log("");
-
-        // 4. replace() with groups and flags
-        console.log("Date:", "2026-09-25".replace(/(\d+)-(\d+)-(\d+)/, "$3/$2/$1"));
-        console.log("Spaces:", "too    many     spaces".replace(/\s+/g, " "));
-        console.log("Case-insensitive:", "Java java JAVA".replace(/java/gi, "JS"));
-        console.log("Masked:", "Card 4111 2222 3333 4444".replace(/\d{4}(?= )/g, "XXXX"));
-        console.log("");
-
-        // 5. split() on a pattern and matchAll() for every match with its groups
-        console.log("Tags:", "html, css ;js;  react".split(/\s*[,;]\s*/).join(" | "));
-        const scores = "Asha=91 Ravi=78 Meera=85";
-        for (const m of scores.matchAll(/(\w+)=(\d+)/g)) {
-          console.log(`  ${m[1]} scored ${m[2]}`);
-        }
-      JS
-    },
-
-    6 => {
-      body: <<~'HTML',
-        <div class="lc-header">
-          <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
           <h1 class="lc-title">Conditionals and Loops</h1>
         </div>
         <p class="lc-lead">Programs make <strong>decisions</strong> ("if the cart is empty, show a message") and <strong>repeat</strong> work ("add up every item in the bill"). Conditional statements choose which code runs; loops run code again and again. Together they are the control flow of every program you will write.</p>
@@ -718,7 +584,7 @@ module JavaScriptContent
           <h3>switch</h3>
           <p><code>switch</code> compares one value against fixed options using strict <code>===</code>. Without <code>break</code>, execution <strong>falls through</strong> into the next case — you can use that on purpose to group cases:</p>
           <div class="lc-code">const day = "Sun";<br>switch (day) {<br>&nbsp;&nbsp;case "Sat":<br>&nbsp;&nbsp;case "Sun":<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Weekend");<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;case "Mon":<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Back to work");<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;default:<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Weekday");<br>}<br>// Output: Weekend</div>
-          <p>When every case just picks a value, an object lookup (Lesson 11) is shorter: <code>({ red: "Stop", green: "Go" })[signal] ?? "Broken"</code>.</p>
+          <p>When every case just picks a value, an object lookup (Lesson 10) is shorter: <code>({ red: "Stop", green: "Go" })[signal] ?? "Broken"</code>.</p>
           <table class="lc-table">
             <thead><tr><th>Situation</th><th>Best tool</th></tr></thead>
             <tbody>
@@ -744,7 +610,7 @@ module JavaScriptContent
         <div class="lc-card">
           <h3>for...of and for...in</h3>
           <div class="lc-code">const fruits = ["mango", "banana"];<br>for (const fruit of fruits) console.log(fruit);   // mango, banana (values)<br><br>const scores = { Asha: 88, Vikram: 92 };<br>for (const name in scores) console.log(name + ": " + scores[name]);<br>// Asha: 88<br>// Vikram: 92</div>
-          <p><code>for...of</code> visits the <strong>values</strong> of an array, string, Map or Set (Lesson 13 shows how it works inside). <code>for...in</code> visits the <strong>keys</strong> of an object. Do <strong>not</strong> use <code>for...in</code> on arrays: it gives indexes as <em>strings</em> (<code>"0"</code>, <code>"1"</code>).</p>
+          <p><code>for...of</code> visits the <strong>values</strong> of an array, string, Map or Set (Lesson 12 shows how it works inside). <code>for...in</code> visits the <strong>keys</strong> of an object. Do <strong>not</strong> use <code>for...in</code> on arrays: it gives indexes as <em>strings</em> (<code>"0"</code>, <code>"1"</code>).</p>
         </div>
         <div class="lc-card">
           <h3>break and continue</h3>
@@ -760,7 +626,7 @@ module JavaScriptContent
               <tr><td><code>do...while</code></td><td>Body must run at least once</td></tr>
             </tbody>
           </table>
-          <p>For transforming and filtering arrays, the array methods <code>map</code>, <code>filter</code> and <code>reduce</code> (Lesson 10) are often even clearer than a loop.</p>
+          <p>For transforming and filtering arrays, the array methods <code>map</code>, <code>filter</code> and <code>reduce</code> (Lesson 9) are often even clearer than a loop.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: A Bill with Conditions Inside a Loop</h3>
@@ -794,7 +660,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 6: conditionals and loops
+        // Lesson 5: conditionals and loops
         console.log("-- if / else if / else --");
         const marks = 72;
         if (marks >= 90) {
@@ -847,7 +713,7 @@ module JavaScriptContent
       JS
     },
 
-    7 => {
+    6 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -861,7 +727,7 @@ module JavaScriptContent
             <li><strong>Parameters</strong> are the names in the definition; <strong>arguments</strong> are the actual values you pass in.</li>
             <li><code>return</code> sends a value back <em>and stops the function</em> immediately.</li>
             <li>A function with no <code>return</code> gives back <code>undefined</code>.</li>
-            <li>Variables declared inside (<code>tax</code>) exist only inside the function (Lesson 8).</li>
+            <li>Variables declared inside (<code>tax</code>) exist only inside the function (Lesson 7).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -899,7 +765,7 @@ module JavaScriptContent
               <tr><td>Arrow</td><td><code>const add = (a, b) =&gt; a + b;</code></td><td>No</td><td>Short helpers and callbacks</td></tr>
             </tbody>
           </table>
-          <p>Arrow functions also do not have their own <code>this</code> — they use the <code>this</code> of the surrounding code. That matters inside classes and objects (Lesson 12). For now: don't use arrow functions as object methods that need <code>this</code>.</p>
+          <p>Arrow functions also do not have their own <code>this</code> — they use the <code>this</code> of the surrounding code. That matters inside classes and objects (Lesson 11). For now: don't use arrow functions as object methods that need <code>this</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Functions as Values: Callbacks</h3>
@@ -907,7 +773,7 @@ module JavaScriptContent
           <div class="lc-code">function repeat(times, action) {<br>&nbsp;&nbsp;for (let i = 1; i &lt;= times; i++) action(i);<br>}<br><br>repeat(3, (n) =&gt; console.log("Round " + n));</div>
           <p>Output:</p>
           <div class="lc-code">Round 1<br>Round 2<br>Round 3</div>
-          <p>Callbacks are everywhere in JavaScript: array methods (Lesson 10), event listeners (Lesson 17) and timers (Lesson 18).</p>
+          <p>Callbacks are everywhere in JavaScript: array methods (Lesson 9), event listeners (Lesson 17) and timers (Lesson 18).</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Small Functions Working Together</h3>
@@ -957,7 +823,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 7: functions and arrow functions
+        // Lesson 6: functions and arrow functions
 
         // Function declaration with a return value
         function addGst(amount) {
@@ -1007,7 +873,7 @@ module JavaScriptContent
       JS
     },
 
-    8 => {
+    7 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1101,7 +967,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 8: scope, hoisting and closures
+        // Lesson 7: scope, hoisting and closures
 
         // Block scope: badge only exists inside the if block
         const score = 10;
@@ -1152,7 +1018,7 @@ module JavaScriptContent
       JS
     },
 
-    9 => {
+    8 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1181,7 +1047,7 @@ module JavaScriptContent
         <div class="lc-card">
           <h3>Searching</h3>
           <div class="lc-code">const marks = [72, 85, 90, 85];<br>console.log(marks.includes(90));    // true<br>console.log(marks.indexOf(85));     // 1  (first match)<br>console.log(marks.lastIndexOf(85)); // 3<br>console.log(marks.indexOf(100));    // -1 (not found)</div>
-          <p>For searching with a condition ("the first mark above 80"), use <code>find</code> and <code>findIndex</code> in Lesson 10.</p>
+          <p>For searching with a condition ("the first mark above 80"), use <code>find</code> and <code>findIndex</code> in Lesson 9.</p>
         </div>
         <div class="lc-card">
           <h3>slice vs splice</h3>
@@ -1208,7 +1074,7 @@ module JavaScriptContent
             </tbody>
           </table>
           <div class="lc-code">const scores = [40, 10, 30];<br>const sorted = scores.toSorted((a, b) =&gt; a - b);<br>console.log(sorted);   // [10, 30, 40]<br>console.log(scores);   // [40, 10, 30] — unchanged</div>
-          <p>The <code>(a, b) =&gt; a - b</code> part tells <code>sort</code> to compare as numbers — Lesson 10 explains why you need it.</p>
+          <p>The <code>(a, b) =&gt; a - b</code> part tells <code>sort</code> to compare as numbers — Lesson 9 explains why you need it.</p>
         </div>
         <div class="lc-card">
           <h3>Arrays Are References</h3>
@@ -1224,7 +1090,7 @@ module JavaScriptContent
           <h3>Unique Values with Set</h3>
           <p>A <code>Set</code> is a collection where every value appears only once. The quickest way to remove duplicates:</p>
           <div class="lc-code">const tags = ["js", "css", "js", "html", "css"];<br>const unique = [...new Set(tags)];<br>console.log(unique);   // ["js", "css", "html"]</div>
-          <p>Lesson 13 covers the full <code>Set</code> API, including union and intersection.</p>
+          <p>Lesson 12 covers the full <code>Set</code> API, including union and intersection.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1249,7 +1115,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 9: arrays
+        // Lesson 8: arrays
         const cities = ["Delhi", "Mumbai", "Chennai", "Kolkata"];
         console.log("Count:", cities.length);
         console.log("First:", cities[0], "| Last:", cities.at(-1));
@@ -1294,7 +1160,7 @@ module JavaScriptContent
       JS
     },
 
-    10 => {
+    9 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1394,7 +1260,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 10: array methods
+        // Lesson 9: array methods
         const students = [
           { name: "Aditi", marks: 88, house: "Red" },
           { name: "Kabir", marks: 54, house: "Blue" },
@@ -1442,7 +1308,7 @@ module JavaScriptContent
       JS
     },
 
-    11 => {
+    10 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1503,7 +1369,7 @@ module JavaScriptContent
         </div>
         <div class="lc-card">
           <h3>Object or Map?</h3>
-          <p>A <code>Map</code> is a key-value collection built for lookups (Lesson 13 covers it in depth):</p>
+          <p>A <code>Map</code> is a key-value collection built for lookups (Lesson 12 covers it in depth):</p>
           <div class="lc-code">const visits = new Map();<br>visits.set("home", 3).set("cart", 1);<br>visits.set("home", visits.get("home") + 1);<br>console.log(visits.get("home"), visits.size, visits.has("cart"));   // 4 2 true<br>console.log([...visits]);   // [["home", 4], ["cart", 1]]</div>
           <table class="lc-table">
             <thead><tr><th></th><th>Object</th><th>Map</th></tr></thead>
@@ -1522,7 +1388,7 @@ module JavaScriptContent
             <li>Thinking spread makes a deep copy — nested objects are shared.</li>
             <li>Comparing objects with <code>===</code>: two objects with the same contents are still different objects.</li>
             <li>Checking a key with <code>if (stock.sugar)</code> when the value may be <code>0</code> — use <code>Object.hasOwn</code> or <code>"sugar" in stock</code>.</li>
-            <li>Using an arrow function as a method that needs <code>this</code> (Lesson 12).</li>
+            <li>Using an arrow function as a method that needs <code>this</code> (Lesson 11).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1538,7 +1404,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 11: objects, destructuring and optional chaining
+        // Lesson 10: objects, destructuring and optional chaining
         const profile = {
           name: "Priya",
           age: 24,
@@ -1585,7 +1451,7 @@ module JavaScriptContent
       JS
     },
 
-    12 => {
+    11 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1600,7 +1466,7 @@ module JavaScriptContent
             <li><strong>Protection</strong> — private fields stop other code from breaking the rules.</li>
             <li><strong>Common in real code</strong> — browser APIs (<code>Date</code>, <code>Map</code>, <code>Error</code>), libraries and frameworks all use classes.</li>
           </ul>
-          <p>For a single one-off object, a plain object literal (Lesson 11) is simpler. Reach for a class when you need <em>many</em> objects of the same shape.</p>
+          <p>For a single one-off object, a plain object literal (Lesson 10) is simpler. Reach for a class when you need <em>many</em> objects of the same shape.</p>
         </div>
         <div class="lc-card">
           <h3>A First Class</h3>
@@ -1694,7 +1560,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 12: classes and this
+        // Lesson 11: classes and this
         class BankAccount {
           #balance = 0;              // private: only this class can touch it
           static count = 0;          // shared by the class
@@ -1747,7 +1613,7 @@ module JavaScriptContent
       JS
     },
 
-    13 => {
+    12 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1804,12 +1670,12 @@ module JavaScriptContent
         </div>
         <div class="lc-card">
           <h3>Map: Key-Value Lookups</h3>
-          <p>You met <code>Map</code> briefly in Lesson 11. Here is its full API:</p>
+          <p>You met <code>Map</code> briefly in Lesson 10. Here is its full API:</p>
           <div class="lc-code">const stock = new Map([["pen", 40], ["book", 12]]);   // from [key, value] pairs<br>stock.set("bag", 5).set("pen", 35);                  // set() chains; same key = update<br>stock.delete("book");<br><br>console.log(stock.get("pen"), stock.size, stock.has("book"));   // 35 2 false<br>console.log(stock.get("pencil"));                             // undefined<br>for (const [item, qty] of stock) console.log(item, qty);      // pen 35, then bag 5<br>console.log([...stock.keys()].join(", "));                    // pen, bag</div>
           <ul class="lc-list">
             <li><code>keys()</code>, <code>values()</code> and <code>entries()</code> return <strong>iterators</strong> — spread them or use <code>for...of</code>.</li>
             <li>Convert both ways: <code>new Map(Object.entries(obj))</code> and <code>Object.fromEntries(map)</code>.</li>
-            <li><code>Map.groupBy(items, fn)</code> groups into a Map (like <code>Object.groupBy</code> from Lesson 10).</li>
+            <li><code>Map.groupBy(items, fn)</code> groups into a Map (like <code>Object.groupBy</code> from Lesson 9).</li>
             <li>New in ES2026: <code>map.getOrInsert(key, defaultValue)</code> returns the value, first inserting the default if the key is missing (Baseline 2026, so check your users' browsers).</li>
           </ul>
         </div>
@@ -1858,7 +1724,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 13: iterators, generators, Map and Set
+        // Lesson 12: iterators, generators, Map and Set
 
         // 1. The iterator protocol: next() returns { value, done }
         const it = ["UPI", "Card"][Symbol.iterator]();
@@ -1909,6 +1775,142 @@ module JavaScriptContent
       JS
     },
 
+    13 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
+          <h1 class="lc-title">Regular Expressions</h1>
+        </div>
+        <p class="lc-lead">A <strong>regular expression</strong> (regex) is a small pattern language for text. String methods like <code>includes</code> find one fixed piece of text; a regex describes a <em>shape</em> — "ten digits starting with 6–9", "₹ followed by a number" — so you can validate input, find every match, pull out parts and replace text in one line.</p>
+        <div class="lc-card">
+          <h3>Creating a Regex</h3>
+          <div class="lc-code">const pin = /^\d{6}$/;                  // regex literal: /pattern/flags<br>const prefix = "ORD";<br>const orderId = new RegExp("^" + prefix + "-\\d+$");   // built from a string at runtime<br>console.log(orderId.test("ORD-457"));   // true<br><br>console.log(pin.test("560034"));   // true<br>console.log(pin.test("5600"));     // false</div>
+          <p>Use the <strong>literal</strong> form <code>/…/</code> when you know the pattern while writing the code. Use <code>new RegExp(text)</code> only when the pattern is built from a variable — and remember that inside a normal string every backslash must be doubled (write <code>"\\d"</code> to get <code>\d</code>).</p>
+        </div>
+        <div class="lc-card">
+          <h3>The Building Blocks</h3>
+          <table class="lc-table">
+            <thead><tr><th>Pattern</th><th>Matches</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><code>\d</code> / <code>\D</code></td><td>a digit / anything except a digit</td><td><code>/\d\d/</code> finds <code>"42"</code></td></tr>
+              <tr><td><code>\w</code></td><td>a letter, digit or <code>_</code> (English letters only)</td><td><code>/\w+/</code> finds <code>"Asha"</code></td></tr>
+              <tr><td><code>\s</code></td><td>whitespace: space, tab, new line</td><td><code>/\s+/</code></td></tr>
+              <tr><td><code>.</code></td><td>any single character (except a new line)</td><td><code>/c.t/</code> finds <code>"cat"</code>, <code>"cut"</code></td></tr>
+              <tr><td><code>[abc]</code> / <code>[^abc]</code></td><td>one of these / none of these</td><td><code>/[6-9]/</code> is one digit from 6 to 9</td></tr>
+              <tr><td><code>^</code> and <code>$</code></td><td>start and end of the text</td><td><code>/^\d{6}$/</code>: exactly six digits</td></tr>
+              <tr><td><code>\b</code></td><td>a word boundary</td><td><code>/\bcat\b/</code> skips <code>"category"</code></td></tr>
+              <tr><td><code>a|b</code></td><td>either side</td><td><code>/UPI|Card/</code></td></tr>
+              <tr><td><code>(?=…)</code></td><td>followed by — checked but not included in the match (a <strong>lookahead</strong>)</td><td><code>/\d{4}(?= )/</code> finds <code>"4111"</code> in <code>"4111 2222"</code>, not <code>"4111 "</code></td></tr>
+              <tr><td><code>\.</code>, <code>\$</code>, <code>\(</code></td><td>the real character (escaped)</td><td><code>/\d+\.\d\d/</code> finds <code>"49.50"</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Quantifiers and Flags</h3>
+          <table class="lc-table">
+            <thead><tr><th>Quantifier</th><th>Means</th><th></th><th>Flag</th><th>Means</th></tr></thead>
+            <tbody>
+              <tr><td><code>+</code></td><td>one or more</td><td></td><td><code>g</code></td><td>global: every match, not just the first</td></tr>
+              <tr><td><code>*</code></td><td>zero or more</td><td></td><td><code>i</code></td><td>ignore upper/lower case</td></tr>
+              <tr><td><code>?</code></td><td>optional (zero or one)</td><td></td><td><code>m</code></td><td><code>^</code> and <code>$</code> work per line</td></tr>
+              <tr><td><code>{6}</code> / <code>{2,4}</code></td><td>exactly 6 / between 2 and 4</td><td></td><td><code>u</code></td><td>full Unicode mode (emoji, Indian scripts)</td></tr>
+            </tbody>
+          </table>
+          <p>Quantifiers are <strong>greedy</strong>: they take as much text as they can. Add <code>?</code> to make one lazy:</p>
+          <div class="lc-code">const html = "&lt;b&gt;one&lt;/b&gt;&lt;b&gt;two&lt;/b&gt;";<br>console.log(html.match(/&lt;b&gt;.*&lt;\/b&gt;/)[0]);    // &lt;b&gt;one&lt;/b&gt;&lt;b&gt;two&lt;/b&gt;  (greedy)<br>console.log(html.match(/&lt;b&gt;.*?&lt;\/b&gt;/)[0]);   // &lt;b&gt;one&lt;/b&gt;              (lazy)</div>
+        </div>
+        <div class="lc-card">
+          <h3>The Methods You Will Use</h3>
+          <table class="lc-table">
+            <thead><tr><th>Method</th><th>Returns</th><th>Use it to</th></tr></thead>
+            <tbody>
+              <tr><td><code>regex.test(text)</code></td><td><code>true</code> / <code>false</code></td><td>validate input</td></tr>
+              <tr><td><code>text.match(regex)</code></td><td>first match with its groups, or <code>null</code></td><td>pull parts out of one match</td></tr>
+              <tr><td><code>text.match(/…/g)</code></td><td>array of all matched strings, or <code>null</code></td><td>find every match</td></tr>
+              <tr><td><code>text.matchAll(/…/g)</code></td><td>an iterator of full matches with groups</td><td>loop over matches and their parts</td></tr>
+              <tr><td><code>text.replace(regex, new)</code></td><td>new string</td><td>clean or reformat text</td></tr>
+              <tr><td><code>text.split(regex)</code></td><td>array of pieces</td><td>split on several separators</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Groups: Pulling Out Parts</h3>
+          <p>Round brackets <code>( )</code> <strong>capture</strong> part of the match. Name a group with <code>(?&lt;name&gt; )</code> so you don't have to count brackets. In <code>replace</code>, <code>$1</code>, <code>$2</code>… insert the groups.</p>
+          <div class="lc-code">const found = "Order ORD-2026-0457 shipped".match(/ORD-(?&lt;year&gt;\d{4})-(?&lt;num&gt;\d+)/);<br>console.log(found[0]);            // ORD-2026-0457   (the whole match)<br>console.log(found.groups.year);   // 2026<br>console.log(found.groups.num);    // 0457<br><br>console.log("2026-09-25".replace(/(\d+)-(\d+)-(\d+)/, "$3/$2/$1"));   // 25/09/2026<br>console.log("Ananya Rao".replace(/(\w+) (\w+)/, "$2, $1"));          // Rao, Ananya<br>console.log("hello world".replace(/\b\w/g, (c) =&gt; c.toUpperCase()));  // Hello World</div>
+          <p>The last line passes a <strong>function</strong> to <code>replace</code>: it is called for every match and its return value is used as the replacement.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Validating a Form Field</h3>
+          <div class="lc-code">const mobile = /^[6-9]\d{9}$/;   // start, one digit 6–9, nine more digits, end<br><br>for (const m of ["9876543210", "12345", "5876543210", "98765432101"]) {<br>&nbsp;&nbsp;console.log(m.padEnd(12), mobile.test(m) ? "valid" : "invalid");<br>}</div>
+          <p>Output:</p>
+          <div class="lc-code">9876543210   valid<br>12345        invalid<br>5876543210   invalid<br>98765432101  invalid</div>
+          <p>Without <code>^</code> and <code>$</code>, <code>/[6-9]\d{9}/</code> would also accept <code>"98765432101"</code>, because ten valid digits appear <em>somewhere</em> inside it. For validation, always anchor both ends.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Forgetting <code>^…$</code> when validating, so extra characters before or after are accepted.</li>
+            <li>Forgetting to escape special characters: <code>/./</code> matches <em>any</em> character — <code>"a.b.c".replace(/./g, "-")</code> gives <code>"-----"</code>; write <code>/\./g</code>. For text typed by a user, <code>RegExp.escape(text)</code> (in all major browsers since 2025) escapes it for you.</li>
+            <li>Reusing a <code>/…/g</code> regex with <code>test()</code>: it remembers <code>lastIndex</code>, so <code>r.test("cat")</code> can give <code>true</code> and then <code>false</code>. Don't use <code>g</code> with <code>test</code>.</li>
+            <li>Forgetting that <code>match</code> returns <code>null</code> when nothing matches — <code>text.match(r)[0]</code> then throws. Check first, or use <code>text.match(r)?.[0]</code>.</li>
+            <li>Writing one giant regex for emails or HTML. Keep patterns short, and use real parsers (<code>DOMParser</code>, <code>URL</code>) or <code>&lt;input type="email"&gt;</code> for complex formats.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>In the starter, add <code>"7012345678"</code> and <code>"98765 43210"</code> to the mobile list and predict the results before running.</li>
+            <li>Write a regex for a vehicle number like <code>"KA01AB1234"</code>: two capital letters, two digits, two capital letters, four digits.</li>
+            <li>Use <code>replace</code> with a <code>g</code> flag to change every <code>"colour"</code> or <code>"Colour"</code> in a sentence to <code>"color"</code> (hint: the <code>i</code> flag).</li>
+            <li>Change the <code>matchAll</code> pattern so it also works for names with spaces, such as <code>"Ravi Kumar=78"</code>.</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Build a pattern one piece at a time and test it on good <em>and</em> bad examples. Sites like regex101.com (choose the JavaScript flavour) explain every part of a pattern as you type it.
+        </div>
+      HTML
+      starter_code: <<~'JS'
+        // Lesson 13: regular expressions
+        // 1. test(): does the text match the pattern?
+        const mobile = /^[6-9]\d{9}$/;           // Indian mobile: 10 digits, starts with 6-9
+        for (const m of ["9876543210", "12345", "5876543210", "98765432101"]) {
+          console.log(m.padEnd(12), mobile.test(m) ? "valid" : "invalid");
+        }
+        console.log("PIN 560034:", /^\d{6}$/.test("560034"), "| PIN 5600:", /^\d{6}$/.test("5600"));
+        console.log("");
+
+        // 2. match() with the g flag: find every match
+        const message = "Paid ₹250 for tea and ₹1200 for books, ₹75 tip";
+        const amounts = message.match(/₹\d+/g);
+        console.log("Amounts:", amounts.join(", "));
+        const total = amounts.map((a) => Number(a.slice(1))).reduce((s, n) => s + n, 0);
+        console.log("Total: ₹" + total);
+        console.log("");
+
+        // 3. Named groups pull out parts of a match
+        const order = "Order ORD-2026-0457 shipped";
+        const found = order.match(/ORD-(?<year>\d{4})-(?<num>\d+)/);
+        console.log("Full match:", found[0]);
+        console.log("Year:", found.groups.year, "| Number:", Number(found.groups.num));
+        console.log("");
+
+        // 4. replace() with groups and flags
+        console.log("Date:", "2026-09-25".replace(/(\d+)-(\d+)-(\d+)/, "$3/$2/$1"));
+        console.log("Spaces:", "too    many     spaces".replace(/\s+/g, " "));
+        console.log("Case-insensitive:", "Java java JAVA".replace(/java/gi, "JS"));
+        // (?= ) is a lookahead: 4 digits followed by a space; the space is not replaced, and the last group has none
+        console.log("Masked:", "Card 4111 2222 3333 4444".replace(/\d{4}(?= )/g, "XXXX"));
+        console.log("");
+
+        // 5. split() on a pattern and matchAll() for every match with its groups
+        console.log("Tags:", "html, css ;js;  react".split(/\s*[,;]\s*/).join(" | "));
+        const scores = "Asha=91 Ravi=78 Meera=85";
+        for (const m of scores.matchAll(/(\w+)=(\d+)/g)) {
+          console.log(`  ${m[1]} scored ${m[2]}`);
+        }
+      JS
+    },
+
     14 => {
       body: <<~'HTML',
         <div class="lc-header">
@@ -1935,7 +1937,7 @@ module JavaScriptContent
           <p>Good places for <code>try/catch</code>:</p>
           <ul class="lc-list">
             <li>Parsing data you don't control (<code>JSON.parse</code>, user input).</li>
-            <li>Calls to servers and browser storage (Lessons 19 and 20).</li>
+            <li>Calls to servers and browser storage ( 19 and 0).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1970,7 +1972,7 @@ module JavaScriptContent
         </div>
         <div class="lc-card">
           <h3>Custom Error Classes</h3>
-          <p>Extend <code>Error</code> (Lesson 12) to create errors that describe <em>your</em> problems. Then <code>instanceof</code> tells you which kind you caught:</p>
+          <p>Extend <code>Error</code> (Lesson 11) to create errors that describe <em>your</em> problems. Then <code>instanceof</code> tells you which kind you caught:</p>
           <div class="lc-code">class ValidationError extends Error {<br>&nbsp;&nbsp;constructor(field, message) {<br>&nbsp;&nbsp;&nbsp;&nbsp;super(message);<br>&nbsp;&nbsp;&nbsp;&nbsp;this.name = "ValidationError";<br>&nbsp;&nbsp;&nbsp;&nbsp;this.field = field;<br>&nbsp;&nbsp;}<br>}<br><br>try {<br>&nbsp;&nbsp;throw new ValidationError("phone", "Phone must have 10 digits");<br>} catch (e) {<br>&nbsp;&nbsp;if (e instanceof ValidationError) {<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Fix the " + e.field + " field: " + e.message);<br>&nbsp;&nbsp;} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;throw e;   // not ours — rethrow so it isn't hidden<br>&nbsp;&nbsp;}<br>}</div>
           <p><strong>Rethrowing</strong> errors you don't know how to handle is important. A <code>catch</code> that swallows everything hides real bugs.</p>
         </div>
@@ -1979,7 +1981,7 @@ module JavaScriptContent
           <p>When you catch a low-level error and throw a clearer one, keep the original as the <code>cause</code>:</p>
           <div class="lc-code">function loadSettings(text) {<br>&nbsp;&nbsp;try {<br>&nbsp;&nbsp;&nbsp;&nbsp;return JSON.parse(text);<br>&nbsp;&nbsp;} catch (err) {<br>&nbsp;&nbsp;&nbsp;&nbsp;throw new Error("Settings file is corrupted", { cause: err });<br>&nbsp;&nbsp;}<br>}</div>
           <p>Whoever catches the new error sees a clear message, and <code>error.cause</code> still holds the original <code>SyntaxError</code> for debugging.</p>
-          <p>Errors in asynchronous code (timers, <code>fetch</code>) need a little more care: a <code>try</code> around <code>setTimeout</code> does <em>not</em> catch an error thrown later inside the timer callback. Lessons 18 and 19 show the right tools.</p>
+          <p>Errors in asynchronous code (timers, <code>fetch</code>) need a little more care: a <code>try</code> around <code>setTimeout</code> does <em>not</em> catch an error thrown later inside the timer callback.  18 and 0 show the right tools.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -2523,7 +2525,7 @@ module JavaScriptContent
           <div class="lc-code">let ticks = 0;<br>const id = setInterval(() =&gt; {<br>&nbsp;&nbsp;ticks++;<br>&nbsp;&nbsp;console.log("tick", ticks);<br>&nbsp;&nbsp;if (ticks === 3) { clearInterval(id); console.log("stopped"); }<br>}, 1000);<br>// tick 1, tick 2, tick 3, stopped — one second apart</div>
           <p>A classic use of <code>clearTimeout</code> is <strong>debouncing</strong>: wait until the user stops typing before searching, instead of searching on every key press.</p>
           <div class="lc-code">function debounce(fn, ms) {<br>&nbsp;&nbsp;let timer;<br>&nbsp;&nbsp;return (...args) =&gt; {<br>&nbsp;&nbsp;&nbsp;&nbsp;clearTimeout(timer);                       // cancel the previous wait<br>&nbsp;&nbsp;&nbsp;&nbsp;timer = setTimeout(() =&gt; fn(...args), ms);   // start a new one<br>&nbsp;&nbsp;};<br>}<br>const search = debounce((q) =&gt; console.log("Searching for", q), 300);<br>search("p"); search("pa"); search("pan");<br>// Searching for pan   — printed once, 300 ms after the last call</div>
-          <p><code>debounce</code> uses a closure (Lesson 8) to remember <code>timer</code> between calls. The delay is a <em>minimum</em>: a timer callback is a task, so it waits for the current code to finish.</p>
+          <p><code>debounce</code> uses a closure (Lesson 7) to remember <code>timer</code> between calls. The delay is a <em>minimum</em>: a timer callback is a task, so it waits for the current code to finish.</p>
         </div>
         <div class="lc-card">
           <h3>How the Event Loop Works</h3>
@@ -3110,10 +3112,10 @@ module JavaScriptContent
           <table class="lc-table">
             <thead><tr><th>Feature</th><th>Tools</th><th>Lesson</th></tr></thead>
             <tbody>
-              <tr><td>Task data and rules</td><td><code>class TaskList</code> with a <code>#tasks</code> private field</td><td>12</td></tr>
+              <tr><td>Task data and rules</td><td><code>class TaskList</code> with a <code>#tasks</code> private field</td><td>11</td></tr>
               <tr><td>Validation</td><td><code>throw new Error</code>, <code>try/catch</code></td><td>14</td></tr>
               <tr><td>Checking the rules</td><td>small tests before the UI</td><td>15</td></tr>
-              <tr><td>Filtering and summary</td><td><code>filter</code>, <code>toSorted</code>, <code>Object.groupBy</code></td><td>10</td></tr>
+              <tr><td>Filtering and summary</td><td><code>filter</code>, <code>toSorted</code>, <code>Object.groupBy</code></td><td>9</td></tr>
               <tr><td>Showing tasks</td><td><code>createElement</code>, <code>textContent</code>, <code>classList</code></td><td>16</td></tr>
               <tr><td>Clicks and the form</td><td><code>submit</code>, <code>preventDefault</code>, event delegation</td><td>17</td></tr>
               <tr><td>Saving</td><td><code>JSON.stringify</code>/<code>parse</code>, <code>localStorage</code></td><td>20</td></tr>
