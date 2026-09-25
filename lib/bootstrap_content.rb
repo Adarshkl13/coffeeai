@@ -867,6 +867,13 @@ module BootstrapContent
         </div>
 
         <div class="lc-card">
+          <h3>Shortcut: stacks (vstack and hstack)</h3>
+          <p>Bootstrap's <strong>stack helpers</strong> are ready-made flex combos. <code>vstack</code> = <code>d-flex flex-column</code>; <code>hstack</code> = <code>d-flex flex-row align-items-center</code>. Add <code>gap-*</code> for spacing.</p>
+          <div class="lc-code">&lt;div class="hstack gap-2"&gt;<br>  &lt;span class="fw-bold"&gt;Order #1042&lt;/span&gt;<br>  &lt;span class="badge text-bg-success"&gt;Paid&lt;/span&gt;<br>  &lt;button type="button" class="btn btn-sm btn-outline-secondary ms-auto"&gt;Details&lt;/button&gt;<br>&lt;/div&gt;<br>&lt;div class="vstack gap-2 col-md-4 mx-auto mt-3"&gt;<br>  &lt;button type="button" class="btn btn-primary"&gt;Pay with UPI&lt;/button&gt;<br>  &lt;button type="button" class="btn btn-outline-secondary"&gt;Pay by card&lt;/button&gt;<br>&lt;/div&gt;</div>
+          <p><strong>What you will see:</strong> one row with the order number, a green "Paid" badge right next to it and a "Details" button pushed to the far right by <code>ms-auto</code>. Below it, two full-width buttons stacked with a small gap, centred in a column one-third wide from 768px up.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Adding <code>justify-content-center</code> without <code>d-flex</code>.</strong> Nothing happens because the div is not a flex container. Add <code>d-flex</code> to the same element.</li>
@@ -1494,6 +1501,13 @@ module BootstrapContent
               <tr><td>Navbar / nav</td><td>"Where can I go?"</td><td>Home · Events · Contact</td></tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="lc-card">
+          <h3>Scrollspy: highlight where the reader is</h3>
+          <p>On a long one-page site, <strong>scrollspy</strong> adds <code>.active</code> to the nav link whose section is currently on screen. Put <code>data-bs-spy="scroll"</code> and <code>data-bs-target</code> (the nav's id) on the element that scrolls, and give every section the id its link points to.</p>
+          <div class="lc-code">&lt;nav id="fest-nav" class="nav nav-pills mb-2"&gt;<br>  &lt;a class="nav-link" href="#day1"&gt;Day 1&lt;/a&gt;<br>  &lt;a class="nav-link" href="#day2"&gt;Day 2&lt;/a&gt;<br>&lt;/nav&gt;<br>&lt;div data-bs-spy="scroll" data-bs-target="#fest-nav" data-bs-smooth-scroll="true"<br>     class="overflow-y-scroll border rounded p-3" style="height: 200px" tabindex="0"&gt;<br>  &lt;h4 id="day1"&gt;Day 1&lt;/h4&gt;&lt;p&gt;…long text…&lt;/p&gt;<br>  &lt;h4 id="day2"&gt;Day 2&lt;/h4&gt;&lt;p&gt;…long text…&lt;/p&gt;<br>&lt;/div&gt;</div>
+          <p><strong>What you will see:</strong> the pill for the section you are reading is filled blue: "Day 1" at the top, and the highlight moves to "Day 2" once that heading scrolls into view. For a whole page, put the two attributes on <code>&lt;body&gt;</code> instead. A scrolling box needs a fixed height, <code>overflow-y-scroll</code> and <code>tabindex="0"</code> so keyboard users can scroll it. Scrollspy needs the JS bundle and only works when each link's <code>href</code> matches a visible element's id.</p>
         </div>
 
         <div class="lc-card">
@@ -2934,7 +2948,7 @@ module BootstrapContent
           <p>Current mode: <strong id="modeLabel">light</strong> · <a href="#">A themed link</a></p>
           <div class="card mb-3"><div class="card-body">
             <h2 class="h5 card-title">Adaptive card</h2>
-            <input class="form-control mb-2" placeholder="Form controls adapt too">
+            <input class="form-control mb-2" placeholder="Form controls adapt too" aria-label="Sample text field">
             <button class="btn btn-brand">Custom .btn-brand</button>
           </div></div>
           <div class="experiment border rounded p-3 mb-3">
@@ -2992,8 +3006,8 @@ module BootstrapContent
 
         <div class="lc-card">
           <h3>Equal-Height Pricing Cards</h3>
-          <div class="lc-code">&lt;div class="row row-cols-1 row-cols-md-3 g-4"&gt;<br>  &lt;div class="col"&gt;<br>    &lt;div class="card h-100"&gt;<br>      &lt;div class="card-body d-flex flex-column"&gt;<br>        &lt;h3 class="h5"&gt;Basic&lt;/h3&gt;<br>        &lt;p class="display-6"&gt;₹999&lt;/p&gt;<br>        &lt;a href="#contact" class="btn btn-outline-primary mt-auto"&gt;Choose&lt;/a&gt;<br>      &lt;/div&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
-          <p><code>h-100</code> makes all cards in the row as tall as the tallest one, and <code>mt-auto</code> inside a <code>d-flex flex-column</code> body pushes each button to the bottom so they line up.</p>
+          <div class="lc-code">&lt;div class="row row-cols-1 row-cols-md-3 g-4"&gt;<br>  &lt;div class="col"&gt;<br>    &lt;div class="card h-100"&gt;<br>      &lt;div class="card-body d-flex flex-column"&gt;<br>        &lt;h3 class="h5"&gt;Basic&lt;/h3&gt;<br>        &lt;p class="display-6"&gt;₹999&lt;/p&gt;<br>        &lt;ul class="list-unstyled"&gt;&lt;li&gt;Recorded lessons&lt;/li&gt;&lt;/ul&gt;<br>        &lt;div class="d-grid mt-auto"&gt;<br>          &lt;a href="#contact" class="btn btn-outline-primary"&gt;Choose&lt;/a&gt;<br>        &lt;/div&gt;<br>      &lt;/div&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
+          <p><code>h-100</code> makes all cards in the row as tall as the tallest one, and <code>mt-auto</code> inside a <code>d-flex flex-column</code> body pushes each button to the bottom so they line up. <code>list-unstyled</code> removes the bullets and left padding from the feature list, and the <code>d-grid</code> wrapper stretches the button to the full card width.</p>
         </div>
 
         <div class="lc-card">
@@ -3080,16 +3094,19 @@ module BootstrapContent
             </section>
             <section id="pricing" class="row row-cols-1 row-cols-md-3 g-4 mb-5">
               <div class="col"><div class="card h-100"><div class="card-body d-flex flex-column">
-                <h2 class="h5">Self-paced</h2><p class="display-6">₹4,999</p><p class="text-body-secondary">Recorded lessons + community</p>
-                <a href="#contact" class="btn btn-outline-primary mt-auto">Choose</a>
+                <h2 class="h5">Self-paced</h2><p class="display-6">₹4,999</p>
+                <ul class="list-unstyled text-body-secondary"><li><i class="bi bi-check2 text-success" aria-hidden="true"></i> Recorded lessons</li><li><i class="bi bi-check2 text-success" aria-hidden="true"></i> Community forum</li></ul>
+                <div class="d-grid mt-auto"><a href="#contact" class="btn btn-outline-primary">Choose</a></div>
               </div></div></div>
               <div class="col"><div class="card h-100 border-primary border-2"><div class="card-body d-flex flex-column">
-                <h2 class="h5">Live Bootcamp <span class="badge text-bg-primary">Popular</span></h2><p class="display-6">₹24,999</p><p class="text-body-secondary">Live classes, mentor, placement help</p>
-                <a href="#contact" class="btn btn-primary mt-auto">Choose</a>
+                <h2 class="h5">Live Bootcamp <span class="badge text-bg-primary">Popular</span></h2><p class="display-6">₹24,999</p>
+                <ul class="list-unstyled text-body-secondary"><li><i class="bi bi-check2 text-success" aria-hidden="true"></i> Live classes</li><li><i class="bi bi-check2 text-success" aria-hidden="true"></i> Mentor + placement help</li></ul>
+                <div class="d-grid mt-auto"><a href="#contact" class="btn btn-primary">Choose</a></div>
               </div></div></div>
               <div class="col"><div class="card h-100"><div class="card-body d-flex flex-column">
-                <h2 class="h5">Pro</h2><p class="display-6">₹39,999</p><p class="text-body-secondary">Everything in Live + weekly 1:1 calls and mock interviews</p>
-                <a href="#contact" class="btn btn-outline-primary mt-auto">Choose</a>
+                <h2 class="h5">Pro</h2><p class="display-6">₹39,999</p>
+                <ul class="list-unstyled text-body-secondary"><li><i class="bi bi-check2 text-success" aria-hidden="true"></i> Everything in Live</li><li><i class="bi bi-check2 text-success" aria-hidden="true"></i> Weekly 1:1 calls</li></ul>
+                <div class="d-grid mt-auto"><a href="#contact" class="btn btn-outline-primary">Choose</a></div>
               </div></div></div>
             </section>
             <section class="mb-5" aria-labelledby="faqTitle">
@@ -3112,8 +3129,8 @@ module BootstrapContent
             <section id="contact" class="mb-5">
               <h2 class="h4">Request a callback</h2>
               <form id="contactForm" class="row g-3 needs-validation" novalidate>
-                <div class="col-md-6"><div class="form-floating"><input id="name" class="form-control" placeholder="Name" required><label for="name">Name</label><div class="invalid-feedback">Please enter your name.</div></div></div>
-                <div class="col-md-6"><div class="form-floating"><input id="phone" type="tel" class="form-control" placeholder="Phone" pattern="[0-9]{10}" required><label for="phone">Mobile (10 digits)</label><div class="invalid-feedback">Enter a 10-digit number.</div></div></div>
+                <div class="col-md-6"><div class="form-floating"><input id="name" name="name" class="form-control" placeholder="Name" required><label for="name">Name</label><div class="invalid-feedback">Please enter your name.</div></div></div>
+                <div class="col-md-6"><div class="form-floating"><input id="phone" name="phone" type="tel" class="form-control" placeholder="Phone" pattern="[0-9]{10}" required><label for="phone">Mobile (10 digits)</label><div class="invalid-feedback">Enter a 10-digit number.</div></div></div>
                 <div class="col-12"><button id="callBtn" class="btn btn-primary" type="submit">Call me</button> <span id="formStatus" class="ms-2 text-success" role="status"></span></div>
               </form>
             </section>

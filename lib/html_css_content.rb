@@ -96,6 +96,20 @@ module HtmlCssContent
           </table>
         </div>
         <div class="lc-section">
+          <h2>More Useful Things in the Head</h2>
+          <p>A real site adds a few more lines to the head. None of them show on the page, but they control how the page looks in search results, in the browser tab and when someone shares the link on WhatsApp or LinkedIn.</p>
+          <div class="lc-code-block"><pre><code>&lt;meta name="description" content="Cutting chai, samosas and filter coffee in Pune. Open 7am–10pm."&gt;<br>&lt;link rel="icon" href="/favicon.svg" type="image/svg+xml"&gt;<br>&lt;link rel="stylesheet" href="styles.css"&gt;<br>&lt;meta property="og:title" content="Sharma Chai Point"&gt;<br>&lt;meta property="og:image" content="https://sharmachai.in/share.jpg"&gt;</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Line</th><th>Used for</th></tr></thead>
+            <tbody>
+              <tr><td><code>meta name="description"</code></td><td>The short summary search engines often show under your title. Keep it to about one or two sentences.</td></tr>
+              <tr><td><code>link rel="icon"</code></td><td>The small icon (favicon) in the browser tab and bookmarks.</td></tr>
+              <tr><td><code>link rel="stylesheet"</code></td><td>Loads a CSS file (Lesson 8).</td></tr>
+              <tr><td><code>meta property="og:…"</code></td><td>Open Graph tags: the title and preview image shown when the link is shared in chat apps and social media.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section">
           <h2>Checking Your HTML: DevTools and the Validator</h2>
           <ul class="lc-list lc-list-check">
             <li><strong>DevTools "Inspect":</strong> right-click any part of a page and choose <em>Inspect</em> (or press F12, Ctrl+Shift+I on Windows, Cmd+Option+I on Mac). The Elements panel shows the page's element tree as the browser understood it.</li>
@@ -388,8 +402,23 @@ module HtmlCssContent
         </div>
         <div class="lc-section">
           <h2>Video and Audio</h2>
-          <div class="lc-code-block"><pre><code>&lt;video src="highlights.mp4" controls width="640" poster="thumb.jpg"&gt;&lt;/video&gt;<br>&lt;audio src="anthem.mp3" controls&gt;&lt;/audio&gt;</code></pre></div>
-          <p><code>controls</code> shows play, pause and volume buttons. <code>poster</code> is the picture shown before the video plays. Browsers block autoplay with sound, so <code>autoplay</code> usually needs <code>muted</code> too. Add captions with a <code>&lt;track kind="captions"&gt;</code> inside the video.</p>
+          <div class="lc-code-block"><pre><code>&lt;video controls width="640" height="360" poster="thumb.jpg"&gt;<br>  &lt;source src="highlights.webm" type="video/webm"&gt;<br>  &lt;source src="highlights.mp4" type="video/mp4"&gt;<br>  &lt;track kind="captions" src="highlights-en.vtt" srclang="en" label="English" default&gt;<br>  &lt;p&gt;Your browser can't play this video. &lt;a href="highlights.mp4"&gt;Download it&lt;/a&gt;.&lt;/p&gt;<br>&lt;/video&gt;<br>&lt;audio src="anthem.mp3" controls&gt;&lt;/audio&gt;</code></pre></div>
+          <p><code>controls</code> shows play, pause and volume buttons. <code>poster</code> is the picture shown before the video plays. Like <code>&lt;picture&gt;</code>, the browser plays the first <code>&lt;source&gt;</code> it supports; the text inside is shown only by browsers that cannot play video at all. <code>&lt;track&gt;</code> adds captions from a WebVTT (<code>.vtt</code>) file — deaf viewers and people watching on mute need them. Browsers block autoplay with sound, so <code>autoplay</code> only works together with <code>muted</code>.</p>
+        </div>
+        <div class="lc-section">
+          <h2>Embedding Other Pages: iframe</h2>
+          <p>An <code>&lt;iframe&gt;</code> shows another web page inside yours — this is how YouTube videos and Google Maps are embedded. Copy the embed code from the site's "Share → Embed" option, then check three things:</p>
+          <div class="lc-code-block"><pre><code>&lt;iframe src="https://www.youtube.com/embed/VIDEO_ID"<br>        title="TechFest 2026 highlights video"<br>        width="560" height="315" loading="lazy" allowfullscreen&gt;&lt;/iframe&gt;</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Attribute</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td><code>title</code></td><td>Screen readers announce it, so users know what the frame holds. Every iframe needs one.</td></tr>
+              <tr><td><code>width</code> / <code>height</code></td><td>Reserve space so the page doesn't jump (in CSS, <code>aspect-ratio: 16 / 9</code> keeps it responsive — Lesson 11).</td></tr>
+              <tr><td><code>loading="lazy"</code></td><td>Don't load the heavy frame until the user scrolls near it.</td></tr>
+              <tr><td><code>sandbox</code></td><td>Optional: blocks scripts, forms and pop-ups in untrusted content. Our editor's preview is itself a sandboxed iframe.</td></tr>
+            </tbody>
+          </table>
+          <p>Many sites (banks, most login pages) refuse to be framed and show an empty box instead — that is a security setting on their side, not a bug in your HTML.</p>
         </div>
         <div class="lc-section">
           <h2>Common Mistakes</h2>
@@ -403,12 +432,12 @@ module HtmlCssContent
         </div>
         <div class="lc-section">
           <h2>Try It</h2>
-          <p>The starter uses images made from inline SVG and a <code>data:</code> URL, so nothing needs to download. In this editor's preview, new tabs and email links are blocked, and clicking <em>any</em> link — even a <code>#</code> link — navigates the preview away, because the preview resolves links against the lesson page's address (press Run again to get it back). To test the jump links, save the starter as <code>links.html</code> on your computer and open it in your browser.</p>
+          <p>The starter uses images made from inline SVG and a <code>data:</code> URL, so nothing needs to download. The editor's preview is a sandboxed frame: <code>#</code> jump links work inside it, but the new-tab, email and phone links are blocked there. To try those, save the starter as <code>links.html</code> on your computer and open it in your browser.</p>
           <ol class="lc-list">
-            <li>In your saved <code>links.html</code>, click "Jump to contact". The page scrolls down to the "Contact" heading, and the address bar ends in <code>#contact</code>.</li>
+            <li>Click "Jump to contact" in the preview. It scrolls down to the "Contact" heading. In your saved <code>links.html</code>, the address bar also ends in <code>#contact</code>.</li>
             <li>Change the second image's <code>src</code> to <code>missing.png</code>. The picture is replaced by its alt text "Orange ticket for TechFest". Change it back.</li>
             <li>Change the first image's <code>width</code> to <code>80</code> and <code>height</code> to <code>50</code>. It shrinks and keeps its shape.</li>
-            <li>Add a new link <code>&lt;a href="#top"&gt;Back to top&lt;/a&gt;</code> at the bottom, save, reload <code>links.html</code> and click it.</li>
+            <li>Add a new link <code>&lt;a href="#top"&gt;Back to top&lt;/a&gt;</code> at the bottom and click it in the preview: it jumps back to the heading with <code>id="top"</code>.</li>
           </ol>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> A quick alt-text test: imagine reading the page to a friend over the phone. Whatever you would say about the image is your alt text. If you would skip it, use <code>alt=""</code>.</p></div>
@@ -2700,7 +2729,7 @@ module HtmlCssContent
         </div>
         <div class="lc-section">
           <h2>Cascade Layers (@layer)</h2>
-          <p>In Lesson 8 you learned that specificity decides most conflicts. On a big project that becomes a fight: a library's <code>#nav .menu a</code> beats your simple <code>.link</code>, so people add more IDs or <code>!important</code>. <strong>Cascade layers</strong> let you decide the winner by <em>group</em> instead. Layers are compared <strong>before</strong> specificity.</p>
+          <p>In Lessons 8 and 9 you learned that specificity decides most conflicts. On a big project that becomes a fight: a library's <code>#nav .menu a</code> beats your simple <code>.link</code>, so people add more IDs or <code>!important</code>. <strong>Cascade layers</strong> let you decide the winner by <em>group</em> instead. Layers are compared <strong>before</strong> specificity.</p>
           <div class="lc-code-block"><pre><code>@layer reset, base, components;   /* 1. declare the order: later = stronger */<br><br>@layer base {<br>  #buy.btn { background: gray; }  /* specificity (1,1,0) */<br>}<br>@layer components {<br>  .btn { background: green; }     /* specificity (0,1,0) */<br>}</code></pre></div>
           <p><strong>Result:</strong> the button is <strong>green</strong>. <code>components</code> is declared after <code>base</code>, so it wins even though its selector is far less specific. Specificity only matters between rules <em>in the same layer</em>.</p>
           <div class="lc-code-block"><pre><code>.btn { background: orange; }      /* not in any layer */</code></pre></div>
