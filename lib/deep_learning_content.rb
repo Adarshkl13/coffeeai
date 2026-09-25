@@ -2884,7 +2884,7 @@ module DeepLearningContent
           <ol class="lc-list">
             <li>In the starter change <code>range(1, 5)</code> to <code>range(1, 7)</code>. Two more merges ("low"+"_" and "e"+"s") make "lowest" <code>['low', 'es', 't', '_']</code>.</li>
             <li>Add <code>0.1</code> to the temperature list <code>[0.5, 1.0, 2.0]</code>. At T = 0.1, "chai" gets 0.99 of the probability: almost greedy.</li>
-            <li>Change the LoRA rank <code>r = 8</code> to <code>64</code>. It now trains 524,288 weights, 3.12% of the matrix.</li>
+            <li>Change <code>d, r = 4096, 8</code> to <code>d, r = 4096, 64</code>. It now trains 524,288 weights, 3.12% of the matrix.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">

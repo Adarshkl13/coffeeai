@@ -2019,12 +2019,12 @@ module MachineLearningContent
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
           <p>The starter trains logistic regression and three networks on the curved "moons" data (450 training rows, 150 test rows).</p>
-          <div class="lc-code">=== One neuron vs small networks (all scaled) ===<br>LogisticRegression  | params    3 | train 0.889 | test 0.853<br>MLP (2,)            | params    9 | train 0.887 | test 0.853 | epochs 505<br>MLP (16,)           | params   65 | train 0.887 | test 0.860 | epochs 245<br>MLP (16, 16)        | params  337 | train 0.958 | test 0.900 | epochs 715<br><br>=== The loss falls as the network learns (hidden=(16,)) ===<br>epoch    1: log loss 0.878<br>epoch   10: log loss 0.783<br>epoch   50: log loss 0.519<br>epoch  200: log loss 0.282<br>epoch  245: log loss 0.277<br><br>=== A big network: alpha (L2 penalty) controls overfitting ===<br>alpha=0.0001 | train 0.958 | test 0.900<br>alpha=1.0    | train 0.933 | test 0.893<br><br>=== Probabilities for new points (hidden=(16,)) ===<br>[0. 1.] -&gt; P(class 1) = 0.014<br>[ 1.  -0.5] -&gt; P(class 1) = 0.966<br>[0.5  0.25] -&gt; P(class 1) = 0.526</div>
+          <div class="lc-code">=== One neuron vs small networks (all scaled) ===<br>LogisticRegression  | params    3 | train 0.889 | test 0.853<br>MLP (2,)            | params    9 | train 0.887 | test 0.853 | epochs 505<br>MLP (16,)           | params   65 | train 0.887 | test 0.860 | epochs 245<br>MLP (16, 16)        | params  337 | train 0.958 | test 0.900 | epochs 715<br><br>=== Training loss (log loss + L2 penalty) falls as the network learns (hidden=(16,)) ===<br>epoch    1: training loss 0.878<br>epoch   10: training loss 0.783<br>epoch   50: training loss 0.519<br>epoch  200: training loss 0.282<br>epoch  245: training loss 0.277<br><br>=== A big network: alpha trades training fit for simplicity ===<br>alpha=0.0001 | train 0.958 | test 0.900<br>alpha=1.0    | train 0.933 | test 0.893<br><br>=== Probabilities for new points (hidden=(16,)) ===<br>[0. 1.] -&gt; P(class 1) = 0.014<br>[ 1.  -0.5] -&gt; P(class 1) = 0.966<br>[0.5  0.25] -&gt; P(class 1) = 0.526</div>
           <ul class="lc-list">
             <li>Logistic regression and the tiny <code>(2,)</code> network both stop at 0.853: a boundary that is almost straight cannot follow the moons.</li>
             <li>Two hidden layers of 16 units (337 parameters) bend the boundary and reach 0.900 on the test set.</li>
-            <li>The loss curve (<code>loss_curve_</code>) falls quickly at first and then flattens; training stopped at epoch 245 because the loss stopped improving.</li>
-            <li>The big <code>(100, 100)</code> network with a strong penalty (<code>alpha=1.0</code>) fits the training set less closely (0.958 → 0.933) and its train–test gap shrinks from 0.058 to 0.040. On noisy or small data, choose <code>alpha</code> with cross-validation.</li>
+            <li>The loss curve (<code>loss_curve_</code>) is the <strong>training loss</strong>: log loss plus the L2 penalty, measured on the training rows. It falls quickly at first and then flattens; training stopped at epoch 245 because the loss stopped improving.</li>
+            <li>The big <code>(100, 100)</code> network with a strong penalty (<code>alpha=1.0</code>) fits the training set less closely (0.958 → 0.933) and its train–test gap shrinks from 0.058 to 0.040, but test accuracy does not improve (0.900 → 0.893). A stronger penalty buys a simpler model, not automatically a better one: choose <code>alpha</code> with cross-validation.</li>
             <li>The point <code>[0.5, 0.25]</code> sits near the boundary, so the model is unsure (0.526).</li>
           </ul>
         </div>
@@ -2091,13 +2091,13 @@ module MachineLearningContent
             print(f"MLP {str(hidden):15} | params {count_params(net):4} | train {pipe.score(X_tr, y_tr):.3f}"
                   f" | test {pipe.score(X_te, y_te):.3f} | epochs {net.n_iter_}")
 
-        print("\n=== The loss falls as the network learns (hidden=(16,)) ===")
+        print("\n=== Training loss (log loss + L2 penalty) falls as the network learns (hidden=(16,)) ===")
         net = MLPClassifier(hidden_layer_sizes=(16,), max_iter=2000, random_state=0)
         model = make_pipeline(StandardScaler(), net).fit(X_tr, y_tr)
         for epoch in [1, 10, 50, 200, net.n_iter_]:
-            print(f"epoch {epoch:4}: log loss {net.loss_curve_[epoch - 1]:.3f}")
+            print(f"epoch {epoch:4}: training loss {net.loss_curve_[epoch - 1]:.3f}")
 
-        print("\n=== A big network: alpha (L2 penalty) controls overfitting ===")
+        print("\n=== A big network: alpha trades training fit for simplicity ===")
         for alpha in [0.0001, 1.0]:
             big = make_pipeline(StandardScaler(),
                                 MLPClassifier(hidden_layer_sizes=(100, 100), alpha=alpha,

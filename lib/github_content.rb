@@ -1927,20 +1927,20 @@ module GithubContent
         # Each line of FILE looks like &quot;Masala chai - 20&quot;.
         file=&quot;$1&quot;
         max=&quot;$2&quot;
-        count=0
+        n=0
         bad=0
         while IFS= read -r line; do
           item=&quot;${line% - *}&quot;
           price=&quot;${line##* - }&quot;
-          count=$((count + 1))
+          n=$((n + 1))
           if [ &quot;$price&quot; -gt &quot;$max&quot; ]; then
-            echo &quot;::error::$item costs $price (limit $max)&quot;
+            echo &quot;::error file=$file,line=$n::$item costs $price (limit $max)&quot;
             bad=$((bad + 1))
           else
             echo &quot;ok: $item ($price)&quot;
           fi
         done &lt; &quot;$file&quot;
-        echo &quot;items=$count&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;
+        echo &quot;items=$n&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;
         [ &quot;$bad&quot; -eq 0 ]
         $ chmod +x .github/actions/price-check/check_prices.sh
         $ GITHUB_OUTPUT=out.txt .github/actions/price-check/check_prices.sh menu.txt 30; echo &quot;exit code: $?&quot;
@@ -1952,13 +1952,13 @@ module GithubContent
         items=3
         $ GITHUB_OUTPUT=out.txt .github/actions/price-check/check_prices.sh menu.txt 22; echo &quot;exit code: $?&quot;
         ok: Masala chai (20)
-        ::error::Ginger chai costs 25 (limit 22)
+        ::error file=menu.txt,line=2::Ginger chai costs 25 (limit 22)
         ok: Samosa (15)
         exit code: 1
         $ rm out.txt</code></pre></div>
           <ul class="lc-list">
             <li>Writing <code>name=value</code> to the file in <code>$GITHUB_OUTPUT</code> is how a step sets an output. Locally we point it at <code>out.txt</code>.</li>
-            <li>A line starting with <code>::error::</code> is a <strong>workflow command</strong>: on GitHub it becomes a red annotation on the run and in the PR.</li>
+            <li>A line starting with <code>::error</code> is a <strong>workflow command</strong>: on GitHub it becomes a red annotation. Because it names <code>file=</code> and <code>line=</code> (<code>n</code> counts the lines as they are read), the annotation appears in the run summary <em>and</em> next to that line on the PR's <strong>Files changed</strong> tab — if the PR changes that line.</li>
             <li>Exit code <code>1</code> makes the step, the job and the check fail.</li>
           </ul>
         </div>
@@ -2103,7 +2103,7 @@ module GithubContent
           <h3>Try It</h3>
           <ol class="lc-list">
             <li>Create the <code>price-check</code> action and script in a practice repository and test the script locally with limits 30 and 22, as above.</li>
-            <li>Add <code>menu-check.yml</code>, open a PR that raises a price above 30, and find the red annotation on the Files changed tab.</li>
+            <li>Add <code>menu-check.yml</code>, open a PR that raises a price above 30, and find the red annotation: in the run summary, and next to the changed line of <code>menu.txt</code> on the Files changed tab.</li>
             <li>Turn your CI job from lesson 14 into a reusable workflow with a <code>python-version</code> input, and call it twice from <code>ci.yml</code> with <code>"3.13"</code> and <code>"3.14"</code>.</li>
             <li>Give the action an extra output <code>too-expensive</code> (the number of failing items) and print it in the workflow.</li>
           </ol>

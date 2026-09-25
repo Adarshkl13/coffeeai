@@ -2197,6 +2197,10 @@ module SqlContent
         <div class="lc-code">UPDATE products SET price_paise = 119900 WHERE id = 1;&nbsp;&nbsp;&nbsp;-- 129900 -&gt; 119900: logged<br>UPDATE products SET price_paise = 49900&nbsp;&nbsp;WHERE id = 2;&nbsp;&nbsp;&nbsp;-- same price: WHEN is false<br>UPDATE products SET name = 'Mechanical Keyboard' WHERE id = 1; -- other column: does not fire<br><br>SELECT product_id, old_price, new_price FROM price_log;</div>
         <div class="lc-code">product_id&nbsp;&nbsp;old_price&nbsp;&nbsp;new_price<br>----------&nbsp;&nbsp;---------&nbsp;&nbsp;---------<br>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;129900&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;119900</div>
           <p>Only one row was logged. <code>UPDATE OF price_paise</code> ignores updates to other columns, and the <code>WHEN</code> clause skips "changes" that keep the same value.</p>
+          <p>The starter then places three orders (3 keyboards, 5 mice, 2 keyboards). The <code>reduce_stock</code> trigger takes each quantity out of stock, so its last query shows:</p>
+        <div class="lc-code">SELECT id, name, stock FROM products;</div>
+        <div class="lc-code">id&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stock<br>--&nbsp;&nbsp;-------------------&nbsp;&nbsp;-----<br>1&nbsp;&nbsp;&nbsp;Mechanical Keyboard&nbsp;&nbsp;5<br>2&nbsp;&nbsp;&nbsp;Mouse&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20</div>
+          <p>Keyboard stock went from 10 to 5 and Mouse stock from 25 to 20.</p>
         </div>
 
         <div class="lc-card">

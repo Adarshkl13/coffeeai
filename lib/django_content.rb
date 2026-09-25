@@ -1003,7 +1003,7 @@ module DjangoContent
             <li>Lines 1 and 2: the QuerySet methods hide the inactive "Old" wallet and chain together.</li>
             <li>Line 4: the transfer committed, so the <code>on_commit</code> message was printed.</li>
             <li>Line 5: Ravi's debit broke <code>balance_not_negative</code>. Asha had <em>already</em> been credited Rs 1000 inside the block, but the rollback undid it, and no SMS was sent.</li>
-            <li>Line 6: <code>full_clean()</code> found both problems in Python, before any SQL ran.</li>
+            <li>Line 6: <code>full_clean()</code> found both problems before anything was saved (it only ran read queries).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1084,7 +1084,7 @@ module DjangoContent
             print("   Balances:", [str(w) for w in Wallet.objects.all()])
         print("6. full_clean() before saving:")
         try:
-            Wallet(owner="Asha", balance=-5).full_clean()   # checks fields AND constraints in Python
+            Wallet(owner="Asha", balance=-5).full_clean()   # checks fields AND constraints before saving
         except ValidationError as e:
             print("  ", e.messages)
       PYTHON
