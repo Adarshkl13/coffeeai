@@ -125,12 +125,16 @@ export default class extends Controller {
   console.error = (...a) => { line(a.map(fmt).join(' '),'error'); };
   console.warn  = (...a) => { line(a.map(fmt).join(' '),'warn');  };
   console.info  = (...a) => { line(a.map(fmt).join(' '),'info');  };
-  try {
-    ${code.replace(/`/g, '\\`').replace(/\$/g, '\\$').replace(/\\/g, '\\\\')}
-  } catch(e) {
-    line('Error: ' + e.message, 'error');
-  }
+  // Syntax errors and uncaught errors in the learner's script (which runs separately below)
+  window.onerror = (msg) => { line(String(msg).replace(/^Uncaught /, ''), 'error'); return true; };
+  window.addEventListener('unhandledrejection', (e) => {
+    const r = e.reason;
+    line('Uncaught (in promise) ' + (r && r.message ? r.name + ': ' + r.message : fmt(r)), 'error');
+  });
 })();
+<\/script>
+<script>
+${code.replace(/<\/script/gi, '<\\/script')}
 <\/script>
 </body>
 </html>`
