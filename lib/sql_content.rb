@@ -29,7 +29,7 @@ module SqlContent
         </div>
 
         <div class="lc-card">
-          <h3>The Four Families of SQL Statements</h3>
+          <h3>The Main Families of SQL Statements</h3>
           <table class="lc-table">
             <thead><tr><th>Family</th><th>Statements</th><th>What they do</th></tr></thead>
             <tbody>
@@ -37,6 +37,7 @@ module SqlContent
               <tr><td>DML — Data Manipulation</td><td><code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code></td><td>Add, change and remove rows</td></tr>
               <tr><td>DQL — Query</td><td><code>SELECT</code></td><td>Read data (often grouped with DML)</td></tr>
               <tr><td>TCL — Transaction Control</td><td><code>BEGIN</code>, <code>COMMIT</code>, <code>ROLLBACK</code></td><td>Group changes so they succeed or fail together</td></tr>
+              <tr><td>DCL — Data Control</td><td><code>GRANT</code>, <code>REVOKE</code></td><td>Give or take away permissions (who may read or change which tables). Server databases such as PostgreSQL and MySQL have them; SQLite has no users, so it has no DCL</td></tr>
             </tbody>
           </table>
           <p>Together, INSERT / SELECT / UPDATE / DELETE are often called <strong>CRUD</strong>: Create, Read, Update, Delete.</p>

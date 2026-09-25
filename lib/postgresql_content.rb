@@ -215,7 +215,8 @@ module PostgresqlContent
         <div class="lc-code">SELECT '42'::integer + 1          AS cast_int,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CAST('2026-09-25' AS date) + 7 AS week_later,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.14159::numeric(5,2)      AS rounded,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'yes'::boolean             AS cast_bool,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pg_typeof(3.14)            AS type_of_literal;</div>
           <p><strong>Output:</strong></p>
         <div class="lc-code">&nbsp;cast_int | week_later | rounded | cast_bool | type_of_literal<br>----------+------------+---------+-----------+----------------<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;43 | 2026-10-02 |    3.14 | t         | numeric</div>
-          <p>Watch integer division: <code>7 / 2</code> is <code>3</code> because both sides are integers. Write <code>7 / 2.0</code> or <code>7::numeric / 2</code> to get <code>3.5</code>.</p>
+          <p>Watch integer division: <code>7 / 2</code> is <code>3</code> because both sides are integers. Write <code>7 / 2.0</code> or <code>7::numeric / 2</code> to get a decimal answer — but numeric division keeps many digits, so round it for display:</p>
+        <div class="lc-code">SELECT 7 / 2 AS int_division, 7 / 2.0 AS numeric_division, round(7 / 2.0, 1) AS rounded;<br><br>&nbsp;int_division |&nbsp;&nbsp;numeric_division&nbsp;&nbsp;| rounded<br>--------------+--------------------+---------<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3 | 3.5000000000000000 |     3.5</div>
         </div>
 
         <div class="lc-card">
@@ -263,7 +264,9 @@ module PostgresqlContent
                0.1::numeric + 0.2::numeric = 0.3      AS numeric_equals_03;
 
         -- 2. Integer division surprise
-        SELECT 7 / 2 AS int_division, 7 / 2.0 AS numeric_division, 7 % 2 AS remainder;
+        --    7 / 2.0 prints 3.5000000000000000; round() tidies it to 3.5
+        SELECT 7 / 2 AS int_division, 7 / 2.0 AS numeric_division,
+               round(7 / 2.0, 1) AS rounded_division, 7 % 2 AS remainder;
 
         -- 3. Casting with :: and CAST()
         SELECT '42'::integer + 1          AS cast_int,
@@ -1749,6 +1752,15 @@ module PostgresqlContent
         </div>
 
         <div class="lc-card">
+          <h3>Declarative Partitioning for Very Big Tables</h3>
+          <p>When one table grows to hundreds of millions of rows (orders, logs, sensor readings), you can split it into <strong>partitions</strong>. You still query the parent table; PostgreSQL stores each row in the right child table and skips partitions that cannot match (<strong>partition pruning</strong>). Dropping a whole old year becomes <code>DROP TABLE orders_2025</code> instead of a slow <code>DELETE</code>.</p>
+        <div class="lc-code">CREATE TABLE orders (<br>&nbsp;&nbsp;id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bigint GENERATED ALWAYS AS IDENTITY,<br>&nbsp;&nbsp;order_day date&nbsp;&nbsp;&nbsp;&nbsp;NOT NULL,<br>&nbsp;&nbsp;amount&nbsp;&nbsp;&nbsp;&nbsp;numeric(10,2) NOT NULL<br>) PARTITION BY RANGE (order_day);<br><br>CREATE TABLE orders_2025 PARTITION OF orders FOR VALUES FROM ('2025-01-01') TO ('2026-01-01');<br>CREATE TABLE orders_2026 PARTITION OF orders FOR VALUES FROM ('2026-01-01') TO ('2027-01-01');<br><br>INSERT INTO orders (order_day, amount)<br>VALUES ('2025-11-03', 499), ('2026-02-14', 1299), ('2026-09-25', 250);<br><br>SELECT tableoid::regclass AS partition, order_day, amount FROM orders ORDER BY order_day;<br>EXPLAIN (COSTS OFF) SELECT sum(amount) FROM orders WHERE order_day &gt;= '2026-06-01';</div>
+          <p><strong>Output:</strong></p>
+        <div class="lc-code">&nbsp;&nbsp;partition&nbsp;&nbsp;| order_day&nbsp;&nbsp;| amount<br>-------------+------------+---------<br>&nbsp;orders_2025 | 2025-11-03 |&nbsp;&nbsp;499.00<br>&nbsp;orders_2026 | 2026-02-14 | 1299.00<br>&nbsp;orders_2026 | 2026-09-25 |&nbsp;&nbsp;250.00<br><br>&nbsp;Aggregate<br>&nbsp;&nbsp;&nbsp;-&gt;&nbsp;&nbsp;Seq Scan on orders_2026 orders<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filter: (order_day &gt;= '2026-06-01'::date)</div>
+          <p>The plan reads only <code>orders_2026</code>. The ranges are <em>from</em> inclusive, <em>to</em> exclusive. Inserting a 2027 order fails with <code>ERROR: no partition of relation "orders" found for row</code> — create next year's partition in advance (or add a <code>DEFAULT</code> partition). You can also partition <code>BY LIST (state)</code> or <code>BY HASH (id)</code>. Partitioning helps only when most queries filter on the partition key; for a few million rows, a good index is usually enough.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Running <code>EXPLAIN ANALYZE</code> on a <code>DELETE</code> or <code>UPDATE</code>. It really executes! Wrap it in <code>BEGIN; ... ROLLBACK;</code>.</li>
@@ -2436,7 +2448,8 @@ module PostgresqlContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Forgetting <code>RETURN NEW</code> in a <code>BEFORE</code> row trigger. Returning NULL silently skips the insert or update.</li>
+            <li>Forgetting <code>RETURN NEW</code> in a <code>BEFORE</code> row trigger. The function falls off the end and the statement fails with <code>ERROR: control reached end of trigger procedure without RETURN</code>.</li>
+            <li>Writing <code>RETURN NULL</code> in a <code>BEFORE</code> row trigger by mistake. That is legal: it <strong>silently skips</strong> the insert or update of that row, with no error. Return <code>NULL</code> only when skipping is what you want.</li>
             <li>Marking a function <code>IMMUTABLE</code> when it reads a table or <code>now()</code>. Results can be wrong and cached.</li>
             <li>Putting heavy business logic in triggers. It hides behaviour and slows every write; keep triggers small.</li>
             <li>Writing <code>EXECUTE PROCEDURE</code> in <code>CREATE TRIGGER</code>. It still works but is the old spelling; use <code>EXECUTE FUNCTION</code>.</li>
@@ -2573,6 +2586,23 @@ module PostgresqlContent
             </tbody>
           </table>
           <p>A backup you have never restored is only a hope. Restore to a test server regularly.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Bulk Loading with COPY</h3>
+          <p>To load thousands or millions of rows (a CSV export, a data import), don't run one <code>INSERT</code> per row. <code>COPY</code> streams the whole file in one command and is many times faster.</p>
+        <div class="lc-code">CREATE TABLE marks (student text, score integer);<br><br>COPY marks FROM STDIN WITH (FORMAT csv, HEADER true);<br>student,score<br>Asha,91<br>Meena,78<br>\.</div>
+          <p><strong>Output (in psql):</strong> <code>COPY 2</code> — two rows loaded. Export works the other way round:</p>
+        <div class="lc-code">COPY (SELECT student, score FROM marks ORDER BY score DESC)<br>TO STDOUT WITH (FORMAT csv, HEADER true);<br><br>student,score<br>Asha,91<br>Meena,78</div>
+          <table class="lc-table">
+            <thead><tr><th>Form</th><th>Where the file lives</th></tr></thead>
+            <tbody>
+              <tr><td><code>COPY marks FROM '/data/marks.csv' ...</code></td><td>On the <strong>database server</strong>; needs superuser or the <code>pg_read_server_files</code> role</td></tr>
+              <tr><td><code>\copy marks FROM 'marks.csv' WITH (FORMAT csv, HEADER true)</code></td><td>On <strong>your computer</strong>; psql reads it and sends it over the connection — use this with cloud databases</td></tr>
+              <tr><td><code>COPY ... FROM STDIN</code></td><td>Sent by your program; drivers such as psycopg (<code>cursor.copy()</code>) use this</td></tr>
+            </tbody>
+          </table>
+          <p>Since PostgreSQL 17, <code>WITH (FORMAT csv, ON_ERROR ignore)</code> skips rows with bad values instead of failing the whole load, and reports <code>NOTICE: 1 row was skipped due to data type incompatibility</code>. <code>COPY</code> does not run in this browser sandbox (there is no file system or STDIN); try it with psql on a real server.</p>
         </div>
 
         <div class="lc-card">

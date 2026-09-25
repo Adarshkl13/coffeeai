@@ -26,10 +26,11 @@ module MysqlContent
             <tbody>
               <tr><td>MySQL 9.7</td><td>LTS (long-term support)</td><td>Released April 2026 — the newest LTS; good choice for new projects</td></tr>
               <tr><td>MySQL 8.4</td><td>LTS</td><td>Supported (premier support to 2029); very common in production</td></tr>
-              <tr><td>MySQL 9.x innovation releases</td><td>Innovation</td><td>New features about every quarter; each supported only until the next</td></tr>
+              <tr><td>MySQL 26.7</td><td>Innovation</td><td>Released 28 July 2026 (26.7.0). New features about every quarter; each supported only until the next (26.10 is due in October 2026)</td></tr>
               <tr><td>MySQL 8.0</td><td>Old</td><td>End of life (April 2026) — upgrade</td></tr>
             </tbody>
           </table>
+          <p><strong>New version numbers:</strong> after 9.7 LTS, innovation releases use calendar versions <code>YY.M.P</code> — 26.7.0 means 2026, July, patch 0. There is no 9.8. The LTS lines 8.4 and 9.7 keep their names.</p>
           <p>Everything in this course works on MySQL 8.4 and 9.7. MariaDB is a separate fork of MySQL; much is similar, but features like JSON and authentication differ.</p>
         </div>
 
@@ -239,7 +240,7 @@ module MysqlContent
         <p class="lc-lead">MySQL's <code>sql_mode</code> setting decides how strictly the server treats bad data and ambiguous SQL. With <strong>strict mode</strong> on (the default since MySQL 5.7), invalid values cause an error. Old tutorials and old servers ran without it, silently changing your data — you must recognise both behaviours.</p>
 
         <div class="lc-card">
-          <h3>The Default sql_mode (MySQL 8.4 / 9.x)</h3>
+          <h3>The Default sql_mode (MySQL 8.4 and later)</h3>
         <div class="lc-code">mysql&gt; SELECT @@SESSION.sql_mode\G<br>@@SESSION.sql_mode: ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION</div>
           <table class="lc-table">
             <thead><tr><th>Mode</th><th>Effect</th></tr></thead>
@@ -695,7 +696,8 @@ module MysqlContent
         <div class="lc-card">
           <h3>ON DUPLICATE KEY UPDATE (Modern Syntax)</h3>
         <div class="lc-code">INSERT INTO stock (sku, name, qty)<br>VALUES ('TEA-1', 'Tea 250g', 20),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;('JAM-1', 'Mango Jam', 4)<br>AS new<br>ON DUPLICATE KEY UPDATE<br>&nbsp;&nbsp;&nbsp;&nbsp;qty&nbsp;&nbsp;= stock.qty + new.qty,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- add the delivered quantity<br>&nbsp;&nbsp;&nbsp;&nbsp;name = new.name;</div>
-          <p><code>AS new</code> (MySQL 8.0.19+) names the row you tried to insert, like <code>excluded</code> in PostgreSQL/SQLite. The old form <code>qty = qty + VALUES(qty)</code> still works but is <strong>deprecated since 8.0.20</strong> — old way, don't use it in new code.</p>
+          <p><code>AS new</code> (MySQL 8.0.19+) names the row you tried to insert, like <code>excluded</code> in PostgreSQL/SQLite. The old form <code>qty = qty + VALUES(qty)</code> still works but is <strong>deprecated since 8.0.20</strong> — old way, don't use it in new code. Why deprecated? Since 8.0.19, <code>VALUES</code> is also a statement of its own (<code>VALUES ROW(1, 'a')</code>), so a <code>VALUES()</code> <em>function</em> with a different meaning inside the same INSERT is confusing, and the row alias works the same way as standard SQL table aliases. MySQL plans to remove <code>VALUES()</code> here.</p>
+          <p><strong>In this sandbox:</strong> the compatibility layer does not understand the <code>AS new</code> row alias, so the starter code repeats the delivered number as a constant (<code>qty = qty + 7</code>). A comment next to each upsert shows the <code>AS new</code> form to use on a real server.</p>
           <p>The "affected rows" count tells you what happened per row: <strong>1</strong> = inserted, <strong>2</strong> = an existing row was updated, <strong>0</strong> = the existing row already had those values.</p>
         </div>
 
@@ -759,10 +761,15 @@ module MysqlContent
         SELECT sku, name, qty FROM products;
 
         -- 2. ON DUPLICATE KEY UPDATE: a delivery of 7 adds to the existing row
-        --    (MySQL 8.0.19+ can also write: VALUES (...) AS new ... qty = qty + new.qty)
+        --    The sandbox cannot read the row alias, so it repeats the constant 7.
+        --    On a real server write the modern form:
+        --      INSERT INTO products (sku, name, qty, price) VALUES ('TEA-1', 'Tea 250g', 7, 120.00) AS new
+        --      ON DUPLICATE KEY UPDATE qty = products.qty + new.qty;
         INSERT INTO products (sku, name, qty, price) VALUES ('TEA-1', 'Tea 250g', 7, 120.00)
         ON DUPLICATE KEY UPDATE qty = qty + 7;
         --    ...and a new sku is simply inserted
+        --    Real server: ... VALUES ('JAM-1', 'Mango Jam', 4, 90.00) AS new
+        --                 ON DUPLICATE KEY UPDATE qty = products.qty + new.qty;
         INSERT INTO products (sku, name, qty, price) VALUES ('JAM-1', 'Mango Jam', 4, 90.00)
         ON DUPLICATE KEY UPDATE qty = qty + 4;
         SELECT sku, name, qty, price FROM products ORDER BY sku;
@@ -1203,7 +1210,9 @@ module MysqlContent
         UPDATE products SET attrs = JSON_SET(attrs, '$.ram_gb', 12) WHERE name = 'Phone X';
         SELECT name, attrs->>'$.ram_gb' AS ram_after_update FROM products WHERE name = 'Phone X';
 
-        -- Build JSON from columns (MySQL prints it with a space after : and ,)
+        -- Build JSON from columns
+        --   MySQL prints:   {"name": "Kurta", "price": 899.00}
+        --   sandbox prints: {"name":"Kurta","price":899.0}  (no spaces; 899.0, not 899.00)
         SELECT JSON_OBJECT('name', name, 'price', price) AS api_row
         FROM products WHERE name = 'Kurta';
 
@@ -1485,7 +1494,7 @@ module MysqlContent
         <div class="lc-card">
           <h3>EXPLAIN ANALYZE (8.0.18+)</h3>
         <div class="lc-code">EXPLAIN ANALYZE SELECT * FROM orders WHERE customer_id = 42;<br>-&gt; Index lookup on orders using idx_orders_customer (customer_id=42)<br>&nbsp;&nbsp;&nbsp;(cost=0.7 rows=2) (actual time=0.031..0.036 rows=2 loops=1)</div>
-          <p>It <strong>runs</strong> the query and prints the plan as a tree with real timings and row counts next to the estimates. Careful: on an UPDATE or DELETE it really executes too. <code>EXPLAIN FORMAT=TREE</code> shows the same tree without running the query.</p>
+          <p>It <strong>runs</strong> the query and prints the plan as a tree with real timings and row counts next to the estimates. It works with <code>SELECT</code>, <code>TABLE</code> and <strong>multi-table</strong> <code>UPDATE</code>/<code>DELETE</code> statements (a single-table UPDATE or DELETE gives an error). Because it really runs the statement, try it on a multi-table UPDATE/DELETE only inside <code>START TRANSACTION; ... ROLLBACK;</code>. <code>EXPLAIN FORMAT=TREE</code> shows the same tree without running the query.</p>
         </div>
 
         <div class="lc-card">
@@ -1794,7 +1803,7 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Users, Roles and Privileges</h1>
         </div>
-        <p class="lc-lead">Every connection to MySQL logs in as an <strong>account</strong>, and each account has exactly the <strong>privileges</strong> you grant it. Giving your web app the root password is like giving every visitor the keys to the server room. This lesson shows how to set up accounts properly in MySQL 8.4 / 9.x.</p>
+        <p class="lc-lead">Every connection to MySQL logs in as an <strong>account</strong>, and each account has exactly the <strong>privileges</strong> you grant it. Giving your web app the root password is like giving every visitor the keys to the server room. This lesson shows how to set up accounts properly in MySQL 8.4 and later.</p>
 
         <div class="lc-card">
           <h3>Accounts Are 'user'@'host'</h3>
@@ -1944,7 +1953,7 @@ module MysqlContent
         <div class="lc-card">
           <h3>Replication Overview</h3>
         <div class="lc-code">[source]&nbsp;&nbsp;--binary log--&gt;&nbsp;&nbsp;[replica 1]&nbsp;&nbsp;(reads, reports)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\--&gt;&nbsp;&nbsp;[replica 2]&nbsp;&nbsp;(standby for failover)</div>
-        <div class="lc-code">-- on the replica (MySQL 8.4 / 9.x syntax, with GTIDs)<br>CHANGE REPLICATION SOURCE TO<br>&nbsp;&nbsp;&nbsp;&nbsp;SOURCE_HOST = '10.0.1.10', SOURCE_USER = 'repl', SOURCE_PASSWORD = '...',<br>&nbsp;&nbsp;&nbsp;&nbsp;SOURCE_AUTO_POSITION = 1, SOURCE_SSL = 1;<br>START REPLICA;<br>SHOW REPLICA STATUS\G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- check Replica_IO_Running, Replica_SQL_Running, Seconds_Behind_Source</div>
+        <div class="lc-code">-- on the replica (MySQL 8.4 and later syntax, with GTIDs)<br>CHANGE REPLICATION SOURCE TO<br>&nbsp;&nbsp;&nbsp;&nbsp;SOURCE_HOST = '10.0.1.10', SOURCE_USER = 'repl', SOURCE_PASSWORD = '...',<br>&nbsp;&nbsp;&nbsp;&nbsp;SOURCE_AUTO_POSITION = 1, SOURCE_SSL = 1;<br>START REPLICA;<br>SHOW REPLICA STATUS\G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- check Replica_IO_Running, Replica_SQL_Running, Seconds_Behind_Source</div>
           <ul class="lc-list">
             <li>Replication is <strong>asynchronous</strong> by default: a replica may be seconds behind (replication lag). Reading from a replica right after writing to the source can show old data.</li>
             <li><strong>GTIDs</strong> (global transaction ids) let replicas track their position automatically — use them.</li>
@@ -2223,6 +2232,8 @@ module MysqlContent
             ('SAREE-01', 'Silk Saree',  2499.00, 5, '{"brand": "Kanchi", "fabric": "silk"}'),
             ('KETTLE-1', 'Kettle 1.5L',  599.00, 8, '{"brand": "Prestige", "watts": 1500}');
         -- Restock with an upsert: the SKU exists, so stock is added
+        -- (sandbox uses the constant 4; real server: ... VALUES (...) AS new
+        --  ON DUPLICATE KEY UPDATE stock = products.stock + new.stock;)
         INSERT INTO products (sku, name, price, stock) VALUES ('KETTLE-1', 'Kettle 1.5L', 599.00, 4)
         ON DUPLICATE KEY UPDATE stock = stock + 4;
         INSERT INTO orders (customer_id, ordered_at) VALUES (2, '2026-08-14 12:30:00');  -- past order
