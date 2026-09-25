@@ -5,7 +5,7 @@ namespace :content do
   task sql: :environment do
     course = Course.find_or_create_by!(slug: "sql") do |c|
       c.title       = "SQL"
-      c.description = "SQL is the universal language of data. Learn to create databases, query millions of records, join tables, aggregate data, and manage transactions — skills used by every developer, analyst, and data scientist."
+      c.description = "SQL is the universal language of data. Design tables with the right types and constraints, query and join data, handle NULLs, write CTEs and window functions, tune queries with indexes, and keep data safe with transactions — all on real SQLite."
       c.color       = "#0ea5e9"
       c.icon        = "🗄️"
       c.position    = 10
@@ -14,59 +14,59 @@ namespace :content do
     puts "Course: #{course.title}"
 
     titles = {
-      1  => "Introduction to SQL",          2  => "CREATE TABLE and Data Types",
-      3  => "INSERT INTO",                   4  => "SELECT Queries",
-      5  => "WHERE Clause",                  6  => "ORDER BY and LIMIT",
-      7  => "UPDATE and DELETE",             8  => "Aggregate Functions",
-      9  => "GROUP BY and HAVING",           10 => "INNER JOIN",
-      11 => "LEFT JOIN and RIGHT JOIN",      12 => "Subqueries",
-      13 => "DISTINCT and Aliases",          14 => "String Functions",
-      15 => "Date and Time Functions",       16 => "Indexes",
-      17 => "Constraints",                   18 => "Transactions",
-      19 => "Views",                         20 => "SQL Review"
+      1  => "Introduction to SQL",              2  => "CREATE TABLE and Data Types",
+      3  => "Inserting Data",                   4  => "SELECT Queries",
+      5  => "Filtering with WHERE",             6  => "NULL and Three-Valued Logic",
+      7  => "ORDER BY, LIMIT and Pagination",   8  => "UPDATE, DELETE and Upserts",
+      9  => "Aggregates, GROUP BY and HAVING",  10 => "Constraints and Keys",
+      11 => "INNER JOIN",                       12 => "Outer Joins and Self Joins",
+      13 => "Normalization and Schema Design",  14 => "Subqueries and Set Operations",
+      15 => "CASE and Built-in Functions",      16 => "CTEs and Views",
+      17 => "Window Functions",                 18 => "Indexes and Query Plans",
+      19 => "Transactions and ACID",            20 => "Capstone: Online Store Analytics"
     }
 
     exercises = {
-      1  => { type: "multiple_choice", q: "What does it mean that SQL is a declarative language?",
-              opts: ["A) You write step-by-step loops that tell the database how to scan each row", "B) You describe what data you want, and the database works out how to retrieve it", "C) It can only declare tables, not query them"], ans: "B" },
-      2  => { type: "multiple_choice", q: "How does DROP TABLE IF EXISTS employees; differ from DROP TABLE employees;?",
-              opts: ["A) It only drops the table if the table is empty", "B) It moves the table to an archive instead of deleting it", "C) It does not raise an error when the table does not exist"], ans: "C" },
-      3  => { type: "multiple_choice", q: "Why does the lesson recommend always listing column names in INSERT statements?",
-              opts: ["A) Named inserts run much faster than inserts without column names", "B) The INSERT keeps working correctly if columns are later added to the table", "C) SQL rejects every INSERT statement that does not list its columns"], ans: "B" },
-      4  => { type: "true_false",      q: "Using SELECT * in production code is recommended because the query automatically adapts when columns are added or reordered.",
+      1  => { type: "multiple_choice", q: "Which family of SQL statements does CREATE TABLE belong to?",
+              opts: ["A) DML — Data Manipulation Language", "B) DDL — Data Definition Language", "C) TCL — Transaction Control Language"], ans: "B" },
+      2  => { type: "true_false",      q: "In a table whose primary key is id, two rows can still have exactly the same name and price, as long as their id values differ.",
+              opts: ["True", "False"], ans: "True" },
+      3  => { type: "multiple_choice", q: "Someone will add a new column to the books table next month. Which INSERT keeps working correctly after that change?",
+              opts: ["A) INSERT INTO books VALUES ('Godan', 'Premchand', 25000);", "B) Neither; every INSERT must be rewritten when a column is added", "C) INSERT INTO books (title, author, price_paise) VALUES ('Godan', 'Premchand', 25000);"], ans: "C" },
+      4  => { type: "multiple_choice", q: "What does SELECT 7 / 2; return in SQLite?",
+              opts: ["A) 3.5", "B) 3", "C) 4"], ans: "B" },
+      5  => { type: "multiple_choice", q: "Which name matches the pattern LIKE '_ohan'?",
+              opts: ["A) Rohan", "B) Sohana", "C) Trohan"], ans: "A" },
+      6  => { type: "true_false",      q: "SELECT COUNT(*) FROM staff WHERE bonus = NULL; counts the staff whose bonus is missing.",
               opts: ["True", "False"], ans: "False" },
-      5  => { type: "multiple_choice", q: "Which pattern matches 'Bob' and 'Rob' but NOT 'Brob'?",
-              opts: ["A) LIKE '_ob'", "B) LIKE '%ob'", "C) LIKE 'ob%'"], ans: "A" },
-      6  => { type: "true_false",      q: "Without ORDER BY, a SELECT query is guaranteed to return rows in the order they were inserted.",
+      7  => { type: "multiple_choice", q: "You paginate a leaderboard with ORDER BY score DESC, id. Why is id added?",
+              opts: ["A) LIMIT and OFFSET only work when the primary key is in ORDER BY", "B) It makes the query use less memory", "C) It breaks ties between equal scores, so every page is deterministic"], ans: "C" },
+      8  => { type: "multiple_choice", q: "In INSERT ... ON CONFLICT (sku) DO UPDATE SET qty = inventory.qty + excluded.qty, what does excluded refer to?",
+              opts: ["A) The row already stored in the table", "B) The new row you tried to insert", "C) The rows that were deleted by the statement"], ans: "B" },
+      9  => { type: "multiple_choice", q: "What is wrong with: SELECT city, SUM(amount) FROM sales WHERE SUM(amount) > 5000 GROUP BY city;",
+              opts: ["A) An aggregate cannot be used in WHERE; the condition belongs in HAVING", "B) GROUP BY must be written before WHERE", "C) SUM cannot be combined with GROUP BY"], ans: "A" },
+      10 => { type: "true_false",      q: "In SQLite, foreign key constraints are enforced only after PRAGMA foreign_keys = ON; has been run on that connection.",
+              opts: ["True", "False"], ans: "True" },
+      11 => { type: "multiple_choice", q: "Aditi has 2 enrollments and Dinesh has none. How many rows does students INNER JOIN enrollments return for these two students together?",
+              opts: ["A) 3", "B) 1", "C) 2"], ans: "C" },
+      12 => { type: "multiple_choice", q: "After FROM customers c LEFT JOIN orders o ON o.customer_id = c.id, you add WHERE o.amount > 1000. What happens?",
+              opts: ["A) All customers are kept, and small orders show as NULL", "B) Customers without a big order disappear, so it behaves like an INNER JOIN", "C) The query fails because WHERE cannot follow a LEFT JOIN"], ans: "B" },
+      13 => { type: "true_false",      q: "Storing unit_price_paise in order_items breaks normalization, because the price is already stored in the products table.",
               opts: ["True", "False"], ans: "False" },
-      7  => { type: "multiple_choice", q: "What happens if you run UPDATE without a WHERE clause?",
-              opts: ["A) Nothing changes", "B) ALL rows are updated", "C) Only the first row is updated"], ans: "B" },
-      8  => { type: "multiple_choice", q: "Which function counts all rows including those with NULL values?",
-              opts: ["A) COUNT(column)", "B) SUM(*)", "C) COUNT(*)"], ans: "C" },
-      9  => { type: "true_false",      q: "HAVING filters groups after GROUP BY, similar to how WHERE filters rows.",
-              opts: ["True", "False"], ans: "True" },
-      10 => { type: "multiple_choice", q: "INNER JOIN returns:",
-              opts: ["A) Only rows with matches in BOTH tables", "B) All rows from both tables", "C) All rows from the left table"], ans: "A" },
-      11 => { type: "true_false",      q: "LEFT JOIN returns all rows from the left table, even if there is no match in the right table.",
-              opts: ["True", "False"], ans: "True" },
-      12 => { type: "multiple_choice", q: "A subquery that returns multiple rows must use which operator?",
-              opts: ["A) =", "B) IS", "C) IN"], ans: "C" },
-      13 => { type: "multiple_choice", q: "What does COALESCE(bonus, 0) return for a row where bonus is NULL?",
-              opts: ["A) 0", "B) NULL", "C) An error, because NULL cannot be compared"], ans: "A" },
-      14 => { type: "true_false",      q: "In standard SQL (and in SQLite and PostgreSQL), || concatenates strings, whereas MySQL uses the CONCAT() function instead.",
-              opts: ["True", "False"], ans: "True" },
-      15 => { type: "multiple_choice", q: "Which is the recommended format for storing dates in SQLite?",
-              opts: ["A) '15/01/2024'", "B) 20240115", "C) '2024-01-15'"], ans: "C" },
-      16 => { type: "true_false",      q: "Adding an index always makes every operation on a table faster, so you should index every column.",
+      14 => { type: "multiple_choice", q: "SELECT name FROM staff WHERE id NOT IN (SELECT mentor_id FROM staff); returns no rows, although some staff mentor nobody. What is the most likely cause?",
+              opts: ["A) At least one mentor_id is NULL, so NOT IN can never be true", "B) NOT IN does not work with subqueries", "C) The subquery needs a table alias"], ans: "A" },
+      15 => { type: "multiple_choice", q: "Uday was born on 2000-12-01. On 2026-09-25, what does 'current year minus birth year' give, and what is his real age?",
+              opts: ["A) 25 and 25", "B) 26 and 25", "C) 26 and 26"], ans: "B" },
+      16 => { type: "true_false",      q: "A normal (non-materialized) view stores a copy of its results, so it must be refreshed before it shows newly inserted rows.",
               opts: ["True", "False"], ans: "False" },
-      17 => { type: "multiple_choice", q: "Which constraint ensures a column value is not empty?",
-              opts: ["A) DEFAULT", "B) NOT NULL", "C) REQUIRED"], ans: "B" },
-      18 => { type: "multiple_choice", q: "Which SQL command saves all changes made during a transaction?",
-              opts: ["A) COMMIT", "B) SAVE", "C) ROLLBACK"], ans: "A" },
-      19 => { type: "true_false",      q: "A SQL VIEW stores a saved query definition, not the actual data.",
+      17 => { type: "multiple_choice", q: "Sales are 900, 700, 700 and 500. What does RANK() OVER (ORDER BY sales DESC) return, in that order?",
+              opts: ["A) 1, 2, 3, 4", "B) 1, 2, 2, 3", "C) 1, 2, 2, 4"], ans: "C" },
+      18 => { type: "multiple_choice", q: "A table has a composite index on (status, order_date). Which WHERE clause can NOT use it for a normal index search?",
+              opts: ["A) WHERE status = 'paid'", "B) WHERE status = 'paid' AND order_date >= '2026-09-01'", "C) WHERE order_date >= '2026-09-01'"], ans: "C" },
+      19 => { type: "true_false",      q: "ROLLBACK TO SAVEPOINT undoes only the changes made after that savepoint, and the transaction stays open.",
               opts: ["True", "False"], ans: "True" },
-      20 => { type: "multiple_choice", q: "In what order does the database logically process these clauses?",
-              opts: ["A) FROM → WHERE → GROUP BY → HAVING → SELECT", "B) SELECT → FROM → WHERE → GROUP BY → HAVING", "C) FROM → GROUP BY → WHERE → HAVING → SELECT"], ans: "A" }
+      20 => { type: "multiple_choice", q: "Product prices change every month. Which expression gives the correct revenue for past orders?",
+              opts: ["A) SUM(i.qty * i.unit_price_paise) from order_items", "B) SUM(p.price_paise) from products", "C) SUM(i.qty) * MAX(p.price_paise)"], ans: "A" }
     }
 
     SqlContent::LESSONS.each do |position, data|
