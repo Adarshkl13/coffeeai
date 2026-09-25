@@ -1,7 +1,7 @@
 require_relative "../php_content"
 
 namespace :content do
-  desc "Create PHP course and populate all 20 lessons"
+  desc "Create PHP course and populate all 23 lessons"
   task php: :environment do
     description = "PHP runs about 70% of websites whose server-side language is known (W3Techs, 2026). Learn modern PHP 8 — strict types, enums, OOP, web security, PDO, Composer and testing — the foundation of Laravel and WordPress development."
     course = Course.find_or_create_by!(slug: "php") do |c|
@@ -30,12 +30,15 @@ namespace :content do
       12 => "Encapsulation and Readonly Properties",
       13 => "Enums",
       14 => "Inheritance, Interfaces and Traits",
-      15 => "Exceptions and Error Handling",
-      16 => "Dates, JSON and Files",
-      17 => "Forms, Sessions and Web Security",
-      18 => "Databases with PDO",
-      19 => "Namespaces, Composer and Testing",
-      20 => "Capstone: Library Lending System"
+      15 => "Generators and Iterators",
+      16 => "Exceptions and Error Handling",
+      17 => "Dates, JSON and Files",
+      18 => "Including Files and Templates",
+      19 => "Forms, Sessions and Web Security",
+      20 => "Cookies, Redirects and File Uploads",
+      21 => "Databases with PDO",
+      22 => "Namespaces, Composer and Testing",
+      23 => "Capstone: Library Lending System"
     }
 
     descriptions = {
@@ -53,12 +56,15 @@ namespace :content do
       12 => "Protect an object's data with private and protected, validate in the constructor, build immutable value objects with readonly properties and classes, and meet PHP 8.4 property hooks and asymmetric visibility.",
       13 => "Replace magic strings with PHP 8.1 enums — pure and backed cases, from and tryFrom, cases(), methods, interfaces and exhaustive match.",
       14 => "Reuse and organise code with extends, abstract classes, interfaces, traits and the #[\\Override] attribute, and learn when to prefer composition.",
-      15 => "Throw and catch exceptions with try, catch and finally, use multi-catch and custom exception classes, and understand PHP's Throwable, Error and Exception hierarchy.",
-      16 => "Work with dates and time zones using DateTimeImmutable, convert data to and from JSON safely, and read and write files on a real server.",
-      17 => "Handle GET and POST forms, validate input, escape output to stop XSS, protect forms with CSRF tokens, keep users logged in with sessions, store passwords with password_hash, and build a small JSON API endpoint by hand.",
-      18 => "Connect to MySQL with PDO using utf8mb4, run prepared statements with bound values, use transactions, and understand what prepared statements do and do not protect against.",
-      19 => "Organise code with namespaces, install packages and autoload classes with Composer and PSR-4, and write automated tests with PHPUnit.",
-      20 => "Build a small but complete library lending system that combines enums, readonly classes, strict types, exceptions, dates, array functions, JSON and safe HTML output, then plan how to turn it into a real web app."
+      15 => "Produce values lazily with yield, chain generators into memory-friendly pipelines with yield from, and make your own classes work with foreach through IteratorAggregate and Countable.",
+      16 => "Throw and catch exceptions with try, catch and finally, use multi-catch and custom exception classes, and understand PHP's Throwable, Error and Exception hierarchy.",
+      17 => "Work with dates and time zones using DateTimeImmutable, convert data to and from JSON safely, and read and write files on a real server.",
+      18 => "Split code across files with require, include and their _once forms, build paths with __DIR__, return config arrays, write HTML templates with <?= ?> and alternative syntax, and render them with output buffering.",
+      19 => "Handle GET and POST forms, validate input, escape output to stop XSS, protect forms with CSRF tokens, keep users logged in with sessions, store passwords with password_hash, and build a small JSON API endpoint by hand.",
+      20 => "Set secure cookies with setcookie(), redirect safely with header('Location') and 303 See Other, and accept file uploads through $_FILES with content checks, random names and move_uploaded_file().",
+      21 => "Connect to MySQL with PDO using utf8mb4, run prepared statements with bound values, use transactions, and understand what prepared statements do and do not protect against.",
+      22 => "Organise code with namespaces, install packages and autoload classes with Composer and PSR-4, and write automated tests with PHPUnit.",
+      23 => "Build a small but complete library lending system that combines enums, readonly classes, strict types, exceptions, dates, array functions, JSON and safe HTML output, then plan how to turn it into a real web app."
     }
 
     exercises = {
@@ -90,17 +96,23 @@ namespace :content do
               opts: ["A) null", "B) It throws a ValueError", "C) The first case, OrderStatus::Pending"], ans: "A" },
       14 => { type: "true_false", q: "A PHP class can extend only one parent class, but it can implement several interfaces and use several traits.",
               opts: ["True", "False"], ans: "True" },
-      15 => { type: "true_false", q: "In declare(strict_types=1) code, strlen(42) throws a TypeError. A surrounding try { ... } catch (Exception $e) { ... } block catches that TypeError.",
+      15 => { type: "multiple_choice", q: "What does this print?  function nums() { echo 'start '; yield 1; }  $g = nums(); echo 'made '; foreach ($g as $n) echo $n;",
+              opts: ["A) start made 1", "B) made start 1", "C) made 1 (the echo inside nums() never runs)"], ans: "B" },
+      16 => { type: "true_false", q: "In declare(strict_types=1) code, strlen(42) throws a TypeError. A surrounding try { ... } catch (Exception $e) { ... } block catches that TypeError.",
               opts: ["True", "False"], ans: "False" },
-      16 => { type: "true_false", q: "$due = $today->modify('+30 days'); on a DateTimeImmutable also changes $today.",
+      17 => { type: "true_false", q: "$due = $today->modify('+30 days'); on a DateTimeImmutable also changes $today.",
               opts: ["True", "False"], ans: "False" },
-      17 => { type: "multiple_choice", q: "Which is the right way to store a user's password in the database?",
+      18 => { type: "true_false", q: "If config.php ends with return ['debug' => false];, then $cfg = require __DIR__ . '/config.php'; stores that array in $cfg.",
+              opts: ["True", "False"], ans: "True" },
+      19 => { type: "multiple_choice", q: "Which is the right way to store a user's password in the database?",
               opts: ["A) md5($password)", "B) hash('sha256', $salt . $password) with a random salt", "C) password_hash($password, PASSWORD_DEFAULT)"], ans: "C" },
-      18 => { type: "true_false", q: "Because you use PDO prepared statements, it is safe to put $_GET['sort'] straight into the ORDER BY part of the SQL string.",
+      20 => { type: "multiple_choice", q: "A visitor renames shell.php to photo.jpg and uploads it. Which check really stops it?",
+              opts: ["A) Checking that $_FILES['photo']['type'] equals 'image/jpeg'", "B) Checking the file's real bytes, e.g. with finfo", "C) Checking that $_FILES['photo']['name'] ends with '.jpg'"], ans: "B" },
+      21 => { type: "true_false", q: "Because you use PDO prepared statements, it is safe to put $_GET['sort'] straight into the ORDER BY part of the SQL string.",
               opts: ["True", "False"], ans: "False" },
-      19 => { type: "multiple_choice", q: "composer.json maps \"App\\\\\": \"src/\" under psr-4. Which file does Composer load for the class App\\Billing\\Invoice?",
+      22 => { type: "multiple_choice", q: "composer.json maps \"App\\\\\": \"src/\" under psr-4. Which file does Composer load for the class App\\Billing\\Invoice?",
               opts: ["A) src/Billing/Invoice.php", "B) src/App/Billing/Invoice.php", "C) vendor/App/Billing/Invoice.php"], ans: "A" },
-      20 => { type: "true_false", q: "In the capstone, Library::lend() receives the date as a parameter instead of calling new DateTimeImmutable() itself, which makes it easy to test with fixed dates.",
+      23 => { type: "true_false", q: "In the capstone, Library::lend() receives the date as a parameter instead of calling new DateTimeImmutable() itself, which makes it easy to test with fixed dates.",
               opts: ["True", "False"], ans: "True" }
     }
 

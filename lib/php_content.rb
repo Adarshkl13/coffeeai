@@ -33,8 +33,8 @@ module PhpContent
             <tbody>
               <tr><td>PHP 8.5</td><td>Nov 2025</td><td>Latest — active support. <strong>The lesson editor runs PHP 8.5.</strong></td></tr>
               <tr><td>PHP 8.4</td><td>Nov 2024</td><td>Active support until end of 2026</td></tr>
-              <tr><td>PHP 8.3 / 8.2</td><td>2023 / 2022</td><td>Security fixes only — still common on shared hosting</td></tr>
-              <tr><td>PHP 7.x and older</td><td>2015–2019</td><td>End of life — no security fixes, do not use for new work</td></tr>
+              <tr><td>PHP 8.3 / 8.2</td><td>Nov 2023 / Dec 2022</td><td>Security fixes only — still common on shared hosting</td></tr>
+              <tr><td>PHP 8.1 and older (8.0, 7.x)</td><td>2015–2021</td><td>End of life — 8.1's security support ended on 31 Dec 2025 (8.0's in Nov 2023). No more fixes: upgrade, and do not use for new work</td></tr>
             </tbody>
           </table>
           <p>Many servers you will meet at work still run PHP 8.2 or 8.3. So whenever a lesson uses a newer feature it is labelled <strong>8.4+</strong> or <strong>8.5+</strong> — check <code>php -v</code> on your server before using it.</p>
@@ -77,7 +77,7 @@ module PhpContent
             <li>Forgetting the semicolon — PHP reports <code>syntax error, unexpected ...</code> on the <em>next</em> line.</li>
             <li>Opening a <code>.php</code> file directly from disk in the browser (<code>file://...</code>). The browser cannot run PHP — you need a server such as <code>php -S</code>.</li>
             <li>Thinking <code>echo</code> is a function. It is a language construct, so <code>echo "a", "b";</code> works without brackets.</li>
-            <li>Learning from old tutorials that use <code>mysql_query()</code> — that API was removed in PHP 7. We use PDO in Lesson 18.</li>
+            <li>Learning from old tutorials that use <code>mysql_query()</code> — that API was removed in PHP 7. We use PDO in Lesson 21.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -141,7 +141,7 @@ module PhpContent
           <table class="lc-table">
             <thead><tr><th>Type</th><th>Example</th><th><code>get_debug_type()</code></th><th>Notes</th></tr></thead>
             <tbody>
-              <tr><td>int</td><td><code>$age = 21;</code></td><td><code>int</code></td><td>Whole numbers, 64-bit on modern systems</td></tr>
+              <tr><td>int</td><td><code>$age = 21;</code></td><td><code>int</code></td><td>Whole numbers — 64-bit on almost every server (the lesson editor is 32-bit)</td></tr>
               <tr><td>float</td><td><code>$cgpa = 8.7;</code></td><td><code>float</code></td><td>Decimals — approximate!</td></tr>
               <tr><td>string</td><td><code>$city = "Pune";</code></td><td><code>string</code></td><td>Text (Lesson 3)</td></tr>
               <tr><td>bool</td><td><code>$isAdmin = false;</code></td><td><code>bool</code></td><td><code>true</code> or <code>false</code></td></tr>
@@ -183,7 +183,8 @@ module PhpContent
         </div>
         <div class="lc-card">
           <h3>Casting and Constants</h3>
-          <div class="lc-code">$qty = (int) "42";      // 42     (string to int)<br>$bad = (int) "abc";     // 0      (no digits: silently 0!)<br>$cut = (int) 12.9;      // 12     (cuts off, does not round)<br>$yes = (bool) "0";      // false  ("0" and "" are false)<br><br>const MAX_SEATS = 60;             // preferred: const<br>define('APP_NAME', 'Canteen');    // also works<br>echo MAX_SEATS;                   // no $ for constants<br>echo PHP_INT_MAX;                 // 9223372036854775807</div>
+          <div class="lc-code">$qty = (int) "42";      // 42     (string to int)<br>$bad = (int) "abc";     // 0      (no digits: silently 0!)<br>$cut = (int) 12.9;      // 12     (cuts off, does not round)<br>$yes = (bool) "0";      // false  ("0" and "" are false)<br><br>const MAX_SEATS = 60;             // preferred: const<br>define('APP_NAME', 'Canteen');    // also works<br>echo MAX_SEATS;                   // no $ for constants<br>echo PHP_INT_MAX;                 // 9223372036854775807 on a 64-bit server</div>
+          <p><strong>Note:</strong> the lesson editor runs a <strong>32-bit</strong> PHP build, so there <code>echo PHP_INT_MAX;</code> prints <code>2147483647</code> (and <code>PHP_INT_SIZE</code> is <code>4</code>). A bigger integer silently turns into a float, so keep editor examples below about 2.1 billion — on real 64-bit servers the limit is about 9.2 × 10<sup>18</sup>.</p>
           <p>Constants are written in <strong>UPPER_SNAKE_CASE</strong>, have no <code>$</code>, and cannot be changed after they are defined.</p>
         </div>
         <div class="lc-card">
@@ -1297,6 +1298,25 @@ module PhpContent
           <p><strong>PHP 8.4+</strong> also lets you call a method straight after <code>new</code> without extra brackets: <code>new Wallet("Sana")-&gt;balance()</code>. On older versions write <code>(new Wallet("Sana"))-&gt;balance()</code>.</p>
         </div>
         <div class="lc-card">
+          <h3>Magic Methods</h3>
+          <p>Methods whose names start with two underscores are <strong>magic methods</strong>: you never call them yourself — PHP calls them when something special happens to the object.</p>
+          <table class="lc-table">
+            <thead><tr><th>Method</th><th>PHP calls it when…</th></tr></thead>
+            <tbody>
+              <tr><td><code>__construct()</code></td><td><code>new</code> creates the object</td></tr>
+              <tr><td><code>__toString()</code></td><td>the object is used as a string (<code>echo $wallet</code>)</td></tr>
+              <tr><td><code>__get()</code> / <code>__set()</code> / <code>__isset()</code></td><td>code reads, writes or <code>isset()</code>s a property that is missing or not visible</td></tr>
+              <tr><td><code>__call()</code> / <code>__callStatic()</code></td><td>code calls a method that does not exist</td></tr>
+              <tr><td><code>__invoke()</code></td><td>the object is called like a function: <code>$obj('x')</code></td></tr>
+              <tr><td><code>__clone()</code></td><td><code>clone</code> copies the object (fix up inner objects here)</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">final class Settings<br>{<br>    private array $data = ['theme' =&gt; 'dark'];<br><br>    public function __get(string $name): mixed      // reading a missing/private property<br>    {<br>        return $this-&gt;data[$name] ?? null;<br>    }<br><br>    public function __isset(string $name): bool      // isset($s-&gt;theme)<br>    {<br>        return isset($this-&gt;data[$name]);<br>    }<br><br>    public function __invoke(string $key): string    // call the object like a function<br>    {<br>        return "$key = " . ($this-&gt;data[$key] ?? 'not set');<br>    }<br>}<br><br>$s = new Settings();<br>echo $s-&gt;theme, "\n";<br>var_dump(isset($s-&gt;lang));<br>echo $s('theme'), "\n";</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">dark<br>bool(false)<br>theme = dark</div>
+          <p>Frameworks use <code>__get</code> and <code>__call</code> a lot (Laravel models read database columns this way). In your own code, prefer normal typed properties and methods — magic hides typos from your editor and from PHPStan.</p>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Forgetting <code>$this-&gt;</code> inside a method: <code>$balance += 10</code> creates a new local variable instead of changing the property.</li>
@@ -1531,18 +1551,18 @@ module PhpContent
               <tr><td>All cases</td><td><code>OrderStatus::cases()</code></td><td>Array of every case, in order</td></tr>
               <tr><td>Methods, constants, static methods</td><td><code>$s-&gt;label()</code></td><td>Behaviour lives with the data</td></tr>
               <tr><td>Interfaces</td><td><code>enum Role: string implements HasLabel</code></td><td>Enums can implement interfaces</td></tr>
-              <tr><td>JSON</td><td><code>json_encode(['s' =&gt; OrderStatus::Paid])</code></td><td>Backed enums encode as their value</td></tr>
+              <tr><td>JSON</td><td><code>json_encode(['s' =&gt; OrderStatus::Shipped])</code></td><td>Backed enums encode as their value</td></tr>
             </tbody>
           </table>
         </div>
         <div class="lc-card">
           <h3>Enums + match = No Forgotten Cases</h3>
-          <p>A <code>match</code> over an enum with no <code>default</code> arm is <strong>exhaustive</strong>: if someone later adds <code>case Returned</code> and forgets to update the <code>match</code>, PHP throws <code>UnhandledMatchError</code>, and static analysers such as PHPStan warn you before the code even runs. Avoid adding <code>default</code> in enum matches for this reason.</p>
+          <p>A <code>match</code> over an enum with no <code>default</code> arm is <strong>exhaustive</strong>: if someone later adds <code>case Returned</code> and forgets to update the <code>match</code>, PHP throws <code>UnhandledMatchError</code> the first time that <code>match</code> runs with the new case (not when the file loads), and static analysers such as PHPStan warn you before the code even runs. Avoid adding <code>default</code> in enum matches for this reason.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Comparing an enum with a string: <code>$status === 'paid'</code> is always false. Compare with <code>OrderStatus::Paid</code>, or compare <code>$status-&gt;value</code>.</li>
+            <li>Comparing an enum with a string: <code>$status === 'shipped'</code> is always false. Compare with <code>OrderStatus::Shipped</code>, or compare <code>$status-&gt;value</code>.</li>
             <li>Using <code>from()</code> on user input without handling <code>ValueError</code>. For untrusted input use <code>tryFrom()</code> and check for <code>null</code>.</li>
             <li>Trying to read <code>-&gt;value</code> on a pure enum — only backed enums have values.</li>
             <li>Using an enum for data that changes often (like product categories edited by admins). Those belong in a database table.</li>
@@ -1728,6 +1748,144 @@ module PhpContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-php">PHP</div>
+          <h1 class="lc-title">Generators and Iterators</h1>
+        </div>
+        <p class="lc-lead">A normal function builds its whole result and returns it at once. A <strong>generator</strong> hands out values <em>one at a time</em> with <code>yield</code>, pausing in between. That lets you loop over a 2 GB log file, a million database rows or an endless sequence while using almost no memory — and <code>foreach</code> works exactly the same.</p>
+        <div class="lc-card">
+          <h3>How yield Works</h3>
+          <ul class="lc-list">
+            <li>Any function that contains <code>yield</code> is a generator function. Calling it does <strong>not</strong> run its body — it returns a <code>Generator</code> object.</li>
+            <li>Each time <code>foreach</code> asks for the next value, the body runs until the next <code>yield</code>, hands over that value and pauses right there.</li>
+            <li>When the body reaches its end (or <code>return</code>), the loop stops.</li>
+          </ul>
+          <div class="lc-code">function countdown(int $from): Generator<br>{<br>    echo "(start)\n";<br>    for ($i = $from; $i &gt;= 1; $i--) {<br>        yield $i;<br>    }<br>    echo "(done)\n";<br>}<br><br>$gen = countdown(3);                  // nothing runs yet!<br>echo "Created a ", get_class($gen), "\n";<br>foreach ($gen as $n) echo "T-minus $n\n";</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">Created a Generator<br>(start)<br>T-minus 3<br>T-minus 2<br>T-minus 1<br>(done)</div>
+          <p>Notice that <code>(start)</code> is printed <em>after</em> "Created a Generator" — the body only begins when the loop asks for the first value.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Array vs Generator</h3>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Function returning an array</th><th>Generator function</th></tr></thead>
+            <tbody>
+              <tr><td>When values are made</td><td>All at once, before the loop starts</td><td>One by one, as the loop asks (<strong>lazy</strong>)</td></tr>
+              <tr><td>Memory for 1 million items</td><td>About 16 MB on 64-bit PHP — every item at once</td><td>About the same as one item</td></tr>
+              <tr><td>Endless sequences</td><td>Impossible</td><td>Fine — just stop the loop with <code>break</code></td></tr>
+              <tr><td><code>count()</code>, <code>$x[3]</code>, <code>sort()</code></td><td>Yes</td><td>No — convert first with <code>iterator_to_array()</code></td></tr>
+              <tr><td>Loop over it twice</td><td>Yes</td><td>No — a generator is used up after one pass</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">function numbers(int $max): Generator<br>{<br>    for ($i = 1; $i &lt;= $max; $i++) {<br>        yield $i;            // one number at a time: memory stays tiny<br>    }<br>}<br>$sum = 0;<br>foreach (numbers(50_000) as $n) {<br>    $sum += $n;<br>}<br>echo $sum, "\n";</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">1250025000</div>
+          <p>The array version, <code>array_sum(range(1, 50_000))</code>, gives the same answer but first builds all 50,000 numbers in memory. For big files and database results, that difference decides whether your script finishes or dies with "Allowed memory size exhausted".</p>
+        </div>
+        <div class="lc-card">
+          <h3>Keys, yield from and Pipelines</h3>
+          <ul class="lc-list">
+            <li><code>yield $key =&gt; $value;</code> gives keys too, so <code>foreach ($gen as $k =&gt; $v)</code> works like an associative array.</li>
+            <li><code>yield from $other;</code> hands out every item of another array or generator.</li>
+            <li>Generators can take other generators as input. Each step handles one item and passes it on — a <strong>pipeline</strong> that never holds the whole data set.</li>
+            <li>Type the input as <code>iterable</code> (array <em>or</em> any Traversable) so a step accepts both arrays and generators.</li>
+          </ul>
+          <div class="lc-code">function readLines(string $text): Generator<br>{<br>    foreach (explode("\n", $text) as $no =&gt; $line) yield $no + 1 =&gt; trim($line);<br>}<br>function onlyPaid(iterable $rows): Generator<br>{<br>    foreach ($rows as $no =&gt; $row) {<br>        [$name, $status] = explode(',', $row);<br>        if ($status === 'paid') yield $no =&gt; $name;<br>    }<br>}<br>$csv = "Asha,paid\nRavi,pending\nMeera,paid\nJohn,refunded";<br>echo json_encode(iterator_to_array(onlyPaid(readLines($csv)))), "\n";</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">{"1":"Asha","3":"Meera"}</div>
+          <p>On a real server, <code>readLines()</code> would use <code>fopen()</code> and <code>fgets()</code> in a <code>while</code> loop (Lesson 17), so even a huge CSV is read one line at a time.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Your Own Iterable Classes</h3>
+          <p>PHP decides what <code>foreach</code> can loop over through built-in interfaces. The easiest is <code>IteratorAggregate</code>: write one method, <code>getIterator()</code>, and make it a generator.</p>
+          <table class="lc-table">
+            <thead><tr><th>Interface</th><th>You write</th><th>Unlocks</th></tr></thead>
+            <tbody>
+              <tr><td><code>IteratorAggregate</code></td><td><code>getIterator(): Iterator</code> (a generator is fine)</td><td><code>foreach ($obj as ...)</code></td></tr>
+              <tr><td><code>Iterator</code></td><td><code>current()</code>, <code>key()</code>, <code>next()</code>, <code>rewind()</code>, <code>valid()</code></td><td><code>foreach</code>, with full manual control (rarely needed)</td></tr>
+              <tr><td><code>Countable</code></td><td><code>count(): int</code></td><td><code>count($obj)</code></td></tr>
+              <tr><td><code>ArrayAccess</code></td><td><code>offsetGet()</code>, <code>offsetSet()</code>, …</td><td><code>$obj['key']</code></td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">final class Playlist implements IteratorAggregate, Countable<br>{<br>    public function __construct(private array $songs) {}<br>    public function getIterator(): Generator { yield from $this-&gt;songs; }<br>    public function count(): int { return count($this-&gt;songs); }<br>}<br>$list = new Playlist(['Kesariya', 'Naatu Naatu', 'Jai Ho']);<br>foreach ($list as $i =&gt; $song) echo $i + 1, ". $song\n";<br>echo "Songs: ", count($list), "\n";</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">1. Kesariya<br>2. Naatu Naatu<br>3. Jai Ho<br>Songs: 3</div>
+          <p>Because <code>getIterator()</code> creates a <em>fresh</em> generator each time, you can loop over a <code>Playlist</code> as often as you like. Advanced extras: <code>$gen-&gt;send($value)</code> passes a value back into the paused generator, and <code>$gen-&gt;getReturn()</code> reads its <code>return</code> value after it finishes.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Looping over the same generator twice — the second loop throws <code>Exception: Cannot traverse an already closed generator</code>. Call the function again for a new one.</li>
+            <li>Calling <code>count($gen)</code>: "count(): Argument #1 ($value) must be of type Countable|array, Generator given". Use <code>iterator_count()</code> (which uses the generator up) or collect into an array first.</li>
+            <li>Using <code>iterator_to_array()</code> after <code>yield from</code>: both parts can reuse keys 0, 1, … and later values overwrite earlier ones. Pass <code>preserve_keys: false</code> when you only want a list.</li>
+            <li>Expecting code before the first <code>yield</code> (like a validation <code>throw</code>) to run when you call the function — it runs only when the loop starts.</li>
+            <li>Using a generator for a small list you need to sort and count. For small data, a plain array is simpler.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <p>In the starter, write a generator <code>evens(): Generator</code> that yields 2, 4, 6, … <strong>forever</strong> (a <code>while (true)</code> loop). Then write <code>take(iterable $items, int $n): Generator</code> that yields only the first <code>$n</code> items and stops. Print <code>implode(", ", iterator_to_array(take(evens(), 5), false))</code> — you should see <code>2, 4, 6, 8, 10</code>.</p>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Laravel's <code>LazyCollection</code> and <code>$query-&gt;lazy()</code>, and Doctrine's <code>toIterable()</code>, are built on generators. When a report or export job runs out of memory, the fix is usually "stream it with a generator instead of loading everything into an array".
+        </div>
+      HTML
+      starter_code: <<~'PHP'
+        <?php
+        declare(strict_types=1);
+        // Lesson 15: Generators and Iterators
+
+        // 1. A generator function: yield hands out one value, then pauses
+        function countdown(int $from): Generator
+        {
+            echo "(start)\n";
+            for ($i = $from; $i >= 1; $i--) {
+                yield $i;
+            }
+            echo "(done)\n";
+        }
+        $gen = countdown(3);                  // nothing runs yet!
+        echo "Created a ", get_class($gen), "\n";
+        foreach ($gen as $n) echo "T-minus $n\n";
+        // 2. Keys and yield from
+        function orders(): Generator
+        {
+            yield 'A101' => 499;
+            yield 'A102' => 1250;
+            yield from ['A103' => 80];        // hand over to another iterable
+        }
+        foreach (orders() as $id => $rupees) echo "$id: Rs $rupees\n";
+        // 3. Lazy pipeline: read lines one by one, keep only the valid ones
+        function readLines(string $text): Generator
+        {
+            foreach (explode("\n", $text) as $no => $line) yield $no + 1 => trim($line);
+        }
+        function onlyPaid(iterable $rows): Generator
+        {
+            foreach ($rows as $no => $row) {
+                [$name, $status] = explode(',', $row);
+                if ($status === 'paid') yield $no => $name;
+            }
+        }
+        $csv = "Asha,paid\nRavi,pending\nMeera,paid\nJohn,refunded";
+        echo "Paid (line => name): ", json_encode(iterator_to_array(onlyPaid(readLines($csv)))), "\n";
+        // 4. IteratorAggregate: make your own class work with foreach
+        final class Playlist implements IteratorAggregate, Countable
+        {
+            public function __construct(private array $songs) {}
+            public function getIterator(): Generator { yield from $this->songs; }
+            public function count(): int { return count($this->songs); }
+        }
+        $list = new Playlist(['Kesariya', 'Naatu Naatu', 'Jai Ho']);
+        foreach ($list as $i => $song) echo $i + 1, ". $song\n";
+        echo "Songs: ", count($list), "\n";
+        // 5. A generator can be used only once
+        try { foreach ($gen as $n) {} } catch (Exception $e) { echo get_class($e), ": ", $e->getMessage(), "\n"; }
+      PHP
+    },
+
+    16 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-php">PHP</div>
           <h1 class="lc-title">Exceptions and Error Handling</h1>
         </div>
         <p class="lc-lead">Things go wrong: a payment gateway times out, a user types letters into a phone field, a file is missing. An <strong>exception</strong> is PHP's way of saying "I cannot continue here — someone above me must decide what to do". Handling exceptions well is the difference between a friendly error page and a blank white screen.</p>
@@ -1791,7 +1949,7 @@ module PhpContent
       starter_code: <<~'PHP'
         <?php
         declare(strict_types=1);
-        // Lesson 15: Exceptions and Error Handling
+        // Lesson 16: Exceptions and Error Handling
 
         final class OutOfStock extends RuntimeException
         {
@@ -1842,7 +2000,7 @@ module PhpContent
       PHP
     },
 
-    16 => {
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-php">PHP</div>
@@ -1899,6 +2057,7 @@ module PhpContent
           <h3>Files (on Your Own Server)</h3>
           <p>The lesson editor has no disk, so try these on your computer with <code>php file.php</code>.</p>
           <div class="lc-code">$path = __DIR__ . '/data/orders.json';            // build paths from __DIR__<br><br>file_put_contents($path, json_encode($orders), LOCK_EX);      // write (creates file)<br>file_put_contents(__DIR__ . '/app.log', "Saved\n", FILE_APPEND | LOCK_EX);<br><br>if (is_readable($path)) {<br>    $orders = json_decode(file_get_contents($path), true, flags: JSON_THROW_ON_ERROR);<br>}<br><br>$fh = fopen(__DIR__ . '/big.csv', 'r');             // large files: line by line<br>while (($row = fgetcsv($fh, escape: '')) !== false) {<br>    echo $row[0], PHP_EOL;<br>}<br>fclose($fh);</div>
+          <p>Wrap a loop like this in a generator (Lesson 15) and the rest of your code can <code>foreach</code> over a huge file without ever loading it all.</p>
           <p><strong>Security:</strong> never build a path straight from user input (<code>"uploads/" . $_GET['file']</code>). A visitor could send <code>../../config.php</code>. Use <code>basename()</code> and an allow-list of files.</p>
         </div>
         <div class="lc-card">
@@ -1921,7 +2080,7 @@ module PhpContent
       starter_code: <<~'PHP'
         <?php
         declare(strict_types=1);
-        // Lesson 16: Dates, JSON and Files
+        // Lesson 17: Dates, JSON and Files
         // Fixed dates make the output the same every time you run it.
 
         $ist   = new DateTimeZone('Asia/Kolkata');
@@ -1967,7 +2126,134 @@ module PhpContent
       PHP
     },
 
-    17 => {
+    18 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-php">PHP</div>
+          <h1 class="lc-title">Including Files and Templates</h1>
+        </div>
+        <p class="lc-lead">Real PHP sites are not one giant file. The settings live in <code>config.php</code>, helper functions in <code>helpers.php</code>, and every page shares the same header and footer. <code>require</code> and <code>include</code> pull other files into the running script — and because PHP was born as a template language, those files can be plain HTML with small <code>&lt;?= ?&gt;</code> tags inside.</p>
+        <div class="lc-card">
+          <h3>The Four Include Statements</h3>
+          <table class="lc-table">
+            <thead><tr><th>Statement</th><th>If the file is missing</th><th>Loaded twice?</th><th>Use for</th></tr></thead>
+            <tbody>
+              <tr><td><code>require</code></td><td>Throws an <code>Error</code> — the script stops unless caught</td><td>Yes, every time</td><td>Files the page cannot work without; templates you render many times</td></tr>
+              <tr><td><code>require_once</code></td><td>Throws an <code>Error</code></td><td>No — skipped the second time</td><td>Files that define functions or classes (a second load would be "Cannot redeclare")</td></tr>
+              <tr><td><code>include</code></td><td>Warning, returns <code>false</code>, script continues</td><td>Yes</td><td>Optional parts, such as a banner that may not exist</td></tr>
+              <tr><td><code>include_once</code></td><td>Warning, returns <code>false</code></td><td>No</td><td>Rarely needed</td></tr>
+            </tbody>
+          </table>
+          <p>They are language constructs, not functions, so no brackets are needed: <code>require __DIR__ . '/config.php';</code>. The included code runs <strong>in the scope where you include it</strong>: at the top of a script it sees the global variables; inside a function it sees only that function's local variables.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Paths: Always Start from __DIR__</h3>
+          <p>A relative path like <code>require 'config.php';</code> is searched in PHP's <code>include_path</code> and the <em>current working directory</em> — which depends on how the script was started, not on where the file is. <code>__DIR__</code> is the folder of the current file, so this always works:</p>
+          <div class="lc-code">// public/index.php<br>require __DIR__ . '/../src/helpers.php';          // one folder up, then into src/<br>$config = require __DIR__ . '/../config.php';     // config.php ends with: return [...];</div>
+          <p>A file may end with <code>return</code>; then <code>require</code> gives back that value. This is the standard way to write config files (Laravel's <code>config/*.php</code> files look exactly like this):</p>
+          <div class="lc-code">&lt;?php<br>// config.php<br>return ['site' =&gt; 'Chai Corner', 'gst' =&gt; 5];</div>
+          <div class="lc-code">$config = require __DIR__ . '/config.php';<br>echo "Site: {$config['site']}, GST {$config['gst']}%\n";</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">Site: Chai Corner, GST 5%</div>
+        </div>
+        <div class="lc-card">
+          <h3>PHP as a Template Language</h3>
+          <p>Inside HTML, use the short echo tag <code>&lt;?= $x ?&gt;</code> (always available, same as <code>&lt;?php echo $x; ?&gt;</code>) and the <strong>alternative syntax</strong> for control structures, which is much easier to read between HTML tags than curly braces:</p>
+          <table class="lc-table">
+            <thead><tr><th>In normal code</th><th>In a template</th></tr></thead>
+            <tbody>
+              <tr><td><code>if ($x) { ... } else { ... }</code></td><td><code>&lt;?php if ($x): ?&gt; ... &lt;?php else: ?&gt; ... &lt;?php endif; ?&gt;</code></td></tr>
+              <tr><td><code>foreach ($a as $v) { ... }</code></td><td><code>&lt;?php foreach ($a as $v): ?&gt; ... &lt;?php endforeach; ?&gt;</code></td></tr>
+              <tr><td><code>echo e($name);</code></td><td><code>&lt;?= e($name) ?&gt;</code></td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">&lt;!-- templates/menu.php --&gt;<br>&lt;h1&gt;&lt;?= e($title) ?&gt;&lt;/h1&gt;<br>&lt;?php if ($items): ?&gt;<br>&lt;ul&gt;<br>&lt;?php foreach ($items as $name =&gt; $price): ?&gt;<br>  &lt;li&gt;&lt;?= e($name) ?&gt; - Rs &lt;?= $price ?&gt;&lt;/li&gt;<br>&lt;?php endforeach; ?&gt;<br>&lt;/ul&gt;<br>&lt;?php else: ?&gt;<br>&lt;p&gt;Nothing on the menu today.&lt;/p&gt;<br>&lt;?php endif; ?&gt;</div>
+          <p>PHP swallows the single newline right after a closing <code>?&gt;</code>, so lines that contain only a PHP tag leave no blank lines in the HTML. Escape every value with <code>e()</code> — a one-line wrapper around <code>htmlspecialchars($t, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')</code> kept in <code>helpers.php</code> (Lesson 19 explains XSS in detail). Templates are where XSS happens.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: A render() Function</h3>
+          <p><strong>Output buffering</strong> catches everything a template echoes into a string, so you can build a page from pieces or send it later:</p>
+          <div class="lc-code">function render(string $file, array $data): string<br>{<br>    extract($data, EXTR_SKIP);   // ['title' =&gt; ...] becomes $title<br>    ob_start();                  // start catching output<br>    require $file;               // the template echoes HTML<br>    return ob_get_clean();       // stop catching, return it<br>}<br><br>echo render(__DIR__ . '/templates/menu.php', [<br>    'title' =&gt; 'Chai &amp; Snacks',<br>    'items' =&gt; ['Masala chai' =&gt; 20, '&lt;b&gt;Samosa&lt;/b&gt;' =&gt; 15],<br>]);<br>echo render(__DIR__ . '/templates/menu.php', ['title' =&gt; 'Sunday', 'items' =&gt; []]);</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">&lt;h1&gt;Chai &amp;amp; Snacks&lt;/h1&gt;<br>&lt;ul&gt;<br>  &lt;li&gt;Masala chai - Rs 20&lt;/li&gt;<br>  &lt;li&gt;&amp;lt;b&amp;gt;Samosa&amp;lt;/b&amp;gt; - Rs 15&lt;/li&gt;<br>&lt;/ul&gt;<br>&lt;h1&gt;Sunday&lt;/h1&gt;<br>&lt;p&gt;Nothing on the menu today.&lt;/p&gt;</div>
+          <p>Because the template is <code>require</code>d inside <code>render()</code>, it sees only <code>$file</code>, <code>$data</code> and the extracted variables — no accidental use of globals. A layout is simply one more template: render the page body first, then pass it as <code>$content</code> to <code>layout.php</code>, which prints the shared header and footer around it. This is the idea behind Blade and Twig.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Never Include a Path from the User</h3>
+          <p><code>include $_GET['page'] . '.php';</code> lets a visitor load any file on the server with <code>?page=../../config</code> — a <strong>Local File Inclusion</strong> attack that can leak passwords or run uploaded code. Map the request to a fixed <strong>allow-list</strong> instead:</p>
+          <div class="lc-code">$page = $_GET['page'] ?? 'home';<br>$file = match ($page) {<br>    'home', 'menu', 'contact' =&gt; __DIR__ . "/pages/$page.php",<br>    default                   =&gt; __DIR__ . '/pages/404.php',<br>};<br>require $file;</div>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Relative paths (<code>require 'helpers.php'</code>) that work from one folder and break from another. Use <code>__DIR__ . '/helpers.php'</code>.</li>
+            <li>Using <code>include</code> for a file the page needs — the page carries on half-broken. Use <code>require</code>.</li>
+            <li>Loading a file with functions twice: "Cannot redeclare function e()". Use <code>require_once</code> — or, for classes, Composer's autoloader (Lesson 22).</li>
+            <li>A closing <code>?&gt;</code> followed by a blank line at the end of an included PHP-only file. That blank line is output, and later <code>header()</code> calls fail with "headers already sent". Leave out the closing tag in PHP-only files.</li>
+            <li>Printing values in templates without <code>e()</code>. Every <code>&lt;?= $userText ?&gt;</code> without escaping is an XSS hole.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <p>In the starter, write a second template <code>layout.php</code> containing <code>&lt;header&gt;&lt;?= e($site) ?&gt;&lt;/header&gt;</code>, then <code>&lt;?= $content ?&gt;</code> (already-escaped HTML), then <code>&lt;footer&gt;© 2026&lt;/footer&gt;</code>. Render the menu first, then render the layout with <code>['site' =&gt; $config['site'], 'content' =&gt; $menuHtml]</code> and print the whole page.</p>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Keep logic and HTML apart: the PHP file at the top decides <em>what</em> to show (reads input, loads data), and the template only decides <em>how</em> it looks (loops, <code>if</code>, <code>&lt;?= e() ?&gt;</code>). If a template contains SQL or <code>$_POST</code>, move that code out.
+        </div>
+      HTML
+      starter_code: <<~'PHP'
+        <?php
+        declare(strict_types=1);
+        // Lesson 18: Including Files and Templates
+        // The editor has one file, so we first WRITE small files, then include them - like a real project.
+        $dir = sys_get_temp_dir() . '/lesson18_' . bin2hex(random_bytes(4));
+        mkdir("$dir/templates", recursive: true);
+        file_put_contents("$dir/config.php", "<?php\nreturn ['site' => 'Chai Corner', 'gst' => 5];\n");
+        file_put_contents("$dir/helpers.php", "<?php\nfunction e(string \$t): string { return htmlspecialchars(\$t, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }\n");
+        file_put_contents("$dir/templates/menu.php", <<<'TPL'
+        <h1><?= e($title) ?></h1>
+        <?php if ($items): ?>
+        <ul>
+        <?php foreach ($items as $name => $price): ?>
+          <li><?= e($name) ?> - Rs <?= $price ?></li>
+        <?php endforeach; ?>
+        </ul>
+        <?php else: ?>
+        <p>Nothing on the menu today.</p>
+        <?php endif; ?>
+        TPL);
+
+        // 1. require a config file that RETURNS an array
+        $config = require "$dir/config.php";
+        echo "Site: {$config['site']}, GST {$config['gst']}%\n";
+
+        // 2. require_once: the second call is skipped (no "cannot redeclare e()" error)
+        require_once "$dir/helpers.php";
+        var_dump(require_once "$dir/helpers.php");
+
+        // 3. include vs require when the file is missing
+        $ok = @include "$dir/missing.php";          // @ hides the warning, only for this demo
+        echo "include of a missing file returned: ", var_export($ok, true), " (script continues)\n";
+
+        // 4. render(): run a template and capture its output as a string
+        function render(string $file, array $data): string
+        {
+            extract($data, EXTR_SKIP);              // ['title' => ...] becomes $title
+            ob_start();
+            require $file;
+            return ob_get_clean();
+        }
+        echo "\n", render("$dir/templates/menu.php", ['title' => 'Chai & Snacks', 'items' => ['Masala chai' => 20, '<b>Samosa</b>' => 15]]);
+        echo render("$dir/templates/menu.php", ['title' => 'Sunday', 'items' => []]);
+
+        // 5. Only include pages from an allow-list, never straight from $_GET
+        $page = '../../etc/passwd';                 // pretend this came from ?page=
+        $file = match ($page) { 'home', 'menu', 'contact' => "$page.php", default => '404.php' };
+        echo "\n?page=$page  ->  loads $file\n";
+      PHP
+    },
+
+    19 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-php">PHP</div>
@@ -1984,7 +2270,7 @@ module PhpContent
               <tr><td><code>$_POST</code></td><td>Form body values</td><td>Anything that <strong>changes</strong> data: sign-up, payment, delete</td></tr>
               <tr><td><code>$_SERVER['REQUEST_METHOD']</code></td><td><code>"GET"</code> or <code>"POST"</code></td><td>Deciding whether the form was submitted</td></tr>
               <tr><td><code>$_SESSION</code></td><td>Data kept on the server between requests</td><td>Logged-in user id, CSRF token, cart</td></tr>
-              <tr><td><code>$_COOKIE</code>, <code>$_FILES</code></td><td>Cookies and uploaded files</td><td>Preferences, uploads</td></tr>
+              <tr><td><code>$_COOKIE</code>, <code>$_FILES</code></td><td>Cookies and uploaded files</td><td>Preferences, uploads (Lesson 20)</td></tr>
             </tbody>
           </table>
           <p>Every value in these arrays is a <strong>string</strong> (or missing) and completely controlled by the visitor.</p>
@@ -2060,13 +2346,13 @@ module PhpContent
           <p>In the starter, add a <code>phone</code> field and validate it as a 10-digit Indian mobile number starting with 6–9 using <code>preg_match('/^[6-9]\d{9}$/', $phone)</code> (the regex from Lesson 3). Print a clear error when it fails and make sure the phone is escaped when shown back. Then send <code>createStudent()</code> a body with a missing <code>email</code> key and predict the status code before you run it.</p>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> After a successful POST, <strong>redirect</strong> (<code>header('Location: /thank-you'); exit;</code>). This "Post/Redirect/Get" pattern stops the browser from resubmitting the form when the user presses refresh.
+          <strong>Tip:</strong> After a successful POST, <strong>redirect</strong> (<code>header('Location: /thank-you'); exit;</code>). This "Post/Redirect/Get" pattern stops the browser from resubmitting the form when the user presses refresh (Lesson 20 covers redirects in detail).
         </div>
       HTML
       starter_code: <<~'PHP'
         <?php
         declare(strict_types=1);
-        // Lesson 17: Forms, Sessions and Web Security
+        // Lesson 19: Forms, Sessions and Web Security
         // The editor has no web server, so we simulate requests with arrays and strings.
 
         function e(string $text): string
@@ -2116,7 +2402,147 @@ module PhpContent
       PHP
     },
 
-    18 => {
+    20 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-php">PHP</div>
+          <h1 class="lc-title">Cookies, Redirects and File Uploads</h1>
+        </div>
+        <p class="lc-lead">HTTP forgets everything between requests. <strong>Cookies</strong> let the browser remember small things, <strong>redirects</strong> send it to the next page after a form, and <strong>file uploads</strong> let users send photos and PDFs. All three are easy to get working — and easy to get dangerously wrong.</p>
+        <div class="lc-card">
+          <h3>How a Cookie Travels</h3>
+          <ul class="lc-list">
+            <li><strong>1.</strong> Your PHP calls <code>setcookie()</code>. PHP adds a <code>Set-Cookie</code> header to the <em>response</em>.</li>
+            <li><strong>2.</strong> The browser stores it and sends it back in a <code>Cookie</code> header with every later request to your site.</li>
+            <li><strong>3.</strong> On those later requests PHP puts it in <code>$_COOKIE['theme']</code>. (It is <strong>not</strong> in <code>$_COOKIE</code> during the request that set it.)</li>
+          </ul>
+          <div class="lc-code">setcookie('theme', 'dark', [<br>    'expires'  =&gt; time() + 30 * 86400,   // 30 days; leave out for "until the browser closes"<br>    'path'     =&gt; '/',                   // sent for the whole site<br>    'secure'   =&gt; true,                  // HTTPS only<br>    'httponly' =&gt; true,                  // JavaScript cannot read it<br>    'samesite' =&gt; 'Lax',                 // not sent on cross-site POSTs<br>]);</div>
+          <p><strong>Response header PHP sends:</strong></p>
+          <div class="lc-code">Set-Cookie: theme=dark; expires=Mon, 26 Oct 2026 10:00:00 GMT; Max-Age=2592000; path=/; secure; HttpOnly; SameSite=Lax</div>
+          <p>To delete a cookie, set it again with the same <code>path</code> and a time in the past: <code>setcookie('theme', '', ['expires' =&gt; 1, 'path' =&gt; '/']);</code> — PHP then sends <code>theme=deleted; expires=Thu, 01 Jan 1970 00:00:01 GMT; Max-Age=0</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Cookie or Session?</h3>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Cookie</th><th>Session (Lesson 19)</th></tr></thead>
+            <tbody>
+              <tr><td>Stored</td><td>In the visitor's browser</td><td>On your server; the browser holds only a random session id cookie</td></tr>
+              <tr><td>Who can change it</td><td><strong>The visitor</strong> — any value, any time</td><td>Only your code</td></tr>
+              <tr><td>Size</td><td>About 4 KB per cookie</td><td>As much as you need</td></tr>
+              <tr><td>Good for</td><td>Theme, language, "remember this device" token</td><td>Logged-in user id, cart, CSRF token, roles</td></tr>
+            </tbody>
+          </table>
+          <p>Never store <code>user_id=7</code> or <code>is_admin=1</code> in a cookie — the visitor can edit it to <code>is_admin=1</code> in the browser's developer tools. Treat every <code>$_COOKIE</code> value like <code>$_GET</code>: validate it against an allow-list and escape it when printing.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Headers and Redirects</h3>
+          <p>A redirect is a response with a 3xx status and a <code>Location</code> header. After a successful POST, redirect with <strong>303 See Other</strong> so refreshing the next page does not resubmit the form (the Post/Redirect/Get pattern):</p>
+          <div class="lc-code">// after saving the order<br>header('Location: /orders/42', true, 303);<br>exit;                              // stop here - otherwise the rest of the script still runs!</div>
+          <ul class="lc-list">
+            <li><code>header()</code>, <code>setcookie()</code> and <code>session_start()</code> all send headers, so they must run <strong>before any output</strong> — even one space or a blank line before <code>&lt;?php</code> causes "Cannot modify header information - headers already sent".</li>
+            <li><strong>Open redirect:</strong> <code>header('Location: ' . $_GET['next'])</code> lets an attacker send your users to <code>https://evil.example</code> from a link on your domain. Only accept paths that start with a single <code>/</code> (and not <code>//</code>, which browsers treat as another site).</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>File Uploads: What PHP Gives You</h3>
+          <div class="lc-code">&lt;form method="post" enctype="multipart/form-data"&gt;<br>  &lt;input type="file" name="photo" accept="image/png,image/jpeg"&gt;<br>  &lt;button&gt;Upload&lt;/button&gt;<br>&lt;/form&gt;</div>
+          <p>Without <code>method="post"</code> <strong>and</strong> <code>enctype="multipart/form-data"</code>, no file is sent. PHP saves the upload to a temporary file and describes it in <code>$_FILES['photo']</code>:</p>
+          <table class="lc-table">
+            <thead><tr><th>Key</th><th>Example</th><th>Trust it?</th></tr></thead>
+            <tbody>
+              <tr><td><code>name</code></td><td><code>"selfie.png"</code></td><td>No — chosen by the visitor, may be <code>"../../index.php"</code></td></tr>
+              <tr><td><code>type</code></td><td><code>"image/png"</code></td><td>No — sent by the browser, easy to fake</td></tr>
+              <tr><td><code>tmp_name</code></td><td><code>"/tmp/phpA1b2C3"</code></td><td>Yes — where PHP stored the file; deleted when the request ends</td></tr>
+              <tr><td><code>error</code></td><td><code>UPLOAD_ERR_OK</code> (0)</td><td>Yes — check it first</td></tr>
+              <tr><td><code>size</code></td><td><code>508</code> (bytes)</td><td>Yes</td></tr>
+            </tbody>
+          </table>
+          <p>Common error codes: <code>UPLOAD_ERR_INI_SIZE</code> (1, bigger than <code>upload_max_filesize</code> in php.ini, default 2M), <code>UPLOAD_ERR_PARTIAL</code> (3), <code>UPLOAD_ERR_NO_FILE</code> (4). If the whole request exceeds <code>post_max_size</code> (default 8M), <code>$_FILES</code> and <code>$_POST</code> are simply <strong>empty</strong>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: A Safe Upload Check</h3>
+          <div class="lc-code">const SIGNATURES = ['png' =&gt; "\x89PNG\r\n\x1a\n", 'jpg' =&gt; "\xFF\xD8\xFF", 'pdf' =&gt; '%PDF-'];<br><br>function checkUpload(array $f): string<br>{<br>    if ($f['error'] !== UPLOAD_ERR_OK) return "rejected: upload error code {$f['error']}";<br>    if ($f['size'] &gt; 2 * 1024 * 1024)   return "rejected: bigger than 2 MB";<br>    $head = file_get_contents($f['tmp_name'], length: 8);     // look at the real bytes<br>    foreach (SIGNATURES as $ext =&gt; $magic) {<br>        if (str_starts_with($head, $magic)) {<br>            $newName = bin2hex(random_bytes(16)) . ".$ext";    // never reuse the user's name<br>            // move_uploaded_file($f['tmp_name'], "/var/app/storage/$newName");<br>            return "OK as $ext";<br>        }<br>    }<br>    return "rejected: content is not PNG, JPG or PDF";<br>}</div>
+          <p><strong>Output</strong> for a real PNG, a PHP script renamed <code>cat.png</code>, and a too-big video:</p>
+          <div class="lc-code">selfie.png : OK as png<br>cat.png    : rejected: content is not PNG, JPG or PDF<br>movie.mp4  : rejected: upload error code 1</div>
+          <ul class="lc-list">
+            <li>The extension comes from the <strong>content check</strong>, never from the visitor's file name — so <code>shell.php</code> can never land on your server as a <code>.php</code> file.</li>
+            <li>On a real server, prefer <code>(new finfo(FILEINFO_MIME_TYPE))-&gt;file($f['tmp_name'])</code> (the <code>fileinfo</code> extension, not available in the editor) over hand-written signatures; for images, <code>getimagesize()</code> also checks the dimensions.</li>
+            <li><code>move_uploaded_file()</code> only moves files that really arrived in this request's upload, and it is the only safe way to keep one. Save them <strong>outside</strong> the public web folder and serve them through a PHP script that checks permissions.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Forgetting <code>enctype="multipart/form-data"</code> — <code>$_FILES</code> stays empty and nothing warns you.</li>
+            <li>Saving uploads under their original name inside <code>public/</code>. A visitor uploads <code>shell.php</code>, opens <code>/uploads/shell.php</code> and runs code on your server.</li>
+            <li>Trusting <code>$_FILES['photo']['type']</code> or the extension. Check the real content.</li>
+            <li>Multiple files with <code>name="docs[]"</code>: PHP groups them per key, so the names are in <code>$_FILES['docs']['name'][0]</code>, <code>[1]</code>… — not <code>$_FILES['docs'][0]['name']</code>.</li>
+            <li>Calling <code>header('Location: ...')</code> without <code>exit</code> — the code below the redirect keeps running, maybe deleting or printing things.</li>
+            <li>Reading <code>$_COOKIE</code> in the same request you called <code>setcookie()</code> and wondering why it is empty.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <p>In the starter, add a <code>'report.pdf'</code> entry to <code>$uploads</code> whose temporary file starts with <code>%PDF-1.7</code> and predict the output. Then add a size check so PDFs may be up to 5 MB but images only 2 MB. Finally, add <code>'/profile?tab=photos'</code> and <code>'/\evil.example'</code> to the redirect tests — which one is allowed?</p>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> In the browser, open DevTools → <em>Application</em> → <em>Cookies</em> to see every cookie with its Secure, HttpOnly and SameSite flags, and the <em>Network</em> tab to watch <code>Set-Cookie</code> and <code>Location</code> headers — the fastest way to debug login and redirect problems.
+        </div>
+      HTML
+      starter_code: <<~'PHP'
+        <?php
+        declare(strict_types=1);
+        // Lesson 20: Cookies, Redirects and File Uploads
+        // No browser here, so we fill $_COOKIE and $_FILES by hand, exactly as PHP would.
+
+        echo "--- 1. Reading a cookie (never trust it) ---\n";
+        $_COOKIE = ['theme' => 'dark', 'lang' => '<script>'];
+        $theme = in_array($_COOKIE['theme'] ?? '', ['light', 'dark'], true) ? $_COOKIE['theme'] : 'light';
+        $lang  = in_array($_COOKIE['lang'] ?? '', ['en', 'hi', 'ta'], true) ? $_COOKIE['lang'] : 'en';
+        echo "theme=$theme lang=$lang\n";
+        // On a server: setcookie('theme', 'dark', ['expires' => time() + 30 * 86400, 'path' => '/',
+        //                        'secure' => true, 'httponly' => true, 'samesite' => 'Lax']);
+
+        echo "\n--- 2. Safe redirect target (no open redirect) ---\n";
+        function safeNext(string $next): string
+        {
+            return (str_starts_with($next, '/') && !str_starts_with($next, '//') && !str_contains($next, '\\')) ? $next : '/';
+        }
+        foreach (['/orders/42', 'https://evil.example', '//evil.example'] as $next) {
+            echo str_pad($next, 22), "-> Location: ", safeNext($next), "\n";
+        }
+
+        echo "\n--- 3. Validating uploads ---\n";
+        $tmp = sys_get_temp_dir();
+        file_put_contents("$tmp/lc20_upload1", "\x89PNG\r\n\x1a\n" . str_repeat("x", 500));   // a real PNG header
+        file_put_contents("$tmp/lc20_upload2", "<?php system(\$_GET['c']);");               // PHP code named .png!
+        $uploads = [
+            ['name' => 'selfie.png', 'tmp_name' => "$tmp/lc20_upload1", 'error' => UPLOAD_ERR_OK,       'size' => 508],
+            ['name' => 'cat.png',    'tmp_name' => "$tmp/lc20_upload2", 'error' => UPLOAD_ERR_OK,       'size' => 27],
+            ['name' => 'movie.mp4',  'tmp_name' => '',          'error' => UPLOAD_ERR_INI_SIZE, 'size' => 0],
+        ];
+        const MAX_BYTES = 2 * 1024 * 1024;
+        const SIGNATURES = ['png' => "\x89PNG\r\n\x1a\n", 'jpg' => "\xFF\xD8\xFF", 'pdf' => '%PDF-'];
+
+        function checkUpload(array $f): string
+        {
+            if ($f['error'] !== UPLOAD_ERR_OK) return "rejected: upload error code {$f['error']}";
+            if ($f['size'] > MAX_BYTES)        return "rejected: bigger than 2 MB";
+            $head = file_get_contents($f['tmp_name'], length: 8);           // look at the real bytes
+            foreach (SIGNATURES as $ext => $magic) {
+                if (str_starts_with($head, $magic)) {
+                    $newName = bin2hex(random_bytes(16)) . ".$ext";          // never reuse the user's name
+                    return "OK as $ext, saved as " . strlen($newName) . "-char random name";
+                }
+            }
+            return "rejected: content is not PNG, JPG or PDF";
+        }
+        foreach ($uploads as $f) echo str_pad($f['name'], 11), ": ", checkUpload($f), "\n";
+        // On a server, after checkUpload(): move_uploaded_file($f['tmp_name'], "/var/app/storage/$newName");
+      PHP
+    },
+
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-php">PHP</div>
@@ -2188,7 +2614,7 @@ module PhpContent
       starter_code: <<~'PHP'
         <?php
         declare(strict_types=1);
-        // Lesson 18: Databases with PDO - building safe queries
+        // Lesson 21: Databases with PDO - building safe queries
         // (No database in the editor: we print the SQL and the parameters PDO would receive.)
 
         $attack = "' OR '1'='1";
@@ -2232,7 +2658,7 @@ module PhpContent
       PHP
     },
 
-    19 => {
+    22 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-php">PHP</div>
@@ -2267,7 +2693,7 @@ module PhpContent
         </div>
         <div class="lc-card">
           <h3>PSR-4 Autoloading</h3>
-          <p><strong>PSR-4</strong> is a standard that maps a namespace prefix to a folder. Composer then loads each class file automatically the first time you use the class — no more long lists of <code>require</code>.</p>
+          <p><strong>PSR-4</strong> is a standard that maps a namespace prefix to a folder. Composer then loads each class file automatically the first time you use the class — no more long lists of <code>require_once</code> (Lesson 18).</p>
           <div class="lc-code">// composer.json<br>{<br>    "require": { "php": "&gt;=8.3" },<br>    "autoload":     { "psr-4": { "App\\": "src/" } },<br>    "autoload-dev": { "psr-4": { "Tests\\": "tests/" } }<br>}<br><br>// public/index.php - the only require you need<br>require __DIR__ . '/../vendor/autoload.php';<br>$invoice = new App\Billing\Invoice($customer, new DateTimeImmutable());</div>
           <table class="lc-table">
             <thead><tr><th>Class</th><th>File Composer loads</th></tr></thead>
@@ -2303,7 +2729,7 @@ module PhpContent
             <li>A namespace that does not match the folder (<code>App\Model</code> in <code>src/Models/</code>) — you get "Class not found".</li>
             <li>Forgetting <code>require 'vendor/autoload.php'</code> in the entry script.</li>
             <li>Running <code>composer update</code> on the production server. Deploy with <code>composer install --no-dev --optimize-autoloader</code>.</li>
-            <li>Tests that depend on each other or on the current date. Each test must set up its own data (fixed dates, like Lesson 16).</li>
+            <li>Tests that depend on each other or on the current date. Each test must set up its own data (fixed dates, like Lesson 17).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2317,7 +2743,7 @@ module PhpContent
       starter_code: <<~'PHP'
         <?php
         declare(strict_types=1);
-        // Lesson 19: Namespaces, Composer and Testing
+        // Lesson 22: Namespaces, Composer and Testing
         // Real projects use one file per class + Composer. Here: several { } namespace blocks.
 
         namespace App\Domain {
@@ -2368,7 +2794,7 @@ module PhpContent
       PHP
     },
 
-    20 => {
+    23 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-php">PHP</div>
@@ -2392,10 +2818,10 @@ module PhpContent
             <tbody>
               <tr><td><code>Genre</code></td><td>Backed enum with a method and an exhaustive <code>match</code></td><td>4, 13</td></tr>
               <tr><td><code>Book</code></td><td><code>final readonly class</code> with constructor promotion</td><td>11, 12</td></tr>
-              <tr><td><code>BookCatalog</code> / <code>ArrayCatalog</code></td><td>Interface + implementation (swap for a PDO version later)</td><td>14, 18</td></tr>
-              <tr><td><code>Library</code></td><td>Private state, <code>public private(set)</code> fines total (8.4+), custom exceptions, <code>throw</code> expressions</td><td>12, 15</td></tr>
-              <tr><td>Due dates and fines</td><td><code>modify()</code>, <code>diff()-&gt;days</code></td><td>16</td></tr>
-              <tr><td>Report</td><td>Closures in an array, <code>count</code>, <code>json_encode</code>, <code>htmlspecialchars</code></td><td>7, 10, 16, 17</td></tr>
+              <tr><td><code>BookCatalog</code> / <code>ArrayCatalog</code></td><td>Interface + implementation (swap for a PDO version later)</td><td>14, 21</td></tr>
+              <tr><td><code>Library</code></td><td>Private state, <code>public private(set)</code> fines total (8.4+), custom exceptions, <code>throw</code> expressions</td><td>12, 16</td></tr>
+              <tr><td>Due dates and fines</td><td><code>modify()</code>, <code>diff()-&gt;days</code></td><td>17</td></tr>
+              <tr><td>Report</td><td>Closures in an array, <code>count</code>, <code>json_encode</code>, <code>htmlspecialchars</code></td><td>7, 10, 17, 19</td></tr>
               <tr><td>Whole file</td><td><code>declare(strict_types=1)</code>, typed parameters and returns</td><td>9</td></tr>
             </tbody>
           </table>
@@ -2415,10 +2841,10 @@ module PhpContent
           <table class="lc-table">
             <thead><tr><th>Step</th><th>What to add</th></tr></thead>
             <tbody>
-              <tr><td>1. Project</td><td><code>composer init</code>, PSR-4 <code>App\\</code> → <code>src/</code>, one class per file (Lesson 19)</td></tr>
-              <tr><td>2. Storage</td><td><code>PdoCatalog implements BookCatalog</code> using prepared statements and <code>utf8mb4</code> (Lesson 18)</td></tr>
-              <tr><td>3. Web pages</td><td>POST forms with CSRF tokens, escaped output, Post/Redirect/Get (Lesson 17)</td></tr>
-              <tr><td>4. Login</td><td>Members table with <code>password_hash()</code>, sessions with <code>session_regenerate_id()</code></td></tr>
+              <tr><td>1. Project</td><td><code>composer init</code>, PSR-4 <code>App\\</code> → <code>src/</code>, one class per file (Lesson 22)</td></tr>
+              <tr><td>2. Storage</td><td><code>PdoCatalog implements BookCatalog</code> using prepared statements and <code>utf8mb4</code> (Lesson 21)</td></tr>
+              <tr><td>3. Web pages</td><td>Templates with <code>&lt;?= e(...) ?&gt;</code> and a layout (Lesson 18), POST forms with CSRF tokens (Lesson 19), Post/Redirect/Get with a 303 redirect (Lesson 20)</td></tr>
+              <tr><td>4. Login and uploads</td><td>Members table with <code>password_hash()</code>, sessions with <code>session_regenerate_id()</code> (Lesson 19); book-cover uploads checked by content and saved under random names (Lesson 20)</td></tr>
               <tr><td>5. Tests</td><td>PHPUnit tests for fines, double lending and unknown ids, using fixed dates</td></tr>
               <tr><td>6. Framework</td><td>Rebuild it in Laravel or Symfony — you will recognise every idea from this course</td></tr>
             </tbody>
@@ -2436,7 +2862,7 @@ module PhpContent
         <div class="lc-card">
           <h3>Try It: Extend the Project</h3>
           <ul class="lc-list">
-            <li><strong>Easy:</strong> add a <code>Genre::Reference</code> case that can never be lent (throw a new <code>NotLendable</code> exception). Notice that PHP forces you to update <code>loanDays()</code>.</li>
+            <li><strong>Easy:</strong> add a <code>Genre::Reference</code> case that can never be lent (throw a new <code>NotLendable</code> exception). The <code>match</code> in <code>loanDays()</code> has no <code>default</code>, so PHP throws <code>UnhandledMatchError</code> only if <code>loanDays()</code> is actually <em>called</em> with the new case; a static analyser such as PHPStan flags the missing arm before you run anything. Decide what <code>loanDays()</code> should return (or check <code>NotLendable</code> first in <code>lend()</code>).</li>
             <li><strong>Medium:</strong> store the member name with each loan and add <code>loansFor(string $member): array</code>.</li>
             <li><strong>Harder:</strong> cap the fine at Rs 100 and give a 50% discount to members whose name is in a <code>$staff</code> list. Print the log as pretty JSON.</li>
           </ul>
@@ -2448,7 +2874,7 @@ module PhpContent
       starter_code: <<~'PHP'
         <?php
         declare(strict_types=1);
-        // Capstone: Library Lending System (uses Lessons 4-19)
+        // Capstone: Library Lending System (uses Lessons 4-22)
         enum Genre: string
         {
             case Tech = 'tech'; case Fiction = 'fiction';
