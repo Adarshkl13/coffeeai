@@ -2261,7 +2261,7 @@ module DeepLearningContent
           <ol class="lc-list">
             <li><strong>Tokenise:</strong> split text into tokens (words or word pieces) and map each to an ID. "unhappiness" might become "un", "happi", "ness".</li>
             <li><strong>Embed:</strong> look up a learned vector for each token ID (shape: seq_len × d_model).</li>
-            <li><strong>Add positions:</strong> attention by itself ignores order (shuffle the tokens and each token gets the same mix of the others), so we add a <strong>positional encoding</strong> that is different for position 0, 1, 2 and so on.</li>
+            <li><strong>Add positions:</strong> unmasked attention by itself ignores order (shuffle the tokens and each token gets the same mix of the others; a causal mask leaks only a weak, indirect sense of order), so we add a <strong>positional encoding</strong> that is different for position 0, 1, 2 and so on.</li>
           </ol>
           <p>The original paper used fixed sine and cosine waves: PE(pos, 2i) = sin(pos / 10000<sup>2i/d</sup>) and PE(pos, 2i+1) = cos(pos / 10000<sup>2i/d</sup>). BERT and GPT-2 instead <em>learned</em> one position vector per position, and most recent open LLMs (such as Llama) use <strong>rotary position embeddings (RoPE)</strong>, which rotate the query and key vectors by an angle that depends on the position.</p>
           <div class="lc-code">def positional_encoding(n, d):<br>    pos, i = np.arange(n)[:, None], np.arange(d)[None, :]<br>    angles = pos / 10000 ** (2 * (i // 2) / d)<br>    return np.where(i % 2 == 0, np.sin(angles), np.cos(angles))<br><br>X = E[tokens] + positional_encoding(len(tokens), d_model)</div>
@@ -2312,7 +2312,7 @@ module DeepLearningContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Forgetting positional information.</strong> Without it, the model cannot tell "dog bites man" from "man bites dog".</li>
+            <li><strong>Forgetting positional information.</strong> Without it, an encoder (unmasked attention, as in BERT) cannot tell "dog bites man" from "man bites dog": it sees only a bag of words. A causal mask in a decoder leaks some order (token 3 can only see 3 tokens), but that is weak and indirect, so add explicit positions anyway.</li>
             <li><strong>d_model not divisible by n_heads.</strong> 16 dimensions split into 4 heads of 4 works; 16 into 3 heads does not.</li>
             <li><strong>Wrong reshape when splitting heads.</strong> Reshape to (seq, heads, d_head) and then transpose; reshaping straight to (heads, seq, d_head) mixes up tokens.</li>
             <li><strong>Leaving out the causal mask in a decoder.</strong> Every position can then read the answer it is supposed to predict.</li>
@@ -2332,7 +2332,6 @@ module DeepLearningContent
       HTML
       starter_code: <<~'PYTHON'
         import numpy as np
-
         rng = np.random.default_rng(0)
         vocab = ["<pad>", "i", "love", "learning", "deep", "python", "every", "day"]
         tokens = [1, 2, 4, 3, 6, 7]                  # "i love deep learning every day"
@@ -2409,7 +2408,7 @@ module DeepLearningContent
         </div>
         <div class="lc-card">
           <h3>Transfer learning in PyTorch</h3>
-          <div class="lc-code">from torchvision.models import resnet18, ResNet18_Weights<br><br>weights = ResNet18_Weights.DEFAULT            # best available ImageNet weights<br>model = resnet18(weights=weights)             # downloads them the first time<br>preprocess = weights.transforms()             # the exact resizing + normalisation it expects<br><br>for p in model.parameters():<br>    p.requires_grad = False                   # freeze the body<br>model.fc = nn.Linear(model.fc.in_features, 3) # new head: 3 classes<br><br>optimizer = torch.optim.Adam(model.fc.parameters(), lr=1e-3)<br># ...then the usual training loop</div><p>The old style <code>resnet18(pretrained=True)</code> is deprecated and has been removed from recent torchvision versions: use the <code>weights=</code> argument.</p>
+          <div class="lc-code">from torchvision.models import resnet18, ResNet18_Weights<br><br>weights = ResNet18_Weights.DEFAULT            # best available ImageNet weights<br>model = resnet18(weights=weights)             # downloads them the first time<br>preprocess = weights.transforms()             # the exact resizing + normalisation it expects<br><br>for p in model.parameters():<br>    p.requires_grad = False                   # freeze the body<br>model.fc = nn.Linear(model.fc.in_features, 3) # new head: 3 classes<br><br>optimizer = torch.optim.Adam(model.fc.parameters(), lr=1e-3)<br># ...then the usual training loop</div><p>Old way, don't use: <code>resnet18(pretrained=True)</code>. It has been deprecated since torchvision 0.13 and only prints a warning today, but it may be removed in a future release. Use the <code>weights=</code> argument.</p>
           <p>For language, the Hugging Face library works the same way:</p>
           <div class="lc-code">from transformers import AutoModelForSequenceClassification<br>model = AutoModelForSequenceClassification.from_pretrained(<br>    "bert-base-uncased", num_labels=2)</div>
         </div>

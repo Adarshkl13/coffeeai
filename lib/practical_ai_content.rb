@@ -1371,9 +1371,9 @@ module PracticalAiContent
             <tbody>
               <tr><td>Host</td><td>The AI application (an IDE, a chat app); it uses one client per server</td></tr>
               <tr><td>Server</td><td>A program exposing <strong>tools</strong> (actions the model can call), <strong>resources</strong> (data) and <strong>prompts</strong> (templates)</td></tr>
-              <tr><td>Client features</td><td>A server may ask the client for help: <strong>elicitation</strong> (ask the user), <strong>sampling</strong> (ask the model), <strong>roots</strong> (which folders it may use)</td></tr>
+              <tr><td>Client features</td><td>A server may ask the client for help with <strong>elicitation</strong> (ask the user). <strong>Sampling</strong> (ask the model) and <strong>roots</strong> (which folders it may use) still work but are <em>deprecated</em> in the 2026-07-28 spec (SEP-2577): old way, don't use in new code. Instead call your LLM provider directly, and pass folders as tool arguments or server configuration.</td></tr>
               <tr><td>Transports</td><td><strong>stdio</strong> for local servers, <strong>Streamable HTTP</strong> for remote ones (with OAuth-based authorization)</td></tr>
-              <tr><td>Key methods</td><td><code>tools/list</code> to discover tools, <code>tools/call</code> to run one, <code>resources/read</code> for data, optional <code>server/discover</code> for supported versions</td></tr>
+              <tr><td>Key methods</td><td><code>tools/list</code> to discover tools, <code>tools/call</code> to run one, <code>resources/read</code> for data, <code>server/discover</code> for supported versions and capabilities (every server MUST implement it; clients MAY call it first)</td></tr>
             </tbody>
           </table>
           <p><strong>Current spec (2026-07-28) is stateless.</strong> Older revisions (2025-11-25 and earlier) opened a session with an <code>initialize</code> handshake. Now there is no handshake: every request carries the protocol version and client capabilities in its <code>_meta</code> field, and each request is handled on its own. Many servers support both styles during the transition.</p>
@@ -2067,7 +2067,7 @@ module PracticalAiContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Use <strong>streaming</strong> for any response &gt;100 words — it makes a 10-second response feel instant. Users start reading immediately instead of staring at a loading spinner.
+          <strong>Tip:</strong> Use <strong>streaming</strong> for any response &gt;100 words — it cuts time-to-first-token, so long answers feel much faster. Users start reading immediately instead of staring at a loading spinner.
         </div>
       HTML
       starter_code: <<~'PYTHON'
