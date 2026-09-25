@@ -1,7 +1,7 @@
 require_relative "../nodejs_content"
 
 namespace :content do
-  desc "Create Node.js course and populate all 20 lessons"
+  desc "Create Node.js course and populate all 21 lessons"
   task nodejs: :environment do
     course = Course.find_or_create_by!(slug: "nodejs") do |c|
       c.title = "Node.js"
@@ -32,8 +32,9 @@ namespace :content do
       16 => "Working with Databases",
       17 => "Environment Variables & Config",
       18 => "Authentication: Passwords, Sessions & JWT",
-      19 => "Testing with node:test",
-      20 => "Deployment & Final Project"
+      19 => "Real-Time Apps with WebSockets",
+      20 => "Testing with node:test",
+      21 => "Deployment & Final Project"
     }
 
     descriptions = {
@@ -55,8 +56,9 @@ namespace :content do
       16 => "Store data in SQLite or PostgreSQL using parameterised queries, transactions, and a connection pool.",
       17 => "Load configuration with --env-file and validate it at start-up so secrets stay out of source code.",
       18 => "Hash passwords with argon2 or bcrypt, then protect routes with cookie sessions or JWTs.",
-      19 => "Write unit and API tests with the built-in node:test runner, assertions, and mocks.",
-      20 => "Prepare an app for production with health checks and graceful shutdown, deploy it, and build the final project."
+      19 => "Push live updates with WebSockets and Server-Sent Events, authenticate the handshake, validate messages, and detect dead connections.",
+      20 => "Write unit and API tests with the built-in node:test runner, assertions, and mocks.",
+      21 => "Prepare an app for production with health checks and graceful shutdown, deploy it, and build the final project."
     }
 
     exercises = {
@@ -69,7 +71,7 @@ namespace :content do
       7 => { type: "multiple_choice", q: "An EventEmitter emits an \"error\" event and no \"error\" listener is attached. What happens?", opts: ["A) The error is thrown, crashing the process if nothing catches it", "B) The event is silently ignored, because emit only calls the listeners that exist at that moment", "C) The event is queued until a listener is added later on"], ans: "A" },
       8 => { type: "true_false", q: "If the source file in await pipeline(createReadStream(src), createGzip(), createWriteStream(dest)) does not exist, pipeline leaves the gzip and write streams open, so you must destroy them yourself in the catch block.", opts: ["True", "False"], ans: "False" },
       9 => { type: "multiple_choice", q: "In a node:http server, one code path never calls res.end(). What does the client experience on that path?", opts: ["A) The request hangs until it times out", "B) Node automatically sends an empty 200 response when the handler returns", "C) Node automatically sends a 500 error to the client"], ans: "A" },
-      10 => { type: "multiple_choice", q: "In Express 5, an async route handler awaits a database call that rejects. What happens?", opts: ["A) The request hangs forever, exactly as it did in Express 4", "B) The whole Node process crashes with an unhandled rejection", "C) Express passes the error to the error-handling middleware"], ans: "C" },
+      10 => { type: "multiple_choice", q: "In Express 5, an async route handler awaits a database call that rejects. What happens?", opts: ["A) Express ignores the error and sends an empty 200 response", "B) The whole Node process crashes with an unhandled rejection", "C) Express passes the error to the error-handling middleware"], ans: "C" },
       11 => { type: "true_false", q: "If app.get(\"/users/:id\", showUser) is registered before app.get(\"/users/me\", showMe), Express still sends GET /users/me to showMe because it prefers the more specific path.", opts: ["True", "False"], ans: "False" },
       12 => { type: "multiple_choice", q: "A middleware logs the request but never calls next() and never sends a response. What happens?", opts: ["A) Express skips it after a short delay and runs the route", "B) The request hangs with no response", "C) Express throws ERR_HTTP_HEADERS_SENT and responds with a 500"], ans: "B" },
       13 => { type: "multiple_choice", q: "A client sends DELETE /api/notes/7 twice. The first call returns 204. What should the second call return, and why?", opts: ["A) 204 again, because DELETE must always return the same status", "B) 404, because the note no longer exists; the server state is unchanged, so DELETE is still idempotent", "C) 500, because trying to delete something that is already gone is an unexpected failure on the server side"], ans: "B" },
@@ -78,8 +80,9 @@ namespace :content do
       16 => { type: "multiple_choice", q: "Why must a PostgreSQL transaction use one client from pool.connect() rather than separate pool.query() calls?", opts: ["A) pool.query() cannot run BEGIN or COMMIT at all, and throws an error if you try to send either of those statements", "B) Transactions only work on the first connection the pool ever opened", "C) Each pool.query() may run on a different connection, so BEGIN and COMMIT would not apply to the same session"], ans: "C" },
       17 => { type: "true_false", q: "When you run node --env-file=.env server.js, values in .env always overwrite variables that are already set in the real environment.", opts: ["True", "False"], ans: "False" },
       18 => { type: "multiple_choice", q: "Which statement about a signed JWT is correct?", opts: ["A) Its payload is encrypted, so it is a safe place to store a user's password", "B) Anyone can read its payload, but changing it breaks the signature", "C) It can be revoked instantly on the server, exactly like deleting a session"], ans: "B" },
-      19 => { type: "multiple_choice", q: "Using node:assert/strict, why does assert.equal({ id: 1 }, { id: 1 }) fail?", opts: ["A) equal compares objects by reference; use deepEqual to compare structure and values", "B) In strict mode, equal refuses to compare objects and throws a TypeError before it even looks at their properties", "C) Strict mode forbids comparing objects in tests at all"], ans: "A" },
-      20 => { type: "multiple_choice", q: "The platform sends SIGTERM while a request is still running. What should a well-written Node server do?", opts: ["A) Stop accepting new connections, let in-flight requests finish, then exit", "B) Exit immediately with code 0 so the new version can start sooner", "C) Ignore the signal and keep serving new requests until the platform gives up and kills the process"], ans: "A" }
+      19 => { type: "multiple_choice", q: "A chat server keeps its connected sockets in wss.clients. You now run two instances behind a load balancer, and Asha (on instance 1) sends a message. Who receives it?", opts: ["A) Everyone on both instances, because the load balancer copies WebSocket messages to every server it sends traffic to", "B) Only users on instance 1, unless the instances share events through pub/sub such as Redis", "C) Nobody, because the ws package refuses to start when more than one instance is running"], ans: "B" },
+      20 => { type: "multiple_choice", q: "Using node:assert/strict, why does assert.equal({ id: 1 }, { id: 1 }) fail?", opts: ["A) equal compares objects by reference; use deepEqual to compare structure and values", "B) In strict mode, equal refuses to compare objects and throws a TypeError before it even looks at their properties", "C) Strict mode forbids comparing objects in tests at all"], ans: "A" },
+      21 => { type: "multiple_choice", q: "The platform sends SIGTERM while a request is still running. What should a well-written Node server do?", opts: ["A) Stop accepting new connections, let in-flight requests finish, then exit", "B) Exit immediately with code 0 so the new version can start sooner", "C) Ignore the signal and keep serving new requests until the platform gives up and kills the process"], ans: "A" }
     }
 
     NodejsContent::LESSONS.each do |position, data|

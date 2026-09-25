@@ -230,6 +230,22 @@ module NodejsContent
           <p>Set <code>"erasableSyntaxOnly": true</code> and <code>"verbatimModuleSyntax": true</code> in tsconfig.json so <code>tsc</code> warns you about syntax Node cannot strip. Node also refuses to strip <code>.ts</code> files inside <code>node_modules</code>, so packages must still publish JavaScript.</p>
         </div>
         <div class="lc-card">
+          <h3>Debugging with the Inspector</h3>
+          <p><code>console.log</code> gets you far, but a real debugger lets you pause the program and look at every variable. This function prints <code>total: NaN</code>, and the bug is not obvious:</p>
+          <div class="lc-code">function total(items) {<br>  let sum = 0;<br>  for (const item of items) {<br>    debugger;                       // pauses here when a debugger is attached<br>    sum += item.price * item.qty;<br>  }<br>  return sum;<br>}<br>console.log("total:", total([{ price: 50, qty: 2 }, { price: 30 }]));</div>
+          <p>Run it with the inspector turned on:</p>
+          <div class="lc-code">$ node --inspect-brk dbg.mjs<br>Debugger listening on ws://127.0.0.1:9229/&lt;random-id&gt;<br>For help, see: https://nodejs.org/en/docs/inspector</div>
+          <table class="lc-table">
+            <thead><tr><th>Way to debug</th><th>How</th></tr></thead>
+            <tbody>
+              <tr><td>Chrome DevTools</td><td>Open <code>chrome://inspect</code>, click <strong>inspect</strong> under your script, press Resume; it stops at <code>debugger;</code></td></tr>
+              <tr><td>VS Code</td><td>Open a <strong>JavaScript Debug Terminal</strong> and run <code>node dbg.mjs</code>, or click in the gutter to set a breakpoint</td></tr>
+              <tr><td>Terminal only</td><td><code>node inspect dbg.mjs</code>, then <code>c</code> (continue), <code>n</code> (next line), <code>repl</code> to type expressions</td></tr>
+            </tbody>
+          </table>
+          <p>Paused on the second item, the Scope panel shows <code>item.qty</code> is <code>undefined</code>, and <code>30 * undefined</code> is <code>NaN</code>. <code>--inspect</code> starts running straight away (good for servers); <code>--inspect-brk</code> pauses on the first line (good for short scripts). Remove <code>debugger;</code> statements before you commit, and never expose port 9229 on a public server: anyone who reaches it can run code in your process.</p>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Reading <code>process.argv[0]</code> as the first argument.</strong> Index 0 is the node binary and 1 is the script; your arguments start at 2. Use <code>process.argv.slice(2)</code> or <code>parseArgs</code>.</li>
@@ -335,7 +351,7 @@ module NodejsContent
         </div>
         <div class="lc-card">
           <h3>Worked example: ESM features you can check yourself</h3>
-          <p>Put this file next to a <code>package.json</code> that contains <code>"type": "module"</code> and run it with Node 24:</p>
+          <p>Save this file as <code>l3_esm.mjs</code> next to a <code>package.json</code> that contains <code>"type": "module"</code> and run <code>node l3_esm.mjs</code> with Node 24:</p>
           <div class="lc-code">import path from "node:path";<br>import { createRequire } from "node:module";<br><br>console.log("typeof require :", typeof require);          // not defined in ESM<br>console.log("this file      :", path.basename(import.meta.filename));<br>console.log("__dirname equiv:", import.meta.dirname === path.dirname(import.meta.filename));<br><br>const req = createRequire(import.meta.url);               // escape hatch for CJS-only code<br>const pkg = req("./package.json");<br>console.log("package type   :", pkg.type);<br><br>const { default: os } = await import("node:os");          // dynamic import + top-level await<br>console.log("dynamic import :", typeof os.platform);<br><br>const a = await import("./package.json", { with: { type: "json" } });<br>const b = await import("./package.json", { with: { type: "json" } });<br>console.log("same cached module both times:", a === b);</div>
           <p><strong>Output:</strong></p>
           <div class="lc-code">typeof require : undefined<br>this file      : l3_esm.mjs<br>__dirname equiv: true<br>package type   : module<br>dynamic import : function<br>same cached module both times: true</div>
@@ -624,6 +640,24 @@ module NodejsContent
               <tr><td><code>rm(p, { recursive: true, force: true })</code></td><td>Delete a file or folder tree</td><td>Permanent: there is no recycle bin</td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="lc-card">
+          <h3>Buffers: Working with Raw Bytes</h3>
+          <p>Files, sockets and streams really move <strong>bytes</strong>. Node represents them as a <code>Buffer</code>: a fixed-size <code>Uint8Array</code> with extra helpers for converting to and from text. You meet Buffers whenever you read without an encoding, hash data, handle uploads or decode base64.</p>
+          <div class="lc-code">const word = "नमस्ते";                                  // "namaste" in Devanagari<br>const bytes = Buffer.from(word, "utf8");<br>console.log(bytes);<br>console.log("string length:", word.length, "| bytes:", bytes.length, "| Buffer.byteLength:", Buffer.byteLength(word));<br>console.log("hex   :", Buffer.from("Hi!").toString("hex"));<br>console.log("base64:", Buffer.from("asha:secret").toString("base64"));<br>console.log("decode:", Buffer.from("YXNoYTpzZWNyZXQ=", "base64").toString("utf8"));<br>console.log("from numbers:", Buffer.from([78, 111, 100, 101]).toString());<br>const parts = [Buffer.from("Hello, "), Buffer.from("Node")];<br>console.log("concat:", Buffer.concat(parts).toString());<br>console.log("cut in half:", bytes.subarray(0, 4).toString());<br>console.log("is Uint8Array:", bytes instanceof Uint8Array);</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">&lt;Buffer e0 a4 a8 e0 a4 ae e0 a4 b8 e0 a5 8d e0 a4 a4 e0 a5 87&gt;<br>string length: 6 | bytes: 18 | Buffer.byteLength: 18<br>hex   : 486921<br>base64: YXNoYTpzZWNyZXQ=<br>decode: asha:secret<br>from numbers: Node<br>concat: Hello, Node<br>cut in half: न�<br>is Uint8Array: true</div>
+          <table class="lc-table">
+            <thead><tr><th>You want</th><th>Write</th></tr></thead>
+            <tbody>
+              <tr><td>Text to bytes</td><td><code>Buffer.from(text, "utf8")</code></td></tr>
+              <tr><td>Bytes to text</td><td><code>buf.toString("utf8")</code></td></tr>
+              <tr><td>Size in bytes (for <code>Content-Length</code> or limits)</td><td><code>Buffer.byteLength(text)</code>, not <code>text.length</code></td></tr>
+              <tr><td>Hex or base64 (tokens, hashes, Basic auth)</td><td><code>buf.toString("hex")</code>, <code>"base64"</code>, <code>"base64url"</code></td></tr>
+              <tr><td>Join chunks from a stream</td><td><code>Buffer.concat(chunks)</code>, then decode once</td></tr>
+            </tbody>
+          </table>
+          <p>Hindi, emoji and most non-English text use 2&ndash;4 bytes per character in UTF-8, so the 6-character word needs 18 bytes. Cutting a Buffer in the middle of a character gives the replacement symbol <code>�</code>: collect all the chunks and decode once (or use <code>setEncoding("utf8")</code> on a stream, which handles split characters for you). <code>new Buffer()</code> is the old, deprecated way; always use <code>Buffer.from</code> or <code>Buffer.alloc</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1001,16 +1035,16 @@ module NodejsContent
           <p>This script writes a 20,000-line log to a temporary folder and then processes it only with streams:</p>
           <div class="lc-code">import { createReadStream, createWriteStream } from "node:fs";<br>import { writeFile, stat, rm, mkdtemp } from "node:fs/promises";<br>import { pipeline } from "node:stream/promises";<br>import { Readable, Transform } from "node:stream";<br>import { createGzip } from "node:zlib";<br>import { tmpdir } from "node:os";<br>import path from "node:path";<br>import readline from "node:readline";<br><br>const dir = await mkdtemp(path.join(tmpdir(), "logs-"));<br>const log = path.join(dir, "access.log");<br>const lines = Array.from({ length: 20000 }, (_, i) =&gt; `GET /api/items/${i} ${i % 1000 === 0 ? 500 : 200}`);<br>await writeFile(log, lines.join("\n") + "\n");<br><br>let errors = 0;                                    // 1. read line by line<br>for await (const line of readline.createInterface({ input: createReadStream(log) })) {<br>  if (line.endsWith(" 500")) errors++;<br>}<br>console.log("server errors:", errors);<br><br>await pipeline(createReadStream(log), createGzip(), createWriteStream(log + ".gz"));  // 2. compress<br>console.log("original bytes:", (await stat(log)).size, "| gzipped bytes:", (await stat(log + ".gz")).size);<br><br>const upper = new Transform({                      // 3. a custom transform<br>  transform(chunk, encoding, callback) {<br>    callback(null, chunk.toString().toUpperCase());<br>  },<br>});<br>const out = [];<br>await pipeline(Readable.from(["hello ", "streams"]), upper, async function (source) {<br>  for await (const chunk of source) out.push(chunk.toString());<br>});<br>console.log(out.join(""));<br><br>try {                                              // 4. errors reach pipeline's promise<br>  await pipeline(createReadStream(path.join(dir, "missing.log")), createGzip(), createWriteStream(log + "2.gz"));<br>} catch (err) {<br>  console.log("pipeline failed:", err.code);<br>}<br>await rm(dir, { recursive: true, force: true });</div>
           <p><strong>Output:</strong></p>
-          <div class="lc-code">server errors: 20<br>original bytes: 488890 | gzipped bytes: 52875<br>HELLO STREAMS<br>pipeline failed: ENOENT</div>
+          <div class="lc-code">server errors: 20<br>original bytes: 488890 | gzipped bytes: 52882<br>HELLO STREAMS<br>pipeline failed: ENOENT</div>
           <ul class="lc-list">
-            <li>Repetitive text like logs compresses very well: about 9× smaller here.</li>
+            <li>Repetitive text like logs compresses very well: about 9× smaller here. The exact gzipped size (about 52,900 bytes) can differ by a few bytes between Node versions, because each ships its own zlib build.</li>
             <li>The last stage of a <code>pipeline</code> can be an async function that consumes the stream: handy for collecting or saving results.</li>
             <li>When the source file is missing, <code>pipeline</code> destroys all three streams and <em>rejects</em>, so one try/catch handles every failure.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Backpressure in one picture</h3>
-          <p>A disk can often be read faster than a network client can download. Without backpressure the fast side would pile data up in memory. With <code>pipeline</code> (or <code>.pipe</code>), when the writable side's buffer passes its <code>highWaterMark</code> (16 KB by default for byte streams), <code>write()</code> returns <code>false</code> and the readable side pauses until a <code>"drain"</code> event. You get this for free; you only need to know it exists when you write to a stream by hand.</p>
+          <p>A disk can often be read faster than a network client can download. Without backpressure the fast side would pile data up in memory. With <code>pipeline</code> (or <code>.pipe</code>), when the writable side's buffer passes its <code>highWaterMark</code> (64 KiB by default since Node 22; it was 16 KiB before), <code>write()</code> returns <code>false</code> and the readable side pauses until a <code>"drain"</code> event. You get this for free; you only need to know it exists when you write to a stream by hand.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1233,7 +1267,7 @@ module NodejsContent
         <div class="lc-card">
           <h3>What's New in Express 5</h3>
           <ul class="lc-list">
-            <li><strong>Async errors are caught.</strong> If an <code>async</code> handler throws or its promise rejects, Express forwards the error to your error handler. In Express 4 this crashed or hung the request.</li>
+            <li><strong>Async errors are caught.</strong> If an <code>async</code> handler throws or its promise rejects, Express forwards the error to your error handler. In Express 4 the error skipped your error handler: on current Node the unhandled rejection crashes the whole process.</li>
             <li>Path syntax is stricter: wildcards must be named, e.g. <code>app.get("/files/*path", ...)</code>.</li>
             <li><code>req.query</code> is read-only and <code>req.body</code> is <code>undefined</code> until a body parser runs.</li>
             <li>Requires Node 18 or newer.</li>
@@ -1253,7 +1287,7 @@ module NodejsContent
           <div class="lc-code">GET / -&gt; 200 text/html Hello from Express<br>POST /todos -&gt; 201 application/json {"id":2,"title":"Ship it","done":false}<br>GET /todos -&gt; 200 application/json [{"id":1,"title":"Learn Express","done":false},{"id":2,"titl<br>GET /boom -&gt; 500 application/json {"error":"Internal server error"}<br>PUT /todos -&gt; 404 text/html &lt;!DOCTYPE html&gt; &lt;html lang="en"&gt; &lt;head&gt; &lt;meta charset="utf-8</div>
           <ul class="lc-list">
             <li><code>res.send("text")</code> sets <code>text/html</code>; <code>res.json()</code> sets <code>application/json</code>.</li>
-            <li>The async <code>/boom</code> route rejected, and Express 5 passed the error to the error handler. (In Express 4 this request would have hung.)</li>
+            <li>The async <code>/boom</code> route rejected, and Express 5 passed the error to the error handler. (In Express 4 the rejection would have bypassed the error handler and, on Node 15+, crashed the whole process.)</li>
             <li>No route handles <code>PUT /todos</code>, so Express's built-in 404 page is sent. Lesson 11 replaces it with a JSON 404.</li>
           </ul>
         </div>
@@ -1500,7 +1534,7 @@ module NodejsContent
         </div>
         <div class="lc-card">
           <h3>Worked example: the chain in action</h3>
-          <div class="lc-code">import express from "express";<br>import { randomUUID } from "node:crypto";<br><br>const app = express();<br>const log = [];<br>app.use((req, res, next) =&gt; {                          // 1. request id<br>  req.id = randomUUID().slice(0, 8);<br>  res.set("X-Request-Id", req.id);<br>  next();<br>});<br>app.use((req, res, next) =&gt; {                          // 2. logger (runs when the response finishes)<br>  res.on("finish", () =&gt; log.push(`${req.method} ${req.originalUrl} ${res.statusCode}`));<br>  next();<br>});<br>function requireApiKey(req, res, next) {<br>  if (req.get("x-api-key") !== "secret123") {<br>    return res.status(401).json({ error: "Missing or wrong API key" });  // stop the chain<br>  }<br>  next();<br>}<br>app.delete("/posts/:id", requireApiKey, (req, res) =&gt; res.sendStatus(204));<br>app.get("/forgot-next", (req, res, next) =&gt; { /* never calls next() or sends */ });<br>app.get("/fail", (req, res, next) =&gt; next(new Error("disk full")));<br>app.use((err, req, res, next) =&gt; {                     // error handler: log details, send a safe message<br>  log.push(`error in ${req.id.length}-char request id: ${err.message}`);<br>  res.status(500).json({ error: "Internal server error" });<br>});<br><br>const server = app.listen(0);<br>await new Promise((r) =&gt; server.once("listening", r));<br>const base = `http://localhost:${server.address().port}`;<br>const tries = [["DELETE", "/posts/5", {}], ["DELETE", "/posts/5", { "x-api-key": "secret123" }],<br>               ["GET", "/fail", {}], ["GET", "/forgot-next", {}]];<br>for (const [method, path, headers] of tries) {<br>  try {<br>    const res = await fetch(base + path, { method, headers, signal: AbortSignal.timeout(300) });<br>    console.log(method, path, "-&gt;", res.status, (await res.text()) || "(no body)");<br>  } catch (err) {<br>    console.log(method, path, "-&gt;", err.name, "(the request hung)");<br>  }<br>}<br>console.log("log:", log);<br>server.closeAllConnections();<br>server.close();</div>
+          <div class="lc-code">import express from "express";<br>import { randomUUID } from "node:crypto";<br><br>const app = express();<br>const log = [];<br>app.use((req, res, next) =&gt; {                          // 1. request id<br>  req.id = randomUUID().slice(0, 8);<br>  res.set("X-Request-Id", req.id);<br>  next();<br>});<br>app.use((req, res, next) =&gt; {                          // 2. logger (runs when the response finishes)<br>  res.on("finish", () =&gt; log.push(`${req.method} ${req.originalUrl} ${res.statusCode}`));<br>  next();<br>});<br>function requireApiKey(req, res, next) {<br>  if (req.get("x-api-key") !== "secret123") {<br>    return res.status(401).json({ error: "Missing or wrong API key" });  // stop the chain<br>  }<br>  next();<br>}<br>app.delete("/posts/:id", requireApiKey, (req, res) =&gt; res.sendStatus(204));<br>app.get("/forgot-next", (req, res, next) =&gt; { /* never calls next() or sends */ });<br>app.get("/fail", (req, res, next) =&gt; next(new Error("disk full")));<br>app.use((err, req, res, next) =&gt; {                     // error handler: log details, send a safe message<br>  log.push(`error in ${req.id.length}-char request id: ${err.message}`);<br>  res.status(500).json({ error: "Internal server error" });<br>});<br><br>const server = app.listen(0);<br>await new Promise((r) =&gt; server.once("listening", r));<br>const base = `http://localhost:${server.address().port}`;<br>const tries = [["DELETE", "/posts/5", {}], ["DELETE", "/posts/5", { "x-api-key": "secret123" }],<br>               ["GET", "/fail", {}], ["GET", "/forgot-next", {}]];<br>for (const [method, path, headers] of tries) {<br>  try {<br>    const res = await fetch(base + path, { method, headers, signal: path === "/forgot-next" ? AbortSignal.timeout(1000) : undefined });<br>    console.log(method, path, "-&gt;", res.status, (await res.text()) || "(no body)");<br>  } catch (err) {<br>    console.log(method, path, "-&gt;", err.name, "(the request hung)");<br>  }<br>}<br>console.log("log:", log);<br>server.closeAllConnections();<br>server.close();</div>
           <p><strong>Output:</strong></p>
           <div class="lc-code">DELETE /posts/5 -&gt; 401 {"error":"Missing or wrong API key"}<br>DELETE /posts/5 -&gt; 204 (no body)<br>GET /fail -&gt; 500 {"error":"Internal server error"}<br>GET /forgot-next -&gt; TimeoutError (the request hung)<br>log: [<br>  'DELETE /posts/5 401',<br>  'DELETE /posts/5 204',<br>  'error in 8-char request id: disk full',<br>  'GET /fail 500'<br>]</div>
           <ul class="lc-list">
@@ -1881,6 +1915,14 @@ module NodejsContent
           <h3>CPU-heavy work: worker threads</h3>
           <p>Promises don't make CPU work parallel: a long calculation still blocks the one JavaScript thread. For that, start a <code>Worker</code> from <code>node:worker_threads</code>, which runs a separate JavaScript thread and talks to the main thread with messages:</p>
           <div class="lc-code">import { Worker } from "node:worker_threads";<br><br>const worker = new Worker(new URL("./hash-worker.js", import.meta.url), { workerData: passwords });<br>worker.on("message", (hashes) =&gt; console.log("done", hashes.length));<br>worker.on("error", (err) =&gt; console.error(err));</div>
+        </div>
+        <div class="lc-card">
+          <h3>Running Other Programs: child_process</h3>
+          <p>Sometimes the work belongs to another program: <code>git</code>, <code>ffmpeg</code>, a Python script. <code>node:child_process</code> starts it as a separate process. Use <code>execFile</code> for short commands whose output you want in one go, and <code>spawn</code> for long-running ones whose output should stream:</p>
+          <div class="lc-code">import { execFile, spawn } from "node:child_process";<br>import { promisify } from "node:util";<br><br>const run = promisify(execFile);<br>const { stdout } = await run(process.execPath, ["-e", "console.log(6 * 7)"]);<br>console.log("child printed:", stdout.trim());<br><br>try {<br>  await run(process.execPath, ["-e", "process.exit(3)"]);<br>} catch (err) {<br>  console.log("child failed with exit code:", err.code);<br>}<br><br>const child = spawn(process.execPath, ["-e", "for (let i = 1; i &lt;= 3; i++) console.log('line', i)"]);<br>let out = "";<br>for await (const chunk of child.stdout) out += chunk;       // output arrives as a stream<br>console.log("spawn output:", out.trim().split("\n"));<br>const code = await new Promise((r) =&gt; child.on("close", r));<br>console.log("spawn exit code:", code);</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">child printed: 42<br>child failed with exit code: 3<br>spawn output: [ 'line 1', 'line 2', 'line 3' ]<br>spawn exit code: 0</div>
+          <p><code>process.execPath</code> is the path of the running <code>node</code>, so this example works on every machine. A non-zero exit code rejects the promise, with the code in <code>err.code</code>. Pass arguments as an <strong>array</strong> and avoid <code>exec("convert " + userFile)</code>: <code>exec</code> runs a shell, so a file name like <code>x; rm -rf ~</code> becomes a second command (command injection).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -2308,6 +2350,135 @@ module NodejsContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-nodejs">Node.js</div>
+          <h1 class="lc-title">Real-Time Apps with WebSockets</h1>
+        </div>
+        <p class="lc-lead">HTTP is <strong>request, then response</strong>: the server cannot speak until the client asks. Chat, live scores, notifications and multiplayer games need the server to <strong>push</strong> data the moment something happens. A <strong>WebSocket</strong> is one long-lived, two-way connection that makes this possible, and handling thousands of mostly idle connections is exactly what Node's event loop is good at.</p>
+        <div class="lc-card">
+          <h3>Three Ways to Get Live Updates</h3>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Polling</th><th>Server-Sent Events (SSE)</th><th>WebSocket</th></tr></thead>
+            <tbody>
+              <tr><td>How</td><td>Client asks <code>GET /messages</code> every few seconds</td><td>One HTTP response that never ends; server writes events into it</td><td>HTTP handshake, then the connection is upgraded to the WebSocket protocol</td></tr>
+              <tr><td>Direction</td><td>Client &rarr; server only</td><td>Server &rarr; client only</td><td>Both ways, any time</td></tr>
+              <tr><td>Browser API</td><td><code>fetch</code></td><td><code>EventSource</code> (reconnects by itself)</td><td><code>WebSocket</code></td></tr>
+              <tr><td>Good for</td><td>Data that changes rarely</td><td>Notifications, progress bars, streamed AI answers</td><td>Chat, games, collaborative editing</td></tr>
+              <tr><td>Cost</td><td>Many wasted requests; updates arrive late</td><td>Very low; plain HTTP</td><td>Low, but you manage connection state</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>The Tools in 2026</h3>
+          <ul class="lc-list">
+            <li><strong>Client:</strong> <code>WebSocket</code> is a global in browsers and, since Node 22, in Node too (no package needed). It uses the same API: <code>onopen</code>, <code>onmessage</code>, <code>send</code>, <code>close</code>.</li>
+            <li><strong>Server:</strong> Node has no built-in WebSocket <em>server</em>. The standard package is <code>ws</code> (<code>npm install ws</code>, version 8). It attaches to the same HTTP server as your Express app, so REST and WebSockets share one port.</li>
+            <li><strong>Socket.IO</strong> is a bigger library on top: rooms, automatic reconnection, acknowledgements. Its client speaks its own protocol, so a plain <code>WebSocket</code> cannot talk to a Socket.IO server.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Worked example: an authenticated chat server</h3>
+          <p>Requires <code>npm install express ws</code> in a <code>"type": "module"</code> project. The script starts Express and a <code>ws</code> server on the same port, then connects three built-in <code>WebSocket</code> clients to it:</p>
+          <div class="lc-code">import express from "express";<br>import { WebSocketServer } from "ws";<br><br>const app = express();<br>app.get("/health", (req, res) =&gt; res.json({ status: "ok" }));<br>const server = app.listen(0);                         // one HTTP server for REST and WebSockets<br>const wss = new WebSocketServer({ noServer: true });<br>const TOKENS = { "t-asha": "Asha", "t-ravi": "Ravi" };  // pretend these came from login<br><br>server.on("upgrade", (req, socket, head) =&gt; {         // 1. authenticate the handshake<br>  const token = new URL(req.url, "http://x").searchParams.get("token");<br>  const user = TOKENS[token];<br>  if (!user) {<br>    socket.end("HTTP/1.1 401 Unauthorized\r\n\r\n");<br>    return;<br>  }<br>  wss.handleUpgrade(req, socket, head, (ws) =&gt; wss.emit("connection", ws, user));<br>});<br><br>function broadcast(msg) {                             // 2. send to every open client<br>  const data = JSON.stringify(msg);<br>  for (const client of wss.clients) {<br>    if (client.readyState === client.OPEN) client.send(data);<br>  }<br>}<br><br>wss.on("connection", (ws, user) =&gt; {<br>  broadcast({ type: "joined", user, online: wss.clients.size });<br>  ws.on("message", (raw) =&gt; {                         // 3. never trust incoming data<br>    let msg;<br>    try { msg = JSON.parse(raw); } catch { msg = null; }<br>    if (msg?.type !== "chat" || typeof msg.text !== "string" || msg.text.length &gt; 200) {<br>      ws.send(JSON.stringify({ type: "error", error: "Invalid message" }));<br>      return;<br>    }<br>    broadcast({ type: "chat", user, text: msg.text });<br>  });<br>  ws.on("close", () =&gt; broadcast({ type: "left", user, online: wss.clients.size }));<br>});<br><br>await new Promise((r) =&gt; server.once("listening", r));<br>const url = `ws://localhost:${server.address().port}/chat`;<br>const sleep = (ms) =&gt; new Promise((r) =&gt; setTimeout(r, ms));<br><br>const inbox = { Asha: [], Ravi: [] };<br>function connect(name, token) {                       // Node 22+ has a built-in WebSocket client<br>  const ws = new WebSocket(`${url}?token=${token}`);<br>  ws.onmessage = (e) =&gt; inbox[name].push(e.data);<br>  ws.onerror = () =&gt; console.log(`${name}: connection refused`);<br>  return new Promise((r) =&gt; { ws.onopen = () =&gt; r(ws); ws.onclose = () =&gt; r(ws); });<br>}<br><br>const asha = await connect("Asha", "t-asha");<br>await sleep(50);<br>const ravi = await connect("Ravi", "t-ravi");<br>await sleep(50);<br>await connect("Hacker", "wrong");<br>asha.send(JSON.stringify({ type: "chat", text: "Hi Ravi!" }));<br>await sleep(50);<br>ravi.send("not json");<br>await sleep(50);<br>ravi.close();<br>await sleep(50);<br>asha.close();<br>await sleep(50);<br>for (const [name, msgs] of Object.entries(inbox)) console.log(`${name} received:\n  ${msgs.join("\n  ")}`);<br>server.close();</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">Hacker: connection refused<br>Asha received:<br>  {"type":"joined","user":"Asha","online":1}<br>  {"type":"joined","user":"Ravi","online":2}<br>  {"type":"chat","user":"Asha","text":"Hi Ravi!"}<br>  {"type":"left","user":"Ravi","online":1}<br>Ravi received:<br>  {"type":"joined","user":"Ravi","online":2}<br>  {"type":"chat","user":"Asha","text":"Hi Ravi!"}<br>  {"type":"error","error":"Invalid message"}</div>
+          <ul class="lc-list">
+            <li><strong>Authenticate during the handshake.</strong> With <code>noServer: true</code> you handle the HTTP <code>upgrade</code> event yourself, so a bad token gets a 401 and no socket is ever opened. In a real app, check the session cookie or a JWT (Lesson 18) here, and check <code>req.headers.origin</code> too.</li>
+            <li><strong>Messages are just strings.</strong> Agree on a small JSON protocol with a <code>type</code> field, <code>JSON.stringify</code> before sending, and validate everything you receive exactly like <code>req.body</code> (Lesson 14). The bad message went back to Ravi only.</li>
+            <li><strong>Check <code>readyState</code> before sending.</strong> A client can disconnect at any moment; <code>close</code> removes it from <code>wss.clients</code>, so the "left" event shows 1 user online.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Detecting Dead Connections: Heartbeats</h3>
+          <p>If a phone loses signal, no <code>close</code> event arrives and the server keeps a "ghost" socket forever. The fix is a heartbeat: ping every client regularly and drop any that did not answer the previous ping.</p>
+          <div class="lc-code">import { WebSocketServer } from "ws";<br><br>const wss = new WebSocketServer({ port: 0 });<br>wss.on("connection", (ws) =&gt; {<br>  ws.isAlive = true;<br>  ws.on("pong", () =&gt; { ws.isAlive = true; });      // browsers and Node clients answer pings automatically<br>});<br><br>const interval = setInterval(() =&gt; {<br>  for (const ws of wss.clients) {<br>    if (!ws.isAlive) { ws.terminate(); continue; }   // no pong since last check: connection is dead<br>    ws.isAlive = false;<br>    ws.ping();<br>  }<br>}, 100);                                            // use about 30_000 in a real app<br>wss.on("close", () =&gt; clearInterval(interval));</div>
+          <p>A test client connected to this server stays open through three heartbeats, because WebSocket clients answer pings automatically. A client that stops answering is terminated at the next check.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Server-Sent Events: Push Without a Library</h3>
+          <p>If only the server needs to talk, SSE is simpler: it is a normal Express route that keeps the response open and writes <code>data: ...</code> blocks separated by a blank line.</p>
+          <div class="lc-code">import express from "express";<br><br>const app = express();<br>app.get("/events", (req, res) =&gt; {<br>  res.set({ "Content-Type": "text/event-stream", "Cache-Control": "no-cache" });<br>  res.flushHeaders();<br>  let n = 0;<br>  const timer = setInterval(() =&gt; {<br>    res.write(`data: ${JSON.stringify({ tick: ++n })}\n\n`);   // one event = "data: ...\n\n"<br>    if (n === 3) { clearInterval(timer); res.end(); }<br>  }, 100);<br>  req.on("close", () =&gt; clearInterval(timer));                 // client went away<br>});</div>
+          <p>Reading <code>/events</code> with <code>fetch</code> prints:</p>
+          <div class="lc-code">text/event-stream; charset=utf-8<br>data: {"tick":1}<br><br>data: {"tick":2}<br><br>data: {"tick":3}</div>
+          <p>In the browser, <code>new EventSource("/events")</code> with an <code>onmessage</code> handler receives each event, and reconnects by itself if the connection drops.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Scaling Beyond One Server</h3>
+          <p><code>wss.clients</code> lives in one process's memory. Run two instances behind a load balancer and a message sent to instance 1 only reaches the users connected to instance 1. Share events between instances with a pub/sub system such as <strong>Redis</strong> (every instance publishes and subscribes to a channel), or use the Socket.IO Redis adapter. Your load balancer must also allow the <code>Upgrade</code> header and long-lived connections.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Trusting incoming messages.</strong> Any client can send any bytes. Parse inside <code>try</code>/<code>catch</code>, check the shape and length, and never let one bad message crash the server.</li>
+            <li><strong>Skipping authentication because "it is not HTTP".</strong> The handshake <em>is</em> HTTP: check the cookie or token in the <code>upgrade</code> handler before accepting.</li>
+            <li><strong>Sending objects directly.</strong> <code>ws.send({ text: "hi" })</code> does not send JSON. Always <code>JSON.stringify</code> and <code>JSON.parse</code>.</li>
+            <li><strong>No heartbeat.</strong> Without ping/pong, dead connections pile up and your "online" count is wrong.</li>
+            <li><strong>Forgetting open sockets on shutdown.</strong> <code>server.close()</code> (Lesson 21) waits for every connection, and WebSockets never finish by themselves. On SIGTERM, close each client with <code>ws.close(1001, "server restarting")</code> so browsers reconnect to the new version.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>In the starter add <code>receive(asha, JSON.stringify({ type: "chat", text: "x".repeat(201) }));</code> before <code>close(ravi)</code>. Asha gets an "Invalid message" error and Ravi sees nothing.</li>
+            <li>Move <code>close(ravi);</code> up so it runs just before Asha's "Hi Ravi!" message. Predict what each user receives, then run it: Ravi misses the chat, because he was no longer connected.</li>
+            <li>Support a <code>{ "type": "typing" }</code> message: in <code>receive</code>, when <code>msg?.type === "typing"</code>, broadcast <code>{ type: "typing", user: client.user }</code> and return before the chat checks.</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Start with the simplest tool that works. If only the server pushes (notifications, progress, streamed AI text), use SSE; reach for WebSockets when clients must also send messages constantly, and for Socket.IO only when you need rooms and reconnection handled for you.
+        </div>
+      HTML
+      starter_code: <<~'JS'
+        // Runs in the browser — the real Node.js version (ws + Express) is shown in the lesson above.
+        // A tiny chat hub: authenticate on connect, validate every message, broadcast JSON to open clients.
+        const TOKENS = { "t-asha": "Asha", "t-ravi": "Ravi" };
+        const clients = new Set();
+
+        function broadcast(msg) {
+          const data = JSON.stringify(msg);
+          for (const c of clients) if (c.open) c.inbox.push(data);
+        }
+
+        function connect(token) {
+          const user = TOKENS[token];
+          if (!user) return console.log(`connect(${token}): 401 Unauthorized, no socket opened`);
+          const client = { user, open: true, inbox: [] };
+          clients.add(client);
+          broadcast({ type: "joined", user, online: clients.size });
+          return client;
+        }
+
+        function receive(client, raw) {
+          let msg;
+          try { msg = JSON.parse(raw); } catch { msg = null; }
+          if (msg?.type !== "chat" || typeof msg.text !== "string" || msg.text.length > 200) {
+            client.inbox.push(JSON.stringify({ type: "error", error: "Invalid message" }));
+            return;
+          }
+          broadcast({ type: "chat", user: client.user, text: msg.text });
+        }
+
+        function close(client) {
+          client.open = false;
+          clients.delete(client);
+          broadcast({ type: "left", user: client.user, online: clients.size });
+        }
+
+        const asha = connect("t-asha");
+        const ravi = connect("t-ravi");
+        connect("wrong");
+        receive(asha, JSON.stringify({ type: "chat", text: "Hi Ravi!" }));
+        receive(ravi, "not json");
+        close(ravi);
+
+        for (const c of [asha, ravi]) {
+          console.log(`${c.user} received:`);
+          for (const m of c.inbox) console.log("  " + m);
+        }
+      JS
+    },
+    20 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-nodejs">Node.js</div>
           <h1 class="lc-title">Testing with node:test</h1>
         </div>
         <p class="lc-lead">Node has a built-in test runner and assertion library. No Jest or Mocha required: write tests with <code>node:test</code> and <code>node:assert/strict</code>, and run them with <code>node --test</code>.</p>
@@ -2434,7 +2605,7 @@ module NodejsContent
         console.log(`\n# pass ${passed}\n# fail ${tests.length - passed}`);
       JS
     },
-    20 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-nodejs">Node.js</div>
@@ -2489,8 +2660,9 @@ module NodejsContent
               <tr><td>SQLite or Postgres with parameterised queries</td><td>16</td></tr>
               <tr><td>Config from <code>--env-file</code>, validated at start-up</td><td>17</td></tr>
               <tr><td>Register / login with argon2 or bcrypt; users only see their own notes</td><td>18</td></tr>
-              <tr><td>At least 8 <code>node:test</code> tests covering success and failure cases</td><td>19</td></tr>
-              <tr><td>Health check, graceful shutdown, deployed to a public URL</td><td>20</td></tr>
+              <tr><td>At least 8 <code>node:test</code> tests covering success and failure cases</td><td>20</td></tr>
+              <tr><td>Health check, graceful shutdown, deployed to a public URL</td><td>21</td></tr>
+              <tr><td>Stretch goal: push a live event to the owner's open tabs over a WebSocket or SSE when a note changes</td><td>19</td></tr>
             </tbody>
           </table>
         </div>
