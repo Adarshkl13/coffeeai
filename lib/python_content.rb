@@ -1208,7 +1208,34 @@ module PythonContent
         print(add_tax(200))            # 236.0
         print(rate)                    # 0.18
         # print(total)                 # NameError: total only exists inside add_tax</code></pre></div>
-          <p>Assigning to a name inside a function makes it <strong>local</strong> to that function. To change an outer variable you would need <code>global</code> — use it rarely; returning a value is cleaner. Inner functions that remember outer variables (<strong>closures</strong>) come in Lesson 17, just before decorators.</p>
+          <p>Assigning to a name inside a function makes it <strong>local</strong> to that function. To change an outer variable you would need <code>global</code> — use it rarely; returning a value is cleaner. Inner functions that remember outer variables (<strong>closures</strong>) come in Lesson 18, just before decorators.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Recursion: A Function That Calls Itself</h2>
+          <p>A <strong>recursive</strong> function solves a problem by calling itself on a <em>smaller</em> version of the same problem. Every recursive function needs two parts:</p>
+          <table class="lc-table">
+            <thead><tr><th>Part</th><th>Job</th><th>In <code>factorial</code></th></tr></thead>
+            <tbody>
+              <tr><td><strong>Base case</strong></td><td>A simple input answered directly, which stops the calls</td><td><code>n &lt;= 1</code> returns <code>1</code></td></tr>
+              <tr><td><strong>Recursive case</strong></td><td>Calls the function on a smaller input and uses the result</td><td><code>n * factorial(n - 1)</code></td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code-block"><pre><code>def factorial(n):
+            if n &lt;= 1:                      # base case: stop here
+                return 1
+            return n * factorial(n - 1)     # recursive case: a smaller problem
+
+        print(factorial(5))                 # 120
+        # factorial(5) = 5 * factorial(4) = 5 * 4 * factorial(3) = ... = 5 * 4 * 3 * 2 * 1
+
+        def total(items):                   # add numbers in lists inside lists
+            result = 0
+            for item in items:
+                result += total(item) if isinstance(item, list) else item
+            return result
+
+        print(total([1, [2, 3], [4, [5, 6]]]))   # 21</code></pre></div>
+          <p>Recursion is natural for nested data (folders inside folders, JSON inside JSON, trees). For a simple count or sum, a loop is clearer and faster. If the base case is missing or never reached, the calls never stop and Python raises <code>RecursionError: maximum recursion depth exceeded</code> — by default Python allows about 1000 nested calls (<code>sys.getrecursionlimit()</code> returns <code>1000</code>).</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common Mistakes</h2>
@@ -1219,11 +1246,12 @@ module PythonContent
             <li>Putting a default parameter before a normal one: <code>def f(a=1, b):</code> is a <code>SyntaxError</code>.</li>
             <li>Writing <code>key=len()</code> instead of <code>key=len</code>. Pass the function; don't call it.</li>
             <li><code>UnboundLocalError</code>: reading a global and then assigning to it in the same function makes Python treat it as local everywhere in that function.</li>
+            <li>A recursive function with no base case, or one whose argument never gets smaller (<code>countdown(n)</code> calling <code>countdown(n)</code>), ends in <code>RecursionError</code>.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try It</h2>
-          <p>Write <code>bmi(weight_kg, height_m)</code> that returns the BMI rounded to 1 decimal place, and <code>bmi_category(value)</code> that returns <code>"Underweight"</code> (below 18.5), <code>"Normal"</code> (below 25) or <code>"Overweight"</code>. Call both for three people. Finally, sort <code>["Mumbai", "Goa", "Bengaluru", "Delhi"]</code> by the <strong>last letter</strong> of each name using a lambda.</p>
+          <p>Write <code>bmi(weight_kg, height_m)</code> that returns the BMI rounded to 1 decimal place, and <code>bmi_category(value)</code> that returns <code>"Underweight"</code> (below 18.5), <code>"Normal"</code> (below 25) or <code>"Overweight"</code>. Call both for three people. Finally, sort <code>["Mumbai", "Goa", "Bengaluru", "Delhi"]</code> by the <strong>last letter</strong> of each name using a lambda. Bonus: write a recursive <code>power(base, exp)</code> with the base case <code>exp == 0</code>, and check that <code>power(2, 10)</code> returns <code>1024</code>.</p>
         </div>
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> A good function does <strong>one job</strong> and has a name that starts with a verb: <code>calculate_total</code>, <code>send_email</code>, <code>is_valid</code>.</p></div>
       HTML
@@ -1274,6 +1302,13 @@ module PythonContent
             return round(total_price, 2)
         print("add_tax(200):", add_tax(200))
         print("is total_price global?", "total_price" in globals())
+
+        print("--- recursion ---")
+        def factorial(n):
+            if n <= 1:                         # base case
+                return 1
+            return n * factorial(n - 1)        # recursive case
+        print("factorial(5):", factorial(5))
       PY
     },
 
@@ -1337,7 +1372,7 @@ module PythonContent
           <p>Use round brackets and you get a <strong>generator expression</strong>. It produces values one at a time instead of building a whole list, so it saves memory. It is perfect inside <code>sum()</code>, <code>max()</code>, <code>any()</code> and <code>all()</code>:</p>
           <div class="lc-code-block"><pre><code>total = sum(n * n for n in range(1, 1_000_001))   # no big list in memory
         has_fail = any(m &lt; 35 for m in [88, 45, 30])     # True</code></pre></div>
-          <p>You will learn how generators work in Lesson 16.</p>
+          <p>You will learn how generators work in Lesson 17.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Which Brackets Give What?</h2>
@@ -1487,11 +1522,34 @@ module PythonContent
             if amount &gt; balance:
                 raise InsufficientFundsError(f"need ₹{amount - balance} more")
             return balance - amount</code></pre></div>
-          <p>A custom exception is just a class that inherits from <code>Exception</code> (you will learn classes in Lesson 14). Inside an <code>except</code> block, a bare <code>raise</code> re-raises the same error after, for example, logging it.</p>
+          <p>A custom exception is just a class that inherits from <code>Exception</code> (you will learn classes in Lesson 15). Inside an <code>except</code> block, a bare <code>raise</code> re-raises the same error after, for example, logging it.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>EAFP: Python's Style</h2>
           <p>Python code often follows "<strong>E</strong>asier to <strong>A</strong>sk <strong>F</strong>orgiveness than <strong>P</strong>ermission": just try the operation and handle the failure, instead of checking every condition first. For example, <code>try: int(text)</code> is simpler and more reliable than checking every character yourself.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Logging Errors Instead of Printing</h2>
+          <p>In real programs, record problems with the standard <code>logging</code> module instead of <code>print()</code>. Each message has a <strong>level</strong> — <code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>, <code>CRITICAL</code> — and you choose, in one place, which levels are shown. Inside <code>except</code>, <code>log.exception()</code> logs at <code>ERROR</code> level and adds the full traceback.</p>
+          <div class="lc-code-block"><pre><code>import logging
+
+        logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
+        log = logging.getLogger("shop")
+
+        log.debug("Raw row: %s", {"id": 7})        # hidden: DEBUG is below INFO
+        log.info("Loaded %d orders", 3)
+        log.warning("Order %d has no email", 7)
+        try:
+            average = 450 / 0
+        except ZeroDivisionError:
+            log.exception("Could not compute average")   # ERROR plus the traceback</code></pre></div>
+          <div class="lc-code-block"><pre><code>INFO shop: Loaded 3 orders
+        WARNING shop: Order 7 has no email
+        ERROR shop: Could not compute average
+        Traceback (most recent call last):
+          ...
+        ZeroDivisionError: division by zero</code></pre></div>
+          <p>Without <code>basicConfig</code>, only <code>WARNING</code> and above are shown. Log messages go to the error stream (stderr), not to normal output, and can be sent to a file with <code>basicConfig(filename="app.log")</code>.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common Mistakes</h2>
@@ -1660,7 +1718,7 @@ module PythonContent
         </div>
         <div class="lc-section lc-card">
           <h2>What Is a Context Manager?</h2>
-          <p>Any object that works with <code>with</code> is a <strong>context manager</strong>. It runs setup code when the block starts and cleanup code when it ends — even if an exception happens. Files close themselves; locks release; database connections commit or roll back. You can write your own with <code>contextlib.contextmanager</code> once you know generators (Lesson 16).</p>
+          <p>Any object that works with <code>with</code> is a <strong>context manager</strong>. It runs setup code when the block starts and cleanup code when it ends — even if an exception happens. Files close themselves; locks release; database connections commit or roll back. You can write your own with <code>contextlib.contextmanager</code> once you know generators (Lesson 17).</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common Mistakes</h2>
@@ -1784,32 +1842,34 @@ module PythonContent
               <tr><td><code>collections</code></td><td><code>Counter</code>, <code>defaultdict</code>, <code>deque</code>, <code>namedtuple</code></td></tr>
               <tr><td><code>itertools</code>, <code>functools</code></td><td>Looping tools, caching, decorators</td></tr>
               <tr><td><code>json</code>, <code>csv</code>, <code>pathlib</code></td><td>Data files and paths (Lesson 12)</td></tr>
-              <tr><td><code>re</code></td><td>Regular expressions (text patterns) — see below</td></tr>
+              <tr><td><code>re</code></td><td>Regular expressions (text patterns) — Lesson 14</td></tr>
+              <tr><td><code>sys</code>, <code>argparse</code></td><td>Command-line arguments — see below</td></tr>
             </tbody>
           </table>
         </div>
         <div class="lc-section lc-card">
-          <h2>Text Patterns with re</h2>
-          <p>A <strong>regular expression</strong> describes a text pattern. Always write patterns as raw strings (<code>r"..."</code>) so backslashes reach <code>re</code> unchanged.</p>
-          <table class="lc-table">
-            <thead><tr><th>Pattern</th><th>Matches</th></tr></thead>
-            <tbody>
-              <tr><td><code>\d</code>, <code>\w</code>, <code>\s</code></td><td>A digit, a word character (letter, digit, _), a space/tab/newline</td></tr>
-              <tr><td><code>[6-9]</code>, <code>.</code></td><td>One character from the set; any one character</td></tr>
-              <tr><td><code>+</code>, <code>*</code>, <code>?</code>, <code>{10}</code></td><td>1 or more, 0 or more, optional, exactly 10 times</td></tr>
-              <tr><td><code>^</code>, <code>$</code></td><td>Start and end of the text</td></tr>
-              <tr><td><code>( )</code></td><td>A group you can read back</td></tr>
-            </tbody>
-          </table>
-          <div class="lc-code-block"><pre><code>import re
+          <h2>Command-Line Arguments: sys.argv and argparse</h2>
+          <p>Scripts often take input from the command line. <code>sys.argv</code> is the raw list of words (the script name first). The standard <code>argparse</code> module turns them into named, typed values and writes the help and error messages for you.</p>
+          <div class="lc-code-block"><pre><code># greet.py
+        import argparse
+        import sys
 
-        print(bool(re.fullmatch(r"[6-9]\d{9}", "9876543210")))  # True: whole text is a mobile number
-        print(bool(re.fullmatch(r"[6-9]\d{9}", "12345")))       # False
-        print(re.findall(r"\d+", "Order 12 costs 450 rupees"))   # ['12', '450']
-        m = re.search(r"(\w+)@(\w+)\.com", "Mail asha@example.com today")
-        print(m.group(1), m.group(2))                           # asha example
-        print(re.sub(r"\s+", " ", "too    many   spaces"))      # too many spaces</code></pre></div>
-          <p><code>re.search</code> finds the first match anywhere and returns <code>None</code> if there is none; <code>re.fullmatch</code> checks the <em>whole</em> string, which is what you want for validation. For simple fixed text, plain string methods like <code>in</code> and <code>.replace()</code> are clearer.</p>
+        print("sys.argv:", sys.argv)
+        parser = argparse.ArgumentParser(description="Greet a student")
+        parser.add_argument("name")                          # required, by position
+        parser.add_argument("--times", type=int, default=1)  # optional, converted to int
+        args = parser.parse_args()
+        for _ in range(args.times):
+            print(f"Hello, {args.name}!")</code></pre></div>
+          <div class="lc-code-block"><pre><code>$ python greet.py Asha --times 2
+        sys.argv: ['greet.py', 'Asha', '--times', '2']
+        Hello, Asha!
+        Hello, Asha!
+        $ python greet.py
+        sys.argv: ['greet.py']
+        usage: greet.py [-h] [--times TIMES] name
+        greet.py: error: the following arguments are required: name</code></pre></div>
+          <p>This course's editor has no command line, so test a parser there by passing the words yourself: <code>parser.parse_args(["Asha", "--times", "2"])</code>. <code>python greet.py -h</code> prints the help that <code>argparse</code> builds from your arguments.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>pip and Virtual Environments</h2>
@@ -1832,12 +1892,12 @@ module PythonContent
             <li>Installing packages globally instead of in a virtual environment.</li>
             <li>Committing the <code>.venv</code> folder to Git. Commit <code>requirements.txt</code> or <code>pyproject.toml</code> instead.</li>
             <li>Thinking <code>pip freeze &gt; requirements.txt</code> installs packages. It only <em>writes the list</em>.</li>
-            <li>Writing a regex without <code>r"..."</code>: in <code>"\bword"</code> Python turns <code>\b</code> into a backspace character before <code>re</code> ever sees it.</li>
+            <li>Reading <code>sys.argv[1]</code> without checking that it exists (<code>IndexError</code> when no argument is given). <code>argparse</code> checks this for you.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try It</h2>
-          <p>Use <code>datetime.date</code> to calculate how many days are left from 25 September 2026 until 1 January 2027. Then use <code>random.seed(7)</code> and <code>random.sample</code> to pick 3 quiz winners from a list of 8 names. Finally, use <code>re.findall</code> to pull every PIN code (six digits) out of <code>"Kochi 682001, Pune 411001"</code>.</p>
+          <p>Use <code>datetime.date</code> to calculate how many days are left from 25 September 2026 until 1 January 2027. Then use <code>random.seed(7)</code> and <code>random.sample</code> to pick 3 quiz winners from a list of 8 names. Finally, build an <code>argparse</code> parser with a required <code>city</code> and an optional <code>--days</code> (an <code>int</code>, default 7), and test it with <code>parser.parse_args(["Kochi", "--days", "3"])</code>.</p>
         </div>
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Before installing a package, check the standard library. Many tasks — dates, JSON, CSV, statistics, zip files — need no install at all.</p></div>
       HTML
@@ -1847,7 +1907,7 @@ module PythonContent
         import random
         import datetime as dt
         from statistics import mean, median
-        import re
+        import argparse
 
         print("--- math ---")
         print("math.sqrt(144):", math.sqrt(144))
@@ -1873,12 +1933,13 @@ module PythonContent
         random.seed(7)
         print("same seed, same winners:", random.sample(names, 3) == winners)
 
-        print("--- re (regular expressions) ---")
-        print("valid mobile?", bool(re.fullmatch(r"[6-9]\d{9}", "9876543210")))
-        print("numbers:", re.findall(r"\d+", "Order 12 costs 450 rupees"))
-        m = re.search(r"(\w+)@(\w+)\.com", "Mail asha@example.com today")
-        print("user:", m.group(1), "| domain:", m.group(2))
-        print("tidy:", re.sub(r"\s+", " ", "too    many   spaces"))
+        print("--- argparse (words passed in, because the editor has no command line) ---")
+        parser = argparse.ArgumentParser(description="Greet a student")
+        parser.add_argument("name")
+        parser.add_argument("--times", type=int, default=1)
+        args = parser.parse_args(["Asha", "--times", "2"])
+        print("args:", args)
+        print("name:", args.name, "| times + 1:", args.times + 1)
 
         print("--- module names ---")
         print("math.__name__:", math.__name__)
@@ -1893,6 +1954,160 @@ module PythonContent
     },
 
     14 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">Python</div>
+          <h1 class="lc-title">Regular Expressions</h1>
+        </div>
+        <div class="lc-intro">
+          <p class="lc-lead">A <strong>regular expression</strong> (regex) is a small pattern language for text. With the standard <code>re</code> module you can <strong>validate</strong> input (is this a 10-digit mobile number?), <strong>extract</strong> data (every amount in a message), and <strong>clean</strong> text (collapse extra spaces, reformat dates). Regex is everywhere in data cleaning, log analysis and text preparation for AI.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Your First Pattern</h2>
+          <p>Always write patterns as <strong>raw strings</strong> (<code>r"..."</code>) so backslashes reach <code>re</code> unchanged. A successful search returns a <strong>Match object</strong>; no match returns <code>None</code>.</p>
+          <div class="lc-code-block"><pre><code>import re
+
+        text = "Order #1024 paid Rs 450"
+        m = re.search(r"#(\d+)", text)      # \d+ = one or more digits; ( ) = a group
+        print(m.group())                     # #1024   (the whole match)
+        print(m.group(1))                    # 1024    (just the group)
+        print(re.search(r"#\d+", "no orders"))   # None</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Pattern Building Blocks</h2>
+          <table class="lc-table">
+            <thead><tr><th>Pattern</th><th>Matches</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><code>\d</code>, <code>\w</code>, <code>\s</code></td><td>A digit; a word character (letter, digit, _); a space, tab or newline</td><td><code>\d\d</code> matches <code>42</code></td></tr>
+              <tr><td><code>.</code></td><td>Any one character except a newline</td><td><code>c.t</code> matches <code>cat</code>, <code>cut</code></td></tr>
+              <tr><td><code>[abc]</code>, <code>[6-9]</code>, <code>[^0-9]</code></td><td>One character from the set; a range; any character NOT in the set</td><td><code>[6-9]</code> matches <code>8</code></td></tr>
+              <tr><td><code>+</code>, <code>*</code>, <code>?</code></td><td>1 or more; 0 or more; 0 or 1 (optional)</td><td><code>colou?r</code> matches <code>color</code>, <code>colour</code></td></tr>
+              <tr><td><code>{6}</code>, <code>{2,4}</code></td><td>Exactly 6 times; 2 to 4 times</td><td><code>\d{6}</code> matches a PIN code</td></tr>
+              <tr><td><code>^</code>, <code>$</code>, <code>\b</code></td><td>Start of text; end of text; a word boundary</td><td><code>\bcat\b</code> skips <code>catalog</code></td></tr>
+              <tr><td><code>( )</code>, <code>|</code></td><td>A group; either/or</td><td><code>(tea|coffee)</code></td></tr>
+              <tr><td><code>\.</code>, <code>\$</code></td><td>A literal dot or dollar sign (escape special characters)</td><td><code>\d+\.\d+</code> matches <code>3.14</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Choosing the Right re Function</h2>
+          <table class="lc-table">
+            <thead><tr><th>Function</th><th>Returns</th><th>Use it to</th></tr></thead>
+            <tbody>
+              <tr><td><code>re.search(p, s)</code></td><td>First Match anywhere, or <code>None</code></td><td>Find one thing</td></tr>
+              <tr><td><code>re.match(p, s)</code></td><td>Match only at the <em>start</em>, or <code>None</code></td><td>Check how text begins</td></tr>
+              <tr><td><code>re.fullmatch(p, s)</code></td><td>Match only if the <em>whole</em> text fits, or <code>None</code></td><td>Validate input</td></tr>
+              <tr><td><code>re.findall(p, s)</code></td><td>List of strings (or tuples of groups)</td><td>Extract every match</td></tr>
+              <tr><td><code>re.finditer(p, s)</code></td><td>Iterator of Match objects</td><td>Extract with positions and named groups</td></tr>
+              <tr><td><code>re.sub(p, new, s)</code></td><td>New string</td><td>Replace or reformat</td></tr>
+              <tr><td><code>re.split(p, s)</code></td><td>List of pieces</td><td>Split on several separators</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code-block"><pre><code>print(re.match(r"\d+", "42 apples"))       # &lt;re.Match object; span=(0, 2), match='42'&gt;
+        print(re.match(r"\d+", "apples 42"))       # None: the text does not START with digits
+        print(re.search(r"\d+", "apples 42"))      # &lt;re.Match object; span=(7, 9), match='42'&gt;
+        print(re.fullmatch(r"\d+", "42 apples"))   # None: the whole text is not digits
+
+        print(bool(re.fullmatch(r"[6-9]\d{9}", "9876543210")))    # True: a valid mobile number
+        print(bool(re.fullmatch(r"[6-9]\d{9}", "98765 43210")))   # False: the space breaks it
+        print(re.findall(r"\d{6}", "Kochi 682001, Pune 411001"))  # ['682001', '411001']
+        print(re.findall(r"(\w+)=(\d+)", "a=1, b=22"))            # [('a', '1'), ('b', '22')]
+        print(re.split(r"[,;]\s*", "Kochi, Pune;Delhi,  Goa"))    # ['Kochi', 'Pune', 'Delhi', 'Goa']</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Named Groups, compile() and sub()</h2>
+          <p><code>(?P&lt;name&gt;...)</code> gives a group a name, so your code reads <code>m["year"]</code> instead of <code>m.group(3)</code>. <code>re.compile</code> builds a pattern once so you can reuse it. In <code>sub</code>, <code>\g&lt;name&gt;</code> (or <code>\1</code>, <code>\2</code>) puts a group back into the replacement.</p>
+          <div class="lc-code-block"><pre><code>date = re.compile(r"(?P&lt;day&gt;\d{2})-(?P&lt;month&gt;\d{2})-(?P&lt;year&gt;\d{4})")
+
+        m = date.search("Paid on 25-09-2026")
+        print(m["year"], m["month"], m["day"])     # 2026 09 25
+        print(m.groupdict())                       # {'day': '25', 'month': '09', 'year': '2026'}
+        print(date.sub(r"\g&lt;year&gt;-\g&lt;month&gt;-\g&lt;day&gt;", "Paid on 25-09-2026"))   # Paid on 2026-09-25
+        print(re.sub(r"\s+", " ", "too    many   spaces"))                        # too many spaces</code></pre></div>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Greedy vs Lazy, and Flags</h2>
+          <p><code>+</code> and <code>*</code> are <strong>greedy</strong>: they grab as much text as possible. Add <code>?</code> (<code>+?</code>, <code>*?</code>) to make them <strong>lazy</strong>: as little as possible.</p>
+          <div class="lc-code-block"><pre><code>html = "&lt;b&gt;Asha&lt;/b&gt; scored &lt;b&gt;95&lt;/b&gt;"
+        print(re.findall(r"&lt;b&gt;.+&lt;/b&gt;", html))     # ['&lt;b&gt;Asha&lt;/b&gt; scored &lt;b&gt;95&lt;/b&gt;']  one big match
+        print(re.findall(r"&lt;b&gt;(.+?)&lt;/b&gt;", html))  # ['Asha', '95']
+
+        print(re.findall(r"python", "Python, PYTHON and python", flags=re.IGNORECASE))
+        # ['Python', 'PYTHON', 'python']
+        log = "ERROR disk full\nINFO started\nERROR timeout"
+        print(re.findall(r"^ERROR (.+)$", log, flags=re.MULTILINE))   # ['disk full', 'timeout']</code></pre></div>
+          <p><code>re.MULTILINE</code> makes <code>^</code> and <code>$</code> match at the start and end of <em>every line</em>, not just the whole text.</p>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Regex or String Methods?</h2>
+          <table class="lc-table">
+            <thead><tr><th>Task</th><th>Best tool</th></tr></thead>
+            <tbody>
+              <tr><td>Does the text contain <code>"error"</code>?</td><td><code>"error" in text</code></td></tr>
+              <tr><td>Replace one fixed word</td><td><code>text.replace("colour", "color")</code></td></tr>
+              <tr><td>Split on one fixed separator</td><td><code>text.split(",")</code></td></tr>
+              <tr><td>Find every 6-digit number, validate a format, reformat dates</td><td><code>re</code></td></tr>
+              <tr><td>Parse HTML, JSON or CSV</td><td>A real parser (<code>json</code>, <code>csv</code>, an HTML library), not regex</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Common Mistakes</h2>
+          <ul class="lc-list">
+            <li>Forgetting <code>r"..."</code>: in <code>"\bcat"</code> Python turns <code>\b</code> into a backspace character before <code>re</code> ever sees it.</li>
+            <li>Using <code>re.search</code> to validate: <code>re.search(r"\d{10}", "abc98765432100")</code> still matches. Use <code>re.fullmatch</code> (or <code>^...$</code>).</li>
+            <li>Calling <code>.group()</code> on <code>None</code> when nothing matched (<code>AttributeError</code>). Check <code>if m:</code> first.</li>
+            <li>Forgetting to escape special characters: <code>.</code> matches <em>any</em> character; write <code>\.</code> for a real dot.</li>
+            <li>A greedy <code>.+</code> swallowing too much text. Use the lazy <code>.+?</code> or a narrower set like <code>[^&lt;]+</code>.</li>
+            <li>Writing one huge unreadable pattern. Build it in small pieces and test each one.</li>
+          </ul>
+        </div>
+        <div class="lc-section lc-card">
+          <h2>Try It</h2>
+          <p>Given <code>msg = "Call 9876543210 or 8123456789. Old: 12345. Email asha.k@example.co.in"</code>: (1) use <code>re.findall</code> with <code>\b</code> to list only the 10-digit mobile numbers that start with 6–9; (2) extract the email with <code>re.search(r"[\w.]+@[\w.]+\.\w+", msg)</code>; (3) use <code>re.sub</code> with a group to mask each mobile number so only its last 4 digits show, like <code>******3210</code>.</p>
+        </div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Test a new pattern on a few good <em>and</em> bad examples before trusting it — print what <code>findall</code> returns for each. A pattern that accepts everything is as buggy as one that accepts nothing.</p></div>
+      HTML
+      starter_code: <<~'PY'
+        # Lesson 14: Regular expressions
+        import re
+
+        print("--- search, fullmatch, findall ---")
+        text = "Order #1024 paid Rs 450 on 25-09-2026; order #1031 paid Rs 1200 on 26-09-2026"
+        m = re.search(r"#(\d+)", text)
+        print("first order:", m.group(), "| number only:", m.group(1))
+        print("all amounts:", re.findall(r"Rs (\d+)", text))
+        print("valid mobile?", bool(re.fullmatch(r"[6-9]\d{9}", "9876543210")))
+        print("valid mobile?", bool(re.fullmatch(r"[6-9]\d{9}", "98765 43210")))
+
+        print("--- named groups ---")
+        date = re.compile(r"(?P<day>\d{2})-(?P<month>\d{2})-(?P<year>\d{4})")
+        for found in date.finditer(text):
+            print(found.group("year"), found["month"], found["day"], "at position", found.start())
+        print("groupdict:", date.search(text).groupdict())
+
+        print("--- sub and split ---")
+        print("ISO dates:", date.sub(r"\g<year>-\g<month>-\g<day>", text))
+        print("tidy:", re.sub(r"\s+", " ", "  too    many   spaces ").strip())
+        print("split:", re.split(r"[,;]\s*", "Kochi, Pune;Delhi,  Goa"))
+
+        print("--- greedy vs lazy ---")
+        html = "<b>Asha</b> scored <b>95</b>"
+        print("greedy:", re.findall(r"<b>.+</b>", html))
+        print("lazy:  ", re.findall(r"<b>(.+?)</b>", html))
+
+        print("--- flags ---")
+        print("ignore case:", re.findall(r"python", "Python, PYTHON and python", flags=re.IGNORECASE))
+        log = "ERROR disk full\nINFO started\nERROR timeout"
+        print("line starts:", re.findall(r"^ERROR (.+)$", log, flags=re.MULTILINE))
+
+        print("--- word boundary ---")
+        print("with \\b:", re.findall(r"\bcat\b", "cat catalog bobcat cat."))
+        print("without:", len(re.findall(r"cat", "cat catalog bobcat cat.")))
+      PY
+    },
+
+    15 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -1986,10 +2201,10 @@ module PythonContent
           <h2>Try It</h2>
           <p>Add a <code>withdraw(amount)</code> method to <code>BankAccount</code> in the starter that raises <code>ValueError</code> if the amount is more than the balance. Then add a <code>__str__</code> that prints like <code>Asha: ₹1,500</code>.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Not everything needs a class. If you only need to group data, a dict or a dataclass (Lesson 18) is simpler. Use a class when data and the behaviour that changes it belong together.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Not everything needs a class. If you only need to group data, a dict or a dataclass (Lesson 19) is simpler. Use a class when data and the behaviour that changes it belong together.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 14: Classes and objects
+        # Lesson 15: Classes and objects
 
         class BankAccount:
             bank_name = "AI Bank"      # class attributes (shared by all objects)
@@ -2046,7 +2261,7 @@ module PythonContent
       PY
     },
 
-    15 => {
+    16 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -2164,7 +2379,7 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Always write a <code>__repr__</code> for your classes. It makes debugging, logging and testing much easier, because you can see what an object contains at a glance.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 15: Inheritance and special methods
+        # Lesson 16: Inheritance and special methods
         from abc import ABC, abstractmethod
         import math
 
@@ -2220,7 +2435,7 @@ module PythonContent
       PY
     },
 
-    16 => {
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -2324,7 +2539,7 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> If you only need to loop over results once — especially large ones — return a generator instead of building a list. You can always call <code>list()</code> on it later if you need a list.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 16: Iterators and generators
+        # Lesson 17: Iterators and generators
         import io
         from itertools import islice, count, chain
 
@@ -2382,7 +2597,7 @@ module PythonContent
       PY
     },
 
-    17 => {
+    18 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -2483,10 +2698,10 @@ module PythonContent
             <thead><tr><th>Decorator</th><th>What it does</th></tr></thead>
             <tbody>
               <tr><td><code>@functools.lru_cache(maxsize=None)</code> / <code>@functools.cache</code></td><td>Remembers results for arguments it has seen (memoisation)</td></tr>
-              <tr><td><code>@property</code></td><td>Turns a method into a read-only attribute (Lesson 14)</td></tr>
+              <tr><td><code>@property</code></td><td>Turns a method into a read-only attribute (Lesson 15)</td></tr>
               <tr><td><code>@staticmethod</code></td><td>A method that needs neither <code>self</code> nor the class</td></tr>
               <tr><td><code>@classmethod</code></td><td>Receives the class (<code>cls</code>) instead of the object; often used for alternative constructors</td></tr>
-              <tr><td><code>@dataclass</code></td><td>Writes <code>__init__</code>, <code>__repr__</code> and <code>__eq__</code> for you (Lesson 18)</td></tr>
+              <tr><td><code>@dataclass</code></td><td>Writes <code>__init__</code>, <code>__repr__</code> and <code>__eq__</code> for you (Lesson 19)</td></tr>
             </tbody>
           </table>
           <div class="lc-code-block"><pre><code>@functools.cache
@@ -2494,6 +2709,7 @@ module PythonContent
             return n if n &lt; 2 else fib(n - 1) + fib(n - 2)
 
         print(fib(80))    # 23416728348467685 — instant, because results are cached</code></pre></div>
+          <p><code>fib</code> is a recursive function (Lesson 9). Without the cache, <code>fib(80)</code> would never finish in practice, because it recalculates the same smaller values trillions of times.</p>
           <p>When you stack decorators, the one <strong>closest to the function</strong> is applied first.</p>
         </div>
         <div class="lc-section lc-card">
@@ -2513,7 +2729,7 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Frameworks use decorators everywhere: Flask and FastAPI routes (<code>@app.get("/")</code>), pytest fixtures, Django's <code>@login_required</code>. Once you understand the <code>f = deco(f)</code> idea, they stop looking like magic.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 17: Closures and decorators
+        # Lesson 18: Closures and decorators
         import functools
 
         def make_counter():
@@ -2561,7 +2777,7 @@ module PythonContent
       PY
     },
 
-    18 => {
+    19 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -2665,7 +2881,7 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Add type hints to every function you write from now on. It takes seconds, your editor becomes much smarter, and many bugs are caught before the code ever runs.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 18: Type hints and dataclasses
+        # Lesson 19: Type hints and dataclasses
         from dataclasses import dataclass, field, asdict, FrozenInstanceError
 
         def add_gst(amount: float, rate: float = 0.18) -> float:
@@ -2718,7 +2934,7 @@ module PythonContent
       PY
     },
 
-    19 => {
+    20 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -2851,7 +3067,7 @@ module PythonContent
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> When you find a bug, first write a test that fails because of it, then fix the code until the test passes. The test stays forever and makes sure that bug never comes back.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 19: Testing with unittest and pytest
+        # Lesson 20: Testing with unittest and pytest
         import io
         import re
         import unittest
@@ -2895,7 +3111,7 @@ module PythonContent
       PY
     },
 
-    20 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">Python</div>
@@ -2919,15 +3135,15 @@ module PythonContent
           <table class="lc-table">
             <thead><tr><th>Part</th><th>Python feature</th><th>Lesson</th></tr></thead>
             <tbody>
-              <tr><td>A student record</td><td><code>@dataclass</code> with type hints, <code>@property</code></td><td>14, 18</td></tr>
+              <tr><td>A student record</td><td><code>@dataclass</code> with type hints, <code>@property</code></td><td>15, 19</td></tr>
               <tr><td>Loading data</td><td><code>json.load</code> on a file object</td><td>12</td></tr>
               <tr><td>Bad data</td><td>Custom exception, <code>try/except</code></td><td>11</td></tr>
               <tr><td>Grade rules</td><td>Loop over cutoffs, first match wins (like <code>if/elif</code>)</td><td>4, 5, 9</td></tr>
               <tr><td>Sorting</td><td><code>sorted(key=lambda ...)</code></td><td>9</td></tr>
               <tr><td>Subject averages</td><td>Dict comprehension</td><td>8, 10</td></tr>
-              <tr><td>"Needs support" list (Try It)</td><td>Generator function</td><td>16</td></tr>
-              <tr><td>Report heading (Try It)</td><td>Decorator with an argument</td><td>17</td></tr>
-              <tr><td>Checking <code>grade_for</code> (extension)</td><td><code>unittest</code> test case</td><td>19</td></tr>
+              <tr><td>"Needs support" list (Try It)</td><td>Generator function</td><td>17</td></tr>
+              <tr><td>Report heading (Try It)</td><td>Decorator with an argument</td><td>18</td></tr>
+              <tr><td>Checking <code>grade_for</code> (extension)</td><td><code>unittest</code> test case</td><td>20</td></tr>
             </tbody>
           </table>
         </div>
@@ -2990,7 +3206,8 @@ module PythonContent
             <li>Add a <code>rank</code> column, giving equal ranks to equal averages.</li>
             <li>Export the report as CSV text with the <code>csv</code> module.</li>
             <li>Add a <code>@dataclass(frozen=True)</code> <code>Subject</code> with a pass mark, and use it instead of the fixed value 40.</li>
-            <li>Write a <code>unittest.TestCase</code> for <code>grade_for</code> that checks the boundaries 49, 50, 75 and 90, and one for <code>parse</code> that uses <code>assertRaises(BadRecord)</code> (Lesson 19).</li>
+            <li>Write a <code>unittest.TestCase</code> for <code>grade_for</code> that checks the boundaries 49, 50, 75 and 90, and one for <code>parse</code> that uses <code>assertRaises(BadRecord)</code> (Lesson 20).</li>
+            <li>Reject names that are not letters and spaces with <code>re.fullmatch(r"[A-Za-z ]+", name)</code> inside <code>parse</code> (Lesson 14).</li>
             <li>Run <code>mypy</code> on your code locally and fix any type errors it reports.</li>
             <li>Move the model, loader and report into separate modules inside a <code>tracker/</code> package with a <code>main()</code> guarded by <code>if __name__ == "__main__":</code>.</li>
           </ul>
@@ -3008,41 +3225,52 @@ module PythonContent
           <h2>Try It</h2>
           <p><strong>1. Needs support.</strong> Write a generator <code>needs_support(students, pass_mark=40)</code> that <code>yield</code>s strings like <code>"Chen (Science 35)"</code> for every mark below the pass mark. At the end of <code>report</code>, print <code>"Needs support:", ", ".join(needs_support(ranked))</code>.</p>
           <p><strong>2. Banner.</strong> Write a decorator with an argument, <code>@banner("CLASS REPORT")</code>, whose wrapper prints <code>f" {title} ".center(34, "=")</code> and then calls the function. Use <code>functools.wraps</code> and apply it to <code>report</code>.</p>
-          <p><strong>3. New data.</strong> Add <code>{"name": "Gopal", "marks": {"Maths": 100, "Science": 98, "English": 91}}</code> to the JSON. Predict first: who is the new topper, and what grade does Gopal get? Then add a record with an empty <code>marks</code> dict and make <code>parse</code> reject it with a clear message.</p>
+          <p><strong>3. New data.</strong> Add <code>{"name": "Gopal", "marks": {"Maths": 100, "Science": 98, "English": 91}}</code> to the <code>RECORDS</code> list. Predict first: who is the new topper, and what grade does Gopal get? Then add a record with an empty <code>marks</code> dict and make <code>parse</code> reject it with a clear message.</p>
         </div>
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Build projects in small steps: first load and print the raw data, then add the dataclass, then validation, then the report. Run the code after each step. This is exactly how professional developers work.</p></div>
       HTML
       starter_code: <<~'PY'
-        # Lesson 20: Capstone project - Grade Tracker
+        # Lesson 21: Capstone project - Grade Tracker
         import json
         from dataclasses import dataclass
         from pathlib import Path
 
-        Path("students.json").write_text("""[
-          {"name": "Asha",  "marks": {"Maths": 88, "Science": 92, "English": 79}},
-          {"name": "Ben",   "marks": {"Maths": 45, "Science": 60, "English": 38}},
-          {"marks": {"Maths": 70}},
-          {"name": "Chen",  "marks": {"Maths": 72, "Science": 35, "English": 81}},
-          {"name": "Divya", "marks": {"Maths": 95, "Science": 92, "English": 96}},
-          {"name": "Farah", "marks": {"Maths": 80, "Science": 120, "English": 70}}
-        ]""", encoding="utf-8")
+        RECORDS = [
+            {"name": "Asha", "marks": {"Maths": 88, "Science": 92, "English": 79}},
+            {"name": "Ben", "marks": {"Maths": 45, "Science": 60, "English": 38}},
+            {"marks": {"Maths": 70}},
+            {"name": "Chen", "marks": {"Maths": 72, "Science": 35, "English": 81}},
+            {"name": "Divya", "marks": {"Maths": 95, "Science": 92, "English": 96}},
+            {"name": "Farah", "marks": {"Maths": 80, "Science": 120, "English": 70}},
+        ]
+        Path("students.json").write_text(json.dumps(RECORDS), encoding="utf-8")
+
+
         class BadRecord(Exception):
-            pass
+            """A record that fails validation."""
+
+
         def grade_for(avg: float) -> str:
             for cutoff, grade in [(90, "A"), (75, "B"), (50, "C")]:
                 if avg >= cutoff:
                     return grade
             return "F"
+
+
         @dataclass
         class Student:
             name: str
             marks: dict[str, int]
+
             @property
             def average(self) -> float:
                 return round(sum(self.marks.values()) / len(self.marks), 1)
+
             @property
             def grade(self) -> str:
                 return grade_for(self.average)
+
+
         def parse(record: dict) -> Student:
             name, marks = record.get("name"), record.get("marks", {})
             if not name:
@@ -3051,6 +3279,8 @@ module PythonContent
             if bad:
                 raise BadRecord(f"{name}: invalid marks in {bad}")
             return Student(name, marks)
+
+
         def load(path: str) -> list[Student]:
             students = []
             with open(path, encoding="utf-8") as f:
@@ -3060,6 +3290,7 @@ module PythonContent
                     except BadRecord as err:
                         print("Skipped:", err)
             return students
+
 
         def report(students: list[Student]) -> None:
             subjects = list(students[0].marks)
@@ -3071,6 +3302,7 @@ module PythonContent
             print(f"Topper: {ranked[0].name} ({ranked[0].average})")
             avgs = {sub: round(sum(s.marks[sub] for s in students) / len(students), 1) for sub in subjects}
             print("Subject averages:", avgs)
+
 
         report(load("students.json"))
       PY
