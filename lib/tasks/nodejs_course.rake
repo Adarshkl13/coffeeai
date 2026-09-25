@@ -14,72 +14,72 @@ namespace :content do
     puts "Course: #{course.title}"
 
     titles = {
-      1 => "Introduction to Node.js",
-      2 => "Node.js Runtime and Event Loop",
-      3 => "Modules and require / import",
-      4 => "npm and package.json",
-      5 => "Built-in Modules",
-      6 => "File System Basics",
-      7 => "Path and OS Modules",
-      8 => "Creating a Simple Server",
-      9 => "HTTP Requests and Responses",
-      10 => "Routing Basics",
-      11 => "Express.js Introduction",
+      1 => "What Node.js Is & the Event Loop",
+      2 => "Running Scripts, the REPL & node --watch",
+      3 => "Modules: ES Modules vs CommonJS",
+      4 => "npm & package.json",
+      5 => "Working with Files: fs/promises",
+      6 => "path, os & URLs",
+      7 => "Events & EventEmitter",
+      8 => "Streams & Pipelines",
+      9 => "Building a Server with node:http",
+      10 => "Express Basics",
+      11 => "Routing, Params & Query Strings",
       12 => "Middleware",
-      13 => "REST APIs with Express",
-      14 => "JSON and Body Parsing",
-      15 => "Async JavaScript in Node.js",
+      13 => "Building a REST API",
+      14 => "Validation & Error Handling",
+      15 => "Async Patterns & the Event Loop in Depth",
       16 => "Working with Databases",
-      17 => "Environment Variables",
-      18 => "Authentication Basics",
-      19 => "Error Handling and Logging",
-      20 => "Node.js Final Review"
+      17 => "Environment Variables & Config",
+      18 => "Authentication: Passwords, Sessions & JWT",
+      19 => "Testing with node:test",
+      20 => "Deployment & Final Project"
     }
 
     descriptions = {
-      1 => "Understand what Node.js is and why JavaScript moved to the backend.",
-      2 => "Learn how the event loop keeps Node.js responsive.",
-      3 => "Organize backend code with modules and imports.",
-      4 => "Use npm and package.json to manage Node projects.",
-      5 => "Explore the core modules bundled with Node.js.",
-      6 => "Read and write files with backend-friendly patterns.",
-      7 => "Build safer paths and inspect system details.",
-      8 => "See how a Node server handles incoming requests.",
-      9 => "Understand HTTP methods, status codes, and responses.",
-      10 => "Route different URLs to the right backend logic.",
-      11 => "Start using Express to simplify server development.",
-      12 => "Use middleware for shared request processing.",
-      13 => "Design REST-style APIs with clean endpoints.",
-      14 => "Parse JSON request bodies safely.",
-      15 => "Master promises and async/await in Node.js.",
-      16 => "Connect backend logic to stored data.",
-      17 => "Keep secrets and config outside source code.",
-      18 => "Protect routes with authentication basics.",
-      19 => "Handle failures clearly and log them well.",
-      20 => "Review the full Node.js backend journey."
+      1 => "Learn what the Node.js runtime adds to JavaScript and why a single-threaded event loop handles I/O so well.",
+      2 => "Run files, explore the REPL, parse command-line arguments, and reload automatically with node --watch.",
+      3 => "Split code into ES modules with import/export and read older CommonJS code with require.",
+      4 => "Create a project with npm, understand package.json scripts, semver ranges, and the lock file.",
+      5 => "Read, write, and organise files with async fs/promises and handle errors by their code.",
+      6 => "Build cross-platform paths, resolve files relative to a module, block path traversal, and inspect the OS.",
+      7 => "Emit and listen for events with EventEmitter, including once, off, and the special error event.",
+      8 => "Process large data chunk by chunk with readable, writable, and transform streams joined by pipeline.",
+      9 => "Write an HTTP server with node:http that routes requests, reads JSON bodies, and calls APIs with fetch.",
+      10 => "Build your first Express 5 app with routes, res.json, and automatic async error handling.",
+      11 => "Match URLs with route params and query strings, and organise endpoints with express.Router.",
+      12 => "Write and order middleware for logging, authentication checks, and security headers.",
+      13 => "Design and build a complete CRUD notes API with correct methods, status codes, and URLs.",
+      14 => "Validate input with zod and send every failure through one central error-handling middleware.",
+      15 => "Predict microtask and timer order, and run async work in parallel, with timeouts and concurrency limits.",
+      16 => "Store data in SQLite or PostgreSQL using parameterised queries, transactions, and a connection pool.",
+      17 => "Load configuration with --env-file and validate it at start-up so secrets stay out of source code.",
+      18 => "Hash passwords with argon2 or bcrypt, then protect routes with cookie sessions or JWTs.",
+      19 => "Write unit and API tests with the built-in node:test runner, assertions, and mocks.",
+      20 => "Prepare an app for production with health checks and graceful shutdown, deploy it, and build the final project."
     }
 
     exercises = {
-      1 => { type: "multiple_choice", q: "What is Node.js mainly used for?", opts: ["A) Styling HTML", "B) Running JavaScript on the server", "C) Replacing databases"], ans: "B" },
-      2 => { type: "true_false", q: "Node.js uses an event-driven, non-blocking model for many I/O tasks.", opts: ["True", "False"], ans: "True" },
-      3 => { type: "multiple_choice", q: "Why do developers use modules?", opts: ["A) To organize and reuse code", "B) To remove JavaScript syntax", "C) To disable routing"], ans: "A" },
-      4 => { type: "multiple_choice", q: "Which file usually stores project scripts and dependencies?", opts: ["A) package.json", "B) server.lock", "C) config.js only"], ans: "A" },
-      5 => { type: "true_false", q: "Node.js includes built-in modules like fs and path.", opts: ["True", "False"], ans: "True" },
-      6 => { type: "multiple_choice", q: "Which Node.js module is commonly used for file operations?", opts: ["A) http", "B) fs", "C) os"], ans: "B" },
-      7 => { type: "multiple_choice", q: "What is the main benefit of the path module?", opts: ["A) It joins paths safely", "B) It creates databases", "C) It encrypts passwords"], ans: "A" },
-      8 => { type: "true_false", q: "A Node.js server usually listens on a port and sends responses to clients.", opts: ["True", "False"], ans: "True" },
-      9 => { type: "multiple_choice", q: "Which HTTP method is commonly used to create new data?", opts: ["A) GET", "B) POST", "C) DELETE"], ans: "B" },
-      10 => { type: "multiple_choice", q: "Routing decides:", opts: ["A) Which handler runs for a request", "B) Which CPU is used", "C) Which CSS file loads"], ans: "A" },
-      11 => { type: "true_false", q: "Express is a framework built on top of Node.js.", opts: ["True", "False"], ans: "True" },
-      12 => { type: "multiple_choice", q: "Middleware is useful for:", opts: ["A) Shared request processing", "B) Replacing JavaScript", "C) Removing APIs"], ans: "A" },
-      13 => { type: "multiple_choice", q: "A REST API usually returns data in which common format?", opts: ["A) JSON", "B) Only XML", "C) CSS"], ans: "A" },
-      14 => { type: "true_false", q: "Parsing JSON means turning text into a usable JavaScript object.", opts: ["True", "False"], ans: "True" },
-      15 => { type: "multiple_choice", q: "Which modern syntax makes async code easier to read?", opts: ["A) async/await", "B) switch/case", "C) var only"], ans: "A" },
-      16 => { type: "multiple_choice", q: "Why do most backend apps use databases?", opts: ["A) To persist data", "B) To replace routes", "C) To avoid APIs"], ans: "A" },
-      17 => { type: "true_false", q: "Environment variables are a safer place for secrets than hardcoding them.", opts: ["True", "False"], ans: "True" },
-      18 => { type: "multiple_choice", q: "Authentication is about:", opts: ["A) Proving who the user is", "B) Styling the dashboard", "C) Joining file paths"], ans: "A" },
-      19 => { type: "multiple_choice", q: "Good logging helps you:", opts: ["A) Debug backend problems", "B) Disable middleware", "C) Eliminate routes"], ans: "A" },
-      20 => { type: "true_false", q: "Node.js is commonly used to build APIs, servers, and backend tools.", opts: ["True", "False"], ans: "True" }
+      1 => { type: "multiple_choice", q: "A route handler runs a synchronous loop that keeps the CPU busy for 5 seconds. What happens to other requests arriving during that time?", opts: ["A) Node handles them in parallel on other JavaScript threads", "B) They wait, because the single JavaScript thread is blocked", "C) Node automatically moves the loop to a worker thread"], ans: "B" },
+      2 => { type: "true_false", q: "`node --watch app.js` only restarts the program when you type `rs` in the terminal.", opts: ["True", "False"], ans: "False" },
+      3 => { type: "multiple_choice", q: "package.json contains \"type\": \"module\". What happens when app.js runs `const fs = require(\"node:fs\")`?", opts: ["A) It works exactly like an import statement", "B) It works but prints a deprecation warning", "C) It throws because require is not defined in ES module scope"], ans: "C" },
+      4 => { type: "multiple_choice", q: "package.json lists \"express\": \"^5.1.0\". Which version could npm install?", opts: ["A) 5.2.3", "B) 6.0.0", "C) 4.21.0"], ans: "A" },
+      5 => { type: "true_false", q: "`await readFile(\"data.json\", \"utf8\")` from node:fs/promises returns a string, so you still need JSON.parse to get an object.", opts: ["True", "False"], ans: "True" },
+      6 => { type: "multiple_choice", q: "In an ES module, how do you reliably get the folder that contains the current file?", opts: ["A) Use __dirname, exactly as in CommonJS", "B) Use import.meta.dirname, or path.dirname(fileURLToPath(import.meta.url))", "C) Use process.cwd(), which always equals the file's folder"], ans: "B" },
+      7 => { type: "multiple_choice", q: "An EventEmitter emits an \"error\" event and no \"error\" listener is attached. What happens?", opts: ["A) The event is silently ignored", "B) The event is queued until a listener is added", "C) The error is thrown, crashing the process if nothing catches it"], ans: "C" },
+      8 => { type: "true_false", q: "Reading a 4 GB log file with readFile uses about the same memory as processing it with createReadStream.", opts: ["True", "False"], ans: "False" },
+      9 => { type: "multiple_choice", q: "In a node:http server, one code path never calls res.end(). What does the client experience on that path?", opts: ["A) The request hangs until it times out", "B) Node automatically sends an empty 200 response", "C) Node automatically sends a 500 error"], ans: "A" },
+      10 => { type: "true_false", q: "In Express 5, if an async route handler throws or its promise rejects, the error is passed to error-handling middleware automatically.", opts: ["True", "False"], ans: "True" },
+      11 => { type: "multiple_choice", q: "Routes are registered in this order: app.get(\"/users/:id\", showUser) then app.get(\"/users/me\", showMe). What handles GET /users/me?", opts: ["A) showMe, because Express prefers the more specific path", "B) Neither; Express responds with 404", "C) showUser, with req.params.id equal to \"me\""], ans: "C" },
+      12 => { type: "multiple_choice", q: "A middleware logs the request but never calls next() and never sends a response. What happens?", opts: ["A) Express skips it after a short delay and runs the route", "B) The request hangs with no response", "C) Express throws ERR_HTTP_HEADERS_SENT"], ans: "B" },
+      13 => { type: "true_false", q: "In a REST API, a successful POST that creates a resource should return 200, because 201 is reserved for PUT.", opts: ["True", "False"], ans: "False" },
+      14 => { type: "multiple_choice", q: "How does Express recognise a function as error-handling middleware?", opts: ["A) It declares four parameters: (err, req, res, next)", "B) It is named errorHandler", "C) It is registered with app.error()"], ans: "A" },
+      15 => { type: "multiple_choice", q: "What does this print? setTimeout(() => console.log(\"timeout\"), 0); Promise.resolve().then(() => console.log(\"promise\")); console.log(\"sync\");", opts: ["A) timeout, promise, sync", "B) sync, timeout, promise", "C) sync, promise, timeout"], ans: "C" },
+      16 => { type: "true_false", q: "Parameterised queries (like $1 placeholders in pg) prevent SQL injection because the values are sent separately from the SQL text.", opts: ["True", "False"], ans: "True" },
+      17 => { type: "multiple_choice", q: "What does `node --env-file=.env server.js` do?", opts: ["A) Encrypts the .env file before the server starts", "B) Loads the variables in .env into process.env without needing the dotenv package", "C) Checks that every variable in .env is used somewhere in the code"], ans: "B" },
+      18 => { type: "true_false", q: "Storing passwords as unsalted SHA-256 hashes is as safe as using bcrypt or argon2.", opts: ["True", "False"], ans: "False" },
+      19 => { type: "multiple_choice", q: "Why does assert.strictEqual({ id: 1 }, { id: 1 }) fail while assert.deepStrictEqual({ id: 1 }, { id: 1 }) passes?", opts: ["A) strictEqual compares object references; deepStrictEqual compares structure and values", "B) strictEqual only works on strings and numbers and throws for any object", "C) deepStrictEqual ignores property values and only compares keys"], ans: "A" },
+      20 => { type: "true_false", q: "A production Node server should listen on process.env.PORT and handle SIGTERM by finishing in-flight requests before exiting.", opts: ["True", "False"], ans: "True" }
     }
 
     NodejsContent::LESSONS.each do |position, data|
@@ -96,14 +96,12 @@ namespace :content do
       )
 
       ex = exercises[position]
-      exercise = Exercise.find_by(course_lesson: lesson) || lesson.build_exercise
-      exercise.assign_attributes(
-        exercise_type: ex[:type],
-        question: ex[:q],
-        options: ex[:opts],
-        correct_answer: ex[:ans]
-      )
-      exercise.save!
+      Exercise.find_or_initialize_by(course_lesson: lesson).tap do |e|
+        e.exercise_type = ex[:type]
+        e.question = ex[:q]
+        e.options = ex[:opts]
+        e.correct_answer = ex[:ans]
+      end.save!
 
       puts "  ✓ #{position}. #{titles[position]}"
     end
