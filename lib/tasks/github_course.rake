@@ -60,26 +60,26 @@ namespace :content do
     }
 
     exercises = {
-      1 => { type: "multiple_choice", q: "GitHub is best described as:", opts: ["A) A text editor", "B) A collaboration platform built around Git", "C) A replacement for the internet"], ans: "B" },
-      2 => { type: "true_false", q: "A GitHub repository can be public or private.", opts: ["True", "False"], ans: "True" },
-      3 => { type: "multiple_choice", q: "Which command copies a GitHub repository to your machine?", opts: ["A) git clone", "B) git upload", "C) git publish"], ans: "A" },
-      4 => { type: "multiple_choice", q: "What is the main purpose of a README?", opts: ["A) Hide source code", "B) Explain the project", "C) Replace Git history"], ans: "B" },
-      5 => { type: "true_false", q: "Feature branches are commonly used before opening pull requests.", opts: ["True", "False"], ans: "True" },
-      6 => { type: "multiple_choice", q: "A pull request is mainly used to:", opts: ["A) Propose, review, and merge changes", "B) Delete all branches", "C) Install dependencies"], ans: "A" },
-      7 => { type: "multiple_choice", q: "Good code review should focus on:", opts: ["A) Making the author feel bad", "B) Risks, correctness, and clarity", "C) Only line length"], ans: "B" },
-      8 => { type: "true_false", q: "Issues can track bugs, feature requests, and planning tasks.", opts: ["True", "False"], ans: "True" },
-      9 => { type: "multiple_choice", q: "A fork is:", opts: ["A) Your own copy of someone else's repository", "B) A deleted branch", "C) A deployment server"], ans: "A" },
-      10 => { type: "multiple_choice", q: "What remote name usually refers to the original project when working from a fork?", opts: ["A) source", "B) upstream", "C) production"], ans: "B" },
-      11 => { type: "true_false", q: "GitHub Flow usually relies on short-lived branches and pull requests.", opts: ["True", "False"], ans: "True" },
-      12 => { type: "multiple_choice", q: "Which GitHub feature is best for grouping tasks toward a release goal?", opts: ["A) Milestones", "B) Avatars", "C) Stars"], ans: "A" },
-      13 => { type: "multiple_choice", q: "Branch protection can require:", opts: ["A) Passing checks and reviews", "B) Deleting main daily", "C) No commits"], ans: "A" },
-      14 => { type: "true_false", q: "GitHub Actions can run tests automatically on pull requests.", opts: ["True", "False"], ans: "True" },
-      15 => { type: "multiple_choice", q: "A GitHub release is commonly paired with:", opts: ["A) A Git tag", "B) A deleted repository", "C) A CSS framework"], ans: "A" },
-      16 => { type: "multiple_choice", q: "GitHub Discussions are best for:", opts: ["A) Community conversation and Q&A", "B) Replacing commits", "C) Staging files"], ans: "A" },
-      17 => { type: "true_false", q: "Dependabot can help identify and propose fixes for insecure dependencies.", opts: ["True", "False"], ans: "True" },
-      18 => { type: "multiple_choice", q: "Good repository permissions follow which idea?", opts: ["A) Everyone gets admin rights", "B) Least privilege", "C) No access control"], ans: "B" },
-      19 => { type: "multiple_choice", q: "Pinned repositories on your profile help with:", opts: ["A) Professional presentation", "B) Hiding projects forever", "C) Replacing READMEs"], ans: "A" },
-      20 => { type: "true_false", q: "A strong GitHub workflow combines code, reviews, planning, and automation.", opts: ["True", "False"], ans: "True" }
+      1 => { type: "multiple_choice", q: "How are Git and GitHub related?", opts: ["A) GitHub is a newer version of Git that replaces it entirely", "B) Git tracks history locally; GitHub hosts repos and adds PRs, issues, and reviews", "C) They are two names for the same version control tool"], ans: "B" },
+      2 => { type: "true_false", q: "Every GitHub repository has to be public; private repositories are not possible.", opts: ["True", "False"], ans: "False" },
+      3 => { type: "multiple_choice", q: "What do you get when you run git clone on a GitHub repository?", opts: ["A) The files plus the full commit history, branches, and a remote link", "B) Only the latest files, the same as downloading a ZIP archive", "C) A fork of the repository created under your own account"], ans: "A" },
+      4 => { type: "multiple_choice", q: "According to the lesson, what does a strong README usually include?", opts: ["A) A copy of the full commit log for every branch", "B) Only the software license text and the author's name", "C) An overview, setup steps, usage, and contribution guidance"], ans: "C" },
+      5 => { type: "true_false", q: "Most teams push every change directly to main rather than using feature branches and pull requests.", opts: ["True", "False"], ans: "False" },
+      6 => { type: "multiple_choice", q: "What should a strong pull request description tell reviewers?", opts: ["A) Only the name of the branch being merged", "B) What changed, why it changed, and what to check", "C) Nothing; the diff speaks for itself"], ans: "B" },
+      7 => { type: "multiple_choice", q: "According to the lesson, what makes a good code review?", opts: ["A) Focusing only on formatting, naming, and syntax style", "B) Checking behavior and risks, with clear, respectful comments", "C) Approving quickly so the author is never kept waiting"], ans: "B" },
+      8 => { type: "true_false", q: "Writing \"Closes #42\" in a pull request description can automatically close issue #42 when the pull request is merged.", opts: ["True", "False"], ans: "True" },
+      9 => { type: "multiple_choice", q: "When is forking the usual way to contribute?", opts: ["A) When you lack push access to the repository you want to improve", "B) When you want to rename a branch in your own repository", "C) When you want to deploy your application to production"], ans: "A" },
+      10 => { type: "multiple_choice", q: "When working from a fork, which remote name usually points to the original project?", opts: ["A) origin", "B) production", "C) upstream"], ans: "C" },
+      11 => { type: "true_false", q: "GitHub Flow relies on long-lived feature branches that are merged only once per release.", opts: ["True", "False"], ans: "False" },
+      12 => { type: "multiple_choice", q: "Which GitHub feature groups issues and pull requests around a target such as a release?", opts: ["A) Labels", "B) Discussions", "C) Milestones"], ans: "C" },
+      13 => { type: "multiple_choice", q: "What problem do branch protection rules mainly solve?", opts: ["A) They hide branches from people outside the organization", "B) They prevent risky direct changes to important branches such as main", "C) They automatically back up branches to another server"], ans: "B" },
+      14 => { type: "true_false", q: "GitHub Actions workflows are defined in YAML files inside the .github/workflows folder.", opts: ["True", "False"], ans: "True" },
+      15 => { type: "multiple_choice", q: "What is the difference between a Git tag and a GitHub release?", opts: ["A) A tag marks a commit; a release adds notes and assets on GitHub", "B) A release marks a commit; a tag adds notes and assets on GitHub", "C) Nothing; GitHub stores tags and releases as the same object"], ans: "A" },
+      16 => { type: "multiple_choice", q: "Where does the lesson suggest posting an open-ended question or early feature idea that isn't actionable work yet?", opts: ["A) GitHub Discussions", "B) A new issue", "C) A draft pull request"], ans: "A" },
+      17 => { type: "true_false", q: "Because Dependabot opens upgrade pull requests automatically, they can be merged without any human review.", opts: ["True", "False"], ans: "False" },
+      18 => { type: "multiple_choice", q: "A contractor only needs to open pull requests on one repository. Following least privilege, what access should they get?", opts: ["A) Admin access to the whole organization", "B) The organization owner role", "C) Write access to that one repository"], ans: "C" },
+      19 => { type: "multiple_choice", q: "Which repositories does the lesson suggest pinning on your GitHub profile?", opts: ["A) Projects that show range and quality, with clear READMEs", "B) Every repository you have ever created, including empty ones", "C) Only forks of popular open source projects"], ans: "A" },
+      20 => { type: "true_false", q: "In the review workflow, you push a feature branch, open a pull request, and then review, merge, and release.", opts: ["True", "False"], ans: "True" }
     }
 
     GithubContent::LESSONS.each do |position, data|

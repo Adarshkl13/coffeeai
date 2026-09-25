@@ -601,7 +601,7 @@ LEFT JOIN employees m ON e.manager_id = m.id;</code></pre></div>
     8 => {
       body: <<~'HTML',
         <div class="lc-intro">
-          <p>Subqueries in MySQL allow queries inside queries. The <code>EXISTS</code> and <code>NOT EXISTS</code> operators are particularly powerful — they check for the <em>existence</em> of matching rows without returning data, which is often more efficient than <code>IN</code> for large datasets.</p>
+          <p>Subqueries in MySQL allow queries inside queries. The <code>EXISTS</code> and <code>NOT EXISTS</code> operators are particularly powerful — they check for the <em>existence</em> of matching rows without returning data. In modern MySQL (8.0+), the optimizer often turns <code>IN</code> and <code>EXISTS</code> subqueries into the same plan, so choose the one that reads most clearly and check with <code>EXPLAIN</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Subquery Types</h2>
@@ -622,7 +622,7 @@ LEFT JOIN employees m ON e.manager_id = m.id;</code></pre></div>
 SELECT name FROM customers
 WHERE id IN (SELECT customer_id FROM orders WHERE amount > 50000);
 
--- EXISTS: often faster for large tables (stops at first match)
+-- EXISTS: checks whether at least one matching row exists
 SELECT name FROM customers c
 WHERE EXISTS (
     SELECT 1 FROM orders o
@@ -639,7 +639,7 @@ FROM (
 ) AS dept_avgs
 WHERE avg_sal > 80000;</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use <code>EXISTS</code> instead of <code>IN</code> when checking against a large subquery result. <code>EXISTS</code> short-circuits — it stops as soon as it finds the first match — while <code>IN</code> must collect all results first.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><code>EXISTS</code> reads naturally for "is there any matching row?" checks, and <code>NOT EXISTS</code> is safer than <code>NOT IN</code> when the subquery can return <code>NULL</code>. For speed, don't guess — MySQL 8 often optimises both the same way, so compare them with <code>EXPLAIN</code>.</p></div>
       HTML
       starter_code: <<~'SQL'
         -- Subqueries in MySQL
@@ -1121,7 +1121,7 @@ SHOW VARIABLES LIKE 'autocommit';
 -- Turn off auto-commit for the session
 SET autocommit = 0;</code></pre></div>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>In MySQL, <code>InnoDB</code> is the only storage engine that supports transactions, foreign keys, and row-level locking. Always create tables with <code>ENGINE=InnoDB</code> (or rely on the default). <code>MyISAM</code> tables cannot be rolled back!</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>In MySQL, <code>InnoDB</code> is the default storage engine and the one to use for transactions, foreign keys, and row-level locking. Always create tables with <code>ENGINE=InnoDB</code> (or rely on the default). <code>MyISAM</code> tables cannot be rolled back!</p></div>
       HTML
       starter_code: <<~'SQL'
         -- MySQL Transactions
@@ -1652,7 +1652,7 @@ conn.commit()</code></pre></div>
             </tbody>
           </table>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>SQL Injection</strong> is the #1 database security vulnerability. <code>"SELECT * FROM users WHERE name = '$input'"</code> — if <code>$input</code> is <code>' OR '1'='1</code>, it returns all users! Prepared statements completely eliminate this risk by separating SQL code from data.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>SQL Injection</strong> is one of the most common and dangerous web vulnerabilities (it is part of the OWASP Top 10). <code>"SELECT * FROM users WHERE name = '$input'"</code> — if <code>$input</code> is <code>' OR '1'='1</code>, it returns all users! Prepared statements stop this by sending the SQL and the data separately. They can't protect table or column names built from user input — whitelist those instead.</p></div>
       HTML
       starter_code: <<~'SQL'
         -- MySQL with Applications (Connection patterns)

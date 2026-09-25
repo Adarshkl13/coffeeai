@@ -33,3 +33,12 @@ namespace :content do
   desc "Populate all course content"
   task all: %i[html_css javascript python]
 end
+
+namespace :content do
+  desc "Load every course: seeds-based content plus all dedicated course tasks"
+  task everything: %i[
+    all machine_learning artificial_intelligence data_science ruby java php sql mysql
+    postgresql bootstrap django react pandas numpy typescript practical_ai deep_learning
+    nodejs git github
+  ]
+end

@@ -223,7 +223,7 @@ module DjangoContent
                 regex = pattern
                 regex = re.sub(r'<int:(\w+)>', r'(?P<\1>[0-9]+)', regex)
                 regex = re.sub(r'<str:(\w+)>', r'(?P<\1>[^/]+)', regex)
-                regex = re.sub(r'<slug:(\w+)>', r'(?P<\1>[-\w]+)', regex)
+                regex = re.sub(r'<slug:(\w+)>', r'(?P<\1>[-\\w]+)', regex)
                 self.patterns.append({"pattern": pattern, "regex": "^" + regex + "$",
                                       "view": view_fn, "name": name})
 
