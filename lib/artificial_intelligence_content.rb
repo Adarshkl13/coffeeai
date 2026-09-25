@@ -215,7 +215,7 @@ module ArtificialIntelligenceContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Modern "AI agents" built on language models (Lesson 17) follow exactly this loop: read the goal and observations, decide on a tool call, act, observe the result, repeat. The theory from this lesson still applies.
+          <strong>Tip:</strong> Modern "AI agents" built on language models (Lesson 18) follow exactly this loop: read the goal and observations, decide on a tool call, act, observe the result, repeat. The theory from this lesson still applies.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -722,7 +722,7 @@ module ArtificialIntelligenceContent
           <h3>Where local search is used</h3>
           <ul class="lc-list">
             <li>Exam and railway crew timetables, delivery routes (the travelling salesperson problem), chip layout.</li>
-            <li>Training machine-learning models: gradient descent (Lesson 14) is hill climbing downhill on the loss, using the slope to choose the direction.</li>
+            <li>Training machine-learning models: gradient descent (Lesson 15) is hill climbing downhill on the loss, using the slope to choose the direction.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -987,6 +987,14 @@ module ArtificialIntelligenceContent
           </table>
         </div>
         <div class="lc-card">
+          <h3>When dice are involved: expectimax</h3>
+          <p>Minimax assumes a perfect opponent who always hurts you most. In games with chance — Ludo, Snakes and Ladders, card games — some "moves" are dice rolls, not a clever enemy. <strong>Expectimax</strong> adds <strong>chance nodes</strong> that take the <em>probability-weighted average</em> of their children instead of the minimum.</p>
+          <div class="lc-code">def expectimax(node):<br>    kind, kids = node<br>    if kind == "leaf":<br>        return kids<br>    if kind == "max":                                  # our turn: pick the best move<br>        return max(expectimax(k) for k in kids)<br>    return sum(p * expectimax(k) for p, k in kids)    # dice roll: average the outcomes<br><br>safe  = ("chance", [(0.5, ("leaf", 4)), (0.5, ("leaf", 6))])<br>risky = ("chance", [(0.5, ("leaf", 0)), (0.5, ("leaf", 12))])<br>for name, move in [("safe", safe), ("risky", risky)]:<br>    worst = min(leaf for _, (_, leaf) in move[1])<br>    print(f"{name:&lt;5}  worst case = {worst:&gt;2}   expected = {expectimax(move):.1f}")<br>print("expectimax picks:", expectimax(("max", [safe, risky])))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">safe   worst case =  4   expected = 5.0<br>risky  worst case =  0   expected = 6.0<br>expectimax picks: 6.0</div>
+          <p>Treating the dice as an enemy (worst case) prefers the safe move, 4 versus 0. Averaging over fair dice prefers the risky move, 6.0 versus 5.0. Expectimax maximises the <strong>expected utility</strong>, so the utility numbers must reflect how much you really value each outcome. Also, alpha-beta pruning does not work directly on chance nodes, because one unseen child can still change an average.</p>
+        </div>
+        <div class="lc-card">
           <h3>Preferring faster wins</h3>
           <p>If two moves both win, plain minimax treats them as equal and may pick the slower one. A simple fix is to score a win as <code>10 − depth</code>, so a win in 1 move scores higher than a win in 3. The starter code uses this trick.</p>
         </div>
@@ -1125,6 +1133,16 @@ module ArtificialIntelligenceContent
           <p>Search engines use knowledge graphs to show fact panels, and modern AI assistants often combine a language model with a knowledge graph or database to give grounded answers.</p>
         </div>
         <div class="lc-card">
+          <h3>First-order logic: variables and unification</h3>
+          <p>Propositional logic needs a separate symbol for every fact: <code>AshaIsParentOfRavi</code>, <code>RaviIsParentOfMeera</code>, and so on. <strong>First-order logic (FOL)</strong> adds <strong>objects</strong> (Asha, Ravi), <strong>predicates</strong> (Parent(x, y)), <strong>variables</strong> and two <strong>quantifiers</strong>: ∀ ("for all") and ∃ ("there exists"). One rule then covers every family:</p>
+          <div class="lc-code">∀x ∀y ∀z  Parent(x, y) ∧ Parent(y, z) ⇒ Grandparent(x, z)</div>
+          <p>To use the rule, the reasoner looks for a <strong>substitution</strong> — values for x, y and z that make the rule's conditions match known facts. Finding it is called <strong>unification</strong>. Here the shared variable y forces the two Parent facts to meet at the same person:</p>
+          <div class="lc-code">facts = {("Parent", "Asha", "Ravi"), ("Parent", "Ravi", "Meera"), ("Parent", "Ravi", "Kiran")}<br># Rule: Parent(x, y) ∧ Parent(y, z) ⇒ Grandparent(x, z)<br>for (_, x, y) in sorted(facts):<br>    for (_, y2, z) in sorted(facts):<br>        if y == y2:                                    # unification: both y's must be the same person<br>            print(f"x={x}, y={y}, z={z}  =&gt;  Grandparent({x}, {z})")</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">x=Asha, y=Ravi, z=Kiran  =&gt;  Grandparent(Asha, Kiran)<br>x=Asha, y=Ravi, z=Meera  =&gt;  Grandparent(Asha, Meera)</div>
+          <p>Forward chaining with variables is exactly how rule engines and the Prolog language work. For full FOL, the <strong>resolution</strong> method can prove any entailed sentence, but no method can always prove that a sentence is <em>not</em> entailed — FOL inference is only semi-decidable, which is one reason practical systems use restricted forms.</p>
+        </div>
+        <div class="lc-card">
           <h3>Worked Example: Model Checking in the Starter</h3>
           <p>The knowledge base says: Monsoon ⇒ Rain, Rain ⇒ WetField, WetField ⇒ SowPaddy, and it is Monsoon. <strong>Output:</strong></p>
           <div class="lc-code">KB entails 'SowPaddy'? True  (checked 16 models)<br>KB entails 'not WetField'? False  (checked 1 models)<br>   counter-example: {'Monsoon': True, 'Rain': True, 'WetField': True, 'SowPaddy': True}<br>  derived Rain from ['Monsoon']<br>  derived WetField from ['Rain']<br>  derived SowPaddy from ['WetField']<br>Final facts: ['Monsoon', 'Rain', 'SowPaddy', 'WetField']</div>
@@ -1152,7 +1170,7 @@ module ArtificialIntelligenceContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Logic is exact but brittle: real life has exceptions ("birds fly" — except penguins) and uncertainty. Lessons 11 and 12 add probability to handle that.
+          <strong>Tip:</strong> Logic is exact but brittle: real life has exceptions ("birds fly" — except penguins) and uncertainty. Lessons 11–13 add probability to handle that.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1381,9 +1399,9 @@ module ArtificialIntelligenceContent
           <h3>Where probabilistic AI is used</h3>
           <ul class="lc-list">
             <li><strong>Medical screening</strong> — the same base-rate effect applies to tests for rare diseases.</li>
-            <li><strong>Robot localisation</strong> — a robot keeps a probability for each possible position and updates it with every sensor reading.</li>
+            <li><strong>Robot localisation</strong> — a robot keeps a probability for each possible position and updates it with every sensor reading — tracking over time is Lesson 12.</li>
             <li><strong>Bayesian networks</strong> — graphs that link causes and effects, like the Monsoon → Rain → Yield example below.</li>
-            <li><strong>Language models</strong> — output a probability for every possible next word (Lesson 16).</li>
+            <li><strong>Language models</strong> — output a probability for every possible next word (Lesson 17).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1493,6 +1511,142 @@ module ArtificialIntelligenceContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
+          <h1 class="lc-title">Reasoning over Time: Hidden Markov Models</h1>
+        </div>
+        <p class="lc-lead">Lesson 11 reasoned about one moment. Real agents watch the world change day after day, and often they cannot see what they care about directly — only noisy clues. A <strong>hidden Markov model (HMM)</strong> tracks a hidden state over time from those clues. The same ideas guide a robot that cannot see its own position, a phone that cleans up noisy GPS, and older speech recognisers.</p>
+        <div class="lc-card">
+          <h3>Markov chains: the future depends only on the present</h3>
+          <p>A <strong>Markov chain</strong> is a sequence of states where tomorrow depends only on today, not on the whole history. This is the <strong>Markov assumption</strong>. It keeps the model small: one table P(tomorrow | today) instead of a table for every possible past.</p>
+          <p>Our example: you live in Bengaluru and cannot see the weather in Kochi, where your cousin lives. Each day she posts one photo, and you only notice whether she is carrying an umbrella. The weather is <strong>hidden</strong>; the umbrella is the <strong>evidence</strong>.</p>
+          <table class="lc-table">
+            <thead><tr><th>Part of an HMM</th><th>Meaning</th><th>Kochi example</th></tr></thead>
+            <tbody>
+              <tr><td>Hidden states</td><td>What we want to know but cannot see</td><td>Rain or Dry</td></tr>
+              <tr><td>Observations</td><td>What we can see each time step</td><td>umbrella or none</td></tr>
+              <tr><td>Initial distribution</td><td>Belief before any evidence</td><td>P(Rain) = 0.5 on day 1</td></tr>
+              <tr><td>Transition model</td><td>P(state tomorrow | state today)</td><td>Rain stays Rain with 0.7</td></tr>
+              <tr><td>Sensor (emission) model</td><td>P(observation | state)</td><td>P(umbrella | Rain) = 0.9, P(umbrella | Dry) = 0.2</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Filtering: predict, then update</h3>
+          <p><strong>Filtering</strong> answers "what is the weather <em>today</em>, given every photo so far?" The <strong>forward algorithm</strong> repeats two steps each day:</p>
+          <ol class="lc-list">
+            <li><strong>Predict</strong> — push yesterday's belief through the transition model (time passes, so we become less sure).</li>
+            <li><strong>Update</strong> — multiply by how likely today's photo is in each state (Bayes' rule from Lesson 11), then normalise so the beliefs add up to 1.</li>
+          </ol>
+          <p>By hand for the first two days (both photos show an umbrella):</p>
+          <div class="lc-code">Day 1 update:  Rain 0.5 × 0.9 = 0.45    Dry 0.5 × 0.2 = 0.10<br>               P(Rain) = 0.45 / (0.45 + 0.10) = 0.818<br><br>Day 2 predict: P(Rain) = 0.818 × 0.7 + 0.182 × 0.3 = 0.627<br>Day 2 update:  Rain 0.627 × 0.9 = 0.564  Dry 0.373 × 0.2 = 0.075<br>               P(Rain) = 0.564 / (0.564 + 0.075) = 0.883</div>
+          <p>The belief carries information forward: two umbrellas in a row make us more confident (0.883) than one umbrella alone (0.818).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Viterbi: the most likely story</h3>
+          <p>Sometimes you want the whole sequence, not just today: "which weather <em>story</em> best explains all five photos?" The <strong>Viterbi algorithm</strong> works like filtering, but it keeps the <strong>maximum</strong> instead of the sum, and remembers the best path into each state. It is dynamic programming — the same "keep only the best way to reach each state" idea as Uniform-Cost Search in Lesson 4.</p>
+          <div class="lc-code">best[s] = max over p of  best[p] × P(s | p) × P(photo | s)</div>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <p>The photos are umbrella, umbrella, none, umbrella, umbrella.</p>
+          <div class="lc-code">day 1 photo=umbrella P(Rain) = 0.818<br>day 2 photo=umbrella P(Rain) = 0.883<br>day 3 photo=none     P(Rain) = 0.191<br>day 4 photo=umbrella P(Rain) = 0.731<br>day 5 photo=umbrella P(Rain) = 0.867<br><br>Most likely weather: Rain -&gt; Rain -&gt; Dry -&gt; Rain -&gt; Rain (p = 0.0116)<br>Particle filter, day 5: P(Rain) ≈ 0.844</div>
+          <ul class="lc-list">
+            <li>Days 1 and 2 match the hand calculation above.</li>
+            <li>On day 3 there is no umbrella, so the belief in Rain falls sharply to 0.191 — but not to zero, because sensors (and cousins) are not perfect.</li>
+            <li>Viterbi's best story has one dry day in the middle. Its score (0.0116) is the probability of that exact story <em>and</em> these exact photos together, so it is small — one of 2<sup>5</sup> = 32 possible stories. What matters is that no other story scores higher.</li>
+            <li>The particle filter's 0.844 is close to the exact 0.867. It is an approximation, so it changes a little with the random seed.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Particle filtering: when exact sums are too big</h3>
+          <p>With two weather states the exact sums are tiny. A robot's position on a map can have millions of possible values, so exact filtering is too slow. A <strong>particle filter</strong> keeps a crowd of random guesses ("particles") instead:</p>
+          <ol class="lc-list">
+            <li><strong>Move</strong> each particle by sampling from the transition model.</li>
+            <li><strong>Weight</strong> each particle by how well it explains the new observation.</li>
+            <li><strong>Resample</strong> — draw a new crowd, copying heavy particles more often and dropping light ones.</li>
+          </ol>
+          <p>The fraction of particles in a state approximates its probability. More particles give a better approximation but cost more time. This is how many robots and self-driving cars track their position (localisation).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Which question are you asking?</h3>
+          <table class="lc-table">
+            <thead><tr><th>Task</th><th>Question</th><th>Method</th></tr></thead>
+            <tbody>
+              <tr><td>Filtering</td><td>What is the state <em>now</em>, given evidence so far?</td><td>Forward algorithm (or a particle filter)</td></tr>
+              <tr><td>Prediction</td><td>What will the state be in k days?</td><td>Filter, then apply only the predict step k times</td></tr>
+              <tr><td>Smoothing</td><td>What was the state on a <em>past</em> day, using later evidence too?</td><td>Forward–backward algorithm</td></tr>
+              <tr><td>Most likely explanation</td><td>Which whole sequence of states is most likely?</td><td>Viterbi algorithm</td></tr>
+            </tbody>
+          </table>
+          <p>HMMs were used in speech recognition and part-of-speech tagging for decades, and are still used for gene finding and activity tracking. For continuous states such as a car's position and speed, the <strong>Kalman filter</strong> applies the same predict-update idea and is widely used in GPS navigation and robotics.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Forgetting to normalise</strong> — after the update step the numbers no longer add up to 1; divide by their total or the beliefs shrink towards zero day by day.</li>
+            <li><strong>Skipping the predict step</strong> — without it, the model acts as if the weather can never change between days.</li>
+            <li><strong>Mixing up filtering and Viterbi</strong> — the most likely state on each day, taken one day at a time, is not always the same as the most likely whole sequence.</li>
+            <li><strong>Using too few particles</strong> — a small crowd can lose every particle in the true state, and the filter never recovers.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check days 1 and 2 against the hand calculation.</li>
+            <li>Change the day-3 photo to <code>"umbrella"</code>. Which weather story does Viterbi choose now?</li>
+            <li>Make the weather "stickier": set Rain → Rain and Dry → Dry to 0.9 (and the other two entries to 0.1). Now day 3's filtered P(Rain) is 0.407, below one half, yet Viterbi says day 3 was Rain. Explain why both can be right.</li>
+            <li>Change <code>range(1000)</code> to <code>range(100)</code> and try a few seeds. How far does the particle estimate move from the exact 0.867?</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Remember "predict, update, normalise". Every tracking method in this lesson — the forward algorithm, particle filters and Kalman filters — is that same three-step loop, run once per time step.
+        </div>
+      HTML
+      starter_code: <<~'PYTHON'
+        # Lesson 12: a hidden Markov model — guessing Kochi's weather from umbrella photos
+        import random
+        random.seed(7)
+
+        STATES = ["Rain", "Dry"]
+        start = {"Rain": 0.5, "Dry": 0.5}                      # P(weather on day 1)
+        trans = {"Rain": {"Rain": 0.7, "Dry": 0.3},            # P(tomorrow | today)
+                 "Dry":  {"Rain": 0.3, "Dry": 0.7}}
+        emit = {"Rain": {"umbrella": 0.9, "none": 0.1},        # P(photo | weather)
+                "Dry":  {"umbrella": 0.2, "none": 0.8}}
+        photos = ["umbrella", "umbrella", "none", "umbrella", "umbrella"]
+
+        # 1. Filtering (forward algorithm): belief about TODAY given all photos so far
+        belief = dict(start)
+        for day, obs in enumerate(photos, 1):
+            if day > 1:                                        # predict: push belief through the transition model
+                belief = {s: sum(belief[p] * trans[p][s] for p in STATES) for s in STATES}
+            belief = {s: belief[s] * emit[s][obs] for s in STATES}   # update: weight by the evidence
+            total = sum(belief.values())
+            belief = {s: v / total for s, v in belief.items()}       # normalise so it sums to 1
+            print(f"day {day} photo={obs:<8} P(Rain) = {belief['Rain']:.3f}")
+
+        # 2. Viterbi: the single most likely weather SEQUENCE
+        best = {s: (start[s] * emit[s][photos[0]], [s]) for s in STATES}
+        for obs in photos[1:]:
+            best = {s: max((best[p][0] * trans[p][s] * emit[s][obs], best[p][1] + [s]) for p in STATES)
+                    for s in STATES}
+        prob, path = max(best.values())
+        print("\nMost likely weather:", " -> ".join(path), f"(p = {prob:.4f})")
+
+        # 3. Particle filter: approximate the same belief with 1,000 random samples
+        particles = [random.choice(STATES) for _ in range(1000)]
+        for day, obs in enumerate(photos, 1):
+            if day > 1:
+                particles = [random.choices(STATES, [trans[p][s] for s in STATES])[0] for p in particles]
+            weights = [emit[p][obs] for p in particles]
+            particles = random.choices(particles, weights, k=len(particles))   # resample by weight
+        print(f"Particle filter, day 5: P(Rain) ≈ {particles.count('Rain') / len(particles):.3f}")
+      PYTHON
+    },
+
+    13 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
           <h1 class="lc-title">Naive Bayes Classifier</h1>
         </div>
         <p class="lc-lead"><strong>Naive Bayes</strong> uses Bayes' rule to put things into classes — spam or not spam, positive or negative review. It is simple, fast, needs little data, and was one of the first machine-learning methods used widely in email spam filters. You will build an SMS spam filter from scratch in this lesson.</p>
@@ -1564,7 +1718,7 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 12: Naive Bayes SMS spam filter, written from scratch
+        # Lesson 13: Naive Bayes SMS spam filter, written from scratch
         import math
         from collections import Counter
 
@@ -1610,7 +1764,7 @@ module ArtificialIntelligenceContent
       PYTHON
     },
 
-    13 => {
+    14 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
@@ -1711,7 +1865,7 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 13: a delivery robot on a grid — value iteration (planning) vs Q-learning (learning)
+        # Lesson 14: a delivery robot on a grid — value iteration (planning) vs Q-learning (learning)
         import random
         random.seed(0)
 
@@ -1764,7 +1918,7 @@ module ArtificialIntelligenceContent
       PYTHON
     },
 
-    14 => {
+    15 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
@@ -1776,9 +1930,9 @@ module ArtificialIntelligenceContent
           <table class="lc-table">
             <thead><tr><th>Type</th><th>Learns from</th><th>Example</th></tr></thead>
             <tbody>
-              <tr><td>Supervised</td><td>Labelled examples (input → correct answer)</td><td>Predict rent from flat size; spam vs ham (Lesson 12)</td></tr>
+              <tr><td>Supervised</td><td>Labelled examples (input → correct answer)</td><td>Predict rent from flat size; spam vs ham (Lesson 13)</td></tr>
               <tr><td>Unsupervised</td><td>Unlabelled data — finds structure</td><td>Group customers by shopping habits</td></tr>
-              <tr><td>Reinforcement</td><td>Rewards and penalties from trial and error</td><td>The delivery robot of Lesson 13</td></tr>
+              <tr><td>Reinforcement</td><td>Rewards and penalties from trial and error</td><td>The delivery robot of Lesson 14</td></tr>
             </tbody>
           </table>
           <p>Supervised learning splits into <strong>regression</strong> (predict a number, like rent) and <strong>classification</strong> (predict a category). Large language models are trained mostly with <strong>self-supervised</strong> learning: the "label" is simply the next word in the text.</p>
@@ -1822,11 +1976,19 @@ module ArtificialIntelligenceContent
             <thead><tr><th>Family</th><th>Idea</th><th>Typical use</th></tr></thead>
             <tbody>
               <tr><td>Feed-forward (MLP)</td><td>Layers connected one after another</td><td>Tabular data, simple classifiers</td></tr>
-              <tr><td>Convolutional (CNN)</td><td>Small filters slid over images</td><td>Vision (Lesson 18)</td></tr>
+              <tr><td>Convolutional (CNN)</td><td>Small filters slid over images</td><td>Vision (Lesson 19)</td></tr>
               <tr><td>Recurrent (RNN / LSTM)</td><td>Process a sequence step by step</td><td>Older speech and text models, mostly replaced by transformers</td></tr>
-              <tr><td>Transformer</td><td>Attention looks at all parts of the input at once</td><td>LLMs (Lesson 16), also vision and speech</td></tr>
+              <tr><td>Transformer</td><td>Attention looks at all parts of the input at once</td><td>LLMs (Lesson 17), also vision and speech</td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="lc-card">
+          <h3>Decision trees: rules learned from data</h3>
+          <p>Neural networks are not the only learners. A <strong>decision tree</strong> learns a flowchart of questions ("Is the applicant salaried?", "Is the loan above ₹5 lakh?"). At each step it picks the question that best separates the classes, measured by <strong>information gain</strong>: how much the question lowers the <strong>entropy</strong> (mixed-up-ness) of the labels.</p>
+          <div class="lc-code">from math import log2<br><br>def entropy(yes, no):<br>    total = yes + no<br>    return -sum(c / total * log2(c / total) for c in (yes, no) if c)<br><br>def gain(parent, children):                            # counts are (repaid, defaulted)<br>    n = sum(parent)<br>    return entropy(*parent) - sum(sum(c) / n * entropy(*c) for c in children)<br><br>print(f"Entropy of all 10 loans (6 repaid, 4 not): {entropy(6, 4):.3f}")<br>print(f"Split on 'salaried': gain = {gain((6, 4), [(5, 0), (1, 4)]):.3f}")<br>print(f"Split on 'metro city': gain = {gain((6, 4), [(4, 2), (2, 2)]):.3f}")</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">Entropy of all 10 loans (6 repaid, 4 not): 0.971<br>Split on 'salaried': gain = 0.610<br>Split on 'metro city': gain = 0.020</div>
+          <p>"Salaried" splits the loans into one pure group (5 repaid, 0 defaulted) and one mostly-default group, so it removes most of the uncertainty (gain 0.610). "Metro city" hardly helps (0.020). The tree asks "salaried?" first, then repeats the process inside each branch. Trees are easy to explain — much like the expert-system rules of Lesson 10, but learned instead of hand-written. A single deep tree overfits easily, so in practice we limit its depth or combine many trees (random forests, gradient boosting).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1850,7 +2012,7 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 14: Learning from data — gradient descent, a perceptron, and a tiny neural network
+        # Lesson 15: Learning from data — gradient descent, a perceptron, and a tiny neural network
         import numpy as np
 
         # Part 1: learn rent (thousand Rs) from flat size (hundreds of sq ft) by gradient descent
@@ -1897,7 +2059,7 @@ module ArtificialIntelligenceContent
       PYTHON
     },
 
-    15 => {
+    16 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
@@ -1988,7 +2150,7 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 15: NLP basics — match a railway query to the right FAQ answer
+        # Lesson 16: NLP basics — match a railway query to the right FAQ answer
         import math, re
         from collections import Counter
 
@@ -2032,7 +2194,7 @@ module ArtificialIntelligenceContent
       PYTHON
     },
 
-    16 => {
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
@@ -2078,7 +2240,7 @@ module ArtificialIntelligenceContent
           <ul class="lc-list">
             <li><strong>Temperature</strong> controls randomness: low = focused and repeatable, high = more varied and creative.</li>
             <li><strong>Hallucination</strong> — the model can produce fluent but false statements, because it predicts likely text, not verified truth.</li>
-            <li><strong>Knowledge cutoff</strong> — it knows only what was in its training data, unless it is given tools such as web search or documents (Lesson 17).</li>
+            <li><strong>Knowledge cutoff</strong> — it knows only what was in its training data, unless it is given tools such as web search or documents (Lesson 18).</li>
             <li><strong>Context window</strong> — there is a limit to how much text it can consider at once.</li>
           </ul>
         </div>
@@ -2126,7 +2288,7 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 16: A toy language model — predict the next word from counts (bigrams)
+        # Lesson 17: A toy language model — predict the next word from counts (bigrams)
         import random
         from collections import defaultdict, Counter
         random.seed(3)
@@ -2167,7 +2329,7 @@ module ArtificialIntelligenceContent
       PYTHON
     },
 
-    17 => {
+    18 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
@@ -2241,7 +2403,7 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 17: An AI agent loop with (fake) tools — plan a weekend trip
+        # Lesson 18: An AI agent loop with (fake) tools — plan a weekend trip
         import json
 
         def search_trains(src, dst):
@@ -2289,7 +2451,7 @@ module ArtificialIntelligenceContent
       PYTHON
     },
 
-    18 => {
+    19 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
@@ -2383,7 +2545,7 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 18: Computer vision basics — images are just numbers
+        # Lesson 19: Computer vision basics — images are just numbers
         import numpy as np
 
         # An 8x8 grayscale "photo" (0 = black, 9 = white) of a bright square
@@ -2423,7 +2585,7 @@ module ArtificialIntelligenceContent
       PYTHON
     },
 
-    19 => {
+    20 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
@@ -2459,7 +2621,7 @@ module ArtificialIntelligenceContent
           <ul class="lc-list">
             <li>0.3 ÷ 0.8 = 0.375 (printed as 0.37), far below 0.8.</li>
             <li>The equal-opportunity check is even more telling: every urban applicant who later repaid was approved, but only half of the rural applicants who repaid were. The model rejects good rural borrowers.</li>
-            <li>Personal details are replaced by labels before the message is sent to an AI service. The UPI pattern runs before the email pattern, otherwise <code>priya99@okaxis</code> could be mislabelled.</li>
+            <li>Personal details are replaced by labels before the message is sent to an AI service. The UPI pattern runs first, so labels stay unambiguous if you later widen the email pattern (today <code>EMAIL</code> needs a dot and a domain ending, so it would not match <code>priya99@okaxis</code> anyway).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2470,7 +2632,7 @@ module ArtificialIntelligenceContent
               <tr><td>Hallucination</td><td>Confident but false output</td><td>Ground answers in sources; human checks</td></tr>
               <tr><td>Prompt injection</td><td>Hidden instructions in web pages or files hijack an AI agent</td><td>Treat inputs as data; limit tool permissions</td></tr>
               <tr><td>Jailbreaks and misuse</td><td>Tricking a model into harmful help (e.g. writing scam messages)</td><td>Safety training, filters, monitoring</td></tr>
-              <tr><td>Misalignment</td><td>The system pursues its objective in ways humans did not intend (recall reward hacking in Lesson 13)</td><td>Clear goals, red-teaming, oversight</td></tr>
+              <tr><td>Misalignment</td><td>The system pursues its objective in ways humans did not intend (recall reward hacking in Lesson 14)</td><td>Clear goals, red-teaming, oversight</td></tr>
               <tr><td>Privacy leaks</td><td>Personal data sent to or remembered by AI systems</td><td>Data minimisation, consent, redaction, anonymisation</td></tr>
               <tr><td>Deepfakes</td><td>Fake videos and cloned voices used for fraud or to mislead voters</td><td>Labelling, provenance metadata, fast takedown</td></tr>
             </tbody>
@@ -2520,7 +2682,7 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 19: Responsible AI — audit a loan model for bias, then redact personal data
+        # Lesson 20: Responsible AI — audit a loan model for bias, then redact personal data
         import re
         import pandas as pd
 
@@ -2550,7 +2712,7 @@ module ArtificialIntelligenceContent
         }
         def redact(text):
             found = []
-            for label, pattern in PATTERNS.items():        # order matters: UPI before EMAIL
+            for label, pattern in PATTERNS.items():        # UPI first: labels stay clear if EMAIL is widened
                 text, n = re.subn(pattern, f"[{label}]", text)
                 if n:
                     found.append(f"{label} x{n}")
@@ -2569,7 +2731,7 @@ module ArtificialIntelligenceContent
       PYTHON
     },
 
-    20 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
@@ -2582,7 +2744,7 @@ module ArtificialIntelligenceContent
           <table class="lc-table">
             <thead><tr><th>Step</th><th>Technique</th><th>Lesson</th></tr></thead>
             <tbody>
-              <tr><td>1. Learn minutes per km for each road type from past trips</td><td>Learning from data</td><td>14</td></tr>
+              <tr><td>1. Learn minutes per km for each road type from past trips</td><td>Learning from data</td><td>15</td></tr>
               <tr><td>2. Model the city as junctions and roads</td><td>Problem formulation, agents</td><td>2–3</td></tr>
               <tr><td>3. Expected cost = normal time + P(jam) × 15-minute delay</td><td>Probability and expected value</td><td>11</td></tr>
               <tr><td>4. Find the fastest route with an admissible heuristic</td><td>A* search</td><td>4–5</td></tr>
@@ -2612,14 +2774,14 @@ module ArtificialIntelligenceContent
               <tr><td>Search (L3–5)</td><td>BFS, DFS, UCS, A*</td><td>You need a sequence of actions (a route, a plan)</td></tr>
               <tr><td>Local search (L6)</td><td>Hill climbing, simulated annealing</td><td>Only the final configuration matters</td></tr>
               <tr><td>CSPs (L7)</td><td>Backtracking, MRV, forward checking</td><td>Timetables, assignments with hard rules</td></tr>
-              <tr><td>Games (L8)</td><td>Minimax, alpha-beta pruning</td><td>There is an opponent</td></tr>
+              <tr><td>Games (L8)</td><td>Minimax, alpha-beta pruning, expectimax</td><td>There is an opponent (or dice)</td></tr>
               <tr><td>Logic (L9–10)</td><td>Entailment, forward chaining, expert systems, STRIPS planning</td><td>Rules are clear and decisions must be explained, or a sequence of actions must be planned</td></tr>
-              <tr><td>Probability (L11–12)</td><td>Bayes' rule, Bayesian networks, Naive Bayes</td><td>Evidence is uncertain or noisy</td></tr>
-              <tr><td>Reinforcement learning (L13)</td><td>MDPs, value iteration, Q-learning</td><td>An agent plans with a known model, or learns from rewards by trial and error</td></tr>
-              <tr><td>Learning (L14)</td><td>Gradient descent, neural networks</td><td>You have examples but no clear rules</td></tr>
-              <tr><td>Language (L15–17)</td><td>Bag of words, LLMs, agents with tools</td><td>Working with text and multi-step tasks</td></tr>
-              <tr><td>Vision (L18)</td><td>Convolution, CNNs</td><td>Working with images and video</td></tr>
-              <tr><td>Responsible AI (L19)</td><td>Fairness metrics, privacy, regulation</td><td>Always!</td></tr>
+              <tr><td>Probability (L11–13)</td><td>Bayes' rule, Bayesian networks, hidden Markov models, Naive Bayes</td><td>Evidence is uncertain or noisy</td></tr>
+              <tr><td>Reinforcement learning (L14)</td><td>MDPs, value iteration, Q-learning</td><td>An agent plans with a known model, or learns from rewards by trial and error</td></tr>
+              <tr><td>Learning (L15)</td><td>Gradient descent, neural networks, decision trees</td><td>You have examples but no clear rules</td></tr>
+              <tr><td>Language (L16–18)</td><td>Bag of words, LLMs, agents with tools</td><td>Working with text and multi-step tasks</td></tr>
+              <tr><td>Vision (L19)</td><td>Convolution, CNNs</td><td>Working with images and video</td></tr>
+              <tr><td>Responsible AI (L20)</td><td>Fairness metrics, privacy, regulation</td><td>Always!</td></tr>
             </tbody>
           </table>
         </div>
@@ -2656,7 +2818,7 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 20 capstone: an ambulance route planner = learning + uncertainty + A* search
+        # Lesson 21 capstone: an ambulance route planner = learning + uncertainty + A* search
         import heapq, math
 
         # 1. LEARN travel speed per road type from past trips: (road_type, km, minutes)

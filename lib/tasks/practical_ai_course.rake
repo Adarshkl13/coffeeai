@@ -1,7 +1,7 @@
 require_relative "../practical_ai_content"
 
 namespace :content do
-  desc "Create Practical AI course and populate all 20 lessons"
+  desc "Create Practical AI course and populate all 22 lessons"
   task practical_ai: :environment do
     course = Course.find_or_create_by!(slug: "practical-ai") do |c|
       c.title       = "Practical AI"
@@ -26,14 +26,16 @@ namespace :content do
       10 => "Vector Databases and Semantic Search",
       11 => "RAG — Retrieval Augmented Generation",
       12 => "AI Agents — Tool Calling and MCP",
-      13 => "Evaluating AI Systems",
-      14 => "AI Safety, Hallucination, and Reliability",
-      15 => "Fine-tuning — When and How",
-      16 => "AI in Production — Streaming, Caching, Batching, Rate Limits",
-      17 => "Building AI Applications — Architecture Patterns",
-      18 => "Multimodal AI — Vision, Audio, and Beyond",
-      19 => "Cost Optimisation and Model Selection",
-      20 => "Practical AI Review — Building Your AI Portfolio"
+      13 => "Agent Workflows — Chains, Routing and Multi-Agent Systems",
+      14 => "Evaluating AI Systems",
+      15 => "AI Safety, Hallucination, and Reliability",
+      16 => "Open-Weight Models — Self-Hosting and Quantisation",
+      17 => "Fine-tuning — When and How",
+      18 => "AI in Production — Streaming, Caching, Batching, Rate Limits",
+      19 => "Building AI Applications — Architecture Patterns",
+      20 => "Multimodal AI — Vision, Audio, and Beyond",
+      21 => "Cost Optimisation and Model Selection",
+      22 => "Practical AI Review — Building Your AI Portfolio"
     }
 
     descriptions = {
@@ -49,14 +51,16 @@ namespace :content do
       10 => "Store and search embeddings with ANN indexes, pgvector and hybrid search with rank fusion.",
       11 => "Build a retrieval-augmented pipeline with chunking, retrieval, grounded prompts and citations.",
       12 => "Run tool-calling loops safely and connect tools and data through the Model Context Protocol.",
-      13 => "Measure quality with eval sets, code graders and LLM-as-judge before and after every change.",
-      14 => "Reduce hallucinations and defend against prompt injection with layered, code-level controls.",
-      15 => "Decide when fine-tuning beats prompting and RAG, prepare clean data, and prove the gain with evals.",
-      16 => "Ship AI features with streaming, prompt and response caching, batch APIs and rate-limit handling.",
-      17 => "Choose an architecture pattern and add gateways, fallbacks, circuit breakers and human review.",
-      18 => "Send images and audio to models, and build validated document-processing pipelines.",
-      19 => "Estimate and cut AI costs with model choice, effort, caching, batching and routing.",
-      20 => "Review the full practical AI stack and plan, build and evaluate a cited Q&A capstone."
+      13 => "Combine model calls with chaining, gates, routing, voting and evaluator loops, and decide when multi-agent systems are worth their cost.",
+      14 => "Measure quality with eval sets, code graders and LLM-as-judge before and after every change.",
+      15 => "Reduce hallucinations and defend against prompt injection with layered, code-level controls.",
+      16 => "Run open-weight models locally, estimate memory, use quantisation, and decide when self-hosting beats an API.",
+      17 => "Decide when fine-tuning beats prompting and RAG, prepare clean data, and prove the gain with evals.",
+      18 => "Ship AI features with streaming, prompt and response caching, batch APIs and rate-limit handling.",
+      19 => "Choose an architecture pattern and add gateways, fallbacks, circuit breakers and human review.",
+      20 => "Send images and audio to models, and build validated document-processing pipelines.",
+      21 => "Estimate and cut AI costs with model choice, effort, caching, batching and routing.",
+      22 => "Review the full practical AI stack and plan, build and evaluate a cited Q&A capstone."
     }
 
     exercises = {
@@ -72,14 +76,16 @@ namespace :content do
       10 => { type: "multiple_choice", q: "An approximate nearest-neighbour index (such as HNSW or IVF) is tuned to search fewer vectors. What is the trade-off?", opts: ["A) Faster search, but it may miss some true neighbours", "B) Faster search with the same results as brute force", "C) Slower search, because each stored vector is compared twice"], ans: "A" },
       11 => { type: "multiple_choice", q: "A RAG bot gives a wrong answer. You check and find the correct chunk was never retrieved. What should you fix first?", opts: ["A) The generation prompt, by asking the model to try harder", "B) Nothing: switch to a bigger model and the answer will appear", "C) Retrieval: chunking, hybrid search or re-ranking"], ans: "C" },
       12 => { type: "true_false", q: "In function calling, the model runs your Python function itself on the provider's servers and returns only the final answer.", opts: ["True", "False"], ans: "False" },
-      13 => { type: "multiple_choice", q: "Prompt v2 scores 9/10 on your eval set and v1 scored 8/10. What is the best conclusion?", opts: ["A) v2 is clearly better, so ship it", "B) The difference is within noise for 10 cases; read the failures and test on more cases", "C) Evals this small are useless, so decide by trying a few prompts yourself"], ans: "B" },
-      14 => { type: "multiple_choice", q: "An email assistant reads incoming emails and can send email. Which defence is strongest against injected instructions?", opts: ["A) Code that blocks outside recipients and needs human approval to send", "B) A keyword filter for the phrase 'ignore previous instructions'", "C) A system prompt line telling the model never to obey instructions in emails"], ans: "A" },
-      15 => { type: "true_false", q: "Before fine-tuning, you should measure a strong prompted baseline on a held-out eval set so you can prove the fine-tuned model is actually better.", opts: ["True", "False"], ans: "True" },
-      16 => { type: "multiple_choice", q: "Your prompt caching hit rate is zero even though every request uses the same long system prompt. What is the most likely cause?", opts: ["A) Caching only works when streaming is turned on for the request", "B) The system prompt is too long for the cache to store", "C) Something that changes every request, like a timestamp, sits at the start of the prompt"], ans: "C" },
-      17 => { type: "multiple_choice", q: "Which AI application pattern is best described as 'AI assists humans within their existing workflow'?", opts: ["A) An autonomous agent that completes multi-step tasks on its own", "B) Copilot", "C) A nightly batch pipeline that classifies records"], ans: "B" },
-      18 => { type: "true_false", q: "When a vision model extracts an invoice total as JSON, the value can be saved straight to your accounts without any validation, because vision models do not misread numbers.", opts: ["True", "False"], ans: "False" },
-      19 => { type: "multiple_choice", q: "Model X costs half as much per request as model Y, but succeeds on 60% of tasks versus 95% for Y, and failures need a human fix. How should you compare them?", opts: ["A) By cost per completed task, including retries and human fixes", "B) By price per token only, since that is what appears on the invoice", "C) By picking the newer model, since newer models tend to be cheaper and better"], ans: "A" },
-      20 => { type: "multiple_choice", q: "A new model is released. What should you do before switching your capstone app to it?", opts: ["A) Switch immediately, because newer models top the benchmarks", "B) Wait a year, because new models are often withdrawn", "C) Run your eval set; compare quality, latency and cost"], ans: "C" }
+      13 => { type: "multiple_choice", q: "A support workflow extracts an order id, then drafts a reply. Where should the check that the id looks like A123 live?", opts: ["A) In the drafting prompt, asking the model to double-check the id first", "B) In plain code between the two steps, as a gate", "C) In a second reviewer agent that reads the first agent's output"], ans: "B" },
+      14 => { type: "multiple_choice", q: "Prompt v2 scores 9/10 on your eval set and v1 scored 8/10. What is the best conclusion?", opts: ["A) v2 is clearly better, so ship it", "B) The difference is within noise for 10 cases; read the failures and test on more cases", "C) Evals this small are useless, so decide by trying a few prompts yourself"], ans: "B" },
+      15 => { type: "multiple_choice", q: "An email assistant reads incoming emails and can send email. Which defence is strongest against injected instructions?", opts: ["A) Code that blocks outside recipients and needs human approval to send", "B) A keyword filter for the phrase 'ignore previous instructions'", "C) A system prompt line telling the model never to obey instructions in emails"], ans: "A" },
+      16 => { type: "true_false", q: "Quantising a model from 16-bit to 4-bit weights cuts the memory for its weights to about a quarter, with no loss in quality.", opts: ["True", "False"], ans: "False" },
+      17 => { type: "true_false", q: "Before fine-tuning, you should measure a strong prompted baseline on a held-out eval set so you can prove the fine-tuned model is actually better.", opts: ["True", "False"], ans: "True" },
+      18 => { type: "multiple_choice", q: "Your prompt caching hit rate is zero even though every request uses the same long system prompt. What is the most likely cause?", opts: ["A) Caching only works when streaming is turned on for the request", "B) The system prompt is too long for the cache to store", "C) Something that changes every request, like a timestamp, sits at the start of the prompt"], ans: "C" },
+      19 => { type: "multiple_choice", q: "Which AI application pattern is best described as 'AI assists humans within their existing workflow'?", opts: ["A) An autonomous agent that completes multi-step tasks on its own", "B) Copilot", "C) A nightly batch pipeline that classifies records"], ans: "B" },
+      20 => { type: "true_false", q: "When a vision model extracts an invoice total as JSON, the value can be saved straight to your accounts without any validation, because vision models do not misread numbers.", opts: ["True", "False"], ans: "False" },
+      21 => { type: "multiple_choice", q: "Model X costs half as much per request as model Y, but succeeds on 60% of tasks versus 95% for Y, and failures need a human fix. How should you compare them?", opts: ["A) By cost per completed task, including retries and human fixes", "B) By price per token only, since that is what appears on the invoice", "C) By picking the newer model, since newer models tend to be cheaper and better"], ans: "A" },
+      22 => { type: "multiple_choice", q: "A new model is released. What should you do before switching your capstone app to it?", opts: ["A) Switch immediately, because newer models top the benchmarks", "B) Wait a year, because new models are often withdrawn", "C) Run your eval set; compare quality, latency and cost"], ans: "C" }
     }
 
     PracticalAiContent::LESSONS.each do |position, data|

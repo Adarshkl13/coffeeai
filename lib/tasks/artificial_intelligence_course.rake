@@ -1,7 +1,7 @@
 require_relative "../artificial_intelligence_content"
 
 namespace :content do
-  desc "Create Artificial Intelligence course and populate all 20 lessons"
+  desc "Create Artificial Intelligence course and populate all 21 lessons"
   task artificial_intelligence: :environment do
     course = Course.find_or_create_by!(slug: "artificial-intelligence") do |c|
       c.title       = "Artificial Intelligence"
@@ -25,15 +25,16 @@ namespace :content do
       9  => "Knowledge Representation and Logic",
       10 => "Expert Systems and Classical Planning",
       11 => "Uncertainty, Probability and Bayes' Rule",
-      12 => "Naive Bayes Classifier",
-      13 => "Reinforcement Learning: MDPs, Value Iteration and Q-Learning",
-      14 => "Learning from Data: ML and Neural Networks",
-      15 => "Natural Language Processing Basics",
-      16 => "How Large Language Models Work",
-      17 => "AI Agents and Tool Use",
-      18 => "Computer Vision Basics",
-      19 => "AI Ethics, Safety and Regulation",
-      20 => "Capstone Project and Course Review"
+      12 => "Reasoning over Time: Hidden Markov Models",
+      13 => "Naive Bayes Classifier",
+      14 => "Reinforcement Learning: MDPs, Value Iteration and Q-Learning",
+      15 => "Learning from Data: ML and Neural Networks",
+      16 => "Natural Language Processing Basics",
+      17 => "How Large Language Models Work",
+      18 => "AI Agents and Tool Use",
+      19 => "Computer Vision Basics",
+      20 => "AI Ethics, Safety and Regulation",
+      21 => "Capstone Project and Course Review"
     }
 
     descriptions = {
@@ -48,15 +49,16 @@ namespace :content do
       9  => "Represent knowledge with propositional logic and infer new facts using model checking and forward chaining.",
       10 => "Build a small crop-disease expert system with IF-THEN rules and explanations, then plan a farm robot's actions with STRIPS-style classical planning.",
       11 => "Reason under uncertainty with probability, use Bayes' rule to see why most UPI fraud alarms are false alarms, and query a small Bayesian network.",
-      12 => "Build an SMS spam filter from scratch with Naive Bayes, Laplace smoothing and log-probabilities.",
-      13 => "Describe problems as Markov decision processes, solve a delivery grid with value iteration, then learn the same grid with tabular Q-learning.",
-      14 => "See how machines learn from examples with gradient descent, and why a hidden layer lets a neural network solve XOR.",
-      15 => "Learn tokenisation, stopwords, stemming and bag-of-words, and match railway questions to FAQ answers.",
-      16 => "Understand tokens, next-token prediction, temperature, transformers and prompting by building a toy bigram language model.",
-      17 => "Learn how AI agents plan, call tools, observe results and stay safe with guardrails, using a simulated agent loop.",
-      18 => "Discover how computers see images as numbers, apply convolution filters and understand CNNs.",
-      19 => "Measure bias in a loan model, protect personal data, and understand AI rules in India and the EU AI Act.",
-      20 => "Build an ambulance route planner that combines learning, uncertainty and A* search, then review the whole course."
+      12 => "Track a hidden state over time from noisy evidence with Markov chains, the forward algorithm, Viterbi and particle filters.",
+      13 => "Build an SMS spam filter from scratch with Naive Bayes, Laplace smoothing and log-probabilities.",
+      14 => "Describe problems as Markov decision processes, solve a delivery grid with value iteration, then learn the same grid with tabular Q-learning.",
+      15 => "See how machines learn from examples with gradient descent, and why a hidden layer lets a neural network solve XOR.",
+      16 => "Learn tokenisation, stopwords, stemming and bag-of-words, and match railway questions to FAQ answers.",
+      17 => "Understand tokens, next-token prediction, temperature, transformers and prompting by building a toy bigram language model.",
+      18 => "Learn how AI agents plan, call tools, observe results and stay safe with guardrails, using a simulated agent loop.",
+      19 => "Discover how computers see images as numbers, apply convolution filters and understand CNNs.",
+      20 => "Measure bias in a loan model, protect personal data, and understand AI rules in India and the EU AI Act.",
+      21 => "Build an ambulance route planner that combines learning, uncertainty and A* search, then review the whole course."
     }
 
     exercises = {
@@ -82,23 +84,25 @@ namespace :content do
               opts: ["A) The inference engine", "B) The user interface", "C) The explanation facility"], ans: "A" },
       11 => { type: "multiple_choice", q: "Only 1 in 1000 payments is fraud, and a 99%-sensitive fraud alarm rings. Why can the chance of real fraud still be low?",
               opts: ["A) Bayes' rule does not apply to digital UPI payments", "B) The alarm actually misses most of the fraud cases", "C) Most alarms come from the many genuine payments"], ans: "C" },
-      12 => { type: "true_false",      q: "Without Laplace smoothing, one word that never appeared in ham training messages makes P(ham | message) zero for any message containing it.",
+      12 => { type: "multiple_choice", q: "In a hidden Markov model, what does filtering (the forward algorithm) compute?",
+              opts: ["A) The single most likely sequence of hidden states for all the days", "B) A belief about the current hidden state, given all evidence so far", "C) The transition table, learned by counting the observations"], ans: "B" },
+      13 => { type: "true_false",      q: "Without Laplace smoothing, one word that never appeared in ham training messages makes P(ham | message) zero for any message containing it.",
               opts: ["True", "False"], ans: "True" },
-      13 => { type: "multiple_choice", q: "In Q-learning, what does epsilon-greedy action selection do?",
+      14 => { type: "multiple_choice", q: "In Q-learning, what does epsilon-greedy action selection do?",
               opts: ["A) Always takes the action with the highest Q-value", "B) Lowers the discount factor after every step", "C) Sometimes takes a random action to explore"], ans: "C" },
-      14 => { type: "true_false",      q: "A single perceptron (one neuron with a step activation) can learn the XOR function.",
+      15 => { type: "true_false",      q: "A single perceptron (one neuron with a step activation) can learn the XOR function.",
               opts: ["True", "False"], ans: "False" },
-      15 => { type: "multiple_choice", q: "Which information does a bag-of-words representation throw away?",
+      16 => { type: "multiple_choice", q: "Which information does a bag-of-words representation throw away?",
               opts: ["A) Which words appear in the text", "B) The order of the words", "C) How many times each word appears"], ans: "B" },
-      16 => { type: "multiple_choice", q: "At its core, what does a large language model do when it generates an answer?",
+      17 => { type: "multiple_choice", q: "At its core, what does a large language model do when it generates an answer?",
               opts: ["A) Looks up a stored answer in a database", "B) Copies the most similar web page", "C) Repeatedly predicts the next token"], ans: "C" },
-      17 => { type: "true_false",      q: "In a tool-using AI agent, the language model itself runs the tool's code inside its own weights.",
+      18 => { type: "true_false",      q: "In a tool-using AI agent, the language model itself runs the tool's code inside its own weights.",
               opts: ["True", "False"], ans: "False" },
-      18 => { type: "true_false",      q: "Sliding a 3x3 filter over an 8x8 image without padding (never past the border) gives a 6x6 output.",
+      19 => { type: "true_false",      q: "Sliding a 3x3 filter over an 8x8 image without padding (never past the border) gives a 6x6 output.",
               opts: ["True", "False"], ans: "True" },
-      19 => { type: "multiple_choice", q: "A loan model approves 30% of rural applicants and 80% of urban applicants. What is the disparate impact ratio?",
+      20 => { type: "multiple_choice", q: "A loan model approves 30% of rural applicants and 80% of urban applicants. What is the disparate impact ratio?",
               opts: ["A) About 0.50, the gap between the two rates", "B) About 2.67, the urban rate over the rural rate", "C) About 0.38"], ans: "C" },
-      20 => { type: "multiple_choice", q: "In the capstone planner, why is 'straight-line km x the lowest learned minutes-per-km' a safe A* heuristic?",
+      21 => { type: "multiple_choice", q: "In the capstone planner, why is 'straight-line km x the lowest learned minutes-per-km' a safe A* heuristic?",
               opts: ["A) It never overestimates the real travel time", "B) It gives the exact travel time for every single road", "C) It lets A* skip adding up the real road costs"], ans: "A" }
     }
 
