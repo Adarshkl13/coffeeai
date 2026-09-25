@@ -462,6 +462,30 @@ module JavaContent
         }</code></pre></div>
         </div>
         <div class="lc-card">
+          <h3>Reading Input with <code>Scanner</code></h3>
+          <p><code>java.util.Scanner</code> splits text into <strong>tokens</strong> (words separated by spaces or new lines) and converts them. On your own computer you read the keyboard with <code>new Scanner(System.in)</code>. The editor on this site has no keyboard input, so here we give the Scanner a String — the methods are exactly the same.</p>
+          <div class="lc-code-block"><pre><code>Scanner sc = new Scanner("Asha 21 88.5\nRavi 22 91.0");   // or new Scanner(System.in)
+        while (sc.hasNext()) {
+            String name  = sc.next();         // one word
+            int age      = sc.nextInt();      // "21"   -&gt; 21
+            double marks = sc.nextDouble();   // "88.5" -&gt; 88.5
+            System.out.printf("%s (%d): %.1f%n", name, age, marks);
+        }</code></pre></div>
+          <p>Output:</p>
+          <div class="lc-code-block"><pre><code>Asha (21): 88.5
+        Ravi (22): 91.0</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Method</th><th>Reads</th></tr></thead>
+            <tbody>
+              <tr><td><code>next()</code></td><td>the next word</td></tr>
+              <tr><td><code>nextInt()</code>, <code>nextDouble()</code></td><td>the next word, converted to a number (throws <code>InputMismatchException</code> if it is not one)</td></tr>
+              <tr><td><code>nextLine()</code></td><td>everything up to the end of the current line</td></tr>
+              <tr><td><code>hasNext()</code>, <code>hasNextInt()</code>, <code>hasNextLine()</code></td><td>checks whether more input (of that kind) is waiting</td></tr>
+            </tbody>
+          </table>
+          <p>Classic trap: after <code>nextInt()</code> the line break is still waiting, so the next <code>nextLine()</code> returns <code>""</code>. Call an extra <code>nextLine()</code> first, or read every line with <code>nextLine()</code> and convert it with <code>Integer.parseInt(line.strip())</code>.</p>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Ignoring the return value</strong> — <code>name.toUpperCase();</code> alone does nothing useful. Write <code>name = name.toUpperCase();</code></li>
@@ -1378,7 +1402,7 @@ module JavaContent
 
         class BankAccount {
             private final String owner;
-            private long balance;   // in rupees, never negative
+            private long balance;   // in paise, never negative
             BankAccount(String owner) { this.owner = owner; }
             public long getBalance() { return balance; }
             public String getOwner() { return owner; }
@@ -1487,6 +1511,36 @@ module JavaContent
               <tr><td><code>private</code> is hidden</td><td>Subclasses cannot access private fields of the parent directly.</td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="lc-card">
+          <h3>Overriding <code>equals</code>, <code>hashCode</code> and <code>toString</code></h3>
+          <p>The versions inherited from <code>Object</code> are rarely what you want: <code>toString()</code> prints something like <code>Student@1b6d3586</code>, and <code>equals</code> is the same as <code>==</code> (same object in memory). For a normal class you override all three yourself.</p>
+          <div class="lc-code-block"><pre><code>class Student {
+            private final String roll;
+            private final String name;
+            Student(String roll, String name) { this.roll = roll; this.name = name; }
+
+            @Override public boolean equals(Object o) {
+                if (this == o) return true;                         // same object
+                if (!(o instanceof Student other)) return false;    // null or another type
+                return roll.equals(other.roll);                     // equal if the roll number matches
+            }
+            @Override public int hashCode() { return Objects.hash(roll); }   // same fields as equals
+            @Override public String toString() { return "Student[" + roll + ", " + name + "]"; }
+        }
+
+        Student a = new Student("R12", "Asha");
+        Student b = new Student("R12", "Asha K");
+        System.out.println(a);
+        System.out.println(a == b);
+        System.out.println(a.equals(b));
+        System.out.println(new HashSet&lt;&gt;(List.of(a)).contains(b));</code></pre></div>
+          <p>Output:</p>
+          <div class="lc-code-block"><pre><code>Student[R12, Asha]
+        false
+        true
+        true</code></pre></div>
+          <p><strong>The contract:</strong> if <code>a.equals(b)</code> is true, then <code>a.hashCode() == b.hashCode()</code> must also be true. <code>HashSet</code> and <code>HashMap</code> look in the bucket chosen by <code>hashCode</code> first, so if you override <code>equals</code> but forget <code>hashCode</code>, <code>contains(b)</code> will usually return <code>false</code>. Use the same fields in both methods (<code>Objects.hash</code> is in <code>java.util</code>). Records (Lesson 10) generate all three for you.</p>
         </div>
         <div class="lc-card">
           <h3>Abstract Classes</h3>
@@ -1720,6 +1774,48 @@ module JavaContent
                 case Cash c -&gt; 0;
             };
         }</code></pre></div>
+        </div>
+        <div class="lc-card">
+          <h3>Nested, Inner and Anonymous Classes</h3>
+          <p>A class can be declared inside another class when it only makes sense as a helper of that class.</p>
+          <div class="lc-code-block"><pre><code>class Library {
+            private final List&lt;String&gt; titles = new ArrayList&lt;&gt;();
+            void add(String t) { titles.add(t); }
+
+            static class Stats {                 // static nested: no link to a Library object
+                final int count;
+                Stats(int count) { this.count = count; }
+            }
+            class Shelf {                        // inner: belongs to one Library object
+                String describe() { return "Shelf with " + titles.size() + " books"; }
+            }
+            Stats stats() { return new Stats(titles.size()); }
+        }
+
+        Library lib = new Library();
+        lib.add("Godan");
+        lib.add("Malgudi Days");
+        Library.Stats s = lib.stats();
+        Library.Shelf shelf = lib.new Shelf();   // an inner object needs an outer object
+        System.out.println(s.count + " | " + shelf.describe());
+
+        Greeter formal = new Greeter() {         // anonymous class: implement an interface on the spot
+            @Override public String greet(String name) { return "Good morning, " + name; }
+        };
+        Greeter casual = name -&gt; "Hi " + name;   // the same idea as a lambda (Lesson 16)
+        System.out.println(formal.greet("Ravi") + " / " + casual.greet("Ravi"));</code></pre></div>
+          <p>Here <code>Greeter</code> is <code>interface Greeter { String greet(String name); }</code>. Output:</p>
+          <div class="lc-code-block"><pre><code>2 | Shelf with 2 books
+        Good morning, Ravi / Hi Ravi</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Kind</th><th>Can use the outer object's fields?</th><th>Use it for</th></tr></thead>
+            <tbody>
+              <tr><td><code>static</code> nested class</td><td>No</td><td>a helper type grouped with its owner (the usual choice)</td></tr>
+              <tr><td>Inner class (no <code>static</code>)</td><td>Yes</td><td>objects that need their outer object, such as an iterator over it</td></tr>
+              <tr><td>Anonymous class</td><td>Yes</td><td>a one-off implementation; prefer a lambda when the interface has one method</td></tr>
+            </tbody>
+          </table>
+          <p>Make a nested class <code>static</code> unless it really needs the outer object. Records, enums and interfaces declared inside a class are always static.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Sorting with <code>Comparable</code></h3>
@@ -2015,6 +2111,26 @@ module JavaContent
           <p>Memory aid, <strong>PECS</strong>: Producer <code>extends</code>, Consumer <code>super</code>. Note that a <code>List&lt;Integer&gt;</code> is <em>not</em> a <code>List&lt;Number&gt;</code>, even though an Integer is a Number.</p>
         </div>
         <div class="lc-card">
+          <h3>Worked Example: One Method, Many Types</h3>
+          <p>Using the <code>max</code>, <code>sum</code> and <code>addOneToThree</code> methods above:</p>
+          <div class="lc-code-block"><pre><code>System.out.println(max(List.of(4, 19, 7)));                   // T = Integer
+        System.out.println(max(List.of("mango", "apple", "papaya")));  // T = String
+        System.out.println(sum(List.of(1, 2, 3)));                     // List&lt;Integer&gt;
+        System.out.println(sum(List.of(1.5, 2.5)));                    // List&lt;Double&gt;
+
+        List&lt;Number&gt; out = new ArrayList&lt;&gt;();
+        addOneToThree(out);
+        out.add(0.5);
+        System.out.println(out);</code></pre></div>
+          <p>Output:</p>
+          <div class="lc-code-block"><pre><code>19
+        papaya
+        6.0
+        4.0
+        [1, 2, 3, 0.5]</code></pre></div>
+          <p><code>max</code> works for both types because Integer and String each implement <code>Comparable</code> (strings compare alphabetically, so "papaya" is largest). <code>sum</code> returns a <code>double</code>, which is why <code>6.0</code> has a decimal point.</p>
+        </div>
+        <div class="lc-card">
           <h3>Limits: Type Erasure and Primitives</h3>
           <ul class="lc-list">
             <li>Generic types work only with objects: write <code>List&lt;Integer&gt;</code>, not <code>List&lt;int&gt;</code>. Java converts between <code>int</code> and <code>Integer</code> automatically (<strong>autoboxing</strong>).</li>
@@ -2151,6 +2267,43 @@ module JavaContent
           <p>Objects used as <code>HashMap</code> keys or in a <code>HashSet</code> must implement <code>equals</code> and <code>hashCode</code> consistently. Records do this for you — that is one reason they make great keys.</p>
         </div>
         <div class="lc-card">
+          <h3>Wrapper Classes and Autoboxing</h3>
+          <p>Collections hold objects, not primitives. Each primitive has a <strong>wrapper class</strong>: <code>int</code> → <code>Integer</code>, <code>double</code> → <code>Double</code>, <code>boolean</code> → <code>Boolean</code>, <code>char</code> → <code>Character</code>, <code>long</code> → <code>Long</code>. Java converts automatically: <strong>autoboxing</strong> (<code>int</code> → <code>Integer</code>) and <strong>unboxing</strong> (<code>Integer</code> → <code>int</code>).</p>
+          <div class="lc-code-block"><pre><code>int n = Integer.parseInt("42");                  // text -&gt; number
+        System.out.println(n + 1);
+        System.out.println(Integer.MAX_VALUE + " " + Double.parseDouble("2.5"));
+
+        Integer p = 1000, q = 1000;
+        System.out.println(p == q);                      // compares references!
+        System.out.println(p.equals(q));                 // compares values
+
+        List&lt;Integer&gt; nums = new ArrayList&lt;&gt;(List.of(10, 20, 30));
+        nums.remove(Integer.valueOf(10));                // removes the VALUE 10
+        nums.remove(0);                                  // removes the element at INDEX 0
+        System.out.println(nums);
+
+        Map&lt;String, Integer&gt; stock = new HashMap&lt;&gt;();
+        System.out.println(stock.getOrDefault("pen", 0));
+        int left = stock.get("pen");                     // get returns null -&gt; NullPointerException</code></pre></div>
+          <p>Output (the last line throws):</p>
+          <div class="lc-code-block"><pre><code>43
+        2147483647 2.5
+        false
+        true
+        [30]
+        0
+        Exception in thread "main" java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()" because the return value of "java.util.Map.get(Object)" is null</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th></th><th><code>int</code></th><th><code>Integer</code></th></tr></thead>
+            <tbody>
+              <tr><td>Can be <code>null</code></td><td>No (default <code>0</code>)</td><td>Yes (default <code>null</code>)</td></tr>
+              <tr><td>Allowed in <code>List</code>/<code>Map</code></td><td>No</td><td>Yes</td></tr>
+              <tr><td>Compare with</td><td><code>==</code></td><td><code>equals</code> (or unbox first)</td></tr>
+            </tbody>
+          </table>
+          <p><code>==</code> on two <code>Integer</code>s happens to be true for small values (-128 to 127 are cached) and is usually false for bigger ones — never rely on it. The message says exactly what went wrong: Java tried to unbox a <code>null</code>.</p>
+        </div>
+        <div class="lc-card">
           <h3>Worked Example: Word Frequency</h3>
           <div class="lc-code-block"><pre><code>String text = "the cat and the dog and the bird";
         Map&lt;String, Integer&gt; freq = new TreeMap&lt;&gt;();     // sorted by key
@@ -2259,6 +2412,36 @@ module JavaContent
 
         names.sort(Comparator.comparing(String::length).thenComparing(Comparator.naturalOrder()));</code></pre></div>
           <p>A lambda can use local variables from outside only if they are <strong>effectively final</strong> (never reassigned).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Sorting with <code>Comparator</code></h3>
+          <p><code>Comparable</code> (Lesson 12) gives a class one natural order. A <code>Comparator&lt;T&gt;</code> is a separate object — usually a lambda — that describes <em>any</em> order you need, without changing the class.</p>
+          <div class="lc-code-block"><pre><code>record Book(String title, int year, double price) { }
+        List&lt;Book&gt; books = new ArrayList&lt;&gt;(List.of(
+                new Book("Godan", 1936, 250), new Book("Train to Pakistan", 1956, 199),
+                new Book("Nirmala", 1927, 250)));
+
+        books.sort(Comparator.comparingDouble(Book::price));                  // cheapest first
+        System.out.println(books.stream().map(Book::title).toList());
+        books.sort(Comparator.comparingDouble(Book::price).reversed()
+                             .thenComparing(Book::title));                  // dearest first, ties by title
+        System.out.println(books.stream().map(Book::title).toList());
+        books.sort((x, y) -&gt; Integer.compare(x.year(), y.year()));           // a hand-written lambda
+        System.out.println(books.stream().map(Book::title).toList());</code></pre></div>
+          <p>Output:</p>
+          <div class="lc-code-block"><pre><code>[Train to Pakistan, Godan, Nirmala]
+        [Godan, Nirmala, Train to Pakistan]
+        [Nirmala, Godan, Train to Pakistan]</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Helper</th><th>Meaning</th></tr></thead>
+            <tbody>
+              <tr><td><code>Comparator.comparing(key)</code></td><td>order by a key (use <code>comparingInt</code>/<code>comparingDouble</code> for numbers)</td></tr>
+              <tr><td><code>.reversed()</code></td><td>flip the order</td></tr>
+              <tr><td><code>.thenComparing(key)</code></td><td>break ties with a second key</td></tr>
+              <tr><td><code>Comparator.naturalOrder()</code>, <code>String.CASE_INSENSITIVE_ORDER</code></td><td>ready-made orders</td></tr>
+            </tbody>
+          </table>
+          <p>A comparator returns a negative number, zero or a positive number. Use <code>Integer.compare(a, b)</code>, not <code>a - b</code>, which can overflow for large values.</p>
         </div>
         <div class="lc-card">
           <h3>A Stream Pipeline</h3>
@@ -2624,7 +2807,7 @@ module JavaContent
               <tr><td>Errors</td><td><code>ExecutionException</code></td><td><code>exceptionally</code>, <code>handle</code></td></tr>
             </tbody>
           </table>
-          <p>Without an executor argument, <code>supplyAsync</code> uses Java's shared common pool. Pass your own pool as a second argument for slow I/O work: <code>supplyAsync(task, pool)</code>. The editor's Java runtime runs threads on one CPU core, so you see the same results as real Java but no speed-up; Java 21 adds cheap <strong>virtual threads</strong> (see Lesson 20).</p>
+          <p>Without an executor argument, <code>supplyAsync</code> uses Java's shared common pool. Pass your own pool as a second argument for slow I/O work: <code>supplyAsync(task, pool)</code>. The editor's Java runtime runs threads on one CPU core, so you see the same results as real Java but no speed-up; Java 21 adds cheap <strong>virtual threads</strong> (see Lesson 21).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -2707,6 +2890,178 @@ module JavaContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-java">Java</div>
+          <h1 class="lc-title">Packages, Modules and Build Tools</h1>
+        </div>
+        <p class="lc-lead">So far every program has been one file. Real Java projects have hundreds of classes, so they are organised into <strong>packages</strong> (folders of related classes), optionally grouped into <strong>modules</strong>, and built with a <strong>build tool</strong> such as Maven or Gradle that compiles, tests and packages the code and downloads libraries for you.</p>
+        <div class="lc-card">
+          <h3>Packages: Folders with Names</h3>
+          <p>A package is a named group of classes. The <code>package</code> line must be the <strong>first statement</strong> in the file, and the folder path must match the package name.</p>
+          <div class="lc-code-block"><pre><code>// File: src/in/academy/library/model/Book.java
+        package in.academy.library.model;
+
+        public record Book(String title, int year) {
+            public String label() { return title + " (" + year + ")"; }
+            static String secret() { return "package-private"; }   // no modifier
+        }</code></pre></div>
+          <ul class="lc-list">
+            <li>Names are lower case and usually start with a reversed domain you own: <code>com.infosys.billing</code>, <code>in.academy.library</code>. This keeps your <code>Book</code> apart from everyone else's <code>Book</code>.</li>
+            <li>The full name of the class is now <code>in.academy.library.model.Book</code>.</li>
+            <li>A file with no <code>package</code> line is in the <strong>unnamed package</strong>. That is fine for the single-file programs in this editor, but never for a real project.</li>
+            <li>Package-private members (no modifier, Lesson 10) are visible only inside the same package, so packages are also a way to hide helpers.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Imports</h3>
+          <div class="lc-code-block"><pre><code>// File: src/in/academy/library/app/Main.java
+        package in.academy.library.app;
+
+        import in.academy.library.model.Book;   // one class
+        import java.util.List;
+        import static java.lang.Math.max;       // a static member: call max(...) directly
+
+        public class Main {
+            public static void main(String[] args) {
+                List&lt;Book&gt; books = List.of(new Book("Godan", 1936), new Book("Nirmala", 1927));
+                books.forEach(b -&gt; System.out.println(b.label()));
+                System.out.println("Newest year: " + max(books.get(0).year(), books.get(1).year()));
+                System.out.println("Package: " + Main.class.getPackageName());
+            }
+        }</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Form</th><th>Example</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>Single-type import</td><td><code>import java.util.List;</code></td><td>the clearest; what IDEs write for you</td></tr>
+              <tr><td>Wildcard import</td><td><code>import java.util.*;</code></td><td>all types of one package (not its sub-packages)</td></tr>
+              <tr><td>Static import</td><td><code>import static java.lang.Math.max;</code></td><td>use a static method or constant without the class name</td></tr>
+              <tr><td>Fully qualified name</td><td><code>java.util.Date d = new java.util.Date();</code></td><td>no import; useful when two packages have a class with the same name</td></tr>
+              <tr><td>Automatic</td><td><code>String</code>, <code>Math</code>, <code>Integer</code></td><td><code>java.lang</code> and your own package are always imported</td></tr>
+            </tbody>
+          </table>
+          <p>An import only saves typing. It does not copy code into your file and does not make anything slower.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Compile and Run a Two-Package Project</h3>
+          <p>With the two files above in <code>src/</code>, run these commands in a terminal (JDK 17 or newer):</p>
+          <div class="lc-code-block"><pre><code>javac -d out $(find src -name "*.java")     # Windows PowerShell: javac -d out (Get-ChildItem -Recurse src -Filter *.java).FullName
+        java -cp out in.academy.library.app.Main</code></pre></div>
+          <p>Output:</p>
+          <div class="lc-code-block"><pre><code>Godan (1936)
+        Nirmala (1927)
+        Newest year: 1936
+        Package: in.academy.library.app</code></pre></div>
+          <p><code>-d out</code> puts the <code>.class</code> files in <code>out/in/academy/library/...</code>, mirroring the packages. <code>-cp out</code> (the <strong>classpath</strong>) tells the JVM where to look for classes, and you start the program by its <em>full</em> class name. If <code>Main</code> calls <code>Book.secret()</code>, compilation fails:</p>
+          <div class="lc-code-block"><pre><code>error: secret() is not public in Book; cannot be accessed from outside package</code></pre></div>
+          <p>To ship the program as one file, pack it into a <strong>JAR</strong> (a zip of class files) and run it:</p>
+          <div class="lc-code-block"><pre><code>jar --create --file library.jar --main-class in.academy.library.app.Main -C out .
+        java -jar library.jar</code></pre></div>
+        </div>
+        <div class="lc-card">
+          <h3>Modules (Java 9+)</h3>
+          <p>A <strong>module</strong> is a group of packages with a <code>module-info.java</code> file at the root of the source folder. It says which packages other code may use (<code>exports</code>) and which modules this one needs (<code>requires</code>). Packages that are not exported stay hidden, even their <code>public</code> classes.</p>
+          <div class="lc-code-block"><pre><code>// File: src/module-info.java
+        module in.academy.library {
+            exports in.academy.library.model;   // Book is usable by other modules
+            // in.academy.library.app is not exported: it stays internal
+            // requires java.net.http;          // add a line like this for each JDK module you use beyond java.base
+        }</code></pre></div>
+          <p>The JDK itself is split into modules: <code>String</code>, <code>List</code> and <code>LocalDate</code> live in <code>java.base</code>, which every module gets automatically. Modules are optional — most applications and frameworks still run on the classpath, as in the worked example — but you will see <code>module-info.java</code> in libraries and in the JDK.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Build Tools: Maven and Gradle</h3>
+          <p>Nobody types <code>javac</code> commands for a real project. A build tool reads one configuration file, downloads the libraries (<strong>dependencies</strong>) you list from <strong>Maven Central</strong>, then compiles, runs the tests and builds the JAR. Both tools use the same folder layout:</p>
+          <div class="lc-code-block"><pre><code>library/
+          pom.xml                  (Maven)   or   build.gradle.kts (Gradle)
+          src/main/java/in/academy/library/model/Book.java
+          src/main/java/in/academy/library/app/Main.java
+          src/test/java/...        tests (next lesson)
+          target/ or build/        generated output: never edit or commit</code></pre></div>
+          <p>The heart of a Maven <code>pom.xml</code>:</p>
+          <div class="lc-code-block"><pre><code>&lt;groupId&gt;in.academy&lt;/groupId&gt;         &lt;!-- who: usually your package prefix --&gt;
+        &lt;artifactId&gt;library&lt;/artifactId&gt;      &lt;!-- what: the project name --&gt;
+        &lt;version&gt;1.0.0&lt;/version&gt;
+        &lt;properties&gt;
+          &lt;maven.compiler.release&gt;17&lt;/maven.compiler.release&gt;   &lt;!-- same as javac --release 17 --&gt;
+        &lt;/properties&gt;</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Maven</th><th>Gradle</th></tr></thead>
+            <tbody>
+              <tr><td>Config file</td><td><code>pom.xml</code> (XML)</td><td><code>build.gradle.kts</code> (Kotlin) or <code>build.gradle</code> (Groovy)</td></tr>
+              <tr><td>Compile + test + package</td><td><code>mvn package</code></td><td><code>./gradlew build</code></td></tr>
+              <tr><td>Run tests only</td><td><code>mvn test</code></td><td><code>./gradlew test</code></td></tr>
+              <tr><td>Output</td><td><code>target/library-1.0.0.jar</code></td><td><code>build/libs/library-1.0.0.jar</code></td></tr>
+              <tr><td>Current line (Sept 2026)</td><td>Maven 3.9 (Maven 4 is still a release candidate)</td><td>Gradle 9</td></tr>
+              <tr><td>Common in</td><td>enterprise and Spring Boot projects</td><td>Android and many newer projects</td></tr>
+            </tbody>
+          </table>
+          <p>Projects usually include a <strong>wrapper</strong> (<code>./mvnw</code> or <code>./gradlew</code>) that downloads the exact tool version the project needs, so everyone on the team builds the same way. IntelliJ IDEA, VS Code and Eclipse open these projects directly.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Folder does not match the package</strong> — <code>package in.academy.library.model;</code> in <code>src/Book.java</code> confuses tools and the classpath. Keep folders and packages identical.</li>
+            <li><strong>Running a packaged class by its short name</strong> — <code>java -cp out Main</code> fails with "Could not find or load main class". Use the full name <code>in.academy.library.app.Main</code>.</li>
+            <li><strong>Expecting <code>import java.util.*</code> to import sub-packages</strong> — it does not include <code>java.util.function</code> or <code>java.util.stream</code>; import those separately.</li>
+            <li><strong>Committing <code>target/</code>, <code>build/</code> or <code>.class</code> files</strong> — they are generated. Add them to <code>.gitignore</code>.</li>
+            <li><strong>Copying JAR files into the project by hand</strong> — declare the dependency in <code>pom.xml</code> or <code>build.gradle.kts</code> instead, so the version is recorded and everyone gets the same one.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <p>In the starter code, add <code>import static java.lang.Math.sqrt;</code> and print <code>sqrt(144)</code> without writing <code>Math.</code>. Then print the package and module of <code>java.util.stream.Collectors</code> using <code>getPackageName()</code> and <code>getModule().getName()</code>. Predict the answers first: which module do you expect?</p>
+        </div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Organise packages by <em>feature</em> (<code>...library.loans</code>, <code>...library.members</code>) rather than by layer only (<code>...controllers</code>, <code>...models</code>) once a project grows. Classes that change together then live together, and package-private can hide the details of each feature.</p></div>
+      HTML
+      starter_code: <<~'JAVA'
+        // Lesson 19: packages, imports and modules, seen from inside one file.
+        // The editor compiles a single file with no package line, so Main lives in
+        // the "unnamed package". In a real project, line 1 would be e.g.
+        // package in.academy.library.app;
+        import java.time.LocalDate;           // single-type import
+        import java.util.*;                   // wildcard import: every type in java.util
+        import static java.lang.Math.max;     // static import: call max(...) without "Math."
+        import static java.lang.Math.PI;
+
+        class PriceRules {                    // no modifier = package-private
+            static int gstPercent() { return 18; }
+        }
+
+        public class Main {
+            static String pkg(Class<?> c) {
+                String p = c.getPackageName();
+                return p.isEmpty() ? "(unnamed package)" : p;
+            }
+
+            public static void main(String[] args) {
+                System.out.println("== Packages ==");
+                System.out.println("Main       -> " + pkg(Main.class));
+                System.out.println("String     -> " + pkg(String.class) + " (imported automatically)");
+                System.out.println("List       -> " + List.class.getName());
+                System.out.println("LocalDate  -> " + LocalDate.class.getName());
+
+                System.out.println("== Imports ==");
+                java.util.Date legacy = new java.util.Date(0L);   // fully qualified name: no import needed
+                System.out.println("Fully qualified java.util.Date works: " + (legacy.getTime() == 0L));
+                System.out.println("Static import max(3, 7) = " + max(3, 7));
+                System.out.printf("Static import PI = %.4f%n", PI);
+                Map<String, Integer> stock = new TreeMap<>(Map.of("pen", 40, "book", 12));
+                System.out.println("From java.util.*: " + stock);
+
+                System.out.println("== Access ==");
+                System.out.println("Package-private GST: " + PriceRules.gstPercent() + "% (same package, so allowed)");
+
+                System.out.println("== Modules ==");
+                System.out.println("String is in module " + String.class.getModule().getName());
+                System.out.println("LocalDate is in module " + LocalDate.class.getModule().getName());
+                System.out.println("Main is in a named module? " + Main.class.getModule().isNamed());
+            }
+        }
+      JAVA
+    },
+
+    20 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Unit Testing with JUnit</h1>
         </div>
         <p class="lc-lead">Professional Java code comes with <strong>automated tests</strong>: small methods that call your code and check the result. <strong>JUnit</strong> is the standard testing framework. Tests catch bugs before users do and let you change code without fear.</p>
@@ -2715,7 +3070,7 @@ module JavaContent
           <ul class="lc-list">
             <li><strong>JUnit 6</strong> (released September 2025) is the current version and needs Java 17+. Many existing projects still use <strong>JUnit 5</strong>. Both use the same "Jupiter" API in the package <code>org.junit.jupiter.api</code>, so the code below works in either.</li>
             <li>JUnit 4 (<code>org.junit.Test</code>, <code>@Before</code>) is the old way — don't use it in new projects.</li>
-            <li>Tests live in <code>src/test/java</code>, next to your code in <code>src/main/java</code>, and run with <code>mvn test</code> or <code>./gradlew test</code>. IDEs such as IntelliJ IDEA show a green or red result for each test.</li>
+            <li>Tests live in <code>src/test/java</code>, next to your code in <code>src/main/java</code> (the project layout from Lesson 19), and run with <code>mvn test</code> or <code>./gradlew test</code>. IDEs such as IntelliJ IDEA show a green or red result for each test.</li>
           </ul>
           <p>Add JUnit to a Maven project. <code>6.1.3</code> is the newest release as of September 2026; if Maven Central shows a newer 6.x.y, use that:</p>
           <div class="lc-code-block"><pre><code>&lt;dependency&gt;
@@ -2860,7 +3215,7 @@ module JavaContent
       JAVA
     },
 
-    20 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-java">Java</div>
@@ -2932,7 +3287,7 @@ module JavaContent
             <li>Add a <code>sealed interface Member permits Student, Faculty</code> where faculty get 30 days and pay no fines.</li>
             <li>Add <code>search(String word)</code> that returns all titles containing a word, ignoring case, using a stream.</li>
             <li>Keep a history of returned loans and print the total fines collected per member.</li>
-            <li>Write tests (lesson 19 style) for <code>fine</code>: on time, one day late, and returned early.</li>
+            <li>Move the code into a Maven or Gradle project with packages <code>...library.model</code> and <code>...library.app</code> (Lesson 19), and write JUnit tests (Lesson 20) for <code>fine</code>: on time, one day late, and returned early.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2957,7 +3312,7 @@ module JavaContent
                 });
             }
         }   // close() waits for all tasks to finish</code></pre></div>
-          <p>After this course, good next steps are a build tool (Maven or Gradle), the Spring Boot framework for web APIs, and JDBC or JPA for databases.</p>
+          <p>After this course, good next steps are a real Maven or Gradle project on your own computer (Lesson 19), the Spring Boot framework for web APIs, and JDBC or JPA for databases.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes in Projects</h3>

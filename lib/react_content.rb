@@ -133,7 +133,7 @@ module ReactContent
             <li>Names start with a <strong>capital letter</strong>: <code>&lt;Greeting /&gt;</code> is a component, <code>&lt;greeting /&gt;</code> is treated as an unknown HTML tag.</li>
             <li>Return JSX, a string, a number, or <code>null</code> (to render nothing).</li>
             <li>Define components at the <strong>top level</strong> of a file — never inside another component (it would be re-created on every render and lose its state).</li>
-            <li>Keep them <strong>pure</strong>: same inputs → same JSX, no changing outside variables while rendering.</li>
+            <li>Keep them <strong>pure</strong>: same inputs → same JSX, no changing outside variables while rendering (more in lesson 8).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -179,7 +179,22 @@ module ReactContent
               <tr><td><code>npm run preview</code></td><td>Serve the <code>dist/</code> build locally to check it</td></tr>
             </tbody>
           </table>
-          <p>Use <code>--template react-ts</code> for TypeScript. Styling options you will meet: plain CSS files (<code>import "./App.css"</code> + <code>className</code>), CSS Modules (<code>Card.module.css</code>), or Tailwind CSS.</p>
+          <p>Use <code>--template react-ts</code> for TypeScript.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Styling components</h3>
+          <p>React does not have its own styling language — you style the HTML it produces. The four ways you will see:</p>
+          <table class="lc-table">
+            <thead><tr><th>Way</th><th>How</th><th>Good for</th></tr></thead>
+            <tbody>
+              <tr><td>Plain CSS file</td><td><code>import "./App.css"</code> + <code>className="card"</code></td><td>small apps; class names are global</td></tr>
+              <tr><td>CSS Modules</td><td><code>import styles from "./Card.module.css"</code> + <code>className={styles.card}</code></td><td>class names scoped to one component</td></tr>
+              <tr><td>Tailwind CSS</td><td>utility classes: <code>className="p-4 rounded-lg border"</code></td><td>fast building; very popular in 2026</td></tr>
+              <tr><td>Inline <code>style</code></td><td>an object with camelCase keys: <code>style={{ fontSize: 18 }}</code></td><td>values computed at run time</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">/* Card.module.css */<br>.card { border: 1px solid #e5e7eb; padding: 12px; }<br>.active { border-color: #2563eb; }<br><br>// Card.jsx<br>import styles from "./Card.module.css";<br><br>function Card({ title, active }) {<br>&nbsp;&nbsp;return (<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className={active ? `${styles.card} ${styles.active}` : styles.card}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;style={{ borderRadius: 8, marginBottom: 12 }}&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{title}<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>&nbsp;&nbsp;);<br>}</div>
+          <p><strong>Result:</strong> <code>&lt;Card title="React" active /&gt;</code> gets both classes (blue border) and an 8px radius. Remember: <code>className</code>, not <code>class</code>; style values that are plain numbers mean pixels (<code>marginBottom: 12</code> → <code>12px</code>). The starters in this editor use inline styles because everything lives in one file.</p>
         </div>
         <div class="lc-card">
           <h3>Common mistakes</h3>
@@ -305,7 +320,7 @@ module ReactContent
           <ul class="lc-list">
             <li><code>count="5"</code> passes the string "5" — use <code>count={5}</code> for a number.</li>
             <li>Forgetting the braces when destructuring: <code>function Card(title)</code> receives the whole props object, not the title.</li>
-            <li>Using <code>Component.defaultProps</code> on function components — <strong>removed in React 19</strong>. Use default parameter values instead. <code>propTypes</code> checks were also removed; use TypeScript for type checking (lesson 14).</li>
+            <li>Using <code>Component.defaultProps</code> on function components — <strong>removed in React 19</strong>. Use default parameter values instead. <code>propTypes</code> checks were also removed; use TypeScript for type checking (lesson 15).</li>
             <li>Mutating a prop object or array passed from a parent.</li>
           </ul>
         </div>
@@ -702,7 +717,7 @@ module ReactContent
               <tr><td>Value lives in</td><td>React state</td><td>the DOM</td></tr>
               <tr><td>Set initial value with</td><td><code>value</code> + <code>onChange</code></td><td><code>defaultValue</code> / <code>defaultChecked</code></td></tr>
               <tr><td>Read value</td><td>any time from state</td><td>on submit with <code>new FormData(form)</code> or a ref</td></tr>
-              <tr><td>Best for</td><td>live validation, dependent fields</td><td>simple forms; React 19 form actions (lesson 16)</td></tr>
+              <tr><td>Best for</td><td>live validation, dependent fields</td><td>simple forms; React 19 form actions (lesson 17)</td></tr>
             </tbody>
           </table>
         </div>
@@ -824,7 +839,7 @@ module ReactContent
             <li>Find every component that <em>reads</em> the data.</li>
             <li>Find their closest common parent — put the state there.</li>
             <li>Pass the value down and pass an <code>onSomething</code> callback down for changes.</li>
-            <li>If this means passing props through many levels, use Context (lesson 11).</li>
+            <li>If this means passing props through many levels, use Context (lesson 12).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -888,6 +903,141 @@ module ReactContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
+          <h1 class="lc-title">Rendering, Purity and Preserving State</h1>
+        </div>
+        <p class="lc-lead">You now use state every day. This lesson explains what React actually does when state changes: it <strong>renders</strong> (calls your components), then <strong>commits</strong> (updates the DOM). Because React may call your component at any time, components must be <strong>pure</strong>. And React remembers state by a component's <strong>position in the tree</strong> — which is why a <code>key</code> can reset it.</p>
+        <div class="lc-card">
+          <h3>Trigger → render → commit</h3>
+          <div class="lc-flow">
+            <div class="lc-flow-step">1. Trigger<small>first createRoot().render, or a set function</small></div>
+            <div class="lc-flow-arrow">→</div>
+            <div class="lc-flow-step">2. Render<small>React calls your components</small></div>
+            <div class="lc-flow-arrow">→</div>
+            <div class="lc-flow-step">3. Commit<small>React changes only the DOM nodes that differ</small></div>
+          </div>
+          <p><strong>Rendering is just calling your function.</strong> It produces JSX; nothing changes on screen yet. When a component re-renders, React also re-renders its children. In the commit step React compares the new JSX with the last one and touches only the DOM that changed — so an <code>&lt;input&gt;</code> keeps its focus and typed text if it is still there. Then the browser paints the screen.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Keeping components pure</h3>
+          <p>A pure component is like a maths formula: the <strong>same props, state and context → the same JSX</strong>, and it changes nothing that existed before it was called.</p>
+          <table class="lc-table">
+            <thead><tr><th>✅ Allowed while rendering</th><th>❌ Not allowed while rendering</th></tr></thead>
+            <tbody>
+              <tr><td>Reading props, state and context</td><td>Changing a variable or object created outside the component</td></tr>
+              <tr><td>Calculating values (filter, map, totals)</td><td>Changing props or state directly (<code>props.items.push(x)</code>)</td></tr>
+              <tr><td>Creating and changing <em>new</em> local variables and arrays</td><td>fetch, timers, <code>localStorage</code>, changing the DOM by hand</td></tr>
+            </tbody>
+          </table>
+          <p>Side effects belong in <strong>event handlers</strong> first (they run only when the user acts). If there is no event, use an <strong>effect</strong> — that is the next lesson.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked example: StrictMode catches an impure component</h3>
+          <p>In development, <code>&lt;StrictMode&gt;</code> calls every component function <strong>twice</strong> and keeps the second result. A pure component does not care. An impure one shows the bug straight away:</p>
+          <div class="lc-code">let guest = 0;<br><br>function ImpureCup() {<br>&nbsp;&nbsp;guest = guest + 1;              // ❌ changes a variable outside the component<br>&nbsp;&nbsp;return &lt;li&gt;Tea cup for guest #{guest}&lt;/li&gt;;<br>}<br><br>function Cup({ guest }) {          // ✅ pure: output depends only on props<br>&nbsp;&nbsp;return &lt;li&gt;Tea cup for guest #{guest}&lt;/li&gt;;<br>}<br><br>&lt;StrictMode&gt;<br>&nbsp;&nbsp;&lt;ul&gt;&lt;ImpureCup /&gt;&lt;ImpureCup /&gt;&lt;ImpureCup /&gt;&lt;/ul&gt;<br>&nbsp;&nbsp;&lt;ul&gt;&lt;Cup guest={1} /&gt;&lt;Cup guest={2} /&gt;&lt;Cup guest={3} /&gt;&lt;/ul&gt;<br>&lt;/StrictMode&gt;</div>
+          <p><strong>Expected output</strong> (the starter, in development):</p>
+          <div class="lc-code">Tea cup for guest #2<br>Tea cup for guest #4<br>Tea cup for guest #6<br>Tea cup for guest #1<br>Tea cup for guest #2<br>Tea cup for guest #3</div>
+          <p>Each <code>ImpureCup</code> ran twice, so the counter jumped by 2. In a production build it would show 1, 2, 3 — the bug is hidden, not fixed. The pure <code>Cup</code> is right in both.</p>
+        </div>
+        <div class="lc-card">
+          <h3>State belongs to a position in the tree</h3>
+          <p>State is not stored "inside" your function. React stores it next to the component's <strong>position</strong> in the UI tree. The rules:</p>
+          <table class="lc-table">
+            <thead><tr><th>At the same position, React sees…</th><th>What happens to state</th></tr></thead>
+            <tbody>
+              <tr><td>the same component, maybe with different props</td><td><strong>kept</strong></td></tr>
+              <tr><td>a different component or tag (<code>&lt;p&gt;</code> instead of <code>&lt;Counter&gt;</code>)</td><td><strong>destroyed</strong> — the old subtree and all its state are removed</td></tr>
+              <tr><td>the same component with a <strong>different key</strong></td><td><strong>reset</strong> — React treats it as a brand-new component</td></tr>
+              <tr><td>the component removed and later added back</td><td><strong>reset</strong> — state starts from <code>useState</code>'s initial value</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">// Same component type at the same position → state is KEPT<br>{isFancy ? &lt;Counter isFancy={true} /&gt; : &lt;Counter isFancy={false} /&gt;}<br><br>// Different component type at the position → state is DESTROYED<br>{isPaused ? &lt;p&gt;See you later!&lt;/p&gt; : &lt;Counter /&gt;}<br><br>// Same position, different key → React treats it as a new component → state RESET<br>{isPlayerA ? &lt;Counter key="A" person="Asha" /&gt; : &lt;Counter key="B" person="Ravi" /&gt;}</div>
+        </div>
+        <div class="lc-card">
+          <h3>Worked example: reset a form with key</h3>
+          <p>A messenger shows one <code>Chat</code> for the selected contact. Switching contact only changes a prop, so React keeps the old draft:</p>
+          <div class="lc-code">function Chat({ contact }) {<br>&nbsp;&nbsp;const [draft, setDraft] = useState("");<br>&nbsp;&nbsp;return &lt;input value={draft} onChange={e =&gt; setDraft(e.target.value)} /&gt;;<br>}<br><br>// ❌ Bug: switch from Asha to Ravi and Asha's draft is still in the box<br>&lt;Chat contact={to} /&gt;<br><br>// ✅ Fix: a new key for each contact gives each one a fresh Chat<br>&lt;Chat key={to.id} contact={to} /&gt;</div>
+          <p><strong>Expected output</strong> (try both with the checkbox in the starter):</p>
+          <div class="lc-code">Type "Hi Asha", then click Ravi:<br>&nbsp;&nbsp;without key → Draft for Ravi: "Hi Asha"   (state kept — wrong)<br>&nbsp;&nbsp;with key    → Draft for Ravi: ""          (state reset — right)</div>
+          <p>This is the correct way to "reset state when a prop changes" — no effect needed. It is the same <code>key</code> you met with lists in lesson 5.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common mistakes</h3>
+          <ul class="lc-list">
+            <li>Defining a component inside another component. Each render creates a new function, so React sees a different type and wipes its state:
+              <div class="lc-code">function Form() {<br>&nbsp;&nbsp;function Field() {               // ❌ a NEW component type on every render<br>&nbsp;&nbsp;&nbsp;&nbsp;const [text, setText] = useState("");<br>&nbsp;&nbsp;&nbsp;&nbsp;return &lt;input value={text} onChange={e =&gt; setText(e.target.value)} /&gt;;<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;const [count, setCount] = useState(0);<br>&nbsp;&nbsp;return &lt;&gt;&lt;Field /&gt;&lt;button onClick={() =&gt; setCount(count + 1)}&gt;{count}&lt;/button&gt;&lt;/&gt;;<br>}<br>// Every click re-renders Form, creates a different Field function,<br>// so React throws away the old input and its text. Define Field outside Form.</div>
+            </li>
+            <li>Changing an outside variable, a prop or an array during render — it "works" until StrictMode or a re-render shows wrong numbers.</li>
+            <li>Expecting state to reset when a prop changes — it doesn't. Add a <code>key</code>.</li>
+            <li>Trying to stop StrictMode's double render. It happens only in development and exists to find exactly these bugs.</li>
+            <li>Thinking a re-render means the whole DOM is rebuilt — React commits only the changes.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <p>In the starter: (1) type a draft for Asha, click Ravi — the draft clears. Untick "give Chat a key" and repeat — the draft follows you to Ravi. (2) Make <code>ImpureCup</code> pure: remove the outside <code>guest</code> variable and pass <code>guest={1}</code>, <code>guest={2}</code>, <code>guest={3}</code> as props. The numbers should now be 1, 2, 3.</p>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> When a bug appears "only in development", suspect an impure component or a missing effect cleanup — StrictMode is showing you a real problem early.
+        </div>
+      HTML
+      starter_code: <<~'JSX'
+        import { StrictMode, useState } from "react";
+        import { createRoot } from "react-dom/client";
+
+        // ❌ Impure: changes a variable outside the component while rendering.
+        let guest = 0;
+        function ImpureCup() {
+          guest = guest + 1;
+          return <li>Tea cup for guest #{guest}</li>;
+        }
+        // ✅ Pure: same props → same JSX, every time.
+        function Cup({ guest }) {
+          return <li>Tea cup for guest #{guest}</li>;
+        }
+        function Chat({ contact }) {
+          const [draft, setDraft] = useState("");
+          return (
+            <div>
+              <input value={draft} placeholder={"Message " + contact.name} onChange={e => setDraft(e.target.value)} />
+              <p>Draft for {contact.name}: "{draft}"</p>
+            </div>
+          );
+        }
+
+        const CONTACTS = [{ id: 1, name: "Asha" }, { id: 2, name: "Ravi" }];
+        function Messenger() {
+          const [to, setTo] = useState(CONTACTS[0]);
+          const [useKey, setUseKey] = useState(true);
+          return (
+            <section>
+              <h3>State lives at a position in the tree</h3>
+              {CONTACTS.map(c => <button key={c.id} onClick={() => setTo(c)}>{c.name}</button>)}{" "}
+              <label><input type="checkbox" checked={useKey} onChange={e => setUseKey(e.target.checked)} /> give Chat a key</label>
+              {useKey ? <Chat key={to.id} contact={to} /> : <Chat contact={to} />}
+            </section>
+          );
+        }
+
+        function App() {
+          return (
+            <div style={{ fontFamily: "sans-serif", padding: "1.5rem" }}>
+              <h3>Impure (StrictMode renders twice in development)</h3>
+              <ul><ImpureCup /><ImpureCup /><ImpureCup /></ul>
+              <h3>Pure</h3>
+              <ul><Cup guest={1} /><Cup guest={2} /><Cup guest={3} /></ul>
+              <Messenger />
+            </div>
+          );
+        }
+
+        createRoot(document.getElementById("root")).render(<StrictMode><App /></StrictMode>);
+      JSX
+    },
+
+    9 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-react">React</div>
           <h1 class="lc-title">useEffect and Side Effects</h1>
         </div>
         <p class="lc-lead">Rendering must be pure, but apps also need to talk to the outside world: timers, browser APIs, network connections. <code>useEffect</code> lets a component <strong>synchronise with an external system</strong> after React has updated the screen.</p>
@@ -922,11 +1072,24 @@ module ReactContent
             <tbody>
               <tr><td>Value computed from props/state (full name, filtered list)</td><td>calculate it during render</td></tr>
               <tr><td>Something should happen because the user clicked</td><td>do it in the event handler</td></tr>
-              <tr><td>Reset state when a prop changes</td><td>give the component a <code>key</code> so React re-creates it</td></tr>
-              <tr><td>Fetching data in a real app</td><td>a framework loader or TanStack Query (lesson 9)</td></tr>
+              <tr><td>Reset state when a prop changes</td><td>give the component a <code>key</code> so React re-creates it (lesson 8)</td></tr>
+              <tr><td>Fetching data in a real app</td><td>a framework loader or TanStack Query (lesson 10)</td></tr>
             </tbody>
           </table>
           <p>Good uses: timers, subscriptions (<code>window.addEventListener</code>, WebSockets), syncing <code>document.title</code>, controlling non-React widgets.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Separating events from effects: useEffectEvent (React 19.2+)</h3>
+          <p>Sometimes an effect needs to <em>read</em> a value without <em>reacting</em> to it. A chat room should reconnect when <code>roomId</code> changes — but not when the user switches <code>theme</code>, even though the "Connected!" notification uses the theme.</p>
+          <div class="lc-code">import { useEffect, useEffectEvent } from "react";<br><br>function ChatRoom({ roomId, theme }) {<br>&nbsp;&nbsp;// An Effect Event always sees the latest theme, but is not "reactive"<br>&nbsp;&nbsp;const onConnected = useEffectEvent(() =&gt; {<br>&nbsp;&nbsp;&nbsp;&nbsp;showNotification("Connected!", theme);<br>&nbsp;&nbsp;});<br><br>&nbsp;&nbsp;useEffect(() =&gt; {<br>&nbsp;&nbsp;&nbsp;&nbsp;const conn = createConnection(roomId);<br>&nbsp;&nbsp;&nbsp;&nbsp;conn.on("connected", () =&gt; onConnected());<br>&nbsp;&nbsp;&nbsp;&nbsp;conn.connect();<br>&nbsp;&nbsp;&nbsp;&nbsp;return () =&gt; conn.disconnect();<br>&nbsp;&nbsp;}, [roomId]);   // ✅ theme is not a dependency: changing it does not reconnect<br>}</div>
+          <table class="lc-table">
+            <thead><tr><th>Put it in…</th><th>When the code should…</th></tr></thead>
+            <tbody>
+              <tr><td>the effect body + dependency array</td><td>re-run when this value changes (<code>roomId</code>)</td></tr>
+              <tr><td>an Effect Event (<code>useEffectEvent</code>)</td><td>use the latest value, but not cause a re-run (<code>theme</code>)</td></tr>
+            </tbody>
+          </table>
+          <p>Rules: call an Effect Event only from inside effects, never during render; don't pass it to other components; don't list it in dependencies. Never silence the dependency lint rule instead — that hides stale-value bugs.</p>
         </div>
         <div class="lc-card">
           <h3>Common mistakes</h3>
@@ -942,7 +1105,7 @@ module ReactContent
           <p>Add a "speed" select (1× / 2×) to the starter's stopwatch. Put <code>speed</code> in the dependency array so the interval restarts with <code>1000 / speed</code> ms, and check that the log shows a cleanup before each new setup.</p>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> React 19.2 added <code>useEffectEvent</code> for logic inside an effect that should read the latest props without being a dependency (for example, a theme used only when showing a notification). Learn the basics first, then read the "Separating Events from Effects" page on react.dev.
+          <strong>Tip:</strong> Before you add a dependency or an effect, ask "what event caused this?" If the answer is a click or a submit, the code belongs in the event handler, not in an effect.
         </div>
       HTML
       starter_code: <<~'JSX'
@@ -993,7 +1156,7 @@ module ReactContent
       JSX
     },
 
-    9 => {
+    10 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1114,7 +1277,7 @@ module ReactContent
       JSX
     },
 
-    10 => {
+    11 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1155,6 +1318,19 @@ module ReactContent
           <div class="lc-code">function TextField({ label, ref }) {<br>&nbsp;&nbsp;return &lt;label&gt;{label} &lt;input ref={ref} /&gt;&lt;/label&gt;;<br>}<br><br>// parent<br>const nameRef = useRef(null);<br>&lt;TextField label="Name" ref={nameRef} /&gt;</div>
           <p><strong>Old way — don't use in new code:</strong> <code>const TextField = forwardRef((props, ref) =&gt; ...)</code>. It still works in React 19, but it is no longer needed and React plans to deprecate it.</p>
           <p>React 19 also lets a <strong>ref callback return a cleanup function</strong>: <code>ref={node =&gt; { observer.observe(node); return () =&gt; observer.unobserve(node); }}</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Portals: render somewhere else in the DOM</h3>
+          <p>Modals, toasts and tooltips must sit on top of everything, but a parent with <code>overflow: hidden</code> or a <code>z-index</code> can clip them. <code>createPortal</code> (from <code>react-dom</code>) renders children into a different DOM node while keeping them in the same place in the <strong>React</strong> tree.</p>
+          <div class="lc-code">import { createPortal } from "react-dom";<br><br>function Modal({ onClose, children }) {<br>&nbsp;&nbsp;return createPortal(<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="backdrop"&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div className="dialog"&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{children}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button onClick={onClose}&gt;Close&lt;/button&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;document.body            // the DOM node to render into<br>&nbsp;&nbsp;);<br>}</div>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Where it is</th></tr></thead>
+            <tbody>
+              <tr><td>DOM (what the browser draws)</td><td>a direct child of <code>&lt;body&gt;</code></td></tr>
+              <tr><td>React tree (props, state, context, events)</td><td>inside the component that rendered <code>&lt;Modal&gt;</code></td></tr>
+            </tbody>
+          </table>
+          <p>So the modal still reads context from its React parents, and a click inside it <strong>bubbles to its React parent's</strong> <code>onClick</code>, not to its DOM parent. For accessible dialogs, also consider the native <code>&lt;dialog&gt;</code> element with a ref and <code>dialogRef.current.showModal()</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Common mistakes</h3>
@@ -1220,7 +1396,7 @@ module ReactContent
       JSX
     },
 
-    11 => {
+    12 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1342,7 +1518,7 @@ module ReactContent
       JSX
     },
 
-    12 => {
+    13 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1388,6 +1564,21 @@ module ReactContent
             </tbody>
           </table>
           <p>Combine it with context to share <code>state</code> and <code>dispatch</code> with a whole subtree — a small, built-in alternative to state libraries such as Redux Toolkit or Zustand.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Beyond built-in state: Redux Toolkit and Zustand</h3>
+          <p><code>useReducer</code> + context covers most apps. Large apps with lots of shared client state often use a library. Choose by the <em>kind</em> of state:</p>
+          <table class="lc-table">
+            <thead><tr><th>State</th><th>Good tool</th></tr></thead>
+            <tbody>
+              <tr><td>One component's data</td><td><code>useState</code> / <code>useReducer</code></td></tr>
+              <tr><td>A subtree needs it (theme, cart)</td><td><code>useReducer</code> + context</td></tr>
+              <tr><td>Data from a server (lists, profiles)</td><td>TanStack Query or a framework loader — not a global store</td></tr>
+              <tr><td>Much shared client state, many screens</td><td><strong>Zustand</strong> (small, hook-based) or <strong>Redux Toolkit</strong> (<code>createSlice</code>, <code>configureStore</code>, <code>useSelector</code>/<code>useDispatch</code> from <code>react-redux</code>; strict structure, great DevTools)</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">// npm i zustand   — a small global store, no provider needed<br>import { create } from "zustand";<br><br>const useCart = create(set =&gt; ({<br>&nbsp;&nbsp;items: [],<br>&nbsp;&nbsp;add: item =&gt; set(state =&gt; ({ items: [...state.items, item] })),<br>}));<br><br>function CartCount() {<br>&nbsp;&nbsp;const count = useCart(state =&gt; state.items.length); // re-renders only when count changes<br>&nbsp;&nbsp;return &lt;span&gt;Cart: {count}&lt;/span&gt;;<br>}</div>
+          <p>The idea is the same one you learned here: state + actions in one place, updated immutably. Redux Toolkit's <code>createSlice</code> reducers are literally reducers with <code>case</code> labels turned into functions. Old way — don't use: hand-written Redux with <code>createStore</code> and action-type constants.</p>
         </div>
         <div class="lc-card">
           <h3>Common mistakes</h3>
@@ -1465,7 +1656,7 @@ module ReactContent
       JSX
     },
 
-    13 => {
+    14 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1491,7 +1682,7 @@ module ReactContent
               <tr><td><code>useOnlineStatus()</code></td><td><code>online</code>/<code>offline</code> events</td></tr>
               <tr><td><code>useDebouncedValue(v, ms)</code></td><td>timer effect</td></tr>
               <tr><td><code>useAuth()</code></td><td><code>useContext(AuthContext)</code> + a helpful error</td></tr>
-              <tr><td><code>useFetch(url)</code></td><td>the fetch effect from lesson 9 (in real apps prefer TanStack Query)</td></tr>
+              <tr><td><code>useFetch(url)</code></td><td>the fetch effect from lesson 10 (in real apps prefer TanStack Query)</td></tr>
             </tbody>
           </table>
         </div>
@@ -1575,7 +1766,7 @@ module ReactContent
       JSX
     },
 
-    14 => {
+    15 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1701,7 +1892,7 @@ module ReactContent
       JSX
     },
 
-    15 => {
+    16 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1747,10 +1938,24 @@ module ReactContent
             <li><strong>Measure first</strong> with the React DevTools Profiler, using a production build (<code>npm run build</code> + <code>npm run preview</code>); development mode is slower on purpose.</li>
             <li>Move state <strong>down</strong> into the component that uses it so fewer components re-render.</li>
             <li>Use stable <code>key</code>s in lists.</li>
-            <li>Split code with <code>lazy()</code> (lesson 17) so users download less JavaScript.</li>
+            <li>Split code with <code>lazy()</code> (lesson 18) so users download less JavaScript.</li>
             <li>For thousands of rows, use list virtualisation (e.g. TanStack Virtual).</li>
             <li>Only then add <code>memo</code>, <code>useMemo</code> and <code>useCallback</code> where the profiler shows a problem.</li>
           </ol>
+        </div>
+        <div class="lc-card">
+          <h3>Keeping typing fast: useTransition and useDeferredValue</h3>
+          <p><code>memo</code> skips work. Transitions let React <strong>delay</strong> work: an update marked as a transition is "not urgent", so React keeps the page responsive (typing, clicks) and can interrupt a slow render to handle the user first.</p>
+          <div class="lc-code">import { useDeferredValue, useState, useTransition } from "react";<br><br>// 1) useTransition: you own the state update<br>const [isPending, startTransition] = useTransition();<br>function selectTab(next) {<br>&nbsp;&nbsp;startTransition(() =&gt; setTab(next));   // slow tab render can be interrupted<br>}<br>{isPending &amp;&amp; &lt;p&gt;Loading tab…&lt;/p&gt;}<br><br>// 2) useDeferredValue: you only receive the value<br>const [query, setQuery] = useState("");<br>const deferredQuery = useDeferredValue(query);<br>&lt;input value={query} onChange={e =&gt; setQuery(e.target.value)} /&gt;  {/* stays instant */}<br>&lt;SlowResults query={deferredQuery} /&gt;                           {/* wrap in memo */}</div>
+          <table class="lc-table">
+            <thead><tr><th></th><th><code>useTransition</code></th><th><code>useDeferredValue</code></th></tr></thead>
+            <tbody>
+              <tr><td>Use when</td><td>you call the set function (tabs, filters, navigation)</td><td>you receive a value as a prop and can't wrap the update</td></tr>
+              <tr><td>Gives you</td><td><code>[isPending, startTransition]</code></td><td>a copy of the value that "lags behind" during slow renders</td></tr>
+              <tr><td>Don't use for</td><td colspan="2">controlled input values — the text box itself must update urgently</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Result:</strong> typing in the search box never freezes; the slow results list catches up a moment later. In React 19, <code>startTransition</code> also accepts <code>async</code> functions — these are the <strong>Actions</strong> of lesson 17.</p>
         </div>
         <div class="lc-card">
           <h3>Common mistakes</h3>
@@ -1820,7 +2025,7 @@ module ReactContent
       JSX
     },
 
-    16 => {
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1943,7 +2148,7 @@ module ReactContent
       JSX
     },
 
-    17 => {
+    18 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -2058,14 +2263,13 @@ module ReactContent
       JSX
     },
 
-    18 => {
+    19 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
           <h1 class="lc-title">Routing and Frameworks</h1>
         </div>
         <p class="lc-lead">Real apps show different screens for different URLs. In a plain single-page app, <strong>React Router</strong> does this in the browser. In 2026 most new React apps go one step further and use a <strong>framework</strong> — <strong>Next.js</strong> (App Router) or <strong>React Router framework mode</strong> — which adds server rendering, data loading on the server and <strong>Server Components</strong>.</p>
-        <div class="lc-card">
         <div class="lc-card">
           <h3>Declarative routing (the simplest mode)</h3>
           <div class="lc-code">// npm i react-router<br>import { BrowserRouter, Routes, Route, Link, NavLink, Outlet, useParams } from "react-router";<br><br>function Layout() {<br>&nbsp;&nbsp;return (<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nav&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;NavLink to="/"&gt;Home&lt;/NavLink&gt; &lt;NavLink to="/courses"&gt;Courses&lt;/NavLink&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/nav&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Outlet /&gt;   {/* the matching child route renders here */}<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/&gt;<br>&nbsp;&nbsp;);<br>}<br><br>function Course() {<br>&nbsp;&nbsp;const { courseId } = useParams();       // "/courses/react" → "react"<br>&nbsp;&nbsp;return &lt;h2&gt;Course: {courseId}&lt;/h2&gt;;<br>}<br><br>createRoot(document.getElementById("root")).render(<br>&nbsp;&nbsp;&lt;BrowserRouter&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;Routes&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route path="/" element={&lt;Layout /&gt;}&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route index element={&lt;Home /&gt;} /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route path="courses" element={&lt;CourseList /&gt;} /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route path="courses/:courseId" element={&lt;Course /&gt;} /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Route&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Routes&gt;<br>&nbsp;&nbsp;&lt;/BrowserRouter&gt;<br>);</div>
@@ -2121,7 +2325,7 @@ module ReactContent
             <li><strong>Hooks can't run in a Server Component.</strong> If a component needs state, effects or event handlers, put it in a file that starts with <code>"use client"</code>.</li>
             <li><code>"use client"</code> marks a <em>boundary</em>: that file and everything it imports become client code. Keep it on small leaf components.</li>
             <li>Props passed from a Server Component to a Client Component must be <strong>serializable</strong>: strings, numbers, booleans, plain objects, arrays, Dates, Promises and JSX — not ordinary functions or class instances.</li>
-            <li><code>"use server"</code> does <em>not</em> make a Server Component. It marks <strong>Server Functions</strong> that the browser can call, for example as a form <code>action</code> (lesson 16).</li>
+            <li><code>"use server"</code> does <em>not</em> make a Server Component. It marks <strong>Server Functions</strong> that the browser can call, for example as a form <code>action</code> (lesson 17).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2213,7 +2417,7 @@ module ReactContent
       JSX
     },
 
-    19 => {
+    20 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -2268,7 +2472,7 @@ module ReactContent
             <li>Checking the DOM before an async update finished — use <code>await findBy...</code>.</li>
             <li>Selecting by CSS class (<code>.btn-primary</code>); a style change breaks the test though nothing is broken for users.</li>
             <li>Testing internal state instead of the visible result.</li>
-            <li>Importing <code>act</code> from <code>react-dom/test-utils</code> — removed in React 19; import it from <code>react</code>.</li>
+            <li>Importing <code>act</code> from <code>react-dom/test-utils</code> — old way: it still works in React 19 but is deprecated and logs a warning (every other helper in that file was removed). Import <code>act</code> from <code>react</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2339,7 +2543,7 @@ module ReactContent
       JSX
     },
 
-    20 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -2379,9 +2583,9 @@ module ReactContent
               <tr><td>Components + props</td><td><code>TaskItem task={t}</code></td><td>2–3</td></tr>
               <tr><td>State and events</td><td>checkbox <code>onChange</code>, delete <code>onClick</code></td><td>4</td></tr>
               <tr><td>Lists, keys, conditional rendering</td><td><code>tasks.map</code> with <code>key={t.id}</code>, empty message</td><td>5</td></tr>
-              <tr><td>Reducer</td><td><code>tasksReducer</code>: added / toggled / deleted</td><td>12</td></tr>
-              <tr><td>Context + custom hook</td><td><code>useTasks()</code></td><td>11, 13</td></tr>
-              <tr><td>Form action</td><td><code>&lt;form action={addTask}&gt;</code> resets itself</td><td>16</td></tr>
+              <tr><td>Reducer</td><td><code>tasksReducer</code>: added / toggled / deleted</td><td>13</td></tr>
+              <tr><td>Context + custom hook</td><td><code>useTasks()</code></td><td>12, 14</td></tr>
+              <tr><td>Form action</td><td><code>&lt;form action={addTask}&gt;</code> resets itself</td><td>17</td></tr>
             </tbody>
           </table>
         </div>
@@ -2396,8 +2600,8 @@ module ReactContent
           <ol class="lc-list">
             <li><strong>Edit a task</strong>: double-click shows an input; save with Enter (new <code>"edited"</code> action).</li>
             <li><strong>Priority</strong>: add a <code>&lt;select name="priority"&gt;</code> to the form and sort high-priority first (copy before sorting).</li>
-            <li><strong>Search</strong>: a controlled input + your <code>useDebouncedValue</code> hook from lesson 13.</li>
-            <li><strong>Tests</strong>: test <code>tasksReducer</code> directly, like lesson 19.</li>
+            <li><strong>Search</strong>: a controlled input + your <code>useDebouncedValue</code> hook from lesson 14.</li>
+            <li><strong>Tests</strong>: test <code>tasksReducer</code> directly, like lesson 20.</li>
             <li><strong>Real project</strong>: move it into a Vite app, one component per file; save tasks to <code>localStorage</code> in an effect (the lesson editor's sandbox blocks storage, so do this in Vite).</li>
           </ol>
         </div>

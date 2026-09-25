@@ -1,9 +1,9 @@
 require_relative "../react_content"
 
 namespace :content do
-  desc "Create React course and populate all 20 lessons"
+  desc "Create React course and populate all 21 lessons"
   task react: :environment do
-    description = "Learn modern React 19: JSX, components, props, state and events, effects, safe data fetching, context, reducers, " \
+    description = "Learn modern React 19: JSX, components, props, state and events, rendering and purity, effects, safe data fetching, context, reducers, " \
                   "custom hooks, TypeScript, performance, form Actions, Suspense, routing and frameworks, and testing, " \
                   "then build a full task manager app."
     course = Course.find_or_create_by!(slug: "react") do |c|
@@ -21,13 +21,14 @@ namespace :content do
       1  => "Introduction to React and JSX",               2  => "Components, Modules and Vite",
       3  => "Props and children",                          4  => "State and Events",
       5  => "Conditional Rendering and Lists",             6  => "Forms and Controlled Inputs",
-      7  => "Lifting State Up",                            8  => "useEffect and Side Effects",
-      9  => "Fetching Data Safely",                        10 => "useRef and the DOM",
-      11 => "Sharing Data with Context",                   12 => "useReducer for Complex State",
-      13 => "Custom Hooks",                                14 => "React with TypeScript",
-      15 => "Performance: memo, useMemo and useCallback",  16 => "Forms and Actions in React 19",
-      17 => "Suspense, use and Error Boundaries",          18 => "Routing and Frameworks",
-      19 => "Testing React Components",                    20 => "Capstone: Task Manager App"
+      7  => "Lifting State Up",                            8  => "Rendering, Purity and Preserving State",
+      9  => "useEffect and Side Effects",                  10 => "Fetching Data Safely",
+      11 => "useRef and the DOM",                          12 => "Sharing Data with Context",
+      13 => "useReducer for Complex State",                14 => "Custom Hooks",
+      15 => "React with TypeScript",                       16 => "Performance: memo, useMemo and useCallback",
+      17 => "Forms and Actions in React 19",               18 => "Suspense, use and Error Boundaries",
+      19 => "Routing and Frameworks",                      20 => "Testing React Components",
+      21 => "Capstone: Task Manager App"
     }
 
     descriptions = {
@@ -38,19 +39,20 @@ namespace :content do
       5  => "Show or hide UI with if, ternaries and &&, render arrays with map(), and choose stable keys.",
       6  => "Build controlled inputs for text, checkboxes and selects, handle submit, and validate from state.",
       7  => "Share state between components by moving it to their closest common parent and passing callbacks down.",
-      8  => "Synchronise with timers and browser APIs using useEffect, dependencies and cleanup, including StrictMode's double run.",
-      9  => "Fetch data with res.ok checks, AbortController cleanup and loading/error states, and meet TanStack Query.",
-      10 => "Use useRef to reach DOM elements and store values that should not re-render, and pass ref as a prop in React 19.",
-      11 => "Avoid prop drilling with createContext and useContext, and wrap context in a provider and custom hook.",
-      12 => "Move complex update logic into a pure reducer function and change state by dispatching actions.",
-      13 => "Extract reusable stateful logic into custom hooks such as useToggle and useDebouncedValue.",
-      14 => "Type props, children, useState, events and ref props with TypeScript, and see how the compiler catches bugs before the app runs.",
-      15 => "Understand why components re-render and when memo, useMemo, useCallback and the React Compiler help.",
-      16 => "Handle forms with React 19 Actions using useActionState, useFormStatus and useOptimistic.",
-      17 => "Declare loading and error UI with Suspense, the use() API, lazy() code splitting and error boundaries.",
-      18 => "Map URLs to screens with React Router v8, then meet frameworks: Next.js App Router, Server and Client Components, and \"use client\".",
-      19 => "Test components the way users use them with Vitest and React Testing Library, and see how act() works.",
-      20 => "Combine reducers, context, custom hooks, lists and form actions into a complete task manager app."
+      8  => "See how React renders and commits, why components must be pure, and how state is kept or reset by position in the tree and by key.",
+      9  => "Synchronise with timers and browser APIs using useEffect, dependencies and cleanup, including StrictMode's double run.",
+      10 => "Fetch data with res.ok checks, AbortController cleanup and loading/error states, and meet TanStack Query.",
+      11 => "Use useRef to reach DOM elements and store values that should not re-render, and pass ref as a prop in React 19.",
+      12 => "Avoid prop drilling with createContext and useContext, and wrap context in a provider and custom hook.",
+      13 => "Move complex update logic into a pure reducer function and change state by dispatching actions.",
+      14 => "Extract reusable stateful logic into custom hooks such as useToggle and useDebouncedValue.",
+      15 => "Type props, children, useState, events and ref props with TypeScript, and see how the compiler catches bugs before the app runs.",
+      16 => "Understand why components re-render and when memo, useMemo, useCallback and the React Compiler help.",
+      17 => "Handle forms with React 19 Actions using useActionState, useFormStatus and useOptimistic.",
+      18 => "Declare loading and error UI with Suspense, the use() API, lazy() code splitting and error boundaries.",
+      19 => "Map URLs to screens with React Router v8, then meet frameworks: Next.js App Router, Server and Client Components, and \"use client\".",
+      20 => "Test components the way users use them with Vitest and React Testing Library, and see how act() works.",
+      21 => "Combine reducers, context, custom hooks, lists and form actions into a complete task manager app."
     }
 
     exercises = {
@@ -68,32 +70,34 @@ namespace :content do
               opts: ["True", "False"], ans: "True" },
       7  => { type: "multiple_choice", q: "SearchBar and ResultsList both need the current search text. Where should that state live?",
               opts: ["A) In their closest common parent, passed down as props", "B) In SearchBar, with ResultsList keeping its own copy in sync via useEffect", "C) In a global variable outside React"], ans: "A" },
-      8  => { type: "multiple_choice", q: "In development with <StrictMode>, what happens on mount to useEffect(() => { connect(); return () => disconnect(); }, [])?",
+      8  => { type: "multiple_choice", q: "Chat keeps a draft in useState. The parent renders <Chat contact={to} /> and the user switches from Asha to Ravi. What happens?",
+              opts: ["A) The draft resets automatically, because the contact prop changed", "B) The draft stays, because it is the same component at the same position; add key={to.id} to reset it", "C) The draft stays, and only a useEffect that calls setDraft(\"\") on every contact change can reset it"], ans: "B" },
+      9  => { type: "multiple_choice", q: "In development with <StrictMode>, what happens on mount to useEffect(() => { connect(); return () => disconnect(); }, [])?",
               opts: ["A) connect runs once", "B) Nothing runs until a dependency changes, because the array is empty", "C) connect, disconnect, then connect again"], ans: "C" },
-      9  => { type: "multiple_choice", q: "fetch() receives a 404 response from the server. What happens?",
-              opts: ["A) The fetch promise rejects straight away, so your .catch() block handles it automatically", "B) It resolves; res.ok is false, so you must check it and throw", "C) React shows the nearest error boundary"], ans: "B" },
-      10 => { type: "true_false",      q: "In React 19, a function component can receive ref as a normal prop without using forwardRef.",
+      10 => { type: "multiple_choice", q: "fetch() receives a 404 response from the server. What happens?",
+              opts: ["A) It resolves; res.ok is false, so you must check it and throw", "B) The fetch promise rejects straight away, so your .catch() block handles it automatically", "C) React shows the nearest error boundary"], ans: "A" },
+      11 => { type: "true_false",      q: "In React 19, a function component can receive ref as a normal prop without using forwardRef.",
               opts: ["True", "False"], ans: "True" },
-      11 => { type: "multiple_choice", q: "A component calls useContext(ThemeContext), but there is no ThemeContext provider above it. What does it get?",
-              opts: ["A) The default value passed to createContext", "B) undefined, and React logs a warning about the missing provider", "C) An error is thrown and the app crashes"], ans: "A" },
-      12 => { type: "multiple_choice", q: "Which reducer case correctly adds an item?",
-              opts: ["A) state.items.push(action.item); return state;", "B) state.items = [...state.items, action.item]; return state;", "C) return { ...state, items: [...state.items, action.item] };"], ans: "C" },
-      13 => { type: "true_false",      q: "Two components that call the same custom hook, such as useToggle(), share one piece of state.",
+      12 => { type: "multiple_choice", q: "A component calls useContext(ThemeContext), but there is no ThemeContext provider above it. What does it get?",
+              opts: ["A) undefined, and React logs a warning about the missing provider", "B) An error is thrown and the app crashes", "C) The default value passed to createContext"], ans: "C" },
+      13 => { type: "multiple_choice", q: "Which reducer case correctly adds an item?",
+              opts: ["A) return { ...state, items: [...state.items, action.item] };", "B) state.items.push(action.item); return state;", "C) state.items = [...state.items, action.item]; return state;"], ans: "A" },
+      14 => { type: "true_false",      q: "Two components that call the same custom hook, such as useToggle(), share one piece of state.",
               opts: ["True", "False"], ans: "False" },
-      14 => { type: "true_false",      q: "If a component's props are typed as { count: number } and the app passes count=\"3\", the browser throws a TypeError when that component renders.",
+      15 => { type: "true_false",      q: "If a component's props are typed as { count: number } and the app passes count=\"3\", the browser throws a TypeError when that component renders.",
               opts: ["True", "False"], ans: "False" },
-      15 => { type: "multiple_choice", q: "A child is wrapped in memo, but the parent passes onSelect={() => pick(id)}. When the parent re-renders, the child:",
-              opts: ["A) Skips rendering, because memo always ignores function props when comparing", "B) Re-renders, because a new function is created every time", "C) Skips rendering only in development mode"], ans: "B" },
-      16 => { type: "multiple_choice", q: "What does useActionState(action, initialState) return?",
-              opts: ["A) [state, formAction, isPending]", "B) [value, setValue]", "C) { data, error, isLoading, refetch }"], ans: "A" },
-      17 => { type: "true_false",      q: "While a child component is waiting on use(promise), the nearest <Suspense> boundary shows its fallback.",
+      16 => { type: "multiple_choice", q: "A child is wrapped in memo, but the parent passes onSelect={() => pick(id)}. When the parent re-renders, the child:",
+              opts: ["A) Skips rendering, because memo always ignores function props when comparing", "B) Skips rendering only in development mode", "C) Re-renders, because a new function is created every time"], ans: "C" },
+      17 => { type: "multiple_choice", q: "What does useActionState(action, initialState) return?",
+              opts: ["A) [value, setValue]", "B) [state, formAction, isPending]", "C) { data, error, isLoading, refetch }"], ans: "B" },
+      18 => { type: "true_false",      q: "While a child component is waiting on use(promise), the nearest <Suspense> boundary shows its fallback.",
               opts: ["True", "False"], ans: "True" },
-      18 => { type: "multiple_choice", q: "In a Next.js App Router project, which component is allowed to call useState?",
-              opts: ["A) An async Server Component that awaits a database query", "B) Any component inside the app folder, because components are Client Components by default", "C) A component in a file whose first line is \"use client\""], ans: "C" },
-      19 => { type: "multiple_choice", q: "In React Testing Library, which query is the best first choice for finding a Save button?",
-              opts: ["A) container.querySelector('.btn.btn-primary.save-button')", "B) screen.getByRole('button', { name: /save/i })", "C) screen.getByTestId('save-button')"], ans: "B" },
-      20 => { type: "multiple_choice", q: "In the capstone, doneCount is calculated with tasks.filter(t => t.done).length on every render. Why not keep it in state?",
-              opts: ["A) It is derived from tasks, so a stored copy could get out of sync", "B) useState cannot hold numbers", "C) Components that use useReducer are not allowed to call useState as well"], ans: "A" }
+      19 => { type: "multiple_choice", q: "In a Next.js App Router project, which component is allowed to call useState?",
+              opts: ["A) A component in a file whose first line is \"use client\"", "B) An async Server Component that awaits a database query", "C) Any component inside the app folder, because components are Client Components by default"], ans: "A" },
+      20 => { type: "multiple_choice", q: "In React Testing Library, which query is the best first choice for finding a Save button?",
+              opts: ["A) container.querySelector('.btn.btn-primary.save-button')", "B) screen.getByTestId('save-button')", "C) screen.getByRole('button', { name: /save/i })"], ans: "C" },
+      21 => { type: "multiple_choice", q: "In the capstone, doneCount is calculated with tasks.filter(t => t.done).length on every render. Why not keep it in state?",
+              opts: ["A) useState cannot hold numbers", "B) It is derived from tasks, so a stored copy could get out of sync", "C) Components that use useReducer are not allowed to call useState as well"], ans: "B" }
     }
 
     ReactContent::LESSONS.each do |position, data|

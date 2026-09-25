@@ -1,11 +1,11 @@
 require_relative "../java_content"
 
 namespace :content do
-  desc "Create Java course and populate all 20 lessons"
+  desc "Create Java course and populate all 21 lessons"
   task java: :environment do
     course = Course.find_or_create_by!(slug: "java") do |c|
       c.title       = "Java"
-      c.description = "Learn modern Java (17+) from your first program to records, enums, sealed types, collections, streams, java.time, files, basic concurrency and JUnit testing — then build a complete library management project."
+      c.description = "Learn modern Java (17+) from your first program to records, enums, sealed types, collections, streams, java.time, files, basic concurrency, packages and build tools, and JUnit testing — then build a complete library management project."
       c.color       = "#f97316"
       c.icon        = "☕"
       c.position    = 8
@@ -23,7 +23,8 @@ namespace :content do
       13 => "Exceptions and Error Handling",           14 => "Generics",
       15 => "Collections: List, Set and Map",          16 => "Lambdas and Streams",
       17 => "Optional and the java.time API",          18 => "Files and Basic Concurrency",
-      19 => "Unit Testing with JUnit",                 20 => "Capstone Project: Library Management System"
+      19 => "Packages, Modules and Build Tools",       20 => "Unit Testing with JUnit",
+      21 => "Capstone Project: Library Management System"
     }
 
     descriptions = {
@@ -45,8 +46,9 @@ namespace :content do
       16 => "Pass behaviour as lambdas and method references, and process collections with stream pipelines and collectors.",
       17 => "Replace null with Optional return values and handle dates, times and durations with java.time.",
       18 => "Read and write files with java.nio.file Files and Path, and run tasks at the same time with an ExecutorService, Future and CompletableFuture without sharing unsafe state.",
-      19 => "Write automated tests with JUnit: @Test, assertions, assertThrows and parameterised tests.",
-      20 => "Combine records, enums, collections, Optional, java.time, exceptions and streams in a working library system."
+      19 => "Organise code into packages and imports, see what modules add, and build, test and package real projects with Maven or Gradle.",
+      20 => "Write automated tests with JUnit: @Test, assertions, assertThrows and parameterised tests.",
+      21 => "Combine records, enums, collections, Optional, java.time, exceptions and streams in a working library system."
     }
 
     exercises = {
@@ -86,9 +88,11 @@ namespace :content do
               opts: ["A) 2026-10-05", "B) 2026-09-25", "C) Nothing: plusDays does not compile without an assignment"], ans: "B" },
       18 => { type: "true_false",      q: "If a program submits tasks to an ExecutorService from Executors.newFixedThreadPool(3) but never calls shutdown(), the JVM may keep running after main() returns, because the pool's worker threads are still alive.",
               opts: ["True", "False"], ans: "True" },
-      19 => { type: "true_false",      q: "In JUnit, assertThrows(IllegalArgumentException.class, () -> calc.withGst(-1)) fails if withGst(-1) returns normally without throwing.",
+      19 => { type: "multiple_choice", q: "Book.java starts with package in.academy.library.model; and declares static String secret() with no access modifier. Main, in package in.academy.library.app, calls Book.secret(). What happens?",
+              opts: ["A) It compiles, because both packages start with in.academy.library", "B) A compile error: secret() is not visible outside its package", "C) It compiles, but throws an exception when secret() is called"], ans: "B" },
+      20 => { type: "true_false",      q: "In JUnit, assertThrows(IllegalArgumentException.class, () -> calc.withGst(-1)) fails if withGst(-1) returns normally without throwing.",
               opts: ["True", "False"], ans: "True" },
-      20 => { type: "multiple_choice", q: "In the capstone, why does borrow() take LocalDate today as a parameter instead of calling LocalDate.now() inside the method?",
+      21 => { type: "multiple_choice", q: "In the capstone, why does borrow() take LocalDate today as a parameter instead of calling LocalDate.now() inside the method?",
               opts: ["A) So the results are deterministic and the method is easy to test", "B) Because LocalDate.now() was removed in Java 17", "C) Because a method that throws a checked exception cannot call static methods"], ans: "A" }
     }
 
