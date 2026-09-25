@@ -202,12 +202,46 @@ module GitContent
         </div>
 
         <div class="lc-card">
+          <h3>Line Endings: Windows vs macOS/Linux</h3>
+          <p>Text files end each line with invisible characters. Windows uses <strong>CRLF</strong> (<code>\r\n</code>); macOS and Linux use <strong>LF</strong> (<code>\n</code>). If a team mixes them, every line of a file can look "changed" in a diff even when nobody edited it. The fix is to store <strong>LF inside the repository</strong> and let Git convert when files are checked out.</p>
+          <table class="lc-table">
+            <thead><tr><th>Setting</th><th>Where</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><code>* text=auto</code> in <code>.gitattributes</code></td><td>Committed file in the repo (best)</td><td>For every text file, Git stores LF in the repository. It applies to everyone who clones, whatever their personal settings.</td></tr>
+              <tr><td><code>git config --global core.autocrlf true</code></td><td>Your Windows computer</td><td>Commit LF, check out CRLF (the Git for Windows default)</td></tr>
+              <tr><td><code>git config --global core.autocrlf input</code></td><td>Your macOS/Linux computer</td><td>Commit LF, never add CRLF on checkout</td></tr>
+            </tbody>
+          </table>
+          <p>Here a file was written with Windows line endings. The repository has a one-line <code>.gitattributes</code>:</p>
+          <div class="lc-code-block"><pre><code>$ echo &quot;* text=auto&quot; &gt; .gitattributes
+        $ printf &#39;Masala chai - 20\r\nGinger chai - 25\r\n&#39; &gt; menu.txt
+        $ git add .gitattributes menu.txt
+        warning: in the working copy of &#39;menu.txt&#39;, CRLF will be replaced by LF the next time Git touches it
+        $ git ls-files --eol
+        i/lf    w/lf    attr/text=auto        	.gitattributes
+        i/lf    w/crlf  attr/text=auto        	menu.txt
+        $ git commit -m &quot;Normalise line endings&quot;
+        [main (root-commit) 26649bf] Normalise line endings
+         2 files changed, 3 insertions(+)
+         create mode 100644 .gitattributes
+         create mode 100644 menu.txt
+        $ git ls-files --eol menu.txt
+        i/lf    w/crlf  attr/text=auto        	menu.txt</code></pre></div>
+          <ul class="lc-list">
+            <li>The warning is normal: Git will store <code>menu.txt</code> with LF.</li>
+            <li><code>git ls-files --eol</code> shows each file in the index (<code>i/</code>) and working tree (<code>w/</code>). <code>i/lf</code> means the committed copy uses LF, even though your file on disk (<code>w/crlf</code>) still has CRLF until Git next checks it out.</li>
+          </ul>
+          <p>Add <code>.gitattributes</code> as one of the first files in every new project. You can also force a type for some files, for example <code>*.sh text eol=lf</code> (shell scripts must use LF) or <code>*.png binary</code>.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Forgetting <code>--global</code> the first time, so the name is set only for one repository.</li>
             <li>Using an email that is not on your GitHub account — your commits then show a grey, unlinked avatar.</li>
             <li>Leaving out the quotes: <code>git config --global user.name Asha Rao</code> silently saves only <code>Asha</code> — no error is shown. Check with <code>git config user.name</code>.</li>
             <li>Setting <code>core.editor "code"</code> without <code>--wait</code> — Git does not wait for you to finish typing and aborts the commit with an empty message.</li>
+            <li>Having no <code>.gitattributes</code> in a team with Windows and Mac users — whole files show as changed just because of CRLF vs LF.</li>
           </ul>
         </div>
 
@@ -218,6 +252,7 @@ module GitContent
             <li>Create an alias <code>lg</code> for <code>log --oneline --graph --all</code>.</li>
             <li>Run <code>git config --global --list</code> and check every value.</li>
             <li>In any repository, run <code>git config --show-origin user.email</code>. Which file did the value come from?</li>
+            <li>In a test repository, add a <code>.gitattributes</code> containing <code>* text=auto</code>, commit it, and run <code>git ls-files --eol</code>.</li>
           </ol>
         </div>
 
@@ -1100,12 +1135,20 @@ module GitContent
         commit</code></pre></div>
           <p>The annotated tag has its own tagger, date and message, followed by the commit it points to. <code>git cat-file -t</code> confirms the difference: <code>v1.0.0</code> is a <code>tag</code> object, while <code>v0.1.0</code> is just a name for a <code>commit</code>.</p>
           <div class="lc-code-block"><pre><code>$ git describe
-        v1.0.0-1-gc3ec0ac
+        v1.0.0
+        $ printf &quot;Samosa - 15\n&quot; &gt; snacks.txt
+        $ git add snacks.txt
+        $ git commit -m &quot;Add snacks&quot;
+        [main 50e38b1] Add snacks
+         1 file changed, 1 insertion(+)
+         create mode 100644 snacks.txt
+        $ git describe
+        v1.0.0-1-g50e38b1
         $ git tag -l &quot;v1.*&quot;
         v1.0.0
         $ git tag -d v0.1.0
         Deleted tag &#39;v0.1.0&#39; (was 7901826)</code></pre></div>
-          <p><code>git describe</code> reads as: "1 commit after <code>v1.0.0</code>, at commit <code>c3ec0ac</code>" (the <code>g</code> stands for Git). Build tools use it to print version numbers. <code>-l</code> filters tags with a pattern, and <code>-d</code> deletes a local tag.</p>
+          <p>Right on the tagged commit, <code>git describe</code> prints just <code>v1.0.0</code>. After one more commit it prints <code>v1.0.0-1-g50e38b1</code>: "1 commit after <code>v1.0.0</code>, at commit <code>50e38b1</code>" (the <code>g</code> stands for Git). Build tools use it to print version numbers. <code>-l</code> filters tags with a pattern, and <code>-d</code> deletes a local tag.</p>
         </div>
 
         <div class="lc-card">
@@ -1565,7 +1608,7 @@ module GitContent
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
-          <h1 class="lc-title">Rebasing and Interactive Rebase</h1>
+          <h1 class="lc-title">Rebase, Interactive Rebase and Cherry-Pick</h1>
         </div>
         <p class="lc-lead"><code>git rebase</code> moves your branch so it starts from the latest commit of another branch. Instead of a merge commit, you get a clean, straight history. Interactive rebase goes further and lets you tidy commits before you share them.</p>
 
@@ -1688,6 +1731,44 @@ module GitContent
         </div>
 
         <div class="lc-card">
+          <h3>Terminal Walkthrough: Copy One Commit with git cherry-pick</h3>
+          <p>Sometimes you need just <strong>one</strong> commit from another branch — for example, a price fix made on <code>feature/snacks</code> that must go live on <code>main</code> today, while the snack work is not ready yet:</p>
+          <div class="lc-code-block"><pre><code>$ git log --oneline --graph --all --decorate
+        * c8eb937 (HEAD -&gt; feature/snacks) Add vada pav
+        * 39b311e Fix ginger chai price
+        * 7bd7b39 Add snacks
+        * e93823f (main) Add menu</code></pre></div>
+          <div class="lc-code-block"><pre><code>$ git switch main
+        Switched to branch &#39;main&#39;
+        $ git cherry-pick -x 39b311e
+        [main ae31ff1] Fix ginger chai price
+         Date: Tue Sep 1 10:10:00 2026 +0530
+         1 file changed, 1 insertion(+), 1 deletion(-)
+        $ git log --oneline --graph --all --decorate
+        * ae31ff1 (HEAD -&gt; main) Fix ginger chai price
+        | * c8eb937 (feature/snacks) Add vada pav
+        | * 39b311e Fix ginger chai price
+        | * 7bd7b39 Add snacks
+        |/
+        * e93823f Add menu
+        $ git log -1 --format=%B
+        Fix ginger chai price
+
+        (cherry picked from commit 39b311e...)
+
+        $ cat menu.txt
+        Masala chai - 20
+        Ginger chai - 30</code></pre></div>
+          <ul class="lc-list">
+            <li><code>git cherry-pick 39b311e</code> applies the changes of that one commit on top of the current branch, as a <strong>new commit</strong> (<code>ae31ff1</code>) with a new hash. The <code>Date:</code> line shows it kept the original author date.</li>
+            <li><code>-x</code> adds the line <code>(cherry picked from commit …)</code> to the message, so reviewers can trace where the fix came from. Use it when copying between shared branches.</li>
+            <li><code>Add snacks</code> and <code>Add vada pav</code> stayed on the feature branch.</li>
+            <li>If the change conflicts, fix the file, <code>git add</code> it and run <code>git cherry-pick --continue</code> (or <code>--abort</code>) — the same pattern as rebase.</li>
+          </ul>
+          <p>In fact, a rebase is a series of cherry-picks done for you. Use cherry-pick for a few hand-picked commits (a hotfix, a commit made on the wrong branch); use merge or rebase to bring over a whole branch.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>The Golden Rule of Rebasing</h3>
           <p><strong>Never rebase commits that other people have already pulled.</strong> Rebasing replaces commits with new ones; anyone who built on the old ones gets a confusing, duplicated history. Rebase only your own local or personal feature branches. If you rebased a branch you already pushed (and only you use it), update the remote with <code>git push --force-with-lease</code> — it refuses to overwrite if someone else pushed in the meantime.</p>
         </div>
@@ -1699,6 +1780,7 @@ module GitContent
             <li>Using <code>git push --force</code> instead of <code>--force-with-lease</code> after a rebase.</li>
             <li>Panicking in the middle of a rebase — <code>git status</code> tells you where you are, and <code>git rebase --abort</code> always gets you out.</li>
             <li>Deleting lines in the todo list by accident — that drops those commits (the reflog in lesson 17 can rescue them).</li>
+            <li>Cherry-picking many commits from a branch and later merging that branch too — the same change now exists twice with different hashes, which can cause confusing conflicts.</li>
           </ul>
         </div>
 
@@ -1709,6 +1791,7 @@ module GitContent
             <li>Rebase the branch onto <code>main</code> and compare <code>git log --oneline --graph --all</code> before and after.</li>
             <li>Add two small commits to the branch, then use <code>git rebase -i main</code> to <code>fixup</code> the second into the first.</li>
             <li>Fast-forward <code>main</code> to the branch with <code>git merge</code>.</li>
+            <li>Make a new branch with two commits, switch back to <code>main</code>, and bring over only the second commit with <code>git cherry-pick -x &lt;hash&gt;</code>. Check <code>git log -1</code>.</li>
           </ol>
         </div>
 
@@ -1720,7 +1803,7 @@ module GitContent
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-git">Git</div>
-          <h1 class="lc-title">Stashing Work in Progress</h1>
+          <h1 class="lc-title">Stashing and Cleaning Work in Progress</h1>
         </div>
         <p class="lc-lead">You are halfway through a feature when an urgent bug comes in. Your work is not ready to commit, but Git will not let you switch branches with conflicting changes. <code>git stash</code> puts your changes on a shelf and gives you a clean working tree.</p>
 
@@ -1815,12 +1898,50 @@ module GitContent
         </div>
 
         <div class="lc-card">
+          <h3>Terminal Walkthrough: Removing Untracked Files with git clean</h3>
+          <p>Stash <em>keeps</em> work for later. Sometimes you want the opposite: throw away leftover untracked files (test output, a build folder, drafts). <code>git clean</code> deletes files that Git is <strong>not tracking</strong>. There is no undo, so always do a dry run first:</p>
+          <div class="lc-code-block"><pre><code>$ echo &quot;draft&quot; &gt; offers.txt
+        $ mkdir build &amp;&amp; echo &quot;temp&quot; &gt; build/out.txt
+        $ echo &quot;debug&quot; &gt; server.log
+        $ echo &quot;Cold coffee - 40&quot; &gt;&gt; menu.txt
+        $ git status -s
+         M menu.txt
+        ?? build/
+        ?? offers.txt
+        $ git clean -n
+        Would remove offers.txt
+        $ git clean -nd
+        Would remove build/
+        Would remove offers.txt
+        $ git clean -fd
+        Removing build/
+        Removing offers.txt
+        $ git status -s --ignored
+         M menu.txt
+        !! server.log
+        $ git clean -ndx
+        Would remove server.log</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th>Command</th><th>Does</th></tr></thead>
+            <tbody>
+              <tr><td><code>git clean -n</code></td><td>Dry run: list untracked <em>files</em> that would be removed</td></tr>
+              <tr><td><code>git clean -nd</code></td><td>Dry run including untracked <em>directories</em> (<code>build/</code>)</td></tr>
+              <tr><td><code>git clean -fd</code></td><td>Really delete untracked files and directories (<code>-f</code> = force)</td></tr>
+              <tr><td><code>git clean -ndx</code></td><td>Dry run that also includes <strong>ignored</strong> files like <code>server.log</code></td></tr>
+              <tr><td><code>git clean -i</code></td><td>Interactive: choose what to delete from a menu</td></tr>
+            </tbody>
+          </table>
+          <p>Notice what <code>git clean -fd</code> did <em>not</em> touch: the edit to the tracked <code>menu.txt</code> (use <code>git restore</code>, lesson 9) and the ignored <code>server.log</code> (only removed with <code>-x</code>). Without <code>-f</code> Git refuses to delete anything, because <code>clean.requireForce</code> is on by default.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Forgetting <code>-u</code>, so new files are left in the working tree.</li>
             <li>Using stash as long-term storage. Stashes are local, easy to forget, and never pushed. For anything longer than a day, commit on a branch.</li>
             <li>Running <code>git stash clear</code> or <code>drop</code> on the wrong entry — check <code>git stash list</code> first.</li>
             <li>Stashing without <code>-m</code> ten times, then not knowing which stash is which.</li>
+            <li>Running <code>git clean -fdx</code> without a dry run — it also deletes ignored files such as <code>.env</code> and <code>node_modules/</code>. Run <code>-n</code> first, every time.</li>
           </ul>
         </div>
 
@@ -1831,6 +1952,7 @@ module GitContent
             <li>Confirm <code>git status -s</code> is empty, then make and commit a small unrelated fix.</li>
             <li>Run <code>git stash list</code>, then <code>git stash pop</code>, and check your changes are back.</li>
             <li>Bonus: stash again and use <code>git stash branch experiment</code> to turn the stash into a branch.</li>
+            <li>Create an untracked file and an untracked folder. Preview with <code>git clean -nd</code>, then remove them with <code>git clean -fd</code>.</li>
           </ol>
         </div>
 

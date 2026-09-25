@@ -36,7 +36,7 @@ module GithubContent
               <tr><td><strong>Settings</strong></td><td>Collaborators, branch rules, Pages (admins only)</td><td>10, 13, 19</td></tr>
             </tbody>
           </table>
-          <p>Top right of every repo: <strong>Watch</strong> (get notifications), <strong>Fork</strong> (your own copy, lesson 12) and <strong>Star</strong> (a bookmark and a "like").</p>
+          <p>Top right of every repo: <strong>Watch</strong> (get notifications), <strong>Fork</strong> (your own copy, lesson 11) and <strong>Star</strong> (a bookmark and a "like").</p>
         </div>
 
         <div class="lc-card">
@@ -108,7 +108,7 @@ module GithubContent
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
-          <h1 class="lc-title">Signing In from Git: HTTPS Tokens and SSH Keys</h1>
+          <h1 class="lc-title">Tokens, SSH Keys and Signed Commits</h1>
         </div>
         <p class="lc-lead">Cloning a public repository needs no login, but <strong>pushing</strong> (and reading private repos) does. GitHub does <strong>not</strong> accept your account password from Git. You need one of the methods below — set it up once per computer.</p>
 
@@ -191,12 +191,49 @@ module GithubContent
         </div>
 
         <div class="lc-card">
+          <h3>Terminal Walkthrough: Sign Your Commits with SSH</h3>
+          <p>Anyone can set <code>user.email</code> to <em>your</em> email and make commits that look like yours. A <strong>signed commit</strong> proves it really came from your key, and GitHub shows a green <strong>Verified</strong> badge next to it. Branch rulesets can even "Require signed commits" (lesson 12). Git 2.34 or newer can sign with the SSH key you already made — no GPG needed.</p>
+          <p><strong>1. Tell Git to sign with your SSH key</strong> (point at the <code>.pub</code> file):</p>
+          <div class="lc-code-block"><pre><code>$ git config --global gpg.format ssh
+        $ git config --global user.signingkey ~/.ssh/id_ed25519.pub
+        $ git config --global commit.gpgsign true</code></pre></div>
+          <p><code>commit.gpgsign true</code> signs every commit automatically. (The name says "gpg" for historical reasons; with <code>gpg.format ssh</code> it uses SSH.) For tags, add <code>git config --global tag.gpgsign true</code>.</p>
+          <p><strong>2. Add the same public key to GitHub as a signing key.</strong> In <em>Settings → SSH and GPG keys → New SSH key</em>, set <strong>Key type</strong> to <strong>Signing Key</strong> and paste the <code>.pub</code> line. Yes, you add the key a second time — once as an Authentication Key, once as a Signing Key. With gh: <code>gh ssh-key add ~/.ssh/id_ed25519.pub --type signing</code>.</p>
+          <p><strong>3. Commit and check the signature locally:</strong></p>
+          <div class="lc-code-block"><pre><code>$ echo &quot;Ginger chai - 25&quot; &gt;&gt; menu.txt
+        $ git commit -am &quot;Add ginger chai&quot;
+        [main 528ab90] Add ginger chai
+         1 file changed, 1 insertion(+)
+        $ git log --show-signature -1
+        error: gpg.ssh.allowedSignersFile needs to be configured and exist for ssh signature verification
+        commit 528ab90...
+        No signature
+        Author: Asha Rao &lt;asha@example.com&gt;
+        Date:   Tue Sep 1 10:09:00 2026 +0530
+
+            Add ginger chai</code></pre></div>
+          <p>The commit <em>is</em> signed, but your own Git cannot check SSH signatures until you tell it which keys to trust. Create an <strong>allowed signers</strong> file (email + public key) and point Git at it:</p>
+          <div class="lc-code-block"><pre><code>$ echo &quot;asha@example.com $(cat ~/.ssh/id_ed25519.pub)&quot; &gt; ~/.ssh/allowed_signers
+        $ git config --global gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
+        $ git log --show-signature -1
+        commit 528ab90...
+        Good &quot;git&quot; signature for asha@example.com with ED25519 key SHA256:WBuNARtmI9OIl4O7m5723NURwN3oPokjaplIcrSs8Yg
+        Author: Asha Rao &lt;asha@example.com&gt;
+        Date:   Tue Sep 1 10:09:00 2026 +0530
+
+            Add ginger chai</code></pre></div>
+          <p><code>Good "git" signature</code> with your key's fingerprint (the same <code>SHA256:WBuN…</code> as when you created the key) means the signature checks out. After you push, the commit shows <strong>Verified</strong> on GitHub — as long as the commit email is a verified email on your GitHub account. Commits you make in the GitHub web editor are signed by GitHub automatically.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Pasting the <strong>private</strong> key (<code>id_ed25519</code>, without <code>.pub</code>) into GitHub. Never share it; if you did, delete that key pair and make a new one.</li>
             <li>Adding an SSH key but keeping the <code>https://</code> remote URL — Git still asks for a token. Check with <code>git remote -v</code>.</li>
             <li>Creating a token with every permission and no expiry.</li>
             <li>Typing <code>yes</code> to the host-key question without checking the fingerprint on a public Wi-Fi.</li>
+            <li>Adding your key only as an Authentication Key — pushes work, but signed commits show <strong>Unverified</strong>. Add it again as a Signing Key.</li>
+            <li>Signing with an email that is not verified on your account — GitHub cannot match the signature to you.</li>
           </ul>
         </div>
 
@@ -206,6 +243,7 @@ module GithubContent
             <li>Create an Ed25519 SSH key with a passphrase and add the public key to GitHub.</li>
             <li>Run <code>ssh -T git@github.com</code> until you see the "Hi &lt;username&gt;!" greeting.</li>
             <li>In a repository, switch <code>origin</code> to the SSH URL with <code>git remote set-url</code> and push a small commit.</li>
+            <li>Set up SSH commit signing, add the key as a Signing Key, push a new commit and find the <strong>Verified</strong> badge in the commit list. Check it locally with <code>git log --show-signature -1</code>.</li>
             <li>Bonus: create a fine-grained token for one test repository that expires in 7 days, and look at the permissions it offers.</li>
           </ol>
         </div>
@@ -390,7 +428,7 @@ module GithubContent
             <tbody>
               <tr><td>Brand-new project, nothing written yet</td><td>Create on GitHub <em>with</em> README, then <code>git clone</code></td></tr>
               <tr><td>Project already on your laptop</td><td>Create an <em>empty</em> GitHub repo, <code>git remote add origin</code>, <code>git push -u origin main</code></td></tr>
-              <tr><td>Someone else's project</td><td><code>git clone</code> (or fork first to contribute, lesson 12)</td></tr>
+              <tr><td>Someone else's project</td><td><code>git clone</code> (or fork first to contribute, lesson 11)</td></tr>
             </tbody>
           </table>
         </div>
@@ -541,9 +579,23 @@ module GithubContent
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
-          <h1 class="lc-title">Issues, Labels and Issue Templates</h1>
+          <h1 class="lc-title">Issues, Labels, Milestones and Projects</h1>
         </div>
-        <p class="lc-lead">An <strong>issue</strong> is a numbered to-do item: a bug report, a feature idea or a question. Issues keep discussion, decisions and the code that fixed them linked together in one place.</p>
+        <p class="lc-lead">An <strong>issue</strong> is a numbered to-do item: a bug report, a feature idea or a task. <strong>Labels</strong> sort issues, <strong>milestones</strong> group them into a goal with a due date, <strong>Projects</strong> show them on a planning board, and <strong>Discussions</strong> hold conversations that are not tasks.</p>
+
+        <div class="lc-card">
+          <h3>Which Tool for What?</h3>
+          <table class="lc-table">
+            <thead><tr><th>Tool</th><th>Lives in</th><th>Use it for</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Issue</strong></td><td>One repo</td><td>One bug, feature or task</td><td>"#12 Total shows ₹0 for one item"</td></tr>
+              <tr><td><strong>Label</strong></td><td>One repo</td><td>Type or area of work</td><td><code>bug</code>, <code>frontend</code></td></tr>
+              <tr><td><strong>Milestone</strong></td><td>One repo</td><td>A release or deadline with a progress bar</td><td>"v1.1 — 15 Oct"</td></tr>
+              <tr><td><strong>Project</strong></td><td>Your account or organization (can span many repos)</td><td>Planning board or table with custom fields</td><td>"Semester project board"</td></tr>
+              <tr><td><strong>Discussion</strong></td><td>One repo (turn on in Settings)</td><td>Q&amp;A, ideas, announcements</td><td>"Which database should we use?"</td></tr>
+            </tbody>
+          </table>
+        </div>
 
         <div class="lc-card">
           <h3>Anatomy of a Good Issue</h3>
@@ -551,25 +603,10 @@ module GithubContent
             <li><strong>Clear title:</strong> "Total shows ₹0 when cart has one item" — not "not working".</li>
             <li><strong>Steps to reproduce</strong>, what you expected, what happened instead.</li>
             <li>Screenshots, error messages, version or browser.</li>
-            <li><strong>Labels</strong> (<code>bug</code>, <code>enhancement</code>, <code>good first issue</code>), an <strong>assignee</strong> (who works on it), and optionally a milestone or project (lesson 7).</li>
+            <li><strong>Labels</strong>, an <strong>assignee</strong> (who works on it), and optionally a milestone and a project.</li>
           </ul>
           <p>Mention people with <code>@username</code> and link other issues or PRs by typing <code>#</code> and the number, e.g. <code>#12</code>. Large issues can be split into <strong>sub-issues</strong>.</p>
-        </div>
-
-        <div class="lc-card">
-          <h3>Default Labels</h3>
-          <table class="lc-table">
-            <thead><tr><th>Label</th><th>Use for</th></tr></thead>
-            <tbody>
-              <tr><td><code>bug</code></td><td>Something is broken</td></tr>
-              <tr><td><code>enhancement</code></td><td>New feature or improvement</td></tr>
-              <tr><td><code>documentation</code></td><td>Docs changes</td></tr>
-              <tr><td><code>good first issue</code></td><td>Easy task for newcomers (GitHub highlights these)</td></tr>
-              <tr><td><code>help wanted</code></td><td>Maintainers want outside help</td></tr>
-              <tr><td><code>duplicate</code>, <code>invalid</code>, <code>wontfix</code>, <code>question</code></td><td>Triage outcomes</td></tr>
-            </tbody>
-          </table>
-          <p>With gh: <code>gh issue create --title "Total shows 0" --label bug --assignee "@me"</code>.</p>
+          <p>Default labels: <code>bug</code>, <code>enhancement</code>, <code>documentation</code>, <code>good first issue</code> (GitHub highlights these for newcomers), <code>help wanted</code>, and triage outcomes <code>duplicate</code>, <code>invalid</code>, <code>wontfix</code>, <code>question</code>. With gh: <code>gh issue create --title "Total shows 0" --label bug --assignee "@me"</code>.</p>
         </div>
 
         <div class="lc-card">
@@ -629,62 +666,13 @@ module GithubContent
         </div>
 
         <div class="lc-card">
-          <h3>Common Mistakes</h3>
+          <h3>Milestones and GitHub Projects</h3>
+          <p><strong>Milestones:</strong> <em>Issues → Milestones → New milestone</em>. Give it a title, an optional due date and a description, then assign issues and PRs to it from their sidebar. The milestone page shows a progress bar such as "60% complete — 3 open, 5 closed".</p>
           <ul class="lc-list">
-            <li>Vague titles like "Help!!" or "Error". Nobody can search for them later.</li>
-            <li>Writing <code>Fixes #12</code> in a PR that targets a non-default branch — the issue will not auto-close.</li>
-            <li>Using issues for chat. Open-ended questions belong in Discussions (lesson 7).</li>
-            <li>Pasting passwords, tokens or customer data into public issues.</li>
-          </ul>
-        </div>
-
-        <div class="lc-card">
-          <h3>Try It</h3>
-          <ol class="lc-list">
-            <li>In your practice repo, open two issues: one <code>bug</code> and one <code>enhancement</code>, each with steps or acceptance criteria.</li>
-            <li>Add the issue form above, commit it to <code>main</code> and click <strong>New issue</strong> to see the form.</li>
-            <li>Fix one issue on a branch, with <code>Fixes #N</code> in the commit message body. Merge into <code>main</code> and watch the issue close.</li>
-            <li>List open issues with <code>gh issue list --label bug</code>.</li>
-          </ol>
-        </div>
-
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Before opening an issue in someone else's project, search existing issues (including closed ones) — your question may already be answered.</p></div>
-      HTML
-    },
-
-    7 => {
-      body: <<~'HTML'
-        <div class="lc-header">
-          <div class="lc-badge le-badge le-badge-github">GitHub</div>
-          <h1 class="lc-title">Milestones, Projects and Discussions</h1>
-        </div>
-        <p class="lc-lead">Issues describe single tasks. <strong>Milestones</strong> group them into a goal with a due date, <strong>Projects</strong> give you boards and tables to plan and track work, and <strong>Discussions</strong> host questions and ideas that are not tasks.</p>
-
-        <div class="lc-card">
-          <h3>Which Tool for What?</h3>
-          <table class="lc-table">
-            <thead><tr><th>Tool</th><th>Lives in</th><th>Use it for</th><th>Example</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Label</strong></td><td>One repo</td><td>Type or area of work</td><td><code>bug</code>, <code>frontend</code></td></tr>
-              <tr><td><strong>Milestone</strong></td><td>One repo</td><td>A release or deadline with a progress bar</td><td>"v1.1 — 15 Oct"</td></tr>
-              <tr><td><strong>Project</strong></td><td>Your account or organization (can span many repos)</td><td>Planning board with custom fields</td><td>"Semester project board"</td></tr>
-              <tr><td><strong>Discussion</strong></td><td>One repo (turn on in Settings)</td><td>Q&amp;A, ideas, announcements</td><td>"Which database should we use?"</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="lc-card">
-          <h3>Milestones</h3>
-          <p><em>Issues → Milestones → New milestone</em>: give it a title, an optional due date and a description. Assign issues and PRs to it from their sidebar. The milestone page shows a progress bar such as "60% complete — 3 open, 5 closed" — an easy way to see if a release is on track.</p>
-        </div>
-
-        <div class="lc-card">
-          <h3>GitHub Projects</h3>
-          <ul class="lc-list">
-            <li><strong>Views:</strong> the same items shown as a <em>Table</em> (spreadsheet), a <em>Board</em> (Kanban columns like Todo / In Progress / Done) or a <em>Roadmap</em> (timeline).</li>
+            <li><strong>Project views:</strong> the same items as a <em>Table</em> (spreadsheet), a <em>Board</em> (Kanban columns) or a <em>Roadmap</em> (timeline).</li>
             <li><strong>Items:</strong> issues and pull requests from any of your repos, plus quick "draft" notes.</li>
             <li><strong>Custom fields:</strong> Status, Priority, Size, Iteration (sprints), dates.</li>
-            <li><strong>Built-in workflows:</strong> for example, set Status to <em>Done</em> automatically when an issue closes or a PR merges, or auto-add new issues that match a filter.</li>
+            <li><strong>Built-in workflows:</strong> for example, set Status to <em>Done</em> automatically when an issue closes or a PR merges.</li>
           </ul>
           <div class="lc-flow">
             <div class="lc-flow-step">Todo<small>new issues</small></div>
@@ -695,11 +683,7 @@ module GithubContent
             <div class="lc-flow-arrow">→</div>
             <div class="lc-flow-step">Done<small>PR merged</small></div>
           </div>
-        </div>
-
-        <div class="lc-card">
-          <h3>From the Terminal</h3>
-          <p>Project commands need an extra permission for gh the first time:</p>
+          <p>From the terminal (Project commands need an extra gh permission the first time):</p>
           <div class="lc-code-block"><pre><code>$ gh auth refresh -s project
         $ gh project create --owner &quot;@me&quot; --title &quot;Chai Menu Roadmap&quot;
         $ gh issue create --title &quot;Add lassi&quot; --label enhancement --milestone &quot;v1.1&quot; --project &quot;Chai Menu Roadmap&quot;
@@ -715,28 +699,31 @@ module GithubContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Creating a project board but never updating it. Use the built-in workflows so cards move automatically.</li>
+            <li>Vague titles like "Help!!" or "Error". Nobody can search for them later.</li>
+            <li>Writing <code>Fixes #12</code> in a PR that targets a non-default branch — the issue will not auto-close.</li>
             <li>Using milestones for categories (that is what labels are for) or labels for deadlines.</li>
-            <li>Letting the Issues tab fill with questions and opinions — move them to Discussions.</li>
-            <li>Too many columns. Todo / In Progress / Done is enough for most student teams.</li>
+            <li>Creating a project board but never updating it. Use the built-in workflows so cards move automatically.</li>
+            <li>Letting the Issues tab fill with open-ended questions — move them to Discussions.</li>
+            <li>Pasting passwords, tokens or customer data into public issues.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>Create a milestone <code>v1.0</code> with a due date two weeks away and assign three issues to it.</li>
-            <li>Create a Project with a Board view and columns Todo / In Progress / Done, and add those issues.</li>
-            <li>Enable the workflow "Item closed → Status: Done", close one issue and watch its card move.</li>
-            <li>Turn on Discussions and post a question in the Q&amp;A category.</li>
+            <li>In your practice repo, open two issues: one <code>bug</code> and one <code>enhancement</code>, each with steps or acceptance criteria.</li>
+            <li>Add the issue form above, commit it to <code>main</code> and click <strong>New issue</strong> to see the form.</li>
+            <li>Create a milestone <code>v1.0</code> due in two weeks and a Project with a Board view; add both issues to each.</li>
+            <li>Enable the Project workflow "Item closed → Status: Done".</li>
+            <li>Fix one issue on a branch, with <code>Fixes #N</code> in the commit message body. Merge into <code>main</code> and watch the issue close and its card move to Done.</li>
           </ol>
         </div>
 
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>For a college team project, one shared Project board plus one milestone per submission deadline is simple and works very well.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>For a college team project, one shared Project board plus one milestone per submission deadline is simple and works very well. Before opening an issue in someone else's project, search existing issues (including closed ones) first.</p></div>
       HTML
     },
 
-    8 => {
+    7 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -768,8 +755,8 @@ module GithubContent
             <tbody>
               <tr><td>Conversation</td><td>Description, comments, reviews, check results, the merge button</td></tr>
               <tr><td>Commits</td><td>Every commit on the branch</td></tr>
-              <tr><td>Checks</td><td>GitHub Actions results (lesson 15)</td></tr>
-              <tr><td>Files changed</td><td>The diff, where reviewers leave line comments (lesson 9)</td></tr>
+              <tr><td>Checks</td><td>GitHub Actions results (lesson 14)</td></tr>
+              <tr><td>Files changed</td><td>The diff, where reviewers leave line comments (lesson 8)</td></tr>
             </tbody>
           </table>
         </div>
@@ -869,7 +856,7 @@ module GithubContent
       HTML
     },
 
-    9 => {
+    8 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -964,11 +951,11 @@ module GithubContent
           </ol>
         </div>
 
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Add a <code>CODEOWNERS</code> file (lesson 10) and GitHub will automatically request reviews from the right people whenever their part of the code changes.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Add a <code>CODEOWNERS</code> file (lesson 9) and GitHub will automatically request reviews from the right people whenever their part of the code changes.</p></div>
       HTML
     },
 
-    10 => {
+    9 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -1007,7 +994,7 @@ module GithubContent
 
         # Workflows need a DevOps review
         /.github/workflows/  @chai-org/devops</code></pre></div>
-          <p>When a PR touches <code>web/</code>, the frontend team is asked to review automatically. With a branch rule "Require review from Code Owners" (lesson 13), their approval becomes mandatory. Owners must have write access to the repo.</p>
+          <p>When a PR touches <code>web/</code>, the frontend team is asked to review automatically. With a branch rule "Require review from Code Owners" (lesson 12), their approval becomes mandatory. Owners must have write access to the repo.</p>
         </div>
 
         <div class="lc-card">
@@ -1054,7 +1041,7 @@ module GithubContent
       HTML
     },
 
-    11 => {
+    10 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -1132,7 +1119,7 @@ module GithubContent
         <div class="lc-card">
           <h3>Rules of GitHub Flow</h3>
           <ul class="lc-list">
-            <li>Never commit directly to <code>main</code> — enforce it with branch rules (lesson 13).</li>
+            <li>Never commit directly to <code>main</code> — enforce it with branch rules (lesson 12).</li>
             <li>Name branches after the work: <code>feature/lassi</code>, <code>fix/12-rounding</code>.</li>
             <li>Keep branches short: hours or days, not weeks. Long branches cause big conflicts.</li>
             <li>If <code>main</code> moved while you worked, update your branch (<code>git pull origin main</code> or the <em>Update branch</em> button on the PR) and re-test.</li>
@@ -1165,7 +1152,7 @@ module GithubContent
       HTML
     },
 
-    12 => {
+    11 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -1290,7 +1277,7 @@ module GithubContent
       HTML
     },
 
-    13 => {
+    12 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -1322,10 +1309,10 @@ module GithubContent
               <tr><td>Block force pushes</td><td>History on <code>main</code> cannot be rewritten</td></tr>
               <tr><td>Require a pull request before merging</td><td>No direct pushes; set required approvals (e.g. 1)</td></tr>
               <tr><td>Dismiss stale approvals when new commits are pushed</td><td>Reviewers must re-check changed code</td></tr>
-              <tr><td>Require review from Code Owners</td><td>CODEOWNERS must approve their areas (lesson 10)</td></tr>
-              <tr><td>Require status checks to pass</td><td>The CI job (lesson 15) must be green</td></tr>
+              <tr><td>Require review from Code Owners</td><td>CODEOWNERS must approve their areas (lesson 9)</td></tr>
+              <tr><td>Require status checks to pass</td><td>The CI job (lesson 14) must be green</td></tr>
               <tr><td>Require linear history</td><td>Only squash or rebase merges allowed</td></tr>
-              <tr><td>Require signed commits</td><td>Commits must be GPG/SSH signed and verified</td></tr>
+              <tr><td>Require signed commits</td><td>Commits must be GPG/SSH signed and verified (set up SSH signing in lesson 2)</td></tr>
             </tbody>
           </table>
           <p>The <strong>bypass list</strong> lets chosen roles or apps skip a ruleset (for example admins in an emergency). Keep it as short as possible. You can inspect rules from the terminal with <code>gh ruleset list</code> and <code>gh ruleset check main</code>.</p>
@@ -1389,7 +1376,7 @@ module GithubContent
       HTML
     },
 
-    14 => {
+    13 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -1488,7 +1475,7 @@ module GithubContent
             <li>Saving the file in the wrong place (<code>.github/workflow/</code> or <code>github/workflows/</code>). It must be <code>.github/workflows/*.yml</code>.</li>
             <li>Tabs or wrong indentation in YAML — the Actions tab shows "Invalid workflow file".</li>
             <li>Forgetting <code>actions/checkout</code> and wondering why your files are missing.</li>
-            <li>Copying old examples with <code>actions/checkout@v2</code> or <code>@v3</code>. Old majors run on outdated Node versions and show deprecation warnings; use the current major (<code>@v7</code> in 2026) — Dependabot can keep it updated (lesson 17).</li>
+            <li>Copying old examples with <code>actions/checkout@v2</code> or <code>@v3</code>. Old majors run on outdated Node versions and show deprecation warnings; use the current major (<code>@v7</code> in 2026) — Dependabot can keep it updated (lesson 16).</li>
           </ul>
         </div>
 
@@ -1506,7 +1493,7 @@ module GithubContent
       HTML
     },
 
-    15 => {
+    14 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -1578,7 +1565,7 @@ module GithubContent
                 run: python -m unittest discover -v</code></pre></div>
           <ul class="lc-list">
             <li><strong>Triggers:</strong> pushes to <code>main</code> and every pull request.</li>
-            <li><code>permissions: contents: read</code> — the job may only read the repo (least privilege, lesson 16).</li>
+            <li><code>permissions: contents: read</code> — the job may only read the repo (least privilege, lesson 15).</li>
             <li><strong>Matrix:</strong> the job runs three times in parallel, once per Python version. The PR shows three checks: <code>test (3.12)</code>, <code>test (3.13)</code>, <code>test (3.14)</code>.</li>
             <li><code>actions/setup-python@v7</code> installs the requested Python on the runner.</li>
             <li>If any command exits with a non-zero code (a failing test), the step fails and the check turns red.</li>
@@ -1591,7 +1578,7 @@ module GithubContent
           <ul class="lc-list">
             <li>On the PR: the checks box lists each job with ✓ or ✗. Click <strong>Details</strong> for the log.</li>
             <li>In the terminal: <code>gh pr checks</code> (add <code>--watch</code> to wait until they finish).</li>
-            <li>Make CI mandatory: in your ruleset (lesson 13) enable <strong>Require status checks to pass</strong> and add the <code>test</code> checks.</li>
+            <li>Make CI mandatory: in your ruleset (lesson 12) enable <strong>Require status checks to pass</strong> and add the <code>test</code> checks.</li>
             <li>Add a badge to the README: <code>![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)</code>.</li>
           </ul>
         </div>
@@ -1633,7 +1620,7 @@ module GithubContent
       HTML
     },
 
-    16 => {
+    15 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -1734,7 +1721,7 @@ module GithubContent
       HTML
     },
 
-    17 => {
+    16 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -1830,7 +1817,7 @@ module GithubContent
       HTML
     },
 
-    18 => {
+    17 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -1930,7 +1917,7 @@ module GithubContent
       HTML
     },
 
-    19 => {
+    18 => {
       body: <<~'HTML'
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
@@ -2058,6 +2045,170 @@ module GithubContent
       HTML
     },
 
+    19 => {
+      body: <<~'HTML'
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-github">GitHub</div>
+          <h1 class="lc-title">GitHub Copilot and Codespaces</h1>
+        </div>
+        <p class="lc-lead">Modern teams use GitHub for more than storing code. <strong>Copilot</strong> can review pull requests and even write a first draft of a change for you, and <strong>Codespaces</strong> gives every contributor the same ready-to-code environment in the cloud. Both still follow the same rule you learned all course: every change arrives as a pull request that a human reviews.</p>
+
+        <div class="lc-card">
+          <h3>Four Tools at a Glance</h3>
+          <table class="lc-table">
+            <thead><tr><th>Tool</th><th>What it is</th><th>Runs code?</th><th>Cost (personal account)</th></tr></thead>
+            <tbody>
+              <tr><td><strong>github.dev</strong></td><td>VS Code in the browser for quick edits</td><td>No — no terminal</td><td>Free</td></tr>
+              <tr><td><strong>Codespaces</strong></td><td>A full cloud computer (container) with VS Code and a terminal</td><td>Yes</td><td>Free monthly quota, then paid</td></tr>
+              <tr><td><strong>Copilot code review</strong></td><td>Copilot as a reviewer on a pull request</td><td>—</td><td>Copilot Student or a paid Copilot plan</td></tr>
+              <tr><td><strong>Copilot cloud agent</strong> (formerly "coding agent")</td><td>Copilot works on a task in the background and prepares a pull request</td><td>Yes, in a GitHub Actions environment</td><td>Copilot Student or a paid Copilot plan</td></tr>
+            </tbody>
+          </table>
+          <p>Facts checked against docs.github.com in September 2026. Plans, prices and limits change often — check the official pages before you rely on a number.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>github.dev: Quick Edits in the Browser</h3>
+          <p>On any repository or pull request page, press the <kbd>.</kbd> (full stop) key, or change <code>github.com</code> to <code>github.dev</code> in the address bar. VS Code opens in your browser with the repository loaded. You can edit files, commit to a new branch and open a pull request. There is <strong>no compute</strong>, so you cannot run code, tests or a terminal — for that you need a codespace.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Codespaces and Dev Containers</h3>
+          <p>A <strong>codespace</strong> is a container running on GitHub's servers. You open it from <em>Code → Codespaces → Create codespace on main</em> and get VS Code (in the browser or on your desktop) with a real terminal. Without any setup GitHub uses a default Linux image with Python, Node, Java and other languages. To give every contributor <em>exactly</em> the same setup, add a <strong>dev container</strong> file at <code>.devcontainer/devcontainer.json</code>:</p>
+          <div class="lc-code-block"><pre><code>{
+          &quot;name&quot;: &quot;Expense Splitter&quot;,
+          &quot;image&quot;: &quot;mcr.microsoft.com/devcontainers/python:3.13&quot;,
+          &quot;postCreateCommand&quot;: &quot;python3 -m unittest discover -v&quot;,
+          &quot;customizations&quot;: {
+            &quot;vscode&quot;: {
+              &quot;extensions&quot;: [&quot;ms-python.python&quot;]
+            }
+          },
+          &quot;forwardPorts&quot;: [8000]
+        }</code></pre></div>
+          <ul class="lc-list">
+            <li><code>image</code> — the base container: Microsoft's official Python 3.13 dev container image.</li>
+            <li><code>postCreateCommand</code> — runs once after the container is created (here: run the tests to prove the setup works; many projects run <code>pip install -r requirements.txt</code>).</li>
+            <li><code>customizations.vscode.extensions</code> — VS Code extensions installed automatically.</li>
+            <li><code>forwardPorts</code> — a web server on port 8000 inside the codespace gets a private URL you can open.</li>
+          </ul>
+          <table class="lc-table">
+            <thead><tr><th>Free quota (GitHub Free personal account)</th><th>Per month</th></tr></thead>
+            <tbody>
+              <tr><td>Compute</td><td>120 hours, counted in <em>core hours</em>: a 2-core machine (the smallest) uses 2 per hour, so about 60 real hours</td></tr>
+              <tr><td>Storage</td><td>15 GB-month</td></tr>
+            </tbody>
+          </table>
+          <p>A codespace stops by itself after 30 minutes of inactivity (default). Stopped codespaces use no compute but still use storage, so <strong>delete</strong> ones you no longer need. Without a payment method, usage is simply blocked when the quota runs out — you are not charged.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Copilot Plans in Short</h3>
+          <table class="lc-table">
+            <thead><tr><th>Plan</th><th>Price</th><th>Code review on PRs</th><th>Cloud agent</th></tr></thead>
+            <tbody>
+              <tr><td>Copilot Free</td><td>Free (limited, e.g. 2,000 code completions a month)</td><td>Only "Review selection" in VS Code</td><td>No</td></tr>
+              <tr><td>Copilot Student</td><td>Free for verified students (GitHub Education)</td><td>Yes</td><td>Yes (no third-party agents)</td></tr>
+              <tr><td>Copilot Pro / Pro+ / Max</td><td>$10 / $39 / $100 per month</td><td>Yes</td><td>Yes</td></tr>
+              <tr><td>Copilot Business / Enterprise</td><td>$19 / $39 per user per month (organizations)</td><td>Yes</td><td>Yes, once an admin enables it</td></tr>
+            </tbody>
+          </table>
+          <p>Verified teachers and maintainers of popular open-source projects may also get Copilot Pro free.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Copilot Code Review</h3>
+          <ol class="lc-list">
+            <li>Open a pull request. In the right sidebar under <strong>Reviewers</strong>, click <strong>Request</strong> next to <strong>Copilot</strong>.</li>
+            <li>After a short wait Copilot leaves review comments, each marked High, Medium or Low severity, often with a suggested change you can commit.</li>
+            <li>Treat them like a teammate's comments: apply, reply or resolve. <strong>Fix with Copilot</strong> can ask Copilot to make the change for you.</li>
+          </ol>
+          <p>By default Copilot leaves a <strong>"Comment"</strong> review, not "Approve", so it does <strong>not</strong> count toward a ruleset's required approvals. (Admins can turn on Copilot approvals, but a human reviewer is still the safe default.) Owners can also make Copilot review every PR automatically with a ruleset.</p>
+          <p>Give Copilot your project's rules in <code>.github/copilot-instructions.md</code>. Copilot code review and the cloud agent both read it:</p>
+          <div class="lc-code-block"><pre><code># Copilot instructions for expense-splitter
+
+        - This is a Python 3.13 project with no third-party packages.
+        - Run the tests with: python3 -m unittest discover -v
+        - Every new function needs a unit test in tests/.
+        - Money values are rounded to 2 decimals; never use float equality in tests
+          without rounding first.
+        - Keep functions small and add a one-line docstring.</code></pre></div>
+        </div>
+
+        <div class="lc-card">
+          <h3>Terminal Walkthrough: Commit the Setup Files</h3>
+          <p>Both files are ordinary files in the repository, so they go through a normal pull request:</p>
+          <div class="lc-code-block"><pre><code>$ git switch -c chore/dev-setup
+        Switched to a new branch &#39;chore/dev-setup&#39;
+        $ mkdir -p .devcontainer
+        $ git status -s
+        ?? .devcontainer/
+        ?? .github/copilot-instructions.md
+        $ git add .devcontainer .github/copilot-instructions.md
+        $ git commit -m &quot;Add dev container and Copilot instructions&quot;
+        [chore/dev-setup 05b78ec] Add dev container and Copilot instructions
+         2 files changed, 19 insertions(+)
+         create mode 100644 .devcontainer/devcontainer.json
+         create mode 100644 .github/copilot-instructions.md
+        $ git push -u origin chore/dev-setup
+        To https://github.com/asha/expense-splitter.git
+         * [new branch]      chore/dev-setup -&gt; chore/dev-setup
+        branch &#39;chore/dev-setup&#39; set up to track &#39;origin/chore/dev-setup&#39;.</code></pre></div>
+          <p>(On real GitHub the push also prints <code>remote:</code> lines with a link to open a pull request.) After merging, every new codespace for this repo uses Python 3.13 and runs the tests on creation. The same can be done from the terminal with gh — typical commands (names and output will differ):</p>
+          <div class="lc-code-block"><pre><code>$ gh codespace create --repo asha/expense-splitter --branch main
+        $ gh codespace list
+        $ gh codespace code      # open it in desktop VS Code
+        $ gh codespace ssh       # or open a terminal inside it
+        $ gh codespace stop
+        $ gh codespace delete</code></pre></div>
+        </div>
+
+        <div class="lc-card">
+          <h3>Copilot Cloud Agent: Assign an Issue to Copilot</h3>
+          <p>Open a clear, small issue — for example "#2 Support unequal shares" with acceptance criteria — and choose <strong>Copilot</strong> as the assignee (you can also start a task from the agents panel, or write <code>@copilot</code> in a comment on an existing PR). A typical flow:</p>
+          <div class="lc-flow">
+            <div class="lc-flow-step">Issue assigned<small>to Copilot</small></div>
+            <div class="lc-flow-arrow">→</div>
+            <div class="lc-flow-step">Agent works<small>on a <code>copilot/</code> branch</small></div>
+            <div class="lc-flow-arrow">→</div>
+            <div class="lc-flow-step">Draft PR<small>with session log</small></div>
+            <div class="lc-flow-arrow">→</div>
+            <div class="lc-flow-step">You review<small>approve workflows, merge</small></div>
+          </div>
+          <ul class="lc-list">
+            <li>Copilot works in its own temporary environment powered by <strong>GitHub Actions</strong>, can run your tests, and may push only to its own <code>copilot/</code> branch.</li>
+            <li>It <strong>cannot</strong> mark its PR ready, approve it or merge it — a human must. If your ruleset requires approvals, the person who asked Copilot cannot be the approver; someone else must approve.</li>
+            <li>By default your workflows do not run on Copilot's pushes until someone with write access reviews the code and clicks <strong>Approve and run workflows</strong>. Check changes to <code>.github/workflows/</code> with extra care.</li>
+            <li>One task works in one repository, on one branch, and a session stops after at most 59 minutes — keep tasks small and specific.</li>
+            <li>To ask for changes, comment <code>@copilot</code> on the PR, or push your own commits to its branch.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Merging AI-written code without reading it or running the tests. You are responsible for every line you merge.</li>
+            <li>Treating Copilot's review as the only review. It is a helpful extra reviewer, not a replacement for a teammate.</li>
+            <li>Giving the cloud agent a vague task ("improve the app"). Write an issue with clear acceptance criteria, like you would for a new teammate.</li>
+            <li>Leaving codespaces running or never deleting old ones, then running out of free quota or storage.</li>
+            <li>Expecting github.dev to run code — it has no terminal; use a codespace.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>Open any of your repositories and press <kbd>.</kbd> to open github.dev. Edit the README and commit it to a new branch.</li>
+            <li>Add the <code>devcontainer.json</code> above to a Python repo, merge it, and create a codespace. Check that the tests ran and that <code>python3 --version</code> prints 3.13.</li>
+            <li>If you have Copilot Student or a paid plan: open a PR and request a review from Copilot. Apply one suggestion and resolve one comment.</li>
+            <li>Stop and delete the codespace, then check your usage in <em>Settings → Billing and licensing</em>.</li>
+          </ol>
+        </div>
+
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Students: apply for GitHub Education with your college email to get Copilot Student and extra benefits for free. Then practise by assigning a small, well-written issue to Copilot and reviewing its PR as carefully as you would review a classmate's.</p></div>
+      HTML
+    },
+
     20 => {
       body: <<~'HTML'
         <div class="lc-header">
@@ -2068,7 +2219,7 @@ module GithubContent
 
         <div class="lc-card">
           <h3>Step 1: Repository with Tests and CI</h3>
-          <p>Create <code>splitter.py</code>, <code>tests/test_splitter.py</code>, the <code>ci.yml</code> workflow from lesson 15, a <code>.gitignore</code> and a README. Check the tests locally:</p>
+          <p>Create <code>splitter.py</code>, <code>tests/test_splitter.py</code>, the <code>ci.yml</code> workflow from lesson 14, a <code>.gitignore</code> and a README. Check the tests locally:</p>
           <div class="lc-code-block"><pre><code>$ python3 -m unittest discover -v
         test_even_split (tests.test_splitter.TestSplitBill.test_even_split) ... ok
         test_zero_people (tests.test_splitter.TestSplitBill.test_zero_people) ... ok
@@ -2101,34 +2252,56 @@ module GithubContent
           <h3>Step 2: Protect and Plan</h3>
           <ul class="lc-list">
             <li>Add an MIT <code>LICENSE</code> and a clear README (lesson 5).</li>
-            <li>Create a ruleset for <code>main</code>: require a PR, block force pushes, require the CI checks (lesson 13).</li>
-            <li>Open issues: <strong>#1</strong> "Round each share to 2 decimals", <strong>#2</strong> "Support unequal shares", <strong>#3</strong> "Add a web page" — with labels and a milestone <code>v1.0</code> (lessons 6–7).</li>
+            <li>Create a ruleset for <code>main</code>: require a PR, block force pushes, require the CI checks (lesson 12).</li>
+            <li>Open issues: <strong>#1</strong> "Round each share to 2 decimals", <strong>#2</strong> "Support unequal shares", <strong>#3</strong> "Add a web page" — with labels and a milestone <code>v1.0</code> (lesson 6).</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Step 3: Work Through Pull Requests</h3>
+          <p>For issue #1, create a branch, change <code>split_bill</code> so it rounds each share (here the whole file is rewritten with a heredoc; editing it in your editor works just as well), check the diff, then commit and push:</p>
           <div class="lc-code-block"><pre><code>$ git switch -c feature/round-shares
         Switched to a new branch &#39;feature/round-shares&#39;
+        $ cat &gt; splitter.py &lt;&lt;&#39;EOF&#39;
+        def split_bill(total, people):
+            &quot;&quot;&quot;Split a bill equally between people, rounded to 2 decimals.&quot;&quot;&quot;
+            if people &lt;= 0:
+                raise ValueError(&quot;people must be at least 1&quot;)
+            return round(total / people, 2)
+        EOF
+        $ git diff
+        diff --git a/splitter.py b/splitter.py
+        index dbf79ce..c0d7831 100644
+        --- a/splitter.py
+        +++ b/splitter.py
+        @@ -1,5 +1,5 @@
+         def split_bill(total, people):
+        -    &quot;&quot;&quot;Split a bill equally between people.&quot;&quot;&quot;
+        +    &quot;&quot;&quot;Split a bill equally between people, rounded to 2 decimals.&quot;&quot;&quot;
+             if people &lt;= 0:
+                 raise ValueError(&quot;people must be at least 1&quot;)
+        -    return total / people
+        +    return round(total / people, 2)
         $ git commit -am &quot;Round each share to 2 decimals&quot; -m &quot;Closes #1&quot;
-        [feature/round-shares 8dcdbf7] Round each share to 2 decimals
+        [feature/round-shares e291a7e] Round each share to 2 decimals
          1 file changed, 2 insertions(+), 2 deletions(-)
         $ git push -u origin feature/round-shares
         To https://github.com/asha/expense-splitter.git
          * [new branch]      feature/round-shares -&gt; feature/round-shares
         branch &#39;feature/round-shares&#39; set up to track &#39;origin/feature/round-shares&#39;.</code></pre></div>
+          <p><code>git diff</code> shows exactly the two changed lines that the commit reports as <code>2 insertions(+), 2 deletions(-)</code>. (On real GitHub the push also prints <code>remote:</code> lines with a link to open the pull request.) Add a test such as <code>self.assertEqual(split_bill(100, 3), 33.33)</code> in the same PR. Then:</p>
           <div class="lc-code-block"><pre><code>$ gh pr create --fill
         $ gh pr checks --watch
         $ gh pr merge --squash --delete-branch</code></pre></div>
-          <p><code>--fill</code> uses the commit message, so the PR body contains <code>Closes #1</code> and the issue closes on merge. Wait for green checks before merging. If a friend can review, ask them to — otherwise review your own diff carefully in <em>Files changed</em>.</p>
+          <p><code>--fill</code> uses the commit message, so the PR body contains <code>Closes #1</code> and the issue closes on merge. Wait for green checks before merging. If a friend can review, ask them to — otherwise review your own diff carefully in <em>Files changed</em>. If you have Copilot, also request a review from Copilot (lesson 19) as an extra reviewer.</p>
         </div>
 
         <div class="lc-card">
           <h3>Step 4: Security, Release and Pages</h3>
           <ul class="lc-list">
-            <li>Add <code>.github/dependabot.yml</code> for <code>pip</code> and <code>github-actions</code>; enable Dependabot alerts and CodeQL default setup (lesson 17).</li>
-            <li>Tag <code>v1.0.0</code>, push the tag and create a release with generated notes (lesson 18).</li>
-            <li>Add a <code>site/index.html</code> describing the project and deploy it with the Pages workflow (lesson 19). Link it in the README.</li>
+            <li>Add <code>.github/dependabot.yml</code> for <code>pip</code> and <code>github-actions</code>; enable Dependabot alerts and CodeQL default setup (lesson 16).</li>
+            <li>Tag <code>v1.0.0</code>, push the tag and create a release with generated notes (lesson 17).</li>
+            <li>Add a <code>site/index.html</code> describing the project and deploy it with the Pages workflow (lesson 18). Link it in the README.</li>
           </ul>
         </div>
 
@@ -2166,6 +2339,8 @@ module GithubContent
             <li>Invite a friend as a collaborator and review each other's PRs, including one <code>suggestion</code> block.</li>
             <li>Add the automatic release workflow and ship <code>v1.1.0</code> just by pushing a tag.</li>
             <li>Contribute one small PR to someone else's project through a fork.</li>
+            <li>Add the dev container from lesson 19 so anyone can open the project in a codespace and run the tests with one click.</li>
+            <li>Turn on SSH commit signing (lesson 2) and require signed commits in your ruleset.</li>
           </ol>
         </div>
 
