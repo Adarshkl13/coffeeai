@@ -318,6 +318,18 @@ module NumpyContent
           <p>Older tutorials still use these names; in NumPy 2 they raise an <code>AttributeError</code>.</p>
         </div>
         <div class="lc-card">
+          <h3>Two Special dtypes: datetime64 and Structured Arrays</h3>
+          <p><strong>datetime64</strong> stores dates as numbers, so you can subtract and add them. <strong>Structured arrays</strong> give each element named fields of different types, like a tiny table.</p>
+          <div class="lc-code">d = np.array(["2026-01-26", "2026-08-15"], dtype="datetime64[D]")<br>print(d, d.dtype)<br>print(d[1] - d[0])<br>print(d + np.timedelta64(7, "D"))<br><br>people = np.array([("Asha", 21, 82.5), ("Ravi", 19, 74.0)],<br>                  dtype=[("name", "U10"), ("age", "i8"), ("marks", "f8")])<br>print(people["name"], people["marks"].mean())<br>print(people[people["age"] &gt; 20])</div>
+          <p>Output:</p>
+          <div class="lc-code">['2026-01-26' '2026-08-15'] datetime64[D]<br>201 days<br>['2026-02-02' '2026-08-22']<br>['Asha' 'Ravi'] 78.25<br>[('Asha', 21, 82.5)]</div>
+          <ul class="lc-list">
+            <li>The unit in brackets matters: <code>[D]</code> = days, <code>[s]</code> = seconds. Subtracting two dates gives a <code>timedelta64</code>.</li>
+            <li><code>people["marks"]</code> is a normal float array, so every NumPy function works on it. Masks select whole records.</li>
+            <li>For real tables with many columns, use a pandas DataFrame (Lesson 18) — structured arrays are mainly for reading binary files and fixed record layouts.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
           <h3>Quick Check</h3>
           <p>What does this print? Predict first, then run it in the editor.</p>
           <div class="lc-code">a = np.array([2.9, -2.9, 0.5])<br>print(a.astype(np.int64), a.dtype)</div>
@@ -393,6 +405,12 @@ module NumpyContent
         print("\n=== NumPy 2 scalar repr ===")
         total = np.array([1.5, 2.5]).sum()
         print("print:", total, "| repr:", repr(total))
+
+        print("\n=== datetime64 and structured dtypes ===")
+        d = np.array(["2026-01-26", "2026-08-15"], dtype="datetime64[D]")
+        print("days between:", d[1] - d[0])
+        people = np.array([("Asha", 21), ("Ravi", 19)], dtype=[("name", "U10"), ("age", "i8")])
+        print("names:", people["name"], "| ages:", people["age"])
       PYTHON
     },
 

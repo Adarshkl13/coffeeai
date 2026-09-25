@@ -1090,6 +1090,14 @@ module PandasContent
           <p>In pandas 2 and later the result Series is named <code>count</code> (or <code>proportion</code>), and its index is named after the column.</p>
         </div>
         <div class="lc-card">
+          <h3>Binning Numbers: pd.cut vs pd.qcut</h3>
+          <p>To count numbers in ranges, turn them into bins first. <code>pd.cut</code> makes <strong>equal-width</strong> ranges; <code>pd.qcut</code> makes <strong>equal-count</strong> groups (quantiles).</p>
+          <div class="lc-code">amount = pd.Series([150, 200, 300, 350, 400, 500, 650, 800, 900, 1200])<br>print(pd.cut(amount, bins=3).value_counts(sort=False))<br>print(pd.qcut(amount, q=3, labels=["low", "mid", "high"]).value_counts(sort=False))</div>
+          <p>Output:</p>
+          <div class="lc-code">(148.95, 500.0]    6<br>(500.0, 850.0]     2<br>(850.0, 1200.0]    2<br>Name: count, dtype: int64<br>low     3<br>mid     3<br>high    4<br>Name: count, dtype: int64</div>
+          <p>Equal-width bins put most small orders in one bucket; <code>qcut</code> splits the orders into three groups of (almost) equal size — useful for "low / mid / high spender" labels.</p>
+        </div>
+        <div class="lc-card">
           <h3>describe()</h3>
           <p><code>df.describe()</code> combines count, mean, std, min, 25%, 50%, 75% and max for every numeric column in one table. For text columns, <code>df.describe(include="object")</code> shows count, unique, top (most common) and freq.</p>
         </div>
@@ -1734,6 +1742,21 @@ module PandasContent
             </tbody>
           </table>
           <p>With a <code>category</code> column as index or columns, <code>observed=True</code> (show only categories that occur) is the default in pandas 3.0. This editor runs pandas 2.3, where the default is still <code>False</code> and leaving it out gives a <code>FutureWarning</code> — so pass <code>observed=True</code> explicitly on 2.x, as the starter does.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Quick Charts with .plot()</h3>
+          <p>A pivot table is often the data for a chart. Every DataFrame and Series has a <code>.plot()</code> method that draws with Matplotlib: the index becomes the x-axis and each column becomes one series.</p>
+          <table class="lc-table">
+            <thead><tr><th>Call</th><th>Chart</th><th>Good for</th></tr></thead>
+            <tbody>
+              <tr><td><code>table.plot(kind="bar")</code></td><td>grouped bars</td><td>comparing categories (city × month)</td></tr>
+              <tr><td><code>monthly.plot()</code></td><td>line (the default)</td><td>trends over time</td></tr>
+              <tr><td><code>df["amount"].plot(kind="hist", bins=5)</code></td><td>histogram</td><td>the spread of one number column</td></tr>
+              <tr><td><code>df.plot(kind="scatter", x="units", y="amount")</code></td><td>scatter</td><td>the relationship between two columns</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">ax = table.plot(kind="bar", title="Sales by city and month")<br>ax.figure.savefig("sales.png")     # or plt.show() on a laptop</div>
+          <p><code>.plot()</code> returns a Matplotlib <code>Axes</code> object. It needs Matplotlib installed (<code>pip install matplotlib</code>); in Jupyter the chart appears below the cell. This course's editor shows text output only, so try charts on your laptop or in Jupyter/Colab.</p>
         </div>
         <div class="lc-card">
           <h3>Quick Check</h3>
@@ -2571,7 +2594,7 @@ module PandasContent
         1001,05/01/2024,Asha,P1,2,pune
         1002,07/01/2024,Ravi,P2,1,Delhi
         1003,07/01/2024,Meera,P3,5, Chennai
-        1003,07/01/2024,Meera,P3,5, Chennai
+        1003,07/01/2024,Meera,P3,5,Chennai
         1004,19/01/2024,Asha,P2,,Pune
         1005,02/02/2024,Kiran,P1,3,delhi
         1006,14/02/2024,Ravi,P3,2,Delhi
