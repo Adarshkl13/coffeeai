@@ -998,6 +998,24 @@ module HtmlCssContent
           <p><strong>What you will hear:</strong> a screen reader says something like "Menu, button, collapsed" (the ☰ icon is skipped). When your JavaScript shows the list, it must also set <code>aria-expanded="true"</code>; the reader then says "expanded".</p>
         </div>
         <div class="lc-section">
+          <h2>Native Interactive Elements (No ARIA Needed)</h2>
+          <p>Three HTML features give you common widgets with keyboard support, focus handling and screen-reader roles already built in. Reach for them before writing your own with <code>div</code>s and ARIA.</p>
+          <table class="lc-table">
+            <thead><tr><th>Element</th><th>Use for</th><th>Opens with</th><th>Baseline</th></tr></thead>
+            <tbody>
+              <tr><td><code>&lt;details&gt;</code> + <code>&lt;summary&gt;</code></td><td>Show/hide sections, FAQs</td><td>Click, Enter or Space on the summary — no JavaScript</td><td>2020</td></tr>
+              <tr><td><code>&lt;dialog&gt;</code></td><td>Modal pop-ups (confirm, sign-up)</td><td><code>dialog.showModal()</code> in JavaScript</td><td>2022</td></tr>
+              <tr><td><code>popover</code> attribute</td><td>Menus, tooltips-like panels, toasts</td><td>A button with <code>popovertarget="id"</code> — no JavaScript</td><td>2024</td></tr>
+            </tbody>
+          </table>
+          <h3>Worked example: details / summary</h3>
+          <div class="lc-code-block"><pre><code>&lt;details&gt;<br>  &lt;summary&gt;Allergy info&lt;/summary&gt;<br>  &lt;p&gt;Contains milk. Ask for oat milk.&lt;/p&gt;<br>&lt;/details&gt;</code></pre></div>
+          <p><strong>What you will see:</strong> only "▸ Allergy info" with a small triangle. Click it (or Tab to it and press Enter) and the triangle turns down and the paragraph appears. A screen reader announces it as a collapsed or expanded button. Add the <code>open</code> attribute to start it open.</p>
+          <h3>dialog and popover</h3>
+          <div class="lc-code-block"><pre><code>&lt;dialog id="confirm"&gt;<br>  &lt;p&gt;Cancel your order?&lt;/p&gt;<br>  &lt;form method="dialog"&gt;&lt;button&gt;Close&lt;/button&gt;&lt;/form&gt;<br>&lt;/dialog&gt;<br>&lt;button type="button" onclick="document.getElementById('confirm').showModal()"&gt;Cancel order&lt;/button&gt;<br><br>&lt;button type="button" popovertarget="help"&gt;Help&lt;/button&gt;<br>&lt;div id="help" popover&gt;Call 98765 43210 for help.&lt;/div&gt;</code></pre></div>
+          <p><strong>What you will see:</strong> <code>showModal()</code> opens the dialog in the centre, dims the page behind it (the <code>::backdrop</code>), moves focus inside and makes the rest of the page inert. <strong>Esc</strong> or the Close button (a <code>form method="dialog"</code> closes it) shuts it and focus returns to the button. The Help button toggles the popover on top of everything; clicking outside or pressing Esc closes it. Use <code>showModal()</code>, not <code>show()</code>, for a true modal — <code>show()</code> opens it without trapping focus or the backdrop.</p>
+        </div>
+        <div class="lc-section">
           <h2>Testing</h2>
           <ul class="lc-list">
             <li><strong>Keyboard test:</strong> put the mouse away and Tab through the page. Can you reach and use everything? Can you always see where focus is?</li>
@@ -1022,6 +1040,7 @@ module HtmlCssContent
             <li>Press <strong>Enter</strong> on the "Menu" button. The list appears and <code>aria-expanded</code> flips to <code>true</code> — check it in DevTools (Inspect the button).</li>
             <li>Press the ➕ ☕ button (its accessible name is "Add chai to cart"). The status line changes to "Added: 1 chai". Because it has <code>aria-live="polite"</code>, a screen reader would announce it.</li>
             <li>Delete the <code>:focus-visible</code> rule and Tab again. Notice how much harder it is to follow — then put it back.</li>
+            <li>Tab to "Allergy info" at the bottom and press <strong>Enter</strong>: the <code>&lt;details&gt;</code> opens with no JavaScript. Then paste the <code>popover</code> example above into the page and try its Help button.</li>
           </ol>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Fix accessibility in this order: semantic HTML first, then CSS (contrast, focus styles), and ARIA last. If you find yourself adding lots of <code>role</code> attributes, stop and check whether a native element (<code>&lt;button&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;details&gt;</code>, <code>&lt;dialog&gt;</code>) already does the job.</p></div>
@@ -1068,6 +1087,11 @@ module HtmlCssContent
             <button type="button" aria-label="Add chai to cart" id="add">➕ ☕</button>
             <!-- 6. Live region: changes are announced politely -->
             <p id="status" aria-live="polite">Cart is empty.</p>
+            <!-- 7. Native disclosure widget: keyboard + screen reader support built in -->
+            <details>
+              <summary>Allergy info</summary>
+              <p>Contains milk. Ask for oat milk.</p>
+            </details>
           </main>
           <script>
             const btn = document.getElementById('menu-btn');
@@ -1134,7 +1158,7 @@ module HtmlCssContent
             <div class="lc-flow-step">3. Order<small>last one written wins</small></div>
           </div>
           <div class="lc-code-block"><pre><code>p { color: blue; }<br>p { color: green; }   /* same selector, written later → wins */</code></pre></div>
-          <p><strong>Result:</strong> paragraphs are green. (Modern CSS also has cascade layers, <code>@layer</code>, an advanced tool you can ignore for now.)</p>
+          <p><strong>Result:</strong> paragraphs are green. (Modern CSS also has cascade layers, <code>@layer</code>, which let you control this order on purpose — covered in Lesson 18.)</p>
         </div>
         <div class="lc-section">
           <h2>Inheritance</h2>
@@ -1459,8 +1483,13 @@ module HtmlCssContent
               <tr><td><code>p::first-line</code></td><td>(0,0,2)</td><td>pseudo-element counts as a type</td></tr>
               <tr><td><code>.card:has(img)</code></td><td>(0,1,1)</td><td><code>:has()</code> and <code>:not()</code> count their most specific argument (<code>img</code>), not themselves</td></tr>
               <tr><td><code>li:not(#top)</code></td><td>(1,0,1)</td><td>the <code>#top</code> argument counts as an ID</td></tr>
+              <tr><td><code>:is(#a, .b) p</code></td><td>(1,0,1)</td><td><code>:is()</code> also takes its most specific argument (<code>#a</code>), even when the element only matches <code>.b</code></td></tr>
+              <tr><td><code>:where(.card) p</code></td><td>(0,0,1)</td><td><code>:where()</code> always counts as <strong>zero</strong>, whatever is inside it</td></tr>
             </tbody>
           </table>
+          <p><code>:is()</code> and <code>:where()</code> both match "any of these selectors" and save typing: <code>:is(h1, h2, h3) a</code> is the same as <code>h1 a, h2 a, h3 a</code>. The only difference is specificity. Use <code>:where()</code> in resets and library defaults, so any later simple rule can override them:</p>
+          <div class="lc-code-block"><pre><code>:where(ul[class], ol[class]) { list-style: none; padding: 0; }  /* (0,0,0) */<br>.steps { padding-left: 1.5rem; }                        /* (0,1,0) → wins easily */</code></pre></div>
+          <p><strong>Result:</strong> lists with a class lose their bullets and padding, but <code>.steps</code> still gets its <code>1.5rem</code> padding, because the reset scores zero. With <code>:is(ul[class], ol[class])</code> the reset would score (0,1,1) and beat <code>.steps</code>, even though <code>.steps</code> comes later.</p>
         </div>
         <div class="lc-section">
           <h2>Common Mistakes</h2>
@@ -1607,6 +1636,20 @@ module HtmlCssContent
           <p><strong>What you will see:</strong> each nested menu gets bigger: 20px, then 25px, then 31.25px. With <code>font-size: 1.25rem</code> every level is exactly 20px, because <code>rem</code> always looks at the root.</p>
         </div>
         <div class="lc-section">
+          <h2>Sizing Images: aspect-ratio and object-fit</h2>
+          <p>Photos come in every shape. To show them in neat, equal boxes (product cards, avatars) you fix the <strong>box shape</strong> with <code>aspect-ratio</code> and decide how the picture fills it with <code>object-fit</code>. These are the <code>&lt;img&gt;</code> versions of <code>background-size: cover</code> / <code>contain</code>.</p>
+          <div class="lc-code-block"><pre><code>.thumb {<br>  width: 100%;<br>  aspect-ratio: 1 / 1;   /* square box; height is worked out from the width */<br>  object-fit: cover;     /* fill the box, crop the edges */<br>}<br>.logo { aspect-ratio: 16 / 9; object-fit: contain; background: #f3f4f6; }</code></pre></div>
+          <table class="lc-table">
+            <thead><tr><th><code>object-fit</code></th><th>What happens to a wide 2:1 photo in a square box</th></tr></thead>
+            <tbody>
+              <tr><td><code>fill</code> (default)</td><td>Stretched to fit — looks squashed</td></tr>
+              <tr><td><code>cover</code></td><td>Fills the whole square, keeps its shape, left and right edges are cropped</td></tr>
+              <tr><td><code>contain</code></td><td>Whole photo visible, keeps its shape, empty bands above and below</td></tr>
+            </tbody>
+          </table>
+          <p><strong>What you will see</strong> in section 5 of the starter: the same wide picture three times. <code>fill</code> squashes the circle into an oval, <code>cover</code> keeps the circle round but cuts off the left and right parts of the picture, and <code>contain</code> shows the whole picture with grey bands above and below. Use <code>object-position</code> (e.g. <code>top</code>) to choose which part stays visible with <code>cover</code>.</p>
+        </div>
+        <div class="lc-section">
           <h2>Common Mistakes</h2>
           <ul class="lc-list">
             <li>Using <code>opacity</code> to make a background see-through → the text fades too. Use an alpha colour like <code>rgb(79 70 229 / 50%)</code>.</li>
@@ -1622,6 +1665,7 @@ module HtmlCssContent
             <li>In section 1 of the starter, change the <code>.hsl</code> lightness from <code>59%</code> to <code>30%</code>. You should see a much darker indigo — same hue, less light.</li>
             <li>In section 2, compare the two banners: the <code>opacity</code> one has faded text, the alpha one does not. Change the alpha to <code>20%</code> and see the background get lighter while the text stays solid.</li>
             <li>In section 4, change <code>.em-nest</code> from <code>1.25em</code> to <code>1.25rem</code>. All three lines should become the same size (20px).</li>
+            <li>In section 5, change <code>aspect-ratio</code> on <code>.pic</code> to <code>3 / 4</code> (a tall box). Watch how much more <code>cover</code> crops and how the bands in <code>contain</code> grow.</li>
           </ol>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> In DevTools, click the small colour square next to any colour in the Styles panel. The colour picker lets you switch formats (hex, rgb, hsl, oklch) and shows the contrast ratio, so you can check text meets 4.5:1.</p></div>
@@ -1656,6 +1700,8 @@ module HtmlCssContent
             }
             /* 4. em compounds, rem does not */
             .em-nest { font-size: 1.25em; }
+            /* 5. aspect-ratio + object-fit for images */
+            .pic { width: 7rem; aspect-ratio: 1 / 1; background: #e5e7eb; border-radius: 0.5rem; }
           </style>
         </head>
         <body>
@@ -1677,6 +1723,12 @@ module HtmlCssContent
             <div class="em-nest">Level 2: 25px
               <div class="em-nest">Level 3: 31.25px</div>
             </div>
+          </div>
+          <h2>5. object-fit on a wide (2:1) image</h2>
+          <div class="row">
+            <img class="pic" style="object-fit: fill" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect width='200' height='100' fill='%234f46e5'/%3E%3Ccircle cx='100' cy='50' r='40' fill='%23fde68a'/%3E%3C/svg%3E" alt="fill: yellow circle squashed into an oval">
+            <img class="pic" style="object-fit: cover" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect width='200' height='100' fill='%234f46e5'/%3E%3Ccircle cx='100' cy='50' r='40' fill='%23fde68a'/%3E%3C/svg%3E" alt="cover: circle kept round, sides cropped">
+            <img class="pic" style="object-fit: contain" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='100'%3E%3Crect width='200' height='100' fill='%234f46e5'/%3E%3Ccircle cx='100' cy='50' r='40' fill='%23fde68a'/%3E%3C/svg%3E" alt="contain: whole image with grey bands">
           </div>
         </body>
         </html>
@@ -1753,6 +1805,23 @@ module HtmlCssContent
           </table>
         </div>
         <div class="lc-section">
+          <h2>Borders, Rounded Corners and Shadows</h2>
+          <p>The <code>border</code> shorthand takes a <strong>width</strong>, a <strong>style</strong> and a <strong>colour</strong>, in any order. The style is required: without it (e.g. <code>border: 2px red;</code>) no border is drawn, because the default style is <code>none</code>.</p>
+          <table class="lc-table">
+            <thead><tr><th>Code</th><th>What you get</th></tr></thead>
+            <tbody>
+              <tr><td><code>border: 2px solid #312e81;</code></td><td>2px dark-indigo line on all four sides</td></tr>
+              <tr><td><code>border-bottom: 3px dashed #f97316;</code></td><td>Only a bottom line (also <code>-top</code>, <code>-left</code>, <code>-right</code>)</td></tr>
+              <tr><td><code>border-radius: 12px;</code></td><td>All corners rounded by 12px</td></tr>
+              <tr><td><code>border-radius: 50%;</code></td><td>A <strong>circle</strong> if the box is square (avatars); an oval if not</td></tr>
+              <tr><td><code>border-radius: 999px;</code></td><td>A <strong>pill</strong>: fully round ends at any width (tags, buttons)</td></tr>
+            </tbody>
+          </table>
+          <p><code>box-shadow</code> syntax: <code>offset-x offset-y blur spread colour</code>. Blur and spread are optional. Add <code>inset</code> for an inner shadow, and separate several shadows with commas.</p>
+          <div class="lc-code-block"><pre><code>.card   { box-shadow: 0 4px 12px rgb(0 0 0 / 15%); }  /* soft shadow below */<br>.raised { box-shadow: 0 1px 2px rgb(0 0 0 / 20%), 0 8px 24px rgb(0 0 0 / 12%); }<br>.pressed { box-shadow: inset 0 2px 4px rgb(0 0 0 / 25%); }</code></pre></div>
+          <p><strong>What you will see:</strong> the card seems to float a little, with a soft grey shadow 4px below it and 12px of blur. Like <code>outline</code>, a shadow <strong>takes no space</strong>: it never changes the box size or pushes neighbours. <code>border-radius</code> also rounds the shadow and the background.</p>
+        </div>
+        <div class="lc-section">
           <h2>overflow and outline</h2>
           <ul class="lc-list">
             <li><code>overflow</code> decides what happens when content is bigger than its box: <code>visible</code> (default, spills out), <code>hidden</code> (clipped), <code>scroll</code> (always scrollbars), <code>auto</code> (scrollbars only when needed).</li>
@@ -1767,6 +1836,7 @@ module HtmlCssContent
             <li>Giving a <code>&lt;span&gt;</code> a width or top margin and nothing happens → make it <code>display: inline-block</code> or <code>block</code>.</li>
             <li><code>margin: 0 auto</code> not centring → the element has no width (or is inline). Give it a <code>width</code>/<code>max-width</code>.</li>
             <li>Adding a <code>border</code> on hover and the layout jumps → use <code>outline</code>, or keep a transparent border of the same width all the time.</li>
+            <li><code>border: 2px #312e81;</code> shows nothing → the style is missing. Write <code>border: 2px solid #312e81;</code>.</li>
           </ul>
         </div>
         <div class="lc-section">
@@ -1775,6 +1845,7 @@ module HtmlCssContent
             <li>Right-click each card in section 1 → Inspect. Hover each one in the Elements panel: the page tooltip shows 348 × … for the content-box card and 300 × … for the border-box card. In the Computed tab's box-model diagram, the centre (content) shows 300 vs 252.</li>
             <li>Change <code>padding</code> in <code>.card</code> to <code>30px</code>. Predict first: content-box total = 300 + 60 + 8 = 368px; border-box content = 300 − 60 − 8 = 232px. Check in DevTools.</li>
             <li>In section 2, the gap between the two boxes is 30px (collapsed). Add <code>display: flex; flex-direction: column;</code> to <code>.stack</code> and watch it grow to 50px, because flex items don't collapse margins.</li>
+            <li>In section 5, change the avatar's <code>border-radius</code> from <code>50%</code> to <code>12px</code> (rounded square), and the shadow blur from <code>12px</code> to <code>0</code> (a hard shadow). Then delete <code>solid</code> from the pill's <code>border</code> and see the border disappear.</li>
           </ol>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Use <em>padding</em> for space inside a box (it gets the background colour), and <em>margin</em> or <code>gap</code> for space between boxes. When in doubt, open DevTools: the coloured box-model diagram in the Computed tab shows every number.</p></div>
@@ -1806,6 +1877,9 @@ module HtmlCssContent
             .inline-block { display: inline-block; }
             /* 4. outline takes no space */
             .focus-demo { outline: 4px solid #f59e0b; outline-offset: 4px; padding: 0.5rem; }
+            /* 5. border shorthand, border-radius, box-shadow */
+            .avatar { width: 64px; height: 64px; border-radius: 50%; background: #f97316; box-shadow: 0 4px 12px rgb(0 0 0 / 25%); }
+            .pill { display: inline-block; padding: 4px 14px; border: 2px solid #4f46e5; border-radius: 999px; }
           </style>
         </head>
         <body>
@@ -1822,6 +1896,9 @@ module HtmlCssContent
           <p>Inline-block: <span class="tag inline-block">120px wide</span> text continues.</p>
           <h2>4. outline</h2>
           <p class="focus-demo">This outline does not change the layout.</p>
+          <h2>5. Borders, radius and shadow</h2>
+          <div class="avatar"></div>
+          <p><span class="pill">Pill tag</span></p>
         </body>
         </html>
       HTML
@@ -2577,7 +2654,7 @@ module HtmlCssContent
     18 => {
       body: <<~'HTML',
         <div class="lc-intro">
-          <p>CSS has grown a lot. Features that once needed Sass or JavaScript are now built in and supported by every modern browser: <strong>custom properties</strong> (CSS variables), <strong>nesting</strong>, <strong>container queries</strong> and the <strong>:has()</strong> selector. This lesson shows how professionals use them.</p>
+          <p>CSS has grown a lot. Features that once needed Sass or JavaScript are now built in and supported by every modern browser: <strong>custom properties</strong> (CSS variables), <strong>nesting</strong>, <strong>container queries</strong>, <strong>cascade layers</strong> and the <strong>:has()</strong> selector. This lesson shows how professionals use them.</p>
         </div>
         <div class="lc-section">
           <h2>Custom Properties (CSS Variables)</h2>
@@ -2622,6 +2699,22 @@ module HtmlCssContent
           <p><strong>What you will see:</strong> the same <code>.profile</code> card is side by side in a 600px column but stacked in a 250px sidebar — on the same screen. Size container queries are Baseline since February 2023 (widely available since 2025).</p>
         </div>
         <div class="lc-section">
+          <h2>Cascade Layers (@layer)</h2>
+          <p>In Lesson 8 you learned that specificity decides most conflicts. On a big project that becomes a fight: a library's <code>#nav .menu a</code> beats your simple <code>.link</code>, so people add more IDs or <code>!important</code>. <strong>Cascade layers</strong> let you decide the winner by <em>group</em> instead. Layers are compared <strong>before</strong> specificity.</p>
+          <div class="lc-code-block"><pre><code>@layer reset, base, components;   /* 1. declare the order: later = stronger */<br><br>@layer base {<br>  #buy.btn { background: gray; }  /* specificity (1,1,0) */<br>}<br>@layer components {<br>  .btn { background: green; }     /* specificity (0,1,0) */<br>}</code></pre></div>
+          <p><strong>Result:</strong> the button is <strong>green</strong>. <code>components</code> is declared after <code>base</code>, so it wins even though its selector is far less specific. Specificity only matters between rules <em>in the same layer</em>.</p>
+          <div class="lc-code-block"><pre><code>.btn { background: orange; }      /* not in any layer */</code></pre></div>
+          <p><strong>Result:</strong> now the button is <strong>orange</strong>. Styles that are <strong>not in any layer beat all layered styles</strong>. A common setup is to put resets and third-party CSS (for example Bootstrap) into early layers, so your own plain CSS always wins without <code>!important</code>. (One twist: for <code>!important</code> declarations the order is reversed, so an early layer's <code>!important</code> wins. Rarely needed.)</p>
+          <table class="lc-table">
+            <thead><tr><th>Conflict between…</th><th>Winner</th></tr></thead>
+            <tbody>
+              <tr><td>Two different layers</td><td>The layer declared <strong>later</strong> in <code>@layer a, b, c;</code></td></tr>
+              <tr><td>Layered vs unlayered</td><td>The <strong>unlayered</strong> rule</td></tr>
+              <tr><td>Same layer</td><td>Normal rules: specificity, then source order</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-section">
           <h2>:has() and clamp() — Quick Recap</h2>
           <ul class="lc-list">
             <li><code>.card:has(img) { padding-top: 0; }</code> — style a parent based on what it contains (Lesson 10).</li>
@@ -2632,6 +2725,7 @@ module HtmlCssContent
             <tbody>
               <tr><td>Custom properties</td><td>Sass variables for runtime values</td><td>2017</td></tr>
               <tr><td><code>clamp()</code></td><td>Many font-size media queries</td><td>2020</td></tr>
+              <tr><td>Cascade layers (<code>@layer</code>)</td><td>Specificity wars and <code>!important</code></td><td>March 2022</td></tr>
               <tr><td>Size container queries</td><td>JS resize observers for components</td><td>February 2023</td></tr>
               <tr><td>Nesting</td><td>Sass nesting</td><td>December 2023</td></tr>
               <tr><td><code>:has()</code></td><td>JS that adds classes to parents</td><td>December 2023</td></tr>
@@ -2646,6 +2740,7 @@ module HtmlCssContent
             <li>Writing <code>@container</code> without setting <code>container-type</code> on an ancestor → the query never matches.</li>
             <li>Querying the element itself: a container query styles the container's <em>descendants</em>, not the container.</li>
             <li>Nesting five levels deep → keep nesting shallow and prefer simple class names.</li>
+            <li>Forgetting that unlayered CSS beats every layer → if a layered rule "does nothing", look for an unlayered rule setting the same property.</li>
           </ul>
         </div>
         <div class="lc-section">
@@ -2653,6 +2748,7 @@ module HtmlCssContent
           <ol class="lc-list">
             <li>Run the starter. The two profile cards use identical HTML and CSS, but the one in the wide column is side by side and the sidebar one is stacked. (If your preview is very narrow, widen it: the main column must be at least 400px. On a very wide preview, over about 1250px, the sidebar reaches 400px too and its card also goes side by side.)</li>
             <li>Change <code>--brand</code> in <code>:root</code> to <code>#db2777</code>; every button and border updates.</li>
+            <li>The note under the cards is green: the <code>components</code> layer beats the more specific <code>base</code> rule. Swap the order in <code>@layer base, components;</code> to <code>@layer components, base;</code> — it turns red.</li>
             <li>Theme one area: add the class <code>theme-dark</code> to the <code>&lt;main&gt;</code> element and watch only the card in that column turn dark.</li>
           </ol>
         </div>
@@ -2689,6 +2785,10 @@ module HtmlCssContent
             @container (min-width: 400px) {
               .profile { grid-template-columns: 64px 1fr auto; align-items: center; }
             }
+            /* 4. Cascade layers: the later layer wins, whatever the specificity */
+            @layer base, components;
+            @layer components { .note { background: #dcfce7; padding: 0.5rem; } }
+            @layer base { p#layer-demo.note { background: #fecaca; } }
           </style>
         </head>
         <body>
@@ -2702,6 +2802,7 @@ module HtmlCssContent
               <div class="profile"><div class="avatar"></div><div><strong>Arjun Rao</strong><br>UI Designer</div><button>Follow</button></div>
             </aside>
           </div>
+          <p class="note" id="layer-demo">@layer demo: green = the components layer won over a more specific base rule.</p>
         </body>
         </html>
       HTML
@@ -2874,10 +2975,10 @@ module HtmlCssContent
             <tbody>
               <tr><td>Boilerplate, <code>lang</code>, viewport meta</td><td>Document structure</td><td>1</td></tr>
               <tr><td><code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>footer</code></td><td>Semantic HTML</td><td>6</td></tr>
-              <tr><td>Skip link, <code>alt</code>, one <code>h1</code>, focus styles</td><td>Accessibility</td><td>7</td></tr>
+              <tr><td>Skip link, hero image with real <code>alt</code> text, one <code>h1</code>, focus styles</td><td>Accessibility</td><td>7</td></tr>
               <tr><td>Order form with <code>label</code>, <code>required</code>, <code>type="email"</code></td><td>Forms</td><td>5</td></tr>
               <tr><td><code>:root</code> tokens: colours, radius, spacing</td><td>Custom properties</td><td>18</td></tr>
-              <tr><td>Nav in a row, pushed apart</td><td>Flexbox</td><td>15</td></tr>
+              <tr><td>Nav stacked on phones, a row from 768px; logo and links pushed apart</td><td>Flexbox</td><td>15</td></tr>
               <tr><td>Menu cards that reflow</td><td>Grid <code>auto-fit</code> + <code>minmax()</code></td><td>16</td></tr>
               <tr><td>Base styles for phones, <code>min-width</code> query for wider</td><td>Responsive design</td><td>17</td></tr>
               <tr><td>Heading size that grows with the screen</td><td><code>clamp()</code></td><td>13</td></tr>
@@ -2891,8 +2992,8 @@ module HtmlCssContent
           <ol class="lc-list">
             <li><strong>Structure first.</strong> Write only the HTML: header with nav, a hero section with one <code>h1</code>, a menu section, an order section with a form, a footer. Check it reads sensibly with no CSS at all.</li>
             <li><strong>Tokens.</strong> Add <code>:root { --brand: …; --accent: …; --radius: …; --space: …; }</code> and use <code>var()</code> everywhere instead of repeating values.</li>
-            <li><strong>Mobile layout.</strong> Style for a 360px phone: stacked nav, full-width buttons, one-column cards.</li>
-            <li><strong>Enhance.</strong> Add a <code>@media (min-width: 768px)</code> block: nav in a row, two-column order section.</li>
+            <li><strong>Mobile layout.</strong> Style for a 360px phone: nav links stacked in a column (<code>flex-direction: column</code>), full-width buttons, one-column cards, images with <code>max-width: 100%</code>.</li>
+            <li><strong>Enhance.</strong> Add a <code>@media (min-width: 768px)</code> block: nav links in a row (<code>flex-direction: row</code>), two-column order section.</li>
             <li><strong>Polish.</strong> Hover and <code>:focus-visible</code> states, a short transition, and the <code>prefers-reduced-motion</code> block.</li>
             <li><strong>Check.</strong> Tab through the whole page with the keyboard; run Lighthouse (Accessibility) in Chrome DevTools; test at 360px, 768px and 1280px.</li>
           </ol>
@@ -2900,7 +3001,7 @@ module HtmlCssContent
         <div class="lc-section">
           <h2>Key Pattern: Sticky Header with Flexbox</h2>
           <div class="lc-code-block"><pre><code>.site-header {<br>  position: sticky;<br>  top: 0;<br>  z-index: 10;<br>  display: flex;<br>  flex-wrap: wrap;<br>  justify-content: space-between;<br>  align-items: center;<br>}</code></pre></div>
-          <p><strong>What you will see:</strong> the logo sits on the left and the links on the right; when you scroll, the header stays pinned to the top. On a narrow phone <code>flex-wrap</code> lets the links drop to a second line instead of overflowing.</p>
+          <p><strong>What you will see:</strong> the logo sits on the left and the links on the right; when you scroll, the header stays pinned to the top. In the starter the links are stacked in a column on phones and switch to a row inside the <code>min-width: 768px</code> query; <code>flex-wrap</code> lets the nav drop below the logo if a long menu does not fit.</p>
         </div>
         <div class="lc-section">
           <h2>Common Mistakes</h2>
@@ -2945,11 +3046,12 @@ module HtmlCssContent
             .skip { position: absolute; left: -999px; }
             .skip:focus { left: var(--space); top: var(--space); background: white; padding: 8px; z-index: 20; }
             .site-header { position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--space); padding: var(--space); background: var(--brand); color: white; }
-            .site-header ul { display: flex; gap: var(--space); list-style: none; margin: 0; padding: 0; }
+            .site-header ul { display: flex; flex-direction: column; gap: 0.25rem; list-style: none; margin: 0; padding: 0; } /* phone: stacked */
             .site-header a { color: white; }
             a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
             .hero { padding: clamp(2rem, 8vw, 5rem) var(--space); background: var(--accent); text-align: center; }
             .hero h1 { margin: 0; font-size: clamp(1.8rem, 1rem + 4vw, 3.5rem); }
+            .hero img { max-width: 100%; height: auto; }
             section { padding: var(--space); max-width: 1000px; margin: 0 auto; }
             .menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space); }
             .card { padding: var(--space); border: 2px solid var(--accent); border-radius: var(--radius); transition: transform 0.2s ease-out; }
@@ -2959,7 +3061,11 @@ module HtmlCssContent
             input, button { font: inherit; padding: 10px; border-radius: 8px; border: 1px solid #a8a29e; }
             button { background: var(--brand); color: white; border: 0; }
             footer { text-align: center; padding: var(--space); background: var(--text); color: white; }
-            @media (min-width: 768px) { form { grid-template-columns: 1fr 1fr; } form button { grid-column: 1 / -1; } }
+            @media (min-width: 768px) {
+              .site-header ul { flex-direction: row; gap: var(--space); } /* wider: nav in a row */
+              form { grid-template-columns: 1fr 1fr; }
+              form button { grid-column: 1 / -1; }
+            }
             @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
           </style>
         </head>
@@ -2973,6 +3079,7 @@ module HtmlCssContent
           </header>
           <main id="main">
             <div class="hero">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='100'%3E%3Cpath d='M30 20q5-10 0-18M60 20q5-10 0-18M90 20q5-10 0-18' stroke='%239a3412' stroke-width='4' fill='none'/%3E%3Cpath d='M20 30h80l-10 65H30z' fill='%239a3412'/%3E%3C/svg%3E" width="120" height="100" alt="Drawing of a clay cup of chai with steam rising">
               <h1>Fresh Chai, Every Break</h1>
               <p>Between lectures, next to the library. Open 8 am – 8 pm.</p>
             </div>

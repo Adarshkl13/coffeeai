@@ -1288,7 +1288,7 @@ module BootstrapContent
           <h3>Horizontal cards, coloured cards and stretched links</h3>
           <div class="lc-code">&lt;div class="card mb-3"&gt;<br>  &lt;div class="row g-0"&gt;<br>    &lt;div class="col-md-4"&gt;<br>      &lt;img src="dosa.jpg" class="img-fluid rounded-start" alt="Masala dosa"&gt;<br>    &lt;/div&gt;<br>    &lt;div class="col-md-8"&gt;<br>      &lt;div class="card-body"&gt;…&lt;/div&gt;<br>    &lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/div&gt;<br><br>&lt;div class="card text-bg-success"&gt;…&lt;/div&gt;           &lt;!-- solid green, white text --&gt;<br>&lt;div class="card border-warning"&gt;…&lt;/div&gt;          &lt;!-- only the border is yellow --&gt;<br><br>&lt;a href="/events/42" class="btn btn-primary stretched-link"&gt;Details&lt;/a&gt;</div>
           <ul class="lc-list">
-            <li><strong>Horizontal card:</strong> a <code>row g-0</code> inside the card. The image sits on the left from md up and stacks on top on phones.</li>
+            <li><strong>Horizontal card:</strong> a <code>row g-0</code> inside the card. The image sits on the left from md up and stacks on top on phones. <code>img-fluid</code> (<code>max-width: 100%; height: auto</code>) makes the image shrink to fit its column; Lesson 17 covers image classes in detail.</li>
             <li><strong>Colour:</strong> <code>text-bg-*</code> sets the background and a readable text colour together. <code>border-*</code> only tints the border.</li>
             <li><strong><code>stretched-link</code></strong> adds an invisible <code>::after</code> layer that covers the nearest positioned ancestor. <code>.card</code> already has <code>position: relative</code>, so the whole card becomes clickable. Use only one stretched link per card.</li>
           </ul>
@@ -1397,7 +1397,7 @@ module BootstrapContent
           <div class="lc-badge le-badge le-badge-bootstrap">Bootstrap</div>
           <h1 class="lc-title">Navigation and Navbar</h1>
         </div>
-        <p class="lc-lead">Every site needs a way to move between pages. Bootstrap has two tools for this. The <strong>nav</strong> component gives you simple link bars, tabs and pills. The <strong>navbar</strong> is a full responsive header with a brand, links, and a "hamburger" button that folds the links away on small screens.</p>
+        <p class="lc-lead">Every site needs a way to move between pages. Bootstrap has two tools for this. The <strong>nav</strong> component gives you simple link bars, tabs and pills. The <strong>navbar</strong> is a full responsive header with a brand, links, and a "hamburger" button that folds the links away on small screens. Two smaller helpers finish the job: <strong>breadcrumbs</strong> show where you are in the site, and <strong>pagination</strong> moves between pages of results.</p>
 
         <div class="lc-card">
           <h3>The base nav: links, tabs, pills, underline</h3>
@@ -1464,13 +1464,48 @@ module BootstrapContent
         </div>
 
         <div class="lc-card">
+          <h3>Breadcrumbs</h3>
+          <div class="lc-code">&lt;nav aria-label="breadcrumb"&gt;<br>  &lt;ol class="breadcrumb"&gt;<br>    &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;<br>    &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;Courses&lt;/a&gt;&lt;/li&gt;<br>    &lt;li class="breadcrumb-item active" aria-current="page"&gt;Bootstrap&lt;/li&gt;<br>  &lt;/ol&gt;<br>&lt;/nav&gt;</div>
+          <ul class="lc-list">
+            <li><strong>Output:</strong> Home / Courses / Bootstrap — the first two are links, the last is plain grey text.</li>
+            <li>The <code>/</code> separators are added by CSS. Change them with a CSS variable: <code>&lt;nav style="--bs-breadcrumb-divider: '&gt;';" aria-label="breadcrumb"&gt;</code> (note the quotes inside).</li>
+            <li>The current page is not a link and gets <code>aria-current="page"</code>.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Pagination</h3>
+          <div class="lc-code">&lt;nav aria-label="Search results pages"&gt;<br>  &lt;ul class="pagination justify-content-center"&gt;<br>    &lt;li class="page-item disabled"&gt;&lt;a class="page-link"&gt;Previous&lt;/a&gt;&lt;/li&gt;<br>    &lt;li class="page-item active" aria-current="page"&gt;&lt;a class="page-link" href="#"&gt;1&lt;/a&gt;&lt;/li&gt;<br>    &lt;li class="page-item"&gt;&lt;a class="page-link" href="#"&gt;2&lt;/a&gt;&lt;/li&gt;<br>    &lt;li class="page-item"&gt;&lt;a class="page-link" href="#"&gt;Next&lt;/a&gt;&lt;/li&gt;<br>  &lt;/ul&gt;<br>&lt;/nav&gt;</div>
+          <ul class="lc-list">
+            <li><code>.active</code> + <code>aria-current="page"</code> on the current page item; <code>.disabled</code> on Previous when you are on page 1.</li>
+            <li>A disabled link has no <code>href</code>, so it can't be clicked or focused.</li>
+            <li>Sizes: <code>.pagination-lg</code>, <code>.pagination-sm</code>. Align with flex utilities: <code>justify-content-center</code> / <code>-end</code>.</li>
+            <li>Give each <code>&lt;nav&gt;</code> a unique <code>aria-label</code> so screen reader users can tell navigations apart.</li>
+          </ul>
+        </div>
+
+        <div class="lc-card">
+          <h3>Which Navigation Helper?</h3>
+          <table class="lc-table">
+            <thead><tr><th>Component</th><th>Answers the question</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Breadcrumb</td><td>"Where am I?"</td><td>Home / Electronics / Phones</td></tr>
+              <tr><td>Pagination</td><td>"Which page of results?"</td><td>« 1 2 3 »</td></tr>
+              <tr><td>Navbar / nav</td><td>"Where can I go?"</td><td>Home · Events · Contact</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>The hamburger does nothing.</strong> Either the bundle JS is missing, or <code>data-bs-target</code> doesn't match the collapse <code>id</code>. Load <code>bootstrap.bundle.min.js</code> and make the two match exactly.</li>
             <li><strong>Copying Bootstrap 4's <code>data-toggle</code> / <code>data-target</code>.</strong> Version 5 needs the <code>bs</code> prefix: <code>data-bs-toggle</code>, <code>data-bs-target</code>.</li>
             <li><strong>Using <code>navbar-dark bg-dark</code>.</strong> It still works, but it is deprecated. Use <code>data-bs-theme="dark"</code>.</li>
             <li><strong>A <code>fixed-top</code> navbar hides the page heading.</strong> Add top padding to <code>body</code>, or use <code>sticky-top</code> instead.</li>
-            <li><strong>Only the <code>active</code> class on the current link.</strong> Screen readers don't see it. Add <code>aria-current="page"</code>.</li>
+            <li><strong>Only the <code>active</code> class on the current link, breadcrumb or page number.</strong> Screen readers don't see it. Add <code>aria-current="page"</code>.</li>
+            <li><strong>Writing <code>--bs-breadcrumb-divider: &gt;;</code> without inner quotes.</strong> The divider disappears. It is a CSS string: <code>'&gt;'</code>.</li>
+            <li><strong>Making the last breadcrumb a link to the page you are already on.</strong> Make it plain text.</li>
           </ul>
         </div>
 
@@ -1481,6 +1516,8 @@ module BootstrapContent
             <li>Change <code>navbar-expand-lg</code> to <code>navbar-expand-sm</code>. Now the bar stays horizontal down to 576px.</li>
             <li>Change <code>bg-body-tertiary</code> to <code>bg-dark</code> and add <code>data-bs-theme="dark"</code> to the <code>&lt;nav&gt;</code>. You get a dark bar with light links and a light hamburger icon.</li>
             <li>In demo 2, change <code>nav-pills</code> to <code>nav-underline</code>, then add <code>nav-justified</code>. The active item is underlined and the three items share the width equally.</li>
+            <li>In demo 4, change the breadcrumb divider to <code>'›'</code> by editing the <code>style</code> attribute.</li>
+            <li>In demo 5, move <code>active</code> and <code>aria-current="page"</code> from page 1 to page 2, and remove <code>disabled</code> from Previous (give it <code>href="#"</code>).</li>
           </ol>
         </div>
 
@@ -1531,6 +1568,25 @@ module BootstrapContent
               <a class="nav-link active" aria-current="page" href="#">Day 1</a>
               <a class="nav-link" href="#">Day 2</a>
               <a class="nav-link" href="#">Day 3</a>
+            </nav>
+
+            <h2 class="h6 mt-4">4. Breadcrumb with a custom divider</h2>
+            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Events</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Hackathon</li>
+              </ol>
+            </nav>
+
+            <h2 class="h6">5. Pagination</h2>
+            <nav aria-label="Results pages">
+              <ul class="pagination">
+                <li class="page-item disabled"><a class="page-link">Previous</a></li>
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              </ul>
             </nav>
           </main>
 
@@ -2471,9 +2527,9 @@ module BootstrapContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-bootstrap">Bootstrap</div>
-          <h1 class="lc-title">List Groups, Breadcrumbs, and Pagination</h1>
+          <h1 class="lc-title">List Groups, Images, and Carousel</h1>
         </div>
-        <p class="lc-lead">Three small components that help people <strong>find their way</strong>: list groups show lists of items or settings, breadcrumbs show where you are in a site, and pagination moves between pages of results. None of them needs JavaScript.</p>
+        <p class="lc-lead">Three ways to <strong>show collections of content</strong>: list groups for lists of items or settings, responsive image classes that stop photos from breaking your layout, and the <strong>carousel</strong> — a slideshow that cycles through images. List groups and images need no JavaScript; the carousel needs the bundle.</p>
 
         <div class="lc-card">
           <h3>List Groups</h3>
@@ -2493,60 +2549,62 @@ module BootstrapContent
         </div>
 
         <div class="lc-card">
-          <h3>Breadcrumbs</h3>
-          <div class="lc-code">&lt;nav aria-label="breadcrumb"&gt;<br>  &lt;ol class="breadcrumb"&gt;<br>    &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;<br>    &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;Courses&lt;/a&gt;&lt;/li&gt;<br>    &lt;li class="breadcrumb-item active" aria-current="page"&gt;Bootstrap&lt;/li&gt;<br>  &lt;/ol&gt;<br>&lt;/nav&gt;</div>
-          <ul class="lc-list">
-            <li><strong>Output:</strong> Home / Courses / Bootstrap — the first two are links, the last is plain grey text.</li>
-            <li>The <code>/</code> separators are added by CSS. Change them with a CSS variable: <code>&lt;nav style="--bs-breadcrumb-divider: '&gt;';" aria-label="breadcrumb"&gt;</code> (note the quotes inside).</li>
-            <li>The current page is not a link and gets <code>aria-current="page"</code>.</li>
-          </ul>
-        </div>
-
-        <div class="lc-card">
-          <h3>Pagination</h3>
-          <div class="lc-code">&lt;nav aria-label="Search results pages"&gt;<br>  &lt;ul class="pagination justify-content-center"&gt;<br>    &lt;li class="page-item disabled"&gt;&lt;a class="page-link"&gt;Previous&lt;/a&gt;&lt;/li&gt;<br>    &lt;li class="page-item active" aria-current="page"&gt;&lt;a class="page-link" href="#"&gt;1&lt;/a&gt;&lt;/li&gt;<br>    &lt;li class="page-item"&gt;&lt;a class="page-link" href="#"&gt;2&lt;/a&gt;&lt;/li&gt;<br>    &lt;li class="page-item"&gt;&lt;a class="page-link" href="#"&gt;Next&lt;/a&gt;&lt;/li&gt;<br>  &lt;/ul&gt;<br>&lt;/nav&gt;</div>
-          <ul class="lc-list">
-            <li><code>.active</code> + <code>aria-current="page"</code> on the current page item; <code>.disabled</code> on Previous when you are on page 1.</li>
-            <li>A disabled link has no <code>href</code>, so it can't be clicked or focused.</li>
-            <li>Sizes: <code>.pagination-lg</code>, <code>.pagination-sm</code>. Align with flex utilities: <code>justify-content-center</code> / <code>-end</code>.</li>
-            <li>Give each <code>&lt;nav&gt;</code> a unique <code>aria-label</code> so screen reader users can tell navigations apart.</li>
-          </ul>
-        </div>
-
-        <div class="lc-card">
-          <h3>Which Navigation Helper?</h3>
+          <h3>Responsive Images and Figures</h3>
+          <p>A 1200px-wide photo inside a 360px phone column overflows and causes a sideways scroll. Bootstrap's image classes fix that.</p>
           <table class="lc-table">
-            <thead><tr><th>Component</th><th>Answers the question</th><th>Example</th></tr></thead>
+            <thead><tr><th>Class</th><th>What it does</th></tr></thead>
             <tbody>
-              <tr><td>Breadcrumb</td><td>"Where am I?"</td><td>Home / Electronics / Phones</td></tr>
-              <tr><td>Pagination</td><td>"Which page of results?"</td><td>« 1 2 3 »</td></tr>
-              <tr><td>List group</td><td>"What items or sections are there?"</td><td>Settings menu, notifications</td></tr>
+              <tr><td><code>.img-fluid</code></td><td><code>max-width: 100%; height: auto;</code> — the image shrinks to fit its column but never grows past its real size, and keeps its shape</td></tr>
+              <tr><td><code>.img-thumbnail</code></td><td>Also responsive, plus a 1px border, small padding and rounded corners (a "photo print" look)</td></tr>
+              <tr><td><code>.rounded</code> / <code>.rounded-circle</code></td><td>Rounded corners / a circle (use on a square image for avatars)</td></tr>
+              <tr><td><code>.figure</code>, <code>.figure-img</code>, <code>.figure-caption</code></td><td>Style a <code>&lt;figure&gt;</code>, its image and its <code>&lt;figcaption&gt;</code> (small grey caption text)</td></tr>
+              <tr><td><code>.object-fit-cover</code></td><td>Crop the image to fill a fixed-size box without squashing it</td></tr>
             </tbody>
           </table>
+          <div class="lc-code">&lt;figure class="figure"&gt;<br>  &lt;img src="building.jpg" class="figure-img img-fluid rounded" alt="Main college building at sunrise"&gt;<br>  &lt;figcaption class="figure-caption text-end"&gt;Main building, 2026.&lt;/figcaption&gt;<br>&lt;/figure&gt;</div>
+          <p><strong>What you will see:</strong> the photo fills the column width (or its own width, if smaller) with rounded corners, and a small grey caption sits under it, aligned right. Resize the preview: the image scales down smoothly instead of overflowing.</p>
+        </div>
+
+        <div class="lc-card">
+          <h3>Carousel</h3>
+          <div class="lc-code">&lt;div id="campus" class="carousel slide carousel-fade"&gt;<br>  &lt;div class="carousel-indicators"&gt;<br>    &lt;button type="button" data-bs-target="#campus" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"&gt;&lt;/button&gt;<br>    &lt;button type="button" data-bs-target="#campus" data-bs-slide-to="1" aria-label="Slide 2"&gt;&lt;/button&gt;<br>  &lt;/div&gt;<br>  &lt;div class="carousel-inner"&gt;<br>    &lt;div class="carousel-item active"&gt;<br>      &lt;img src="fest.jpg" class="d-block w-100" alt="Students dancing at the campus fest"&gt;<br>      &lt;div class="carousel-caption d-none d-md-block"&gt;&lt;h5&gt;Campus Fest&lt;/h5&gt;&lt;/div&gt;<br>    &lt;/div&gt;<br>    &lt;div class="carousel-item"&gt;...&lt;/div&gt;<br>  &lt;/div&gt;<br>  &lt;button class="carousel-control-prev" type="button" data-bs-target="#campus" data-bs-slide="prev"&gt;<br>    &lt;span class="carousel-control-prev-icon" aria-hidden="true"&gt;&lt;/span&gt;<br>    &lt;span class="visually-hidden"&gt;Previous&lt;/span&gt;<br>  &lt;/button&gt;<br>  &lt;button class="carousel-control-next" type="button" data-bs-target="#campus" data-bs-slide="next"&gt;<br>    &lt;span class="carousel-control-next-icon" aria-hidden="true"&gt;&lt;/span&gt;<br>    &lt;span class="visually-hidden"&gt;Next&lt;/span&gt;<br>  &lt;/button&gt;<br>&lt;/div&gt;</div>
+          <p><strong>What you will see:</strong> one full-width image with its caption, small bars (indicators) at the bottom, and ‹ › arrows on the left and right. Clicking › or a bar fades to that slide (<code>carousel-fade</code>; without it, slides move sideways). Screen readers announce the arrows as "Previous" and "Next" thanks to the <code>visually-hidden</code> text, while the arrow icons themselves are hidden with <code>aria-hidden</code>.</p>
+          <table class="lc-table">
+            <thead><tr><th>Piece</th><th>Rule</th></tr></thead>
+            <tbody>
+              <tr><td><code>.carousel-item.active</code></td><td><strong>Exactly one</strong> slide must start with <code>active</code>, or nothing is shown</td></tr>
+              <tr><td><code>data-bs-target="#campus"</code></td><td>Arrows and indicators point at the carousel's <code>id</code></td></tr>
+              <tr><td><code>d-block w-100</code> on images</td><td>Removes the inline gap under images and makes every slide the same width</td></tr>
+              <tr><td><code>data-bs-ride="carousel"</code></td><td>Autoplays on page load (every 5s; change with <code>data-bs-interval</code> on an item). Leave it out, as here, so users control the slides</td></tr>
+            </tbody>
+          </table>
+          <p>Autoplaying slides are hard to read and distracting, and moving content must be pausable for accessibility. Prefer manual control. Bootstrap pauses on hover and follows <code>prefers-reduced-motion</code>, but that does not help keyboard or screen-reader users much.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Using <code>.active</code> without <code>aria-current</code> → only sighted users know which item is current.</li>
+            <li>Using <code>.active</code> without <code>aria-current</code> in a list group → only sighted users know which item is current.</li>
             <li>Putting <code>&lt;a&gt;</code> tags inside <code>&lt;li class="list-group-item"&gt;</code> for a clickable list → use <code>.list-group-item-action</code> on the <code>&lt;a&gt;</code> itself.</li>
-            <li>Writing <code>--bs-breadcrumb-divider: &gt;;</code> without inner quotes → the divider disappears. It is a CSS string: <code>'&gt;'</code>.</li>
-            <li>Making the last breadcrumb a link to the page you are already on → make it plain text.</li>
+            <li>Big photos without <code>.img-fluid</code> → the page scrolls sideways on phones.</li>
+            <li>No slide has <code>active</code>, or two do → the carousel is blank or shows two slides stacked.</li>
+            <li>Icon-only carousel arrows with no <code>visually-hidden</code> text → screen readers just say "button".</li>
+            <li>Carousel arrows do nothing → the bundle JS is missing or <code>data-bs-target</code> doesn't match the <code>id</code>.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>Run the starter. Hover the "Settings" list: rows highlight because they use <code>list-group-item-action</code>.</li>
-            <li>Change the breadcrumb divider to <code>'›'</code> by editing the <code>style</code> attribute.</li>
-            <li>Move <code>active</code> and <code>aria-current="page"</code> from page 1 to page 2, and remove <code>disabled</code> from Previous.</li>
-            <li>Add <code>list-group-flush</code> to the notifications list and compare the borders.</li>
+            <li>Run the starter. Click › and the indicator bars in demo 1: the slides fade. Delete <code>carousel-fade</code> and they slide sideways instead.</li>
+            <li>Add <code>data-bs-ride="carousel"</code> to the carousel <code>div</code> and wait 5 seconds: it now moves by itself. Hover it to pause.</li>
+            <li>In demo 2, make the preview narrow: both images shrink to fit. Remove <code>img-fluid</code> from the figure image and see it overflow.</li>
+            <li>In demo 3, hover the "Settings" list (rows highlight: <code>list-group-item-action</code>). Add <code>list-group-flush</code> to the Notifications list and compare the borders.</li>
           </ol>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Breadcrumbs work best on sites with a clear hierarchy (shops, docs, courses). For a flat site with five pages, a navbar is enough.
+          <strong>Tip:</strong> Write <code>alt</code> text for what each slide or figure <em>shows</em> ("Students dancing at the campus fest"), not "slide 1". If an image is purely decorative, use <code>alt=""</code>.
         </div>
       HTML
       starter_code: <<~'HTML'
@@ -2555,30 +2613,50 @@ module BootstrapContent
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>List Groups, Breadcrumbs, and Pagination</title>
+          <title>List Groups, Images, and Carousel</title>
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
         </head>
         <body class="p-4">
-          <!-- 1. Breadcrumb with a custom divider -->
-          <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">Courses</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Bootstrap</li>
-            </ol>
-          </nav>
+          <h2 class="h6">1. Carousel (fade, indicators, prev/next)</h2>
+          <div id="campus" class="carousel slide carousel-fade mb-4" style="max-width: 800px;">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#campus" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#campus" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#campus" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner rounded">
+              <div class="carousel-item active"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='800' height='400' fill='%236f42c1'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='50' text-anchor='middle' dominant-baseline='middle'%3ECampus Fest%3C/text%3E%3C/svg%3E" class="d-block w-100" alt="Purple banner reading Campus Fest"></div>
+              <div class="carousel-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='800' height='400' fill='%23198754'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='50' text-anchor='middle' dominant-baseline='middle'%3ELibrary%3C/text%3E%3C/svg%3E" class="d-block w-100" alt="Green banner reading Library"></div>
+              <div class="carousel-item"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='800' height='400' fill='%230d6efd'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='50' text-anchor='middle' dominant-baseline='middle'%3ESports Day%3C/text%3E%3C/svg%3E" class="d-block w-100" alt="Blue banner reading Sports Day"></div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#campus" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span><span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#campus" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span><span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <h2 class="h6">2. Responsive images</h2>
+          <div class="row g-3 mb-4 align-items-start">
+            <div class="col-6 col-md-4"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='200'%3E%3Crect width='300' height='200' fill='%23fd7e14'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='25' text-anchor='middle' dominant-baseline='middle'%3ECanteen%3C/text%3E%3C/svg%3E" class="img-thumbnail" alt="Orange tile reading Canteen"></div>
+            <div class="col-6 col-md-8">
+              <figure class="figure">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300'%3E%3Crect width='600' height='300' fill='%2320c997'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-family='sans-serif' font-size='37' text-anchor='middle' dominant-baseline='middle'%3EMain Building%3C/text%3E%3C/svg%3E" class="figure-img img-fluid rounded" alt="Teal banner reading Main Building">
+                <figcaption class="figure-caption text-end">Main building, 2026.</figcaption>
+              </figure>
+            </div>
+          </div>
           <div class="row g-4">
             <div class="col-md-6">
-              <h2 class="h6">2. Actionable list group</h2>
+              <h2 class="h6">3. Settings (actionable list group)</h2>
               <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action active" aria-current="true">Profile</a>
                 <a href="#" class="list-group-item list-group-item-action">Settings</a>
-                <a href="#" class="list-group-item list-group-item-action">Payments</a>
                 <button type="button" class="list-group-item list-group-item-action" disabled>Delete account</button>
               </div>
             </div>
             <div class="col-md-6">
-              <h2 class="h6">3. List with badges and colours</h2>
+              <h2 class="h6">Notifications (badges and colours)</h2>
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">Assignments <span class="badge text-bg-primary rounded-pill">4</span></li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">Messages <span class="badge text-bg-danger rounded-pill">12</span></li>
@@ -2586,16 +2664,7 @@ module BootstrapContent
               </ul>
             </div>
           </div>
-          <!-- 4. Pagination -->
-          <nav aria-label="Results pages" class="mt-4">
-            <ul class="pagination justify-content-center">
-              <li class="page-item disabled"><a class="page-link">Previous</a></li>
-              <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
         </body>
         </html>
       HTML
@@ -2733,7 +2802,7 @@ module BootstrapContent
           <div class="lc-badge le-badge le-badge-bootstrap">Bootstrap</div>
           <h1 class="lc-title">Color Modes and Customization</h1>
         </div>
-        <p class="lc-lead">Every Bootstrap site looks "Bootstrap-y" until you customise it. In this lesson you add <strong>dark mode</strong> with Bootstrap 5.3's color modes, then change the look with <strong>CSS variables</strong> — and learn exactly which variables affect which parts, because that is where most people get stuck.</p>
+        <p class="lc-lead">Every Bootstrap site looks "Bootstrap-y" until you customise it. In this lesson you add <strong>dark mode</strong> with Bootstrap 5.3's color modes, then change the look with <strong>CSS variables</strong> and <strong>Sass</strong> (new theme colours, new utilities, smaller builds) — and learn exactly which variables affect which parts, because that is where most people get stuck.</p>
 
         <div class="lc-card">
           <h3>Color Modes with data-bs-theme</h3>
@@ -2795,6 +2864,21 @@ module BootstrapContent
         </div>
 
         <div class="lc-card">
+          <h3>Sass: Add a Brand Colour, a Utility, and Import Only What You Need</h3>
+          <p>The full <code>@import "bootstrap"</code> gives you every component. For a smaller CSS file, import the parts one by one. The <strong>order matters</strong>: functions → your variable overrides → variables → your map changes → maps and mixins → the parts you use → the Utilities API last.</p>
+          <div class="lc-code">// custom.scss — "Option B" from the Bootstrap 5.3 docs<br>@import "../node_modules/bootstrap/scss/functions";   // 1. functions first<br><br>$primary: #7952b3;                                    // 2. variable overrides<br><br>@import "../node_modules/bootstrap/scss/variables";   // 3. required<br>@import "../node_modules/bootstrap/scss/variables-dark";<br><br>$theme-colors: map-merge($theme-colors, ("brand": #e8590c));  // 4. map changes<br><br>@import "../node_modules/bootstrap/scss/maps";        // 5. required<br>@import "../node_modules/bootstrap/scss/mixins";<br>@import "../node_modules/bootstrap/scss/root";<br><br>@import "../node_modules/bootstrap/scss/utilities";   // 6. only the parts you use<br>@import "../node_modules/bootstrap/scss/reboot";<br>@import "../node_modules/bootstrap/scss/type";<br>@import "../node_modules/bootstrap/scss/containers";<br>@import "../node_modules/bootstrap/scss/grid";<br>@import "../node_modules/bootstrap/scss/buttons";<br>@import "../node_modules/bootstrap/scss/helpers";<br><br>$utilities: map-merge($utilities, (                  // 7. extend the Utilities API<br>  "cursor": (<br>    property: cursor,<br>    class: cursor,<br>    responsive: true,<br>    values: auto pointer grab,<br>  )<br>));<br>@import "../node_modules/bootstrap/scss/utilities/api";  // 8. generates utility classes LAST</div>
+          <p><strong>What you get after compiling:</strong></p>
+          <table class="lc-table">
+            <thead><tr><th>Change</th><th>New classes generated</th></tr></thead>
+            <tbody>
+              <tr><td><code>"brand"</code> merged into <code>$theme-colors</code></td><td><code>.btn-brand</code>, <code>.btn-outline-brand</code>, <code>.text-bg-brand</code> (and <code>.bg-brand</code>, <code>.text-brand</code>, <code>.border-brand</code>, <code>.link-brand</code>) — with correct hover shades, no hand-written <code>--bs-btn-*</code></td></tr>
+              <tr><td><code>"cursor"</code> merged into <code>$utilities</code></td><td><code>.cursor-auto</code>, <code>.cursor-pointer</code>, <code>.cursor-grab</code>, plus responsive ones like <code>.cursor-md-pointer</code> (because <code>responsive: true</code>)</td></tr>
+            </tbody>
+          </table>
+          <p>Components you did not import (for example <code>modal</code>, <code>carousel</code>) are simply missing from the CSS, so the file is smaller. The Utilities API reads the <code>$utilities</code> map only when <code>utilities/api</code> is imported, so any change to that map must come before that last line.</p>
+        </div>
+
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Overriding <code>--bs-primary</code> and expecting buttons to change → set <code>--bs-btn-*</code> on a custom class, or use Sass <code>$primary</code>.</li>
@@ -2802,6 +2886,7 @@ module BootstrapContent
             <li>Loading your custom CSS <em>before</em> bootstrap.min.css → Bootstrap's rules come later and win. Link yours after it.</li>
             <li>Using <code>bg-white</code>/<code>bg-light</code>/<code>text-dark</code> everywhere → those areas break in dark mode. Use <code>bg-body</code>, <code>bg-body-tertiary</code>, <code>text-body</code>.</li>
             <li>Putting Sass overrides after <code>@import "bootstrap"</code> → they have no effect; overrides must come first.</li>
+            <li>Merging <code>$theme-colors</code> after importing <code>maps</code>, or <code>$utilities</code> after <code>utilities/api</code> → no new classes appear. Follow the numbered order above.</li>
           </ul>
         </div>
 
@@ -2940,8 +3025,9 @@ module BootstrapContent
           <ol class="lc-list">
             <li>Run the starter at phone width, open the menu, then widen the preview past 992px.</li>
             <li>Add a fourth feature card — <code>row-cols-md-3</code> wraps it to a new row automatically. Then try <code>row-cols-lg-4</code>.</li>
-            <li>Submit the empty form to see red validation messages; fill it in to see green ticks.</li>
-            <li>Add a toast that says "Thanks! We'll call you" after a valid submit (Lesson 18).</li>
+            <li>Submit the empty form to see red validation messages; fill it in to see green ticks and the "Thanks!" status line.</li>
+            <li>Open the second FAQ question: the first one closes, because every panel has <code>data-bs-parent="#faq"</code>. Remove that attribute from all three and several can stay open.</li>
+            <li>Replace the "Thanks!" status text with a toast after a valid submit (Lesson 18).</li>
           </ol>
         </div>
 
@@ -2973,6 +3059,7 @@ module BootstrapContent
                   <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                   </ul>
                   <button id="themeBtn" type="button" class="btn btn-outline-secondary ms-lg-3 mt-3 mt-lg-0" aria-label="Toggle dark mode"><i class="bi bi-moon-stars" aria-hidden="true"></i></button>
@@ -2991,22 +3078,43 @@ module BootstrapContent
               <div class="col"><i class="bi bi-people fs-1 text-primary" aria-hidden="true"></i><h2 class="h5 mt-2">Mentors</h2><p class="text-body-secondary">1:1 help from engineers.</p></div>
               <div class="col"><i class="bi bi-briefcase fs-1 text-primary" aria-hidden="true"></i><h2 class="h5 mt-2">Placements</h2><p class="text-body-secondary">Mock interviews and referrals.</p></div>
             </section>
-            <section id="pricing" class="row row-cols-1 row-cols-md-2 g-4 mb-5">
+            <section id="pricing" class="row row-cols-1 row-cols-md-3 g-4 mb-5">
               <div class="col"><div class="card h-100"><div class="card-body d-flex flex-column">
                 <h2 class="h5">Self-paced</h2><p class="display-6">₹4,999</p><p class="text-body-secondary">Recorded lessons + community</p>
                 <a href="#contact" class="btn btn-outline-primary mt-auto">Choose</a>
               </div></div></div>
-              <div class="col"><div class="card h-100 border-primary"><div class="card-body d-flex flex-column">
+              <div class="col"><div class="card h-100 border-primary border-2"><div class="card-body d-flex flex-column">
                 <h2 class="h5">Live Bootcamp <span class="badge text-bg-primary">Popular</span></h2><p class="display-6">₹24,999</p><p class="text-body-secondary">Live classes, mentor, placement help</p>
                 <a href="#contact" class="btn btn-primary mt-auto">Choose</a>
               </div></div></div>
+              <div class="col"><div class="card h-100"><div class="card-body d-flex flex-column">
+                <h2 class="h5">Pro</h2><p class="display-6">₹39,999</p><p class="text-body-secondary">Everything in Live + weekly 1:1 calls and mock interviews</p>
+                <a href="#contact" class="btn btn-outline-primary mt-auto">Choose</a>
+              </div></div></div>
+            </section>
+            <section class="mb-5" aria-labelledby="faqTitle">
+              <h2 id="faqTitle" class="h4">FAQ</h2>
+              <div class="accordion" id="faq">
+                <div class="accordion-item">
+                  <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#q1" aria-expanded="true" aria-controls="q1">Do I need a powerful laptop?</button></h3>
+                  <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faq"><div class="accordion-body">No. Any laptop with 8 GB RAM and a modern browser is enough.</div></div>
+                </div>
+                <div class="accordion-item">
+                  <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q2" aria-expanded="false" aria-controls="q2">Can I pay in instalments?</button></h3>
+                  <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">Yes. Live and Pro plans can be paid in 3 monthly parts.</div></div>
+                </div>
+                <div class="accordion-item">
+                  <h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#q3" aria-expanded="false" aria-controls="q3">Are classes recorded?</button></h3>
+                  <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">Yes. Every live class is recorded and shared the same day.</div></div>
+                </div>
+              </div>
             </section>
             <section id="contact" class="mb-5">
               <h2 class="h4">Request a callback</h2>
-              <form id="contactForm" class="row g-3" novalidate>
+              <form id="contactForm" class="row g-3 needs-validation" novalidate>
                 <div class="col-md-6"><div class="form-floating"><input id="name" class="form-control" placeholder="Name" required><label for="name">Name</label><div class="invalid-feedback">Please enter your name.</div></div></div>
                 <div class="col-md-6"><div class="form-floating"><input id="phone" type="tel" class="form-control" placeholder="Phone" pattern="[0-9]{10}" required><label for="phone">Mobile (10 digits)</label><div class="invalid-feedback">Enter a 10-digit number.</div></div></div>
-                <div class="col-12"><button id="callBtn" class="btn btn-primary" type="submit">Call me</button></div>
+                <div class="col-12"><button id="callBtn" class="btn btn-primary" type="submit">Call me</button> <span id="formStatus" class="ms-2 text-success" role="status"></span></div>
               </form>
             </section>
           </main>
@@ -3021,7 +3129,9 @@ module BootstrapContent
             // On a real site use the form's 'submit' event instead.
             document.getElementById('callBtn').addEventListener('click', e => {
               e.preventDefault();                 // stay on the page
-              document.getElementById('contactForm').classList.add('was-validated');
+              const form = document.getElementById('contactForm');
+              form.classList.add('was-validated');   // show red/green feedback
+              document.getElementById('formStatus').textContent = form.checkValidity() ? 'Thanks! We will call you soon.' : '';
             });
           </script>
         </body>

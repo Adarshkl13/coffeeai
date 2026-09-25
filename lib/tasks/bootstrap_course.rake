@@ -22,7 +22,7 @@ namespace :content do
       11 => "Offcanvas",                           12 => "Forms",
       13 => "Tables",                              14 => "Alerts, Badges, and Progress",
       15 => "Modals",                              16 => "Dropdowns, Collapse, and Accordion",
-      17 => "List Groups, Breadcrumbs, and Pagination", 18 => "Tooltips, Popovers, and Toasts",
+      17 => "List Groups, Images, and Carousel",    18 => "Tooltips, Popovers, and Toasts",
       19 => "Color Modes and Customization",       20 => "Capstone: Landing Page"
     }
 
@@ -36,16 +36,16 @@ namespace :content do
       7  => "Show and hide elements per breakpoint, size them with width/height utilities, and finish them with borders, rounded corners, shadows and positioning helpers.",
       8  => "Use button variants, sizes, states and groups, and add accessible Bootstrap Icons to buttons and links.",
       9  => "Build cards with bodies, images, headers and footers, and lay them out in equal-height responsive card grids.",
-      10 => "Create navs, tabs, pills and a responsive navbar with a collapsing toggler, dark mode via data-bs-theme, and sticky or fixed positioning.",
+      10 => "Create navs, tabs, pills and a responsive navbar with a collapsing toggler, dark mode via data-bs-theme, sticky or fixed positioning, plus breadcrumbs and pagination marked up with aria-current.",
       11 => "Slide panels in from any edge with the offcanvas component, including backdrop options, responsive offcanvas and the JavaScript API.",
       12 => "Style accessible forms with form-control, form-select, checks, switches, input groups and floating labels, and add Bootstrap validation feedback.",
       13 => "Present data in readable, responsive tables with striped, hover, bordered, compact and contextual table classes.",
       14 => "Give feedback with alerts, badges, progress bars, spinners and placeholders, using the correct 5.3 markup and ARIA attributes.",
       15 => "Build accessible modal dialogs, choose sizes and fullscreen or static-backdrop options, and control them with the JavaScript API and events.",
       16 => "Reveal content on demand with dropdown menus, collapse panels and accordions that keep one panel open at a time.",
-      17 => "Help users find their way with list groups, breadcrumbs and pagination, marked up with aria-current.",
+      17 => "Show collections of content with list groups, responsive images and figures (img-fluid, img-thumbnail), and an accessible carousel with indicators and controls.",
       18 => "Add opt-in tooltips and popovers with JavaScript initialisation, and show accessible toast notifications.",
-      19 => "Switch light and dark colour modes with data-bs-theme and customise Bootstrap with CSS variables, --bs-btn-* button variables and Sass.",
+      19 => "Switch light and dark colour modes with data-bs-theme and customise Bootstrap with CSS variables, --bs-btn-* button variables, and extend it with Sass theme colours, the Utilities API and import-only-what-you-need builds.",
       20 => "Build a complete responsive landing page with an offcanvas navbar, feature grid, pricing cards, FAQ, validated form and dark-mode toggle."
     }
 
@@ -82,8 +82,8 @@ namespace :content do
               opts: ["A) data-bs-dismiss=\"never\" data-bs-auto-close=\"outside\"", "B) data-bs-backdrop=\"false\" data-bs-focus=\"false\"", "C) data-bs-backdrop=\"static\" data-bs-keyboard=\"false\""], ans: "C" },
       16 => { type: "true_false",      q: "In a Bootstrap 5.3 accordion, data-bs-parent=\"#faq\" should be placed on each .accordion-button so that opening one panel closes the others.",
               opts: ["True", "False"], ans: "False" },
-      17 => { type: "multiple_choice", q: "Which markup correctly marks \"Bootstrap\" as the current page in a breadcrumb?",
-              opts: ["A) <li class=\"breadcrumb-item active\" aria-current=\"page\">Bootstrap</li>", "B) <li class=\"breadcrumb-item\"><a href=\"#\" class=\"current\">Bootstrap</a></li>", "C) <li class=\"breadcrumb-item selected\" aria-selected=\"true\">Bootstrap</li>"], ans: "A" },
+      17 => { type: "multiple_choice", q: "A Bootstrap 5.3 carousel's slide area is completely empty when the page loads, although the three images exist. Which markup fix makes the first slide show?",
+              opts: ["A) Add data-bs-ride=\"carousel\" to every .carousel-item", "B) Add data-bs-interval=\"0\" to the .carousel element", "C) Add the active class to exactly one .carousel-item"], ans: "C" },
       18 => { type: "multiple_choice", q: "A button has data-bs-toggle=\"tooltip\" and data-bs-title=\"Save draft\", and the Bootstrap bundle is loaded, but hovering shows nothing. What is missing?",
               opts: ["A) A title attribute, because data-bs-title is ignored in Bootstrap 5.3", "B) JavaScript that creates new bootstrap.Tooltip(el) for the element", "C) The separate Popper script, which the bundle does not include"], ans: "B" },
       19 => { type: "true_false",      q: "Adding :root { --bs-primary: #7952b3; } after bootstrap.min.css leaves .btn-primary buttons their default blue.",
