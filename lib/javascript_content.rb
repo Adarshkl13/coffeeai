@@ -1080,7 +1080,6 @@ module JavaScriptContent
           <p>A <code>Set</code> is a collection where every value appears only once. The quickest way to remove duplicates:</p>
           <div class="lc-code">const tags = ["js", "css", "js", "html", "css"];<br>const unique = [...new Set(tags)];<br>console.log(unique);   // ["js", "css", "html"]</div>
           <p>Lesson 12 covers the full <code>Set</code> API, including union and intersection.</p>
-          <p>Sets have <code>add</code>, <code>has</code>, <code>delete</code> and <code>size</code>, plus newer methods such as <code>union</code>, <code>intersection</code> and <code>difference</code> (Baseline 2024).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -2788,9 +2787,9 @@ module JavaScriptContent
           <table class="lc-table">
             <thead><tr><th>Feature</th><th>Tools</th><th>Lesson</th></tr></thead>
             <tbody>
-              <tr><td>Task data and rules</td><td><code>class TaskList</code> with a <code>#tasks</code> private field</td><td>12</td></tr>
+              <tr><td>Task data and rules</td><td><code>class TaskList</code> with a <code>#tasks</code> private field</td><td>11</td></tr>
               <tr><td>Validation</td><td><code>throw new Error</code>, <code>try/catch</code></td><td>13</td></tr>
-              <tr><td>Filtering and summary</td><td><code>filter</code>, <code>toSorted</code>, <code>Object.groupBy</code></td><td>10</td></tr>
+              <tr><td>Filtering and summary</td><td><code>filter</code>, <code>toSorted</code>, <code>Object.groupBy</code></td><td>9</td></tr>
               <tr><td>Showing tasks</td><td><code>createElement</code>, <code>textContent</code>, <code>classList</code></td><td>14</td></tr>
               <tr><td>Clicks and the form</td><td><code>submit</code>, <code>preventDefault</code>, event delegation</td><td>15</td></tr>
               <tr><td>Saving</td><td><code>JSON.stringify</code>/<code>parse</code>, <code>localStorage</code></td><td>18</td></tr>
