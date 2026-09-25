@@ -204,7 +204,7 @@ ${code.replace(/<\/script/gi, '<\\/script')}
     </style></head><body>
     <div class="brand">🔷 TypeScript Simulator (Babel)</div>
     <div id="out"></div>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.29.9/babel.min.js"></script>
     <script>
     const out = document.getElementById('out');
     function addLine(text, cls) {
