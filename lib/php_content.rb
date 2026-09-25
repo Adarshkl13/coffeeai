@@ -309,12 +309,37 @@ module PhpContent
           <p>Since PHP 8.2, <code>strtoupper()</code> only changes ASCII letters A–Z. For names, cities and user input, prefer <code>mb_strlen</code>, <code>mb_substr</code>, <code>mb_strtoupper</code> and <code>mb_strtolower</code>.</p>
         </div>
         <div class="lc-card">
+          <h3>Regular Expressions: preg_match, preg_replace, preg_split</h3>
+          <p>A <strong>regular expression</strong> (regex) is a pattern that describes text, such as "10 digits starting with 6–9". PHP's <code>preg_*</code> functions take the pattern as a string between delimiters, usually slashes: <code>'/pattern/flags'</code>. Always write patterns in <strong>single quotes</strong> so PHP does not touch the backslashes.</p>
+          <table class="lc-table">
+            <thead><tr><th>Pattern piece</th><th>Means</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><code>^</code> and <code>$</code></td><td>Start and end of the string</td><td><code>'/^\d+$/'</code> — only digits, nothing else</td></tr>
+              <tr><td><code>\d</code>, <code>\D</code></td><td>A digit / anything that is not a digit</td><td><code>'/\d/'</code> matches the "7" in "Room 7"</td></tr>
+              <tr><td><code>\s</code>, <code>\w</code></td><td>Whitespace / a letter, digit or <code>_</code> (ASCII)</td><td><code>'/\s+/'</code> — one or more spaces</td></tr>
+              <tr><td><code>[6-9]</code>, <code>[,;]</code></td><td>One character from the set</td><td><code>[aeiou]</code> — any vowel</td></tr>
+              <tr><td><code>+</code>, <code>*</code>, <code>?</code>, <code>{9}</code></td><td>1 or more, 0 or more, optional, exactly 9</td><td><code>'/^\d{6}$/'</code> — a PIN code</td></tr>
+              <tr><td><code>( )</code></td><td>A capture group you can read back</td><td><code>'/(\d{6})$/'</code></td></tr>
+              <tr><td>flag <code>u</code></td><td>Treat pattern and text as UTF-8</td><td><code>'/^\p{L}+$/u'</code> — letters in any language</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">$phone  = "98765 43210";<br>$digits = preg_replace('/\D/', '', $phone);          // remove every non-digit<br>echo $digits, "\n";<br>var_dump(preg_match('/^[6-9]\d{9}$/', $digits));     // 1 = matched<br>var_dump(preg_match('/^[6-9]\d{9}$/', "12345"));     // 0 = no match<br><br>if (preg_match('/(\d{6})$/', "MG Road, Kochi 682001", $m)) {<br>    echo "PIN code: ", $m[1], "\n";                  // $m[0] = whole match, $m[1] = group 1<br>}<br>echo preg_replace('/\s+/', ' ', "too    many   spaces"), "\n";<br>echo implode(" | ", preg_split('/\s*[,;]\s*/', "PHP, MySQL ;Laravel")), "\n";<br>var_dump(preg_match('/^\p{L}+$/u', "José"), preg_match('/^\w+$/', "José"));</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">9876543210<br>int(1)<br>int(0)<br>PIN code: 682001<br>too many spaces<br>PHP | MySQL | Laravel<br>int(1)<br>int(0)</div>
+          <ul class="lc-list">
+            <li><code>preg_match()</code> returns <code>1</code> (found), <code>0</code> (not found) or <code>false</code> (broken pattern). Matches go into the optional third argument.</li>
+            <li><code>preg_match_all()</code> finds <em>every</em> match; <code>preg_replace()</code> replaces them; <code>preg_split()</code> splits on them.</li>
+            <li>Without the <code>u</code> flag, <code>\w</code> only knows ASCII, so "José" fails. For simple fixed text, plain <code>str_contains()</code> or <code>str_replace()</code> is faster and clearer than a regex.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><code>if (strpos($s, "a"))</code> is false when "a" is at position <strong>0</strong>. Use <code>str_contains()</code>, or compare with <code>!== false</code>.</li>
             <li>Using <code>+</code> to join strings — that is addition. Use <code>.</code>.</li>
             <li>Cutting user names with <code>substr()</code> — it can split a multi-byte character and print "�". Use <code>mb_substr()</code>.</li>
             <li>Writing <code>"{$user[city]}"</code> without quotes inside braces — use <code>{$user['city']}</code>.</li>
+            <li>Forgetting <code>^</code> and <code>$</code> in a validation regex: <code>'/[6-9]\d{9}/'</code> also accepts "abc98765432101xyz".</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -360,6 +385,13 @@ module PhpContent
         $greeting = "नमस्ते";
         echo "strlen: " . strlen($greeting) . ", mb_strlen: " . mb_strlen($greeting) . "\n";
         echo mb_strtoupper("café au lait") . "\n";
+
+        // Regular expressions: validate, extract, clean up
+        $mobile = preg_replace('/\D/', '', "+91 98450-12345");
+        $mobile = substr($mobile, -10);                      // keep the last 10 digits
+        echo "Mobile $mobile valid? ", preg_match('/^[6-9]\d{9}$/', $mobile) ? "yes" : "no", "\n";
+        preg_match('/(\d{6})$/', "Indiranagar, Bengaluru 560038", $m);
+        echo "PIN: {$m[1]} | Words: ", implode("/", preg_split('/\s+/', "learn   PHP  fast")), "\n";
 
         // Heredoc template
         echo <<<MSG
@@ -892,7 +924,7 @@ module PhpContent
         <div class="lc-card">
           <h3>Recursion</h3>
           <p>A function can call itself. It needs a <strong>base case</strong> that stops the calls.</p>
-          <div class="lc-code">function factorial(int $n): int<br>{<br>    return $n &amp;lt;= 1 ? 1 : $n * factorial($n - 1);<br>}<br>echo factorial(5);   // 120</div>
+          <div class="lc-code">function factorial(int $n): int<br>{<br>    return $n &lt;= 1 ? 1 : $n * factorial($n - 1);<br>}<br>echo factorial(5);   // 120</div>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1011,7 +1043,7 @@ module PhpContent
         <div class="lc-card">
           <h3>User Input Is Always a String</h3>
           <p>Values from forms and URLs (<code>$_GET</code>, <code>$_POST</code>) are always strings, even <code>"42"</code>. With strict types you must convert them <em>explicitly</em>, after checking them:</p>
-          <div class="lc-code">$raw = $_GET['qty'] ?? '1';<br>$qty = filter_var($raw, FILTER_VALIDATE_INT, ['options' =&amp;gt; ['min_range' =&amp;gt; 1]]);<br>if ($qty === false) {<br>    exit('Quantity must be a whole number of 1 or more');<br>}<br>addToCart(productId: 7, qty: $qty);   // now a real int</div>
+          <div class="lc-code">$raw = $_GET['qty'] ?? '1';<br>$qty = filter_var($raw, FILTER_VALIDATE_INT, ['options' =&gt; ['min_range' =&gt; 1]]);<br>if ($qty === false) {<br>    exit('Quantity must be a whole number of 1 or more');<br>}<br>addToCart(productId: 7, qty: $qty);   // now a real int</div>
           <p>Converting at the "edge" of your program and keeping strict types inside is the clean, professional pattern.</p>
         </div>
         <div class="lc-card">
@@ -1239,7 +1271,7 @@ module PhpContent
         <div class="lc-card">
           <h3>Constructor Property Promotion (PHP 8.0+)</h3>
           <p>Old-style classes repeat every property three times. Promotion declares and assigns the property right in the constructor's parameter list.</p>
-          <div class="lc-code">// Old way: verbose<br>class Product {<br>    private string $name;<br>    private int $price;<br>    public function __construct(string $name, int $price) {<br>        $this-&amp;gt;name = $name;<br>        $this-&amp;gt;price = $price;<br>    }<br>}<br><br>// Modern way: promoted properties<br>class Product {<br>    public function __construct(<br>        private string $name,<br>        private int $price,<br>    ) {}<br>}</div>
+          <div class="lc-code">// Old way: verbose<br>class Product {<br>    private string $name;<br>    private int $price;<br>    public function __construct(string $name, int $price) {<br>        $this-&gt;name = $name;<br>        $this-&gt;price = $price;<br>    }<br>}<br><br>// Modern way: promoted properties<br>class Product {<br>    public function __construct(<br>        private string $name,<br>        private int $price,<br>    ) {}<br>}</div>
         </div>
         <div class="lc-card">
           <h3>Worked Example: A Wallet</h3>
@@ -1261,7 +1293,7 @@ module PhpContent
         <div class="lc-card">
           <h3>The Null-safe Operator ?-&gt; (PHP 8.0+)</h3>
           <p>When an object might be <code>null</code>, <code>?-&gt;</code> stops the chain and returns <code>null</code> instead of crashing.</p>
-          <div class="lc-code">// Old way<br>$city = null;<br>if ($order !== null &amp;amp;&amp;amp; $order-&amp;gt;customer() !== null) {<br>    $city = $order-&amp;gt;customer()-&amp;gt;city;<br>}<br><br>// Modern way<br>$city = $order?-&amp;gt;customer()?-&amp;gt;city ?? 'Unknown';</div>
+          <div class="lc-code">// Old way<br>$city = null;<br>if ($order !== null &amp;&amp; $order-&gt;customer() !== null) {<br>    $city = $order-&gt;customer()-&gt;city;<br>}<br><br>// Modern way<br>$city = $order?-&gt;customer()?-&gt;city ?? 'Unknown';</div>
           <p><strong>PHP 8.4+</strong> also lets you call a method straight after <code>new</code> without extra brackets: <code>new Wallet("Sana")-&gt;balance()</code>. On older versions write <code>(new Wallet("Sana"))-&gt;balance()</code>.</p>
         </div>
         <div class="lc-card">
@@ -1357,7 +1389,7 @@ module PhpContent
         <div class="lc-card">
           <h3>Validate in the Constructor</h3>
           <p>If an object can never be created in a bad state, every method can trust its data. Throw an exception for invalid input:</p>
-          <div class="lc-code">final class Percentage<br>{<br>    public function __construct(private float $value)<br>    {<br>        if ($value &amp;lt; 0 || $value &amp;gt; 100) {<br>            throw new InvalidArgumentException("Percentage must be 0-100, got $value");<br>        }<br>    }<br>    public function value(): float { return $this-&amp;gt;value; }<br>}</div>
+          <div class="lc-code">final class Percentage<br>{<br>    public function __construct(private float $value)<br>    {<br>        if ($value &lt; 0 || $value &gt; 100) {<br>            throw new InvalidArgumentException("Percentage must be 0-100, got $value");<br>        }<br>    }<br>    public function value(): float { return $this-&gt;value; }<br>}</div>
         </div>
         <div class="lc-card">
           <h3>readonly Properties (8.1+) and Classes (8.2+)</h3>
@@ -1615,7 +1647,7 @@ module PhpContent
         <div class="lc-card">
           <h3>Traits: Sharing Methods Sideways</h3>
           <p>A trait is a bundle of methods you can drop into unrelated classes. Use it for small cross-cutting helpers such as timestamps or logging, not as a replacement for good design.</p>
-          <div class="lc-code">trait HasTimestamps<br>{<br>    private ?string $updatedAt = null;<br>    public function touch(string $when): void { $this-&amp;gt;updatedAt = $when; }<br>    public function updatedAt(): ?string { return $this-&amp;gt;updatedAt; }<br>}<br><br>class Invoice { use HasTimestamps; }<br>class Customer { use HasTimestamps; }</div>
+          <div class="lc-code">trait HasTimestamps<br>{<br>    private ?string $updatedAt = null;<br>    public function touch(string $when): void { $this-&gt;updatedAt = $when; }<br>    public function updatedAt(): ?string { return $this-&gt;updatedAt; }<br>}<br><br>class Invoice { use HasTimestamps; }<br>class Customer { use HasTimestamps; }</div>
         </div>
         <div class="lc-card">
           <h3>Composition Over Inheritance</h3>
@@ -1856,7 +1888,7 @@ module PhpContent
             <thead><tr><th>Flag / option</th><th>Effect</th></tr></thead>
             <tbody>
               <tr><td><code>JSON_THROW_ON_ERROR</code></td><td>Throw <code>JsonException</code> instead of quietly returning <code>null</code> / <code>false</code>. Always use it.</td></tr>
-              <tr><td><code>JSON_UNESCAPED_UNICODE</code></td><td>Keep "अनु" readable instead of <code>अनु</code></td></tr>
+              <tr><td><code>JSON_UNESCAPED_UNICODE</code></td><td>Keep "अनु" readable instead of <code>"\u0905\u0928\u0941"</code></td></tr>
               <tr><td><code>JSON_PRETTY_PRINT</code></td><td>Indented output for humans</td></tr>
               <tr><td><code>json_decode($s, true)</code></td><td>Return associative arrays instead of <code>stdClass</code> objects</td></tr>
             </tbody>
@@ -1944,7 +1976,7 @@ module PhpContent
         <p class="lc-lead">This is where PHP meets real users — and real attackers. The golden rule: <strong>never trust input, always escape output</strong>. In this lesson you learn the handful of habits that stop the most common web attacks listed in the OWASP Top 10.</p>
         <div class="lc-card">
           <h3>Reading Form Data</h3>
-          <div class="lc-code">&amp;lt;form method="post" action="/register.php"&amp;gt;<br>  &amp;lt;input name="email" type="email"&amp;gt;<br>  &amp;lt;input name="age" type="number"&amp;gt;<br>  &amp;lt;input type="hidden" name="csrf_token" value="&amp;lt;?= e($_SESSION['csrf_token']) ?&amp;gt;"&amp;gt;<br>  &amp;lt;button&amp;gt;Register&amp;lt;/button&amp;gt;<br>&amp;lt;/form&amp;gt;</div>
+          <div class="lc-code">&lt;form method="post" action="/register.php"&gt;<br>  &lt;input name="email" type="email"&gt;<br>  &lt;input name="age" type="number"&gt;<br>  &lt;input type="hidden" name="csrf_token" value="&lt;?= e($_SESSION['csrf_token']) ?&gt;"&gt;<br>  &lt;button&gt;Register&lt;/button&gt;<br>&lt;/form&gt;</div>
           <table class="lc-table">
             <thead><tr><th>Superglobal</th><th>Contains</th><th>Use for</th></tr></thead>
             <tbody>
@@ -1985,7 +2017,7 @@ module PhpContent
         </div>
         <div class="lc-card">
           <h3>4. Sessions and Passwords</h3>
-          <div class="lc-code">session_start([<br>    'cookie_httponly' =&amp;gt; true,      // JavaScript cannot read the cookie<br>    'cookie_secure'   =&amp;gt; true,      // only sent over HTTPS<br>    'cookie_samesite' =&amp;gt; 'Lax',<br>]);<br><br>// Registration: store only the hash<br>$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);<br><br>// Login<br>if (password_verify($_POST['password'], $user['password_hash'])) {<br>    session_regenerate_id(true);    // new session id: stops session fixation<br>    $_SESSION['user_id'] = $user['id'];<br>}</div>
+          <div class="lc-code">session_start([<br>    'cookie_httponly' =&gt; true,      // JavaScript cannot read the cookie<br>    'cookie_secure'   =&gt; true,      // only sent over HTTPS<br>    'cookie_samesite' =&gt; 'Lax',<br>]);<br><br>// Registration: store only the hash<br>$hash = password_hash($_POST['password'], PASSWORD_DEFAULT);<br><br>// Login<br>if (password_verify($_POST['password'], $user['password_hash'])) {<br>    session_regenerate_id(true);    // new session id: stops session fixation<br>    $_SESSION['user_id'] = $user['id'];<br>}</div>
           <table class="lc-table">
             <thead><tr><th>Do</th><th>Never</th></tr></thead>
             <tbody>
@@ -1996,17 +2028,36 @@ module PhpContent
           </table>
         </div>
         <div class="lc-card">
+          <h3>5. A JSON Endpoint by Hand</h3>
+          <p>Mobile apps and JavaScript front-ends do not send HTML forms; they send <strong>JSON</strong> in the request body. <code>$_POST</code> stays <strong>empty</strong> for a JSON body, so you read the raw body from the stream <code>php://input</code>, decode it, and answer with JSON plus the right <strong>status code</strong>:</p>
+          <div class="lc-code">&lt;?php<br>// api/students.php  -  POST /api/students.php with a JSON body<br>declare(strict_types=1);<br>header('Content-Type: application/json; charset=utf-8');   // before ANY output<br><br>if ($_SERVER['REQUEST_METHOD'] !== 'POST') {<br>    http_response_code(405);                                  // Method Not Allowed<br>    header('Allow: POST');<br>    echo json_encode(['error' =&gt; 'Use POST']);<br>    exit;<br>}<br>try {<br>    $in = json_decode(file_get_contents('php://input'), true, flags: JSON_THROW_ON_ERROR);<br>} catch (JsonException) {<br>    http_response_code(400);                                  // Bad Request<br>    echo json_encode(['error' =&gt; 'Body must be valid JSON']);<br>    exit;<br>}<br>$email = filter_var($in['email'] ?? '', FILTER_VALIDATE_EMAIL);<br>if ($email === false) {<br>    http_response_code(422);                                  // Unprocessable Content<br>    echo json_encode(['error' =&gt; 'Invalid email']);<br>    exit;<br>}<br>http_response_code(201);                                      // Created<br>echo json_encode(['id' =&gt; 101, 'email' =&gt; $email]);</div>
+          <p><strong>Output</strong> (run <code>php -S localhost:8000</code> in the project folder, then call it with <code>curl</code>):</p>
+          <div class="lc-code">$ curl -i -X POST -d '{"email":"asha@example.in"}' localhost:8000/api/students.php<br>HTTP/1.1 201 Created<br>Content-Type: application/json; charset=utf-8<br>{"id":101,"email":"asha@example.in"}<br><br>$ curl -X POST -d '{bad' localhost:8000/api/students.php<br>{"error":"Body must be valid JSON"}          (status 400)<br><br>$ curl localhost:8000/api/students.php<br>{"error":"Use POST"}                         (status 405)</div>
+          <table class="lc-table">
+            <thead><tr><th>Status</th><th>Meaning</th><th>Send it when</th></tr></thead>
+            <tbody>
+              <tr><td><code>200</code> / <code>201</code></td><td>OK / Created</td><td>Read succeeded / a new record was saved</td></tr>
+              <tr><td><code>400</code></td><td>Bad Request</td><td>The body is not valid JSON</td></tr>
+              <tr><td><code>401</code> / <code>403</code></td><td>Not logged in / not allowed</td><td>Missing session or token / wrong user</td></tr>
+              <tr><td><code>405</code></td><td>Method Not Allowed</td><td>GET sent to a POST-only endpoint</td></tr>
+              <tr><td><code>422</code></td><td>Unprocessable Content</td><td>Valid JSON, but the data fails validation</td></tr>
+            </tbody>
+          </table>
+          <p><code>header()</code> and <code>http_response_code()</code> must run <strong>before</strong> the first <code>echo</code>; after output has started PHP warns "headers already sent" and ignores them. The editor has no web server or request body, so the starter passes a simulated body string to a function instead of reading <code>php://input</code>. Frameworks like Laravel and Slim do all of this for you, but underneath it is exactly these calls.</p>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Escaping on input and storing the escaped text. Store the raw value; escape when <strong>printing</strong>, for the place you print it (HTML, URL, JSON).</li>
             <li>Using GET links for actions like <code>delete.php?id=5</code> — crawlers and attackers can trigger them. Use POST with a CSRF token.</li>
             <li>Comparing tokens with <code>==</code> — use <code>hash_equals()</code>.</li>
+            <li>Reading <code>$_POST</code> in a JSON API — it is empty for JSON bodies. Read <code>php://input</code> and <code>json_decode()</code> it.</li>
             <li>Showing "wrong password" vs "no such user" separately — it tells attackers which emails exist. Say "Invalid email or password".</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>In the starter, add a <code>phone</code> field and validate it as a 10-digit Indian mobile number starting with 6–9 using <code>preg_match('/^[6-9]\d{9}$/', $phone)</code>. Print a clear error when it fails and make sure the phone is escaped when shown back.</p>
+          <p>In the starter, add a <code>phone</code> field and validate it as a 10-digit Indian mobile number starting with 6–9 using <code>preg_match('/^[6-9]\d{9}$/', $phone)</code> (the regex from Lesson 3). Print a clear error when it fails and make sure the phone is escaped when shown back. Then send <code>createStudent()</code> a body with a missing <code>email</code> key and predict the status code before you run it.</p>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> After a successful POST, <strong>redirect</strong> (<code>header('Location: /thank-you'); exit;</code>). This "Post/Redirect/Get" pattern stops the browser from resubmitting the form when the user presses refresh.
@@ -2016,7 +2067,7 @@ module PhpContent
         <?php
         declare(strict_types=1);
         // Lesson 17: Forms, Sessions and Web Security
-        // We simulate one POST request with arrays, because the editor has no web server.
+        // The editor has no web server, so we simulate requests with arrays and strings.
 
         function e(string $text): string
         {
@@ -2024,25 +2075,17 @@ module PhpContent
         }
 
         $session = ['csrf_token' => bin2hex(random_bytes(32))];   // made at login
-        $post = [
-            'name'       => '<b>Riya</b><script>steal()</script>',
-            'email'      => 'riya@example.in',
-            'age'        => '17',
-            'password'   => 'Chai@Monsoon2026',
-            'csrf_token' => $session['csrf_token'],               // hidden form field
-        ];
+        $post = ['name' => '<b>Riya</b><script>steal()</script>', 'email' => 'riya@example.in',
+                 'age' => '17', 'password' => 'Chai@Monsoon2026', 'csrf_token' => $session['csrf_token']];
 
         echo "--- 1. CSRF check ---\n";
-        $validToken = hash_equals($session['csrf_token'], $post['csrf_token'] ?? '');
-        echo $validToken ? "Token OK\n" : "403 Forbidden\n";
+        echo hash_equals($session['csrf_token'], $post['csrf_token'] ?? '') ? "Token OK\n" : "403 Forbidden\n";
         var_dump(hash_equals($session['csrf_token'], 'guessed-token'));
 
         echo "\n--- 2. Validation ---\n";
         $errors = [];
-        $email = filter_var($post['email'] ?? '', FILTER_VALIDATE_EMAIL);
-        $age   = filter_var($post['age'] ?? '', FILTER_VALIDATE_INT, ['options' => ['min_range' => 18]]);
-        if ($email === false) $errors[] = "Email is not valid";
-        if ($age === false)   $errors[] = "You must be 18 or older";
+        if (filter_var($post['email'] ?? '', FILTER_VALIDATE_EMAIL) === false) $errors[] = "Email is not valid";
+        if (filter_var($post['age'] ?? '', FILTER_VALIDATE_INT, ['options' => ['min_range' => 18]]) === false) $errors[] = "You must be 18 or older";
         if (mb_strlen($post['password'] ?? '') < 12) $errors[] = "Password needs 12+ characters";
         echo $errors ? implode("\n", $errors) . "\n" : "All fields valid\n";
 
@@ -2051,11 +2094,25 @@ module PhpContent
 
         echo "\n--- 4. Password hashing ---\n";
         $hash = password_hash($post['password'], PASSWORD_DEFAULT);
-        echo "Stored hash starts with ", substr($hash, 0, 7), " and is ", strlen($hash), " chars\n";
-        var_dump(password_verify('Chai@Monsoon2026', $hash));
-        var_dump(password_verify('chai@monsoon2026', $hash));
-        echo "Same password, new salt, different hash: ";
-        var_dump(password_hash($post['password'], PASSWORD_DEFAULT) !== $hash);
+        echo "Hash starts with ", substr($hash, 0, 7), " and is ", strlen($hash), " chars\n";
+        var_dump(password_verify('Chai@Monsoon2026', $hash), password_verify('chai@monsoon2026', $hash));
+
+        echo "\n--- 5. JSON endpoint: POST /api/students ---\n";
+        function createStudent(string $rawBody): array             // returns [status code, response data]
+        {
+            try {
+                $in = json_decode($rawBody, true, flags: JSON_THROW_ON_ERROR);
+            } catch (JsonException) {
+                return [400, ['error' => 'Body must be valid JSON']];
+            }
+            $email = filter_var($in['email'] ?? '', FILTER_VALIDATE_EMAIL);
+            return $email === false ? [422, ['error' => 'Invalid email']] : [201, ['id' => 101, 'email' => $email]];
+        }
+        // On a real server: $rawBody = file_get_contents('php://input');
+        foreach (['{"email":"asha@example.in"}', '{"email":"not-an-email"}', '{bad json'] as $rawBody) {
+            [$status, $data] = createStudent($rawBody);
+            echo "HTTP $status  Content-Type: application/json  ", json_encode($data), "\n";
+        }
       PHP
     },
 
@@ -2069,7 +2126,7 @@ module PhpContent
         <div class="lc-card">
           <h3>Connecting</h3>
           <p>The lesson editor has no database server, so the connection code below is for your own machine (for example XAMPP, Laragon or Docker). The starter code practises the query-building part.</p>
-          <div class="lc-code">$dsn = 'mysql:host=127.0.0.1;port=3306;dbname=college;charset=utf8mb4';<br><br>$pdo = new PDO($dsn, getenv('DB_USER'), getenv('DB_PASS'), [<br>    PDO::ATTR_ERRMODE            =&amp;gt; PDO::ERRMODE_EXCEPTION,  // throw PDOException (default since PHP 8.0)<br>    PDO::ATTR_DEFAULT_FETCH_MODE =&amp;gt; PDO::FETCH_ASSOC,        // rows as ['name' =&amp;gt; ...]<br>    PDO::ATTR_EMULATE_PREPARES   =&amp;gt; false,                   // use real server-side prepares<br>]);</div>
+          <div class="lc-code">$dsn = 'mysql:host=127.0.0.1;port=3306;dbname=college;charset=utf8mb4';<br><br>$pdo = new PDO($dsn, getenv('DB_USER'), getenv('DB_PASS'), [<br>    PDO::ATTR_ERRMODE            =&gt; PDO::ERRMODE_EXCEPTION,  // throw PDOException (default since PHP 8.0)<br>    PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC,        // rows as ['name' =&gt; ...]<br>    PDO::ATTR_EMULATE_PREPARES   =&gt; false,                   // use real server-side prepares<br>]);</div>
           <ul class="lc-list">
             <li>Use <code>charset=utf8mb4</code>. MySQL's old <code>utf8</code> stores only 3 bytes per character and cannot hold emoji or some rare scripts; <code>utf8mb4</code> is real UTF-8.</li>
             <li>Keep passwords out of your code — read them from environment variables or a <code>.env</code> file that is never committed to Git.</li>
@@ -2078,12 +2135,12 @@ module PhpContent
         </div>
         <div class="lc-card">
           <h3>SQL Injection: The Problem</h3>
-          <div class="lc-code">// NEVER do this<br>$email = $_POST['email'];        // attacker types:  ' OR '1'='1<br>$sql = "SELECT * FROM users WHERE email = '$email'";<br>// becomes: SELECT * FROM users WHERE email = '' OR '1'='1'   -&amp;gt; every user!</div>
+          <div class="lc-code">// NEVER do this<br>$email = $_POST['email'];        // attacker types:  ' OR '1'='1<br>$sql = "SELECT * FROM users WHERE email = '$email'";<br>// becomes: SELECT * FROM users WHERE email = '' OR '1'='1'   -&gt; every user!</div>
           <p>Because the input was glued into the SQL text, the attacker changed the <em>meaning</em> of the query. The same trick can delete tables or read passwords.</p>
         </div>
         <div class="lc-card">
           <h3>Prepared Statements: The Fix</h3>
-          <div class="lc-code">// Positional placeholders<br>$stmt = $pdo-&amp;gt;prepare('SELECT id, name FROM users WHERE email = ?');<br>$stmt-&amp;gt;execute([$email]);<br>$user = $stmt-&amp;gt;fetch();                 // one row, or false if none<br><br>// Named placeholders<br>$stmt = $pdo-&amp;gt;prepare('INSERT INTO users (name, email, city) VALUES (:name, :email, :city)');<br>$stmt-&amp;gt;execute(['name' =&amp;gt; 'Riya', 'email' =&amp;gt; 'riya@example.in', 'city' =&amp;gt; 'Pune']);<br>$newId = (int) $pdo-&amp;gt;lastInsertId();<br><br>// Other fetch methods<br>$all   = $pdo-&amp;gt;query('SELECT name FROM users ORDER BY name')-&amp;gt;fetchAll();<br>$count = $pdo-&amp;gt;query('SELECT COUNT(*) FROM users')-&amp;gt;fetchColumn();</div>
+          <div class="lc-code">// Positional placeholders<br>$stmt = $pdo-&gt;prepare('SELECT id, name FROM users WHERE email = ?');<br>$stmt-&gt;execute([$email]);<br>$user = $stmt-&gt;fetch();                 // one row, or false if none<br><br>// Named placeholders<br>$stmt = $pdo-&gt;prepare('INSERT INTO users (name, email, city) VALUES (:name, :email, :city)');<br>$stmt-&gt;execute(['name' =&gt; 'Riya', 'email' =&gt; 'riya@example.in', 'city' =&gt; 'Pune']);<br>$newId = (int) $pdo-&gt;lastInsertId();<br><br>// Other fetch methods<br>$all   = $pdo-&gt;query('SELECT name FROM users ORDER BY name')-&gt;fetchAll();<br>$count = $pdo-&gt;query('SELECT COUNT(*) FROM users')-&gt;fetchColumn();</div>
           <p>The SQL text and the <strong>values</strong> are sent separately, so a value can never change the structure of the query — <code>' OR '1'='1</code> is treated as a strange email address, nothing more.</p>
         </div>
         <div class="lc-card">
@@ -2102,7 +2159,7 @@ module PhpContent
         </div>
         <div class="lc-card">
           <h3>Transactions: All or Nothing</h3>
-          <div class="lc-code">try {<br>    $pdo-&amp;gt;beginTransaction();<br>    $pdo-&amp;gt;prepare('UPDATE wallets SET balance = balance - ? WHERE user_id = ?')-&amp;gt;execute([500, $from]);<br>    $pdo-&amp;gt;prepare('UPDATE wallets SET balance = balance + ? WHERE user_id = ?')-&amp;gt;execute([500, $to]);<br>    $pdo-&amp;gt;commit();                // both changes saved together<br>} catch (Throwable $e) {<br>    $pdo-&amp;gt;rollBack();              // neither change is saved<br>    throw $e;<br>}</div>
+          <div class="lc-code">try {<br>    $pdo-&gt;beginTransaction();<br>    $pdo-&gt;prepare('UPDATE wallets SET balance = balance - ? WHERE user_id = ?')-&gt;execute([500, $from]);<br>    $pdo-&gt;prepare('UPDATE wallets SET balance = balance + ? WHERE user_id = ?')-&gt;execute([500, $to]);<br>    $pdo-&gt;commit();                // both changes saved together<br>} catch (Throwable $e) {<br>    $pdo-&gt;rollBack();              // neither change is saved<br>    throw $e;<br>}</div>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Building a Safe Query</h3>
@@ -2185,7 +2242,7 @@ module PhpContent
         <div class="lc-card">
           <h3>Namespaces</h3>
           <p>A namespace is like a folder for class names, so your <code>App\Models\User</code> never clashes with a package's <code>Acme\Auth\User</code>.</p>
-          <div class="lc-code">&amp;lt;?php<br>// file: src/Billing/Invoice.php<br>declare(strict_types=1);<br><br>namespace App\Billing;                 // first statement after declare<br><br>use App\Models\Customer;               // import a class<br>use DateTimeImmutable;                 // global classes can be imported too<br>use Acme\Pdf\Renderer as PdfRenderer;  // alias to avoid a name clash<br><br>final class Invoice<br>{<br>    public function __construct(private Customer $customer, private DateTimeImmutable $date) {}<br>}</div>
+          <div class="lc-code">&lt;?php<br>// file: src/Billing/Invoice.php<br>declare(strict_types=1);<br><br>namespace App\Billing;                 // first statement after declare<br><br>use App\Models\Customer;               // import a class<br>use DateTimeImmutable;                 // global classes can be imported too<br>use Acme\Pdf\Renderer as PdfRenderer;  // alias to avoid a name clash<br><br>final class Invoice<br>{<br>    public function __construct(private Customer $customer, private DateTimeImmutable $date) {}<br>}</div>
           <ul class="lc-list">
             <li>Inside a namespace, <code>Invoice</code> means <code>App\Billing\Invoice</code>. A leading backslash, <code>\DateTimeImmutable</code>, means "from the global namespace".</li>
             <li><code>Invoice::class</code> gives the full name as a string: <code>"App\Billing\Invoice"</code>.</li>
@@ -2211,7 +2268,7 @@ module PhpContent
         <div class="lc-card">
           <h3>PSR-4 Autoloading</h3>
           <p><strong>PSR-4</strong> is a standard that maps a namespace prefix to a folder. Composer then loads each class file automatically the first time you use the class — no more long lists of <code>require</code>.</p>
-          <div class="lc-code">// composer.json<br>{<br>    "require": { "php": "&amp;gt;=8.3" },<br>    "autoload":     { "psr-4": { "App\\": "src/" } },<br>    "autoload-dev": { "psr-4": { "Tests\\": "tests/" } }<br>}<br><br>// public/index.php - the only require you need<br>require __DIR__ . '/../vendor/autoload.php';<br>$invoice = new App\Billing\Invoice($customer, new DateTimeImmutable());</div>
+          <div class="lc-code">// composer.json<br>{<br>    "require": { "php": "&gt;=8.3" },<br>    "autoload":     { "psr-4": { "App\\": "src/" } },<br>    "autoload-dev": { "psr-4": { "Tests\\": "tests/" } }<br>}<br><br>// public/index.php - the only require you need<br>require __DIR__ . '/../vendor/autoload.php';<br>$invoice = new App\Billing\Invoice($customer, new DateTimeImmutable());</div>
           <table class="lc-table">
             <thead><tr><th>Class</th><th>File Composer loads</th></tr></thead>
             <tbody>
@@ -2225,7 +2282,7 @@ module PhpContent
         <div class="lc-card">
           <h3>Testing with PHPUnit</h3>
           <p>A test is code that calls your code and checks the result. Run the whole suite with <code>vendor/bin/phpunit</code> before every commit; a green bar means nothing you tested has broken.</p>
-          <div class="lc-code">&amp;lt;?php<br>// tests/Domain/MoneyTest.php<br>declare(strict_types=1);<br><br>namespace Tests\Domain;<br><br>use App\Domain\Money;<br>use PHPUnit\Framework\Attributes\Test;<br>use PHPUnit\Framework\TestCase;<br><br>final class MoneyTest extends TestCase<br>{<br>    #[Test]<br>    public function it_adds_two_amounts(): void<br>    {<br>        $total = (new Money(1500))-&amp;gt;add(new Money(250));<br>        $this-&amp;gt;assertSame(1750, $total-&amp;gt;paise);<br>    }<br><br>    #[Test]<br>    public function it_rejects_negative_amounts(): void<br>    {<br>        $this-&amp;gt;expectException(\InvalidArgumentException::class);<br>        new Money(-1);<br>    }<br>}</div>
+          <div class="lc-code">&lt;?php<br>// tests/Domain/MoneyTest.php<br>declare(strict_types=1);<br><br>namespace Tests\Domain;<br><br>use App\Domain\Money;<br>use PHPUnit\Framework\Attributes\Test;<br>use PHPUnit\Framework\TestCase;<br><br>final class MoneyTest extends TestCase<br>{<br>    #[Test]<br>    public function it_adds_two_amounts(): void<br>    {<br>        $total = (new Money(1500))-&gt;add(new Money(250));<br>        $this-&gt;assertSame(1750, $total-&gt;paise);<br>    }<br><br>    #[Test]<br>    public function it_rejects_negative_amounts(): void<br>    {<br>        $this-&gt;expectException(\InvalidArgumentException::class);<br>        new Money(-1);<br>    }<br>}</div>
           <ul class="lc-list">
             <li>Each test follows <strong>Arrange → Act → Assert</strong>: set up data, call the code, check the result.</li>
             <li>Prefer <code>assertSame()</code> (strict <code>===</code>) over <code>assertEquals()</code> (loose <code>==</code>).</li>
@@ -2346,7 +2403,7 @@ module PhpContent
         <div class="lc-card">
           <h3>Key Piece: Business Rules Throw Exceptions</h3>
           <p>The <code>Library</code> class never prints anything. Rule-breaking actions throw <code>DomainException</code> (a standard SPL class meaning "this breaks a business rule"); bad input throws <code>InvalidArgumentException</code>. It either returns a result or throws an exception that explains what went wrong. The caller decides how to show it — as text here, as an HTML flash message or a JSON error in a real app.</p>
-          <div class="lc-code">public function lend(string $id, DateTimeImmutable $today): string<br>{<br>    $book = $this-&amp;gt;catalog-&amp;gt;find($id)<br>        ?? throw new InvalidArgumentException("No book with id $id");<br>    if (isset($this-&amp;gt;loans[$id])) {<br>        throw new DomainException("'{$book-&amp;gt;title}' is already lent");<br>    }<br>    $this-&amp;gt;loans[$id] = $today-&amp;gt;modify("+{$book-&amp;gt;genre-&amp;gt;loanDays()} days");<br>    return "Lent '{$book-&amp;gt;title}', due {$this-&amp;gt;loans[$id]-&amp;gt;format('d M')}";<br>}</div>
+          <div class="lc-code">public function lend(string $id, DateTimeImmutable $today): string<br>{<br>    $book = $this-&gt;catalog-&gt;find($id)<br>        ?? throw new InvalidArgumentException("No book with id $id");<br>    if (isset($this-&gt;loans[$id])) {<br>        throw new DomainException("'{$book-&gt;title}' is already lent");<br>    }<br>    $this-&gt;loans[$id] = $today-&gt;modify("+{$book-&gt;genre-&gt;loanDays()} days");<br>    return "Lent '{$book-&gt;title}', due {$this-&gt;loans[$id]-&gt;format('d M')}";<br>}</div>
         </div>
         <div class="lc-card">
           <h3>Expected Output of the Starter</h3>

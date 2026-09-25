@@ -41,7 +41,7 @@ namespace :content do
     descriptions = {
        1 => "Learn what PHP is, how it turns a web request into an HTML page, and write your first script with echo and var_dump.",
        2 => "Store values in variables, meet PHP's basic types, do arithmetic safely and define constants that never change.",
-       3 => "Build and format text with quotes, interpolation, heredoc and sprintf, use the key string functions, and handle Hindi and other UTF-8 text correctly with mbstring.",
+       3 => "Build and format text with quotes, interpolation, heredoc and sprintf, use the key string functions, match and clean text with regular expressions (preg_match, preg_replace, preg_split), and handle Hindi and other UTF-8 text correctly with mbstring.",
        4 => "Compare values safely with === and <=>, handle missing values with ??, and choose between if, switch and the modern match expression.",
        5 => "Repeat work with for, while, do-while and foreach, control loops with break and continue, and avoid the foreach-by-reference trap.",
        6 => "Use PHP's one flexible array type as a list, a key-value map or a nested table, and learn to add, remove, check, destructure and sort items.",
@@ -55,7 +55,7 @@ namespace :content do
       14 => "Reuse and organise code with extends, abstract classes, interfaces, traits and the #[\\Override] attribute, and learn when to prefer composition.",
       15 => "Throw and catch exceptions with try, catch and finally, use multi-catch and custom exception classes, and understand PHP's Throwable, Error and Exception hierarchy.",
       16 => "Work with dates and time zones using DateTimeImmutable, convert data to and from JSON safely, and read and write files on a real server.",
-      17 => "Handle GET and POST forms, validate input, escape output to stop XSS, protect forms with CSRF tokens, keep users logged in with sessions and store passwords with password_hash.",
+      17 => "Handle GET and POST forms, validate input, escape output to stop XSS, protect forms with CSRF tokens, keep users logged in with sessions, store passwords with password_hash, and build a small JSON API endpoint by hand.",
       18 => "Connect to MySQL with PDO using utf8mb4, run prepared statements with bound values, use transactions, and understand what prepared statements do and do not protect against.",
       19 => "Organise code with namespaces, install packages and autoload classes with Composer and PSR-4, and write automated tests with PHPUnit.",
       20 => "Build a small but complete library lending system that combines enums, readonly classes, strict types, exceptions, dates, array functions, JSON and safe HTML output, then plan how to turn it into a real web app."
@@ -90,8 +90,8 @@ namespace :content do
               opts: ["A) null", "B) It throws a ValueError", "C) The first case, OrderStatus::Pending"], ans: "A" },
       14 => { type: "true_false", q: "A PHP class can extend only one parent class, but it can implement several interfaces and use several traits.",
               opts: ["True", "False"], ans: "True" },
-      15 => { type: "multiple_choice", q: "Which statement about multi-catch, catch (InvalidArgumentException | OutOfStock $e), is correct?",
-              opts: ["A) It was introduced in PHP 8.0 together with match", "B) It has been available since PHP 7.1", "C) It only works with Error classes, not Exception classes"], ans: "B" },
+      15 => { type: "true_false", q: "In declare(strict_types=1) code, strlen(42) throws a TypeError. A surrounding try { ... } catch (Exception $e) { ... } block catches that TypeError.",
+              opts: ["True", "False"], ans: "False" },
       16 => { type: "true_false", q: "$due = $today->modify('+30 days'); on a DateTimeImmutable also changes $today.",
               opts: ["True", "False"], ans: "False" },
       17 => { type: "multiple_choice", q: "Which is the right way to store a user's password in the database?",

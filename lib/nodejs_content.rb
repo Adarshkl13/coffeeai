@@ -86,7 +86,8 @@ module NodejsContent
             <tbody>
               <tr><td>Node 24</td><td>Active LTS (long-term support)</td><td>New projects and production (this course)</td></tr>
               <tr><td>Node 22</td><td>Maintenance LTS, security fixes until April 2027</td><td>Existing apps; plan the upgrade</td></tr>
-              <tr><td>Node 26</td><td>"Current" release; becomes LTS in October 2026</td><td>Trying new features</td></tr>
+              <tr><td>Node 26</td><td>"Current" since April 2026; becomes LTS in October 2026 (supported until April 2029)</td><td>Trying new features now; the next LTS to move to</td></tr>
+              <tr><td>Node 27</td><td>Alpha channel from October 2026; 27.0.0 due April 2027, LTS in October 2027</td><td>Testing only: first line of the new yearly schedule</td></tr>
               <tr><td>Node 20 and older</td><td>End of life (no more security fixes)</td><td>Nothing: upgrade</td></tr>
             </tbody>
           </table>
@@ -103,13 +104,13 @@ module NodejsContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>In the starter change request 1's delay from <code>300</code> to <code>1000</code>. It now finishes last, and the whole batch takes about 1 second: the waits still overlap.</li>
+            <li>In the starter change request 1's delay from <code>300</code> to <code>1000</code>. It still finishes last, but the whole batch now takes about 1 second instead of 300 ms: the total is the <em>longest</em> wait, because the waits overlap.</li>
             <li>Add <code>handleRequest(4, 50)</code> to the <code>all</code> array. Predict the order of the "done" lines before you run it.</li>
             <li>Put <code>const end = Date.now() + 500; while (Date.now() &lt; end) {}</code> just before <code>console.log("server: all three started without waiting")</code>. Nothing else can run during that half second, so every request finishes later.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Use an LTS release for real projects: even-numbered lines (22, 24, 26...) become LTS. Check yours with <code>node --version</code>, and install or switch versions with <code>nvm</code>, <code>fnm</code> or the official installer from nodejs.org.
+          <strong>Tip:</strong> Use an LTS release for real projects. Up to Node 26, only even-numbered lines became LTS. From Node 27 the project ships <strong>one major release per year</strong> (each April, numbered after the year: 27 in 2027, 28 in 2028), and <strong>every</strong> release becomes LTS in October, with 36 months of support in total. Odd-number "Current-only" releases are replaced by an alpha channel for early testing (source: nodejs.org, "Evolving the Node.js Release Schedule"). Check yours with <code>node --version</code>, and install or switch versions with <code>nvm</code>, <code>fnm</code> or the official installer from nodejs.org.
         </div>
       HTML
       starter_code: <<~'JS'
@@ -212,11 +213,29 @@ module NodejsContent
           </table>
         </div>
         <div class="lc-card">
+          <h3>Running TypeScript Directly: node app.ts</h3>
+          <p>Since Node 22.18 and 23.6, <code>node</code> can run <code>.ts</code> files with no build step and no extra package. It uses <strong>type stripping</strong>: it deletes the type annotations and runs the JavaScript that is left. The feature is marked stable in Node 24.12+ and 25.2+.</p>
+          <div class="lc-code">// greet.ts  -&gt;  node greet.ts<br>type User = { name: string; age: number };<br><br>function nextBirthday(user: User): string {<br>  return `${user.name} turns ${user.age + 1}`;<br>}<br><br>console.log(nextBirthday({ name: "Asha", age: 21 }));<br>console.log(nextBirthday({ name: "Ravi", age: "21" }));   // a type error - but Node still runs it</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">Asha turns 22<br>Ravi turns 211</div>
+          <p>The second line shows the catch: Node <strong>does not type-check</strong>. <code>"21" + 1</code> became <code>"211"</code> with no warning. Run <code>npx tsc --noEmit</code> (in your editor or CI) to find type errors; use <code>node</code> just to run the code.</p>
+          <table class="lc-table">
+            <thead><tr><th>Works with type stripping</th><th>Does not work</th></tr></thead>
+            <tbody>
+              <tr><td>Type annotations, <code>type</code> and <code>interface</code>, generics, <code>as</code></td><td><code>enum</code> declarations (error <code>ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX</code>)</td></tr>
+              <tr><td><code>import type { User } from "./types.ts"</code></td><td><code>namespace</code> with runtime code, parameter properties (<code>constructor(private x: number)</code>)</td></tr>
+              <tr><td>Imports that include the extension: <code>./util.ts</code></td><td>Extension-less imports such as <code>./util</code>; <code>tsconfig.json</code> paths (Node ignores tsconfig)</td></tr>
+            </tbody>
+          </table>
+          <p>Set <code>"erasableSyntaxOnly": true</code> and <code>"verbatimModuleSyntax": true</code> in tsconfig.json so <code>tsc</code> warns you about syntax Node cannot strip. Node also refuses to strip <code>.ts</code> files inside <code>node_modules</code>, so packages must still publish JavaScript.</p>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Reading <code>process.argv[0]</code> as the first argument.</strong> Index 0 is the node binary and 1 is the script; your arguments start at 2. Use <code>process.argv.slice(2)</code> or <code>parseArgs</code>.</li>
             <li><strong>Forgetting that values are strings.</strong> <code>"2" + 1</code> is <code>"21"</code>. Convert with <code>Number()</code> and check for <code>NaN</code>.</li>
             <li><strong>Calling <code>process.exit()</code> too early.</strong> Pending writes and logs can be lost. Set <code>process.exitCode</code> and let the program finish.</li>
+            <li><strong>Thinking <code>node app.ts</code> checks your types.</strong> It only strips them. Keep <code>tsc --noEmit</code> in your workflow.</li>
             <li><strong>Printing errors with <code>console.log</code>.</strong> In a real CLI errors belong on stderr (<code>console.error</code>) so that <code>node app.js &gt; out.txt</code> still shows them.</li>
           </ul>
         </div>
@@ -2088,7 +2107,7 @@ module NodejsContent
           <h3>Worked example: load a .env file, then validate it with zod</h3>
           <div class="lc-code">import { writeFile, rm } from "node:fs/promises";<br>import { parseEnv } from "node:util";<br>import { z } from "zod";<br><br>await writeFile(".env.demo", "PORT=4000\nDATABASE_URL=postgres://app:devpass@localhost:5432/notes\nLOG_LEVEL=debug\n");<br>process.env.LOG_LEVEL = "info";                // pretend the real environment already sets this<br>process.loadEnvFile(".env.demo");              // same effect as: node --env-file=.env.demo app.js<br>console.log("PORT:", process.env.PORT, typeof process.env.PORT, "| LOG_LEVEL:", process.env.LOG_LEVEL);<br>console.log("parseEnv:", parseEnv("A=1\nB='two words'"));<br><br>const Env = z.object({<br>  PORT: z.coerce.number().int().positive().default(3000),<br>  DATABASE_URL: z.url(),<br>  SESSION_SECRET: z.string().min(32, "must be at least 32 characters"),<br>});<br>process.env.SESSION_SECRET = "change-me";      // too short<br>let parsed = Env.safeParse(process.env);<br>console.log("valid?", parsed.success, z.flattenError(parsed.error).fieldErrors);<br><br>process.env.SESSION_SECRET = "x".repeat(40);<br>parsed = Env.safeParse(process.env);<br>console.log("valid?", parsed.success, parsed.data.PORT, typeof parsed.data.PORT);<br>await rm(".env.demo");</div>
           <p><strong>Output:</strong></p>
-          <div class="lc-code">PORT: 4000 string | LOG_LEVEL: info<br>parseEnv: { A: '1', B: 'two words' }<br>valid? false { SESSION_SECRET: [ 'must be at least 32 characters' ] }<br>valid? true 4000 number</div>
+          <div class="lc-code">PORT: 4000 string | LOG_LEVEL: info<br>parseEnv: [Object: null prototype] { A: '1', B: 'two words' }<br>valid? false { SESSION_SECRET: [ 'must be at least 32 characters' ] }<br>valid? true 4000 number</div>
           <ul class="lc-list">
             <li>Values from the file are strings; <code>z.coerce.number()</code> turns <code>"4000"</code> into the number 4000.</li>
             <li><code>LOG_LEVEL</code> stayed <code>info</code>: a variable that already exists in the environment is not overwritten by the file.</li>
