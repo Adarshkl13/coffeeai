@@ -336,16 +336,22 @@ module DataScienceContent
           </table>
         </div>
         <div class="lc-card">
-          <h3>Reading CSV Text</h3>
-          <p>In this course's browser sandbox there are no files to open, so we wrap text in <code>io.StringIO</code>, which makes a string behave like a file. In real projects you would pass a file path instead.</p>
-          <div class="lc-code">import io<br>import pandas as pd<br><br>csv_text = """city,date,aqi<br>Delhi,2024-11-01,342<br>Mumbai,2024-11-01,156"""<br><br>df = pd.read_csv(io.StringIO(csv_text), parse_dates=['date'])</div>
+          <h3>The Loading Code, Briefly</h3>
+          <p>CSV: <code>pd.read_csv(io.StringIO(csv_text), parse_dates=['date'])</code>. Nested JSON: <code>pd.json_normalize(json.loads(json_text))</code>, which flattens nested keys into columns such as <code>customer.city</code>. (<code>io.StringIO</code> makes a string behave like a file, because the browser sandbox has no files. The pandas course, lesson 2, covers every reading option.) This lesson spends its time on a harder question: <strong>can this data answer my question?</strong></p>
         </div>
         <div class="lc-card">
-          <h3>Reading JSON Records</h3>
-          <p>JSON is often nested: an order contains a customer, and a customer has a city. <code>pd.json_normalize</code> flattens nested keys into columns like <code>customer.city</code>.</p>
-          <div class="lc-code">import json<br>records = json.loads(json_text)<br>orders = pd.json_normalize(records)<br>print(orders.columns.tolist())</div>
-          <p><strong>Output</strong> (for the three orders in the starter):</p>
-          <div class="lc-code">['id', 'amount', 'customer.name', 'customer.city']</div>
+          <h3>Grain and Coverage: What Does One Row Mean?</h3>
+          <p>Before any analysis, write one sentence: "one row = ...". Then check what the rows cover.</p>
+          <table class="lc-table">
+            <thead><tr><th>Check</th><th>Starter data</th><th>What it limits</th></tr></thead>
+            <tbody>
+              <tr><td>Grain (one row = ?)</td><td>AQI: one city on one day. Orders: one order.</td><td>You cannot study hourly pollution peaks from daily rows.</td></tr>
+              <tr><td>Coverage: where?</td><td>3 cities</td><td>"India's air quality" is too big a claim; "these 3 cities" is honest.</td></tr>
+              <tr><td>Coverage: when?</td><td>2 days in November</td><td>November is Delhi's worst smog season, so this is not a yearly average.</td></tr>
+              <tr><td>Who is missing?</td><td>App users only</td><td>Customers who order by phone or walk in never appear.</td></tr>
+            </tbody>
+          </table>
+          <p>A perfect analysis of the wrong rows still gives the wrong answer. Most bias enters at collection time, long before any code runs.</p>
         </div>
         <div class="lc-card">
           <h3>Questions to Ask About Any Source</h3>
@@ -363,7 +369,6 @@ module DataScienceContent
             <tbody>
               <tr><td>Shape</td><td>Flat table, one row per record</td><td>Nested objects and lists</td></tr>
               <tr><td>Types</td><td>Everything is text until parsed</td><td>Numbers, strings, true/false, null</td></tr>
-              <tr><td>pandas</td><td><code>pd.read_csv</code></td><td><code>json.loads</code> + <code>pd.json_normalize</code></td></tr>
               <tr><td>Typical trap</td><td>Commas inside values, wrong date format</td><td>Lists inside records (one order with many items)</td></tr>
             </tbody>
           </table>
@@ -388,6 +393,7 @@ module DataScienceContent
             <li>Run the starter and check the dtype of the <code>date</code> column.</li>
             <li>Remove <code>parse_dates=['date']</code> and print <code>aqi.dtypes</code> again. What type is <code>date</code> now?</li>
             <li>Add a fourth JSON order from Chennai for ₹410 and rerun. Does "Revenue by city" pick it up automatically?</li>
+            <li>Write the "one row = ..." sentence for both datasets, and one claim each dataset can <em>not</em> support.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -438,16 +444,15 @@ module DataScienceContent
         <p class="lc-lead">The first ten minutes with a new dataset decide how smoothly the rest goes. Before any analysis, run a quick <strong>health check</strong>: how big is it, what are the columns, what types, and what looks wrong?</p>
         <div class="lc-card">
           <h3>The First-Look Checklist</h3>
+          <p>Run these seven commands on every new table: <code>shape</code>, <code>head()</code> or <code>sample(5)</code>, <code>dtypes</code>, <code>isna().sum()</code>, <code>describe()</code>, <code>value_counts()</code> on each category column, and <code>duplicated().sum()</code>. (The pandas course, lesson 2, explains each one.) Typing them is easy; the skill is knowing what each finding will <em>break</em> later.</p>
           <table class="lc-table">
-            <thead><tr><th>Command</th><th>Question it answers</th></tr></thead>
+            <thead><tr><th>Symptom you see</th><th>What it will break</th><th>Fixed in</th></tr></thead>
             <tbody>
-              <tr><td>df.shape</td><td>How many rows and columns?</td></tr>
-              <tr><td>df.head() / df.sample(5)</td><td>What do real rows look like?</td></tr>
-              <tr><td>df.dtypes</td><td>Did each column load with the right type?</td></tr>
-              <tr><td>df.isna().sum()</td><td>How many values are missing per column?</td></tr>
-              <tr><td>df.describe()</td><td>Do min / max values look believable?</td></tr>
-              <tr><td>df['col'].value_counts()</td><td>Are category labels consistent?</td></tr>
-              <tr><td>df.duplicated().sum()</td><td>Are there repeated rows?</td></tr>
+              <tr><td>A number column has dtype <code>object</code></td><td>Sums and means fail or join text together</td><td>pandas course, lesson 7</td></tr>
+              <tr><td>count in <code>describe()</code> &lt; number of rows</td><td>Every average is based on fewer rows than you think</td><td>Lesson 6</td></tr>
+              <tr><td>mean far above the median</td><td>"Average" misdescribes the typical row</td><td>Lessons 7 and 9</td></tr>
+              <tr><td>One label spelled three ways</td><td>A group-by splits one city into three</td><td>pandas course, lesson 12</td></tr>
+              <tr><td>Repeated rows</td><td>Counts and revenue are double-counted</td><td>Lesson 7</td></tr>
             </tbody>
           </table>
         </div>
@@ -558,16 +563,16 @@ module DataScienceContent
           </table>
         </div>
         <div class="lc-card">
-          <h3>Your Options</h3>
+          <h3>Your Options and What Each One Assumes</h3>
+          <p>The code is one line each: <code>dropna(subset=[...])</code>, <code>fillna(value)</code>, <code>groupby(...).transform('median')</code>, <code>interpolate()</code>, or a flag column <code>df['col'].isna()</code>. (The pandas course, lesson 8, covers the syntax.) The real decision is which <strong>assumption</strong> you are willing to defend:</p>
           <table class="lc-table">
-            <thead><tr><th>Strategy</th><th>pandas</th><th>When to use</th></tr></thead>
+            <thead><tr><th>Strategy</th><th>You are assuming...</th><th>Side effect on results</th></tr></thead>
             <tbody>
-              <tr><td>Drop rows</td><td>df.dropna(subset=['col'])</td><td>Few rows missing, at random</td></tr>
-              <tr><td>Fill with median</td><td>df['col'].fillna(df['col'].median())</td><td>Numeric columns with outliers</td></tr>
-              <tr><td>Fill with group median</td><td>groupby(...).transform('median')</td><td>Values differ a lot between groups</td></tr>
-              <tr><td>Fill with a label</td><td>df['col'].fillna('Unknown')</td><td>Categorical columns</td></tr>
-              <tr><td>Interpolate</td><td>df['col'].interpolate()</td><td>Time series, e.g. daily rainfall</td></tr>
-              <tr><td>Flag it</td><td>df['col_missing'] = df['col'].isna()</td><td>Missingness itself may carry information</td></tr>
+              <tr><td>Drop rows</td><td>The missing rows are like the others (MCAR)</td><td>Smaller sample; biased if the gaps are not random</td></tr>
+              <tr><td>Fill with overall median</td><td>Every row is alike</td><td>Pulls groups towards the middle; shrinks the spread</td></tr>
+              <tr><td>Fill with group median</td><td>Rows in the same group are alike</td><td>Keeps group differences; still shrinks spread inside groups</td></tr>
+              <tr><td>Interpolate</td><td>Values change smoothly over time</td><td>Good for rainfall trends; invents smooth values across a sudden storm</td></tr>
+              <tr><td>Flag and keep</td><td>"Was missing" may itself be informative</td><td>No values invented; the flag can be analysed or used by a model</td></tr>
             </tbody>
           </table>
         </div>
@@ -655,9 +660,16 @@ module DataScienceContent
         </div>
         <p class="lc-lead">Duplicates quietly inflate counts, and outliers can drag an average far from the typical value. Both need attention, but an outlier is not automatically an error &mdash; sometimes it is the most interesting row in the table.</p>
         <div class="lc-card">
-          <h3>Finding Duplicates</h3>
-          <div class="lc-code">df.duplicated().sum()                       # exact repeated rows<br>df.duplicated(subset=['order_id']).sum()    # same ID, maybe different values<br>df = df.drop_duplicates(subset=['order_id'], keep='first')</div>
-          <p>Decide what makes a row unique. Two orders with identical amounts are fine; two rows with the <em>same order ID</em> are not.</p>
+          <h3>Duplicates: First Decide What "Same" Means</h3>
+          <p>The code is short: <code>df.duplicated(subset=['order_id']).sum()</code> to count and <code>drop_duplicates(subset=['order_id'])</code> to remove (pandas course, lesson 19). The thinking is in the <code>subset</code>: what makes a row unique?</p>
+          <table class="lc-table">
+            <thead><tr><th>Two rows share...</th><th>Duplicate?</th><th>Why</th></tr></thead>
+            <tbody>
+              <tr><td>Every column</td><td>Almost always</td><td>Usually a double export or a retried upload</td></tr>
+              <tr><td>The same order ID, different amount</td><td>Yes, and one row is wrong</td><td>Find out which is correct before dropping either</td></tr>
+              <tr><td>Same customer, same amount, same day</td><td>Not necessarily</td><td>People really do order the same biryani twice</td></tr>
+            </tbody>
+          </table>
         </div>
         <div class="lc-card">
           <h3>Two Ways to Flag Outliers</h3>
@@ -680,6 +692,16 @@ module DataScienceContent
               <tr><td>Extreme values hurt a model</td><td>Cap (winsorise) with <code>clip(low, high)</code></td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="lc-card">
+          <h3>Error or Signal? Four Questions</h3>
+          <ol class="lc-list">
+            <li><strong>Is it possible?</strong> A negative amount or 140% attendance cannot be real &rarr; error.</li>
+            <li><strong>Is it a unit or typing slip?</strong> ₹12,000 might be ₹120.00 with a lost decimal point &mdash; check the item price.</li>
+            <li><strong>Can another source confirm it?</strong> A catering invoice for the party order makes it real.</li>
+            <li><strong>Does it matter for the question?</strong> For "typical order value", report the median; for "total revenue", the party order must stay in.</li>
+          </ol>
+          <p>Rules like IQR only <em>flag</em> rows. These questions decide what to do with them.</p>
         </div>
         <div class="lc-card">
           <h3>Why the Median Is Robust</h3>
@@ -1327,6 +1349,26 @@ module DataScienceContent
           <p>The new page converts 1.5 percentage points better (a 30% relative lift), and p = 0.026 &lt; 0.05. Before celebrating, decide in advance: the sample size, how long the test runs, and the one metric you will judge it on. Stopping the test the moment p dips below 0.05 ("peeking") inflates false positives.</p>
         </div>
         <div class="lc-card">
+          <h3>Chi-Square Test on a Crosstab</h3>
+          <p>When <em>both</em> variables are categories (page A/B and bought yes/no, or city and payment method), put the counts in a <strong>crosstab</strong> (contingency table) and ask: are the two variables independent? The <strong>chi-square test</strong> compares each observed count with the count you would <em>expect</em> if they were independent.</p>
+          <div class="lc-code">table = pd.crosstab(visits['page'], visits['bought'])<br>chi2, p, dof, expected = stats.chi2_contingency(table, correction=False)</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">bought     0    1<br>page<br>A       2280  120<br>B       2244  156<br>Chi-square: chi2 = 4.98, dof = 1, p = 0.0256</div>
+          <p>Same p-value as the z-test. That is no accident: for a 2&times;2 table without the continuity correction, chi2 = z&sup2; (2.23&sup2; &asymp; 4.98). The chi-square test is more general, though &mdash; it works for a 3&times;4 table of city &times; payment method, where a z-test cannot. Rule of thumb: every <em>expected</em> count should be at least 5; otherwise the p-value is unreliable. By default SciPy applies Yates' continuity correction to 2&times;2 tables, which gives a slightly larger p-value.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Plan the Sample Size First: Power</h3>
+          <p><strong>Power</strong> is the chance that your test detects an effect that really exists. The usual target is 80%. For comparing two conversion rates, the visitors needed <em>per group</em> are:</p>
+          <div class="lc-code">n = (z_alpha/2 + z_power)&sup2; &times; (p1(1 &minus; p1) + p2(1 &minus; p2)) / (p2 &minus; p1)&sup2;<br># with alpha = 0.05 and power = 0.80: (1.96 + 0.84)&sup2; &asymp; 7.85</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">Visitors per page to detect 5.0% -&gt; 6.5%: 3,778<br>Visitors per page to detect 5.0% -&gt; 5.5%: 31,231</div>
+          <ul class="lc-list">
+            <li>Our test used 2,400 per page, so it had only about 61% power for a 1.5-point lift. We were somewhat lucky to see p &lt; 0.05; a planned test would run to about 3,800 visitors per page.</li>
+            <li>Detecting a lift one-third the size (0.5 points) needs about 8 times as many visitors, because n grows with 1 / (difference)&sup2;.</li>
+            <li>Fix n in advance and run to the end. This is the honest cure for "peeking".</li>
+          </ul>
+        </div>
+        <div class="lc-card">
           <h3>The Multiple-Testing Trap</h3>
           <p>With α = 0.05, about 1 in 20 tests of a <em>non-existent</em> effect will still come out "significant". The starter runs 20 tests on groups drawn from the same distribution:</p>
           <div class="lc-code">20 tests with no real effect -&gt; 1 'significant' result(s) by pure chance</div>
@@ -1339,6 +1381,7 @@ module DataScienceContent
             <li><strong>"Not significant" read as "no effect"</strong> — small samples often cannot detect real effects.</li>
             <li><strong>Ignoring the effect size</strong> — report "5.07 marks better (p = 0.007)", not just "significant".</li>
             <li><strong>Peeking and stopping early</strong> in an A/B test, or testing many metrics and reporting only the winner.</li>
+            <li><strong>Skipping the power calculation</strong> — an underpowered test usually says "not significant" even when the change works.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1347,6 +1390,8 @@ module DataScienceContent
             <li>Run the starter and compare the permutation and t-test p-values.</li>
             <li>In the A/B test, change <code>conv_b</code> to <code>135</code> (5.6%). Is the result still significant at 0.05?</li>
             <li>Keep the same rates but double both samples: <code>n_a = n_b = 4800</code> and <code>conv_a, conv_b = 240, 270</code>. What happens to the p-value? What does this say about sample size?</li>
+            <li>Call <code>stats.chi2_contingency(table)</code> without <code>correction=False</code>. Does the p-value go up or down?</li>
+            <li>Use <code>n_per_group(0.05, 0.06)</code> to find the visitors needed to detect a 1-point lift. Then try <code>power=0.9</code>.</li>
             <li>Change the multiple-testing loop to 100 tests. About how many false alarms do you expect?</li>
           </ol>
         </div>
@@ -1356,6 +1401,7 @@ module DataScienceContent
       HTML
       starter_code: <<~'PYTHON'
         import numpy as np
+        import pandas as pd
         from scipy import stats
 
         rng = np.random.default_rng(12)
@@ -1371,8 +1417,6 @@ module DataScienceContent
         fake = np.array([(lambda s: s[:n_new].mean() - s[n_new:].mean())(rng.permutation(combined))
                          for _ in range(10_000)])
         print(f"Permutation p-value: {np.mean(np.abs(fake) >= abs(diff)):.4f}")
-
-        # The same question with SciPy's Welch t-test
         t, p = stats.ttest_ind(new_method, old_method, equal_var=False)
         print(f"Welch t-test: t = {t:.2f}, p = {p:.4f}")
 
@@ -1381,12 +1425,24 @@ module DataScienceContent
         conv_b, n_b = 156, 2400        # new page: 6.5%
         p_a, p_b = conv_a / n_a, conv_b / n_b
         p_pool = (conv_a + conv_b) / (n_a + n_b)
-        se = np.sqrt(p_pool * (1 - p_pool) * (1 / n_a + 1 / n_b))
-        z = (p_b - p_a) / se
-        p_ab = 2 * stats.norm.sf(abs(z))
-        print(f"\nA/B test: A={p_a:.1%}  B={p_b:.1%}  difference={(p_b - p_a) * 100:+.1f} points  z={z:.2f}  p={p_ab:.4f}")
+        z = (p_b - p_a) / np.sqrt(p_pool * (1 - p_pool) * (1 / n_a + 1 / n_b))
+        print(f"\nA/B test: A={p_a:.1%}  B={p_b:.1%}  difference={(p_b - p_a) * 100:+.1f} points  z={z:.2f}  p={2 * stats.norm.sf(abs(z)):.4f}")
 
-        # Part 3: multiple testing - 20 tests where NOTHING is really different
+        # Part 3: the same data as a crosstab + chi-square test of independence
+        visits = pd.DataFrame({'page': ['A'] * n_a + ['B'] * n_b,
+                               'bought': [1] * conv_a + [0] * (n_a - conv_a) + [1] * conv_b + [0] * (n_b - conv_b)})
+        table = pd.crosstab(visits['page'], visits['bought'])
+        chi2, p_chi, dof, expected = stats.chi2_contingency(table, correction=False)
+        print(f"\n{table}\nChi-square: chi2 = {chi2:.2f}, dof = {dof}, p = {p_chi:.4f}")
+
+        # Part 4: plan the sample size BEFORE the test (alpha = 0.05, power = 80%)
+        def n_per_group(p1, p2, alpha=0.05, power=0.80):
+            z_sum = stats.norm.ppf(1 - alpha / 2) + stats.norm.ppf(power)
+            return int(np.ceil(z_sum ** 2 * (p1 * (1 - p1) + p2 * (1 - p2)) / (p2 - p1) ** 2))
+        for target in (0.065, 0.055):
+            print(f"Visitors per page to detect 5.0% -> {target:.1%}: {n_per_group(0.05, target):,}")
+
+        # Part 5: multiple testing - 20 tests where NOTHING is really different
         false_alarms = 0
         for _ in range(20):
             a, b = rng.normal(70, 8, 30), rng.normal(70, 8, 30)
@@ -1517,13 +1573,17 @@ module DataScienceContent
           </table>
         </div>
         <div class="lc-card">
-          <h3>Several Metrics at Once</h3>
-          <div class="lc-code">summary = df.groupby('city').agg(<br>    orders=('order_id', 'count'),<br>    revenue=('amount', 'sum'),<br>    avg_value=('amount', 'mean'),<br>    late_rate=('late', 'mean'),<br>).sort_values('revenue', ascending=False)</div>
-          <p>The mean of a True/False column is the <strong>proportion</strong> of True values &mdash; a handy trick for rates. (The pandas course covers <code>groupby</code>, named aggregation and pivot tables in depth; here the focus is on reading them correctly.)</p>
-        </div>
-        <div class="lc-card">
-          <h3>Two-Way Views with pivot_table</h3>
-          <div class="lc-code">pd.pivot_table(df, index='city', columns='cuisine',<br>               values='amount', aggfunc='sum', fill_value=0)</div>
+          <h3>The Code in One Line; the Choice of Metric Is the Skill</h3>
+          <p>One call gives several metrics per group: <code>df.groupby('city').agg(orders=('order_id', 'count'), revenue=('amount', 'sum'), late_rate=('late', 'mean'))</code>, and <code>pd.pivot_table(df, index='city', columns='cuisine', values='amount', aggfunc='sum')</code> gives a two-way view. (The pandas course, lessons 10 and 14, covers groupby, named aggregation and pivot tables in depth.) The mean of a True/False column is the <strong>proportion</strong> of True values &mdash; a handy trick for rates. What matters here is picking the metric that answers the question:</p>
+          <table class="lc-table">
+            <thead><tr><th>Metric</th><th>Answers</th><th>Misleads when...</th></tr></thead>
+            <tbody>
+              <tr><td>Total (sum)</td><td>Where is the most money or volume?</td><td>Groups differ in size: a big city wins just by being big</td></tr>
+              <tr><td>Mean per row</td><td>What does a typical order look like?</td><td>A few huge values exist; use the median too</td></tr>
+              <tr><td>Rate (mean of True/False)</td><td>How often does something go wrong?</td><td>The group is tiny: 2 late out of 2 is "100%"</td></tr>
+              <tr><td>Share of total</td><td>How important is each group to the whole?</td><td>Shown without the absolute numbers behind it</td></tr>
+            </tbody>
+          </table>
         </div>
         <div class="lc-card">
           <h3>Beware Small Groups and Simpson's Paradox</h3>
@@ -1536,6 +1596,14 @@ module DataScienceContent
             <p><strong>Output:</strong></p>
             <div class="lc-code">trip     long  short  overall<br>partner<br>X         0.6   0.90     0.80<br>Y         0.7   0.95     0.74</div>
             <p>Judging partners on the overall rate would punish Y for taking the difficult trips. The fair comparison is within each trip type.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Is the Gap Between Groups Real?</h3>
+          <p>A group comparison is only an insight if the difference is bigger than chance. For a rate across several groups, test the <code>city &times; late</code> crosstab with the chi-square test from lesson 13:</p>
+          <div class="lc-code">table = pd.crosstab(df['city'], df['late'])<br>chi2, p, dof, expected = stats.chi2_contingency(table)</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">Chi-square city vs late: chi2 = 11.8, dof = 3, p = 0.0082<br>Smallest expected count: 4.9 (rule of thumb: at least 5)</div>
+          <p>p = 0.008, so late rates really do differ between cities. The test says <em>that</em> they differ, not <em>which</em> city is different &mdash; the table shows that it is Kolkata. Jaipur's expected late count (4.9) is just under 5, so treat the p-value as approximate; with more Jaipur orders it would be trustworthy.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
@@ -1557,6 +1625,7 @@ module DataScienceContent
             <li>Run the starter and check that the revenue shares add up to about 100%.</li>
             <li>Add <code>median_value=('amount', 'median')</code> to the <code>agg</code> call. Is the median close to the mean in each city?</li>
             <li>Compute the overall late rate with <code>df['late'].mean()</code>, and compare it with the plain average of the four city late rates. Why are they different?</li>
+            <li>Change Kolkata's late probability from <code>0.30</code> to <code>0.14</code> and rerun. Is the chi-square test still significant?</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -1566,6 +1635,7 @@ module DataScienceContent
       starter_code: <<~'PYTHON'
         import numpy as np
         import pandas as pd
+        from scipy import stats
 
         rng = np.random.default_rng(5)
         n = 300
@@ -1598,6 +1668,12 @@ module DataScienceContent
               f"({summary.loc[top, 'revenue_share_%']}% of revenue).")
         print(f"Insight: {worst} has the highest late rate "
               f"({summary.loc[worst, 'late_rate']}% of {summary.loc[worst, 'orders']} orders).")
+
+        # Is Kolkata's higher late rate bigger than chance? Chi-square on city x late
+        table = pd.crosstab(df['city'], df['late'])
+        chi2, p, dof, expected = stats.chi2_contingency(table)
+        print(f"Chi-square city vs late: chi2 = {chi2:.1f}, dof = {dof}, p = {p:.4f}")
+        print(f"Smallest expected count: {expected.min():.1f} (rule of thumb: at least 5)")
       PYTHON
     },
 
@@ -2078,10 +2154,11 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-          <div class="lc-code">Shape: (122, 5) | duplicates: 2 | missing maths: 3<br><br>Correlation with maths:<br>study_hours    0.66<br>attendance     0.22<br>commute_min   -0.18<br><br>Low-score rate (%) by attendance band:<br>&lt;75      14.0<br>75-90     2.6<br>90+       3.6<br><br>Headline: study_hours has the strongest link to marks; attendance band &lt;75 is most at risk.<br>Evidence: short-commute students score 5.2 marks higher (95% CI 0.5 to 10.0, p = 0.045, n = 117).<br>Action: extra classes for the &lt;75 attendance group; review timings for long commuters.</div>
+          <div class="lc-code">Shape: (122, 5) | duplicates: 2 | missing maths: 3<br><br>Correlation with maths:<br>study_hours    0.66<br>attendance     0.22<br>commute_min   -0.18<br><br>Low-score rate (%) by attendance band:<br>&lt;75      14.3<br>75-89     2.6<br>90+       3.3<br><br>Headline: study_hours has the strongest link to marks; attendance band &lt;75 is most at risk.<br>Evidence: short-commute students score 5.2 marks higher (95% CI 0.5 to 10.0, p = 0.045, n = 117).<br>Action: extra classes for the &lt;75 attendance group; review timings for long commuters.</div>
           <ul class="lc-list">
             <li>Cleaning removed 2 duplicate rows and 3 rows with no Maths mark (122 → 117), fixed the section label "b " and replaced one impossible attendance of 140%.</li>
             <li>Students below 75% attendance are about 4–5 times more likely to score under 40.</li>
+            <li>The bands use <code>pd.cut(..., [0, 75, 90, 101], right=False)</code>, so each band includes its left edge: a student with exactly 75% lands in "75-89", not "&lt;75". With the default <code>right=True</code>, 75% would wrongly be counted as below 75.</li>
             <li>The commute gap is 5.2 marks, but the confidence interval runs from 0.5 to 10 marks and p = 0.045 is just under 0.05. Honest wording: "probably real, size uncertain". This is observational data, so we say "associated with", not "caused by".</li>
           </ul>
         </div>
@@ -2134,7 +2211,7 @@ module DataScienceContent
         # FEATURES
         df['low_score'] = df['maths'] < 40
         df['long_commute'] = df['commute_min'] > 60
-        df['att_band'] = pd.cut(df['attendance'], [0, 75, 90, 100], labels=['<75', '75-90', '90+'])
+        df['att_band'] = pd.cut(df['attendance'], [0, 75, 90, 101], right=False, labels=['<75', '75-89', '90+'])
         # EXPLORE
         print("\nCorrelation with maths:")
         print(df[['study_hours', 'attendance', 'commute_min']].corrwith(df['maths']).round(2))

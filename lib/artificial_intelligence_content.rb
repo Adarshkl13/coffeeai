@@ -1208,9 +1208,9 @@ module ArtificialIntelligenceContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
-          <h1 class="lc-title">Rule-Based and Expert Systems</h1>
+          <h1 class="lc-title">Expert Systems and Classical Planning</h1>
         </div>
-        <p class="lc-lead">An <strong>expert system</strong> captures the knowledge of a human expert — a doctor, an agriculture officer, a loan officer — as a set of <strong>IF-THEN rules</strong>, and uses an <strong>inference engine</strong> to reach conclusions. Expert systems were the biggest AI success of the 1980s, and rule-based logic is still used today wherever decisions must be clear and auditable.</p>
+        <p class="lc-lead">An <strong>expert system</strong> captures the knowledge of a human expert — a doctor, an agriculture officer, a loan officer — as a set of <strong>IF-THEN rules</strong>, and uses an <strong>inference engine</strong> to reach conclusions. Expert systems were the biggest AI success of the 1980s, and rule-based logic is still used today wherever decisions must be clear and auditable. The second half of the lesson turns rules into <strong>actions</strong>: in <strong>classical planning</strong>, the AI works out a sequence of steps that reaches a goal.</p>
         <div class="lc-card">
           <h3>Parts of an expert system</h3>
           <table class="lc-table">
@@ -1233,33 +1233,35 @@ module ArtificialIntelligenceContent
           <div class="lc-code">rules = [<br>    {"if": {"brown_spots", "yellow_ring"}, "then": "early_blight"},<br>    {"if": {"early_blight"}, "then": "advice: remove lower leaves"},<br>]<br>facts = {"brown_spots", "yellow_ring"}<br>for rule in rules:<br>    if rule["if"] &lt;= facts:<br>        facts.add(rule["then"])</div>
         </div>
         <div class="lc-card">
-          <h3>Famous examples</h3>
-          <ul class="lc-list">
-            <li><strong>MYCIN</strong> (1970s) — suggested diagnoses for blood infections using several hundred rules and "certainty factors".</li>
-            <li><strong>XCON</strong> (1980s) — configured computer orders for DEC and saved the company millions.</li>
-            <li><strong>Today</strong> — business rule engines for insurance and loan eligibility, tax calculation software, and safety checks in banking (for example "block if amount is very large AND device is new AND location changed").</li>
-          </ul>
-        </div>
-        <div class="lc-card">
-          <h3>Strengths and weaknesses</h3>
+          <h3>Strengths, weaknesses and use today</h3>
+          <p>Famous systems: <strong>MYCIN</strong> (1970s, blood-infection diagnosis with several hundred rules) and <strong>XCON</strong> (1980s, configured DEC computer orders). Today rules live on in loan-eligibility engines, tax software and bank safety checks, often combined with an ML fraud <em>score</em>.</p>
           <table class="lc-table">
             <thead><tr><th>Strengths</th><th>Weaknesses</th></tr></thead>
             <tbody>
               <tr><td>Transparent — every decision can be explained</td><td><strong>Knowledge acquisition bottleneck</strong>: experts find it hard to write down all their knowledge</td></tr>
-              <tr><td>Works without large datasets</td><td>Brittle — fails on cases no rule covers</td></tr>
-              <tr><td>Easy to audit for rules and regulations</td><td>Thousands of rules become hard to maintain and can conflict</td></tr>
-              <tr><td>Consistent — same input, same output</td><td>Does not learn from new data by itself</td></tr>
+              <tr><td>Works without large datasets; easy to audit</td><td>Brittle — fails on cases no rule covers; big rule sets conflict</td></tr>
             </tbody>
           </table>
         </div>
         <div class="lc-card">
-          <h3>Rules + learning today</h3>
-          <p>Modern systems often mix both: a machine-learning model gives a fraud <em>score</em>, and business rules decide what to do with it. AI assistants are also given written "rules" (policies and instructions) that guide their behaviour — an echo of expert-system ideas.</p>
+          <h3>Classical planning: STRIPS actions</h3>
+          <p>An expert system adds <em>conclusions</em>. A planner chooses <em>actions</em> that change the world. The STRIPS idea (Stanford, 1971) describes a state as a set of facts that are true, and each action by three sets:</p>
+          <table class="lc-table">
+            <thead><tr><th>Part</th><th>Meaning</th><th>Example: <code>fill_tank</code></th></tr></thead>
+            <tbody>
+              <tr><td>Preconditions</td><td>Facts that must be true to act</td><td>at_tap, has_sprayer</td></tr>
+              <tr><td>Add list</td><td>Facts that become true</td><td>tank_full</td></tr>
+              <tr><td>Delete list</td><td>Facts that stop being true</td><td>(none) — but <code>go(tap-&gt;field)</code> deletes at_tap</td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">if pre &lt;= state:                      # all preconditions hold<br>    next_state = (state - delete) | add</div>
+          <p>A farm robot starts <code>{at_shed, hands_free}</code> and must reach the goal <code>{crop_sprayed}</code>. Planning is then just <strong>search</strong> (lessons 3&ndash;5) over states: the starter uses breadth-first search, so it finds the shortest plan. Real planners use the same action language (today's standard is PDDL) plus clever heuristics, and they schedule warehouse robots, Mars rovers and satellite observations.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-          <div class="lc-code">Farmer Ravi (Kolar) reports: ['brown_spots', 'yellow_ring']<br>  advice: remove lower leaves, spray approved fungicide<br>  Why? (explanation facility)<br>    - IF brown_spots AND yellow_ring THEN early_blight<br>    - IF early_blight THEN advice: remove lower leaves, spray approved fungicide<br>...<br>Farmer Imran (Belagavi) reports: ['wilting']<br>  No rule matches. Expert systems cannot handle unknown cases.</div>
+          <div class="lc-code">Farmer Ravi (Kolar) reports: ['brown_spots', 'yellow_ring']<br>  advice: remove lower leaves, spray approved fungicide<br>    why: IF brown_spots AND yellow_ring THEN early_blight<br>    why: IF early_blight THEN advice: remove lower leaves, spray approved fungicide<br>Farmer Imran (Belagavi) reports: ['wilting']<br>  No rule matches -&gt; refer to a human expert.<br><br>Plan to spray the crop: ['pick_up_sprayer', 'go(shed-&gt;tap)', 'fill_tank', 'go(tap-&gt;field)', 'spray_crop']</div>
           <p>Ravi's two symptoms fire the first rule, which adds the new fact <code>early_blight</code>; that fact then fires the advice rule. This two-step chain is forward chaining. The explanation facility simply records the rules that fired, in order — which is why expert systems are easy to audit.</p>
+          <p>The planner found a 5-step plan. Order matters: <code>fill_tank</code> needs <code>has_sprayer</code>, so the robot must pick up the sprayer in the shed <em>before</em> going to the tap. Nobody wrote that order down &mdash; it follows from the preconditions.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1268,6 +1270,7 @@ module ArtificialIntelligenceContent
             <li><strong>Rules that never stop firing</strong> — without the check <code>rule["then"] not in facts</code>, the loop adds the same fact for ever.</li>
             <li><strong>Silent failure</strong> — a system that gives <em>no</em> warning when no rule matches is dangerous; always say "I don't know" and refer to a human expert.</li>
             <li><strong>Spelling mismatches</strong> — "brown_spot" vs "brown_spots" means the rule never fires. Use a fixed list of allowed symptom names.</li>
+            <li><strong>Forgetting a delete list</strong> in planning — if <code>go(shed-&gt;tap)</code> did not delete <code>at_shed</code>, the robot would be in two places at once and the plan would be nonsense.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1276,6 +1279,8 @@ module ArtificialIntelligenceContent
             <li>Run the starter and read the explanation for each farmer.</li>
             <li>Add a rule <code>{"if": {"wilting", "brown_stem"}, "then": "bacterial_wilt"}</code> and an advice rule for <code>bacterial_wilt</code>. Change Imran's symptoms to <code>{"wilting", "brown_stem"}</code> and run again.</li>
             <li>Give Ravi a third symptom, <code>"white_mould"</code>. Does anything change? What if he also has <code>"water_soaked_patches"</code>?</li>
+            <li>Start the planner at the field instead: <code>plan({"at_field", "hands_free"}, {"crop_sprayed"})</code>. How long is the plan now?</li>
+            <li>Make the goal <code>{"crop_sprayed", "at_shed"}</code> (spray, then return the robot to the shed). What extra step appears?</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -1283,21 +1288,19 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 10: A tiny expert system for tomato leaf problems
-        # Knowledge base = IF-THEN rules written with help from an agriculture expert.
+        # Lesson 10: rules that DIAGNOSE (expert system) and actions that PLAN (STRIPS)
+        from collections import deque
+
+        # Part 1: a tiny expert system for tomato leaf problems (forward chaining)
         rules = [
-            {"if": {"brown_spots", "yellow_ring"},     "then": "early_blight"},
+            {"if": {"brown_spots", "yellow_ring"},          "then": "early_blight"},
             {"if": {"water_soaked_patches", "white_mould"}, "then": "late_blight"},
-            {"if": {"curled_leaves", "whiteflies"},    "then": "leaf_curl_virus"},
-            {"if": {"early_blight"},  "then": "advice: remove lower leaves, spray approved fungicide"},
-            {"if": {"late_blight"},   "then": "advice: act fast, isolate plants, consult KVK officer"},
-            {"if": {"leaf_curl_virus"}, "then": "advice: control whiteflies, remove infected plants"},
+            {"if": {"early_blight"}, "then": "advice: remove lower leaves, spray approved fungicide"},
+            {"if": {"late_blight"},  "then": "advice: act fast, isolate plants, consult KVK officer"},
         ]
 
         def infer(observations):
-            """Forward-chaining inference engine that also records an explanation."""
-            facts, explanation = set(observations), []
-            fired = True
+            facts, explanation, fired = set(observations), [], True
             while fired:
                 fired = False
                 for rule in rules:
@@ -1307,24 +1310,33 @@ module ArtificialIntelligenceContent
                         fired = True
             return facts, explanation
 
-        farmers = {
-            "Farmer Ravi (Kolar)":  {"brown_spots", "yellow_ring"},
-            "Farmer Lakshmi (Hassan)": {"curled_leaves", "whiteflies"},
-            "Farmer Imran (Belagavi)": {"wilting"},
-        }
-        for name, symptoms in farmers.items():
+        for name, symptoms in {"Farmer Ravi (Kolar)": {"brown_spots", "yellow_ring"},
+                               "Farmer Imran (Belagavi)": {"wilting"}}.items():
             facts, why = infer(symptoms)
-            print(f"{name} reports: {sorted(symptoms)}")
-            advice = sorted(f for f in facts if f.startswith("advice"))
-            if advice:
-                for a in advice:
-                    print("  " + a)
-                print("  Why? (explanation facility)")
-                for step in why:
-                    print("    -", step)
-            else:
-                print("  No rule matches. Expert systems cannot handle unknown cases.")
-            print()
+            advice = sorted(f for f in facts if f.startswith("advice")) or ["No rule matches -> refer to a human expert."]
+            print(f"{name} reports: {sorted(symptoms)}\n  " + "\n  ".join(advice))
+            for step in why:                       # the explanation facility
+                print("    why:", step)
+
+        # Part 2: classical planning. Each action = (name, preconditions, add list, delete list)
+        places = ["shed", "tap", "field"]
+        actions = [("pick_up_sprayer", {"at_shed", "hands_free"}, {"has_sprayer"}, {"hands_free"}),
+                   ("fill_tank", {"at_tap", "has_sprayer"}, {"tank_full"}, set()),
+                   ("spray_crop", {"at_field", "has_sprayer", "tank_full"}, {"crop_sprayed"}, {"tank_full"})]
+        actions += [(f"go({a}->{b})", {f"at_{a}"}, {f"at_{b}"}, {f"at_{a}"}) for a in places for b in places if a != b]
+
+        def plan(start, goal):                     # breadth-first search over states = shortest plan
+            frontier, seen = deque([(frozenset(start), [])]), {frozenset(start)}
+            while frontier:
+                state, steps = frontier.popleft()
+                if goal <= state:
+                    return steps
+                for name, pre, add, delete in actions:
+                    if pre <= state and (nxt := (state - delete) | add) not in seen:
+                        seen.add(nxt)
+                        frontier.append((nxt, steps + [name]))
+
+        print("\nPlan to spray the crop:", plan({"at_shed", "hands_free"}, {"crop_sprayed"}))
       PYTHON
     },
 
@@ -1370,8 +1382,27 @@ module ArtificialIntelligenceContent
           <ul class="lc-list">
             <li><strong>Medical screening</strong> — the same base-rate effect applies to tests for rare diseases.</li>
             <li><strong>Robot localisation</strong> — a robot keeps a probability for each possible position and updates it with every sensor reading.</li>
-            <li><strong>Bayesian networks</strong> — graphs that link causes and effects (Monsoon → Rain → Crop yield) and compute probabilities efficiently.</li>
+            <li><strong>Bayesian networks</strong> — graphs that link causes and effects, like the Monsoon → Rain → Yield example below.</li>
             <li><strong>Language models</strong> — output a probability for every possible next word (Lesson 16).</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>A small Bayesian network: Monsoon → Rain → Yield</h3>
+          <p>With many variables, one giant probability table is impossible (30 true/false variables need about a billion rows). A <strong>Bayesian network</strong> draws an arrow from each cause to its effect and stores only a small table per node: <em>P(node | its parents)</em>.</p>
+          <table class="lc-table">
+            <thead><tr><th>Node</th><th>Parent</th><th>Table</th></tr></thead>
+            <tbody>
+              <tr><td>Monsoon (good?)</td><td>none</td><td>P(good) = 0.6</td></tr>
+              <tr><td>Rain (heavy?)</td><td>Monsoon</td><td>P(heavy | good) = 0.8, P(heavy | weak) = 0.3</td></tr>
+              <tr><td>Yield (good?)</td><td>Rain</td><td>P(good | heavy) = 0.9, P(good | light) = 0.4</td></tr>
+            </tbody>
+          </table>
+          <p>The joint probability is the product along the arrows: <strong>P(m, r, y) = P(m) · P(r | m) · P(y | r)</strong>. To answer any question, add up the matching "worlds" (inference by enumeration):</p>
+          <div class="lc-code">P(good yield)                            = 0.70<br>P(good yield | good monsoon)             = 0.80<br>P(good monsoon | poor yield)             = 0.40<br>P(good yield | heavy rain, weak monsoon) = 0.90</div>
+          <ul class="lc-list">
+            <li><strong>Predicting forward</strong>: a good monsoon raises the chance of a good yield from 0.70 to 0.80 (0.8 × 0.9 + 0.2 × 0.4).</li>
+            <li><strong>Reasoning backwards</strong> (diagnosis): a poor harvest lowers our belief in a good monsoon from 0.60 to 0.40. This is Bayes' rule, done by the network.</li>
+            <li><strong>Conditional independence</strong>: once we know it rained heavily, the monsoon adds nothing &mdash; the answer is 0.90, exactly P(good | heavy). Yield depends on the monsoon only <em>through</em> rain. These independences are what make networks small and fast.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1397,6 +1428,7 @@ module ArtificialIntelligenceContent
             <li>Run the starter and check the exact and simulated answers agree.</li>
             <li>Change <code>p_fraud = 0.001</code> to <code>0.01</code>. What is P(fraud | alarm) now?</li>
             <li>Keep <code>p_fraud = 0.001</code> and make the alarm more precise: <code>p_alarm_if_ok = 0.001</code>. Which change helped more — a higher base rate or fewer false alarms?</li>
+            <li>In the Bayesian network, change <code>p_y[False]</code> to <code>0.1</code> (light rain nearly ruins the crop). How much does a poor yield now tell you about the monsoon?</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -1406,6 +1438,7 @@ module ArtificialIntelligenceContent
       starter_code: <<~'PYTHON'
         # Lesson 11: Bayes' rule — should we panic when the UPI fraud alarm rings?
         import random
+        from itertools import product
         random.seed(1)
 
         p_fraud = 0.001            # prior: 1 in 1000 transactions is fraud
@@ -1434,7 +1467,25 @@ module ArtificialIntelligenceContent
         p_alarm2 = p_alarm_if_fraud * prior + p_alarm_if_ok * (1 - prior)
         posterior = p_alarm_if_fraud * prior / p_alarm2
         print(f"\nAfter a 2nd independent alarm: P(fraud) = {posterior:.3f}")
-        print("Lesson: rare events + imperfect tests = many false alarms (base-rate effect).")
+
+        # A tiny Bayesian network: Monsoon -> Rain -> Yield (each is True/False)
+        p_m = 0.6                                 # P(good monsoon)
+        p_r = {True: 0.8, False: 0.3}             # P(heavy rain | monsoon good / weak)
+        p_y = {True: 0.9, False: 0.4}             # P(good yield | heavy rain / light rain)
+
+        def joint(m, r, y):                       # P(m, r, y) = P(m) * P(r | m) * P(y | r)
+            pr = p_r[m] if r else 1 - p_r[m]
+            py = p_y[r] if y else 1 - p_y[r]
+            return (p_m if m else 1 - p_m) * pr * py
+
+        def ask(query, given=lambda m, r, y: True):  # inference by enumeration over all 8 worlds
+            worlds = [w for w in product([True, False], repeat=3) if given(*w)]
+            return sum(joint(*w) for w in worlds if query(*w)) / sum(joint(*w) for w in worlds)
+
+        print(f"\nP(good yield)                            = {ask(lambda m, r, y: y):.2f}")
+        print(f"P(good yield | good monsoon)             = {ask(lambda m, r, y: y, lambda m, r, y: m):.2f}")
+        print(f"P(good monsoon | poor yield)             = {ask(lambda m, r, y: m, lambda m, r, y: not y):.2f}")
+        print(f"P(good yield | heavy rain, weak monsoon) = {ask(lambda m, r, y: y, lambda m, r, y: r and not m):.2f}")
       PYTHON
     },
 
@@ -1563,7 +1614,7 @@ module ArtificialIntelligenceContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Artificial Intelligence</div>
-          <h1 class="lc-title">Reinforcement Learning: MDPs and Q-Learning</h1>
+          <h1 class="lc-title">Reinforcement Learning: MDPs, Value Iteration and Q-Learning</h1>
         </div>
         <p class="lc-lead">Nobody gives a child a labelled dataset for riding a bicycle — they try, wobble, fall and improve. <strong>Reinforcement learning (RL)</strong> works the same way: an agent takes <strong>actions</strong> in an environment, receives <strong>rewards</strong> or penalties, and learns a <strong>policy</strong> — what to do in each situation — that earns the most reward over time. RL trained AlphaGo, controls robots, and is used to fine-tune large language models.</p>
         <div class="lc-card">
@@ -1582,6 +1633,25 @@ module ArtificialIntelligenceContent
           <p>"Markov" means the next state depends only on the current state and action, not on the whole history. The goal is a policy that maximises the expected <strong>return</strong>: r<sub>1</sub> + γ·r<sub>2</sub> + γ²·r<sub>3</sub> + ...</p>
         </div>
         <div class="lc-card">
+          <h3>Value iteration: solving the MDP when you know the model</h3>
+          <p>If we know the transitions and rewards (our <code>step</code> function), we do not need trial and error — we can <em>plan</em>. <strong>V(s)</strong> is the best return you can get starting from state <em>s</em>. Value iteration starts with V = 0 everywhere and repeatedly applies the <strong>Bellman update</strong> to every state:</p>
+          <div class="lc-code">V(s) = max over a of [ reward(s, a) + γ × V(next_state) ]     # no future term if the step ends the episode</div>
+          <p>Each sweep spreads the +10 from the customer one step further back through the grid. On this grid 20 sweeps are far more than enough. <strong>Output of the starter, part 1:</strong></p>
+          <div class="lc-code">Value iteration, V(s) after 20 sweeps:<br>   3.12  4.58  6.20     #<br>   4.58     #  8.00     P<br>   6.20  8.00 10.00     G</div>
+          <ul class="lc-list">
+            <li>Next to the customer, V = 10. One step further back: −1 + 0.9 × 10 = 8.00. Then −1 + 0.9 × 8 = 6.20, and so on back to 3.12 at the start.</li>
+            <li>The best policy is simply "move to the neighbour with the highest V". From (0, 2) that means going down to 8.00, never right into the pothole.</li>
+          </ul>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Value iteration</th><th>Q-learning</th></tr></thead>
+            <tbody>
+              <tr><td>Needs the model (transitions + rewards)?</td><td>Yes</td><td>No — learns from experience</td></tr>
+              <tr><td>Kind of method</td><td>Planning (dynamic programming)</td><td>Learning (model-free RL)</td></tr>
+              <tr><td>Use when</td><td>Small, fully known worlds</td><td>The rules are unknown or too complex to write down</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
           <h3>Q-values and the Q-learning update</h3>
           <p><strong>Q(s, a)</strong> = the expected return if the agent takes action <em>a</em> in state <em>s</em> and then behaves well. If we knew all Q-values, the best policy would be simple: in each state, pick the action with the highest Q. Q-learning learns them from experience, one step at a time:</p>
           <div class="lc-code">target = reward + γ × max over a' of Q(next_state, a')<br>Q(s, a) = Q(s, a) + α × (target − Q(s, a))</div>
@@ -1597,11 +1667,11 @@ module ArtificialIntelligenceContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-          <p>The grid has a start S, a wall #, a pothole P and the customer G. After 500 practice episodes:</p>
-          <div class="lc-code">Learned policy (best action in each cell):<br>  &gt; &gt; v #<br>  v # v P<br>  &gt; &gt; &gt; G<br>Q-values at the start: {'U': 1.81, 'D': 3.12, 'L': 1.81, 'R': 3.12}<br>Greedy route: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3)] | total reward: 6</div>
+          <p>The grid has a start S, a wall #, a pothole P and the customer G. Part 2 of the starter throws away the model and lets the robot practise for 500 episodes:</p>
+          <div class="lc-code">Q-learning policy (best action in each cell):<br>  &gt; &gt; v #<br>  v # v P<br>  &gt; &gt; &gt; G<br>Q-values at the start: {'U': 1.81, 'D': 3.12, 'L': 1.81, 'R': 3.12}<br>Greedy route: [(0, 0), (0, 1), (0, 2), (1, 2), (2, 2), (2, 3)] | total reward: 6</div>
           <ul class="lc-list">
             <li>Nobody told the robot where the pothole is. It learned to go down <em>before</em> reaching it, because falling in cost −10.</li>
-            <li>The shortest route is 5 moves: four moves at −1 then +10 for the last, so the return with γ = 0.9 is −1 − 0.9 − 0.81 − 0.729 + 0.9<sup>4</sup> × 10 = 3.12 — exactly the learned Q-value for Down and Right.</li>
+            <li>The shortest route is 5 moves: four moves at −1 then +10 for the last, so the return with γ = 0.9 is −1 − 0.9 − 0.81 − 0.729 + 0.9<sup>4</sup> × 10 = 3.12 — exactly the learned Q-value for Down and Right, and exactly V(start) from value iteration. Learning from experience reached the same answer as planning with the model.</li>
             <li>Up and Left bump into the edge: −1 now and you are still at the start, worth 0.9 × 3.12 later: −1 + 2.81 = 1.81. The maths of the update matches the numbers.</li>
           </ul>
         </div>
@@ -1629,7 +1699,8 @@ module ArtificialIntelligenceContent
         <div class="lc-card">
           <h3>Try it</h3>
           <ol class="lc-list">
-            <li>Run the starter and trace the greedy route on the grid.</li>
+            <li>Run the starter and trace the greedy route on the grid. Check that it always moves towards a higher V from part 1.</li>
+            <li>In part 1, change <code>range(20)</code> to <code>range(2)</code>. Which cells already have their final value, and why are the cells far from the customer still negative?</li>
             <li>Change <code>range(500)</code> to <code>range(10)</code>. Is the policy still sensible? What about the Q-values at the start?</li>
             <li>Change the move reward from <code>-1</code> to <code>0</code>. The route may stay the same — why? (Hint: γ &lt; 1 already makes later rewards smaller.) Then set <code>gamma = 1.0</code> as well and look at the start Q-values.</li>
             <li>Move the pothole next to the customer: change the grid rows to <code>".#.."</code> and <code>"..PG"</code>, and the pothole reward to <code>-100</code>. Does the robot find the safe way round?</li>
@@ -1640,7 +1711,7 @@ module ArtificialIntelligenceContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Lesson 13: Reinforcement learning — a delivery robot learns a grid with Q-learning
+        # Lesson 13: a delivery robot on a grid — value iteration (planning) vs Q-learning (learning)
         import random
         random.seed(0)
 
@@ -1649,24 +1720,28 @@ module ArtificialIntelligenceContent
                 "...G"]
         ROWS, COLS = len(GRID), len(GRID[0])
         ACTIONS = {"U": (-1, 0), "D": (1, 0), "L": (0, -1), "R": (0, 1)}
+        alpha, gamma, epsilon = 0.5, 0.9, 0.2                   # learning rate, discount, exploration
 
-        def step(state, action):
-            """The environment: returns (next_state, reward, done)."""
+        def step(state, action):                                # the environment: (next_state, reward, done)
             r, c = state[0] + ACTIONS[action][0], state[1] + ACTIONS[action][1]
             if not (0 <= r < ROWS and 0 <= c < COLS) or GRID[r][c] == "#":
                 r, c = state                                    # bumped into a wall: stay put
-            if GRID[r][c] == "G":
-                return (r, c), 10, True
-            if GRID[r][c] == "P":
-                return (r, c), -10, True
+            if GRID[r][c] in "GP":
+                return (r, c), (10 if GRID[r][c] == "G" else -10), True
             return (r, c), -1, False                            # every move costs a little battery
 
+        # 1. Value iteration: we KNOW the model (step), so sweep every state with the Bellman update
+        V = {(r, c): 0.0 for r in range(ROWS) for c in range(COLS)}
+        for sweep in range(20):
+            for s in [s for s in V if GRID[s[0]][s[1]] not in "#PG"]:
+                V[s] = max(rw + (0 if done else gamma * V[s2]) for s2, rw, done in (step(s, a) for a in ACTIONS))
+        print(f"Value iteration, V(s) after {sweep + 1} sweeps:")
+        for r in range(ROWS):
+            print("  " + " ".join(f"{GRID[r][c]:>5}" if GRID[r][c] in "#PG" else f"{V[(r, c)]:5.2f}" for c in range(COLS)))
+
+        # 2. Q-learning: NO model — learn only from trial-and-error experience
         Q = {((r, c), a): 0.0 for r in range(ROWS) for c in range(COLS) for a in ACTIONS}
-        alpha, gamma, epsilon = 0.5, 0.9, 0.2                   # learning rate, discount, exploration
-
-        def best_action(s):
-            return max(ACTIONS, key=lambda a: Q[(s, a)])
-
+        best_action = lambda s: max(ACTIONS, key=lambda a: Q[(s, a)])
         for episode in range(500):
             s, done, steps = (0, 0), False, 0
             while not done and steps < 50:
@@ -1676,19 +1751,15 @@ module ArtificialIntelligenceContent
                 Q[(s, a)] += alpha * (target - Q[(s, a)])       # the Q-learning update
                 s, steps = s2, steps + 1
 
-        print("Learned policy (best action in each cell):")
+        print("\nQ-learning policy (best action in each cell):")
         arrows = {"U": "^", "D": "v", "L": "<", "R": ">"}
         for r in range(ROWS):
-            print("  " + " ".join(GRID[r][c] if GRID[r][c] in "#PG" else arrows[best_action((r, c))]
-                                  for c in range(COLS)))
+            print("  " + " ".join(GRID[r][c] if GRID[r][c] in "#PG" else arrows[best_action((r, c))] for c in range(COLS)))
         print("Q-values at the start:", {a: round(Q[((0, 0), a)], 2) for a in ACTIONS})
-
-        s, path, total = (0, 0), [(0, 0)], 0                    # follow the policy greedily
-        for _ in range(20):
+        s, path, total, done = (0, 0), [(0, 0)], 0, False       # follow the policy greedily
+        while not done and len(path) < 20:
             s, reward, done = step(s, best_action(s))
             path.append(s); total += reward
-            if done:
-                break
         print("Greedy route:", path, "| total reward:", total)
       PYTHON
     },
@@ -2542,9 +2613,9 @@ module ArtificialIntelligenceContent
               <tr><td>Local search (L6)</td><td>Hill climbing, simulated annealing</td><td>Only the final configuration matters</td></tr>
               <tr><td>CSPs (L7)</td><td>Backtracking, MRV, forward checking</td><td>Timetables, assignments with hard rules</td></tr>
               <tr><td>Games (L8)</td><td>Minimax, alpha-beta pruning</td><td>There is an opponent</td></tr>
-              <tr><td>Logic (L9–10)</td><td>Entailment, forward chaining, expert systems</td><td>Rules are clear and decisions must be explained</td></tr>
-              <tr><td>Probability (L11–12)</td><td>Bayes' rule, Naive Bayes</td><td>Evidence is uncertain or noisy</td></tr>
-              <tr><td>Reinforcement learning (L13)</td><td>MDPs, Q-learning</td><td>An agent learns from rewards by trial and error</td></tr>
+              <tr><td>Logic (L9–10)</td><td>Entailment, forward chaining, expert systems, STRIPS planning</td><td>Rules are clear and decisions must be explained, or a sequence of actions must be planned</td></tr>
+              <tr><td>Probability (L11–12)</td><td>Bayes' rule, Bayesian networks, Naive Bayes</td><td>Evidence is uncertain or noisy</td></tr>
+              <tr><td>Reinforcement learning (L13)</td><td>MDPs, value iteration, Q-learning</td><td>An agent plans with a known model, or learns from rewards by trial and error</td></tr>
               <tr><td>Learning (L14)</td><td>Gradient descent, neural networks</td><td>You have examples but no clear rules</td></tr>
               <tr><td>Language (L15–17)</td><td>Bag of words, LLMs, agents with tools</td><td>Working with text and multi-step tasks</td></tr>
               <tr><td>Vision (L18)</td><td>Convolution, CNNs</td><td>Working with images and video</td></tr>
