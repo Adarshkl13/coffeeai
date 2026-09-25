@@ -81,8 +81,8 @@ module DeepLearningContent
             <li>Neurons, layers and full networks written from scratch in NumPy</li>
             <li>Loss functions, gradient descent and backpropagation (with the chain rule)</li>
             <li>A complete training loop with epochs, mini-batches, Adam and early stopping</li>
-            <li>Convolutions for images, RNNs for sequences, and attention and Transformers for language</li>
-            <li>Transfer learning and generative models (autoencoders, GANs, diffusion)</li>
+            <li>Convolutions for images, object detection and segmentation, RNNs for sequences, and attention and Transformers for language</li>
+            <li>Transfer learning, generative models (autoencoders, GANs, diffusion) and how large language models are trained and adapted</li>
             <li>How the same ideas look in <strong>PyTorch</strong>, the framework most professionals use</li>
           </ul>
         </div>
@@ -1328,6 +1328,18 @@ module DeepLearningContent
           <p>Half the activations become 0 and the survivors are doubled, so the average stays about 2.0. That is why nothing needs rescaling at test time. Weight decay on its own shrinks a weight by the same fraction every step (here 5%), so only weights that the data keeps pushing up stay large.</p>
         </div>
         <div class="lc-card">
+          <h3>Tuning hyperparameters without fooling yourself</h3>
+          <p>Learning rate, weight decay, dropout, batch size and network size are <strong>hyperparameters</strong>: you choose them, the training does not. Read the two gaps first, then change one thing at a time:</p>
+          <table class="lc-table">
+            <thead><tr><th>What you see</th><th>Problem</th><th>Try</th></tr></thead>
+            <tbody>
+              <tr><td>Training error high</td><td>High bias (underfitting)</td><td>Bigger network, train longer, tune the learning rate</td></tr>
+              <tr><td>Training error low, validation error much higher</td><td>High variance (overfitting)</td><td>More data, augmentation, weight decay, dropout</td></tr>
+            </tbody>
+          </table>
+          <p>When you search, prefer <strong>random search</strong> over a grid: with a fixed budget of runs it tries more different values of the hyperparameters that matter most. Sample the learning rate and weight decay on a <strong>log scale</strong>, for example <code>lr = 10 ** rng.uniform(-4, -1)</code>, because 0.0001 vs 0.001 matters as much as 0.01 vs 0.1. Pick the winner on the validation set and touch the test set only once at the end.</p>
+        </div>
+        <div class="lc-card">
           <h3>Which technique when?</h3>
           <table class="lc-table">
             <thead><tr><th>Technique</th><th>Cost</th><th>Typical setting</th><th>Good first choice for</th></tr></thead>
@@ -1606,6 +1618,11 @@ module DeepLearningContent
           </table>
         </div>
         <div class="lc-card">
+          <h3>Saving, loading and mixed precision</h3>
+          <div class="lc-code">torch.save(model.state_dict(), "model.pt")              # save only the learned weights<br><br>model = nn.Sequential(nn.Linear(2, 16), nn.ReLU(), nn.Linear(16, 1))   # same architecture<br>model.load_state_dict(torch.load("model.pt", weights_only=True))<br>model.eval()                                            # ready for predictions<br><br>with torch.autocast(device_type="cuda", dtype=torch.bfloat16):<br>    loss = loss_fn(model(xb), yb)                       # forward pass in 16-bit</div>
+          <p>Save the <code>state_dict</code> (a dictionary of tensors), not the whole model object, and save the optimiser's state too if you want to resume training. <strong>Mixed precision</strong> runs most of the forward pass in 16-bit numbers while the weights stay in 32-bit, which often makes training on a modern GPU roughly twice as fast and halves activation memory. With <code>float16</code> instead of <code>bfloat16</code> you also need <code>torch.amp.GradScaler</code> so small gradients do not round to zero.</p>
+        </div>
+        <div class="lc-card">
           <h3>The same model in Keras</h3>
           <div class="lc-code">import keras<br><br>model = keras.Sequential([<br>    keras.Input(shape=(2,)),<br>    keras.layers.Dense(16, activation="relu"),<br>    keras.layers.Dense(1, activation="sigmoid"),<br>])<br>model.compile(optimizer="adam", loss="binary_crossentropy", metrics=["accuracy"])<br>model.fit(X_np, y_np, epochs=30, batch_size=32)</div>
           <p>Keras hides the loop inside <code>fit()</code>. PyTorch shows the loop, which is why researchers like it: you can change any step.</p>
@@ -1633,7 +1650,7 @@ module DeepLearningContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Google Colab gives you free access to PyTorch and a GPU in the browser. After this course, try rewriting Lessons 8 and 20 in PyTorch; you'll see how every line maps to something you already built by hand.
+          <strong>Tip:</strong> Google Colab gives you free access to PyTorch and a GPU in the browser. After this course, try rewriting Lessons 8 and 22 in PyTorch; you'll see how every line maps to something you already built by hand.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1858,7 +1875,7 @@ module DeepLearningContent
               <tr><td>VGG-16</td><td>2014</td><td>Only 3×3 convolutions, stacked very deep</td></tr>
               <tr><td>ResNet</td><td>2015</td><td><strong>Skip connections</strong> (output = F(x) + x) allow 100+ layers</td></tr>
               <tr><td>MobileNet / EfficientNet</td><td>2017–19</td><td>Small, fast CNNs for phones; scale depth, width and resolution together</td></tr>
-              <tr><td>Vision Transformer (ViT)</td><td>2020</td><td>No convolutions: cut the image into 16×16 patches and use a Transformer (Lesson 17)</td></tr>
+              <tr><td>Vision Transformer (ViT)</td><td>2020</td><td>No convolutions: cut the image into 16×16 patches and use a Transformer (Lesson 18)</td></tr>
               <tr><td>ConvNeXt</td><td>2022</td><td>A CNN modernised with Transformer-era design choices; competitive with ViTs</td></tr>
             </tbody>
           </table>
@@ -1898,7 +1915,7 @@ module DeepLearningContent
             <li><strong>Wrong size in the first <code>nn.Linear</code> after <code>Flatten</code>.</strong> Work it out (64 × 7 × 7 = 3136) or pass a dummy tensor through the conv part and print the shape, as above.</li>
             <li><strong>Adding a skip connection with mismatched shapes.</strong> <code>out + x</code> needs the same channels and size; ResNet uses a 1×1 convolution on x when they differ.</li>
             <li><strong>Evaluating only on perfectly centred test images.</strong> Real photos are shifted, rotated and differently lit. Test on realistic data, and train with augmentation.</li>
-            <li><strong>Designing a big CNN from scratch for a small dataset.</strong> Start from a pretrained model (Lesson 18).</li>
+            <li><strong>Designing a big CNN from scratch for a small dataset.</strong> Start from a pretrained model (Lesson 19).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1910,7 +1927,7 @@ module DeepLearningContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> For your own image project, you almost never design a CNN from scratch. You take a pretrained ResNet or EfficientNet and fine-tune it. That is transfer learning, covered in Lesson 18.
+          <strong>Tip:</strong> For your own image project, you almost never design a CNN from scratch. You take a pretrained ResNet or EfficientNet and fine-tune it. That is transfer learning, covered in Lesson 19. The next lesson shows how the same backbones find and outline objects.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1959,6 +1976,138 @@ module DeepLearningContent
       PYTHON
     },
     15 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-deep-learning">Deep Learning</div>
+          <h1 class="lc-title">Object Detection &amp; Segmentation</h1>
+        </div>
+        <p class="lc-lead">A classifier answers one question about a whole image: "is there a cat?" Real vision systems usually need more: <strong>where</strong> is each object, and exactly <strong>which pixels</strong> belong to it? Self-driving cars, crop-counting drones and medical scans all depend on <strong>object detection</strong> and <strong>segmentation</strong>. Both reuse the CNN backbones from Lesson 14, with new output "heads" and new ways to measure success.</p>
+        <div class="lc-card">
+          <h3>Four vision tasks</h3>
+          <table class="lc-table">
+            <thead><tr><th>Task</th><th>Question</th><th>Output for one image</th><th>Famous models</th></tr></thead>
+            <tbody>
+              <tr><td>Classification</td><td>What is in the image?</td><td>One label (a vector of class scores)</td><td>ResNet, ViT</td></tr>
+              <tr><td>Object detection</td><td>What objects, and where?</td><td>A list of boxes, each with a label and a confidence score</td><td>Faster R-CNN, YOLO, DETR</td></tr>
+              <tr><td>Semantic segmentation</td><td>Which class does each pixel belong to?</td><td>A class map the same size as the image (H × W)</td><td>U-Net, DeepLab</td></tr>
+              <tr><td>Instance segmentation</td><td>Which pixels belong to <em>each separate</em> object?</td><td>One mask per object, plus its label</td><td>Mask R-CNN, SAM</td></tr>
+            </tbody>
+          </table>
+          <p>Semantic segmentation paints all three cows in a photo with the same "cow" colour. Instance segmentation gives cow 1, cow 2 and cow 3 their own masks, so you can count them.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Bounding boxes and IoU</h3>
+          <p>A box is four numbers. This lesson uses <strong>(x1, y1, x2, y2)</strong>: the top-left and bottom-right corners in pixels, with y growing downwards. Datasets use other formats too: COCO stores (x, y, width, height) and YOLO label files store (centre x, centre y, width, height) divided by the image size. Always check which one you have.</p>
+          <p>To judge a predicted box we use <strong>Intersection over Union (IoU)</strong>: the overlap area divided by the area covered by either box. IoU is 1 for a perfect match and 0 for no overlap. A detection usually counts as correct when IoU ≥ 0.5.</p>
+          <div class="lc-code">def iou(a, b):<br>    w = max(0, min(a[2], b[2]) - max(a[0], b[0]))   # overlap width<br>    h = max(0, min(a[3], b[3]) - max(a[1], b[1]))   # overlap height<br>    inter = w * h<br>    area = lambda r: (r[2] - r[0]) * (r[3] - r[1])<br>    return inter / (area(a) + area(b) - inter)</div>
+        </div>
+        <div class="lc-card">
+          <h3>Worked example: IoU by hand</h3>
+          <p>True box (50, 50, 150, 150); predicted box (60, 60, 160, 160), shifted 10 pixels right and down.</p>
+          <ol class="lc-list">
+            <li>Overlap: x from 60 to 150 and y from 60 to 150, so 90 × 90 = <strong>8,100</strong>.</li>
+            <li>Each box is 100 × 100 = 10,000, so the union is 10,000 + 10,000 − 8,100 = <strong>11,900</strong>.</li>
+            <li>IoU = 8,100 / 11,900 = <strong>0.681</strong>: a good match, even though the box is a little off.</li>
+          </ol>
+          <p>The starter prints exactly this for four predictions:</p>
+          <div class="lc-code">pred (50, 50, 150, 150)  IoU = 1.000<br>pred (60, 60, 160, 160)  IoU = 0.681<br>pred (100, 100, 200, 200)  IoU = 0.143<br>pred (200, 200, 260, 260)  IoU = 0.000</div>
+          <p>Moving the box 50 pixels away (half its width) drops IoU to 0.143, far below the usual 0.5 threshold.</p>
+        </div>
+        <div class="lc-card">
+          <h3>How a detector works</h3>
+          <ol class="lc-list">
+            <li>A CNN or Transformer <strong>backbone</strong> (often pretrained, Lesson 19) turns the image into a grid of feature vectors.</li>
+            <li>A <strong>detection head</strong> predicts, at many places on that grid, a class score and four box numbers.</li>
+            <li>The loss adds a <strong>classification loss</strong> (cross-entropy) and a <strong>box regression loss</strong> (for example L1 or an IoU-based loss) for predictions matched to real objects.</li>
+            <li>At prediction time the head fires many overlapping boxes on the same object, so we clean them up with <strong>non-maximum suppression (NMS)</strong>.</li>
+          </ol>
+          <p><strong>NMS:</strong> drop boxes below a score threshold, sort the rest by score, keep the best box, delete every remaining box whose IoU with it is above a threshold (often 0.5), and repeat. In the starter, 6 raw boxes (three on a cat, two on a dog, one weak false alarm) become 2 final detections.</p>
+          <table class="lc-table">
+            <thead><tr><th>Family</th><th>Idea</th><th>Trade-off</th></tr></thead>
+            <tbody>
+              <tr><td>Two-stage (Faster R-CNN, 2015)</td><td>First propose regions that may hold an object, then classify and refine each one</td><td>Accurate, slower</td></tr>
+              <tr><td>One-stage (YOLO, 2016 onwards)</td><td>Predict all boxes in a single pass over the feature grid</td><td>Real-time on phones and cameras</td></tr>
+              <tr><td>Transformer (DETR, 2020)</td><td>Object queries attend to image features and each query outputs at most one object</td><td>No NMS needed; slower to train</td></tr>
+            </tbody>
+          </table>
+          <p>Detectors are compared with <strong>mAP</strong> (mean average precision): the precision–recall trade-off is summarised for each class and averaged over classes. The COCO benchmark also averages over IoU thresholds from 0.50 to 0.95, which rewards tight boxes.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Segmentation: classify every pixel</h3>
+          <p>A segmentation network outputs a score for every class at every pixel: shape (classes, H, W). The loss is ordinary cross-entropy applied to each pixel. The popular <strong>U-Net</strong> (2015, first built for medical images) is an encoder–decoder: the encoder shrinks the image with convolutions and pooling to learn <em>what</em> is there, the decoder upsamples back to full size, and <strong>skip connections</strong> copy fine detail from each encoder level to the matching decoder level so edges stay sharp.</p>
+          <p>Do not judge a mask by <strong>pixel accuracy</strong>. When most pixels are background, a model that predicts "background" everywhere already scores highly. Use <strong>mask IoU</strong> or the <strong>Dice score</strong> (2 × overlap ÷ total pixels in both masks). In the starter a mask shifted by just one pixel still has 94.5% pixel accuracy, but its IoU is only 0.391.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Detection in PyTorch</h3>
+          <div class="lc-code">import torch<br>from torchvision.models.detection import fasterrcnn_resnet50_fpn_v2, FasterRCNN_ResNet50_FPN_V2_Weights<br>from torchvision.ops import nms, box_iou<br><br>weights = FasterRCNN_ResNet50_FPN_V2_Weights.DEFAULT     # pretrained on COCO (91 classes)<br>model = fasterrcnn_resnet50_fpn_v2(weights=weights, box_score_thresh=0.5).eval()<br>img = weights.transforms()(photo)                         # photo: a (3, H, W) uint8 tensor<br>with torch.no_grad():<br>    out = model([img])[0]                                 # dict: "boxes", "labels", "scores"<br>names = [weights.meta["categories"][i] for i in out["labels"]]</div>
+          <p>The model runs NMS for you; <code>torchvision.ops.nms</code> and <code>box_iou</code> are there when you need them yourself. For fast real-time projects many people use the Ultralytics YOLO models, and Meta's Segment Anything (SAM) models can cut out any object you click on.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Mixing box formats.</strong> Treating (x, y, w, h) as (x1, y1, x2, y2) gives nonsense IoU values. Convert once, at loading time.</li>
+            <li><strong>Resizing the image but not the boxes.</strong> If you resize a 640×480 photo to 320×240, every box coordinate must be halved too (and flipped when you flip the image).</li>
+            <li><strong>Forgetting NMS or the score threshold.</strong> The raw output has many duplicate and low-confidence boxes on each object.</li>
+            <li><strong>Reporting pixel accuracy for segmentation.</strong> Background dominates. Report IoU or Dice per class.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>In the starter change the call to <code>nms(boxes, scores, iou_thresh=0.9)</code>. Duplicates now survive: 5 boxes are kept instead of 2.</li>
+            <li>Change it to <code>nms(boxes, scores, score_thresh=0.25)</code>. The weak false alarm (index 5, score 0.30) is now kept as a third detection.</li>
+            <li>Change <code>pred_mask[3:7, 3:7] = 1</code> to <code>pred_mask[2:6, 2:7] = 1</code> (one extra column). IoU rises to 0.800 and Dice to 0.889.</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> For your own detection project, start from a pretrained detector and fine-tune it on a few hundred labelled images. Free tools such as CVAT or Label Studio let you draw the boxes and masks. Most of your time goes into careful labelling, not the model.
+        </div>
+      HTML
+      starter_code: <<~'PYTHON'
+        import numpy as np
+
+        def iou(a, b):
+            """Boxes are (x1, y1, x2, y2): top-left and bottom-right corners."""
+            w = max(0.0, min(a[2], b[2]) - max(a[0], b[0]))     # overlap width
+            h = max(0.0, min(a[3], b[3]) - max(a[1], b[1]))     # overlap height
+            inter = w * h
+            area = lambda r: (r[2] - r[0]) * (r[3] - r[1])
+            return inter / (area(a) + area(b) - inter)
+
+        # 1. IoU: how well does a predicted box match the true box?
+        truth = (50, 50, 150, 150)
+        for pred in [(50, 50, 150, 150), (60, 60, 160, 160), (100, 100, 200, 200), (200, 200, 260, 260)]:
+            print(f"pred {pred}  IoU = {iou(truth, pred):.3f}")
+
+        # 2. Non-maximum suppression: a detector fires many boxes on the same object
+        boxes = np.array([[48, 52, 152, 148], [55, 45, 158, 150], [40, 60, 145, 155],   # cat
+                          [300, 80, 380, 200], [305, 90, 385, 205],                     # dog
+                          [200, 300, 230, 330]])                                        # weak false alarm
+        scores = np.array([0.92, 0.85, 0.70, 0.88, 0.60, 0.30])
+
+        def nms(boxes, scores, iou_thresh=0.5, score_thresh=0.5):
+            order = [i for i in np.argsort(scores)[::-1] if scores[i] >= score_thresh]
+            keep = []
+            while order:
+                best = order.pop(0)                              # highest remaining score wins
+                keep.append(int(best))
+                order = [i for i in order if iou(boxes[best], boxes[i]) < iou_thresh]
+            return keep
+
+        keep = nms(boxes, scores)
+        print(f"\nNMS: {len(boxes)} raw boxes -> kept {keep}, scores {scores[keep].tolist()}")
+
+        # 3. Segmentation: one class per PIXEL. Compare a predicted mask with the truth
+        true_mask = np.zeros((16, 16), dtype=int); true_mask[2:6, 2:6] = 1   # a 4x4 object (16 px)
+        pred_mask = np.zeros((16, 16), dtype=int); pred_mask[3:7, 3:7] = 1   # shifted by one pixel
+        inter = np.sum((true_mask == 1) & (pred_mask == 1))
+        union = np.sum((true_mask == 1) | (pred_mask == 1))
+        print(f"\nPixel accuracy: {np.mean(true_mask == pred_mask):.3f}  (looks great: most pixels are background)")
+        print(f"Mask IoU      : {inter / union:.3f}")
+        print(f"Dice score    : {2 * inter / (true_mask.sum() + pred_mask.sum()):.3f}")
+      PYTHON
+    },
+    16 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-deep-learning">Deep Learning</div>
@@ -2044,7 +2193,7 @@ module DeepLearningContent
             <li><strong>Batch-dimension confusion.</strong> PyTorch's <code>nn.LSTM</code> expects (seq_len, batch, features) unless you pass <code>batch_first=True</code>.</li>
             <li><strong>Training without gradient clipping.</strong> One exploding batch can turn every weight into <code>nan</code>. Clipping at a norm of about 1–5 is standard for RNNs.</li>
             <li><strong>Using the last output of a padded sequence.</strong> If "good movie" is padded to 10 tokens, the final step has read padding. Use the packed-sequence utilities or a mask.</li>
-            <li><strong>Reaching for an RNN for long documents today.</strong> For most language tasks a Transformer (Lessons 16–17) or a pretrained model works better.</li>
+            <li><strong>Reaching for an RNN for long documents today.</strong> For most language tasks a Transformer (Lessons 17–18) or a pretrained model works better.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2102,7 +2251,7 @@ module DeepLearningContent
         print("LSTM and GRU cells add gates to keep useful memory for longer.")
       PYTHON
     },
-    16 => {
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-deep-learning">Deep Learning</div>
@@ -2249,7 +2398,7 @@ module DeepLearningContent
         print("\nWith learned projections: X", X.shape, "-> Q, K, V", (n, d_k), "-> output", out.shape)
       PYTHON
     },
-    17 => {
+    18 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-deep-learning">Deep Learning</div>
@@ -2383,7 +2532,7 @@ module DeepLearningContent
         print(f"\nWeights in this block: {block_params:,} | GPT-3 has 96 such blocks with d_model = 12288")
       PYTHON
     },
-    18 => {
+    19 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-deep-learning">Deep Learning</div>
@@ -2422,10 +2571,23 @@ module DeepLearningContent
           <p>With every dataset size the transfer model wins, for example about 84% vs 76% with 20 labels, because its hidden layer already knows what strokes and loops look like.</p>
         </div>
         <div class="lc-card">
+          <h3>Where do pretrained models come from?</h3>
+          <p>Labelling millions of examples is expensive, so most big models today are pretrained with <strong>self-supervised learning</strong>: the data provides its own labels.</p>
+          <table class="lc-table">
+            <thead><tr><th>Trick</th><th>The "label"</th><th>Example models</th></tr></thead>
+            <tbody>
+              <tr><td>Predict the next token</td><td>The next word in real text</td><td>GPT family, Llama (Lesson 21)</td></tr>
+              <tr><td>Fill in the masked part</td><td>Hidden words or image patches</td><td>BERT, masked autoencoders for images</td></tr>
+              <tr><td>Contrastive learning</td><td>Which image goes with which caption (or two crops of the same photo)</td><td>CLIP, SimCLR, DINO</td></tr>
+            </tbody>
+          </table>
+          <p>Only after this stage are the models fine-tuned with a small amount of labelled data, which is exactly the transfer step you practise in this lesson.</p>
+        </div>
+        <div class="lc-card">
           <h3>Where to find pretrained models</h3>
           <ul class="lc-list">
             <li><strong>torchvision.models</strong>: ResNet, EfficientNet, ViT for images</li>
-            <li><strong>Hugging Face Hub</strong>: hundreds of thousands of models for text, images, speech, including Indian-language models like IndicBERT</li>
+            <li><strong>Hugging Face Hub</strong>: millions of models (over 3 million by 2026) for text, images, speech, including Indian-language models like IndicBERT</li>
             <li><strong>Keras Applications</strong>: MobileNet, ResNet and others for TensorFlow users</li>
           </ul>
           <p>Always check the model's licence and what data it was trained on before using it in a product.</p>
@@ -2513,7 +2675,7 @@ module DeepLearningContent
         print("The body already learned strokes and loops, so the new head needs very few labels.")
       PYTHON
     },
-    19 => {
+    20 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-deep-learning">Deep Learning</div>
@@ -2567,7 +2729,7 @@ module DeepLearningContent
         </div>
         <div class="lc-card">
           <h3>4. Autoregressive models: one token at a time</h3>
-          <p>Large language models are generative too. A decoder-only Transformer (Lesson 17) learns p(next token | previous tokens) with cross-entropy, and generates by sampling one token, appending it, and repeating. The same idea has been used for images and audio.</p>
+          <p>Large language models are generative too. A decoder-only Transformer (Lesson 18) learns p(next token | previous tokens) with cross-entropy, and generates by sampling one token, appending it, and repeating. The same idea has been used for images and audio. Lesson 21 looks at LLMs in detail.</p>
         </div>
         <div class="lc-card">
           <h3>The families compared</h3>
@@ -2648,7 +2810,136 @@ module DeepLearningContent
         print("A diffusion model is trained to predict `noise` from (xt, t), then runs this backwards.")
       PYTHON
     },
-    20 => {
+    21 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-deep-learning">Deep Learning</div>
+          <h1 class="lc-title">Large Language Models</h1>
+        </div>
+        <p class="lc-lead">A <strong>large language model (LLM)</strong> is a decoder-only Transformer (Lesson 18) with billions of weights, trained to predict the next token. Chat assistants, coding assistants and translation tools are all built on LLMs. This lesson explains how raw text becomes tokens, how a model is trained into a helpful assistant, how it chooses each word, and how you can adapt one cheaply with <strong>LoRA</strong>.</p>
+        <div class="lc-card">
+          <h3>From raw model to assistant: three training stages</h3>
+          <table class="lc-table">
+            <thead><tr><th>Stage</th><th>Data</th><th>What the model learns</th></tr></thead>
+            <tbody>
+              <tr><td>1. Pretraining</td><td>Trillions of tokens of web text, books and code; no labels needed (the next token is the label)</td><td>Grammar, facts and reasoning patterns; it can continue any text</td></tr>
+              <tr><td>2. Supervised fine-tuning (SFT)</td><td>Tens of thousands of written (instruction, good answer) pairs</td><td>To follow instructions and answer in a chat format</td></tr>
+              <tr><td>3. Preference tuning</td><td>Pairs of answers where people (or a reward model) marked the better one</td><td>To prefer helpful, honest, safe answers (RLHF, or the simpler DPO)</td></tr>
+            </tbody>
+          </table>
+          <p>Pretraining uses almost all of the compute and is <strong>self-supervised</strong>: the loss is plain cross-entropy on the next token, exactly as in Lesson 5. Newer "reasoning" models add more reinforcement learning on problems with checkable answers (maths, code), so they learn to write out steps before answering.</p>
+          <p><strong>Scaling laws:</strong> loss falls smoothly and predictably as parameters, data and compute grow. The 2022 Chinchilla study found about 20 training tokens per parameter was compute-optimal; many recent small models are trained far longer than that because a smaller model is cheaper to run.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Tokenisation with byte-pair encoding</h3>
+          <p>LLMs read <strong>tokens</strong>, not characters or whole words. <strong>Byte-pair encoding (BPE)</strong> builds the vocabulary from data: start with single characters, count every neighbouring pair, merge the most frequent pair into a new token, and repeat until the vocabulary is big enough (typically 50,000 to 200,000 tokens). Common words become one token; rare words split into pieces.</p>
+          <p>The starter runs 4 merges on seven small words: "l"+"o", then "lo"+"w", then "e"+"r", then "er"+"_". After that, "lowest" is <code>['low', 'e', 's', 't', '_']</code>.</p>
+          <p>Tokenisers trained mostly on English text often split Hindi, Tamil or Bengali into many more tokens per word. The same sentence then costs more, runs slower and fills the context window sooner, which is one reason Indian-language models train their own tokenisers.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked example: temperature and sampling</h3>
+          <p>At each step the model outputs a logit for every token in the vocabulary. Dividing the logits by a <strong>temperature</strong> T before the softmax controls how adventurous the choice is:</p>
+          <div class="lc-code">import numpy as np<br><br>logits = np.array([2.0, 1.0, 0.1])                # scores for "yes", "no", "maybe"<br>for T in [1.0, 0.5, 0.1]:<br>    z = logits / T<br>    p = np.exp(z - z.max()); p /= p.sum()<br>    print(f"T={T}: {np.round(p, 3)}")<br><br>rng = np.random.default_rng(0)                    # sample 1,000 next tokens at T=1<br>z = logits; p = np.exp(z - z.max()); p /= p.sum()<br>picks = rng.choice(3, size=1000, p=p)<br>print("counts at T=1:", np.bincount(picks))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">T=1.0: [0.659 0.242 0.099]<br>T=0.5: [0.864 0.117 0.019]<br>T=0.1: [1. 0. 0.]<br>counts at T=1: [637 268  95]</div>
+          <p>A low temperature sharpens the distribution until it always picks the top token; a high one flattens it. Sampling at T = 1 picks "yes" about 66% of the time, not every time, which is why the same prompt can give different answers.</p>
+          <table class="lc-table">
+            <thead><tr><th>Strategy</th><th>Rule</th><th>Good for</th></tr></thead>
+            <tbody>
+              <tr><td>Greedy (T = 0)</td><td>Always take the most likely token</td><td>Short factual answers, code, tests that must repeat</td></tr>
+              <tr><td>Temperature sampling</td><td>Sample from softmax(logits / T)</td><td>Chat and creative writing (T ≈ 0.7–1.0)</td></tr>
+              <tr><td>Top-k</td><td>Sample only from the k most likely tokens</td><td>Cutting off absurd rare tokens</td></tr>
+              <tr><td>Top-p (nucleus)</td><td>Sample from the smallest set whose probabilities add up to p (e.g. 0.9)</td><td>The common default together with temperature</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Context window and the KV cache</h3>
+          <p>The <strong>context window</strong> is the maximum number of tokens (prompt plus answer) the model can attend to at once. Because every token attends to every earlier token, the cost of attention grows with the square of the length. During generation the model stores each earlier token's keys and values (the <strong>KV cache</strong>), so each new token only computes its own query, key and value. That cache is why long chats use a lot of GPU memory.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Adapting an LLM: prompting, RAG or fine-tuning?</h3>
+          <table class="lc-table">
+            <thead><tr><th>Method</th><th>What changes</th><th>Use it when</th></tr></thead>
+            <tbody>
+              <tr><td>Prompting</td><td>Only the input: instructions and a few examples</td><td>Always try this first; it costs nothing</td></tr>
+              <tr><td>RAG (retrieval-augmented generation)</td><td>Relevant documents are searched and pasted into the prompt</td><td>The model must use your own or recent facts</td></tr>
+              <tr><td>Fine-tuning (full or LoRA)</td><td>The weights</td><td>You need a fixed style, format or skill that prompting cannot give</td></tr>
+            </tbody>
+          </table>
+          <p><strong>LoRA</strong> (low-rank adaptation) freezes a weight matrix W and learns a small update: W' = W + B·A, where A is r × d and B is d × r with a small rank r such as 8. B starts at zero, so training begins from the original model. For one 4096 × 4096 matrix, rank 8 trains 65,536 numbers instead of 16.8 million (0.39%). <strong>QLoRA</strong> goes further by storing the frozen model in 4-bit numbers, so a 7-billion-parameter model can be fine-tuned on a single consumer GPU.</p>
+          <div class="lc-code">from peft import LoraConfig, get_peft_model<br><br>config = LoraConfig(r=8, lora_alpha=16, target_modules=["q_proj", "v_proj"], task_type="CAUSAL_LM")<br>model = get_peft_model(model, config)       # model: a pretrained Hugging Face LLM<br>model.print_trainable_parameters()          # typically well under 1% are trainable</div>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Trusting every answer.</strong> LLMs predict plausible text, so they can state false facts confidently ("hallucinate"). Check important facts, or give the model sources with RAG.</li>
+            <li><strong>Fine-tuning to add knowledge.</strong> Fine-tuning is good at style and format; for facts that change, retrieval is cheaper and easier to update.</li>
+            <li><strong>Counting words instead of tokens.</strong> Limits and prices are in tokens, and one word can be several tokens, especially in Indian languages.</li>
+            <li><strong>Using a high temperature for code or maths.</strong> Random sampling adds mistakes; use T = 0 or a low value.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>In the starter change <code>range(1, 5)</code> to <code>range(1, 7)</code>. Two more merges ("low"+"_" and "e"+"s") make "lowest" <code>['low', 'es', 't', '_']</code>.</li>
+            <li>Add <code>0.1</code> to the temperature list <code>[0.5, 1.0, 2.0]</code>. At T = 0.1, "chai" gets 0.99 of the probability: almost greedy.</li>
+            <li>Change the LoRA rank <code>r = 8</code> to <code>64</code>. It now trains 524,288 weights, 3.12% of the matrix.</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> You can try a small open model on a free Colab GPU with Hugging Face: <code>pipeline("text-generation", model="Qwen/Qwen2.5-0.5B-Instruct")</code>. Change <code>temperature</code> and <code>top_p</code> and watch how the answers change, then compare with what you saw in this lesson's starter.
+        </div>
+      HTML
+      starter_code: <<~'PYTHON'
+        import numpy as np
+        from collections import Counter
+
+        # 1. TOKENISATION with byte-pair encoding (BPE): merge the most frequent pair, again and again
+        words = ["low", "low", "lower", "lowest", "newer", "newest", "wider"]
+        corpus = [list(w) + ["_"] for w in words]            # "_" marks the end of a word
+        for step in range(1, 5):
+            pairs = Counter(p for w in corpus for p in zip(w, w[1:]))
+            (a, b), n = pairs.most_common(1)[0]
+            for w in corpus:                                  # replace every (a, b) with the new token ab
+                i = 0
+                while i < len(w) - 1:
+                    if (w[i], w[i + 1]) == (a, b):
+                        w[i:i + 2] = [a + b]
+                    i += 1
+            print(f"merge {step}: '{a}' + '{b}' -> '{a + b}' (seen {n} times)")
+        print("'lowest' is now:", corpus[3])
+
+        # 2. DECODING: turn the model's scores (logits) for the next token into a choice
+        vocab = ["chai", "coffee", "water", "juice", "rocks"]
+        logits = np.array([3.0, 2.5, 1.5, 1.0, -1.0])        # "In the morning I drink ..."
+
+        def probs_at(T):
+            z = logits / T                                   # temperature rescales the logits
+            e = np.exp(z - z.max())
+            return e / e.sum()
+
+        print("\nNext-token probabilities:")
+        for T in [0.5, 1.0, 2.0]:
+            print(f"  T={T}: " + "  ".join(f"{w} {p:.2f}" for w, p in zip(vocab, probs_at(T))))
+
+        p = probs_at(1.0)
+        order = np.argsort(p)[::-1]
+        top_p = order[: np.searchsorted(np.cumsum(p[order]), 0.9) + 1]   # smallest set with 90% of the mass
+        print("greedy pick :", vocab[order[0]])
+        print("top-k (k=2) :", [vocab[i] for i in order[:2]])
+        print("top-p (0.9) :", [vocab[i] for i in top_p])
+
+        # 3. LoRA: freeze W, learn a low-rank update B @ A instead
+        d, r = 4096, 8
+        print(f"\nFull fine-tune of one {d}x{d} matrix: {d * d:,} weights")
+        print(f"LoRA rank {r} (A: {r}x{d}, B: {d}x{r}) : {2 * d * r:,} weights ({2 * d * r / (d * d):.2%})")
+        rng = np.random.default_rng(0)
+        B, A = rng.normal(size=(6, 2)), rng.normal(size=(2, 6))
+        print("B @ A is 6x6 but its rank is only", np.linalg.matrix_rank(B @ A))
+      PYTHON
+    },
+    22 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-deep-learning">Deep Learning</div>
@@ -2700,9 +2991,11 @@ module DeepLearningContent
               <tr><td>Regularisation</td><td>L2, dropout, early stopping, augmentation fight overfitting</td></tr>
               <tr><td>Init &amp; BatchNorm</td><td>Keep activations at a healthy scale in deep networks</td></tr>
               <tr><td>CNN</td><td>Shared sliding filters + pooling for images</td></tr>
+              <tr><td>Detection &amp; segmentation</td><td>Boxes scored with IoU and cleaned with NMS; one class per pixel for masks</td></tr>
               <tr><td>RNN / LSTM</td><td>A hidden state carried across a sequence</td></tr>
               <tr><td>Attention / Transformer</td><td>Every token looks directly at every other token</td></tr>
               <tr><td>Transfer learning</td><td>Reuse a pretrained model; train only what you need</td></tr>
+              <tr><td>Large language models</td><td>Pretrain on next tokens, fine-tune to follow instructions, sample with temperature, adapt with LoRA</td></tr>
               <tr><td>Generative models</td><td>Autoencoders, GANs, diffusion and LLMs learn the data itself and create new examples</td></tr>
               <tr><td>PyTorch</td><td>Tensors, autograd, <code>nn.Module</code>, the 5-step training loop</td></tr>
             </tbody>
