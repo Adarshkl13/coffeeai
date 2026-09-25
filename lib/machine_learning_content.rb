@@ -69,7 +69,7 @@ module MachineLearningContent
             <li>Thinking ML is magic — a model only knows what is in its data.</li>
             <li>Using ML when a simple formula or rule would do the job.</li>
             <li>Expecting 100% accuracy — real-world predictions always have some error.</li>
-            <li>Judging a model by how well it does on the examples it was trained on. The starter prints a training accuracy of 0.875, but that says little about next year's students (lesson 5 shows how to test properly).</li>
+            <li>Judging a model by how well it does on the examples it was trained on. The starter prints a training accuracy of 0.875, but that says little about next year's students (lesson 4 shows how to test properly).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -188,7 +188,7 @@ module MachineLearningContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Most real business ML is supervised learning. We will spend lessons 5–17 on it, then cover unsupervised learning (k-means, PCA) in lessons 18–19.
+          <strong>Tip:</strong> Most real business ML is supervised learning. We will spend lessons 4–17 on it, then cover unsupervised learning (k-means, PCA) in lessons 18–19.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -228,9 +228,48 @@ module MachineLearningContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
-          <h1 class="lc-title">The ML Workflow</h1>
+          <h1 class="lc-title">The ML Workflow: Data, Features and Labels</h1>
         </div>
-        <p class="lc-lead">Every ML project, from a college assignment to a production system, follows the same set of steps. Learning this workflow early saves you from the most common mistakes — especially the ones that make a model look better than it really is.</p>
+        <p class="lc-lead">Every ML project, from a college assignment to a production system, starts with a table of data and follows the same set of steps. Learning the vocabulary and the workflow early saves you from the most common mistakes — especially the ones that make a model look better than it really is.</p>
+        <div class="lc-card">
+          <h3>Key Vocabulary</h3>
+          <p>A dataset is a table. Each <strong>row</strong> is one example (a house, a student, a customer). Each <strong>column</strong> is either a <strong>feature</strong> (an input) or the <strong>label</strong> (the answer we want to predict).</p>
+          <table class="lc-table">
+            <thead><tr><th>Term</th><th>Meaning</th><th>House price example</th></tr></thead>
+            <tbody>
+              <tr><td>Sample / row</td><td>One example</td><td>One house</td></tr>
+              <tr><td>Feature (X)</td><td>Input column used to predict</td><td>Area, bedrooms, city, age</td></tr>
+              <tr><td>Label / target (y)</td><td>The answer column</td><td>Price in lakhs</td></tr>
+              <tr><td>Feature matrix X</td><td>2D table, shape (rows, features)</td><td>(500, 4)</td></tr>
+              <tr><td>Target vector y</td><td>1D column, shape (rows,)</td><td>(500,)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Separating X and y with Pandas</h3>
+          <div class="lc-code">import pandas as pd<br><br>df = pd.DataFrame({<br>    "area_sqft": [850, 1200, 1500, 950],<br>    "bedrooms":  [2, 3, 3, 2],<br>    "city":      ["Pune", "Bengaluru", "Pune", "Chennai"],<br>    "price_lakh":[48, 95, 88, 60],<br>})<br>X = df.drop(columns="price_lakh")   # features<br>y = df["price_lakh"]                # label<br>print(X.shape, y.shape)<br>print(list(X.columns))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">(4, 3) (4,)<br>['area_sqft', 'bedrooms', 'city']</div>
+          <p>X is 2D (4 rows × 3 features); y is 1D (4 answers). Row <em>i</em> of X always belongs with element <em>i</em> of y — never sort or filter one without the other.</p>
+          <ul class="lc-list">
+            <li><strong>Numerical</strong> features (area, marks, rainfall) can be used directly.</li>
+            <li><strong>Categorical</strong> features (city, crop type) must be converted to numbers (lesson 15). <strong>Ordinal</strong> ones ("low / medium / high") have an order; <strong>boolean</strong> ones (has_parking) are stored as 0 / 1.</li>
+            <li>Before training, run a health check: <code>df.info()</code>, <code>df.describe()</code>, <code>df.isna().sum()</code>, <code>df["city"].value_counts()</code>. Fill values for missing data must be learned from the <em>training</em> rows only — lessons 15 and 16 show how <code>SimpleImputer</code> inside a Pipeline does this for you.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Good Features vs Bad Features</h3>
+          <table class="lc-table">
+            <thead><tr><th>Column</th><th>Keep?</th><th>Reason</th></tr></thead>
+            <tbody>
+              <tr><td>area_sqft</td><td>Yes</td><td>Known before sale; strongly related to price</td></tr>
+              <tr><td>city</td><td>Yes (after encoding)</td><td>Location matters, but it is text, so it must become numbers</td></tr>
+              <tr><td>flat_id</td><td>No</td><td>Just a serial number; any pattern it shows is an accident</td></tr>
+              <tr><td>registration_fee_paid</td><td>No — leakage</td><td>Calculated from the final price, so only known after the sale</td></tr>
+            </tbody>
+          </table>
+          <p>Ask of every feature: "Would I actually know this value at the moment I need to make the prediction?" If not, it is <em>data leakage</em> — remove it.</p>
+        </div>
         <div class="lc-card">
           <h3>The Seven Steps</h3>
           <ol class="lc-list">
@@ -253,19 +292,6 @@ module MachineLearningContent
           <p>The baseline always says "stays" and is right 57.3% of the time, because 57% of customers stay. Our model reaches 76.7%. That gap — not the 76.7% on its own — is the real measure of what the model learned. It is far from perfect, which is normal for real, noisy data.</p>
         </div>
         <div class="lc-card">
-          <h3>Where Time Actually Goes</h3>
-          <table class="lc-table">
-            <thead><tr><th>Stage</th><th>Typical share of effort</th></tr></thead>
-            <tbody>
-              <tr><td>Problem definition and data collection</td><td>~20%</td></tr>
-              <tr><td>Cleaning and feature preparation</td><td>~50%</td></tr>
-              <tr><td>Training and tuning models</td><td>~20%</td></tr>
-              <tr><td>Evaluation and deployment</td><td>~10%</td></tr>
-            </tbody>
-          </table>
-          <p>These are rough rules of thumb, not measured facts — but practitioners agree that most of the work is getting good data, not choosing algorithms.</p>
-        </div>
-        <div class="lc-card">
           <h3>Three Data Sets, Three Jobs</h3>
           <table class="lc-table">
             <thead><tr><th>Set</th><th>Used for</th><th>Exam analogy</th></tr></thead>
@@ -275,22 +301,25 @@ module MachineLearningContent
               <tr><td>Test set</td><td>One final, honest score</td><td>The board exam</td></tr>
             </tbody>
           </table>
+          <p>Where the time goes (rough rule of thumb, not a measured fact): about half of a project is cleaning and preparing data; choosing and tuning the algorithm is a much smaller share.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
+            <li><strong>Leaving the label inside X</strong> — the model "cheats" and gets perfect but useless scores.</li>
+            <li><strong>Using an ID column or an after-the-fact column as a feature</strong> — roll numbers carry no pattern; "final match result" to predict the toss winner is leakage.</li>
             <li><strong>Peeking at the test set</strong> — tuning your model on test data makes the final score dishonestly high.</li>
             <li><strong>Scaling before splitting</strong> — the scaler learns the mean and spread of the test rows, which leaks information.</li>
             <li><strong>No baseline</strong> — 77% sounds good, but if 77% of customers stay, "always predict stay" also scores 77%.</li>
-            <li><strong>Vague goal</strong> — "use AI on sales data" is not a problem; "predict next month's sales per shop" is.</li>
+            <li>Passing a 1D list as X — scikit-learn wants 2D: use <code>[[5], [6]]</code>, not <code>[5, 6]</code>. For a NumPy array use <code>x.reshape(-1, 1)</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
           <ol class="lc-list">
-            <li>Run the starter and note the baseline and model test accuracy.</li>
-            <li>Change <code>flip_y=0.1</code> to <code>flip_y=0.0</code> (perfectly clean labels). How much does the model's accuracy go up? What does that tell you about the value of clean data?</li>
-            <li>Change <code>weights=[0.6, 0.4]</code> to <code>weights=[0.9, 0.1]</code>. What happens to the baseline accuracy? Is the model's accuracy still impressive?</li>
+            <li>Run the starter. In Part A, check the shapes: X should be <code>(6, 2)</code> and y <code>(6,)</code>. Then fill the missing area with <code>flats["area_sqft"].fillna(flats["area_sqft"].median())</code> before building X.</li>
+            <li>Remove <code>"flat_id"</code> from the <code>drop(columns=[...])</code> list. How does the X shape change? Would a model learn anything real from that column?</li>
+            <li>In Part B, change <code>weights=[0.6, 0.4]</code> to <code>weights=[0.9, 0.1]</code>. What happens to the baseline accuracy? Is the model's accuracy still impressive?</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -298,161 +327,59 @@ module MachineLearningContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
+        import numpy as np
+        import pandas as pd
         from sklearn.datasets import make_classification
         from sklearn.model_selection import train_test_split
         from sklearn.preprocessing import StandardScaler
         from sklearn.linear_model import LogisticRegression
         from sklearn.dummy import DummyClassifier
 
-        # Step 1: Problem - will a mobile customer leave (churn = 1) next month?
-        # Step 2: Collect data (simulated: 8 usage features, 10% of labels are noisy)
+        # ---- Part A: a dataset is a table of features (X) and a label (y) ----
+        flats = pd.DataFrame({
+            "flat_id":    [101, 102, 103, 104, 105, 106],
+            "area_sqft":  [650, 850, 1200, np.nan, 950, 1800],
+            "city":       ["Pune", "Pune", "Bengaluru", "Chennai", "Chennai", "Bengaluru"],
+            "price_lakh": [38, 50, 95, 70, 55, 150],
+        })
+        print("Missing values per column:", flats.isna().sum().to_dict())
+        X_f = flats.drop(columns=["flat_id", "price_lakh"])   # drop the ID and the label
+        y_f = flats["price_lakh"]
+        print("X shape:", X_f.shape, "| y shape:", y_f.shape)
+        print("Numeric:", list(X_f.select_dtypes("number").columns),
+              "| Categorical:", list(X_f.select_dtypes("object").columns))
+
+        # ---- Part B: the workflow - will a mobile customer leave (churn = 1)? ----
+        # Step 2: collect data (simulated: 8 usage features, 10% of labels are noisy)
         X, y = make_classification(n_samples=600, n_features=8, n_informative=4,
                                    n_redundant=2, weights=[0.6, 0.4], flip_y=0.1,
                                    class_sep=0.8, random_state=1)
-        print("Step 2 | Customers:", X.shape[0], "| Features:", X.shape[1],
+        print("\nStep 2 | Customers:", X.shape[0], "| Features:", X.shape[1],
               "| Churn rate:", round(y.mean(), 2))
 
-        # Step 4: Split BEFORE doing anything else with the data
-        X_tr, X_te, y_tr, y_te = train_test_split(
-            X, y, test_size=0.25, random_state=42, stratify=y)
+        # Step 4: split BEFORE doing anything else with the data
+        X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
         print("Step 4 | Train:", len(X_tr), "| Test:", len(X_te))
 
-        # Step 5: Prepare features (fit the scaler on TRAIN only)
+        # Step 5: prepare features (fit the scaler on TRAIN only)
         scaler = StandardScaler().fit(X_tr)
         X_tr_s, X_te_s = scaler.transform(X_tr), scaler.transform(X_te)
-        print("Step 5 | Scaled feature 0 on train: mean", abs(round(X_tr_s[:, 0].mean(), 3)),
-              "std", round(X_tr_s[:, 0].std(), 3))
 
-        # Step 6: Train a baseline and a real model
+        # Step 6: train a baseline and a real model
         baseline = DummyClassifier(strategy="most_frequent").fit(X_tr_s, y_tr)
         model = LogisticRegression().fit(X_tr_s, y_tr)
 
-        # Step 7: Evaluate ONCE on the test set
+        # Step 7: evaluate ONCE on the test set
         print("Step 7 | Baseline test accuracy:", round(baseline.score(X_te_s, y_te), 3))
         print("Step 7 | Model train accuracy:  ", round(model.score(X_tr_s, y_tr), 3))
         print("Step 7 | Model test accuracy:   ", round(model.score(X_te_s, y_te), 3))
-
-        # Use the model on 3 "new" customers
-        probs = model.predict_proba(scaler.transform(X_te[:3]))[:, 1]
+        probs = model.predict_proba(X_te_s[:3])[:, 1]
         for i, p in enumerate(probs):
             print(f"Customer {i}: P(churn) = {p:.2f} -> {'LEAVE' if p >= 0.5 else 'STAY'} (actual: {y_te[i]})")
       PYTHON
     },
 
     4 => {
-      body: <<~'HTML',
-        <div class="lc-header">
-          <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
-          <h1 class="lc-title">Datasets, Features and Labels</h1>
-        </div>
-        <p class="lc-lead">A dataset is a table. Each <strong>row</strong> is one example (a house, a student, a match). Each <strong>column</strong> is either a <strong>feature</strong> (an input) or the <strong>label</strong> (the answer we want to predict).</p>
-        <div class="lc-card">
-          <h3>Key Vocabulary</h3>
-          <table class="lc-table">
-            <thead><tr><th>Term</th><th>Meaning</th><th>House price example</th></tr></thead>
-            <tbody>
-              <tr><td>Sample / row</td><td>One example</td><td>One house</td></tr>
-              <tr><td>Feature (X)</td><td>Input column used to predict</td><td>Area, bedrooms, city, age</td></tr>
-              <tr><td>Label / target (y)</td><td>The answer column</td><td>Price in lakhs</td></tr>
-              <tr><td>Feature matrix X</td><td>2D table, shape (rows, features)</td><td>(500, 4)</td></tr>
-              <tr><td>Target vector y</td><td>1D column, shape (rows,)</td><td>(500,)</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="lc-card">
-          <h3>Separating X and y with Pandas</h3>
-          <div class="lc-code">import pandas as pd<br><br>df = pd.DataFrame({<br>    "area_sqft": [850, 1200, 1500, 950],<br>    "bedrooms":  [2, 3, 3, 2],<br>    "city":      ["Pune", "Bengaluru", "Pune", "Chennai"],<br>    "price_lakh":[48, 95, 88, 60],<br>})<br>X = df.drop(columns="price_lakh")   # features<br>y = df["price_lakh"]                # label<br>print(X.shape, y.shape)<br>print(list(X.columns))</div>
-          <p><strong>Output:</strong></p>
-          <div class="lc-code">(4, 3) (4,)<br>['area_sqft', 'bedrooms', 'city']</div>
-          <p>X is 2D (4 rows × 3 features); y is 1D (4 answers). Row <em>i</em> of X always belongs with element <em>i</em> of y — never sort or filter one without the other.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Types of Features</h3>
-          <ul class="lc-list">
-            <li><strong>Numerical</strong> — area, marks, rainfall in mm. Models can use them directly.</li>
-            <li><strong>Categorical</strong> — city, crop type, gender. Must be converted to numbers (lesson 16).</li>
-            <li><strong>Ordinal</strong> — categories with order: "low / medium / high", school grade.</li>
-            <li><strong>Boolean</strong> — has_parking, is_weekend. Stored as 0 / 1.</li>
-          </ul>
-        </div>
-        <div class="lc-card">
-          <h3>Check Your Data First</h3>
-          <p>Before training, always run a quick health check:</p>
-          <div class="lc-code">df.info()            # column types and non-null counts<br>df.describe()        # min, max, mean of numeric columns<br>df.isna().sum()      # missing values per column<br>df["city"].value_counts()   # category counts</div>
-          <p>In the starter, this check finds one missing <code>area_sqft</code> (flat 107). We fill it with the median area. The median is safer than the mean when a few flats are very large, because one 5,000 sq ft penthouse would pull the mean up a lot but the median hardly moves.</p>
-          <p>In a real project, calculate the fill value from the <em>training</em> rows only (lesson 16 and 17 show how <code>SimpleImputer</code> inside a Pipeline does this for you). The pandas course covers missing-data tools in depth.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Good Features vs Bad Features</h3>
-          <table class="lc-table">
-            <thead><tr><th>Column</th><th>Keep?</th><th>Reason</th></tr></thead>
-            <tbody>
-              <tr><td>area_sqft</td><td>Yes</td><td>Known before sale; strongly related to price</td></tr>
-              <tr><td>city</td><td>Yes (after encoding)</td><td>Location matters, but it is text, so it must become numbers</td></tr>
-              <tr><td>flat_id</td><td>No</td><td>Just a serial number; any pattern it shows is an accident</td></tr>
-              <tr><td>registration_fee_paid</td><td>No — leakage</td><td>Calculated from the final price, so only known after the sale</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="lc-card">
-          <h3>Common Mistakes</h3>
-          <ul class="lc-list">
-            <li><strong>Leaving the label inside X</strong> — the model "cheats" and gets perfect but useless scores.</li>
-            <li><strong>Using an ID column as a feature</strong> — roll numbers or house IDs carry no real pattern.</li>
-            <li><strong>Features that are only known after the fact</strong> — e.g. using "final match result" to predict the toss winner. This is called <em>data leakage</em>.</li>
-            <li>Passing a 1D list as X — scikit-learn wants 2D: use <code>[[5], [6]]</code>, not <code>[5, 6]</code>. For a NumPy array use <code>x.reshape(-1, 1)</code>.</li>
-          </ul>
-        </div>
-        <div class="lc-card">
-          <h3>Try it</h3>
-          <ol class="lc-list">
-            <li>Run the starter and check the shapes: X should be <code>(8, 4)</code> and y <code>(8,)</code>.</li>
-            <li>Remove <code>"flat_id"</code> from the <code>drop(columns=[...])</code> list and run again. How does the X shape change? Would a model learn anything real from that column?</li>
-            <li>Add a new column <code>"floor": [2, 5, 1, 8, 3, 4, 6, 10]</code> to the DataFrame. Is it numeric or categorical according to the printout?</li>
-          </ol>
-        </div>
-        <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Ask of every feature: "Would I actually know this value at the moment I need to make the prediction?" If not, remove it.
-        </div>
-      HTML
-      starter_code: <<~'PYTHON'
-        import pandas as pd
-        import numpy as np
-
-        # A small dataset of flats (price in lakhs)
-        df = pd.DataFrame({
-            "flat_id":    [101, 102, 103, 104, 105, 106, 107, 108],
-            "area_sqft":  [650, 850, 1200, 1500, 950, 1100, np.nan, 1800],
-            "bedrooms":   [1, 2, 3, 3, 2, 2, 3, 4],
-            "city":       ["Pune", "Pune", "Bengaluru", "Pune",
-                           "Chennai", "Chennai", "Bengaluru", "Bengaluru"],
-            "parking":    [0, 1, 1, 1, 0, 1, 1, 1],
-            "price_lakh": [38, 50, 95, 88, 55, 68, 92, 150],
-        })
-        print("Full dataset:")
-        print(df, "\n")
-
-        # Health check
-        print("Missing values per column:")
-        print(df.isna().sum(), "\n")
-        print("City counts:")
-        print(df["city"].value_counts(), "\n")
-
-        # Fill the missing area with the median area
-        df["area_sqft"] = df["area_sqft"].fillna(df["area_sqft"].median())
-
-        # Separate features (X) and label (y); drop the useless ID column
-        X = df.drop(columns=["flat_id", "price_lakh"])
-        y = df["price_lakh"]
-        print("X shape:", X.shape, "| y shape:", y.shape)
-        print("Numeric features:", list(X.select_dtypes("number").columns))
-        print("Categorical features:", list(X.select_dtypes("object").columns))
-        print("\nAverage price per city (lakhs):")
-        print(df.groupby("city")["price_lakh"].mean().round(1))
-      PYTHON
-    },
-
-    5 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -512,11 +439,11 @@ module MachineLearningContent
           <ol class="lc-list">
             <li>Run the starter and compare the train and test accuracy of the deep tree and the depth-3 tree.</li>
             <li>Change <code>test_size=0.25</code> to <code>0.5</code>. How many rows are now in each set?</li>
-            <li>Change <code>random_state=42</code> in the first split to <code>1</code>, then <code>2</code>. Does the test accuracy of the deep tree change? This is why a single split can be "lucky" — lesson 15 fixes it with cross-validation.</li>
+            <li>Change <code>random_state=42</code> in the first split to <code>1</code>, then <code>2</code>. Does the test accuracy of the deep tree change? This is why a single split can be "lucky" — lesson 14 fixes it with cross-validation.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> A big gap between training score and test score is your first warning sign of <em>overfitting</em>. We will study it properly in lesson 14.
+          <strong>Tip:</strong> A big gap between training score and test score is your first warning sign of <em>overfitting</em>. We will study it properly in lesson 13.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -556,7 +483,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    6 => {
+    5 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -587,7 +514,7 @@ module MachineLearningContent
           <ul class="lc-list">
             <li>Squaring makes every error positive, so over- and under-predictions cannot cancel out.</li>
             <li>Squaring also punishes big errors more than small ones — which is why one outlier can pull the line.</li>
-            <li><code>LinearRegression</code> solves this exactly with linear algebra (no trial and error). Lesson 7 shows another way to reach the same answer: gradient descent.</li>
+            <li><code>LinearRegression</code> solves this exactly with linear algebra (no trial and error). Lesson 6 shows another way to reach the same answer: gradient descent.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -600,7 +527,7 @@ module MachineLearningContent
               <tr><td>Close to 0</td><td>Feature has little effect (in this model)</td></tr>
             </tbody>
           </table>
-          <p>Coefficients can only be compared fairly when features are on the same scale (see lesson 16).</p>
+          <p>Coefficients can only be compared fairly when features are on the same scale (see lesson 15).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -608,7 +535,7 @@ module MachineLearningContent
             <li><strong>Predicting far outside the data</strong> — a line fitted on 600–1500 sq ft flats may be wrong for a 10,000 sq ft villa.</li>
             <li><strong>Assuming a straight line fits everything</strong> — crop yield rises with fertiliser, then falls if you add too much. That curve is not linear.</li>
             <li><strong>Outliers</strong> — one wrongly entered price (e.g. 950 instead of 95) can pull the whole line.</li>
-            <li>Using linear regression for yes/no answers — use logistic regression (lesson 9) instead.</li>
+            <li>Using linear regression for yes/no answers — use logistic regression (lesson 8) instead.</li>
             <li><strong>Trusting training R²</strong> — the starter gets R² = 0.998 on its own 10 flats. With 3 features and only 10 rows that is expected, and it says nothing about new flats.</li>
           </ul>
         </div>
@@ -659,7 +586,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    7 => {
+    6 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -771,7 +698,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    8 => {
+    7 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -874,7 +801,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    9 => {
+    8 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -898,7 +825,7 @@ module MachineLearningContent
           <h3>How It Learns: Log Loss</h3>
           <p>Logistic regression is trained by minimising <strong>log loss</strong> (cross-entropy):</p>
           <div class="lc-code">loss for one example = −[ y × log(p) + (1 − y) × log(1 − p) ]<br><br>true y = 1, predicted p = 0.9  →  loss = 0.105  (confident and right)<br>true y = 1, predicted p = 0.5  →  loss = 0.693  (unsure)<br>true y = 1, predicted p = 0.1  →  loss = 2.303  (confident and wrong)</div>
-          <p>Being confidently wrong is punished hardest. There is no exact formula for the best weights, so scikit-learn finds them with an iterative optimiser (a relative of the gradient descent from lesson 7). It also adds a small L2 penalty by default, controlled by <code>C</code> (lesson 14).</p>
+          <p>Being confidently wrong is punished hardest. There is no exact formula for the best weights, so scikit-learn finds them with an iterative optimiser (a relative of the gradient descent from lesson 6). It also adds a small L2 penalty by default, controlled by <code>C</code> (lesson 13).</p>
         </div>
         <div class="lc-card">
           <h3>Linear vs Logistic Regression</h3>
@@ -970,13 +897,13 @@ module MachineLearningContent
       PYTHON
     },
 
-    10 => {
+    9 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
-          <h1 class="lc-title">Classification Metrics</h1>
+          <h1 class="lc-title">Classification Metrics and ROC/PR Curves</h1>
         </div>
-        <p class="lc-lead">Accuracy alone can fool you. If only 2 out of 100 patients have a disease, a model that always says "healthy" is 98% accurate — and completely useless. The <strong>confusion matrix</strong>, <strong>precision</strong>, <strong>recall</strong> and <strong>F1</strong> tell the full story.</p>
+        <p class="lc-lead">Accuracy alone can fool you. If only 2 out of 100 patients have a disease, a model that always says "healthy" is 98% accurate — and completely useless. The <strong>confusion matrix</strong>, <strong>precision</strong>, <strong>recall</strong> and <strong>F1</strong> tell the full story, and the <strong>ROC</strong> and <strong>precision–recall</strong> curves show how a model behaves at <em>every</em> threshold.</p>
         <div class="lc-card">
           <h3>The Confusion Matrix</h3>
           <table class="lc-table">
@@ -1016,6 +943,40 @@ module MachineLearningContent
           <p>Lowering the threshold catches 2 more cancers but causes 4 more false alarms. There is no free lunch: you choose the trade-off based on the real cost of each mistake. Choose the threshold on validation data (or with cross-validation), not on the test set.</p>
         </div>
         <div class="lc-card">
+          <h3>ROC Curve and ROC-AUC</h3>
+          <p>Instead of picking one threshold, the <strong>ROC curve</strong> tries them all. For each threshold it plots the <strong>true-positive rate</strong> (recall, TP / all real positives) against the <strong>false-positive rate</strong> (FP / all real negatives). <strong>ROC-AUC</strong> is the area under that curve: 1.0 = perfect ranking, 0.5 = random guessing. It equals the chance that a random positive gets a higher score than a random negative.</p>
+          <div class="lc-code">from sklearn.metrics import roc_auc_score, roc_curve, average_precision_score<br><br>y_true = [0, 0, 1, 1, 0, 1, 0, 1]<br>scores = [0.1, 0.4, 0.35, 0.8, 0.2, 0.9, 0.6, 0.7]     # predict_proba(X)[:, 1]<br>print("ROC-AUC:", roc_auc_score(y_true, scores))<br>print("PR-AUC (average precision):", round(average_precision_score(y_true, scores), 3))<br>fpr, tpr, thr = roc_curve(y_true, scores)<br>print("FPR:", fpr.round(2)); print("TPR:", tpr.round(2))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">ROC-AUC: 0.875<br>PR-AUC (average precision): 0.917<br>FPR: [0.  0.  0.  0.5 0.5 1. ]<br>TPR: [0.   0.25 0.75 0.75 1.   1.  ]</div>
+          <p>There are 4 × 4 = 16 (positive, negative) pairs; 14 of them have the positive scored higher, and 14 / 16 = 0.875. Each (FPR, TPR) pair is one point on the curve; <code>thr</code> holds the threshold for each point, so you can pick "the threshold that catches 95% of positives" directly.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Precision–Recall Curve and PR-AUC</h3>
+          <p><code>precision_recall_curve</code> plots precision against recall for every threshold, and <code>average_precision_score</code> (often called <strong>PR-AUC</strong>) summarises it in one number. A random model scores about the <em>share of positives</em> — so on data with 1% fraud, a PR-AUC of 0.30 can be good, while a ROC-AUC of 0.90 can still hide many false alarms.</p>
+          <table class="lc-table">
+            <thead><tr><th>Score</th><th>Random model gets</th><th>Best when</th></tr></thead>
+            <tbody>
+              <tr><td>Accuracy</td><td>share of the majority class</td><td>classes balanced, one threshold, equal costs</td></tr>
+              <tr><td>ROC-AUC</td><td>0.5</td><td>comparing how well models <em>rank</em> cases, classes not too rare</td></tr>
+              <tr><td>PR-AUC (average precision)</td><td>share of positives</td><td>the positive class is rare (fraud, disease) and you care about it</td></tr>
+            </tbody>
+          </table>
+          <p>Both AUC scores need <strong>scores</strong>, not 0/1 predictions: pass <code>predict_proba(X)[:, 1]</code> or <code>decision_function(X)</code>. In the starter the cancer model reaches ROC-AUC 0.988 and PR-AUC 0.986 (37% of cases are malignant, so a random model would get about 0.37 PR-AUC).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Imbalanced Data: Weights, Thresholds and PR-AUC</h3>
+          <p>With 5% fraud, a model trained normally mostly predicts "not fraud". Three standard tools, compared on the same data:</p>
+          <div class="lc-code">from sklearn.datasets import make_classification<br>from sklearn.model_selection import train_test_split, TunedThresholdClassifierCV<br>from sklearn.linear_model import LogisticRegression<br>from sklearn.metrics import precision_score, recall_score, average_precision_score<br><br>X, y = make_classification(n_samples=2000, n_features=10, n_informative=4, weights=[0.95, 0.05],<br>                           class_sep=1.2, flip_y=0.01, random_state=3)          # 5% fraud<br>X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.3, stratify=y, random_state=0)<br>for cw in [None, "balanced"]:<br>    m = LogisticRegression(class_weight=cw, max_iter=1000).fit(X_tr, y_tr)<br>    pred, score = m.predict(X_te), m.predict_proba(X_te)[:, 1]<br>    print(f"class_weight={str(cw):8} precision={precision_score(y_te, pred):.2f} "<br>          f"recall={recall_score(y_te, pred):.2f} PR-AUC={average_precision_score(y_te, score):.2f}")<br>tuned = TunedThresholdClassifierCV(LogisticRegression(max_iter=1000), scoring="f1", cv=5).fit(X_tr, y_tr)<br>pred = tuned.predict(X_te)<br>print(f"tuned threshold={tuned.best_threshold_:.2f} precision={precision_score(y_te, pred):.2f} "<br>      f"recall={recall_score(y_te, pred):.2f}")</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">class_weight=None     precision=0.62 recall=0.47 PR-AUC=0.60<br>class_weight=balanced precision=0.27 recall=0.88 PR-AUC=0.55<br>tuned threshold=0.15 precision=0.42 recall=0.78</div>
+          <ul class="lc-list">
+            <li><strong><code>class_weight="balanced"</code></strong> makes each mistake on the rare class cost more during training. Recall jumps from 0.47 to 0.88, but precision falls to 0.27 — many more false alarms. Most scikit-learn classifiers (LogisticRegression, SVC, trees, forests) accept it.</li>
+            <li><strong>Threshold selection with cross-validation:</strong> <code>TunedThresholdClassifierCV</code> (scikit-learn 1.5+) keeps the normal model but picks the threshold that maximises your chosen score (here F1) using cross-validation on the <em>training</em> set only. Here it chose 0.15 instead of 0.5 — a middle ground. You can do the same by hand with <code>cross_val_predict(..., method="predict_proba")</code> and <code>precision_recall_curve</code>.</li>
+            <li><strong>Report PR-AUC</strong> (plus precision and recall at your chosen threshold), not accuracy. Always predicting "not fraud" is 95% accurate and catches nothing.</li>
+            <li>Also use <code>stratify=y</code> in every split, and <code>StratifiedKFold</code> for cross-validation, so every fold contains some positives.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
           <h3>Which Metric Matters?</h3>
           <table class="lc-table">
             <thead><tr><th>Situation</th><th>Focus on</th><th>Why</th></tr></thead>
@@ -1033,6 +994,7 @@ module MachineLearningContent
             <li>Reporting only accuracy on imbalanced data.</li>
             <li>Mixing up precision and recall — say the questions out loud: "of predicted yes" vs "of actual yes".</li>
             <li>Forgetting that changing the threshold trades precision for recall.</li>
+            <li>Passing 0/1 predictions to <code>roc_auc_score</code> or <code>average_precision_score</code> — they need <em>scores</em>: <code>predict_proba(X)[:, 1]</code> or <code>decision_function(X)</code>.</li>
             <li>Forgetting which class is "positive" — <code>precision_score</code> and <code>recall_score</code> measure class 1 by default (<code>pos_label=1</code>). The starter relabels the data so that 1 = malignant.</li>
           </ul>
         </div>
@@ -1041,6 +1003,7 @@ module MachineLearningContent
           <ol class="lc-list">
             <li>Run the starter and find the "Always-benign" line: accuracy 0.626 but recall 0.0. Explain in one sentence why this model is useless.</li>
             <li>Add <code>report(0.35)</code> after <code>report(0.2)</code>. Where does it sit between the 0.2 and 0.5 results?</li>
+            <li>Look at the last two lines of the output. Change <code>0.95</code> to <code>0.99</code>: how much does the false-positive rate rise to catch almost every cancer?</li>
             <li>In the <code>classification_report</code>, find the recall for "malignant". Which cell of the confusion matrix would you need to shrink to raise it?</li>
           </ol>
         </div>
@@ -1055,7 +1018,8 @@ module MachineLearningContent
         from sklearn.preprocessing import StandardScaler
         from sklearn.linear_model import LogisticRegression
         from sklearn.metrics import (confusion_matrix, accuracy_score, precision_score,
-                                     recall_score, f1_score, classification_report)
+                                     recall_score, f1_score, classification_report,
+                                     roc_auc_score, roc_curve, average_precision_score)
 
         # Relabel so that 1 = malignant (the case we must catch)
         data = load_breast_cancer()
@@ -1084,10 +1048,17 @@ module MachineLearningContent
         always_benign = np.zeros_like(y_te)
         print("Always-benign accuracy:", round(accuracy_score(y_te, always_benign), 3),
               "| recall:", recall_score(y_te, always_benign))
+
+        # Threshold-free scores: they need probabilities (or decision_function scores), not 0/1 labels
+        print(f"\nROC-AUC: {roc_auc_score(y_te, probs):.3f} | PR-AUC (average precision): "
+              f"{average_precision_score(y_te, probs):.3f} | malignant share: {y_te.mean():.3f}")
+        fpr, tpr, thr = roc_curve(y_te, probs)
+        i = np.argmax(tpr >= 0.95)          # first point on the ROC curve with recall >= 0.95
+        print(f"To catch 95% of cancers: threshold {thr[i]:.3f} -> false-positive rate {fpr[i]:.3f}")
       PYTHON
     },
 
-    11 => {
+    10 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -1132,7 +1103,7 @@ module MachineLearningContent
             <li><strong>Not scaling features</strong> — if one feature is income in lakhs (0–50) and another is CIBIL score (300–900), the larger numbers dominate the distance. Always use <code>StandardScaler</code> with k-NN.</li>
             <li><strong>Too many features</strong> — in high dimensions, "nearest" loses meaning. Remove useless features.</li>
             <li><strong>Huge datasets</strong> — predictions are slow because every prediction compares against all stored points.</li>
-            <li><strong>Choosing k by test accuracy</strong> — pick k with cross-validation on the training set (lesson 15), then test once.</li>
+            <li><strong>Choosing k by test accuracy</strong> — pick k with cross-validation on the training set (lesson 14), then test once.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1188,7 +1159,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    12 => {
+    11 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -1309,7 +1280,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    13 => {
+    12 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -1358,7 +1329,7 @@ module MachineLearningContent
             <li><strong>Too few trees in a forest</strong> — 5 trees can be noisy. 100–500 is typical; more trees rarely hurt a forest's accuracy, only its speed. (This is <em>not</em> true for boosting, where more rounds can overfit.)</li>
             <li><strong>Trusting feature importance blindly</strong> — the default <code>feature_importances_</code> is impurity-based and favours features with many unique values (like an ID column). <code>sklearn.inspection.permutation_importance</code> on test data is more reliable.</li>
             <li><strong>Forgetting random_state</strong> — results change every run, which confuses comparisons.</li>
-            <li><strong>Raising boosting's learning rate to "train faster"</strong> — large steps overshoot, just like in lesson 7. Lower the learning rate and use more rounds instead.</li>
+            <li><strong>Raising boosting's learning rate to "train faster"</strong> — large steps overshoot, just like in lesson 6. Lower the learning rate and use more rounds instead.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1370,7 +1341,7 @@ module MachineLearningContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> For tabular data (rows and columns, like marks sheets or sales records), start with a random forest using default settings, then try <code>HistGradientBoostingClassifier</code>. Compare them with cross-validation (lesson 15), not a single split.
+          <strong>Tip:</strong> For tabular data (rows and columns, like marks sheets or sales records), start with a random forest using default settings, then try <code>HistGradientBoostingClassifier</code>. Compare them with cross-validation (lesson 14), not a single split.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1415,7 +1386,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    14 => {
+    13 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -1447,8 +1418,8 @@ module MachineLearningContent
         </div>
         <div class="lc-card">
           <h3>Worked Example</h3>
-          <div class="lc-code">from sklearn.preprocessing import PolynomialFeatures<br>from sklearn.linear_model import LinearRegression, Ridge<br>from sklearn.pipeline import make_pipeline<br><br>wiggly = make_pipeline(PolynomialFeatures(15), LinearRegression())<br>smooth = make_pipeline(PolynomialFeatures(15), Ridge(alpha=1.0))</div>
-          <p>A degree-15 polynomial can bend through almost every training point. Ridge keeps it in check. The starter fits a curve of fertiliser vs crop yield (20 training points, 20 test points).</p>
+          <div class="lc-code">from sklearn.preprocessing import PolynomialFeatures, StandardScaler<br>from sklearn.linear_model import LinearRegression, Ridge<br>from sklearn.pipeline import make_pipeline<br><br>wiggly = make_pipeline(PolynomialFeatures(15), StandardScaler(), LinearRegression())<br>smooth = make_pipeline(PolynomialFeatures(15), StandardScaler(), Ridge(alpha=1.0))</div>
+          <p>A degree-15 polynomial can bend through almost every training point. Ridge keeps it in check. The <code>StandardScaler</code> step matters: x<sup>15</sup> is millions of times larger than x, and the penalty only treats every term fairly when all terms are on the same scale. The starter fits a curve of fertiliser vs crop yield (20 training points, 20 test points).</p>
           <p><strong>Output of the starter:</strong></p>
           <div class="lc-code">Degree | train RMSE | test RMSE<br>     1 |      0.637 |     0.757<br>     2 |      0.276 |     0.360<br>     5 |      0.241 |     0.363<br>    15 |      0.148 |     6.895<br><br>Degree 15 with Ridge regularisation:<br> alpha | train RMSE | test RMSE<br> 0.001 |      0.244 |     0.377<br>   0.1 |      0.273 |     0.396<br>     1 |      0.345 |     0.476<br>    10 |      0.548 |     0.653<br>   100 |      0.726 |     0.838</div>
           <ul class="lc-list">
@@ -1484,7 +1455,7 @@ module MachineLearningContent
           <ul class="lc-list">
             <li>Judging a model by training score alone.</li>
             <li>Using regularisation without scaling — the penalty then treats features unfairly.</li>
-            <li>Picking alpha by looking at the test set (use cross-validation, lesson 15). The alpha table above is only for learning; in a real project you would choose alpha on training folds.</li>
+            <li>Picking alpha by looking at the test set (use cross-validation, lesson 14). The alpha table above is only for learning; in a real project you would choose alpha on training folds.</li>
             <li>Mixing up the directions: in <code>Ridge</code>/<code>Lasso</code> a <em>larger</em> alpha is stronger regularisation; in <code>LogisticRegression</code> a <em>smaller</em> C is stronger.</li>
           </ul>
         </div>
@@ -1539,7 +1510,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    15 => {
+    14 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -1589,7 +1560,7 @@ module MachineLearningContent
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Running cross-validation on the full dataset and then reporting the test set from the same data.</li>
-            <li>Scaling all data before CV — the scaler sees the validation fold. Put the scaler in a Pipeline (lesson 17).</li>
+            <li>Scaling all data before CV — the scaler sees the validation fold. Put the scaler in a Pipeline (lesson 16).</li>
             <li>Ignoring the spread of scores and only looking at the mean.</li>
             <li>Reporting <code>grid.best_score_</code> as the final result — it was used to pick the winner, so it is slightly optimistic. Report the test score.</li>
             <li>Using plain <code>KFold</code> on time-ordered data — the model trains on the future and validates on the past. Use <code>TimeSeriesSplit</code>.</li>
@@ -1650,7 +1621,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    16 => {
+    15 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -1761,7 +1732,7 @@ module MachineLearningContent
       PYTHON
     },
 
-    17 => {
+    16 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
@@ -1868,6 +1839,128 @@ module MachineLearningContent
         new = pd.DataFrame({"marks_12th": [92, 60], "mock_score": [85, 35],
                             "study_hrs": [7.5, np.nan], "board": ["State", "CBSE"]})
         print("P(clear) for new students:", grid.predict_proba(new)[:, 1].round(2))
+      PYTHON
+    },
+
+    17 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
+          <h1 class="lc-title">Support Vector Machines (SVM)</h1>
+        </div>
+        <p class="lc-lead">A <strong>support vector machine</strong> draws the boundary between two classes that leaves the <strong>widest possible gap</strong> (margin) to the nearest points. With a <strong>kernel</strong>, the same idea can draw curved boundaries. SVMs are strong on small and medium-sized tabular data — as long as you scale the features.</p>
+        <div class="lc-card">
+          <h3>The Idea: Maximum Margin</h3>
+          <div class="lc-code">  o   o        |         x   x<br>    o    o  →  |  ←    x   x<br>  o    (o)     |     (x)   x<br>        margin ← boundary → margin</div>
+          <ul class="lc-list">
+            <li>Many lines could separate the o's from the x's. SVM picks the one with the widest empty "street" around it — it usually generalises best.</li>
+            <li>The points on the edge of the street, shown in brackets, are the <strong>support vectors</strong>. Only they decide the boundary; moving any other point changes nothing.</li>
+            <li>Real data overlaps, so SVM allows some points inside the street or on the wrong side, paying a penalty for each. <strong>C</strong> sets how big that penalty is.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Kernels and the Two Key Settings</h3>
+          <table class="lc-table">
+            <thead><tr><th>Setting</th><th>What it does</th><th>Small value</th><th>Large value</th></tr></thead>
+            <tbody>
+              <tr><td><code>kernel</code></td><td><code>"linear"</code> = straight boundary; <code>"rbf"</code> (default) = smooth curves; <code>"poly"</code> = polynomial curves</td><td>—</td><td>—</td></tr>
+              <tr><td><code>C</code> (default 1.0)</td><td>Penalty for points on the wrong side</td><td>Wide, soft margin — simpler model (more regularisation)</td><td>Tries to classify every training point — risk of overfitting</td></tr>
+              <tr><td><code>gamma</code> (rbf/poly; default <code>"scale"</code>)</td><td>How far one training point's influence reaches</td><td>Far — very smooth boundary</td><td>Very local — wiggly boundary around single points</td></tr>
+            </tbody>
+          </table>
+          <p><code>C</code> works like <code>C</code> in <code>LogisticRegression</code>: <em>smaller C = stronger regularisation</em>. Tune <code>C</code> and <code>gamma</code> together on a log scale (0.01, 0.1, 1, 10 …) with cross-validation.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Kernels on Curved Data</h3>
+          <p>The starter uses <code>make_moons</code> — two interleaving half-moons that no straight line can separate. The second feature is multiplied by 1000 to act like a column in a much bigger unit (rupees next to years).</p>
+          <div class="lc-code">from sklearn.pipeline import make_pipeline<br>from sklearn.preprocessing import StandardScaler<br>from sklearn.svm import SVC<br><br>for kernel in ["linear", "poly", "rbf"]:<br>    pipe = make_pipeline(StandardScaler(), SVC(kernel=kernel)).fit(X_tr, y_tr)<br>    print(kernel, pipe.score(X_tr, y_tr), pipe.score(X_te, y_te), pipe[-1].n_support_.sum())<br>raw = SVC(kernel="rbf").fit(X_tr, y_tr)        # no scaling</div>
+          <p><strong>Output of the starter:</strong></p>
+          <div class="lc-code">=== Kernels (all scaled inside a pipeline) ===<br>linear | train 0.851 | test 0.832 | support vectors: 139<br>poly   | train 0.853 | test 0.856 | support vectors: 152<br>rbf    | train 0.893 | test 0.904 | support vectors: 122<br><br>=== Same RBF SVM WITHOUT scaling ===<br>rbf    | train 0.821 | test 0.784<br><br>=== C and gamma: too simple vs too wiggly ===<br>C=0.01  gamma=0.1 | train 0.781 | test 0.776<br>C=1     gamma=1   | train 0.888 | test 0.912<br>C=1000  gamma=50  | train 1.000 | test 0.832<br><br>=== Tune C and gamma with cross-validation (train set only) ===<br>best: {'svc__C': 10, 'svc__gamma': 1} | CV accuracy: 0.899<br>test accuracy (used once): 0.896</div>
+          <ul class="lc-list">
+            <li>The RBF kernel follows the curve and beats the straight linear boundary (0.904 vs 0.832 on test).</li>
+            <li>Without scaling, the same RBF model drops to 0.784: distances are dominated by the ×1000 feature. <strong>Always scale for SVMs</strong> — inside a pipeline, so cross-validation stays leak-free.</li>
+            <li>Tiny C and gamma <strong>underfit</strong> (0.781 train). Huge C and gamma <strong>overfit</strong>: a perfect 1.000 on train but 0.832 on test.</li>
+            <li>In <code>make_pipeline</code>, the step name is the class name in lower case, so the grid keys are <code>svc__C</code> and <code>svc__gamma</code>. Note the tuned test score (0.896) is not the highest number above — the hand-picked rows peeked at the test set, the grid did not.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>SVC vs Other Classifiers</h3>
+          <table class="lc-table">
+            <thead><tr><th>Model</th><th>Boundary</th><th>Probabilities?</th><th>Good for</th></tr></thead>
+            <tbody>
+              <tr><td><code>SVC(kernel="rbf")</code></td><td>Curved</td><td>Only with <code>probability=True</code> (slower); otherwise use <code>decision_function</code></td><td>Up to a few tens of thousands of rows — fit time grows at least with the square of the row count</td></tr>
+              <tr><td><code>LinearSVC</code></td><td>Straight</td><td>No (<code>decision_function</code>)</td><td>Large or very wide data, e.g. text features</td></tr>
+              <tr><td><code>LogisticRegression</code></td><td>Straight</td><td>Yes (<code>predict_proba</code>)</td><td>When you need calibrated-ish probabilities and easy-to-read weights</td></tr>
+              <tr><td><code>RandomForestClassifier</code></td><td>Axis-aligned steps</td><td>Yes</td><td>Mixed tabular data; no scaling needed</td></tr>
+            </tbody>
+          </table>
+          <p>For regression the same ideas live in <code>sklearn.svm.SVR</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Quick Check</h3>
+          <p>An RBF SVM scores 1.000 on the training set and 0.83 on the test set. Which change is most likely to help?</p>
+          <p><strong>Answer:</strong> lower <code>C</code> and/or <code>gamma</code> (a softer, smoother boundary), chosen with cross-validation. The big train–test gap is overfitting.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Forgetting to scale — SVMs use distances, so one large-unit feature dominates. Put <code>StandardScaler</code> in a pipeline with the SVC.</li>
+            <li>Tuning <code>C</code> with the default <code>gamma</code> only — the two interact, so search them together.</li>
+            <li>Calling <code>predict_proba</code> on a plain <code>SVC()</code> — it raises an error unless you set <code>probability=True</code>. For ROC-AUC, <code>decision_function</code> scores work just as well.</li>
+            <li>Running kernel SVC on hundreds of thousands of rows — training becomes very slow. Use <code>LinearSVC</code>, <code>SGDClassifier</code> or gradient boosting instead.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and note how many support vectors each kernel uses. Which model depends on the fewest points?</li>
+            <li>Add <code>0.001</code> and <code>1000</code> to <code>svc__C</code> in the grid. Does the best setting change?</li>
+            <li>Change <code>noise=0.3</code> to <code>noise=0.1</code>. How close does the RBF test accuracy get to 1.0, and does linear improve as much?</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> A good default recipe: <code>make_pipeline(StandardScaler(), SVC())</code>, then <code>GridSearchCV</code> over <code>svc__C</code> and <code>svc__gamma</code> in powers of 10. If that is too slow for your data size, switch to <code>LinearSVC</code> or a tree ensemble.
+        </div>
+      HTML
+      starter_code: <<~'PYTHON'
+        import numpy as np
+        from sklearn.datasets import make_moons
+        from sklearn.model_selection import train_test_split, GridSearchCV
+        from sklearn.pipeline import make_pipeline
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.svm import SVC
+
+        # Two interleaving half-moons: no straight line can separate them
+        X, y = make_moons(n_samples=500, noise=0.3, random_state=0)
+        X[:, 1] = X[:, 1] * 1000          # second feature in a much bigger unit (like rupees vs years)
+        X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=0, stratify=y)
+
+        print("=== Kernels (all scaled inside a pipeline) ===")
+        for kernel in ["linear", "poly", "rbf"]:
+            pipe = make_pipeline(StandardScaler(), SVC(kernel=kernel)).fit(X_tr, y_tr)
+            svc = pipe[-1]
+            print(f"{kernel:6} | train {pipe.score(X_tr, y_tr):.3f} | test {pipe.score(X_te, y_te):.3f}"
+                  f" | support vectors: {svc.n_support_.sum()}")
+
+        print("\n=== Same RBF SVM WITHOUT scaling ===")
+        raw = SVC(kernel="rbf").fit(X_tr, y_tr)
+        print(f"rbf    | train {raw.score(X_tr, y_tr):.3f} | test {raw.score(X_te, y_te):.3f}")
+
+        print("\n=== C and gamma: too simple vs too wiggly ===")
+        for C, gamma in [(0.01, 0.1), (1, 1), (1000, 50)]:
+            pipe = make_pipeline(StandardScaler(), SVC(C=C, gamma=gamma)).fit(X_tr, y_tr)
+            print(f"C={C:<5} gamma={gamma:<4}| train {pipe.score(X_tr, y_tr):.3f} | test {pipe.score(X_te, y_te):.3f}")
+
+        print("\n=== Tune C and gamma with cross-validation (train set only) ===")
+        pipe = make_pipeline(StandardScaler(), SVC())
+        params = {"svc__C": [0.1, 1, 10, 100], "svc__gamma": [0.01, 0.1, 1, 10]}
+        grid = GridSearchCV(pipe, params, cv=5).fit(X_tr, y_tr)
+        print("best:", grid.best_params_, "| CV accuracy:", round(grid.best_score_, 3))
+        print("test accuracy (used once):", round(grid.score(X_te, y_te), 3))
+
+        new = np.array([[0.0, 900.0], [1.0, -400.0]])
+        print("\nnew points ->", grid.predict(new), "| decision_function:",
+              grid.decision_function(new).round(2))
       PYTHON
     },
 
@@ -2113,7 +2206,7 @@ module MachineLearningContent
             <li><strong>Baseline:</strong> always predicting "benign" scores 0.632, so accuracy alone is not impressive here.</li>
             <li><strong>Model choice:</strong> scaled logistic regression (C = 1) had the best cross-validated recall (0.959) on the training set; the forest reached 0.935.</li>
             <li><strong>Final test result (used once):</strong> 39 of 42 malignant tumours caught (recall 0.93), 1 false alarm among 72 benign cases.</li>
-            <li><strong>Honest limitation:</strong> 3 cancers were missed. In a real screening tool you would next lower the decision threshold (lesson 10), chosen with cross-validation, and inspect those 3 cases.</li>
+            <li><strong>Honest limitation:</strong> 3 cancers were missed. In a real screening tool you would next lower the decision threshold (lesson 9), chosen with cross-validation, and inspect those 3 cases.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2124,6 +2217,7 @@ module MachineLearningContent
               <tr><td>Linear Regression</td><td>Regression</td><td>For regularisation</td><td>alpha (Ridge/Lasso)</td></tr>
               <tr><td>Logistic Regression</td><td>Classification</td><td>Yes</td><td>C</td></tr>
               <tr><td>k-NN</td><td>Both</td><td>Yes</td><td>n_neighbors</td></tr>
+              <tr><td>SVM (SVC / SVR)</td><td>Both</td><td>Yes</td><td>C, gamma, kernel</td></tr>
               <tr><td>Decision Tree</td><td>Both</td><td>No</td><td>max_depth</td></tr>
               <tr><td>Random Forest</td><td>Both</td><td>No</td><td>n_estimators, max_depth</td></tr>
               <tr><td>Gradient Boosting</td><td>Both</td><td>No</td><td>learning_rate, max_iter</td></tr>
@@ -2167,7 +2261,7 @@ module MachineLearningContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Next steps:</strong> Topics to explore after this course: support vector machines (<code>sklearn.svm.SVC</code>), handling heavily imbalanced data, model explanation tools (permutation importance, SHAP) and monitoring models after deployment. Then move on to the Deep Learning course to see how neural networks extend these ideas.
+          <strong>Next steps:</strong> Topics to explore after this course: probability calibration (<code>CalibratedClassifierCV</code>), model explanation tools (permutation importance, SHAP) and monitoring models after deployment. Then move on to the Deep Learning course to see how neural networks extend these ideas.
         </div>
       HTML
       starter_code: <<~'PYTHON'

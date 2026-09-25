@@ -2445,7 +2445,7 @@ module NumpyContent
         print("=== Same answer? ===")
         print("first 5 bills:", fast[:5])
         print("results equal:", np.allclose(slow, fast))
-        print("vectorised at least 3x faster:", (t1 - t0) > 3 * (t2 - t1))
+        print("speed-up: about", round((t1 - t0) / max(t2 - t1, 1e-9)), "x  (varies per run and machine)")
 
         print("\n=== np.vectorize is only a convenience ===")
         label = np.vectorize(lambda v: "high" if v > 300 else "normal")

@@ -42,7 +42,7 @@ namespace :content do
       3  => "Select rows and columns by label with loc and by position with iloc, understand inclusive slices, and update values safely.",
       4  => "Keep the rows you need with boolean masks, & | ~, isin, between and string tests, or write readable filters with query().",
       5  => "Order rows with sort_values and sort_index, pick top rows with nlargest, and rank values while handling ties correctly.",
-      6  => "Create columns with arithmetic, np.where, np.select and assign, and rename, drop, insert and convert columns cleanly.",
+      6  => "Create columns with arithmetic, np.where, np.select and assign, rename, drop and convert columns cleanly, and see how index alignment matches labels when combining Series.",
       7  => "Check and convert dtypes, fix numbers stored as text, keep integers with missing values using Int64 and pd.NA, and use category and string types.",
       8  => "Detect missing values with isna, drop them with dropna options, and fill them with values, statistics, ffill/bfill, interpolate or group-wise means.",
       9  => "Summarise columns with sum, mean, count, idxmax and agg, and count categories with value_counts, normalize and bins.",

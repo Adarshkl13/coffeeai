@@ -672,6 +672,18 @@ module PandasContent
           <p>Prefer <strong>reassigning</strong> (<code>df = df.drop(...)</code>) over <code>inplace=True</code>. The pandas team discourages <code>inplace</code>: it rarely saves memory and breaks method chains.</p>
         </div>
         <div class="lc-card">
+          <h3>Index Alignment: pandas Matches Labels, Not Positions</h3>
+          <p>When you combine two Series (or add a Series as a column), pandas first lines them up by their <strong>index labels</strong>. A label that exists on only one side gets <code>NaN</code>, because there is nothing to add it to.</p>
+          <div class="lc-code">jan = pd.Series({"Tea": 200, "Coffee": 180, "Juice": 120})<br>feb = pd.Series({"Coffee": 150, "Tea": 210, "Lassi": 90})<br>print(jan + feb)<br>print(jan.add(feb, fill_value=0))</div>
+          <p>Output:</p>
+          <div class="lc-code">Coffee    330.0<br>Juice       NaN<br>Lassi       NaN<br>Tea       410.0<br>dtype: float64<br>Coffee    330.0<br>Juice     120.0<br>Lassi      90.0<br>Tea       410.0<br>dtype: float64</div>
+          <ul class="lc-list">
+            <li>Tea is 200 + 210 even though it is first in <code>jan</code> and second in <code>feb</code> — labels matched, not positions. The result uses the union of labels, sorted.</li>
+            <li><code>add</code>, <code>sub</code>, <code>mul</code> and <code>div</code> take <code>fill_value=0</code>: a missing side counts as 0 instead of making NaN.</li>
+            <li>The same rule applies to columns: <code>df["stock"] = some_series</code> puts each value on the row with the <em>same index label</em>; rows with no match get NaN. Use <code>.to_numpy()</code> only when you really mean "by position".</li>
+          </ul>
+        </div>
+        <div class="lc-card">
           <h3>Quick Check</h3>
           <p>What does this print? Predict first, then run it in the editor.</p>
           <div class="lc-code">df = pd.DataFrame({'p': [100, 250]})<br>out = df.assign(big=lambda d: d['p'] &gt; 200)<br>print(out['big'].tolist(), 'big' in df.columns)</div>
@@ -694,6 +706,7 @@ module PandasContent
             <li>Writing a Python <code>if</code> on a whole column (<code>if df["total"] &gt; 150:</code>) — raises "truth value of a Series is ambiguous". Use <code>np.where</code>.</li>
             <li>Calling <code>df.drop("gst")</code> without <code>columns=</code> — pandas looks for a <em>row</em> labelled "gst".</li>
             <li>Forgetting to save the result of <code>rename</code>, <code>drop</code> or <code>assign</code>.</li>
+            <li>Adding two Series with partly different indexes and being surprised by NaN — that is index alignment; use <code>.add(other, fill_value=0)</code> if a missing label should count as 0.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -702,6 +715,7 @@ module PandasContent
             <li>In the starter, add <code>discount</code>: 10% of <code>amount</code> for members, else 0 (use <code>np.where</code>).</li>
             <li>Add <code>tier</code> with <code>np.select</code>: "Gold" if amount ≥ 5000, "Silver" if ≥ 2000, else "Bronze".</li>
             <li>Rename <code>amount</code> to <code>bill_amount</code> and drop the <code>member</code> column.</li>
+            <li>In the alignment part, change <code>jan + feb</code> to <code>jan.sub(feb, fill_value=0)</code> and predict each value before running.</li>
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
@@ -747,6 +761,12 @@ module PandasContent
         clean = orders.rename(columns={"amount": "bill"}).drop(columns=["gst", "delivery"])
         clean.loc[clean["customer"] == "Kiran", "tier"] = "Silver"
         print(clean)
+
+        print("\n=== Index alignment: labels are matched, not positions ===")
+        jan = pd.Series({"Tea": 200, "Coffee": 180, "Juice": 120})
+        feb = pd.Series({"Coffee": 150, "Tea": 210, "Lassi": 90})
+        print("jan + feb:          ", (jan + feb).to_dict())
+        print("add(fill_value=0):  ", jan.add(feb, fill_value=0).to_dict())
       PYTHON
     },
 
@@ -1155,6 +1175,11 @@ module PandasContent
         </div>
         <p class="lc-lead"><code>groupby</code> answers "per something" questions: average salary <em>per department</em>, sales <em>per city per month</em>. It <strong>splits</strong> the rows into groups, <strong>applies</strong> a calculation to each group, and <strong>combines</strong> the results into one table.</p>
         <div class="lc-card">
+          <h3>The Example Data</h3>
+          <p>Every example in this lesson uses this small staff table (salary in thousand rupees; Arjun's salary is missing):</p>
+          <div class="lc-code">df = pd.DataFrame({<br>    "name":   ["Asha", "Ravi", "Meena", "Kiran", "Vikram", "Priya", "Arjun"],<br>    "dept":   ["IT", "HR", "IT", "HR", "Sales", "IT", "Sales"],<br>    "city":   ["Pune", "Pune", "Delhi", "Delhi", "Delhi", "Pune", "Pune"],<br>    "salary": [70, 45, 82, 48, 50, 64, None],<br>})</div>
+        </div>
+        <div class="lc-card">
           <h3>Split → Apply → Combine</h3>
           <div class="lc-code">dept  salary          split by dept         apply mean     combine<br>IT      70     →   IT:    70, 82, 64   →   72.0     →   HR     46.5<br>HR      45     →   HR:    45, 48       →   46.5         IT     72.0<br>IT      82     →   Sales: 50, NaN      →   50.0         Sales  50.0<br>...</div>
           <div class="lc-code">df.groupby("dept")["salary"].mean()</div>
@@ -1194,7 +1219,7 @@ module PandasContent
           <h3>Useful Options</h3>
           <ul class="lc-list">
             <li><code>sort=False</code> — keep groups in order of first appearance.</li>
-            <li><code>observed=True</code> — when grouping by a <code>category</code> column, show only categories that actually occur. pandas 2.x warns if you leave it out, because the default is changing from False to True. Pass it explicitly and your code behaves the same on every version.</li>
+            <li><code>observed=True</code> — when grouping by a <code>category</code> column, show only categories that actually occur. This is already the default in pandas 3.0. In pandas 2.x (including this editor, 2.3) the default is still <code>False</code> and leaving it out gives a <code>FutureWarning</code> — so pass it explicitly on 2.x and your code behaves the same on every version.</li>
             <li><code>dropna=False</code> — keep a group for rows whose key is missing (by default they are dropped).</li>
             <li>Iterate if you must: <code>for key, group in df.groupby("dept"): ...</code></li>
           </ul>
@@ -1270,6 +1295,7 @@ module PandasContent
         print(stores.groupby("state").filter(lambda g: len(g) >= 3)["store"].tolist())
 
         print("\n=== Category keys: pass observed=True ===")
+        # Default in pandas 3.0; this editor runs 2.3, which warns if you leave it out.
         stores["format"] = stores["format"].astype("category")
         print(stores.groupby("format", observed=True)["revenue"].mean())
 
@@ -1707,7 +1733,7 @@ module PandasContent
               <tr><td><code>groupby([a, b]).sum().unstack()</code></td><td>yes</td><td>same result as pivot_table, built step by step</td></tr>
             </tbody>
           </table>
-          <p>With a <code>category</code> column as index or columns, pass <code>observed=True</code> to avoid a FutureWarning in pandas 2.x.</p>
+          <p>With a <code>category</code> column as index or columns, <code>observed=True</code> (show only categories that occur) is the default in pandas 3.0. This editor runs pandas 2.3, where the default is still <code>False</code> and leaving it out gives a <code>FutureWarning</code> — so pass <code>observed=True</code> explicitly on 2.x, as the starter does.</p>
         </div>
         <div class="lc-card">
           <h3>Quick Check</h3>
@@ -1759,7 +1785,8 @@ module PandasContent
 
         print("=== Total sales: city x month ===")
         table = sales.pivot_table(values="amount", index="city", columns="month",
-                                  aggfunc="sum", fill_value=0, margins=True, observed=True)
+                                  aggfunc="sum", fill_value=0, margins=True,
+                                  observed=True)   # default in pandas 3.0; explicit for 2.x
         print(table)
 
         print("\n=== Default aggfunc is MEAN ===")
@@ -2030,7 +2057,7 @@ module PandasContent
         t0 = time.perf_counter(); a = big.apply(lambda v: v * 1.18); t1 = time.perf_counter()
         b = big * 1.18; t2 = time.perf_counter()
         print("same result:", np.allclose(a, b))
-        print("vectorised at least 3x faster:", (t1 - t0) > 3 * (t2 - t1))
+        print("speed-up: about", round((t1 - t0) / max(t2 - t1, 1e-9)), "x  (varies per run and machine)")
       PYTHON
     },
 
@@ -2077,7 +2104,9 @@ module PandasContent
               <tr><td><code>s.pct_change()</code></td><td>0.667 — 66.7% growth</td></tr>
             </tbody>
           </table>
-          <p>If the data contains NaN, pandas 2.x warns about <code>pct_change</code>'s old filling behaviour; pass <code>fill_method=None</code> to avoid it.</p>
+          <p><strong>Data with gaps (NaN):</strong> in pandas 3.0, <code>pct_change()</code> no longer fills missing values, and its <code>fill_method</code> argument must be <code>None</code> and will be removed — so leave it out. This editor runs pandas 2.3, where the old default still forward-fills the gap and prints a <code>FutureWarning</code>. Make your choice explicit, so the code gives the same answer on both versions:</p>
+          <div class="lc-code">s = pd.Series([100.0, np.nan, 120.0, 150.0])<br>print(s.ffill().pct_change().round(3).tolist())    # fill the gap first<br>print((s / s.shift(1) - 1).round(3).tolist())      # keep gaps as NaN</div>
+          <div class="lc-code">[nan, 0.0, 0.2, 0.25]<br>[nan, nan, nan, 0.25]</div>
         </div>
         <div class="lc-card">
           <h3>Windows per Group</h3>
@@ -2164,9 +2193,10 @@ module PandasContent
         shops["roll2"] = shops.groupby("shop")["sales"].transform(lambda x: x.rolling(2).mean())
         print(shops)
 
-        print("\n=== pct_change with a gap: pass fill_method=None ===")
+        print("\n=== Growth with a gap: choose explicitly (same on pandas 2.3 and 3.0) ===")
         with_gap = pd.Series([100.0, np.nan, 120.0, 150.0])
-        print(with_gap.pct_change(fill_method=None).round(3).tolist())
+        print("fill first:", with_gap.ffill().pct_change().round(3).tolist())
+        print("keep gaps: ", (with_gap / with_gap.shift(1) - 1).round(3).tolist())
       PYTHON
     },
 
@@ -2464,7 +2494,7 @@ module PandasContent
             <thead><tr><th>Stage</th><th>Code idea</th><th>Lessons</th></tr></thead>
             <tbody>
               <tr><td>Load</td><td><code>pd.read_csv(io.StringIO(text))</code></td><td>Reading and exploring</td></tr>
-              <tr><td>Clean</td><td><code>drop_duplicates</code>; <code>to_datetime(format="%d/%m/%Y")</code>; <code>.str.strip().str.title()</code>; <code>fillna</code></td><td>Cleaning, dates, strings, missing data</td></tr>
+              <tr><td>Clean</td><td><code>to_datetime(format="%d/%m/%Y")</code>; <code>.str.strip().str.title()</code>; <code>fillna</code>; then <code>drop_duplicates</code></td><td>Cleaning, dates, strings, missing data</td></tr>
               <tr><td>Chain</td><td>all cleaning inside one <code>( ... .assign(col=lambda d: ...) )</code></td><td>Method chaining</td></tr>
               <tr><td>Enrich</td><td><code>merge(products, validate="many_to_one")</code>; <code>revenue = qty * price</code></td><td>Merging, new columns</td></tr>
               <tr><td>Summarise</td><td><code>groupby().agg()</code>, shares, <code>nlargest</code></td><td>GroupBy, sorting</td></tr>
@@ -2475,10 +2505,10 @@ module PandasContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: The Cleaning Chain</h3>
-          <div class="lc-code">orders = (<br>    pd.read_csv(io.StringIO(orders_csv))<br>    .drop_duplicates()<br>    .assign(date=lambda d: pd.to_datetime(d["date"], format="%d/%m/%Y"),<br>            city=lambda d: d["city"].str.strip().str.title(),<br>            qty=lambda d: d["qty"].fillna(1).astype("int64"))<br>)</div>
+          <div class="lc-code">orders = (<br>    pd.read_csv(io.StringIO(orders_csv))<br>    .assign(date=lambda d: pd.to_datetime(d["date"], format="%d/%m/%Y"),<br>            city=lambda d: d["city"].str.strip().str.title(),<br>            qty=lambda d: d["qty"].fillna(1).astype("int64"))<br>    .drop_duplicates()            # AFTER standardising, as in Lesson 19<br>)</div>
           <p>Part of the starter's output:</p>
           <div class="lc-code">=== Clean orders: (10, 6) | missing left: 0<br>total revenue: Rs 11,029<br><br>=== Revenue by city ===<br>         revenue  share_%<br>city<br>Chennai     4150     37.6<br>Delhi       3810     34.5<br>Pune        2170     19.7<br>Mumbai       899      8.2<br>...<br>=== Monthly trend ===<br>            revenue  growth_%<br>date<br>2024-01-31     4390       NaN<br>2024-02-29     1759     -59.9<br>2024-03-31     4880     177.4</div>
-          <p>11 raw rows became 10 orders. The missing quantity was assumed to be 1 — an assumption you should state in the report. February was weak; March recovered strongly.</p>
+          <p>Duplicates are removed <em>after</em> the text is standardised (Lesson 19's order): <code>" Chennai"</code> and <code>"Chennai"</code> only count as the same once they are cleaned. 11 raw rows became 10 orders. The missing quantity was assumed to be 1 — an assumption you should state in the report. February was weak; March recovered strongly.</p>
         </div>
         <div class="lc-card">
           <h3>Course Recap</h3>
@@ -2557,10 +2587,10 @@ module PandasContent
         # 1. Load and clean
         orders = (
             pd.read_csv(io.StringIO(orders_csv))
-            .drop_duplicates()
             .assign(date=lambda d: pd.to_datetime(d["date"], format="%d/%m/%Y"),
                     city=lambda d: d["city"].str.strip().str.title(),
                     qty=lambda d: d["qty"].fillna(1).astype("int64"))
+            .drop_duplicates()            # after standardising text (Lesson 19)
         )
         print("=== Clean orders:", orders.shape, "| missing left:", int(orders.isna().sum().sum()))
         # 2. Enrich with a validated lookup
