@@ -1,7 +1,7 @@
 module JavaScriptContent
   LESSONS = {
     1 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>JavaScript is the <strong>programming language of the web</strong>. While HTML defines structure and CSS adds style, JavaScript makes pages <em>interactive and dynamic</em>. It runs directly in every browser — no installation required.</p>
         </div>
@@ -38,7 +38,7 @@ module JavaScriptContent
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>Open the browser console</strong> with F12 (or Cmd+Option+I on Mac). Every <code>console.log()</code> you write appears there. It is your best friend for debugging!</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Your first JavaScript program ──
         console.log("Hello, World!");
         console.log("JavaScript is awesome!");
@@ -60,7 +60,7 @@ module JavaScriptContent
     },
 
     2 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Variables are <strong>named containers for storing data</strong>. JavaScript has three keywords for declaring them: <code>var</code>, <code>let</code>, and <code>const</code>. Choosing the right one matters for clean, bug-free code.</p>
         </div>
@@ -95,7 +95,7 @@ score = score + 10;           // OK — let can be reassigned
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>Rule of thumb:</strong> Always use <code>const</code> by default. Switch to <code>let</code> only if you need to reassign the variable. Never use <code>var</code> in modern JS.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── var, let, const ──
         const appName = "AI Academy";     // won't change
         let score = 0;                     // will change
@@ -127,7 +127,7 @@ score = score + 10;           // OK — let can be reassigned
     },
 
     3 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>JavaScript has <strong>eight data types</strong>. The first seven are <em>primitive</em> (stored by value). The last — Object — is <em>non-primitive</em> (stored by reference). Knowing types prevents many common bugs.</p>
         </div>
@@ -167,7 +167,7 @@ Boolean("hello")     // true</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>Falsy values in JS:</strong> <code>false</code>, <code>0</code>, <code>""</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code>. Everything else is truthy — even empty arrays <code>[]</code> and objects <code>{}</code>!</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── JavaScript Data Types ──
         let text    = "Hello, JavaScript!";
         let number  = 42;
@@ -198,7 +198,7 @@ Boolean("hello")     // true</code></pre></div>
     },
 
     4 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Operators are <strong>symbols that perform operations</strong> on values. JavaScript has arithmetic operators for math, comparison operators for checking conditions, and logical operators for combining conditions.</p>
         </div>
@@ -239,7 +239,7 @@ true || false   // OR  → true  (at least one must be true)
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always use <code>===</code> (strict equality) in JavaScript. The loose <code>==</code> does type coercion and leads to confusing bugs: <code>0 == false</code> is <code>true</code> with <code>==</code> but <code>false</code> with <code>===</code>.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Operators ──
         // Arithmetic
         console.log("5 + 3 =", 5 + 3);
@@ -270,7 +270,7 @@ true || false   // OR  → true  (at least one must be true)
     },
 
     5 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Conditional statements let your program <strong>make decisions</strong> and execute different code based on whether conditions are true or false. They are the foundation of all program logic.</p>
         </div>
@@ -312,7 +312,7 @@ switch (day) {
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always add <code>break</code> inside <code>switch</code> cases. Without it, JavaScript "falls through" to the next case — a common bug for beginners.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Conditionals ──
 
         // Grade calculator
@@ -349,7 +349,7 @@ switch (day) {
     },
 
     6 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Loops <strong>repeat a block of code</strong> multiple times. Instead of writing the same code 100 times, you write it once and tell the loop how many times to run it.</p>
         </div>
@@ -393,7 +393,7 @@ for (const fruit of fruits) {
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Prefer <code>for...of</code> for arrays in modern JS. It is cleaner and avoids index-related bugs. Use the classic <code>for</code> loop only when you need the index.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Loops ──
 
         // Classic for loop
@@ -435,7 +435,7 @@ for (const fruit of fruits) {
     },
 
     7 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Functions are <strong>reusable blocks of code</strong> that perform a specific task. You define a function once and call it as many times as you need. They are the single most important concept for writing clean, organised code.</p>
         </div>
@@ -473,7 +473,7 @@ console.log(calculateArea(5));      // 50 (uses default height)</code></pre></di
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>A function that has no <code>return</code> statement returns <code>undefined</code>. Always return something meaningful — or nothing (a "void" function), but be deliberate about it.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Functions ──
 
         // Basic function with return
@@ -512,7 +512,7 @@ console.log(calculateArea(5));      // 50 (uses default height)</code></pre></di
     },
 
     8 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Arrays are <strong>ordered lists</strong> that store multiple values in a single variable. They are one of the most-used data structures in JavaScript — from holding search results to managing a shopping cart.</p>
         </div>
@@ -550,7 +550,7 @@ const copy = [...a];            // Safe copy</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Arrays are <em>zero-indexed</em>: the first element is at index <code>[0]</code>, the last is at <code>[array.length - 1]</code>. In modern JS use <code>array.at(-1)</code> to get the last element easily.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Arrays ──
 
         // Creating arrays
@@ -590,7 +590,7 @@ const copy = [...a];            // Safe copy</code></pre></div>
     },
 
     9 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Objects store data as <strong>key-value pairs</strong>, like a dictionary or a real-world thing with properties. While arrays use numbered indexes, objects use named keys — making them perfect for representing structured data.</p>
         </div>
@@ -630,7 +630,7 @@ console.log(fullName);          // "Alice"</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><code>Object.keys(obj)</code> gives all keys as an array. <code>Object.values(obj)</code> gives all values. <code>Object.entries(obj)</code> gives <code>[[key, value], ...]</code> pairs — very useful for looping.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Objects ──
 
         const student = {
@@ -675,7 +675,7 @@ console.log(fullName);          // "Alice"</code></pre></div>
     },
 
     10 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>The <strong>DOM (Document Object Model)</strong> is a tree-like representation of your HTML page that JavaScript can read and modify. Using the DOM, JS can change text, styles, HTML structure, and respond to user actions — all without reloading the page.</p>
         </div>
@@ -717,7 +717,7 @@ document.querySelector("ul").appendChild(li);</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use <code>textContent</code> instead of <code>innerHTML</code> when setting user-provided text — <code>innerHTML</code> can introduce security vulnerabilities (XSS) if you insert untrusted data.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── DOM Manipulation ──
         // This runs inside a page — we can create and modify elements!
 
@@ -757,7 +757,7 @@ document.querySelector("ul").appendChild(li);</code></pre></div>
     },
 
     11 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Events are <strong>things that happen</strong> in the browser — a button click, a key press, a mouse hover, a form submission. JavaScript handles these with <em>event listeners</em>, making your pages interactive.</p>
         </div>
@@ -799,7 +799,7 @@ form.addEventListener("submit", (e) => {
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use <code>addEventListener</code> instead of HTML attributes like <code>onclick="..."</code>. It is cleaner, allows multiple listeners on one element, and separates JS from HTML.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── DOM Events ──
 
         // Build an interactive counter
@@ -848,7 +848,7 @@ form.addEventListener("submit", (e) => {
     },
 
     12 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Arrow functions are a <strong>concise syntax for writing functions</strong> introduced in ES6. They are shorter to type, but more importantly, they handle the <code>this</code> keyword differently — which avoids many common bugs in callbacks.</p>
         </div>
@@ -886,7 +886,7 @@ const sayHi = () => "Hi!";</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Arrow functions shine with array methods: <code>numbers.map(n => n * 2)</code> is much cleaner than <code>numbers.map(function(n) { return n * 2; })</code>. You will see them everywhere in modern JS.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Arrow Functions ──
 
         // Various arrow function forms
@@ -924,7 +924,7 @@ const sayHi = () => "Hi!";</code></pre></div>
     },
 
     13 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Template literals use <strong>backticks ` ` </strong> instead of quotes and allow you to embed expressions directly in strings with <code>${ }</code>. They also support multi-line strings natively — no more <code>\n</code>!</p>
         </div>
@@ -969,7 +969,7 @@ console.log(`Hello, ${upper("world")}!`);  // "Hello, WORLD!"</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Template literals make <strong>building HTML strings</strong> in JavaScript much cleaner. You will use them constantly when dynamically generating content for the DOM.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Template Literals ──
         const product = "MacBook Pro";
         const price   = 129999;
@@ -1008,7 +1008,7 @@ console.log(`Hello, ${upper("world")}!`);  // "Hello, WORLD!"</code></pre></div>
     },
 
     14 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Array methods like <code>map()</code>, <code>filter()</code>, and <code>reduce()</code> transform arrays in a <strong>functional, readable way</strong>. They are the backbone of modern JavaScript and used in virtually every real-world project.</p>
         </div>
@@ -1047,7 +1047,7 @@ arr.sort((a,b) => a - b)  // Sort numbers ascending</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>You can <strong>chain</strong> these methods: <code>arr.filter(x => x > 0).map(x => x * 2).reduce((a, b) => a + b, 0)</code> — filter, then transform, then sum. This is expressive, readable code!</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Array Methods ──
         const students = [
           { name: "Alice", score: 92, passed: true  },
@@ -1088,7 +1088,7 @@ arr.sort((a,b) => a - b)  // Sort numbers ascending</code></pre></div>
     },
 
     15 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>A <strong>Promise</strong> represents a value that will be available in the future — it is a placeholder for an async result. Promises solve the "callback hell" problem and are the foundation of modern async JavaScript.</p>
         </div>
@@ -1131,7 +1131,7 @@ Promise.all([p1, p2])
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>In practice you rarely create Promises manually. Most of the time you <em>consume</em> them — the <code>fetch()</code> API returns a Promise, and you use <code>.then()</code> or <code>async/await</code> to handle it.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Promises ──
 
         // Simulating async work with a delay
@@ -1177,7 +1177,7 @@ Promise.all([p1, p2])
     },
 
     16 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p><code>async/await</code> is <strong>syntactic sugar over Promises</strong> that makes asynchronous code look and read like synchronous code. It is the modern, preferred way to handle async operations in JavaScript.</p>
         </div>
@@ -1225,7 +1225,7 @@ async function loadUserData() {
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><code>await</code> can <strong>only</strong> be used inside an <code>async</code> function. At the top level of modern modules you can use <em>top-level await</em>, but inside regular functions you must mark them <code>async</code> first.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── async / await ──
 
         // Simulate async operations
@@ -1277,7 +1277,7 @@ async function loadUserData() {
     },
 
     17 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>The <strong>Fetch API</strong> lets you make HTTP requests to servers and APIs directly from the browser. It returns a Promise and is the modern replacement for the older <code>XMLHttpRequest</code>. Every real-world web app uses it.</p>
         </div>
@@ -1321,7 +1321,7 @@ getData();</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always check <code>response.ok</code> (true for 200–299 status codes). <code>fetch()</code> only rejects on <em>network errors</em> — a 404 or 500 still resolves the Promise. You must check the status yourself.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Fetch API ──
         // Using a free public API (JSONPlaceholder)
 
@@ -1357,7 +1357,7 @@ getData();</code></pre></div>
     },
 
     18 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Errors are inevitable in programming. JavaScript's <strong>try/catch/finally</strong> block lets you handle errors gracefully — showing a helpful message instead of crashing the entire program.</p>
         </div>
@@ -1401,7 +1401,7 @@ try {
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use <code>finally</code> for cleanup code that must always run: closing database connections, hiding loading spinners, or releasing resources — regardless of whether an error occurred.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── Error Handling ──
 
         // Basic try/catch
@@ -1457,7 +1457,7 @@ try {
     },
 
     19 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>ES6 Modules let you <strong>split your JavaScript code into separate files</strong>, each with its own scope. You export things from one file and import them in another. This keeps codebases organized and maintainable as they grow.</p>
         </div>
@@ -1497,7 +1497,7 @@ console.log(multiply(4, 5)); // 20</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>In modern frameworks (React, Vue, Svelte), modules are used everywhere — each component is a module. Understanding exports and imports is essential for working with any modern JS project.</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── ES6 Modules ──
         // Modules work across files, but here we simulate the concept
 
@@ -1537,7 +1537,7 @@ console.log(multiply(4, 5)); // 20</code></pre></div>
     },
 
     20 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Congratulations on completing the JavaScript course! You have learned the fundamentals that power every interactive website. This review consolidates everything — from variables to async programming.</p>
         </div>
@@ -1573,7 +1573,7 @@ console.log(multiply(4, 5)); // 20</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">🎉</span><p><strong>What's Next?</strong> Start building projects — even simple ones like a to-do list, quiz app, or weather app. Then explore <strong>React</strong> (UI framework) or <strong>Node.js</strong> (server-side JS). Practice daily!</p></div>
       HTML
-      starter_code: <<~JS
+      starter_code: <<~'JS'
         // ── JavaScript Review — Mini Quiz App ──
 
         const questions = [

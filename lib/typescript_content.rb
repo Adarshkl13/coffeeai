@@ -1185,7 +1185,7 @@ module TypescriptContent
         <p class="lc-lead">TypeScript uses declaration files (<code>.d.ts</code>) to describe the types of JavaScript libraries. Modules let you organise code into separate files.</p>
         <div class="lc-card">
           <h3>ES Modules in TypeScript</h3>
-          <div class="lc-code">// math.ts — named exports<br>export function add(a: number, b: number): number { return a + b; }<br>export type MathOp = (a: number, b: number) =&gt; number;<br><br>// app.ts — import<br>import { add, MathOp } from "./math";<br>import type { MathOp } from "./math";  // type-only import</div>
+          <div class="lc-code">// math.ts — named exports<br>export function add(a: number, b: number): number { return a + b; }<br>export type MathOp = (a: number, b: number) =&gt; number;<br><br>// app.ts — import<br>import { add } from "./math";<br>import type { MathOp } from "./math";  // type-only import</div>
         </div>
         <div class="lc-card">
           <h3>Declaration Files (.d.ts)</h3>

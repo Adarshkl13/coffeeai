@@ -28,7 +28,7 @@ module ReactContent
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> In this simulator, React 18 + Babel standalone runs inside the preview iframe. Destructure hooks from React: <code>const {'{ useState }'} = React;</code>
+          <strong>Tip:</strong> In this simulator, React 18 + Babel standalone runs inside the preview iframe. Destructure hooks from React: <code>const { useState } = React;</code>
         </div>
       HTML
       starter_code: <<~'JSX'
@@ -651,7 +651,7 @@ module ReactContent
           <div class="lc-code">// Text, email, password<br>&lt;input type="text" value={val} onChange={e =&gt; setVal(e.target.value)} /&gt;<br><br>// Select<br>&lt;select value={sel} onChange={e =&gt; setSel(e.target.value)}&gt;<br>  &lt;option value="a"&gt;Option A&lt;/option&gt;<br>&lt;/select&gt;<br><br>// Checkbox<br>&lt;input type="checkbox" checked={agreed} onChange={e =&gt; setAgreed(e.target.checked)} /&gt;<br><br>// Textarea<br>&lt;textarea value={msg} onChange={e =&gt; setMsg(e.target.value)} /&gt;</div>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Store multiple form fields in one object: <code>const [form, setForm] = useState({'{ name: "", email: "" }'})</code> and update with <code>setForm(f =&gt; {'({ ...f, name: val })'})</code>
+          <strong>Tip:</strong> Store multiple form fields in one object: <code>const [form, setForm] = useState({ name: "", email: "" })</code> and update with <code>setForm(f =&gt; ({ ...f, name: val }))</code>
         </div>
       HTML
       starter_code: <<~'JSX'
@@ -1230,7 +1230,7 @@ module ReactContent
           </table>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Pass an <code>action.payload</code> to send data with your action: <code>dispatch({'{ type: "add", payload: newItem }'})</code>
+          <strong>Tip:</strong> Pass an <code>action.payload</code> to send data with your action: <code>dispatch({ type: "add", payload: newItem })</code>
         </div>
       HTML
       starter_code: <<~'JSX'

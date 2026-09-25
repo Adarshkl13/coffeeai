@@ -1,7 +1,7 @@
 module PythonContent
   LESSONS = {
     1 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Python is a <strong>high-level, interpreted programming language</strong> created by Guido van Rossum in 1991. It is famous for its clean, readable syntax that reads almost like English — making it the ideal first language for beginners and a powerful tool for professionals.</p>
         </div>
@@ -34,7 +34,7 @@ print(2 + 2)   # Comments start with #</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><strong>print()</strong> is Python's main output function. Unlike many languages, Python uses <strong>indentation</strong> (spaces) instead of curly braces to define code blocks. Consistent indentation (4 spaces) is required!</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Introduction to Python ──
 
         # print() outputs to the console
@@ -59,7 +59,7 @@ print(2 + 2)   # Comments start with #</code></pre></div>
     },
 
     2 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Variables in Python are created by simply assigning a value — <strong>no type declaration needed</strong>. Python automatically figures out the type. This is called <em>dynamic typing</em>.</p>
         </div>
@@ -97,7 +97,7 @@ bool("hello")   # True</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>In Python, <code>True</code> and <code>False</code> start with a capital letter. Using lowercase <code>true</code> or <code>false</code> will cause a <code>NameError</code>!</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Variables and Data Types ──
 
         # Integers
@@ -143,7 +143,7 @@ bool("hello")   # True</code></pre></div>
     },
 
     3 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Strings are <strong>sequences of characters</strong> used to represent text. Python provides a rich set of string methods and f-strings to make working with text easy and readable.</p>
         </div>
@@ -181,7 +181,7 @@ print(f"PI = {3.14159:.2f}")            # Formatting: 2 decimal places</code></p
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always use <strong>f-strings</strong> for string formatting in modern Python — they are faster and more readable than <code>+</code> concatenation or <code>.format()</code>. Just prefix the string with <code>f</code>.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Strings in Python ──
 
         name = "Ada Lovelace"
@@ -223,7 +223,7 @@ print(f"PI = {3.14159:.2f}")            # Formatting: 2 decimal places</code></p
     },
 
     4 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Python handles numbers with ease. It supports <strong>integers, floats, and complex numbers</strong> out of the box, and provides a rich <code>math</code> module for advanced calculations.</p>
         </div>
@@ -262,7 +262,7 @@ math.pi            # 3.141592…</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p><code>//</code> (floor division) and <code>%</code> (modulus) are very useful. <code>n % 2 == 0</code> checks if a number is even. <code>n // 10</code> strips the last digit. These patterns appear everywhere in algorithms.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Numbers and Math ──
 
         # Basic arithmetic
@@ -299,7 +299,7 @@ math.pi            # 3.141592…</code></pre></div>
     },
 
     5 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>A <strong>list</strong> is an ordered, mutable collection of items. It is Python's most used data structure — you can store any mix of data types, and lists can grow or shrink dynamically.</p>
         </div>
@@ -337,7 +337,7 @@ print(nums[::2])   # [0, 2, 4]  (every 2nd item)</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use <code>nums[:]</code> or <code>list(nums)</code> to make a <strong>copy</strong> of a list. Writing <code>copy = original</code> does NOT copy — both variables point to the same list!</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Lists ──
 
         # Create a list
@@ -378,7 +378,7 @@ print(nums[::2])   # [0, 2, 4]  (every 2nd item)</code></pre></div>
     },
 
     6 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Python has two more sequence types: <strong>tuples</strong> (immutable ordered sequences) and <strong>sets</strong> (unordered collections of unique values). Each has specific use cases where it outperforms a regular list.</p>
         </div>
@@ -419,7 +419,7 @@ print(a - b)   # Difference: {1, 2}</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Sets are <strong>very fast</strong> for membership testing — <code>item in my_set</code> is O(1) vs O(n) for lists. Use a set when you need to check if something exists and duplicates don't matter.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Tuples and Sets ──
 
         # Tuples
@@ -457,7 +457,7 @@ print(a - b)   # Difference: {1, 2}</code></pre></div>
     },
 
     7 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>A <strong>dictionary</strong> stores data as <code>key: value</code> pairs, like a real dictionary where each word (key) has a definition (value). Dictionaries are used everywhere in Python — APIs return JSON which becomes dicts, and configs are dicts.</p>
         </div>
@@ -496,7 +496,7 @@ for name, score in grades.items():
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always use <code>.get(key)</code> instead of <code>dict[key]</code> when the key might not exist. <code>dict[key]</code> raises a <code>KeyError</code>; <code>.get(key)</code> returns <code>None</code> safely.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Dictionaries ──
 
         student = {
@@ -541,7 +541,7 @@ for name, score in grades.items():
     },
 
     8 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Conditional statements let Python programs <strong>make decisions</strong>. Python uses <code>if</code>, <code>elif</code>, and <code>else</code> — and a unique single-line <em>ternary expression</em>. Indentation defines the code blocks.</p>
         </div>
@@ -582,7 +582,7 @@ print(status)  # "Adult"</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Python allows chaining comparisons: <code>0 &lt; x &lt; 10</code> checks if x is between 0 and 10. This is more readable than <code>x &gt; 0 and x &lt; 10</code> — use it!</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Conditional Statements ──
 
         # Grade calculator
@@ -627,7 +627,7 @@ print(status)  # "Adult"</code></pre></div>
     },
 
     9 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Loops execute a block of code <strong>repeatedly</strong>. Python's <code>for</code> loop is elegant and powerful — it iterates directly over any sequence (list, string, range, dict). The <code>while</code> loop runs while a condition is true.</p>
         </div>
@@ -669,7 +669,7 @@ while count &lt;= 5:
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use <code>enumerate()</code> whenever you need both the index and the value while looping — it is more Pythonic than <code>for i in range(len(list)): item = list[i]</code>.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Loops ──
 
         # range() patterns
@@ -713,7 +713,7 @@ while count &lt;= 5:
     },
 
     10 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Functions are <strong>reusable blocks of code</strong> defined with the <code>def</code> keyword. They take inputs (parameters), do work, and optionally return a value. Functions are the cornerstone of organised, maintainable code.</p>
         </div>
@@ -751,7 +751,7 @@ total(10, 20, 30, 40)  # 100</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Functions should do <strong>one thing</strong> and do it well. If a function is more than ~20 lines, consider splitting it. Short, focused functions are easier to test, debug, and reuse.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Functions ──
 
         # Basic function
@@ -800,7 +800,7 @@ total(10, 20, 30, 40)  # 100</code></pre></div>
     },
 
     11 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>A <strong>lambda function</strong> is an anonymous, single-expression function defined with the <code>lambda</code> keyword. They are compact and powerful when used with functions like <code>map()</code>, <code>filter()</code>, and <code>sorted()</code>.</p>
         </div>
@@ -835,7 +835,7 @@ sorted_students = sorted(students, key=lambda s: s[1], reverse=True)
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use lambdas for <strong>short, simple operations</strong> passed as arguments. If your lambda is complex (multiple lines or operations), write a proper named <code>def</code> function instead — it will be more readable.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Lambda Functions ──
 
         # Basic lambdas
@@ -875,7 +875,7 @@ sorted_students = sorted(students, key=lambda s: s[1], reverse=True)
     },
 
     12 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>List comprehensions are a <strong>concise, Pythonic way to create lists</strong>. They replace multi-line for loops with a clean one-liner. Mastering them is a big step toward writing professional Python code.</p>
         </div>
@@ -912,7 +912,7 @@ lengths = {name: len(name) for name in names}
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>List comprehensions are faster than equivalent for loops because Python optimises them internally. But keep them simple — if the expression is complex, a regular loop is more readable.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── List Comprehensions ──
 
         # Basic: squares
@@ -950,7 +950,7 @@ lengths = {name: len(name) for name in names}
     },
 
     13 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Python can <strong>read from and write to files</strong> on your computer. File I/O (Input/Output) is essential for saving program data, reading configurations, and processing data files like CSVs.</p>
         </div>
@@ -986,7 +986,7 @@ with open("log.txt", "a") as file:
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always use the <code>with</code> statement for file operations. It automatically closes the file even if an exception occurs — no need for manual <code>file.close()</code> calls.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── File I/O ──
         # Simulating file operations (output shown as if running)
 
@@ -1030,7 +1030,7 @@ with open("log.txt", "a") as file:
     },
 
     14 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Exceptions are <strong>errors that occur during program execution</strong>. Instead of letting your program crash, Python's <code>try/except</code> lets you catch and handle errors gracefully.</p>
         </div>
@@ -1070,7 +1070,7 @@ finally:
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Catch <strong>specific</strong> exceptions, not just bare <code>except:</code>. Catching everything hides bugs and makes debugging very hard. Be precise: <code>except ValueError</code> is better than <code>except Exception</code>.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Exception Handling ──
 
         # Basic try/except
@@ -1124,7 +1124,7 @@ finally:
     },
 
     15 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Object-Oriented Programming (OOP) organises code around <strong>objects</strong> — which combine data (attributes) and behaviour (methods). A <code>class</code> is a blueprint; an <em>object</em> is an instance created from that blueprint.</p>
         </div>
@@ -1165,7 +1165,7 @@ print(max.describe())   # "Max is a Labrador"</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Every method in a class must have <code>self</code> as its first parameter. <code>self</code> refers to the specific instance calling the method. Python passes it automatically — you don't include it when calling.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Classes and Objects ──
 
         class BankAccount:
@@ -1213,7 +1213,7 @@ print(max.describe())   # "Max is a Labrador"</code></pre></div>
     },
 
     16 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p><strong>Inheritance</strong> allows a class (child) to inherit all attributes and methods from another class (parent). This promotes code reuse and models real-world "is-a" relationships: a Dog IS-A Animal.</p>
         </div>
@@ -1258,7 +1258,7 @@ issubclass(Dog, Animal)  # True</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use <code>super()</code> when overriding <code>__init__</code> so the parent's constructor runs too. Without it, parent attributes like <code>self.name</code> won't be set for the child class.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Inheritance ──
 
         class Shape:
@@ -1315,7 +1315,7 @@ issubclass(Dog, Animal)  # True</code></pre></div>
     },
 
     17 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Python's <strong>module system</strong> lets you organise code into reusable files and use code written by others. The vast ecosystem of third-party packages (installed with <code>pip</code>) is one of Python's biggest strengths.</p>
         </div>
@@ -1356,7 +1356,7 @@ pip install scikit-learn   # Machine learning</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Python's standard library is called "batteries included" — it covers almost everything from networking to date handling. Always check if a module exists before installing a third-party package.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Modules and Packages ──
 
         # math module
@@ -1401,7 +1401,7 @@ pip install scikit-learn   # Machine learning</code></pre></div>
     },
 
     18 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>A <strong>virtual environment</strong> is an isolated Python environment for a specific project with its own packages and Python version. It prevents conflicts between projects that need different package versions.</p>
         </div>
@@ -1447,7 +1447,7 @@ pip install -r requirements.txt</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always create a virtual environment at the start of every new Python project. It is a professional habit that prevents hours of debugging "it works on my machine" dependency issues.</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Virtual Environments ──
         # Simulating virtual environment workflow
 
@@ -1493,7 +1493,7 @@ pip install -r requirements.txt</code></pre></div>
     },
 
     19 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Python's <strong>standard library</strong> includes hundreds of built-in modules — no installation required. These cover everything from file handling to networking, cryptography, and more. This is why Python is called "batteries included."</p>
         </div>
@@ -1531,7 +1531,7 @@ parsed = json.loads(json_str)      # {"name": "Alice", ...}</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Before installing a third-party package, always check the standard library docs. <code>urllib</code> handles HTTP, <code>csv</code> handles CSV files, <code>sqlite3</code> handles databases — all built-in, zero installation!</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Python Standard Library ──
 
         # datetime module
@@ -1580,7 +1580,7 @@ parsed = json.loads(json_str)      # {"name": "Alice", ...}</code></pre></div>
     },
 
     20 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Congratulations on completing the Python course! You have learned the fundamentals of one of the world's most powerful and versatile programming languages. This review brings everything together.</p>
         </div>
@@ -1615,7 +1615,7 @@ parsed = json.loads(json_str)      # {"name": "Alice", ...}</code></pre></div>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">🎉</span><p><strong>What's Next?</strong> Jump into <strong>Data Science</strong> with NumPy and Pandas, or start <strong>Machine Learning</strong> with scikit-learn. Build projects: a data analyser, a web scraper, or a chatbot. Python opens every door!</p></div>
       HTML
-      starter_code: <<~PY
+      starter_code: <<~'PY'
         # ── Python Review — Complete Mini Project ──
         # Student Grade Management System
 

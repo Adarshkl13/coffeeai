@@ -31,8 +31,8 @@ namespace :content do
               opts: ["A) 3306", "B) 1521", "C) 5432"], ans: "C" },
       2  => { type: "multiple_choice", q: "Which PostgreSQL operator is used for type casting?",
               opts: ["A) CAST()", "B) ::", "C) ->"], ans: "B" },
-      3  => { type: "multiple_choice", q: "Which PostgreSQL keyword auto-generates a unique integer ID for each row?",
-              opts: ["A) AUTO_INCREMENT", "B) IDENTITY", "C) SERIAL"], ans: "C" },
+      3  => { type: "multiple_choice", q: "Which is the modern, SQL-standard way to auto-generate IDs in PostgreSQL (recommended over SERIAL)?",
+              opts: ["A) AUTO_INCREMENT", "B) GENERATED ALWAYS AS IDENTITY", "C) SEQUENCE_ID"], ans: "B" },
       4  => { type: "multiple_choice", q: "Which PostgreSQL operator concatenates strings?",
               opts: ["A) CONCAT()", "B) ||", "C) +"], ans: "B" },
       5  => { type: "multiple_choice", q: "Which PostgreSQL function truncates a timestamp to a specific precision like 'month' or 'week'?",
@@ -43,7 +43,7 @@ namespace :content do
               opts: ["True", "False"], ans: "True" },
       8  => { type: "multiple_choice", q: "Which SQL clause is used to define a Common Table Expression (CTE)?",
               opts: ["A) DEFINE", "B) WITH", "C) NAMED"], ans: "B" },
-      9  => { type: "multiple_choice", q: "Which window function assigns a unique sequential number to each row with NO gaps even for ties?",
+      9  => { type: "multiple_choice", q: "Which window function gives every row a different number (1, 2, 3…), even when rows have tied values?",
               opts: ["A) RANK()", "B) DENSE_RANK()", "C) ROW_NUMBER()"], ans: "C" },
       10 => { type: "true_false", q: "The PostgreSQL RETURNING clause allows you to retrieve data from INSERT, UPDATE, and DELETE statements.",
               opts: ["True", "False"], ans: "True" },
@@ -76,10 +76,10 @@ namespace :content do
       lesson.update!(title: titles[position], body: data[:body], starter_code: data[:starter_code])
 
       ex = exercises[position]
-      Exercise.find_or_create_by!(course_lesson: lesson) do |e|
+      Exercise.find_or_initialize_by(course_lesson: lesson).tap do |e|
         e.exercise_type = ex[:type]; e.question = ex[:q]
         e.options = ex[:opts]; e.correct_answer = ex[:ans]
-      end
+      end.save!
       puts "  ✓ #{position}. #{titles[position]}"
     end
 

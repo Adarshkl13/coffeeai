@@ -1,7 +1,7 @@
 module HtmlCssContent
   LESSONS = {
     1 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>HTML stands for <strong>HyperText Markup Language</strong>. It is the standard language used to create and structure content on the web. Every website you visit — Google, YouTube, Instagram — is built with HTML at its foundation.</p>
         </div>
@@ -36,7 +36,7 @@ module HtmlCssContent
     },
 
     2 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Every HTML file follows a <strong>standard structure</strong>. This structure tells the browser what kind of document it is reading and how to display it correctly.</p>
         </div>
@@ -75,7 +75,7 @@ module HtmlCssContent
     },
 
     3 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>HTML elements are made up of <strong>tags</strong>. Most tags have an opening tag, some content, and a closing tag. Learning the most common tags is the foundation of HTML.</p>
         </div>
@@ -123,7 +123,7 @@ module HtmlCssContent
     },
 
     4 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>HTML provides tags for <strong>text formatting</strong> — making text bold, italic, highlighted, or marked as important. Some are purely visual; others carry semantic meaning that helps screen readers and search engines.</p>
         </div>
@@ -158,7 +158,7 @@ module HtmlCssContent
     },
 
     5 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Links are what make the web a <strong>web</strong>. The <code>&lt;a&gt;</code> (anchor) tag creates clickable hyperlinks to other pages, sections, files, or email addresses.</p>
         </div>
@@ -196,7 +196,7 @@ module HtmlCssContent
     },
 
     6 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>The <code>&lt;img&gt;</code> tag embeds images into a webpage. It is a <strong>self-closing element</strong> — it has no closing tag. Images make pages more engaging and informative.</p>
         </div>
@@ -240,7 +240,7 @@ module HtmlCssContent
     },
 
     7 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>HTML lists organize content into readable, structured groups. There are three types: <strong>unordered</strong> (bullets), <strong>ordered</strong> (numbers), and <strong>description</strong> lists.</p>
         </div>
@@ -293,7 +293,7 @@ module HtmlCssContent
     },
 
     8 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>HTML tables display data in a <strong>grid of rows and columns</strong>. Tables are perfect for structured data like schedules, price lists, and comparison charts.</p>
         </div>
@@ -349,7 +349,7 @@ module HtmlCssContent
     },
 
     9 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>HTML forms collect <strong>user input</strong>. Every login page, search bar, and checkout form is built with HTML form elements. The <code>&lt;form&gt;</code> element wraps all the input fields.</p>
         </div>
@@ -392,7 +392,7 @@ module HtmlCssContent
     },
 
     10 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>HTML5 introduced <strong>semantic elements</strong> — tags that describe their <em>meaning</em>, not just their appearance. They make your code readable and improve accessibility and SEO.</p>
         </div>
@@ -436,7 +436,7 @@ module HtmlCssContent
     },
 
     11 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>CSS (Cascading Style Sheets) controls <strong>how HTML elements look</strong>. Without CSS, every webpage would be plain black text on a white background. CSS adds color, layout, fonts, and spacing.</p>
         </div>
@@ -490,7 +490,7 @@ h1 {
     },
 
     12 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>CSS selectors <strong>target specific HTML elements</strong> to apply styles. Mastering selectors gives you precise control over exactly which elements get styled.</p>
         </div>
@@ -540,7 +540,7 @@ tr:nth-child(even) { background: #f0f0f0; }</code></pre></div>
     },
 
     13 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Color brings web pages to life. CSS supports <strong>five color formats</strong> and gives you full control over text color, background color, and border color.</p>
         </div>
@@ -586,7 +586,7 @@ tr:nth-child(even) { background: #f0f0f0; }</code></pre></div>
     },
 
     14 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>The <strong>CSS Box Model</strong> describes how every HTML element is rendered as a rectangular box. Understanding it is essential for controlling spacing and layout in CSS.</p>
         </div>
@@ -636,7 +636,7 @@ margin: 8px;</code></pre></div>
     },
 
     15 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>CSS typography controls how text looks on your page. From choosing fonts to setting line height, good typography makes content <strong>readable, beautiful, and professional</strong>.</p>
         </div>
@@ -672,7 +672,7 @@ margin: 8px;</code></pre></div>
     },
 
     16 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p><strong>Flexbox</strong> is a one-dimensional CSS layout system that makes it incredibly easy to align, distribute, and reorder elements in a row or column. It solves most common layout challenges.</p>
         </div>
@@ -709,7 +709,7 @@ margin: 8px;</code></pre></div>
     },
 
     17 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p><strong>CSS Grid</strong> is a two-dimensional layout system — it handles both rows AND columns simultaneously. It is ideal for building complex page layouts like dashboards, galleries, and magazine-style designs.</p>
         </div>
@@ -746,7 +746,7 @@ margin: 8px;</code></pre></div>
     },
 
     18 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p><strong>Responsive design</strong> makes your website look great on all screen sizes — from mobile phones to 4K monitors. The key tool is the <strong>CSS media query</strong>.</p>
         </div>
@@ -794,7 +794,7 @@ margin: 8px;</code></pre></div>
     },
 
     19 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>CSS <strong>transitions</strong> and <strong>animations</strong> add movement and life to web pages. Instead of changes happening instantly, they happen <em>smoothly over time</em>.</p>
         </div>
@@ -845,7 +845,7 @@ margin: 8px;</code></pre></div>
     },
 
     20 => {
-      body: <<~HTML,
+      body: <<~'HTML',
         <div class="lc-intro">
           <p>Congratulations on completing the HTML &amp; CSS course! This final lesson reviews every key concept you have learned and shows how they work together to build a complete web page.</p>
         </div>

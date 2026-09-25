@@ -663,7 +663,7 @@ module PracticalAiContent
         # Template 2: Code review
         code_review_prompt = PromptTemplate(
             system="""You are a senior software engineer doing code review.
-Be specific, actionable, and prioritise: 1) Bugs, 2) Security, 3) Performance, 4) Style.""",
+            Be specific, actionable, and prioritise: 1) Bugs, 2) Security, 3) Performance, 4) Style.""",
             user_template="Review this {language} code:\n\n```{language}\n{code}\n```\n\nFocus on: {focus}",
         )
 
@@ -808,7 +808,7 @@ Be specific, actionable, and prioritise: 1) Bugs, 2) Security, 3) Performance, 4
         <p class="lc-lead">The OpenAI and Anthropic APIs follow a similar chat completion pattern. Understanding the request/response structure, error handling, and rate limits is essential for production AI apps.</p>
         <div class="lc-card">
           <h3>Chat Completion Structure</h3>
-          <div class="lc-code">response = client.chat.completions.create(<br>    model    = "gpt-4-turbo",<br>    messages = [<br>        {"role": "system", "content": "You are a helpful assistant."},<br>        {"role": "user",   "content": "Explain embeddings simply."},<br>    ],<br>    temperature   = 0.7,<br>    max_tokens    = 500,<br>    response_format = {"type": "json_object"},  # JSON mode<br>)</div>
+          <div class="lc-code">response = client.chat.completions.create(<br>    model    = "gpt-4-turbo",<br>    messages = [<br>        {"role": "system", "content": "You are a helpful assistant. Reply in JSON."},<br>        {"role": "user",   "content": "Explain embeddings simply."},<br>    ],<br>    temperature   = 0.7,<br>    max_tokens    = 500,<br>    response_format = {"type": "json_object"},  # JSON mode<br>)</div>
         </div>
         <div class="lc-card">
           <h3>Response Object</h3>
@@ -816,7 +816,7 @@ Be specific, actionable, and prioritise: 1) Bugs, 2) Security, 3) Performance, 4
         </div>
         <div class="lc-card">
           <h3>Production Error Handling</h3>
-          <div class="lc-code">from openai import RateLimitError, APIError, AuthenticationError<br><br>try:<br>    response = client.chat.completions.create(...)<br>except RateLimitError:<br>    time.sleep(60); retry()<br>except APIError as e:<br>    if e.status_code == 500: retry()  # Server error<br>    else: raise  # Client error — don't retry<br>except AuthenticationError:<br>    raise ValueError("Invalid API key")</div>
+          <div class="lc-code">from openai import RateLimitError, APIStatusError, AuthenticationError<br><br>try:<br>    response = client.chat.completions.create(...)<br>except AuthenticationError:<br>    raise ValueError("Invalid API key")  # check specific errors first<br>except RateLimitError:<br>    time.sleep(60); retry()<br>except APIStatusError as e:<br>    if e.status_code &gt;= 500: retry()  # Server error<br>    else: raise  # Client error — don't retry</div>
         </div>
         <div class="lc-card">
           <h3>Key API Best Practices</h3>

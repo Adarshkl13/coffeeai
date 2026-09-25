@@ -170,7 +170,7 @@ COURSE_SEED = [
         opts: ["True", "False"], ans: "True" },
       { title: "Dictionaries", desc: "Dictionaries store key-value pairs: person = {'name': 'Alice', 'age': 25}. Access values with dict[key] or dict.get(key). Keys must be unique and immutable; values can be any type.",
         ex_type: "multiple_choice", question: "How can you safely access a dictionary value by key?",
-        opts: ["A) dict.get(key) only", "B) dict[key] only", "C) Both dict[key] and dict.get(key) work"], ans: "C" },
+        opts: ["A) dict.get(key) — returns None if the key is missing", "B) dict[key] — raises KeyError if the key is missing", "C) Neither is safe"], ans: "A" },
       { title: "Conditional Statements", desc: "Python uses if, elif, and else for decision-making. Indentation (4 spaces) defines code blocks — no curly braces. Conditions use comparison operators (==, !=, <, >) and logical operators (and, or, not).",
         ex_type: "true_false", question: "Python uses indentation instead of curly braces to define code blocks.",
         opts: ["True", "False"], ans: "True" },
@@ -432,10 +432,10 @@ COURSE_SEED.each do |cd|
     lesson = CourseLesson.find_or_create_by!(course: course, position: i + 1) do |l|
       l.title = ld[:title]; l.description = ld[:desc]
     end
-    Exercise.find_or_create_by!(course_lesson: lesson) do |e|
+    Exercise.find_or_initialize_by(course_lesson: lesson).tap do |e|
       e.exercise_type = ld[:ex_type]; e.question = ld[:question]
       e.options = ld[:opts]; e.correct_answer = ld[:ans]
-    end
+    end.save!
   end
 end
 

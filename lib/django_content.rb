@@ -1411,7 +1411,7 @@ module DjangoContent
         </div>
         <div class="lc-card">
           <h3>Example</h3>
-          <div class="lc-code">class PostCreateView(LoginRequiredMixin, CreateView):<br>    model = Post<br>    fields = ['title', 'body']<br>    template_name = 'blog/post_form.html'<br>    success_url = reverse_lazy('post-list')<br><br>    def form_valid(self, form):<br>        form.instance.author = self.request.user<br>        return super().form_valid(form)</div>
+          <div class="lc-code">class PostCreateView(LoginRequiredMixin, CreateView):<br>    model = Post<br>    fields = ['title', 'content']<br>    template_name = 'blog/post_form.html'<br>    success_url = reverse_lazy('post-list')<br><br>    def form_valid(self, form):<br>        form.instance.author = self.request.user<br>        return super().form_valid(form)</div>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Use generic views when the behavior is standard. If you keep overriding many methods, a custom class-based or function-based view may be clearer.
@@ -1621,7 +1621,7 @@ module DjangoContent
         </div>
         <div class="lc-card">
           <h3>Example</h3>
-          <div class="lc-code">class PostSerializer(serializers.ModelSerializer):<br>    class Meta:<br>        model = Post<br>        fields = ['id', 'title', 'body']<br><br>class PostViewSet(ModelViewSet):<br>    queryset = Post.objects.all()<br>    serializer_class = PostSerializer</div>
+          <div class="lc-code">class PostSerializer(serializers.ModelSerializer):<br>    class Meta:<br>        model = Post<br>        fields = ['id', 'title', 'content']<br><br>class PostViewSet(ModelViewSet):<br>    queryset = Post.objects.all()<br>    serializer_class = PostSerializer</div>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> DRF is ideal when your Django backend serves mobile apps, React frontends, or public APIs in addition to templates.

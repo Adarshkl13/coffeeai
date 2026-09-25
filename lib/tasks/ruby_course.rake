@@ -69,12 +69,12 @@ namespace :content do
       }
 
       ex_data = exercises[position]
-      Exercise.find_or_create_by!(course_lesson: lesson) do |e|
+      Exercise.find_or_initialize_by(course_lesson: lesson).tap do |e|
         e.exercise_type  = ex_data[:type]
         e.question       = ex_data[:q]
         e.options        = ex_data[:opts]
         e.correct_answer = ex_data[:ans]
-      end
+      end.save!
 
       puts "  ✓ #{position}. #{titles[position]}"
     end

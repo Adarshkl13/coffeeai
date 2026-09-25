@@ -86,10 +86,10 @@ namespace :content do
       lesson.update!(title: titles[position], body: data[:body], starter_code: data[:starter_code])
 
       ex = exercises[position]
-      Exercise.find_or_create_by!(course_lesson: lesson) do |e|
+      Exercise.find_or_initialize_by(course_lesson: lesson).tap do |e|
         e.exercise_type = ex[:type]; e.question = ex[:q]
         e.options = ex[:opts]; e.correct_answer = ex[:ans]
-      end
+      end.save!
       puts "  ✓ #{position}. #{titles[position]}"
     end
 
