@@ -15,8 +15,16 @@ const PHP_INI = [
 
 // The embedded interpreter lacks the CLI's STDIN/STDOUT/STDERR constants. Defined on the
 // same line as the student's first line, so reported line numbers stay correct.
-const PRELUDE = "<?php foreach (['STDIN' => 'r', 'STDOUT' => 'w', 'STDERR' => 'w'] as $__n => $__m) " +
-  "{ if (!defined($__n)) define($__n, fopen('php://' . strtolower($__n), $__m)); } unset($__n, $__m); ?>"
+// Only added when the code uses them: `declare(strict_types=1)` must be a file's first statement.
+const STD_DEFINES = "foreach (['STDIN' => 'r', 'STDOUT' => 'w', 'STDERR' => 'w'] as $__n => $__m) " +
+  "{ if (!defined($__n)) define($__n, fopen('php://' . strtolower($__n), $__m)); } unset($__n, $__m);"
+
+function withStdStreams(code) {
+  if (!/\bSTD(IN|OUT|ERR)\b/.test(code)) return code
+  const declare = code.match(/^\s*<\?php\s+declare\s*\([^)]*\)\s*;/)
+  if (declare) return declare[0] + " " + STD_DEFINES + code.slice(declare[0].length)
+  return "<?php " + STD_DEFINES + " ?>" + code
+}
 
 let phpPromise = null
 let sink = null // where the current run's output goes
@@ -80,7 +88,7 @@ export async function run(code, { onStatus = () => {} } = {}) {
   try {
     await php.refresh()
     sink = collector
-    await php.run(PRELUDE + code)
+    await php.run(withStdStreams(code))
   } catch (e) {
     collector.flush()
     collector.out.push({ text: String(e && e.message || e).split("\n")[0], cls: "err" })
