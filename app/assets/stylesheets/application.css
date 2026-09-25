@@ -2743,3 +2743,70 @@ html.home-html, body.home-body { overflow: auto; height: auto; }
   }
 
 }
+
+/* ── Card-based lesson layout (lc-header / lc-lead / lc-card / lc-code) ── */
+.lesson-rich-body .lc-header { margin-bottom: 14px; }
+/* The page already renders the lesson title above the body */
+.lesson-rich-body .lc-header .lc-title { display: none; }
+.lesson-rich-body .lc-badge { display: inline-block; margin-bottom: 4px; }
+
+.lesson-rich-body .lc-lead {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--txt);
+  margin-bottom: 22px;
+}
+
+.lesson-rich-body .lc-card {
+  background: var(--bg1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  color: var(--txt2);
+  line-height: 1.65;
+}
+.lesson-rich-body .lc-card h2,
+.lesson-rich-body .lc-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--txt);
+  margin: 0 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lesson-rich-body .lc-card h2::before,
+.lesson-rich-body .lc-card h3::before {
+  content: '';
+  width: 3px;
+  height: 16px;
+  background: var(--purple);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.lesson-rich-body .lc-card h4 { font-size: 14px; color: var(--txt); margin: 14px 0 8px; }
+.lesson-rich-body .lc-card p { margin: 0 0 10px; }
+.lesson-rich-body .lc-card p:last-child { margin-bottom: 0; }
+.lesson-rich-body .lc-card strong { color: var(--txt); }
+
+.lesson-rich-body .lc-card--tip {
+  background: rgba(124,58,237,.08);
+  border-color: rgba(124,58,237,.25);
+  font-size: 13.5px;
+}
+
+.lesson-rich-body .lc-code {
+  background: #0d0d1f;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  overflow-x: auto;
+  font-family: var(--font-mono, 'Fira Code', monospace);
+  font-size: 13px;
+  line-height: 1.7;
+  color: #a78bfa;
+  white-space: pre;
+}
+.lesson-rich-body .lc-code code { background: none; padding: 0; color: inherit; font-size: inherit; }
