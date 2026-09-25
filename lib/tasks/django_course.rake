@@ -5,7 +5,7 @@ namespace :content do
   task django: :environment do
     course = Course.find_or_create_by!(slug: "django") do |c|
       c.title       = "Django"
-      c.description = "Django is Python's batteries-included web framework. Learn project structure, URLs, views, ORM, migrations, forms, class-based views, and authentication."
+      c.description = "Django is Python's batteries-included web framework. Learn URLs, views, templates, the ORM, migrations, forms, class-based views, authentication, testing, APIs and deployment with real Django 6.1 code."
       c.color       = "#16a34a"
       c.icon        = "🌿"
       c.position    = 13
@@ -14,74 +14,101 @@ namespace :content do
     puts "Course: #{course.title}"
 
     titles = {
-      1  => "Introduction to Django",
-      2  => "Project Structure and Settings",
-      3  => "URLs and Views",
-      4  => "Models and the ORM",
-      5  => "Migrations",
-      6  => "QuerySet API",
-      7  => "Django Admin",
-      8  => "Forms and Validation",
-      9  => "Class-Based Views",
-      10 => "Authentication and Permissions",
-      11 => "Templates and Template Language",
-      12 => "Static Files and Media",
-      13 => "Generic Editing Views",
-      14 => "Sessions and Messages",
-      15 => "Middleware",
-      16 => "Testing Django Apps",
-      17 => "Django REST Basics",
-      18 => "Performance and Caching",
-      19 => "Deployment and Production Settings",
-      20 => "Django Final Review"
+      1  => "Introduction to Django",               2  => "Project Structure and Settings",
+      3  => "URLs and Views",                       4  => "Templates and the Template Language",
+      5  => "Models and the ORM",                   6  => "Migrations",
+      7  => "QuerySet API",                         8  => "Django Admin",
+      9  => "Forms and Validation",                 10 => "Class-Based Views",
+      11 => "Generic Editing Views",                12 => "Authentication and Permissions",
+      13 => "Sessions, Cookies and Messages",       14 => "Static Files and Media",
+      15 => "Middleware and Signals",               16 => "Testing Django Apps",
+      17 => "REST APIs and Django REST Framework",  18 => "Performance and Caching",
+      19 => "Deployment and Production Settings",   20 => "Capstone Project: Mini Blog"
+    }
+
+    descriptions = {
+      1  => "See how a request becomes a response in Django, and run your first real views and URLs.",
+      2  => "Understand projects, apps and settings.py, and keep secrets in environment variables.",
+      3  => "Map URLs to views with path converters and named routes, and return HTML, JSON, redirects and 404s.",
+      4  => "Build pages with variables, filters, tags and template inheritance, and learn how auto-escaping blocks XSS.",
+      5  => "Describe database tables as model classes with fields and relationships, and save, read, update and delete rows.",
+      6  => "Use makemigrations and migrate to change your database safely, including data migrations with RunPython.",
+      7  => "Query data with filter, exclude, lookups, Q and F objects, aggregates and annotations, and understand lazy QuerySets.",
+      8  => "Register models in the admin site and customise list columns, filters, search and actions.",
+      9  => "Validate user input with Form and ModelForm, write clean methods, and protect forms with CSRF tokens.",
+      10 => "Replace repetitive view code with TemplateView, ListView and DetailView, including pagination.",
+      11 => "Build create, update and delete pages with CreateView, UpdateView and DeleteView.",
+      12 => "Log users in, protect views, use groups and permissions, and set up a custom user model.",
+      13 => "Remember visitors with sessions and cookies, and show one-time notices with the messages framework.",
+      14 => "Serve CSS and JavaScript with collectstatic and the STORAGES setting, and handle user uploads as media files.",
+      15 => "Write middleware that wraps every request, and react to events such as post_save with signals.",
+      16 => "Write fast, isolated tests with TestCase, the test Client and Django's assertions.",
+      17 => "Build a JSON API in plain Django and learn how Django REST Framework's serializers, viewsets and routers do it for you.",
+      18 => "Find and fix N+1 queries with select_related and prefetch_related, then add caching where it helps.",
+      19 => "Prepare a Django site for production with check --deploy, security settings, Gunicorn or Uvicorn, and a release checklist.",
+      20 => "Combine models, forms, views, templates, login and messages into a working mini blog, then extend it."
     }
 
     exercises = {
-      1 => { type: "multiple_choice", q: "What does Django's MVT architecture stand for?", opts: ["A) Module View Test", "B) Model Variable Template", "C) Model View Template"], ans: "C" },
-      2 => { type: "true_false", q: "INSTALLED_APPS in settings.py controls which Django apps are active in a project.", opts: ["True", "False"], ans: "True" },
-      3 => { type: "multiple_choice", q: "Which file usually maps URL patterns to view functions in a Django app?", opts: ["A) models.py", "B) urls.py", "C) admin.py"], ans: "B" },
-      4 => { type: "multiple_choice", q: "Which Django model field does the lesson recommend for storing money?", opts: ["A) DecimalField()", "B) FloatField()", "C) IntegerField()"], ans: "A" },
-      5 => { type: "true_false", q: "Running python manage.py makemigrations immediately applies your model changes to the database.", opts: ["True", "False"], ans: "False" },
-      6 => { type: "multiple_choice", q: "qs = Post.objects.filter(published=True) followed by qs = qs.filter(views__gte=100). When does SQL run?", opts: ["A) Not yet: QuerySets are lazy and run only when evaluated", "B) Once, immediately after the first line runs", "C) Twice, once after each of the two lines runs"], ans: "A" },
-      7 => { type: "multiple_choice", q: "In a ModelAdmin class, which option controls the columns shown in the admin list page?", opts: ["A) list_filter", "B) search_fields", "C) list_display"], ans: "C" },
-      8 => { type: "true_false", q: "form.save(commit=False) returns an unsaved object, so you can set extra fields such as author before saving it.", opts: ["True", "False"], ans: "True" },
-      9 => { type: "multiple_choice", q: "Which class-based view is commonly used to display a list of objects?", opts: ["A) TableView", "B) ObjectsView", "C) ListView"], ans: "C" },
-      10 => { type: "multiple_choice", q: "Which Django mixin helps restrict a view to logged-in users?", opts: ["A) LoginRequiredMixin", "B) AuthOnlyMixin", "C) ProtectedUserMixin"], ans: "A" },
-      11 => { type: "multiple_choice", q: "Which Django template tag is used to build a URL from a named route?", opts: ["A) {% path %}", "B) {% url %}", "C) {% route %}"], ans: "B" },
-      12 => { type: "true_false", q: "User-uploaded files such as profile photos are configured with STATIC_ROOT and STATICFILES_DIRS.", opts: ["True", "False"], ans: "False" },
-      13 => { type: "multiple_choice", q: "Which generic editing view is commonly used to create a new object?", opts: ["A) BuildView", "B) NewObjectView", "C) CreateView"], ans: "C" },
-      14 => { type: "multiple_choice", q: "Which Django feature is best for showing a one-time success message after a redirect?", opts: ["A) Sessions", "B) Messages framework", "C) Signals"], ans: "B" },
-      15 => { type: "true_false", q: "Middleware runs on every request and response, so it should stay lightweight.", opts: ["True", "False"], ans: "True" },
-      16 => { type: "multiple_choice", q: "Which Django class is commonly used as the base for database-backed tests?", opts: ["A) DjangoCase", "B) TestCase", "C) AppTest"], ans: "B" },
-      17 => { type: "multiple_choice", q: "In Django REST Framework, what converts model data into JSON-friendly output?", opts: ["A) Serializer", "B) Router", "C) Middleware"], ans: "A" },
-      18 => { type: "true_false", q: "The lesson advises adding caching first and fixing N+1 query problems later.", opts: ["True", "False"], ans: "False" },
-      19 => { type: "multiple_choice", q: "Which manage.py command collects production static assets into STATIC_ROOT?", opts: ["A) gatherstatic", "B) collectstatic", "C) buildstatic"], ans: "B" },
-      20 => { type: "multiple_choice", q: "Which area should you learn next if you want Django to serve JSON APIs for a frontend app?", opts: ["A) Django REST Framework", "B) WhiteNoise", "C) WSGI internals"], ans: "A" }
+      1  => { type: "multiple_choice", q: "urls.py contains path(\"hello/<str:name>/\", hello). How does Django call the view for GET /hello/Priya/?",
+              opts: ["A) hello(request), with \"Priya\" available in request.GET", "B) hello(request, name=\"Priya\")", "C) hello(\"Priya\"), without a request object"], ans: "B" },
+      2  => { type: "true_false",      q: "DEBUG = os.environ.get(\"DJANGO_DEBUG\", \"False\") makes DEBUG behave as false when the variable is not set.",
+              opts: ["True", "False"], ans: "False" },
+      3  => { type: "multiple_choice", q: "The only URL pattern is path(\"posts/<int:pk>/\", post_detail). What happens for a request to /posts/abc/?",
+              opts: ["A) A 404 Not Found response", "B) post_detail runs with pk set to the string \"abc\"", "C) A 500 error when the view calls int(\"abc\")"], ans: "A" },
+      4  => { type: "multiple_choice", q: "A template contains {{ comment }} and the view passes comment = \"<b>Hi</b>\". What does the browser show?",
+              opts: ["A) The word Hi in bold", "B) Nothing, because HTML in variables is removed", "C) The text <b>Hi</b>, because Django escapes it"], ans: "C" },
+      5  => { type: "multiple_choice", q: "Which is the recommended way to link a Post to the user who wrote it?",
+              opts: ["A) models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)", "B) models.ForeignKey(\"auth.User\", on_delete=models.CASCADE)", "C) models.CharField(max_length=150) holding the username"], ans: "A" },
+      6  => { type: "true_false",      q: "Running python manage.py makemigrations immediately changes the tables in your database.",
+              opts: ["True", "False"], ans: "False" },
+      7  => { type: "multiple_choice", q: "qs = Post.objects.filter(published=True) is followed by qs = qs.filter(views__gte=100). When does SQL run?",
+              opts: ["A) Twice, once after each of the two lines", "B) Once, right after the first line", "C) Not yet: only when the QuerySet is evaluated"], ans: "C" },
+      8  => { type: "multiple_choice", q: "Which ModelAdmin option adds a search box that looks for text in the post title?",
+              opts: ["A) list_filter = [\"title\"]", "B) search_fields = [\"title\"]", "C) list_display = [\"title\"]"], ans: "B" },
+      9  => { type: "true_false",      q: "form.save(commit=False) returns an unsaved object, so you can set fields such as author before calling save().",
+              opts: ["True", "False"], ans: "True" },
+      10 => { type: "multiple_choice", q: "A ListView has model = Post (app \"blog\") and no template_name. Which template does it render?",
+              opts: ["A) blog/post_list.html", "B) post/list.html", "C) blog/list_post.html"], ans: "A" },
+      11 => { type: "multiple_choice", q: "Why is success_url = reverse_lazy(\"task-list\") used in a DeleteView class instead of reverse()?",
+              opts: ["A) reverse_lazy() is faster and caches every URL it builds", "B) The URLconf may not be loaded yet when the class is defined", "C) reverse_lazy() automatically adds a ?next= parameter"], ans: "B" },
+      12 => { type: "multiple_choice", q: "A logged-out visitor opens a view protected by LoginRequiredMixin. What response do they get?",
+              opts: ["A) 403 Forbidden, because the visitor has no permissions", "B) 404 Not Found, so the page stays hidden", "C) A 302 redirect to the login page"], ans: "C" },
+      13 => { type: "true_false",      q: "A message added with messages.success() before a redirect is shown once on the next page and then removed.",
+              opts: ["True", "False"], ans: "True" },
+      14 => { type: "true_false",      q: "User-uploaded files such as profile photos are configured with STATIC_ROOT and STATICFILES_DIRS.",
+              opts: ["True", "False"], ans: "False" },
+      15 => { type: "multiple_choice", q: "MIDDLEWARE = [\"app.First\", \"app.Second\"]. On the way back out, which middleware sees the response first?",
+              opts: ["A) First, because it is at the top of the list", "B) Second (responses pass back in reverse order)", "C) Both of them run at the same time, in parallel"], ans: "B" },
+      16 => { type: "multiple_choice", q: "Your test creates Post objects and then requests a page. Which base class should the test use?",
+              opts: ["A) SimpleTestCase, because it is the fastest option", "B) LiveServerTestCase, because the test makes HTTP requests", "C) TestCase"], ans: "C" },
+      17 => { type: "multiple_choice", q: "In Django REST Framework, what converts model objects to JSON-friendly data and validates incoming data?",
+              opts: ["A) A Router", "B) A Serializer", "C) A permission class"], ans: "B" },
+      18 => { type: "true_false",      q: "A loop over posts reads post.author.name. Adding select_related(\"author\") to the QuerySet turns 1 + N queries into 1 query.",
+              opts: ["True", "False"], ans: "True" },
+      19 => { type: "multiple_choice", q: "After deploying with DEBUG=False, every page returns \"Bad Request (400)\". What is the most likely cause?",
+              opts: ["A) The domain is missing from ALLOWED_HOSTS", "B) collectstatic was not run", "C) The SECRET_KEY is shorter than 50 characters"], ans: "A" },
+      20 => { type: "multiple_choice", q: "In the capstone, why does CommentForm use fields = [\"text\"] only?",
+              opts: ["A) Because a ModelForm is allowed to contain only one field", "B) Because smaller forms render faster in the browser", "C) So users cannot set the post or author themselves"], ans: "C" }
     }
 
     DjangoContent::LESSONS.each do |position, data|
-      lesson = CourseLesson.find_or_create_by!(course: course, position: position) do |l|
-        l.title = titles[position]
-        l.description = ""
-      end
-
-      lesson.update!(title: titles[position], body: data[:body], starter_code: data[:starter_code])
+      lesson = CourseLesson.find_or_initialize_by(course: course, position: position)
+      lesson.update!(
+        title: titles[position],
+        description: descriptions[position],
+        body: data[:body],
+        starter_code: data[:starter_code]
+      )
 
       ex = exercises[position]
-      exercise = Exercise.find_by(course_lesson: lesson) || lesson.build_exercise
-      exercise.assign_attributes(
-        exercise_type: ex[:type],
-        question: ex[:q],
-        options: ex[:opts],
-        correct_answer: ex[:ans]
-      )
-      exercise.save!
-
+      Exercise.find_or_initialize_by(course_lesson: lesson).tap do |e|
+        e.exercise_type = ex[:type]; e.question = ex[:q]
+        e.options = ex[:opts]; e.correct_answer = ex[:ans]
+      end.save!
       puts "  ✓ #{position}. #{titles[position]}"
     end
 
-    total_lessons = CourseLesson.where(course: course).count
-    total_exercises = Exercise.joins(:course_lesson).where(course_lessons: { course_id: course.id }).count
-    puts "Done! #{total_lessons} lessons, #{total_exercises} exercises."
+    puts "Done! #{CourseLesson.where(course: course).count} lessons, #{Exercise.joins(:course_lesson).where(course_lessons: { course_id: course.id }).count} exercises."
   end
 end
