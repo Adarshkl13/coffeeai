@@ -163,7 +163,7 @@ module DjangoContent
               <tr><td><code>ALLOWED_HOSTS</code></td><td>Domain names the site may serve</td><td><code>["example.com"]</code></td></tr>
               <tr><td><code>INSTALLED_APPS</code></td><td>Which apps are active</td><td>Built-in <code>django.contrib</code> apps + yours</td></tr>
               <tr><td><code>DATABASES</code></td><td>Database connection</td><td>SQLite for learning, PostgreSQL in production</td></tr>
-              <tr><td><code>MIDDLEWARE</code></td><td>Code that runs on every request (lesson 15)</td><td>Security, sessions, CSRF, auth, messages</td></tr>
+              <tr><td><code>MIDDLEWARE</code></td><td>Code that runs on every request (lesson 16)</td><td>Security, sessions, CSRF, auth, messages</td></tr>
               <tr><td><code>TEMPLATES</code></td><td>Where HTML templates are found (lesson 4)</td><td><code>"DIRS": [BASE_DIR / "templates"]</code></td></tr>
               <tr><td><code>TIME_ZONE</code>, <code>USE_TZ</code></td><td>Time zone handling</td><td><code>"Asia/Kolkata"</code>, <code>True</code></td></tr>
               <tr><td><code>DEFAULT_AUTO_FIELD</code></td><td>Type of automatic <code>id</code> columns</td><td><code>"django.db.models.BigAutoField"</code></td></tr>
@@ -296,8 +296,8 @@ module DjangoContent
             <tbody>
               <tr><td>HTTP method</td><td><code>request.method</code> (<code>"GET"</code>, <code>"POST"</code>, ...)</td></tr>
               <tr><td>Query string <code>?q=django</code></td><td><code>request.GET.get("q", "")</code></td></tr>
-              <tr><td>Submitted form data</td><td><code>request.POST</code> (lesson 9)</td></tr>
-              <tr><td>Logged-in user</td><td><code>request.user</code> (lesson 12)</td></tr>
+              <tr><td>Submitted form data</td><td><code>request.POST</code> (lesson 10)</td></tr>
+              <tr><td>Logged-in user</td><td><code>request.user</code> (lesson 13)</td></tr>
               <tr><td>Plain text / HTML</td><td><code>HttpResponse("...", status=200)</code></td></tr>
               <tr><td>Rendered template</td><td><code>render(request, "blog/list.html", context)</code> (lesson 4)</td></tr>
               <tr><td>JSON</td><td><code>JsonResponse({"ok": True})</code></td></tr>
@@ -309,7 +309,7 @@ module DjangoContent
         </div>
         <div class="lc-card">
           <h3>Async Views</h3>
-          <p>A view can also be written with <code>async def</code>. Inside it you can <code>await</code> slow input/output, such as calls to other web APIs. Django runs it natively under an ASGI server (Uvicorn, lesson 19); under WSGI it still works, just without the benefit.</p>
+          <p>A view can also be written with <code>async def</code>. Inside it you can <code>await</code> slow input/output, such as calls to other web APIs. Django runs it natively under an ASGI server (Uvicorn, lesson 20); under WSGI it still works, just without the benefit.</p>
         <div class="lc-code">import asyncio<br><br>async def course_stats(request):<br>&nbsp;&nbsp;&nbsp;&nbsp;await asyncio.sleep(0.01)                  # e.g. await an API call<br>&nbsp;&nbsp;&nbsp;&nbsp;return JsonResponse({"courses": len(COURSES)})<br><br>r = await AsyncClient().get("/stats/")        # test async views with AsyncClient<br>print(r.status_code, r.content.decode())      # 200 {"courses": 2}</div>
           <p>Only use <code>async def</code> when the view really waits on network calls. Normal ORM code is synchronous, so a plain <code>def</code> view is simpler for most pages. The editor lets you use <code>await</code> at the top level; in a real project you write <code>async def test_...</code> methods in your tests.</p>
         </div>
@@ -461,7 +461,15 @@ module DjangoContent
         </div>
         <div class="lc-card">
           <h3>Keep Logic in the View</h3>
-          <p>The template language is deliberately limited: you cannot call functions with arguments or run arbitrary Python. Do calculations and database queries in the view (or model methods), then pass ready-made values to the template. If you need a reusable formatting rule, write a <strong>custom filter</strong> in <code>blog/templatetags/blog_extras.py</code> and load it with <code>{% load blog_extras %}</code>.</p>
+          <p>The template language is deliberately limited: you cannot call functions with arguments or run arbitrary Python. Do calculations and database queries in the view (or model methods), then pass ready-made values to the template. If you need a reusable formatting rule, write a <strong>custom filter or tag</strong> (next card).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Custom Filters and Tags</h3>
+          <p>Create a <code>templatetags</code> package inside an installed app, make a <code>template.Library()</code> called <code>register</code>, and decorate plain Python functions. A <strong>filter</strong> takes one value (plus at most one argument); a <strong>simple tag</strong> takes any number of arguments.</p>
+        <div class="lc-code"># blog/templatetags/shop_extras.py   (the folder also needs an empty __init__.py)<br>from django import template<br><br>register = template.Library()<br><br>@register.filter<br>def rupees(value):                          # used as {{ price|rupees }}<br>&nbsp;&nbsp;&nbsp;&nbsp;return f"Rs {value:,}"<br><br>@register.simple_tag<br>def discount(price, percent):               # used as {% discount price 10 %}<br>&nbsp;&nbsp;&nbsp;&nbsp;return price - price * percent // 100<br><br>{# template, with price = 125000 #}<br>{% load shop_extras %}<br>{{ price|rupees }} | sale: {% discount price 10 %}</div>
+          <p><strong>Output:</strong></p>
+        <div class="lc-code">Rs 125,000 | sale: 112500</div>
+          <p>The file name (<code>shop_extras</code>) is the name you <code>{% load %}</code>. Restart <code>runserver</code> after adding a new <code>templatetags</code> module, or Django will say it is "not a registered tag library".</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -478,7 +486,7 @@ module DjangoContent
           <p>Add a third course <code>{"title": "Data Science", "fee": 2999}</code>. Then change the loop so fees above 2000 show <code>[PREMIUM]</code> using <code>{% elif c.fee &gt; 2000 %}</code>. Finally, add <code>{{ c.title|lower|truncatechars:8 }}</code> and see what it prints.</p>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Every form that sends POST data needs <code>{% csrf_token %}</code> inside the <code>&lt;form&gt;</code> tag. You will see why in lesson 9.
+          <strong>Tip:</strong> Every form that sends POST data needs <code>{% csrf_token %}</code> inside the <code>&lt;form&gt;</code> tag. You will see why in lesson 10.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -580,7 +588,7 @@ module DjangoContent
             </tbody>
           </table>
           <p><code>on_delete</code> is required on <code>ForeignKey</code>: <code>CASCADE</code> (delete the posts too), <code>PROTECT</code> (refuse to delete the author), <code>SET_NULL</code> (needs <code>null=True</code>). <code>related_name="posts"</code> gives the reverse link <code>author.posts.all()</code>; without it the name would be <code>author.post_set</code>.</p>
-          <p><strong>Linking to users:</strong> always write <code>settings.AUTH_USER_MODEL</code> (a string like <code>"auth.User"</code> or <code>"accounts.User"</code>), not <code>User</code> or a hard-coded <code>"auth.User"</code>. Then your models still work if the project uses a custom user model (lesson 12).</p>
+          <p><strong>Linking to users:</strong> always write <code>settings.AUTH_USER_MODEL</code> (a string like <code>"auth.User"</code> or <code>"accounts.User"</code>), not <code>User</code> or a hard-coded <code>"auth.User"</code>. Then your models still work if the project uses a custom user model (lesson 13).</p>
         </div>
         <div class="lc-card">
           <h3>Create, Read, Update, Delete</h3>
@@ -711,6 +719,21 @@ module DjangoContent
           <p>Some changes move <em>data</em>, not just columns (fill a new <code>slug</code> from the title, split a <code>name</code> field). Write them as a <code>RunPython</code> operation:</p>
         <div class="lc-code">def fill_slugs(apps, schema_editor):<br>&nbsp;&nbsp;&nbsp;&nbsp;Post = apps.get_model("blog", "Post")          # the model as it was at this point<br>&nbsp;&nbsp;&nbsp;&nbsp;for post in Post.objects.filter(slug=""):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;post.slug = slugify(post.title)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;post.save(update_fields=["slug"])<br><br>class Migration(migrations.Migration):<br>&nbsp;&nbsp;&nbsp;&nbsp;dependencies = [("blog", "0003_post_slug")]<br>&nbsp;&nbsp;&nbsp;&nbsp;operations = [migrations.RunPython(fill_slugs, migrations.RunPython.noop)]</div>
           <p>Use <code>apps.get_model()</code>, not <code>from blog.models import Post</code>. The imported class is today's model, which may have fields that did not exist when this migration was written. The second argument (<code>noop</code>) lets the migration be rolled back.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Custom Management Commands</h3>
+          <p>A data migration runs <strong>once</strong>, as part of <code>migrate</code>. For jobs you run again and again (clean-ups, imports, nightly reports from cron), write your own <code>manage.py</code> command instead.</p>
+        <div class="lc-code"># blog/management/commands/cleandrafts.py   (management/ and commands/ need __init__.py)<br>from django.core.management.base import BaseCommand, CommandError<br><br>class Command(BaseCommand):<br>&nbsp;&nbsp;&nbsp;&nbsp;help = "Delete draft posts older than N days"<br><br>&nbsp;&nbsp;&nbsp;&nbsp;def add_arguments(self, parser):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parser.add_argument("days", type=int)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parser.add_argument("--dry-run", action="store_true")<br><br>&nbsp;&nbsp;&nbsp;&nbsp;def handle(self, *args, **options):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if options["days"] &lt; 1:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise CommandError("days must be at least 1")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n = 3                                   # a real command would query and delete here<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if options["dry_run"]:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.stdout.write(f"Would delete {n} drafts older than {options['days']} days")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.stdout.write(self.style.SUCCESS(f"Deleted {n} drafts"))</div>
+          <p><strong>Output:</strong></p>
+        <div class="lc-code">$ python manage.py cleandrafts 30 --dry-run<br>Would delete 3 drafts older than 30 days<br>$ python manage.py cleandrafts 30<br>Deleted 3 drafts<br>$ python manage.py cleandrafts 0<br>CommandError: days must be at least 1</div>
+          <table class="lc-table">
+            <thead><tr><th>Use</th><th>When it runs</th></tr></thead>
+            <tbody>
+              <tr><td>Data migration (<code>RunPython</code>)</td><td>Once per database, during <code>migrate</code></td></tr>
+              <tr><td>Management command</td><td>Whenever you (or cron) run <code>python manage.py &lt;name&gt;</code></td></tr>
+            </tbody>
+          </table>
+          <p>Tests can run a command with <code>call_command("cleandrafts", "30", "--dry-run")</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
@@ -860,7 +883,7 @@ module DjangoContent
           <p>Using the starter data, write queries that print: (a) products whose name starts with "P" or "K" (use <code>Q</code>); (b) the most expensive product with <code>order_by("-price").first()</code>; (c) each category with its total stock using <code>annotate(total=Sum("products__stock"))</code>.</p>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Put queries you repeat in a custom manager or QuerySet method, for example <code>Product.objects.in_stock()</code>. Your views stay short, and the rule lives in one place.
+          <strong>Tip:</strong> Put queries you repeat in a custom manager or QuerySet method, for example <code>Product.objects.in_stock()</code> (next lesson). Your views stay short, and the rule lives in one place.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -923,6 +946,154 @@ module DjangoContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
+          <h1 class="lc-title">Managers, Constraints and Transactions</h1>
+        </div>
+        <p class="lc-lead">In lesson 5 a model was just fields. Real apps also need <strong>rules</strong>: "only active wallets", "a balance can never go below zero", "a transfer either happens completely or not at all". This lesson shows where Django wants you to put each rule: custom <strong>QuerySets and managers</strong>, <strong>model methods</strong>, <strong>constraints</strong> in <code>Meta</code>, and <strong>transactions</strong>.</p>
+        <div class="lc-card">
+          <h3>Where Does Each Rule Live?</h3>
+          <table class="lc-table">
+            <thead><tr><th>Rule</th><th>Django tool</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>A query you repeat</td><td>Custom QuerySet / manager</td><td><code>Wallet.objects.active()</code></td></tr>
+              <tr><td>A value worked out from one row</td><td>Model method or <code>@property</code></td><td><code>order.total</code>, <code>wallet.is_low</code></td></tr>
+              <tr><td>A rule about two fields of one row</td><td><code>Model.clean()</code></td><td>End date after start date</td></tr>
+              <tr><td>A rule the database must never break</td><td><code>Meta.constraints</code></td><td>Balance &gt;= 0, one wallet per owner</td></tr>
+              <tr><td>Several writes that belong together</td><td><code>transaction.atomic()</code></td><td>Debit one wallet, credit another</td></tr>
+            </tbody>
+          </table>
+          <p>This is the "fat models, thin views" idea: views stay short, and every rule is written once, next to the data it protects.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Custom QuerySets and Managers</h3>
+          <p><code>Wallet.objects</code> is a <strong>manager</strong>: the object that starts every query. Put repeated filters in a <code>QuerySet</code> subclass and turn it into a manager with <code>as_manager()</code>. Because each method returns a QuerySet, the methods chain with <code>filter()</code>, <code>order_by()</code> and each other.</p>
+        <div class="lc-code"># bank/models.py<br>class WalletQuerySet(models.QuerySet):<br>&nbsp;&nbsp;&nbsp;&nbsp;def active(self):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.filter(is_active=True)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;def with_at_least(self, amount):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.filter(balance__gte=amount)<br><br>class Wallet(models.Model):<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;objects = WalletQuerySet.as_manager()<br><br># views.py: short, readable and chainable<br>Wallet.objects.active().with_at_least(200).order_by("owner")</div>
+          <p>To change what a manager returns <em>by default</em>, subclass <code>models.Manager</code> and override <code>get_queryset()</code>:</p>
+        <div class="lc-code">class PublishedManager(models.Manager):<br>&nbsp;&nbsp;&nbsp;&nbsp;def get_queryset(self):                    # change the starting QuerySet<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return super().get_queryset().filter(status="published")<br><br>class Post(models.Model):<br>&nbsp;&nbsp;&nbsp;&nbsp;...<br>&nbsp;&nbsp;&nbsp;&nbsp;objects = models.Manager()                 # keep the normal manager first<br>&nbsp;&nbsp;&nbsp;&nbsp;published = PublishedManager()             # Post.published.all()</div>
+          <p>If you add any manager yourself, Django no longer creates <code>objects</code> for you, so declare it again when you still want it.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Model Methods, Properties and clean()</h3>
+        <div class="lc-code">class Order(models.Model):<br>&nbsp;&nbsp;&nbsp;&nbsp;subtotal = models.DecimalField(max_digits=10, decimal_places=2)<br>&nbsp;&nbsp;&nbsp;&nbsp;discount = models.DecimalField(max_digits=10, decimal_places=2, default=0)<br>&nbsp;&nbsp;&nbsp;&nbsp;starts = models.DateField()<br>&nbsp;&nbsp;&nbsp;&nbsp;ends = models.DateField()<br><br>&nbsp;&nbsp;&nbsp;&nbsp;@property<br>&nbsp;&nbsp;&nbsp;&nbsp;def total(self):                            # order.total, no brackets<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.subtotal - self.discount<br><br>&nbsp;&nbsp;&nbsp;&nbsp;def clean(self):                            # rules that need two fields<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if self.ends &lt; self.starts:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise ValidationError("End date must be after the start date.")</div>
+          <p><code>full_clean()</code> runs field checks, <code>clean()</code>, unique checks and constraint checks, and raises <code>ValidationError</code>. A <code>ModelForm</code> calls it for you (lesson 10). <strong><code>save()</code> does not call it</strong>, so code that saves objects directly must call <code>obj.full_clean()</code> first if it wants those checks.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Constraints and Indexes in Meta</h3>
+        <div class="lc-code">class Wallet(models.Model):<br>&nbsp;&nbsp;&nbsp;&nbsp;owner = models.CharField(max_length=50)<br>&nbsp;&nbsp;&nbsp;&nbsp;balance = models.IntegerField(default=0)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;class Meta:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ordering = ["owner"]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constraints = [<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;models.CheckConstraint(condition=Q(balance__gte=0), name="balance_not_negative"),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;models.UniqueConstraint(fields=["owner"], name="one_wallet_per_owner"),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;indexes = [models.Index(fields=["owner", "balance"], name="owner_balance_idx")]</div>
+          <table class="lc-table">
+            <thead><tr><th>Option</th><th>What the database does</th></tr></thead>
+            <tbody>
+              <tr><td><code>CheckConstraint(condition=Q(...))</code></td><td>Rejects any row where the condition is false</td></tr>
+              <tr><td><code>UniqueConstraint(fields=[...])</code></td><td>Rejects duplicates; can be conditional with <code>condition=</code></td></tr>
+              <tr><td><code>Index(fields=[...])</code></td><td>Makes filters and ordering on these columns faster</td></tr>
+            </tbody>
+          </table>
+          <p>Constraints are created by <code>makemigrations</code> and <code>migrate</code> (lesson 6), so they protect the data even from the admin, scripts and <code>update()</code>. The argument is <code>condition=</code>; the old <code>check=</code> name was removed in Django 6.0.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Transactions: All or Nothing</h3>
+          <p>By default Django saves every query at once (<em>autocommit</em>). Inside <code>transaction.atomic()</code> the queries become one unit: if any of them raises an error, the database <strong>rolls back</strong> everything in the block.</p>
+        <div class="lc-code">from django.db import transaction<br>from django.db.models import F<br><br>def transfer(sender, receiver, amount):<br>&nbsp;&nbsp;&nbsp;&nbsp;with transaction.atomic():                  # BEGIN ... COMMIT, or ROLLBACK on error<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wallet.objects.filter(pk=receiver.pk).update(balance=F("balance") + amount)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wallet.objects.filter(pk=sender.pk).update(balance=F("balance") - amount)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transaction.on_commit(lambda: send_sms(amount))   # only after a real COMMIT<br><br>@transaction.atomic                             # the same, as a decorator<br>def place_order(request): ...<br><br># lock rows until the transaction ends (PostgreSQL/MySQL; ignored by SQLite)<br>with transaction.atomic():<br>&nbsp;&nbsp;&nbsp;&nbsp;wallet = Wallet.objects.select_for_update().get(pk=1)</div>
+          <p><code>on_commit()</code> is the right place for side effects such as emails, SMS or queueing a task: they run only if the data was really saved. Setting <code>ATOMIC_REQUESTS = True</code> on a database wraps every view in a transaction.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <p>The starter builds a small <code>Wallet</code> model with a custom QuerySet, a property, two constraints and a <code>transfer()</code> function, then tries one good and one bad transfer:</p>
+        <div class="lc-code">1. Active: ['Asha', 'Ravi']<br>2. Active with &gt;= Rs 200: ['Asha']<br>3. Ravi is low? True<br>4. Transfer Rs 200 Asha -&gt; Ravi<br>&nbsp;&nbsp;&nbsp;[on_commit] SMS sent: Rs 200 moved<br>&nbsp;&nbsp;&nbsp;Balances: ['Asha: Rs 300', 'Old: Rs 900', 'Ravi: Rs 300']<br>5. Transfer Rs 1000 Ravi -&gt; Asha<br>&nbsp;&nbsp;&nbsp;IntegrityError: CHECK constraint failed: balance_not_negative<br>&nbsp;&nbsp;&nbsp;Balances: ['Asha: Rs 300', 'Old: Rs 900', 'Ravi: Rs 300']<br>6. full_clean() before saving:<br>&nbsp;&nbsp;&nbsp;['Constraint “balance_not_negative” is violated.', 'Wallet with this Owner already exists.']</div>
+          <ul class="lc-list">
+            <li>Lines 1 and 2: the QuerySet methods hide the inactive "Old" wallet and chain together.</li>
+            <li>Line 4: the transfer committed, so the <code>on_commit</code> message was printed.</li>
+            <li>Line 5: Ravi's debit broke <code>balance_not_negative</code>. Asha had <em>already</em> been credited Rs 1000 inside the block, but the rollback undid it, and no SMS was sent.</li>
+            <li>Line 6: <code>full_clean()</code> found both problems in Python, before any SQL ran.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Catching <code>IntegrityError</code> <em>inside</em> an <code>atomic()</code> block and carrying on. Catch it outside the block (as the starter does), or wrap the risky part in its own inner <code>atomic()</code>.</li>
+            <li>Sending emails or SMS inside the transaction. If it rolls back, the message is already gone. Use <code>transaction.on_commit()</code>.</li>
+            <li>Expecting <code>save()</code> to run <code>clean()</code>. It does not; call <code>full_clean()</code> or use a ModelForm.</li>
+            <li>Checking a limit only in Python (<code>if balance &gt;= amount</code>). Two requests at the same time can both pass. Add a constraint and use <code>F()</code> or <code>select_for_update()</code>.</li>
+            <li>Adding a custom manager and losing <code>Post.objects</code>, which breaks code and the admin.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <p>(a) Add a QuerySet method <code>low()</code> that returns wallets with a balance under 200, and print <code>Wallet.objects.active().low()</code>. (b) Change the second transfer to Rs 300 and predict the balances before you run it. (c) Inside <code>transfer()</code>'s <code>with</code> block, wrap only the debit line in <code>try/except IntegrityError</code>, then run one more query there, such as <code>Wallet.objects.count()</code>. Read the <code>TransactionManagementError</code> you get: that is why you catch the error outside the block.</p>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Put each rule in the <em>lowest</em> layer that can hold it: the database (constraints) first, then the model (methods, <code>clean()</code>), and only then the view. A rule in the database can never be skipped.
+        </div>
+      HTML
+      starter_code: <<~'PYTHON'
+        import django
+        from django.apps import AppConfig
+        from django.conf import settings
+
+        class BankConfig(AppConfig):        # this file plays the role of the "bank" app
+            name, label, path = "__main__", "bank", "."
+
+        settings.configure(SECRET_KEY="lesson-only", INSTALLED_APPS=["__main__.BankConfig"],
+                           DATABASES={"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}})
+        django.setup()
+
+        from django.core.exceptions import ValidationError
+        from django.db import IntegrityError, connection, models, transaction
+        from django.db.models import F, Q
+
+        class WalletQuerySet(models.QuerySet):              # reusable, chainable filters
+            def active(self): return self.filter(is_active=True)
+            def with_at_least(self, amount): return self.filter(balance__gte=amount)
+
+        class Wallet(models.Model):
+            owner = models.CharField(max_length=50)
+            balance = models.IntegerField(default=0)        # whole rupees
+            is_active = models.BooleanField(default=True)
+            objects = WalletQuerySet.as_manager()           # Wallet.objects.active() now works
+
+            class Meta:
+                ordering = ["owner"]
+                constraints = [models.CheckConstraint(condition=Q(balance__gte=0), name="balance_not_negative"),
+                               models.UniqueConstraint(fields=["owner"], name="one_wallet_per_owner")]
+
+            def __str__(self): return f"{self.owner}: Rs {self.balance}"
+
+            @property
+            def is_low(self): return self.balance < 200     # a rule that belongs to the model
+
+        def transfer(sender, receiver, amount):
+            with transaction.atomic():                      # all or nothing
+                Wallet.objects.filter(pk=receiver.pk).update(balance=F("balance") + amount)
+                Wallet.objects.filter(pk=sender.pk).update(balance=F("balance") - amount)
+                transaction.on_commit(lambda: print(f"   [on_commit] SMS sent: Rs {amount} moved"))
+
+        with connection.schema_editor() as editor:          # "migrate" does this in a real project
+            editor.create_model(Wallet)
+        asha = Wallet.objects.create(owner="Asha", balance=500)
+        ravi = Wallet.objects.create(owner="Ravi", balance=100)
+        Wallet.objects.create(owner="Old", balance=900, is_active=False)
+
+        print("1. Active:", [w.owner for w in Wallet.objects.active()])
+        print("2. Active with >= Rs 200:", [w.owner for w in Wallet.objects.active().with_at_least(200)])
+        print("3. Ravi is low?", ravi.is_low)
+        for n, (src, dst, amount) in enumerate([(asha, ravi, 200), (ravi, asha, 1000)], start=4):
+            print(f"{n}. Transfer Rs {amount} {src.owner} -> {dst.owner}")
+            try:
+                transfer(src, dst, amount)
+            except IntegrityError as e:
+                print("   IntegrityError:", e)                # the credit to dst was rolled back too
+            print("   Balances:", [str(w) for w in Wallet.objects.all()])
+        print("6. full_clean() before saving:")
+        try:
+            Wallet(owner="Asha", balance=-5).full_clean()   # checks fields AND constraints in Python
+        except ValidationError as e:
+            print("  ", e.messages)
+      PYTHON
+    },
+
+    9 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-django">Django</div>
           <h1 class="lc-title">Django Admin</h1>
         </div>
         <p class="lc-lead">The <strong>admin site</strong> is a ready-made back office. Register a model and staff users can list, search, filter, add, edit and delete its rows in the browser, without you writing a single view or template.</p>
@@ -967,7 +1138,7 @@ module DjangoContent
         </div>
         <div class="lc-card">
           <h3>Who Can Use the Admin?</h3>
-          <p>Only users with <code>is_staff=True</code> can log in. A superuser (<code>is_superuser=True</code>) can do everything. Other staff users see only the models for which they have the add, change, delete or view <strong>permissions</strong> (lesson 12). Every change is recorded in the admin's history log.</p>
+          <p>Only users with <code>is_staff=True</code> can log in. A superuser (<code>is_superuser=True</code>) can do everything. Other staff users see only the models for which they have the add, change, delete or view <strong>permissions</strong> (lesson 13). Every change is recorded in the admin's history log.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1057,7 +1228,7 @@ module DjangoContent
       PYTHON
     },
 
-    9 => {
+    10 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -1112,7 +1283,7 @@ module DjangoContent
             <li>Forgetting to <code>return data</code> (or the value) from <code>clean()</code> / <code>clean_&lt;field&gt;()</code>.</li>
             <li>Using <code>fields = "__all__"</code> on a ModelForm. New model fields (like <code>is_admin</code>) silently become editable. List fields explicitly.</li>
             <li>Rendering instead of redirecting after a successful POST, so a page refresh submits twice.</li>
-            <li>Forgetting <code>enctype="multipart/form-data"</code> and <code>request.FILES</code> for file uploads (lesson 14).</li>
+            <li>Forgetting <code>enctype="multipart/form-data"</code> and <code>request.FILES</code> for file uploads (lesson 15).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1180,7 +1351,7 @@ module DjangoContent
       PYTHON
     },
 
-    10 => {
+    11 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -1323,7 +1494,7 @@ module DjangoContent
       PYTHON
     },
 
-    11 => {
+    12 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -1458,7 +1629,7 @@ module DjangoContent
       PYTHON
     },
 
-    12 => {
+    13 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -1602,7 +1773,7 @@ module DjangoContent
       PYTHON
     },
 
-    13 => {
+    14 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -1736,7 +1907,7 @@ module DjangoContent
       PYTHON
     },
 
-    14 => {
+    15 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -1848,7 +2019,7 @@ module DjangoContent
       PYTHON
     },
 
-    15 => {
+    16 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -1900,10 +2071,10 @@ module DjangoContent
         <div class="lc-card">
           <h3>Built-in Content Security Policy (Django 6.0+)</h3>
           <p>A <strong>Content Security Policy</strong> (CSP) is a response header that tells the browser which scripts, styles and images it may load. Even if an attacker sneaks a <code>&lt;script&gt;</code> into your page, the browser refuses to run it. Since Django 6.0, CSP is built in: <code>ContentSecurityPolicyMiddleware</code> reads the <code>SECURE_CSP</code> setting and adds the header to every response.</p>
-        <div class="lc-code"># settings.py<br>from django.utils.csp import CSP<br><br>MIDDLEWARE = [..., "django.middleware.csp.ContentSecurityPolicyMiddleware"]<br>SECURE_CSP = {<br>&nbsp;&nbsp;&nbsp;&nbsp;"default-src": [CSP.SELF],               # only load things from our own site<br>&nbsp;&nbsp;&nbsp;&nbsp;"script-src": [CSP.SELF, CSP.NONCE],     # plus inline scripts that carry the nonce<br>}<br># TEMPLATES OPTIONS: add "django.template.context_processors.csp" (gives {{ csp_nonce }})<br><br>{# template #}<br>&lt;script nonce="{{ csp_nonce }}"&gt;hello()&lt;/script&gt;</div>
+        <div class="lc-code"># settings.py<br>from django.utils.csp import CSP<br><br>MIDDLEWARE = [..., "django.middleware.csp.ContentSecurityPolicyMiddleware"]<br>SECURE_CSP = {<br>&nbsp;&nbsp;&nbsp;&nbsp;"default-src": [CSP.SELF],               # only load things from our own site<br>&nbsp;&nbsp;&nbsp;&nbsp;"script-src": [CSP.SELF, CSP.NONCE],     # plus inline scripts that carry the nonce<br>}<br># TEMPLATES OPTIONS: add "django.template.context_processors.csp" (gives {{ csp_nonce }})<br><br>{# template #}<br>&lt;script nonce="{{ csp_nonce }}"&gt;hello()&lt;/script&gt;<br>&lt;script {% csp_nonce_attr %}&gt;hello()&lt;/script&gt;   {# Django 6.1 shortcut, same result #}</div>
           <p><strong>Output</strong> of a test request (the random nonce is replaced by <code>&lt;nonce&gt;</code>; it changes on every request):</p>
         <div class="lc-code">Header: default-src 'self'; script-src 'self' 'nonce-&lt;nonce&gt;'<br>Page:   &lt;script nonce="&lt;nonce&gt;"&gt;hello()&lt;/script&gt;<br>Same nonce in both: True</div>
-          <p><code>CSP.SELF</code> becomes <code>'self'</code>, and <code>CSP.NONCE</code> becomes a fresh random <code>'nonce-...'</code> value that matches <code>{{ csp_nonce }}</code> in the page, so only your own inline script runs. To try a policy without breaking anything, use <code>SECURE_CSP_REPORT_ONLY</code> first: the browser only reports violations. For one view, change the policy with the <code>@csp_override({...})</code> decorator from <code>django.views.decorators.csp</code>.</p>
+          <p><code>CSP.SELF</code> becomes <code>'self'</code>, and <code>CSP.NONCE</code> becomes a fresh random <code>'nonce-...'</code> value that matches <code>{{ csp_nonce }}</code> in the page, so only your own inline script runs. <strong>New in 6.1:</strong> the built-in <code>{% csp_nonce_attr %}</code> tag writes the whole <code>nonce="..."</code> attribute for you (on <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> tags). To try a policy without breaking anything, use <code>SECURE_CSP_REPORT_ONLY</code> first: the browser only reports violations. For one view, change the policy with the <code>@csp_override({...})</code> decorator from <code>django.views.decorators.csp</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Signals</h3>
@@ -1996,7 +2167,7 @@ module DjangoContent
       PYTHON
     },
 
-    16 => {
+    17 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -2036,7 +2207,7 @@ module DjangoContent
               <tr><td><code>assertTemplateUsed(response, name)</code></td><td>Which template was rendered</td></tr>
               <tr><td><code>assertFormError(form, "field", "message")</code></td><td>A form error</td></tr>
               <tr><td><code>assertJSONEqual(content, data)</code></td><td>JSON responses (API tests)</td></tr>
-              <tr><td><code>assertNumQueries(3)</code></td><td>Exactly 3 SQL queries ran (catches N+1, lesson 18)</td></tr>
+              <tr><td><code>assertNumQueries(3)</code></td><td>Exactly 3 SQL queries ran (catches N+1, lesson 19)</td></tr>
             </tbody>
           </table>
         </div>
@@ -2139,7 +2310,7 @@ module DjangoContent
       PYTHON
     },
 
-    17 => {
+    18 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -2283,7 +2454,7 @@ module DjangoContent
       PYTHON
     },
 
-    18 => {
+    19 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -2349,10 +2520,18 @@ module DjangoContent
           <p>Five posts with five authors: the loop needed 1 + 5 = 6 queries; <code>select_related</code> needed 1; <code>FETCH_PEERS</code> needed 2 (the posts, then all five authors at once). The report was computed only once; the second call came from the cache. The cached view ran its code once and served the next two requests from the cache.</p>
         </div>
         <div class="lc-card">
+          <h3>Background Tasks (Django 6.0+)</h3>
+          <p>Some work is too slow for a request: sending email, resizing photos, building a PDF. Django's built-in <strong>Tasks framework</strong> lets you define a task with <code>@task</code> and queue it with <code>.enqueue()</code>; the user gets a fast response while a <strong>worker</strong> process does the job.</p>
+        <div class="lc-code"># settings.py: ImmediateBackend (the default) runs each task at once; for development and tests only<br>TASKS = {"default": {"BACKEND": "django.tasks.backends.immediate.ImmediateBackend"}}<br><br># accounts/tasks.py<br>from django.tasks import task<br><br>@task<br>def send_welcome(email):<br>&nbsp;&nbsp;&nbsp;&nbsp;...                                          # send the email here<br>&nbsp;&nbsp;&nbsp;&nbsp;return f"sent to {email}"<br><br># accounts/views.py: queue it only after the new user is really saved (lesson 8)<br>transaction.on_commit(lambda: send_welcome.enqueue(user.email))<br><br>result = send_welcome.enqueue("asha@example.com")<br>print(result.status, "|", result.return_value)</div>
+          <p><strong>Output</strong> with <code>ImmediateBackend</code>:</p>
+        <div class="lc-code">SUCCESSFUL | sent to asha@example.com</div>
+          <p>Django defines and queues tasks but does <strong>not</strong> include a production worker. The built-in <code>ImmediateBackend</code> and <code>DummyBackend</code> are for development and tests; in production, set <code>TASKS</code> to a third-party backend that has a worker and a durable queue (see Django's Community Ecosystem page), or use Celery.</p>
+        </div>
+        <div class="lc-card">
           <h3>Other Speed Tools</h3>
           <ul class="lc-list">
-            <li><strong>Pagination</strong>: never show 10,000 rows on one page (<code>paginate_by</code>, lesson 10).</li>
-            <li><strong>Background tasks</strong> for slow work such as sending emails or resizing images. Django 6.0 added a built-in Tasks framework (<code>django.tasks</code>) to define them; you still need a worker backend, and many projects use Celery.</li>
+            <li><strong>Pagination</strong>: never show 10,000 rows on one page (<code>paginate_by</code>, lesson 11).</li>
+            <li><strong>Background tasks</strong> (card above) so slow work such as emails or image resizing never blocks a request.</li>
             <li><strong>Persistent connections</strong>: <code>CONN_MAX_AGE = 60</code> reuses database connections (or use connection pooling on PostgreSQL).</li>
           </ul>
         </div>
@@ -2443,7 +2622,7 @@ module DjangoContent
       PYTHON
     },
 
-    19 => {
+    20 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -2506,7 +2685,7 @@ module DjangoContent
         <div class="lc-code">import django<br>from django.conf import settings<br><br>settings.configure(<br>&nbsp;&nbsp;&nbsp;&nbsp;MAILERS={"default": {"BACKEND": "django.core.mail.backends.locmem.EmailBackend"}},<br>&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT_FROM_EMAIL="AI Academy &lt;noreply@example.com&gt;",<br>)<br>django.setup()<br><br>from django.core import mail<br>from django.core.mail import send_mail, EmailMessage<br><br>sent = send_mail("Welcome, Priya!", "Thanks for joining.", None, ["priya@example.com"])<br>print("send_mail returned:", sent)<br><br>msg = EmailMessage("Your receipt", "Course: Django, Rs 1499", to=["priya@example.com"],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cc=["accounts@example.com"])<br>msg.send()<br><br>print("Outbox size:", len(mail.outbox))<br>for m in mail.outbox:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(f"- {m.subject!r} from {m.from_email} to {m.to} (sent_using={m.sent_using!r})")</div>
           <p><strong>Output</strong>:</p>
         <div class="lc-code">send_mail returned: 1<br>Outbox size: 2<br>- 'Welcome, Priya!' from AI Academy &lt;noreply@example.com&gt; to ['priya@example.com'] (sent_using='default')<br>- 'Your receipt' from AI Academy &lt;noreply@example.com&gt; to ['priya@example.com'] (sent_using='default')</div>
-          <p><strong>New in Django 6.1:</strong> backends are configured with the <code>MAILERS</code> setting (as above), and new projects get the console backend by default. The old <code>EMAIL_BACKEND</code>, <code>EMAIL_HOST</code>, <code>EMAIL_PORT</code> ... settings still work but are deprecated and will be removed in Django 7.0. <strong>Since Django 6.0:</strong> optional arguments such as <code>html_message=</code> must be passed by keyword, and <code>EmailMessage.message()</code> returns Python's modern <code>email.message.EmailMessage</code>. Never send email inside a slow request if you can avoid it; queue it as a background task (lesson 18).</p>
+          <p><strong>New in Django 6.1:</strong> backends are configured with the <code>MAILERS</code> setting (as above), and new projects get the console backend by default. The old <code>EMAIL_BACKEND</code>, <code>EMAIL_HOST</code>, <code>EMAIL_PORT</code> ... settings still work but are deprecated and will be removed in <strong>Django 2028</strong> (Django now uses calendar versioning; this is the release formerly planned as 7.0). <strong>Since Django 6.0:</strong> optional arguments such as <code>html_message=</code> must be passed by keyword, and <code>EmailMessage.message()</code> returns Python's modern <code>email.message.EmailMessage</code>. Never send email inside a slow request if you can avoid it; queue it as a background task (lesson 19).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -2573,7 +2752,7 @@ module DjangoContent
       PYTHON
     },
 
-    20 => {
+    21 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-django">Django</div>
@@ -2586,19 +2765,20 @@ module DjangoContent
             <thead><tr><th>Feature</th><th>Django tool</th><th>Lesson</th></tr></thead>
             <tbody>
               <tr><td><code>Post</code> and <code>Comment</code> tables with a foreign key</td><td>Models, <code>ForeignKey</code>, <code>related_name</code></td><td>5</td></tr>
-              <tr><td>Comment author is the logged-in user</td><td><code>settings.AUTH_USER_MODEL</code></td><td>5, 12</td></tr>
-              <tr><td>Home page: published posts + comment counts in one query</td><td><code>ListView</code>, <code>get_queryset()</code>, <code>annotate(Count(...))</code></td><td>7, 10</td></tr>
+              <tr><td>Comment author is the logged-in user</td><td><code>settings.AUTH_USER_MODEL</code></td><td>5, 13</td></tr>
+              <tr><td>Home page: published posts + comment counts in one query</td><td><code>ListView</code>, <code>get_queryset()</code>, <code>annotate(Count(...))</code></td><td>7, 11</td></tr>
+              <tr><td>Post knows its own URL</td><td>Model method <code>get_absolute_url()</code></td><td>5, 8</td></tr>
               <tr><td>Hidden drafts return 404</td><td><code>get_object_or_404(Post, pk=pk, published=True)</code></td><td>3</td></tr>
-              <tr><td>Only logged-in users can open a post and comment</td><td><code>@login_required</code></td><td>12</td></tr>
-              <tr><td>Comment form rejects spam</td><td><code>ModelForm</code>, <code>clean_text()</code>, <code>save(commit=False)</code></td><td>9</td></tr>
-              <tr><td>"Comment added" after the redirect</td><td>Messages framework, Post/Redirect/Get</td><td>13</td></tr>
+              <tr><td>Only logged-in users can open a post and comment</td><td><code>@login_required</code></td><td>13</td></tr>
+              <tr><td>Comment form rejects spam</td><td><code>ModelForm</code>, <code>clean_text()</code>, <code>save(commit=False)</code></td><td>10</td></tr>
+              <tr><td>"Comment added" after the redirect</td><td>Messages framework, Post/Redirect/Get</td><td>14</td></tr>
               <tr><td>Pages built from templates</td><td><code>render()</code>, <code>{% for %}</code>, <code>{% if %}</code></td><td>4</td></tr>
             </tbody>
           </table>
         </div>
         <div class="lc-card">
           <h3>Step 1: Create the Project (on Your Computer)</h3>
-        <div class="lc-code">python -m venv .venv &amp;&amp; source .venv/bin/activate<br>pip install "django==6.1.*"<br>django-admin startproject mysite .<br>python manage.py startapp accounts        # custom user model first (lesson 12)<br>python manage.py startapp blog<br># add "accounts" and "blog" to INSTALLED_APPS, set AUTH_USER_MODEL = "accounts.User"<br>python manage.py makemigrations<br>python manage.py migrate<br>python manage.py createsuperuser</div>
+        <div class="lc-code">python -m venv .venv &amp;&amp; source .venv/bin/activate<br>pip install "django==6.1.*"<br>django-admin startproject mysite .<br>python manage.py startapp accounts        # custom user model first (lesson 13)<br>python manage.py startapp blog<br># add "accounts" and "blog" to INSTALLED_APPS, set AUTH_USER_MODEL = "accounts.User"<br>python manage.py makemigrations<br>python manage.py migrate<br>python manage.py createsuperuser</div>
         </div>
         <div class="lc-card">
           <h3>Step 2: Models and Form</h3>
@@ -2622,7 +2802,7 @@ module DjangoContent
         <div class="lc-card">
           <h3>Step 4: Tests and Deployment</h3>
         <div class="lc-code">class CommentTests(TestCase):<br>&nbsp;&nbsp;&nbsp;&nbsp;@classmethod<br>&nbsp;&nbsp;&nbsp;&nbsp;def setUpTestData(cls):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cls.user = get_user_model().objects.create_user("riya", password="pw")<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cls.post = Post.objects.create(title="Hello")<br><br>&nbsp;&nbsp;&nbsp;&nbsp;def test_login_required(self):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response = self.client.get(self.post.get_absolute_url())<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertEqual(response.status_code, 302)<br><br>&nbsp;&nbsp;&nbsp;&nbsp;def test_spam_is_rejected(self):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.client.force_login(self.user)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.client.post(self.post.get_absolute_url(), {"text": "spam!"})<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.assertFalse(Comment.objects.exists())</div>
-          <p>Before going live: run <code>python manage.py test</code>, then <code>check --deploy</code> with production settings, and follow the release steps from lesson 19 (<code>migrate</code>, <code>collectstatic</code>, Gunicorn or Uvicorn behind HTTPS).</p>
+          <p>Before going live: run <code>python manage.py test</code>, then <code>check --deploy</code> with production settings, and follow the release steps from lesson 20 (<code>migrate</code>, <code>collectstatic</code>, Gunicorn or Uvicorn behind HTTPS).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes in Projects Like This</h3>
@@ -2638,7 +2818,7 @@ module DjangoContent
           <ol class="lc-list">
             <li>Add a limit: reject a comment if the same user already has 3 comments on this post (check in the view before saving, and add <code>messages.error</code>).</li>
             <li>Add an <code>author</code> field to <code>Post</code> and a <code>my_posts</code> view that shows only the logged-in user's posts.</li>
-            <li>Add a JSON endpoint <code>/api/posts/</code> that returns the published posts with <code>JsonResponse</code> (lesson 17).</li>
+            <li>Add a JSON endpoint <code>/api/posts/</code> that returns the published posts with <code>JsonResponse</code> (lesson 18).</li>
           </ol>
         </div>
         <div class="lc-card">
