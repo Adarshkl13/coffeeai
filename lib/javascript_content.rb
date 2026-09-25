@@ -15,7 +15,7 @@ module JavaScriptContent
             <li><strong>Talks to servers</strong> — load cricket scores or weather data in the background.</li>
             <li><strong>Runs outside the browser too</strong> — Node.js runs JavaScript on servers and laptops, which is how many backends and tools are built.</li>
           </ul>
-          <p>The language's official name is <strong>ECMAScript</strong>. A new edition comes out every year (ES2015, ES2016 … ES2025). "Modern JavaScript" in this course means ES2015 and later, which every current browser supports.</p>
+          <p>The language's official name is <strong>ECMAScript</strong>. A new edition comes out every June: ES2015, ES2016 … ES2025, and the newest, <strong>ES2026</strong>, approved on 30 June 2026 (it adds things like <code>Map.prototype.getOrInsert</code>, <code>Math.sumPrecise</code> and <code>Error.isError</code>). "Modern JavaScript" in this course means ES2015 and later, which every current browser supports. Brand-new features reach browsers at different times, so check a feature's "Baseline" status on MDN before relying on it.</p>
         </div>
         <div class="lc-card">
           <h3>HTML vs CSS vs JavaScript</h3>
@@ -147,7 +147,7 @@ module JavaScriptContent
               <tr><td><code>var</code></td><td>Yes (and can be redeclared)</td><td>Whole function</td><td>Old way — don't use</td></tr>
             </tbody>
           </table>
-          <p><code>var</code> is from before 2015. It ignores <code>{ }</code> blocks and is "hoisted" as <code>undefined</code>, which causes confusing bugs (Lesson 8 explains why). You will still see it in old code, but never write it in new code.</p>
+          <p><code>var</code> is from before 2015. It ignores <code>{ }</code> blocks and is "hoisted" as <code>undefined</code>, which causes confusing bugs (Lesson 7 explains why). You will still see it in old code, but never write it in new code.</p>
         </div>
         <div class="lc-card">
           <h3>Naming Rules</h3>
@@ -408,7 +408,7 @@ module JavaScriptContent
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
           <h1 class="lc-title">Strings and Template Literals</h1>
         </div>
-        <p class="lc-lead">Strings hold text — names, messages, addresses, search queries. JavaScript gives you many built-in string methods, and <strong>template literals</strong> make building text with values clean and readable.</p>
+        <p class="lc-lead">Strings hold text — names, messages, addresses, search queries. JavaScript gives you many built-in string methods, <strong>template literals</strong> make building text with values clean and readable, and the <strong>Intl</strong> formatters display dates and rupee amounts the way Indian readers expect.</p>
         <div class="lc-card">
           <h3>Creating Strings</h3>
           <div class="lc-code">const a = "double quotes";<br>const b = 'single quotes';<br>const c = `backticks — a template literal`;<br>const quote = "She said 'namaste'";   // mix quote types freely</div>
@@ -476,6 +476,22 @@ module JavaScriptContent
           <p>Methods can be <strong>chained</strong>: each one works on the string returned by the previous one.</p>
         </div>
         <div class="lc-card">
+          <h3>Formatting Dates and Money for Display</h3>
+          <p>Text for users often contains dates and prices. <code>Date</code> stores a moment in time; the <strong>Intl</strong> formatters turn dates and numbers into text in the user's language and style. <code>"en-IN"</code> means English as used in India.</p>
+          <div class="lc-code">const republicDay = new Date(2026, 0, 26);    // months start at 0: 0 = January!<br>console.log(republicDay.getFullYear(), republicDay.getMonth(), republicDay.getDate());   // 2026 0 26<br>console.log(republicDay.toLocaleDateString("en-IN"));                                    // 26/1/2026<br>console.log(republicDay.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" }));<br>// 26 January 2026<br><br>const rupees = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" });<br>console.log(rupees.format(125000.5));                        // ₹1,25,000.50  (lakh-style commas)<br>console.log(new Intl.NumberFormat("en-IN").format(12345678));   // 1,23,45,678</div>
+          <table class="lc-table">
+            <thead><tr><th>Need</th><th>Use</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>Today's date and time</td><td><code>new Date()</code></td><td>changes every run</td></tr>
+              <tr><td>A fixed date</td><td><code>new Date(2026, 0, 26)</code></td><td>26 January 2026 (month is 0-based)</td></tr>
+              <tr><td>Date for Indian readers</td><td><code>d.toLocaleDateString("en-IN")</code></td><td><code>26/1/2026</code></td></tr>
+              <tr><td>Price in rupees</td><td><code>Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" })</code></td><td><code>₹1,25,000.50</code></td></tr>
+              <tr><td>Date to save or send</td><td><code>d.toISOString()</code></td><td><code>2026-01-25T18:30:00.000Z</code> in India (UTC time)</td></tr>
+            </tbody>
+          </table>
+          <p><code>Date</code> is old and awkward (0-based months, objects you can change by accident). Its modern replacement, <strong>Temporal</strong> (<code>Temporal.PlainDate.from("2026-01-26")</code>), reached the final TC39 stage in 2026 and is planned for ES2027. It already works in Chrome 144+ and Firefox 139+, but not yet in Safari, so for code that must run everywhere keep using <code>Date</code> plus <code>Intl</code> for now.</p>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Using normal quotes with <code>${ }</code>: <code>"Hi ${name}"</code> prints the characters <code>${name}</code> literally — you need backticks.</li>
@@ -483,6 +499,7 @@ module JavaScriptContent
             <li>Expecting <code>replace()</code> to change every match — use <code>replaceAll()</code>.</li>
             <li>Forgetting that <code>slice(0, 4)</code> stops <em>before</em> index 4.</li>
             <li>Comparing text with different cases: normalise with <code>toLowerCase()</code> first.</li>
+            <li>Forgetting that <code>Date</code> months start at 0: <code>new Date(2026, 1, 1)</code> is 1 <strong>February</strong>, not January.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -491,6 +508,7 @@ module JavaScriptContent
             <li>Change the email in the starter and see the username and domain update.</li>
             <li>Use <code>padStart</code> to print an order number <code>"57"</code> as <code>"ORD-00057"</code>.</li>
             <li>Write a template literal that prints a two-line bus ticket: route on line 1, fare on line 2.</li>
+            <li>Format your own birthday with <code>toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })</code> and a ₹2,50,000 salary with <code>Intl.NumberFormat</code>.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -522,6 +540,13 @@ module JavaScriptContent
         console.log("Domain:", email.slice(at + 1));
         console.log("");
 
+        // Dates and money for display (months start at 0!)
+        const republicDay = new Date(2026, 0, 26);
+        console.log("getMonth():", republicDay.getMonth(), "| en-IN:", republicDay.toLocaleDateString("en-IN"));
+        const rupees = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" });
+        console.log("Fees:", rupees.format(125000.5));
+        console.log("");
+
         // Template literals: values and expressions inside backticks
         const item = "Masala Dosa";
         const price = 120;
@@ -541,64 +566,25 @@ module JavaScriptContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
-          <h1 class="lc-title">Conditional Statements</h1>
+          <h1 class="lc-title">Conditionals and Loops</h1>
         </div>
-        <p class="lc-lead">Programs make decisions: "if the cart is empty, show a message; otherwise show the total". <strong>Conditional statements</strong> run different code depending on whether a condition is true or false.</p>
+        <p class="lc-lead">Programs make <strong>decisions</strong> ("if the cart is empty, show a message") and <strong>repeat</strong> work ("add up every item in the bill"). Conditional statements choose which code runs; loops run code again and again. Together they are the control flow of every program you will write.</p>
         <div class="lc-card">
           <h3>if, else if, else</h3>
           <div class="lc-code">const marks = 72;<br><br>if (marks &gt;= 90) {<br>&nbsp;&nbsp;console.log("Grade A");<br>} else if (marks &gt;= 75) {<br>&nbsp;&nbsp;console.log("Grade B");<br>} else if (marks &gt;= 60) {<br>&nbsp;&nbsp;console.log("Grade C");<br>} else {<br>&nbsp;&nbsp;console.log("Needs improvement");<br>}<br>// Output: Grade C</div>
-          <p>Conditions are checked <strong>top to bottom</strong>, and only the <em>first</em> matching block runs. That is why the order matters: put the most specific (highest) condition first.</p>
+          <p>Conditions are checked <strong>top to bottom</strong>, and only the <em>first</em> matching block runs. Put the most specific (highest) condition first.</p>
+          <p>The condition does not have to be a boolean — JavaScript uses the truthy/falsy rules from Lesson 3. Be careful when <code>0</code> is a valid value: <code>if (stock)</code> is false when <code>stock</code> is <code>0</code>, so write the exact check you mean: <code>if (stock &gt; 0)</code>.</p>
         </div>
         <div class="lc-card">
-          <h3>Comparison Operators Recap</h3>
-          <table class="lc-table">
-            <thead><tr><th>Operator</th><th>Meaning</th><th>Example (true)</th></tr></thead>
-            <tbody>
-              <tr><td><code>===</code> / <code>!==</code></td><td>equal / not equal (type and value)</td><td><code>"UPI" === "UPI"</code></td></tr>
-              <tr><td><code>&gt;</code> / <code>&lt;</code></td><td>greater / less than</td><td><code>10 &gt; 3</code></td></tr>
-              <tr><td><code>&gt;=</code> / <code>&lt;=</code></td><td>at least / at most</td><td><code>18 &gt;= 18</code></td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="lc-card">
-          <h3>Conditions Use Truthy and Falsy</h3>
-          <p>The condition does not have to be a boolean. JavaScript converts it using the truthy/falsy rules from Lesson 3.</p>
-          <div class="lc-code">const username = "";<br>if (username) {<br>&nbsp;&nbsp;console.log("Welcome, " + username);<br>} else {<br>&nbsp;&nbsp;console.log("Please enter a name");   // runs: "" is falsy<br>}</div>
-          <p>Be careful when <code>0</code> is a valid value: <code>if (stock)</code> is false when <code>stock</code> is <code>0</code>. Write the exact check you mean: <code>if (stock &gt; 0)</code> or <code>if (stock !== undefined)</code>.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Combining Conditions</h3>
-          <div class="lc-code">const age = 20;<br>const hasTicket = true;<br><br>if (age &gt;= 18 &amp;&amp; hasTicket) console.log("Entry allowed");<br>if (age &lt; 5 || age &gt; 60) console.log("Free entry");<br>if (!hasTicket) console.log("Buy a ticket first");</div>
-          <p>For one-line bodies you may drop the braces, but many teams always use braces to avoid bugs when a second line is added later.</p>
-        </div>
-        <div class="lc-card">
-          <h3>The Ternary Operator</h3>
-          <p><code>condition ? valueIfTrue : valueIfFalse</code> is an <em>expression</em> that produces a value — perfect for choosing between two values.</p>
-          <div class="lc-code">const balance = 250;<br>const status = balance &gt;= 0 ? "OK" : "Overdrawn";<br>console.log(status);   // OK</div>
-          <p>Use it for simple choices only. Nested ternaries (<code>a ? b : c ? d : e</code>) are hard to read — use <code>if</code>/<code>else if</code> instead.</p>
+          <h3>Combining Conditions and the Ternary Operator</h3>
+          <div class="lc-code">const age = 20;<br>const hasTicket = true;<br>if (age &gt;= 18 &amp;&amp; hasTicket) console.log("Entry allowed");<br>if (age &lt; 5 || age &gt; 60) console.log("Free entry");<br>if (!hasTicket) console.log("Buy a ticket first");<br><br>const orderTotal = 650;<br>const delivery = orderTotal &gt;= 500 ? 0 : 40;   // condition ? ifTrue : ifFalse<br>console.log("Delivery: ₹" + delivery);         // Delivery: ₹0</div>
+          <p>The ternary is an <em>expression</em> that produces a value — perfect for choosing between two values. Avoid nested ternaries (<code>a ? b : c ? d : e</code>); use <code>if</code>/<code>else if</code> instead.</p>
         </div>
         <div class="lc-card">
           <h3>switch</h3>
-          <p><code>switch</code> compares one value against many fixed options using <code>===</code>.</p>
-          <div class="lc-code">const signal = "yellow";<br><br>switch (signal) {<br>&nbsp;&nbsp;case "red":<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Stop");<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;case "yellow":<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Slow down");<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;case "green":<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Go");<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;default:<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Signal broken");<br>}<br>// Output: Slow down</div>
-          <p>Without <code>break</code>, execution <strong>falls through</strong> into the next case. You can use that on purpose to group cases:</p>
-          <div class="lc-code">switch (day) {<br>&nbsp;&nbsp;case "Sat":<br>&nbsp;&nbsp;case "Sun":<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Weekend");<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;default:<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Weekday");<br>}</div>
-        </div>
-        <div class="lc-card">
-          <h3>Worked Example: Electricity Bill Slabs</h3>
-          <p>Many Indian electricity boards charge by slabs. Say the first 100 units cost ₹3 each, units 101–200 cost ₹5, and everything above 200 costs ₹7.</p>
-          <div class="lc-code">const units = 250;<br>let bill;<br><br>if (units &lt;= 100) {<br>&nbsp;&nbsp;bill = units * 3;<br>} else if (units &lt;= 200) {<br>&nbsp;&nbsp;bill = 100 * 3 + (units - 100) * 5;<br>} else {<br>&nbsp;&nbsp;bill = 100 * 3 + 100 * 5 + (units - 200) * 7;<br>}<br>console.log("Units:", units, "Bill: ₹" + bill);</div>
-          <p>Output:</p>
-          <div class="lc-code">Units: 250 Bill: ₹1150</div>
-          <p>Because the checks run in order, the <code>else if (units &lt;= 200)</code> branch already knows that <code>units</code> is more than 100 — you don't need to write <code>units &gt; 100 &amp;&amp;</code>.</p>
-        </div>
-        <div class="lc-card">
-          <h3>An Alternative to Long switch Statements</h3>
-          <p>When every case just picks a value, an object lookup (objects are covered in Lesson 11) is shorter:</p>
-          <div class="lc-code">const messages = { red: "Stop", yellow: "Slow down", green: "Go" };<br>const signal = "green";<br>console.log(messages[signal] ?? "Signal broken");   // Go</div>
-        </div>
-        <div class="lc-card">
-          <h3>Which One Should I Use?</h3>
+          <p><code>switch</code> compares one value against fixed options using strict <code>===</code>. Without <code>break</code>, execution <strong>falls through</strong> into the next case — you can use that on purpose to group cases:</p>
+          <div class="lc-code">const day = "Sun";<br>switch (day) {<br>&nbsp;&nbsp;case "Sat":<br>&nbsp;&nbsp;case "Sun":<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Weekend");<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;case "Mon":<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Back to work");<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>&nbsp;&nbsp;default:<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Weekday");<br>}<br>// Output: Weekend</div>
+          <p>When every case just picks a value, an object lookup (Lesson 10) is shorter: <code>({ red: "Stop", green: "Go" })[signal] ?? "Broken"</code>.</p>
           <table class="lc-table">
             <thead><tr><th>Situation</th><th>Best tool</th></tr></thead>
             <tbody>
@@ -610,36 +596,73 @@ module JavaScriptContent
           </table>
         </div>
         <div class="lc-card">
-          <h3>Guard Clauses: Exit Early</h3>
-          <p>Deeply nested <code>if</code>s are hard to follow. Inside a function (Lesson 7) you can handle the bad cases first and <code>return</code> early:</p>
-          <div class="lc-code">function checkout(cart) {<br>&nbsp;&nbsp;if (cart.length === 0) return "Cart is empty";<br>&nbsp;&nbsp;if (cart.length &gt; 10) return "Too many items";<br>&nbsp;&nbsp;return "Proceed to payment";<br>}</div>
+          <h3>The for Loop</h3>
+          <p>Use it when you know how many times to repeat. It has three parts: <strong>start</strong>; <strong>condition</strong>; <strong>update</strong>.</p>
+          <div class="lc-code">for (let i = 1; i &lt;= 3; i++) {<br>&nbsp;&nbsp;console.log("7 x " + i + " = " + 7 * i);<br>}<br>// 7 x 1 = 7<br>// 7 x 2 = 14<br>// 7 x 3 = 21</div>
+          <p><code>let i = 1</code> runs once; <code>i &lt;= 3</code> is checked before every round; <code>i++</code> runs after every round. The update can be anything: <code>i--</code> counts down, <code>i += 5</code> steps by 5.</p>
+        </div>
+        <div class="lc-card">
+          <h3>while and do...while</h3>
+          <p><code>while</code> repeats <em>as long as</em> a condition is true — useful when you don't know the number of rounds in advance.</p>
+          <div class="lc-code">let savings = 1000;<br>let months = 0;<br>while (savings &lt; 2000) {<br>&nbsp;&nbsp;savings = savings * 1.1;   // grows 10% a month<br>&nbsp;&nbsp;months++;<br>}<br>console.log(months);   // 8</div>
+          <p><code>do...while</code> checks the condition <em>after</em> the body, so the body always runs at least once.</p>
+        </div>
+        <div class="lc-card">
+          <h3>for...of and for...in</h3>
+          <div class="lc-code">const fruits = ["mango", "banana"];<br>for (const fruit of fruits) console.log(fruit);   // mango, banana (values)<br><br>const scores = { Asha: 88, Vikram: 92 };<br>for (const name in scores) console.log(name + ": " + scores[name]);<br>// Asha: 88<br>// Vikram: 92</div>
+          <p><code>for...of</code> visits the <strong>values</strong> of an array, string, Map or Set (Lesson 12 shows how it works inside). <code>for...in</code> visits the <strong>keys</strong> of an object. Do <strong>not</strong> use <code>for...in</code> on arrays: it gives indexes as <em>strings</em> (<code>"0"</code>, <code>"1"</code>).</p>
+        </div>
+        <div class="lc-card">
+          <h3>break and continue</h3>
+          <div class="lc-code">for (let n = 1; n &lt;= 10; n++) {<br>&nbsp;&nbsp;if (n % 2 === 0) continue;   // skip even numbers<br>&nbsp;&nbsp;if (n &gt; 7) break;            // stop the loop completely<br>&nbsp;&nbsp;console.log(n);<br>}<br>// 1 3 5 7</div>
+          <p><code>continue</code> jumps to the next round; <code>break</code> exits the loop.</p>
+          <table class="lc-table">
+            <thead><tr><th>Loop</th><th>Best for</th></tr></thead>
+            <tbody>
+              <tr><td><code>for</code></td><td>Counting; you need the index</td></tr>
+              <tr><td><code>for...of</code></td><td>Every value in an array or string</td></tr>
+              <tr><td><code>for...in</code></td><td>Keys of a plain object</td></tr>
+              <tr><td><code>while</code></td><td>Unknown number of rounds</td></tr>
+              <tr><td><code>do...while</code></td><td>Body must run at least once</td></tr>
+            </tbody>
+          </table>
+          <p>For transforming and filtering arrays, the array methods <code>map</code>, <code>filter</code> and <code>reduce</code> (Lesson 9) are often even clearer than a loop.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: A Bill with Conditions Inside a Loop</h3>
+          <p>Loop over the items, skip anything out of stock, and give ₹50 off bills of ₹500 or more.</p>
+          <div class="lc-code">const items = [<br>&nbsp;&nbsp;{ name: "Rice", price: 320, inStock: true },<br>&nbsp;&nbsp;{ name: "Ghee", price: 650, inStock: false },<br>&nbsp;&nbsp;{ name: "Dal", price: 180, inStock: true },<br>];<br>let total = 0;<br>for (const item of items) {<br>&nbsp;&nbsp;if (!item.inStock) {<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Skipping", item.name);<br>&nbsp;&nbsp;&nbsp;&nbsp;continue;<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;total += item.price;<br>}<br>const discount = total &gt;= 500 ? 50 : 0;<br>console.log("Total: ₹" + total, "| Discount: ₹" + discount, "| Pay: ₹" + (total - discount));</div>
+          <p>Output:</p>
+          <div class="lc-code">Skipping Ghee<br>Total: ₹500 | Discount: ₹50 | Pay: ₹450</div>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Writing <code>if (x = 5)</code> — that <em>assigns</em> 5. Compare with <code>===</code>.</li>
-            <li>Putting the widest condition first (<code>marks &gt;= 60</code> before <code>marks &gt;= 90</code>), so the later branches never run.</li>
-            <li>Forgetting <code>break</code> in a <code>switch</code> and accidentally running the next case.</li>
-            <li>Expecting <code>switch</code> to match <code>"5"</code> with <code>5</code> — it uses strict <code>===</code>.</li>
-            <li>Testing <code>if (count)</code> when <code>0</code> is a valid count.</li>
+            <li>Putting the widest condition first (<code>marks &gt;= 60</code> before <code>marks &gt;= 90</code>), so later branches never run.</li>
+            <li>Forgetting <code>break</code> in a <code>switch</code>, or expecting <code>switch</code> to match <code>"5"</code> with <code>5</code>.</li>
+            <li><strong>Infinite loops</strong> — forgetting to change the variable in a <code>while</code> loop freezes the tab.</li>
+            <li><strong>Off-by-one errors</strong> — <code>i &lt;= arr.length</code> goes one step too far; use <code>i &lt; arr.length</code>.</li>
+            <li>Declaring a classic <code>for</code> counter with <code>const</code>: <code>i++</code> throws a TypeError. Use <code>let</code> there (but <code>const</code> is right in <code>for...of</code>).</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>Change <code>marks</code> in the starter to 95, 75, 59 and check each grade.</li>
-            <li>Add a <code>case</code> for <code>"blue"</code> to the signal switch with its own message.</li>
-            <li>Add a rule: orders of ₹500 or more get free delivery, otherwise delivery costs ₹40. Use a ternary.</li>
+            <li>Change <code>marks</code> in the starter to 95, 75 and 59 and check each grade.</li>
+            <li>Print the 12 times table up to 12 x 10 with a <code>for</code> loop.</li>
+            <li>Add a <code>continue</code> so the bill loop skips items that cost more than ₹100.</li>
+            <li>Add a <code>case "Mon":</code> to the <code>switch</code> with its own message.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Read your condition aloud as an English sentence: "if marks are at least 90 …". If it sounds confusing, split it into a well-named variable first: <code>const isTopper = marks &gt;= 90;</code>
+          <strong>Tip:</strong> Read conditions aloud ("if marks are at least 90 …") and ask three questions before every loop: <em>Where do I start? When do I stop? How do I move forward?</em> If you can't answer "when do I stop?", you are about to write an infinite loop.
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 5: conditional statements
+        // Lesson 5: conditionals and loops
+        console.log("-- if / else if / else --");
         const marks = 72;
-
         if (marks >= 90) {
           console.log(marks, "-> Grade A");
         } else if (marks >= 75) {
@@ -650,21 +673,9 @@ module JavaScriptContent
           console.log(marks, "-> Needs improvement");
         }
 
-        // Combining conditions
-        const age = 20;
-        const hasTicket = true;
-        if (age >= 18 && hasTicket) {
-          console.log("Entry allowed");
-        } else {
-          console.log("Entry denied");
-        }
-
-        // Ternary: pick one of two values
+        console.log("-- ternary and switch --");
         const orderTotal = 650;
-        const delivery = orderTotal >= 500 ? 0 : 40;
-        console.log("Delivery charge: ₹" + delivery);
-
-        // switch with fall-through to group cases
+        console.log("Delivery charge: ₹" + (orderTotal >= 500 ? 0 : 40));
         const day = "Sun";
         switch (day) {
           case "Sat":
@@ -675,130 +686,22 @@ module JavaScriptContent
             console.log(day, "is a weekday");
         }
 
-        // Careful with 0: it is falsy!
-        const stock = 0;
-        console.log("if (stock):", stock ? "in stock" : "treated as empty");
-        console.log("if (stock > 0):", stock > 0 ? "in stock" : "out of stock");
-      JS
-    },
-
-    6 => {
-      body: <<~'HTML',
-        <div class="lc-header">
-          <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
-          <h1 class="lc-title">Loops</h1>
-        </div>
-        <p class="lc-lead">A <strong>loop</strong> repeats code — print a multiplication table, add up every item in a bill, retry until a condition is met. JavaScript has several loops; choosing the right one makes code shorter and safer.</p>
-        <div class="lc-card">
-          <h3>The for Loop</h3>
-          <p>Use it when you know how many times to repeat. It has three parts: <strong>start</strong>; <strong>condition</strong>; <strong>update</strong>.</p>
-          <div class="lc-code">for (let i = 1; i &lt;= 5; i++) {<br>&nbsp;&nbsp;console.log("7 x " + i + " = " + 7 * i);<br>}<br>// 7 x 1 = 7 … 7 x 5 = 35</div>
-          <ol class="lc-list">
-            <li><code>let i = 1</code> runs once at the start.</li>
-            <li><code>i &lt;= 5</code> is checked before every round; when false, the loop ends.</li>
-            <li><code>i++</code> runs after every round.</li>
-          </ol>
-        </div>
-        <div class="lc-card">
-          <h3>while and do...while</h3>
-          <p><code>while</code> repeats <em>as long as</em> a condition is true — useful when you don't know the number of rounds in advance.</p>
-          <div class="lc-code">let savings = 1000;<br>let months = 0;<br>while (savings &lt; 2000) {<br>&nbsp;&nbsp;savings = savings * 1.1;   // grows 10% a month<br>&nbsp;&nbsp;months++;<br>}<br>console.log(months);   // 8</div>
-          <p><code>do...while</code> checks the condition <em>after</em> the body, so the body always runs at least once:</p>
-          <div class="lc-code">let tries = 0;<br>do {<br>&nbsp;&nbsp;tries++;<br>} while (tries &lt; 0);<br>console.log(tries);   // 1 — ran once even though the condition was false</div>
-        </div>
-        <div class="lc-card">
-          <h3>for...of — Loop Over Values</h3>
-          <p>The cleanest way to visit every item of an array (or every character of a string):</p>
-          <div class="lc-code">const fruits = ["mango", "banana", "guava"];<br>for (const fruit of fruits) {<br>&nbsp;&nbsp;console.log(fruit);<br>}<br><br>for (const ch of "Hi!") console.log(ch);   // H, i, !</div>
-          <p>Use <code>const</code> for the loop variable — each round gets a fresh one.</p>
-        </div>
-        <div class="lc-card">
-          <h3>for...in — Loop Over Object Keys</h3>
-          <div class="lc-code">const scores = { Asha: 88, Vikram: 92 };<br>for (const name in scores) {<br>&nbsp;&nbsp;console.log(name + ": " + scores[name]);<br>}<br>// Asha: 88<br>// Vikram: 92</div>
-          <p>Do <strong>not</strong> use <code>for...in</code> on arrays: it gives you the indexes as <em>strings</em> (<code>"0"</code>, <code>"1"</code>) and can include extra properties. Use <code>for...of</code> for arrays.</p>
-        </div>
-        <div class="lc-card">
-          <h3>break and continue</h3>
-          <div class="lc-code">for (let n = 1; n &lt;= 10; n++) {<br>&nbsp;&nbsp;if (n % 2 === 0) continue;   // skip even numbers<br>&nbsp;&nbsp;if (n &gt; 7) break;            // stop the loop completely<br>&nbsp;&nbsp;console.log(n);<br>}<br>// 1 3 5 7</div>
-          <p><code>continue</code> jumps to the next round; <code>break</code> exits the loop.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Counting Down and Stepping</h3>
-          <p>The update part can do anything, not just <code>i++</code>:</p>
-          <div class="lc-code">for (let i = 5; i &gt;= 1; i--) console.log(i);        // 5 4 3 2 1<br>for (let i = 0; i &lt;= 20; i += 5) console.log(i);   // 0 5 10 15 20</div>
-          <p>A classic <code>for</code> with an index is also how you visit an array when you need the position:</p>
-          <div class="lc-code">const players = ["Rohit", "Virat", "Gill"];<br>for (let i = 0; i &lt; players.length; i++) {<br>&nbsp;&nbsp;console.log((i + 1) + ". " + players[i]);<br>}<br>// 1. Rohit<br>// 2. Virat<br>// 3. Gill</div>
-        </div>
-        <div class="lc-card">
-          <h3>Nested Loops</h3>
-          <p>A loop inside a loop runs the inner loop completely for <em>every</em> round of the outer loop — useful for grids and tables.</p>
-          <div class="lc-code">for (let row = 1; row &lt;= 3; row++) {<br>&nbsp;&nbsp;let line = "";<br>&nbsp;&nbsp;for (let col = 1; col &lt;= 3; col++) {<br>&nbsp;&nbsp;&nbsp;&nbsp;line += row * col + " ";<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;console.log(line);<br>}</div>
-          <p>Output:</p>
-          <div class="lc-code">1 2 3<br>2 4 6<br>3 6 9</div>
-          <p>3 outer rounds × 3 inner rounds = 9 steps. With 1,000 × 1,000 that becomes a million steps, so keep nested loops small.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Worked Example: Stop When You Find It</h3>
-          <div class="lc-code">const seats = ["booked", "booked", "free", "free"];<br>let firstFree = -1;<br>for (let i = 0; i &lt; seats.length; i++) {<br>&nbsp;&nbsp;if (seats[i] === "free") {<br>&nbsp;&nbsp;&nbsp;&nbsp;firstFree = i;<br>&nbsp;&nbsp;&nbsp;&nbsp;break;   // no need to check the rest<br>&nbsp;&nbsp;}<br>}<br>console.log("First free seat:", firstFree);</div>
-          <p>Output:</p>
-          <div class="lc-code">First free seat: 2</div>
-        </div>
-        <div class="lc-card">
-          <h3>Choosing a Loop</h3>
-          <table class="lc-table">
-            <thead><tr><th>Loop</th><th>Best for</th><th>Example</th></tr></thead>
-            <tbody>
-              <tr><td><code>for</code></td><td>Counting; you need the index</td><td>Tables 1–10, every 2nd item</td></tr>
-              <tr><td><code>for...of</code></td><td>Every value in an array or string</td><td>Sum a bill, print names</td></tr>
-              <tr><td><code>for...in</code></td><td>Keys of a plain object</td><td>Print a settings object</td></tr>
-              <tr><td><code>while</code></td><td>Unknown number of rounds</td><td>Keep going until savings reach a goal</td></tr>
-              <tr><td><code>do...while</code></td><td>Body must run at least once</td><td>Show a menu, then ask again</td></tr>
-            </tbody>
-          </table>
-          <p>For transforming and filtering arrays, the array methods <code>map</code>, <code>filter</code> and <code>reduce</code> (Lesson 10) are often even clearer than a loop.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Common Mistakes</h3>
-          <ul class="lc-list">
-            <li><strong>Infinite loops</strong> — forgetting to change the variable in a <code>while</code> loop (<code>while (i &lt; 5) { }</code> never ends and freezes the tab).</li>
-            <li><strong>Off-by-one errors</strong> — <code>i &lt;= arr.length</code> goes one step too far; the last index is <code>arr.length - 1</code>, so use <code>i &lt; arr.length</code>.</li>
-            <li>Using <code>for...in</code> on an array and getting string indexes.</li>
-            <li>Declaring the loop counter with <code>const</code> in a classic <code>for</code> loop: <code>i++</code> then throws a TypeError. Use <code>let</code> there (but <code>const</code> is right in <code>for...of</code>).</li>
-          </ul>
-        </div>
-        <div class="lc-card">
-          <h3>Try It</h3>
-          <ol class="lc-list">
-            <li>Change the starter's table to print the 12 times table up to 12 × 10.</li>
-            <li>Add a <code>continue</code> so that the bill loop skips items that cost more than ₹100.</li>
-            <li>Change the savings goal to ₹5,000 and see how many months it takes.</li>
-          </ol>
-        </div>
-        <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Before writing a loop, say the three questions aloud: <em>Where do I start? When do I stop? How do I move forward?</em> If you can't answer "when do I stop?", you are about to write an infinite loop.
-        </div>
-      HTML
-      starter_code: <<~'JS'
-        // Lesson 6: loops
         console.log("-- for: 7 times table --");
-        for (let i = 1; i <= 5; i++) {
+        for (let i = 1; i <= 3; i++) {
           console.log("7 x " + i + " = " + 7 * i);
         }
 
-        console.log("-- for...of: add up a bill --");
-        const prices = [120, 45, 80, 250];
+        console.log("-- for...of with if and continue: a bill --");
+        const prices = [120, 45, 0, 250];
         let total = 0;
         for (const price of prices) {
+          if (price === 0) continue; // skip free items
           total += price;
         }
-        console.log("Items:", prices.length, "| Total: ₹" + total);
-
+        console.log("Total: ₹" + total, "|", total >= 400 ? "free delivery" : "₹40 delivery");
         console.log("-- for...in: object keys --");
-        const scores = { Asha: 88, Vikram: 92, Meera: 79 };
-        for (const name in scores) {
-          console.log(name + " scored " + scores[name]);
-        }
-
+        const scores = { Asha: 88, Vikram: 92 };
+        for (const name in scores) console.log(name + " scored " + scores[name]);
         console.log("-- while: months to double savings --");
         let savings = 1000;
         let months = 0;
@@ -807,26 +710,10 @@ module JavaScriptContent
           months++;
         }
         console.log("Months:", months, "| Savings: ₹" + savings.toFixed(0));
-
-        console.log("-- break and continue --");
-        const odds = [];
-        for (let n = 1; n <= 10; n++) {
-          if (n % 2 === 0) continue; // skip evens
-          if (n > 7) break;          // stop after 7
-          odds.push(n);
-        }
-        console.log("Odd numbers up to 7:", odds.join(", "));
-
-        console.log("-- do...while runs at least once --");
-        let tries = 0;
-        do {
-          tries++;
-        } while (tries < 0);
-        console.log("Tries:", tries);
       JS
     },
 
-    7 => {
+    6 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -840,7 +727,7 @@ module JavaScriptContent
             <li><strong>Parameters</strong> are the names in the definition; <strong>arguments</strong> are the actual values you pass in.</li>
             <li><code>return</code> sends a value back <em>and stops the function</em> immediately.</li>
             <li>A function with no <code>return</code> gives back <code>undefined</code>.</li>
-            <li>Variables declared inside (<code>tax</code>) exist only inside the function (Lesson 8).</li>
+            <li>Variables declared inside (<code>tax</code>) exist only inside the function (Lesson 7).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -878,7 +765,7 @@ module JavaScriptContent
               <tr><td>Arrow</td><td><code>const add = (a, b) =&gt; a + b;</code></td><td>No</td><td>Short helpers and callbacks</td></tr>
             </tbody>
           </table>
-          <p>Arrow functions also do not have their own <code>this</code> — they use the <code>this</code> of the surrounding code. That matters inside classes and objects (Lesson 12). For now: don't use arrow functions as object methods that need <code>this</code>.</p>
+          <p>Arrow functions also do not have their own <code>this</code> — they use the <code>this</code> of the surrounding code. That matters inside classes and objects (Lesson 11). For now: don't use arrow functions as object methods that need <code>this</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Functions as Values: Callbacks</h3>
@@ -886,7 +773,7 @@ module JavaScriptContent
           <div class="lc-code">function repeat(times, action) {<br>&nbsp;&nbsp;for (let i = 1; i &lt;= times; i++) action(i);<br>}<br><br>repeat(3, (n) =&gt; console.log("Round " + n));</div>
           <p>Output:</p>
           <div class="lc-code">Round 1<br>Round 2<br>Round 3</div>
-          <p>Callbacks are everywhere in JavaScript: array methods (Lesson 10), event listeners (Lesson 15) and timers (Lesson 16).</p>
+          <p>Callbacks are everywhere in JavaScript: array methods (Lesson 9), event listeners (Lesson 15) and timers (Lesson 16).</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Small Functions Working Together</h3>
@@ -925,7 +812,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 7: functions and arrow functions
+        // Lesson 6: functions and arrow functions
 
         // Function declaration with a return value
         function addGst(amount) {
@@ -975,7 +862,7 @@ module JavaScriptContent
       JS
     },
 
-    8 => {
+    7 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1069,7 +956,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 8: scope, hoisting and closures
+        // Lesson 7: scope, hoisting and closures
 
         // Block scope: badge only exists inside the if block
         const score = 10;
@@ -1120,7 +1007,7 @@ module JavaScriptContent
       JS
     },
 
-    9 => {
+    8 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1149,7 +1036,7 @@ module JavaScriptContent
         <div class="lc-card">
           <h3>Searching</h3>
           <div class="lc-code">const marks = [72, 85, 90, 85];<br>console.log(marks.includes(90));    // true<br>console.log(marks.indexOf(85));     // 1  (first match)<br>console.log(marks.lastIndexOf(85)); // 3<br>console.log(marks.indexOf(100));    // -1 (not found)</div>
-          <p>For searching with a condition ("the first mark above 80"), use <code>find</code> and <code>findIndex</code> in Lesson 10.</p>
+          <p>For searching with a condition ("the first mark above 80"), use <code>find</code> and <code>findIndex</code> in Lesson 9.</p>
         </div>
         <div class="lc-card">
           <h3>slice vs splice</h3>
@@ -1176,7 +1063,7 @@ module JavaScriptContent
             </tbody>
           </table>
           <div class="lc-code">const scores = [40, 10, 30];<br>const sorted = scores.toSorted((a, b) =&gt; a - b);<br>console.log(sorted);   // [10, 30, 40]<br>console.log(scores);   // [40, 10, 30] — unchanged</div>
-          <p>The <code>(a, b) =&gt; a - b</code> part tells <code>sort</code> to compare as numbers — Lesson 10 explains why you need it.</p>
+          <p>The <code>(a, b) =&gt; a - b</code> part tells <code>sort</code> to compare as numbers — Lesson 9 explains why you need it.</p>
         </div>
         <div class="lc-card">
           <h3>Arrays Are References</h3>
@@ -1192,6 +1079,7 @@ module JavaScriptContent
           <h3>Unique Values with Set</h3>
           <p>A <code>Set</code> is a collection where every value appears only once. The quickest way to remove duplicates:</p>
           <div class="lc-code">const tags = ["js", "css", "js", "html", "css"];<br>const unique = [...new Set(tags)];<br>console.log(unique);   // ["js", "css", "html"]</div>
+          <p>Lesson 12 covers the full <code>Set</code> API, including union and intersection.</p>
           <p>Sets have <code>add</code>, <code>has</code>, <code>delete</code> and <code>size</code>, plus newer methods such as <code>union</code>, <code>intersection</code> and <code>difference</code> (Baseline 2024).</p>
         </div>
         <div class="lc-card">
@@ -1217,7 +1105,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 9: arrays
+        // Lesson 8: arrays
         const cities = ["Delhi", "Mumbai", "Chennai", "Kolkata"];
         console.log("Count:", cities.length);
         console.log("First:", cities[0], "| Last:", cities.at(-1));
@@ -1262,7 +1150,7 @@ module JavaScriptContent
       JS
     },
 
-    10 => {
+    9 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1362,7 +1250,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 10: array methods
+        // Lesson 9: array methods
         const students = [
           { name: "Aditi", marks: 88, house: "Red" },
           { name: "Kabir", marks: 54, house: "Blue" },
@@ -1410,7 +1298,7 @@ module JavaScriptContent
       JS
     },
 
-    11 => {
+    10 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1471,7 +1359,7 @@ module JavaScriptContent
         </div>
         <div class="lc-card">
           <h3>Object or Map?</h3>
-          <p>A <code>Map</code> is a key-value collection built for lookups:</p>
+          <p>A <code>Map</code> is a key-value collection built for lookups (Lesson 12 covers it in depth):</p>
           <div class="lc-code">const visits = new Map();<br>visits.set("home", 3).set("cart", 1);<br>visits.set("home", visits.get("home") + 1);<br>console.log(visits.get("home"), visits.size, visits.has("cart"));   // 4 2 true<br>console.log([...visits]);   // [["home", 4], ["cart", 1]]</div>
           <table class="lc-table">
             <thead><tr><th></th><th>Object</th><th>Map</th></tr></thead>
@@ -1490,7 +1378,7 @@ module JavaScriptContent
             <li>Thinking spread makes a deep copy — nested objects are shared.</li>
             <li>Comparing objects with <code>===</code>: two objects with the same contents are still different objects.</li>
             <li>Checking a key with <code>if (stock.sugar)</code> when the value may be <code>0</code> — use <code>Object.hasOwn</code> or <code>"sugar" in stock</code>.</li>
-            <li>Using an arrow function as a method that needs <code>this</code> (Lesson 12).</li>
+            <li>Using an arrow function as a method that needs <code>this</code> (Lesson 11).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1506,7 +1394,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 11: objects, destructuring and optional chaining
+        // Lesson 10: objects, destructuring and optional chaining
         const profile = {
           name: "Priya",
           age: 24,
@@ -1553,7 +1441,7 @@ module JavaScriptContent
       JS
     },
 
-    12 => {
+    11 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
@@ -1568,7 +1456,7 @@ module JavaScriptContent
             <li><strong>Protection</strong> — private fields stop other code from breaking the rules.</li>
             <li><strong>Common in real code</strong> — browser APIs (<code>Date</code>, <code>Map</code>, <code>Error</code>), libraries and frameworks all use classes.</li>
           </ul>
-          <p>For a single one-off object, a plain object literal (Lesson 11) is simpler. Reach for a class when you need <em>many</em> objects of the same shape.</p>
+          <p>For a single one-off object, a plain object literal (Lesson 10) is simpler. Reach for a class when you need <em>many</em> objects of the same shape.</p>
         </div>
         <div class="lc-card">
           <h3>A First Class</h3>
@@ -1649,7 +1537,7 @@ module JavaScriptContent
         </div>
       HTML
       starter_code: <<~'JS'
-        // Lesson 12: classes and this
+        // Lesson 11: classes and this
         class BankAccount {
           #balance = 0;              // private: only this class can touch it
           static count = 0;          // shared by the class
@@ -1699,6 +1587,168 @@ module JavaScriptContent
         try { detached(); } catch (e) { console.log("Detached call failed:", e.constructor.name); }
         const bound = meera.describe.bind(meera);
         console.log("Bound call works:", bound());
+      JS
+    },
+
+    12 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-yellow">JavaScript</div>
+          <h1 class="lc-title">Iterators, Generators, Map and Set</h1>
+        </div>
+        <p class="lc-lead"><code>for...of</code> works on arrays, strings, Maps and Sets because they all follow one simple rule: the <strong>iterator protocol</strong>. In this lesson you learn that rule, write your own lazy sequences with <strong>generators</strong>, and master the two collections built for fast lookups: <strong>Map</strong> and <strong>Set</strong>.</p>
+        <div class="lc-card">
+          <h3>The Iterator Protocol</h3>
+          <p>An <strong>iterable</strong> is any object with a <code>[Symbol.iterator]()</code> method. That method returns an <strong>iterator</strong>: an object whose <code>next()</code> method hands out one value at a time as <code>{ value, done }</code>.</p>
+          <div class="lc-code">const it = ["UPI", "Card"][Symbol.iterator]();<br>console.log(it.next());   // { value: "UPI", done: false }<br>console.log(it.next());   // { value: "Card", done: false }<br>console.log(it.next());   // { value: undefined, done: true }</div>
+          <p><code>for...of</code>, spread <code>[...x]</code>, destructuring <code>const [a, b] = x</code>, <code>Array.from(x)</code> and <code>new Set(x)</code> all call <code>next()</code> for you until <code>done</code> is <code>true</code>.</p>
+          <table class="lc-table">
+            <thead><tr><th>Value</th><th>Iterable?</th><th><code>for...of</code> gives you</th></tr></thead>
+            <tbody>
+              <tr><td>Array</td><td>Yes</td><td>each item</td></tr>
+              <tr><td>String</td><td>Yes</td><td>each character</td></tr>
+              <tr><td>Set</td><td>Yes</td><td>each value, in insertion order</td></tr>
+              <tr><td>Map</td><td>Yes</td><td>each <code>[key, value]</code> pair, in insertion order</td></tr>
+              <tr><td>Plain object <code>{}</code></td><td><strong>No</strong> — TypeError</td><td>use <code>Object.entries(obj)</code> instead</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Generators: function* and yield</h3>
+          <p>Writing <code>next()</code> by hand is tiring. A <strong>generator function</strong> (note the <code>*</code>) does it for you. Each <code>yield</code> hands out one value and <em>pauses</em> the function until the next value is asked for.</p>
+          <div class="lc-code">function* countdown(from) {<br>&nbsp;&nbsp;for (let i = from; i &gt; 0; i--) {<br>&nbsp;&nbsp;&nbsp;&nbsp;yield i;<br>&nbsp;&nbsp;}<br>}<br><br>const gen = countdown(3);<br>console.log(gen.next().value);      // 3<br>console.log([...gen].join(", "));   // 2, 1   (the rest)<br>console.log([...countdown(3)]);     // [3, 2, 1]  (a fresh generator)</div>
+          <p>Calling <code>countdown(3)</code> runs <em>no code yet</em> — it only creates a generator object. A generator can be used <strong>once</strong>; call the function again for a fresh one.</p>
+          <p>Add <code>*[Symbol.iterator]()</code> to a class to make your own objects work with <code>for...of</code>:</p>
+          <div class="lc-code">class Playlist {<br>&nbsp;&nbsp;constructor(...songs) { this.songs = songs; }<br>&nbsp;&nbsp;*[Symbol.iterator]() { yield* this.songs; }   // yield* hands out every item of another iterable<br>}<br>for (const song of new Playlist("Kesariya", "Naatu Naatu")) console.log(song);<br>// Kesariya<br>// Naatu Naatu</div>
+        </div>
+        <div class="lc-card">
+          <h3>Lazy Sequences and Iterator Helpers (ES2025)</h3>
+          <p>A generator can even be <strong>endless</strong>, because it only makes a value when asked. Since ES2025, every iterator has helper methods like arrays do — <code>.map()</code>, <code>.filter()</code>, <code>.take(n)</code>, <code>.drop(n)</code>, <code>.find()</code>, <code>.some()</code> and <code>.toArray()</code>. They are <strong>lazy</strong>: no work happens until a value is pulled.</p>
+          <div class="lc-code">function* orderIds() {<br>&nbsp;&nbsp;let n = 1;<br>&nbsp;&nbsp;while (true) yield n++;   // endless, but safe: values are made on demand<br>}<br><br>const firstEven = orderIds()<br>&nbsp;&nbsp;.filter((n) =&gt; n % 2 === 0)<br>&nbsp;&nbsp;.map((n) =&gt; "ORD-" + n)<br>&nbsp;&nbsp;.take(3)       // stop after 3 values<br>&nbsp;&nbsp;.toArray();    // collect into a real array<br>console.log(firstEven.join(", "));</div>
+          <p>Output:</p>
+          <div class="lc-code">ORD-2, ORD-4, ORD-6</div>
+          <p>Without <code>.take(3)</code>, <code>.toArray()</code> would run forever. Iterator helpers are Baseline 2025 (Chrome 122, Firefox 131, Safari 18.4). Use <code>Iterator.from(x)</code> to get the helpers on any iterable.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Set: Unique Values</h3>
+          <p>A <code>Set</code> stores each value <strong>once</strong>, keeps insertion order, and answers "is this in here?" very fast with <code>has()</code>.</p>
+          <table class="lc-table">
+            <thead><tr><th>Method</th><th>What it does</th></tr></thead>
+            <tbody>
+              <tr><td><code>new Set(iterable)</code></td><td>create, dropping duplicates</td></tr>
+              <tr><td><code>add(v)</code> / <code>delete(v)</code> / <code>clear()</code></td><td>change the set (<code>add</code> returns the set, so it chains)</td></tr>
+              <tr><td><code>has(v)</code> / <code>size</code></td><td>membership test / how many values</td></tr>
+              <tr><td><code>union</code>, <code>intersection</code>, <code>difference</code>, <code>symmetricDifference</code></td><td>ES2025: return a <strong>new</strong> Set</td></tr>
+              <tr><td><code>isSubsetOf</code>, <code>isSupersetOf</code>, <code>isDisjointFrom</code></td><td>ES2025: return <code>true</code>/<code>false</code></td></tr>
+            </tbody>
+          </table>
+          <div class="lc-code">const python = new Set(["Asha", "Ravi", "Meera"]);<br>const js = new Set(["Ravi", "Kiran", "Asha"]);<br><br>console.log([...python.intersection(js)].join(", "));         // Asha, Ravi<br>console.log([...python.union(js)].join(", "));                // Asha, Ravi, Meera, Kiran<br>console.log([...python.difference(js)].join(", "));           // Meera<br>console.log([...python.symmetricDifference(js)].join(", "));  // Meera, Kiran<br>console.log(new Set(["Ravi"]).isSubsetOf(python));             // true</div>
+          <p>Sets compare with (almost) <code>===</code>: two different objects with the same contents are two different values, so <code>new Set([{ id: 1 }, { id: 1 }]).size</code> is <code>2</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Map: Key-Value Lookups</h3>
+          <p>You met <code>Map</code> briefly in Lesson 10. Here is its full API:</p>
+          <div class="lc-code">const stock = new Map([["pen", 40], ["book", 12]]);   // from [key, value] pairs<br>stock.set("bag", 5).set("pen", 35);                  // set() chains; same key = update<br>stock.delete("book");<br><br>console.log(stock.get("pen"), stock.size, stock.has("book"));   // 35 2 false<br>console.log(stock.get("pencil"));                             // undefined<br>for (const [item, qty] of stock) console.log(item, qty);      // pen 35, then bag 5<br>console.log([...stock.keys()].join(", "));                    // pen, bag</div>
+          <ul class="lc-list">
+            <li><code>keys()</code>, <code>values()</code> and <code>entries()</code> return <strong>iterators</strong> — spread them or use <code>for...of</code>.</li>
+            <li>Convert both ways: <code>new Map(Object.entries(obj))</code> and <code>Object.fromEntries(map)</code>.</li>
+            <li><code>Map.groupBy(items, fn)</code> groups into a Map (like <code>Object.groupBy</code> from Lesson 9).</li>
+            <li>New in ES2026: <code>map.getOrInsert(key, defaultValue)</code> returns the value, first inserting the default if the key is missing (Baseline 2026, so check your users' browsers).</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Map vs Object</h3>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Plain object</th><th>Map</th></tr></thead>
+            <tbody>
+              <tr><td>Key types</td><td>strings and symbols only (<code>1</code> becomes <code>"1"</code>)</td><td>any value: numbers, objects, even DOM elements</td></tr>
+              <tr><td>Size</td><td><code>Object.keys(o).length</code></td><td><code>map.size</code></td></tr>
+              <tr><td>Iterate</td><td><code>Object.entries(o)</code></td><td>directly with <code>for...of</code></td></tr>
+              <tr><td>Adding/removing often</td><td>works, not optimised for it</td><td>built for it</td></tr>
+              <tr><td>Accidental keys</td><td>inherits names like <code>"constructor"</code> from its prototype</td><td>starts truly empty</td></tr>
+              <tr><td>JSON</td><td><code>JSON.stringify</code> works</td><td>gives <code>{}</code> — convert with <code>Object.fromEntries</code> first</td></tr>
+              <tr><td>Best for</td><td>a record with fixed fields (a user)</td><td>a growing lookup table (cache, counter)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Counting Orders</h3>
+          <div class="lc-code">const words = "chai samosa chai jalebi chai samosa".split(" ");<br>const counts = new Map();<br>for (const w of words) {<br>&nbsp;&nbsp;counts.set(w, (counts.get(w) ?? 0) + 1);<br>}<br>for (const [snack, n] of counts) console.log(`${snack}: ${n}`);<br>console.log(JSON.stringify(Object.fromEntries(counts)));</div>
+          <p>Output:</p>
+          <div class="lc-code">chai: 3<br>samosa: 2<br>jalebi: 1<br>{"chai":3,"samosa":2,"jalebi":1}</div>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li>Using <code>map[key] = value</code> on a Map — that sets a normal property, not a Map entry. Use <code>map.set(key, value)</code> and <code>map.get(key)</code>.</li>
+            <li>Reusing a finished generator — the second <code>[...gen]</code> is empty. Call the generator function again.</li>
+            <li>Calling <code>.toArray()</code> on an endless generator without <code>.take(n)</code> — the tab freezes.</li>
+            <li>Expecting <code>set.map()</code> or <code>set[0]</code> to work — Sets have no indexes. Spread first: <code>[...set].map(fn)</code>.</li>
+            <li><code>JSON.stringify(map)</code> gives <code>"{}"</code> — convert with <code>Object.fromEntries(map)</code> first.</li>
+            <li>Writing <code>for (const x of obj)</code> on a plain object — TypeError: obj is not iterable.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try It</h3>
+          <ol class="lc-list">
+            <li>In the starter, write a generator <code>tableOf(n)</code> that yields <code>n x 1</code> up to <code>n x 10</code>, and print the first 5 with <code>.take(5).toArray()</code>.</li>
+            <li>Add a third course Set and print the students enrolled in all three courses.</li>
+            <li>Change the word counter to count the letters of <code>"mississippi"</code> instead.</li>
+          </ol>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Ask "do I need fixed fields or a lookup?" A user with a name and email is an <strong>object</strong>. "Which students have paid?" is a <strong>Set</strong>. "How many of each item?" is a <strong>Map</strong>.
+        </div>
+      HTML
+      starter_code: <<~'JS'
+        // Lesson 12: iterators, generators, Map and Set
+
+        // 1. The iterator protocol: next() returns { value, done }
+        const it = ["UPI", "Card"][Symbol.iterator]();
+        for (let i = 1; i <= 3; i++) {
+          const step = it.next();
+          console.log(`next() #${i}: value = ${step.value}, done = ${step.done}`);
+        }
+
+        // 2. A generator pauses at each yield
+        function* countdown(from) {
+          for (let i = from; i > 0; i--) yield i;
+        }
+        console.log("Countdown:", [...countdown(3)].join(", "));
+
+        // 3. An endless generator + iterator helpers (lazy: only 3 values are made)
+        function* orderIds() {
+          let n = 1;
+          while (true) yield n++;
+        }
+        const evenOrders = orderIds()
+          .filter((n) => n % 2 === 0)
+          .map((n) => "ORD-" + n)
+          .take(3)
+          .toArray();
+        console.log("Even orders:", evenOrders.join(", "));
+
+        // 4. Set: unique values + ES2025 set methods
+        const python = new Set(["Asha", "Ravi", "Meera"]);
+        const js = new Set(["Ravi", "Kiran", "Asha"]);
+        console.log("Python size:", python.size, "| has Ravi?", python.has("Ravi"));
+        console.log("Both courses:", [...python.intersection(js)].join(", "));
+        console.log("Any course:", [...python.union(js)].join(", "));
+        console.log("Only Python:", [...python.difference(js)].join(", "));
+        console.log("Exactly one:", [...python.symmetricDifference(js)].join(", "));
+
+        // 5. Map: any key type, remembers insertion order
+        const stock = new Map([["pen", 40], ["book", 12]]);
+        stock.set("bag", 5).set("pen", 35);
+        stock.delete("book");
+        console.log("Map size:", stock.size, "| pen:", stock.get("pen"), "| has book?", stock.has("book"));
+        for (const [item, qty] of stock) console.log(`  ${item} -> ${qty}`);
+
+        // 6. Counting words with a Map
+        const words = "chai samosa chai jalebi chai samosa".split(" ");
+        const counts = new Map();
+        for (const w of words) counts.set(w, (counts.get(w) ?? 0) + 1);
+        console.log("Counts:", JSON.stringify(Object.fromEntries(counts)));
       JS
     },
 
@@ -1763,7 +1813,7 @@ module JavaScriptContent
         </div>
         <div class="lc-card">
           <h3>Custom Error Classes</h3>
-          <p>Extend <code>Error</code> (Lesson 12) to create errors that describe <em>your</em> problems. Then <code>instanceof</code> tells you which kind you caught:</p>
+          <p>Extend <code>Error</code> (Lesson 11) to create errors that describe <em>your</em> problems. Then <code>instanceof</code> tells you which kind you caught:</p>
           <div class="lc-code">class ValidationError extends Error {<br>&nbsp;&nbsp;constructor(field, message) {<br>&nbsp;&nbsp;&nbsp;&nbsp;super(message);<br>&nbsp;&nbsp;&nbsp;&nbsp;this.name = "ValidationError";<br>&nbsp;&nbsp;&nbsp;&nbsp;this.field = field;<br>&nbsp;&nbsp;}<br>}<br><br>try {<br>&nbsp;&nbsp;throw new ValidationError("phone", "Phone must have 10 digits");<br>} catch (e) {<br>&nbsp;&nbsp;if (e instanceof ValidationError) {<br>&nbsp;&nbsp;&nbsp;&nbsp;console.log("Fix the " + e.field + " field: " + e.message);<br>&nbsp;&nbsp;} else {<br>&nbsp;&nbsp;&nbsp;&nbsp;throw e;   // not ours — rethrow so it isn't hidden<br>&nbsp;&nbsp;}<br>}</div>
           <p><strong>Rethrowing</strong> errors you don't know how to handle is important. A <code>catch</code> that swallows everything hides real bugs.</p>
         </div>

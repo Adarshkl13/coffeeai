@@ -10,7 +10,7 @@ module TypescriptContent
         <div class="lc-card">
           <h3>A Bug TypeScript Catches</h3>
           <div class="lc-code">function totalPrice(price: number, qty: number): number {<br>&nbsp;&nbsp;return price * qty;<br>}<br><br>totalPrice("250", 2);<br>// Error: Argument of type 'string' is not assignable to parameter of type 'number'.<br><br>const user = { name: "Asha", city: "Pune" };<br>console.log(user.nmae);<br>// Error: Property 'nmae' does not exist on type '{ name: string; city: string; }'.</div>
-          <p>In plain JavaScript both lines run: the first quietly gives <code>500</code> through coercion (or <code>"250250"</code> if it were <code>+</code>), the second prints <code>undefined</code>. The bug shows up later, far from its cause. TypeScript reports it immediately, with the line number.</p>
+          <p>In plain JavaScript both lines run: the first quietly gives <code>500</code> through coercion (and <code>"250" + 2</code> would give the string <code>"2502"</code>), the second prints <code>undefined</code>. The bug shows up later, far from its cause. TypeScript reports it immediately, with the line number.</p>
         </div>
         <div class="lc-card">
           <h3>How TypeScript Works</h3>
@@ -1494,9 +1494,9 @@ module TypescriptContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: A Typed "pluck"</h3>
-          <div class="lc-code">function pluck&lt;T, K extends keyof T&gt;(items: T[], key: K): T[K][] {<br>&nbsp;&nbsp;return items.map((item) =&gt; item[key]);<br>}<br><br>const cls: Student[] = [<br>&nbsp;&nbsp;{ name: "Ravi", marks: 67, city: "Kochi" },<br>&nbsp;&nbsp;{ name: "Asha", marks: 88, city: "Pune" },<br>];<br>const allMarks = pluck(cls, "marks");   // number[]<br>const cities = pluck(cls, "city");      // string[]<br>console.log(allMarks, cities);</div>
+          <div class="lc-code">function pluck&lt;T, K extends keyof T&gt;(items: T[], key: K): T[K][] {<br>&nbsp;&nbsp;return items.map((item) =&gt; item[key]);<br>}<br><br>const cls: Student[] = [<br>&nbsp;&nbsp;{ name: "Ravi", marks: 67, city: "Kochi" },<br>&nbsp;&nbsp;{ name: "Asha", marks: 88, city: "Pune" },<br>];<br>const allMarks = pluck(cls, "marks");   // number[]<br>const cities = pluck(cls, "city");      // string[]<br>console.log(allMarks.join(", "), "|", cities.join(", "));</div>
           <p>Output:</p>
-          <div class="lc-code">[ 67, 88 ] [ 'Kochi', 'Pune' ]</div>
+          <div class="lc-code">67, 88 | Kochi, Pune</div>
           <p>The return type <code>T[K][]</code> changes with the key you pass — the compiler knows <code>allMarks</code> holds numbers without you writing it anywhere.</p>
         </div>
         <div class="lc-card">
@@ -1941,9 +1941,9 @@ module TypescriptContent
         <div class="lc-card">
           <h3>Worked Example: An API Layer</h3>
           <p>Three endpoints, three payloads — all derived from one <code>User</code>:</p>
-          <div class="lc-code">type CreateUserBody = Omit&lt;User, "id"&gt;;<br>type UpdateUserBody = Partial&lt;Omit&lt;User, "id"&gt;&gt;;<br>type UserListItem = Pick&lt;User, "id" | "name"&gt;;<br><br>const body: UpdateUserBody = { city: "Chennai" };<br>const list: UserListItem[] = [{ id: 1, name: "Asha" }, { id: 2, name: "Ravi" }];<br>console.log(Object.keys(body), list.map((u) =&gt; u.name).join(", "));</div>
+          <div class="lc-code">type CreateUserBody = Omit&lt;User, "id"&gt;;<br>type UpdateUserBody = Partial&lt;Omit&lt;User, "id"&gt;&gt;;<br>type UserListItem = Pick&lt;User, "id" | "name"&gt;;<br><br>const body: UpdateUserBody = { city: "Chennai" };<br>const list: UserListItem[] = [{ id: 1, name: "Asha" }, { id: 2, name: "Ravi" }];<br>console.log(Object.keys(body).join(", "), list.map((u) =&gt; u.name).join(", "));</div>
           <p>Output:</p>
-          <div class="lc-code">[ 'city' ] Asha, Ravi</div>
+          <div class="lc-code">city Asha, Ravi</div>
           <p>If a new required field such as <code>phone</code> is added to <code>User</code>, <code>CreateUserBody</code> requires it immediately, while <code>UpdateUserBody</code> keeps it optional — exactly what the API needs.</p>
         </div>
         <div class="lc-card">
@@ -2526,6 +2526,11 @@ module TypescriptContent
           <p>The simplest start is <code>npx tsc --init</code>, which writes a modern config with <code>strict</code>, <code>noUncheckedIndexedAccess</code>, <code>exactOptionalPropertyTypes</code> and <code>verbatimModuleSyntax</code> already on.</p>
         </div>
         <div class="lc-card">
+          <h3>Starter Output</h3>
+          <p>Run the starter: every strict-mode rule above is handled in code, so it compiles with <code>strict</code> and <code>noUncheckedIndexedAccess</code> and prints:</p>
+          <div class="lc-code">#1: Notebook ₹60 | #2: Pen ₹15 | #9: not found<br>Pen stock: 0 | Eraser stock: 0 | catalog[5]: none<br>parsed: 49.5<br>error: "fifty" is not a price<br>Notebook with GST: ₹71</div>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Turning <code>strict</code> off to make errors disappear — the errors are the value of TypeScript.</li>
@@ -2673,6 +2678,11 @@ module TypescriptContent
             <li>Use <code>React.ChangeEvent</code>, <code>FormEvent</code> and <code>MouseEvent</code> for handlers written separately.</li>
             <li>Model reducer actions and related props as discriminated unions.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Starter Output</h3>
+          <p>The starter models a component and a reducer without JSX. Running it prints:</p>
+          <div class="lc-code">&nbsp;&nbsp;(clicked Add: Pen)<br>[Pen | ₹20 | Add to cart]<br>[Bag | ₹999 | Out of stock]<br>Cart: 2 x Pen | total ₹40</div>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>

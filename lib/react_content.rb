@@ -305,7 +305,7 @@ module ReactContent
           <ul class="lc-list">
             <li><code>count="5"</code> passes the string "5" — use <code>count={5}</code> for a number.</li>
             <li>Forgetting the braces when destructuring: <code>function Card(title)</code> receives the whole props object, not the title.</li>
-            <li>Using <code>Component.defaultProps</code> on function components — <strong>removed in React 19</strong>. Use default parameter values instead. <code>propTypes</code> checks were also removed; use TypeScript for type checking.</li>
+            <li>Using <code>Component.defaultProps</code> on function components — <strong>removed in React 19</strong>. Use default parameter values instead. <code>propTypes</code> checks were also removed; use TypeScript for type checking (lesson 14).</li>
             <li>Mutating a prop object or array passed from a parent.</li>
           </ul>
         </div>
@@ -369,16 +369,13 @@ module ReactContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
-          <h1 class="lc-title">State with useState</h1>
+          <h1 class="lc-title">State and Events</h1>
         </div>
-        <p class="lc-lead"><strong>State</strong> is a component's memory — data that changes while the app runs, like a counter, a text box value or a shopping cart. When state changes, React <strong>re-renders</strong> the component with the new value.</p>
+        <p class="lc-lead"><strong>State</strong> is a component's memory — data that changes while the app runs, like a counter or a shopping cart. <strong>Events</strong> (clicks, key presses, submits) are how the user asks for a change. An event handler calls a state setter, and React <strong>re-renders</strong> the component with the new value.</p>
         <div class="lc-card">
           <h3>The useState hook</h3>
           <div class="lc-code">import { useState } from "react";<br><br>function Counter() {<br>&nbsp;&nbsp;const [count, setCount] = useState(0);   // 0 is the initial value<br>&nbsp;&nbsp;return &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Clicked {count} times&lt;/button&gt;;<br>}</div>
           <p><code>useState</code> returns a pair: the <strong>current value</strong> and a <strong>setter function</strong>. Calling the setter schedules a re-render; on that render <code>count</code> holds the new value.</p>
-        </div>
-        <div class="lc-card">
-          <h3>The render cycle</h3>
           <div class="lc-flow">
             <div class="lc-flow-step">Event<small>user clicks</small></div>
             <div class="lc-flow-arrow">→</div>
@@ -388,6 +385,19 @@ module ReactContent
             <div class="lc-flow-arrow">→</div>
             <div class="lc-flow-step">Commit<small>DOM updated</small></div>
           </div>
+        </div>
+        <div class="lc-card">
+          <h3>Attaching handlers: pass a function — don't call it</h3>
+          <table class="lc-table">
+            <thead><tr><th>Code</th><th>What happens</th></tr></thead>
+            <tbody>
+              <tr><td><code>onClick={handleClick}</code></td><td>✅ React calls it when clicked</td></tr>
+              <tr><td><code>onClick={() =&gt; remove(id)}</code></td><td>✅ arrow function lets you pass arguments</td></tr>
+              <tr><td><code>onClick={handleClick()}</code></td><td>❌ runs <em>during render</em>; the result (usually <code>undefined</code>) becomes the handler</td></tr>
+              <tr><td><code>onClick={setCount(count + 1)}</code></td><td>❌ same bug — a setter called during render causes an infinite render loop</td></tr>
+            </tbody>
+          </table>
+          <p>Event props are camelCase: <code>onClick</code>, <code>onChange</code>, <code>onKeyDown</code>, <code>onSubmit</code>, <code>onFocus</code>, <code>onBlur</code>, <code>onMouseEnter</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Worked example: state is a snapshot</h3>
@@ -409,9 +419,35 @@ module ReactContent
           <p>React compares the old and new value with <code>Object.is</code>. If you mutate and pass the <em>same</em> object, React sees no change and skips the re-render.</p>
         </div>
         <div class="lc-card">
+          <h3>Worked example: the event object</h3>
+          <p>React passes a <strong>synthetic event</strong> object that works the same in every browser.</p>
+          <div class="lc-code">function Search() {<br>&nbsp;&nbsp;function handleKeyDown(e) {<br>&nbsp;&nbsp;&nbsp;&nbsp;if (e.key === "Enter") console.log("Search for:", e.target.value);<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;return &lt;input placeholder="Type and press Enter" onKeyDown={handleKeyDown} /&gt;;<br>}</div>
+          <p><strong>Expected output</strong> after typing "react" and pressing Enter:</p>
+          <div class="lc-code">Search for: react</div>
+          <table class="lc-table">
+            <thead><tr><th>Prop</th><th>Fires when</th><th>Useful fields</th></tr></thead>
+            <tbody>
+              <tr><td><code>onClick</code></td><td>element is clicked</td><td><code>e.target</code>, <code>e.shiftKey</code></td></tr>
+              <tr><td><code>onChange</code></td><td>input value changes (every keystroke in React)</td><td><code>e.target.value</code>, <code>e.target.checked</code></td></tr>
+              <tr><td><code>onKeyDown</code></td><td>a key is pressed</td><td><code>e.key</code></td></tr>
+              <tr><td><code>onSubmit</code></td><td>a form is submitted</td><td>call <code>e.preventDefault()</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Bubbling and default behaviour</h3>
+          <div class="lc-code">&lt;div onClick={() =&gt; console.log("card clicked")}&gt;<br>&nbsp;&nbsp;&lt;button onClick={e =&gt; { e.stopPropagation(); console.log("button only"); }}&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;Like<br>&nbsp;&nbsp;&lt;/button&gt;<br>&lt;/div&gt;</div>
+          <p>Events <strong>bubble</strong> up from the child to its parents. <code>e.stopPropagation()</code> stops that, so clicking Like logs only <code>button only</code>. <code>e.preventDefault()</code> stops the browser's default action, such as a form reloading the page or a link navigating.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Passing handlers as props</h3>
+          <p>A child can't change the parent's state directly, but the parent can pass a function down. By convention, handler props start with <code>on</code> and the functions start with <code>handle</code>:</p>
+          <div class="lc-code">function LikeButton({ onLike }) { return &lt;button onClick={onLike}&gt;👍&lt;/button&gt;; }<br>function Post() {<br>&nbsp;&nbsp;const [likes, setLikes] = useState(0);<br>&nbsp;&nbsp;function handleLike() { setLikes(l =&gt; l + 1); }<br>&nbsp;&nbsp;return &lt;LikeButton onLike={handleLike} /&gt;;<br>}</div>
+        </div>
+        <div class="lc-card">
           <h3>Rules of Hooks</h3>
           <ul class="lc-list">
-            <li>Call hooks only at the <strong>top level</strong> of a component or custom hook — never inside <code>if</code>, loops or nested functions.</li>
+            <li>Call hooks only at the <strong>top level</strong> of a component or custom hook — never inside <code>if</code>, loops or event handlers.</li>
             <li>Call them only from React components or custom hooks, not from regular functions.</li>
             <li>Each component instance has its <strong>own</strong> state: two <code>&lt;Counter /&gt;</code> tags count separately.</li>
           </ul>
@@ -419,18 +455,20 @@ module ReactContent
         <div class="lc-card">
           <h3>Common mistakes</h3>
           <ul class="lc-list">
-            <li>Expecting the variable to change right after calling the setter.</li>
+            <li>Calling the handler in JSX: <code>onClick={save()}</code>.</li>
+            <li>Expecting the state variable to change right after calling the setter.</li>
             <li>Mutating objects or arrays instead of creating new ones.</li>
+            <li>Lower-case event names: <code>onclick</code> is ignored with a warning — it must be <code>onClick</code>.</li>
             <li>Storing values you can calculate: keep <code>items</code> in state and compute <code>items.length</code> during render.</li>
             <li>Writing <code>useState(expensiveCalc())</code> — the function runs every render. Use <code>useState(() =&gt; expensiveCalc())</code> (lazy initial state).</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>In the starter, add a "+5" button that uses the updater form, and a "Reset" button. Then add a <code>city</code> field to the profile object and a button that changes it without losing <code>name</code>.</p>
+          <p>In the starter, add a "+5" button that uses the updater form and a "Reset" button. Then make the keyboard box add a log line when the user presses <kbd>Escape</kbd>.</p>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Ask "does this value change over time, and can I not calculate it from something else?" Only then does it belong in state.
+          <strong>Tip:</strong> Ask "does this value change over time, and can I not calculate it from something else?" Only then does it belong in state. Event handlers are the best place for side effects like logging — they run only when the user acts, not on every render.
         </div>
       HTML
       starter_code: <<~'JSX'
@@ -439,16 +477,29 @@ module ReactContent
 
         const box = { border: "1px solid #e5e7eb", borderRadius: 8, padding: 12, marginBottom: 12 };
 
+        function LikeButton({ onLike }) {
+          // The child receives a handler from the parent and calls it on click.
+          return <button onClick={onLike}>👍 Like (bubbles to card)</button>;
+        }
+
         function App() {
           const [count, setCount] = useState(0);
           const [profile, setProfile] = useState({ name: "Meera", age: 21 });
-          const [tags, setTags] = useState(["react"]);
+          const [lastKey, setLastKey] = useState("(none)");
+          const [log, setLog] = useState([]);
 
+          function addLog(message) {
+            setLog(prev => [...prev.slice(-3), message]); // keep the last 4 messages
+          }
           function addThreeWrong() {
-            setCount(count + 1); setCount(count + 1); setCount(count + 1); // all use the same snapshot
+            setCount(count + 1); setCount(count + 1); setCount(count + 1); // same snapshot: adds 1
           }
           function addThreeRight() {
-            setCount(c => c + 1); setCount(c => c + 1); setCount(c => c + 1); // each sees the latest value
+            setCount(c => c + 1); setCount(c => c + 1); setCount(c => c + 1); // updater: adds 3
+          }
+          function handleKeyDown(e) {
+            setLastKey(e.key);
+            if (e.key === "Enter") addLog("Enter pressed with text: " + e.target.value);
           }
 
           return (
@@ -459,129 +510,14 @@ module ReactContent
                 <button onClick={addThreeRight}>+3 (updater form)</button>
               </div>
               <div style={box}>
-                <h3>Object state</h3>
                 <p>Name: {profile.name} | Age: {profile.age}</p>
                 <button onClick={() => setProfile({ ...profile, age: profile.age + 1 })}>Birthday (copy + change)</button>
               </div>
+              <div style={box} onClick={() => addLog("card clicked (bubbled up)")}>
+                <LikeButton onLike={() => addLog("like button clicked")} />{" "}
+                <button onClick={e => { e.stopPropagation(); addLog("stopPropagation: card not told"); }}>Isolated click</button>
+              </div>
               <div style={box}>
-                <h3>Array state ({tags.length} tags)</h3>
-                <p>{tags.join(", ")}</p>
-                <button onClick={() => setTags([...tags, "hooks" + tags.length])}>Add tag</button>{" "}
-                <button onClick={() => setTags(tags.slice(0, -1))}>Remove last</button>
-              </div>
-            </div>
-          );
-        }
-
-        createRoot(document.getElementById("root")).render(<StrictMode><App /></StrictMode>);
-      JSX
-    },
-
-    5 => {
-      body: <<~'HTML',
-        <div class="lc-header">
-          <div class="lc-badge le-badge le-badge-react">React</div>
-          <h1 class="lc-title">Handling Events</h1>
-        </div>
-        <p class="lc-lead">Users interact through clicks, typing, key presses and form submits. In React you attach an <strong>event handler</strong> function to a JSX element with a camelCase prop like <code>onClick</code>.</p>
-        <div class="lc-card">
-          <h3>Pass a function — don't call it</h3>
-          <table class="lc-table">
-            <thead><tr><th>Code</th><th>What happens</th></tr></thead>
-            <tbody>
-              <tr><td><code>onClick={handleClick}</code></td><td>✅ React calls it when clicked</td></tr>
-              <tr><td><code>onClick={() =&gt; remove(id)}</code></td><td>✅ arrow function lets you pass arguments</td></tr>
-              <tr><td><code>onClick={handleClick()}</code></td><td>❌ runs <em>during render</em>; the result (usually <code>undefined</code>) becomes the handler</td></tr>
-              <tr><td><code>onClick={remove(id)}</code></td><td>❌ same bug — and with a state setter it can cause an infinite render loop</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="lc-card">
-          <h3>Worked example: the event object</h3>
-          <p>React passes a <strong>synthetic event</strong> object that works the same in every browser.</p>
-          <div class="lc-code">function Search() {<br>&nbsp;&nbsp;function handleKeyDown(e) {<br>&nbsp;&nbsp;&nbsp;&nbsp;if (e.key === "Enter") console.log("Search for:", e.target.value);<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;return &lt;input placeholder="Type and press Enter" onKeyDown={handleKeyDown} /&gt;;<br>}</div>
-          <p><strong>Expected output</strong> after typing "react" and pressing Enter:</p>
-          <div class="lc-code">Search for: react</div>
-        </div>
-        <div class="lc-card">
-          <h3>Common events</h3>
-          <table class="lc-table">
-            <thead><tr><th>Prop</th><th>Fires when</th><th>Useful fields</th></tr></thead>
-            <tbody>
-              <tr><td><code>onClick</code></td><td>element is clicked</td><td><code>e.target</code>, <code>e.shiftKey</code></td></tr>
-              <tr><td><code>onChange</code></td><td>input value changes (every keystroke in React)</td><td><code>e.target.value</code>, <code>e.target.checked</code></td></tr>
-              <tr><td><code>onKeyDown</code></td><td>a key is pressed</td><td><code>e.key</code></td></tr>
-              <tr><td><code>onSubmit</code></td><td>a form is submitted</td><td>call <code>e.preventDefault()</code></td></tr>
-              <tr><td><code>onFocus</code> / <code>onBlur</code></td><td>element gains / loses focus</td><td>—</td></tr>
-              <tr><td><code>onMouseEnter</code></td><td>pointer moves onto element</td><td>—</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="lc-card">
-          <h3>Propagation and default behaviour</h3>
-          <div class="lc-code">&lt;div onClick={() =&gt; console.log("card clicked")}&gt;<br>&nbsp;&nbsp;&lt;button onClick={e =&gt; { e.stopPropagation(); console.log("button only"); }}&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;Like<br>&nbsp;&nbsp;&lt;/button&gt;<br>&lt;/div&gt;</div>
-          <p>Events <strong>bubble</strong> up from the child to its parents. <code>e.stopPropagation()</code> stops that. <code>e.preventDefault()</code> stops the browser's default action, such as a form reloading the page or a link navigating.</p>
-        </div>
-        <div class="lc-card">
-          <h3>Passing handlers as props</h3>
-          <p>A child component can't change the parent's state directly, but the parent can pass a function down. By convention, props that receive handlers start with <code>on</code> and the functions start with <code>handle</code>:</p>
-          <div class="lc-code">function LikeButton({ onLike }) { return &lt;button onClick={onLike}&gt;👍&lt;/button&gt;; }<br>function Post() {<br>&nbsp;&nbsp;const [likes, setLikes] = useState(0);<br>&nbsp;&nbsp;function handleLike() { setLikes(l =&gt; l + 1); }<br>&nbsp;&nbsp;return &lt;LikeButton onLike={handleLike} /&gt;;<br>}</div>
-        </div>
-        <div class="lc-card">
-          <h3>Common mistakes</h3>
-          <ul class="lc-list">
-            <li>Calling the handler in JSX: <code>onClick={save()}</code>.</li>
-            <li>Lower-case names: <code>onclick</code> is ignored with a warning — it must be <code>onClick</code>.</li>
-            <li>Forgetting <code>e.preventDefault()</code> in an <code>onSubmit</code> handler, so the page reloads.</li>
-            <li>Reading <code>e.target.value</code> inside a delayed callback after the input has already changed — copy the value to a variable first.</li>
-          </ul>
-        </div>
-        <div class="lc-card">
-          <h3>Try it</h3>
-          <p>Add a "Double" button to the starter's counter card, and make the keyboard box also log <code>e.key</code> when the user presses <kbd>Escape</kbd>.</p>
-        </div>
-        <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Event handlers are the best place for side effects like logging or sending data — they run only when the user acts, not on every render.
-        </div>
-      HTML
-      starter_code: <<~'JSX'
-        import { StrictMode, useState } from "react";
-        import { createRoot } from "react-dom/client";
-
-        const card = { border: "1px solid #e5e7eb", borderRadius: 8, padding: 12, marginBottom: 12 };
-
-        function LikeButton({ label, onLike }) {
-          // The child receives a handler from the parent and calls it on click.
-          return <button onClick={onLike}>👍 {label}</button>;
-        }
-
-        function App() {
-          const [likes, setLikes] = useState(0);
-          const [lastKey, setLastKey] = useState("(none)");
-          const [log, setLog] = useState([]);
-
-          function addLog(message) {
-            setLog(prev => [...prev.slice(-3), message]); // keep the last 4 messages
-          }
-          function handleLike() {
-            setLikes(l => l + 1);
-            addLog("like button clicked");
-          }
-          function handleKeyDown(e) {
-            setLastKey(e.key);
-            if (e.key === "Enter") addLog("Enter pressed with text: " + e.target.value);
-          }
-
-          return (
-            <div style={{ fontFamily: "sans-serif", padding: "1.5rem", maxWidth: 460 }}>
-              <div style={card} onClick={() => addLog("card clicked (bubbled up)")}>
-                <h3>Likes: {likes}</h3>
-                <LikeButton label="Like (bubbles to card)" onLike={handleLike} />{" "}
-                <button onClick={e => { e.stopPropagation(); addLog("stopPropagation: card not told"); }}>
-                  Isolated click
-                </button>
-              </div>
-              <div style={card}>
                 <input placeholder="Type, then press Enter" onKeyDown={handleKeyDown} />
                 <p>Last key: <strong>{lastKey}</strong></p>
               </div>
@@ -595,7 +531,7 @@ module ReactContent
       JSX
     },
 
-    6 => {
+    5 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -711,7 +647,7 @@ module ReactContent
       JSX
     },
 
-    7 => {
+    6 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -838,7 +774,7 @@ module ReactContent
       JSX
     },
 
-    8 => {
+    7 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -888,7 +824,7 @@ module ReactContent
             <li>Find every component that <em>reads</em> the data.</li>
             <li>Find their closest common parent — put the state there.</li>
             <li>Pass the value down and pass an <code>onSomething</code> callback down for changes.</li>
-            <li>If this means passing props through many levels, use Context (lesson 12).</li>
+            <li>If this means passing props through many levels, use Context (lesson 11).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -948,7 +884,7 @@ module ReactContent
       JSX
     },
 
-    9 => {
+    8 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -987,7 +923,7 @@ module ReactContent
               <tr><td>Value computed from props/state (full name, filtered list)</td><td>calculate it during render</td></tr>
               <tr><td>Something should happen because the user clicked</td><td>do it in the event handler</td></tr>
               <tr><td>Reset state when a prop changes</td><td>give the component a <code>key</code> so React re-creates it</td></tr>
-              <tr><td>Fetching data in a real app</td><td>a framework loader or TanStack Query (lesson 10)</td></tr>
+              <tr><td>Fetching data in a real app</td><td>a framework loader or TanStack Query (lesson 9)</td></tr>
             </tbody>
           </table>
           <p>Good uses: timers, subscriptions (<code>window.addEventListener</code>, WebSockets), syncing <code>document.title</code>, controlling non-React widgets.</p>
@@ -1057,7 +993,7 @@ module ReactContent
       JSX
     },
 
-    10 => {
+    9 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1178,7 +1114,7 @@ module ReactContent
       JSX
     },
 
-    11 => {
+    10 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1284,7 +1220,7 @@ module ReactContent
       JSX
     },
 
-    12 => {
+    11 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1406,7 +1342,7 @@ module ReactContent
       JSX
     },
 
-    13 => {
+    12 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1529,7 +1465,7 @@ module ReactContent
       JSX
     },
 
-    14 => {
+    13 => {
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
@@ -1555,7 +1491,7 @@ module ReactContent
               <tr><td><code>useOnlineStatus()</code></td><td><code>online</code>/<code>offline</code> events</td></tr>
               <tr><td><code>useDebouncedValue(v, ms)</code></td><td>timer effect</td></tr>
               <tr><td><code>useAuth()</code></td><td><code>useContext(AuthContext)</code> + a helpful error</td></tr>
-              <tr><td><code>useFetch(url)</code></td><td>the fetch effect from lesson 10 (in real apps prefer TanStack Query)</td></tr>
+              <tr><td><code>useFetch(url)</code></td><td>the fetch effect from lesson 9 (in real apps prefer TanStack Query)</td></tr>
             </tbody>
           </table>
         </div>
@@ -1636,6 +1572,132 @@ module ReactContent
         }
 
         createRoot(document.getElementById("root")).render(<StrictMode><App /></StrictMode>);
+      JSX
+    },
+
+    14 => {
+      body: <<~'HTML',
+        <div class="lc-header">
+          <div class="lc-badge le-badge le-badge-react">React</div>
+          <h1 class="lc-title">React with TypeScript</h1>
+        </div>
+        <p class="lc-lead">Most professional React code is written in <strong>TypeScript</strong>. You describe the shape of props and state once, and your editor catches mistakes — a missing prop, a typo in a status string, a number passed as text — <em>before</em> the app runs. Start a project with <code>npm create vite@latest my-app -- --template react-ts</code>; components live in <code>.tsx</code> files.</p>
+        <div class="lc-card">
+          <h3>Typing props and children</h3>
+          <div class="lc-code">type CardProps = {<br>&nbsp;&nbsp;title: string;<br>&nbsp;&nbsp;highlight?: boolean;          // ? = optional prop<br>&nbsp;&nbsp;children: React.ReactNode;    // anything JSX can render<br>};<br><br>function Card({ title, highlight = false, children }: CardProps) {<br>&nbsp;&nbsp;return &lt;section className={highlight ? "hot" : ""}&gt;&lt;h3&gt;{title}&lt;/h3&gt;{children}&lt;/section&gt;;<br>}</div>
+          <p><code>React.ReactNode</code> accepts text, numbers, JSX, arrays, <code>null</code> and more — the right type for <code>children</code>. For inline styles use <code>React.CSSProperties</code>. You don't need <code>React.FC</code>; typing the props parameter is enough.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked example: the compiler catches bugs</h3>
+          <div class="lc-code">type BadgeProps = { count: number };<br>function Badge({ count }: BadgeProps) { return &lt;span&gt;{count}&lt;/span&gt;; }<br><br>&lt;Badge count="3" /&gt;      // wrong type<br>&lt;Card title="Hi" /&gt;      // children missing</div>
+          <p><strong>Expected output</strong> from <code>npx tsc --noEmit</code>:</p>
+          <div class="lc-code">error TS2322: Type 'string' is not assignable to type 'number'.<br>error TS2741: Property 'children' is missing in type '{ title: string; }' but required in type 'CardProps'.</div>
+          <p>Types are <strong>erased</strong> when the code is built. They never run in the browser, so data from an API still needs a runtime check (for example with the Zod library).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Typing state: useState&lt;T&gt;</h3>
+          <div class="lc-code">const [name, setName] = useState("");                  // inferred: string<br><br>type Status = "idle" | "saving" | "saved";<br>const [status, setStatus] = useState&lt;Status&gt;("idle");  // only these 3 strings<br><br>type User = { id: number; name: string };<br>const [user, setUser] = useState&lt;User | null&gt;(null);   // empty until loaded<br>const [tags, setTags] = useState&lt;string[]&gt;([]);</div>
+          <p>Let TypeScript <strong>infer</strong> simple values. Write the type argument when the start value doesn't show the full type: <code>null</code>, an empty array, or a union of strings. Without it, <code>useState(null)</code> can only ever hold <code>null</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Event types</h3>
+          <table class="lc-table">
+            <thead><tr><th>Handler</th><th>Parameter type</th><th>Typical use</th></tr></thead>
+            <tbody>
+              <tr><td><code>onChange</code> on an input</td><td><code>React.ChangeEvent&lt;HTMLInputElement&gt;</code></td><td><code>e.target.value</code></td></tr>
+              <tr><td><code>onClick</code> on a button</td><td><code>React.MouseEvent&lt;HTMLButtonElement&gt;</code></td><td><code>e.currentTarget</code>, <code>e.shiftKey</code></td></tr>
+              <tr><td><code>onKeyDown</code></td><td><code>React.KeyboardEvent&lt;HTMLInputElement&gt;</code></td><td><code>e.key</code></td></tr>
+              <tr><td><code>&lt;form action={fn}&gt;</code></td><td><code>(formData: FormData) =&gt; void</code></td><td><code>formData.get("email")</code></td></tr>
+              <tr><td>a callback prop</td><td>your own type, e.g. <code>onSelect: (id: number) =&gt; void</code></td><td>child tells parent what happened</td></tr>
+            </tbody>
+          </table>
+          <p>Inline handlers need no annotation: in <code>onChange={e =&gt; setName(e.target.value)}</code> TypeScript already knows the type of <code>e</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Refs and ref props (React 19)</h3>
+          <div class="lc-code">type TextFieldProps = {<br>&nbsp;&nbsp;label: string;<br>&nbsp;&nbsp;ref?: React.Ref&lt;HTMLInputElement&gt;;   // ref is a normal prop in React 19<br>};<br>function TextField({ label, ref }: TextFieldProps) {<br>&nbsp;&nbsp;return &lt;label&gt;{label} &lt;input ref={ref} /&gt;&lt;/label&gt;;<br>}<br><br>const inputRef = useRef&lt;HTMLInputElement&gt;(null);<br>&lt;TextField label="Name" ref={inputRef} /&gt;<br>inputRef.current?.focus();   // current may be null before mount</div>
+          <p>To accept every normal button prop plus your own, extend the built-in type: <code>type ButtonProps = React.ComponentProps&lt;"button"&gt; &amp; { variant?: "primary" | "ghost" }</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>About the starter</h3>
+          <p>This lesson editor runs JavaScript and does not remove TypeScript syntax, so the starter writes the <em>same</em> types as <strong>JSDoc comments</strong> (<code>/** @param {CardProps} props */</code>). With <code>// @ts-check</code> at the top, VS Code checks a <code>.jsx</code> file just like a <code>.tsx</code> file. In your own Vite project, use real <code>.tsx</code> syntax.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common mistakes</h3>
+          <ul class="lc-list">
+            <li>Using <code>any</code> to silence errors — you lose every check. Prefer a precise type or <code>unknown</code>.</li>
+            <li><code>useState(null)</code> or <code>useState([])</code> without a type argument, then being unable to store a real value.</li>
+            <li><code>useRef&lt;HTMLInputElement&gt;()</code> with no argument — React 19's types require one; pass <code>null</code>.</li>
+            <li>Typing <code>children</code> as <code>JSX.Element</code>, which rejects plain text and arrays — use <code>React.ReactNode</code>.</li>
+            <li>Believing types protect you at runtime: <code>await res.json()</code> can return anything.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <p>In the starter, add <code>"saving"</code> to the <code>Status</code> type and show it while saving. Then add an optional <code>highlight</code> boolean to <code>CardProps</code> (JSDoc: <code>@property {boolean} [highlight]</code>) and make the "Saved names" card bold when it is set.</p>
+        </div>
+        <div class="lc-card lc-card--tip">
+          <strong>Tip:</strong> Turn on <code>"strict": true</code> in <code>tsconfig.json</code> (the Vite template already does) and run <code>npx tsc --noEmit</code> in CI so type errors block a merge.
+        </div>
+      HTML
+      starter_code: <<~'JSX'
+        // @ts-check
+        // This editor runs JavaScript, so the types are written as JSDoc comments.
+        // In a Vite "react-ts" project you would write the same types in .tsx syntax.
+        import { StrictMode, useRef, useState } from "react";
+        import { createRoot } from "react-dom/client";
+
+        /** @typedef {"idle" | "saved"} Status */
+        /** @typedef {{ title: string, children: import("react").ReactNode }} CardProps */
+        /**
+         * @typedef {object} TextFieldProps
+         * @property {string} label
+         * @property {string} value
+         * @property {(e: import("react").ChangeEvent<HTMLInputElement>) => void} onChange
+         * @property {import("react").Ref<HTMLInputElement>} [ref]
+         */
+
+        /** @param {CardProps} props */
+        function Card({ title, children }) {
+          return <section style={{ border: "1px solid #e5e7eb", borderRadius: 8, padding: 12, marginBottom: 12 }}><h3>{title}</h3>{children}</section>;
+        }
+
+        /** @param {TextFieldProps} props */
+        function TextField({ label, value, onChange, ref }) {
+          return <label>{label}: <input ref={ref} value={value} onChange={onChange} /></label>;
+        }
+
+        function App() {
+          const [name, setName] = useState("Asha");                             // inferred: string
+          const [status, setStatus] = useState(/** @type {Status} */ ("idle"));  // like useState<Status>("idle")
+          const [saved, setSaved] = useState(/** @type {string[]} */ ([]));      // like useState<string[]>([])
+          const inputRef = useRef(/** @type {HTMLInputElement | null} */ (null)); // like useRef<HTMLInputElement>(null)
+
+          /** @param {import("react").ChangeEvent<HTMLInputElement>} e */
+          function handleChange(e) { setName(e.target.value); setStatus("idle"); }
+
+          /** @param {import("react").MouseEvent<HTMLButtonElement>} e */
+          function handleSave(e) {
+            setSaved(s => [...s, name]);
+            setStatus("saved");
+            console.log("Clicked:", e.currentTarget.textContent, "| saved name:", name);
+          }
+
+          return (
+            <div style={{ fontFamily: "sans-serif", padding: "1.5rem", maxWidth: 460 }}>
+              <Card title="Typed props, state and events">
+                <TextField label="Name" value={name} onChange={handleChange} ref={inputRef} />{" "}
+                <button onClick={handleSave}>Save</button>{" "}
+                <button onClick={() => inputRef.current?.focus()}>Focus input</button>
+                <p>Status: <strong>{status}</strong></p>
+              </Card>
+              <Card title="Saved names">{saved.length ? saved.join(", ") : "none yet"}</Card>
+            </div>
+          );
+        }
+
+        const rootEl = document.getElementById("root");
+        if (rootEl) createRoot(rootEl).render(<StrictMode><App /></StrictMode>);
       JSX
     },
 
@@ -1805,7 +1867,7 @@ module ReactContent
               <tr><td>Clear the form</td><td>reset each state value</td><td>automatic for uncontrolled inputs</td></tr>
             </tbody>
           </table>
-          <p>Controlled inputs (lesson 7) are still right for live validation or fields that depend on each other. In Next.js, the same <code>action</code> prop can call a <strong>Server Function</strong> (<code>"use server"</code>).</p>
+          <p>Controlled inputs (lesson 6) are still right for live validation or fields that depend on each other. In Next.js, the same <code>action</code> prop can call a <strong>Server Function</strong> (<code>"use server"</code>).</p>
         </div>
         <div class="lc-card">
           <h3>Common mistakes</h3>
@@ -2000,61 +2062,88 @@ module ReactContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-react">React</div>
-          <h1 class="lc-title">Routing with React Router</h1>
+          <h1 class="lc-title">Routing and Frameworks</h1>
         </div>
-        <p class="lc-lead">A single-page app shows different screens for different URLs without reloading the page. <strong>React Router</strong> is the most widely used router. Its current major version is <strong>v8</strong> (June 2026), installed from the <code>react-router</code> package.</p>
+        <p class="lc-lead">Real apps show different screens for different URLs. In a plain single-page app, <strong>React Router</strong> does this in the browser. In 2026 most new React apps go one step further and use a <strong>framework</strong> — <strong>Next.js</strong> (App Router) or <strong>React Router framework mode</strong> — which adds server rendering, data loading on the server and <strong>Server Components</strong>.</p>
+        <div class="lc-card">
         <div class="lc-card">
           <h3>Declarative routing (the simplest mode)</h3>
           <div class="lc-code">// npm i react-router<br>import { BrowserRouter, Routes, Route, Link, NavLink, Outlet, useParams } from "react-router";<br><br>function Layout() {<br>&nbsp;&nbsp;return (<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;nav&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;NavLink to="/"&gt;Home&lt;/NavLink&gt; &lt;NavLink to="/courses"&gt;Courses&lt;/NavLink&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/nav&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Outlet /&gt;   {/* the matching child route renders here */}<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/&gt;<br>&nbsp;&nbsp;);<br>}<br><br>function Course() {<br>&nbsp;&nbsp;const { courseId } = useParams();       // "/courses/react" → "react"<br>&nbsp;&nbsp;return &lt;h2&gt;Course: {courseId}&lt;/h2&gt;;<br>}<br><br>createRoot(document.getElementById("root")).render(<br>&nbsp;&nbsp;&lt;BrowserRouter&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;Routes&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route path="/" element={&lt;Layout /&gt;}&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route index element={&lt;Home /&gt;} /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route path="courses" element={&lt;CourseList /&gt;} /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route path="courses/:courseId" element={&lt;Course /&gt;} /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Route&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/Routes&gt;<br>&nbsp;&nbsp;&lt;/BrowserRouter&gt;<br>);</div>
-          <p><strong>Expected output</strong> at <code>/courses/react</code>: the nav bar, then <code>Course: react</code>. At <code>/oops</code>: the <code>NotFound</code> page.</p>
         </div>
         <div class="lc-card">
-          <h3>Key APIs</h3>
+          <h3>Key React Router APIs</h3>
           <table class="lc-table">
             <thead><tr><th>API</th><th>Does</th></tr></thead>
             <tbody>
               <tr><td><code>&lt;Route path element&gt;</code></td><td>maps a URL pattern to a component</td></tr>
-              <tr><td><code>:courseId</code> + <code>useParams()</code></td><td>dynamic segment and reading it</td></tr>
-              <tr><td><code>index</code> route</td><td>child shown at the parent's exact path</td></tr>
-              <tr><td><code>&lt;Outlet /&gt;</code></td><td>where nested child routes render (shared layouts)</td></tr>
+              <tr><td><code>:courseId</code> + <code>useParams()</code></td><td>dynamic segment and reading it (always a string)</td></tr>
+              <tr><td><code>index</code> route / <code>&lt;Outlet /&gt;</code></td><td>default child / where nested child routes render (shared layouts)</td></tr>
               <tr><td><code>&lt;Link to&gt;</code> / <code>&lt;NavLink&gt;</code></td><td>navigation without reload; NavLink knows if it is active</td></tr>
-              <tr><td><code>useNavigate()</code></td><td>navigate from code, e.g. after saving a form</td></tr>
-              <tr><td><code>useSearchParams()</code></td><td>read/write <code>?page=2&amp;sort=new</code></td></tr>
+              <tr><td><code>useNavigate()</code> / <code>useSearchParams()</code></td><td>navigate from code / read and write <code>?page=2&amp;sort=new</code></td></tr>
               <tr><td><code>path="*"</code></td><td>catch-all "not found" route</td></tr>
             </tbody>
           </table>
+          <p>React Router's current major version is <strong>v8</strong> (June 2026, needs React 19.2.7+). <strong>Old way — don't use:</strong> v5's <code>&lt;Switch&gt;</code>, <code>component={X}</code>, <code>useHistory</code>, and the separate <code>react-router-dom</code> package (removed in v8 — import from <code>react-router</code>).</p>
         </div>
         <div class="lc-card">
-          <h3>Three modes</h3>
+          <h3>From a router to a framework</h3>
           <table class="lc-table">
-            <thead><tr><th>Mode</th><th>Setup</th><th>Adds</th></tr></thead>
+            <thead><tr><th>Choice</th><th>Start with</th><th>Routes defined by</th><th>Data loading</th></tr></thead>
             <tbody>
-              <tr><td>Declarative</td><td><code>&lt;BrowserRouter&gt;</code> + <code>&lt;Routes&gt;</code></td><td>URL matching and navigation</td></tr>
-              <tr><td>Data</td><td><code>createBrowserRouter([...])</code> + <code>&lt;RouterProvider router={router} /&gt;</code> (from <code>react-router/dom</code>)</td><td><code>loader</code> / <code>action</code> per route, pending UI</td></tr>
-              <tr><td>Framework</td><td><code>npx create-react-router@latest</code></td><td>file routes, server rendering, type safety</td></tr>
+              <tr><td>React Router, declarative / data mode</td><td>Vite + <code>npm i react-router</code></td><td><code>&lt;Routes&gt;</code> or <code>createBrowserRouter([...])</code></td><td>in the browser (<code>loader</code> in data mode)</td></tr>
+              <tr><td>React Router framework mode</td><td><code>npx create-react-router@latest</code></td><td><code>app/routes.ts</code> + route modules</td><td><code>loader</code> / <code>action</code> exported from each route, run on the server</td></tr>
+              <tr><td>Next.js App Router</td><td><code>npx create-next-app@latest</code></td><td>folders: <code>app/courses/[courseId]/page.tsx</code></td><td>async Server Components that <code>await</code> data directly</td></tr>
             </tbody>
           </table>
-          <p><strong>Old way — don't use:</strong> v5's <code>&lt;Switch&gt;</code>, <code>component={X}</code> and <code>useHistory</code>, and the separate <code>react-router-dom</code> package (removed in v8 — import from <code>react-router</code>). v8 requires React 19.2.7 or newer.</p>
+          <p>Frameworks render HTML on the server, so the first screen appears before any JavaScript runs, and they handle code splitting, data loading and deployment for you.</p>
         </div>
         <div class="lc-card">
-          <h3>How it works: our mini router</h3>
-          <p>The editor can't install packages, so the starter builds a tiny router with the <em>same API names</em> using context and state. A real router also syncs with the browser's address bar and history.</p>
+          <h3>Server Components vs Client Components</h3>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Server Component (default in Next.js <code>app/</code>)</th><th>Client Component (<code>"use client"</code>)</th></tr></thead>
+            <tbody>
+              <tr><td>Runs</td><td>only on the server (at request or build time)</td><td>on the server for the first HTML, then in the browser</td></tr>
+              <tr><td>Can be <code>async</code> and <code>await</code> data</td><td>✅ yes</td><td>❌ no — use <code>use()</code> or a data library</td></tr>
+              <tr><td>Hooks (<code>useState</code>, <code>useEffect</code>…) and <code>onClick</code></td><td>❌ no</td><td>✅ yes</td></tr>
+              <tr><td>Read a database or secret API keys</td><td>✅ yes — never sent to the browser</td><td>❌ no</td></tr>
+              <tr><td>Adds JavaScript to the bundle</td><td>no</td><td>yes</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Worked example: a Next.js page with one interactive part</h3>
+          <div class="lc-code">// app/courses/[courseId]/page.tsx — a Server Component (no directive needed)<br>import { LikeButton } from "./like-button";<br>import { getCourse } from "@/lib/db";<br><br>export default async function CoursePage({ params }: { params: Promise&lt;{ courseId: string }&gt; }) {<br>&nbsp;&nbsp;const { courseId } = await params;          // params is a Promise in Next.js 15+<br>&nbsp;&nbsp;const course = await getCourse(courseId);   // runs on the server only<br>&nbsp;&nbsp;return (<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;main&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;{course.title}&lt;/h1&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;LikeButton initialLikes={course.likes} /&gt;   {/* props must be serializable */}<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/main&gt;<br>&nbsp;&nbsp;);<br>}<br><br>// app/courses/[courseId]/like-button.tsx<br>"use client";                                 // must be the first line<br>import { useState } from "react";<br>export function LikeButton({ initialLikes }: { initialLikes: number }) {<br>&nbsp;&nbsp;const [likes, setLikes] = useState(initialLikes);<br>&nbsp;&nbsp;return &lt;button onClick={() =&gt; setLikes(l =&gt; l + 1)}&gt;👍 {likes}&lt;/button&gt;;<br>}</div>
+          <p><strong>Expected output</strong> at <code>/courses/react</code>: the browser receives HTML that already contains the course title and <code>👍 12</code> (if the database says 12 likes). Only <code>LikeButton</code>'s JavaScript is downloaded; clicking it shows <code>👍 13</code>.</p>
+        </div>
+        <div class="lc-card">
+          <h3>The rules to remember</h3>
+          <ul class="lc-list">
+            <li><strong>Hooks can't run in a Server Component.</strong> If a component needs state, effects or event handlers, put it in a file that starts with <code>"use client"</code>.</li>
+            <li><code>"use client"</code> marks a <em>boundary</em>: that file and everything it imports become client code. Keep it on small leaf components.</li>
+            <li>Props passed from a Server Component to a Client Component must be <strong>serializable</strong>: strings, numbers, booleans, plain objects, arrays, Dates, Promises and JSX — not ordinary functions or class instances.</li>
+            <li><code>"use server"</code> does <em>not</em> make a Server Component. It marks <strong>Server Functions</strong> that the browser can call, for example as a form <code>action</code> (lesson 16).</li>
+          </ul>
         </div>
         <div class="lc-card">
           <h3>Common mistakes</h3>
           <ul class="lc-list">
             <li>Using <code>&lt;a href&gt;</code> for internal links — the whole page reloads and state is lost. Use <code>&lt;Link&gt;</code>.</li>
             <li>Forgetting <code>&lt;Outlet /&gt;</code> in a layout, so child routes never appear.</li>
-            <li>Reading <code>useParams()</code> values as numbers — they are always strings.</li>
-            <li>On deployment, the server must send <code>index.html</code> for every path, or refreshing <code>/courses/react</code> gives a 404.</li>
+            <li>Calling <code>useState</code> in a Next.js page file without <code>"use client"</code> — the build fails.</li>
+            <li>Adding <code>"use client"</code> to the root layout "to make errors go away" — the whole app becomes client code and loses the server benefits.</li>
+            <li>For a plain SPA on a static host, forgetting to send <code>index.html</code> for every path, so refreshing <code>/courses/react</code> gives a 404.</li>
           </ul>
         </div>
         <div class="lc-card">
+          <h3>How the starter works</h3>
+          <p>The editor can't install packages, so the starter builds a tiny router with React Router's <em>API names</em> using context and state. A real router also syncs with the browser's address bar and history.</p>
+        </div>
+        <div class="lc-card">
           <h3>Try it</h3>
-          <p>Add an <code>/about</code> route and a nav link to it in the starter. Then add a "Back to courses" button on the course page that calls <code>navigate("/courses")</code>.</p>
+          <p>Add an <code>/about</code> route and a nav link to it in the starter. Then add a "Back to courses" button on the course page that calls <code>navigate("/courses")</code>. Finally, decide for each starter component: would it need <code>"use client"</code> in Next.js?</p>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Put things users should be able to bookmark or share (current page, search text, filters) in the URL, not only in state.
+          <strong>Tip:</strong> Put things users should be able to bookmark or share (current page, search text, filters) in the URL, not only in state. For a new full app, start with a framework; use plain React Router + Vite for small SPAs and widgets.
         </div>
       HTML
       starter_code: <<~'JSX'
@@ -2075,8 +2164,8 @@ module ReactContent
           return <a href={to} onClick={e => { e.preventDefault(); navigate(to); }} style={{ marginRight: 10 }}>{children}</a>;
         }
         function matchPath(pattern, path) {
-          const p = pattern.split("/").filter(Boolean), a = path.split("/").filter(Boolean);
           if (pattern === "*") return {};
+          const p = pattern.split("/").filter(Boolean), a = path.split("/").filter(Boolean);
           if (p.length !== a.length) return null;
           const params = {};
           for (let i = 0; i < p.length; i++) {
@@ -2097,6 +2186,9 @@ module ReactContent
 
         // ---- The app ----
         const COURSES = { react: "React", node: "Node.js" };
+        function CourseList() {
+          return <ul>{Object.entries(COURSES).map(([id, name]) => <li key={id}><Link to={"/courses/" + id}>{name}</Link></li>)}</ul>;
+        }
         function Course() {
           const { courseId } = useParams();
           return COURSES[courseId] ? <h2>Course: {COURSES[courseId]} (id "{courseId}")</h2> : <h2>No course "{courseId}"</h2>;
@@ -2106,9 +2198,10 @@ module ReactContent
           return (
             <div style={{ fontFamily: "sans-serif", padding: "1.5rem" }}>
               <code>URL: {path}</code>
-              <nav><Link to="/">Home</Link><Link to="/courses/react">React</Link><Link to="/courses/node">Node</Link><Link to="/oops">Broken link</Link></nav>
+              <nav><Link to="/">Home</Link><Link to="/courses">Courses</Link><Link to="/courses/react">React</Link><Link to="/oops">Broken link</Link></nav>
               <Routes>
                 <Route path="/" element={<h2>Home</h2>} />
+                <Route path="/courses" element={<CourseList />} />
                 <Route path="/courses/:courseId" element={<Course />} />
                 <Route path="*" element={<h2>404 — page not found</h2>} />
               </Routes>
@@ -2116,7 +2209,7 @@ module ReactContent
           );
         }
 
-        createRoot(document.getElementById("root")).render(<StrictMode><MemoryRouter initialPath="/"><App /></MemoryRouter></StrictMode>);
+        createRoot(document.getElementById("root")).render(<StrictMode><MemoryRouter initialPath="/courses"><App /></MemoryRouter></StrictMode>);
       JSX
     },
 
@@ -2284,10 +2377,10 @@ module ReactContent
             <thead><tr><th>Concept</th><th>In the app</th><th>Lesson</th></tr></thead>
             <tbody>
               <tr><td>Components + props</td><td><code>TaskItem task={t}</code></td><td>2–3</td></tr>
-              <tr><td>Events</td><td>checkbox <code>onChange</code>, delete <code>onClick</code></td><td>5</td></tr>
-              <tr><td>Lists, keys, conditional rendering</td><td><code>tasks.map</code> with <code>key={t.id}</code>, empty message</td><td>6</td></tr>
-              <tr><td>Reducer</td><td><code>tasksReducer</code>: added / toggled / deleted</td><td>13</td></tr>
-              <tr><td>Context + custom hook</td><td><code>useTasks()</code></td><td>12, 14</td></tr>
+              <tr><td>State and events</td><td>checkbox <code>onChange</code>, delete <code>onClick</code></td><td>4</td></tr>
+              <tr><td>Lists, keys, conditional rendering</td><td><code>tasks.map</code> with <code>key={t.id}</code>, empty message</td><td>5</td></tr>
+              <tr><td>Reducer</td><td><code>tasksReducer</code>: added / toggled / deleted</td><td>12</td></tr>
+              <tr><td>Context + custom hook</td><td><code>useTasks()</code></td><td>11, 13</td></tr>
               <tr><td>Form action</td><td><code>&lt;form action={addTask}&gt;</code> resets itself</td><td>16</td></tr>
             </tbody>
           </table>
@@ -2295,15 +2388,15 @@ module ReactContent
         <div class="lc-card">
           <h3>Worked example: one action through the app</h3>
           <div class="lc-code">// user ticks "Revise hooks"<br>&lt;input type="checkbox" onChange={() =&gt; dispatch({ type: "toggled", id: 2 })} /&gt;<br>// reducer returns a NEW array with task 2's done flipped<br>// TasksProvider re-renders → context value changes → TaskList re-renders<br>// derived counts update: "1 of 3 done"</div>
-          <p><strong>Expected output</strong> of the starter on first load:</p>
-          <div class="lc-code">My Tasks — 1 of 3 done<br>[All] [Active] [Done]<br>☐ Build a React app<br>☐ Revise hooks<br>☑ Install Vite</div>
+          <p><strong>Expected output</strong> of the starter on first load (<code>[New task    ]</code> is the empty text input with its placeholder, <code>[✕]</code> is each task's delete button):</p>
+          <div class="lc-code">My Tasks — 1 of 3 done<br>[New task&nbsp;&nbsp;&nbsp;&nbsp;] [Add]<br>[All] [Active] [Done]<br>• ☐ Build a React app [✕]<br>• ☐ Revise hooks [✕]<br>• ☑ Install Vite [✕]</div>
         </div>
         <div class="lc-card">
           <h3>Extensions (pick at least two)</h3>
           <ol class="lc-list">
             <li><strong>Edit a task</strong>: double-click shows an input; save with Enter (new <code>"edited"</code> action).</li>
             <li><strong>Priority</strong>: add a <code>&lt;select name="priority"&gt;</code> to the form and sort high-priority first (copy before sorting).</li>
-            <li><strong>Search</strong>: a controlled input + your <code>useDebouncedValue</code> hook from lesson 14.</li>
+            <li><strong>Search</strong>: a controlled input + your <code>useDebouncedValue</code> hook from lesson 13.</li>
             <li><strong>Tests</strong>: test <code>tasksReducer</code> directly, like lesson 19.</li>
             <li><strong>Real project</strong>: move it into a Vite app, one component per file; save tasks to <code>localStorage</code> in an effect (the lesson editor's sandbox blocks storage, so do this in Vite).</li>
           </ol>
@@ -2322,7 +2415,7 @@ module ReactContent
           <p>Add a "Clear completed" button that dispatches <code>{ type: "clearedDone" }</code> and only appears when at least one task is done.</p>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Next steps after this course: TypeScript with React, a framework (Next.js or React Router framework mode), TanStack Query for server data, and building and deploying one portfolio project end to end.
+          <strong>Tip:</strong> Next steps after this course: convert this app to TypeScript, rebuild it in a framework (Next.js or React Router framework mode), TanStack Query for server data, and building and deploying one portfolio project end to end.
         </div>
       HTML
       starter_code: <<~'JSX'
