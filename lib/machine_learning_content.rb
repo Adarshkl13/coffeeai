@@ -30,8 +30,25 @@ module MachineLearningContent
         <div class="lc-card">
           <h3>A First Model in scikit-learn</h3>
           <p>scikit-learn is Python's most popular ML library. Every model follows the same three steps: create, <code>fit</code>, <code>predict</code>.</p>
-          <div class="lc-code">from sklearn.linear_model import LogisticRegression<br><br>hours  = [[1], [2], [3], [4], [5], [6], [7], [8]]   # input (feature)<br>result = [0, 0, 0, 0, 1, 1, 1, 1]                   # answer: 0 = fail, 1 = pass<br><br>model = LogisticRegression()<br>model.fit(hours, result)          # learn the pattern<br>print(model.predict([[2.5], [6.5]]))   # [0 1]</div>
-          <p>We never wrote "if hours &gt; 4.5". The model learned that boundary from the examples.</p>
+          <div class="lc-code">from sklearn.linear_model import LogisticRegression<br><br>hours  = [[1], [2], [3], [4], [5], [6], [7], [8]]   # input (feature)<br>result = [0, 0, 0, 0, 1, 1, 1, 1]                   # answer: 0 = fail, 1 = pass<br><br>model = LogisticRegression()<br>model.fit(hours, result)          # learn the pattern<br>print(model.predict([[2.5], [6.5]]))<br>print(-model.intercept_[0] / model.coef_[0][0])   # where P(pass) = 0.5</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">[0 1]<br>4.500009197500652</div>
+          <p>We never wrote "if hours &gt; 4.5". The model learned that boundary from the examples: 2.5 hours is predicted fail (0), 6.5 hours pass (1).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Key Words You Will Use All Course</h3>
+          <table class="lc-table">
+            <thead><tr><th>Word</th><th>Meaning</th><th>In the example above</th></tr></thead>
+            <tbody>
+              <tr><td>Feature</td><td>An input the model looks at</td><td>Hours studied</td></tr>
+              <tr><td>Label / target</td><td>The answer we want to predict</td><td>Pass (1) or fail (0)</td></tr>
+              <tr><td>Training</td><td>Letting the model find its rule from labelled examples</td><td><code>model.fit(hours, result)</code></td></tr>
+              <tr><td>Model</td><td>The learned rule (a function with learned numbers inside)</td><td>The fitted <code>LogisticRegression</code></td></tr>
+              <tr><td>Prediction / inference</td><td>Using the model on new inputs</td><td><code>model.predict([[2.5]])</code></td></tr>
+              <tr><td>Generalisation</td><td>Doing well on examples the model has never seen</td><td>New students next year</td></tr>
+            </tbody>
+          </table>
+          <p>The last row is the real goal. Getting the training examples right is easy — a model could just memorise them. A good model must also work on <em>new</em> students. Most of this course is about measuring and improving generalisation.</p>
         </div>
         <div class="lc-card">
           <h3>When Should You Use ML?</h3>
@@ -52,7 +69,16 @@ module MachineLearningContent
             <li>Thinking ML is magic — a model only knows what is in its data.</li>
             <li>Using ML when a simple formula or rule would do the job.</li>
             <li>Expecting 100% accuracy — real-world predictions always have some error.</li>
+            <li>Judging a model by how well it does on the examples it was trained on. The starter prints a training accuracy of 0.875, but that says little about next year's students (lesson 5 shows how to test properly).</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter code. Note the learned boundary (about 3.75 hours) and the P(pass) column.</li>
+            <li>Change the hand-written rule to <code>h &gt; 3.75</code>. Do the "Hand rule" and "ML model" columns now agree for every new student?</li>
+            <li>Change the label for 3.5 hours from <code>1</code> to <code>0</code> and run again. Which way does the learned boundary move, and why? (The rule changed because the <em>data</em> changed — you did not edit any rule.)</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Remember the core idea: <em>a model is a function learned from data</em>. Everything in this course — regression, trees, clustering — is a different way of learning that function.
@@ -119,7 +145,18 @@ module MachineLearningContent
         <div class="lc-card">
           <h3>Same Data, Two Approaches</h3>
           <p>The Iris dataset has 150 flowers with 4 measurements and a species label. We can use it both ways:</p>
-          <div class="lc-code">from sklearn.datasets import load_iris<br>from sklearn.tree import DecisionTreeClassifier<br>from sklearn.cluster import KMeans<br><br>X, y = load_iris(return_X_y=True)<br><br># Supervised: we GIVE the labels y<br>clf = DecisionTreeClassifier().fit(X, y)<br><br># Unsupervised: only X, no labels at all<br>km = KMeans(n_clusters=3, n_init=10, random_state=0).fit(X)<br>print(km.labels_[:10])   # group numbers the model invented</div>
+          <div class="lc-code">from sklearn.datasets import load_iris<br>from sklearn.tree import DecisionTreeClassifier<br>from sklearn.cluster import KMeans<br><br>X, y = load_iris(return_X_y=True)<br><br># Supervised: we GIVE the labels y<br>clf = DecisionTreeClassifier().fit(X, y)<br><br># Unsupervised: only X, no labels at all<br>km = KMeans(n_clusters=3, n_init=10, random_state=0).fit(X)<br>print(km.labels_[:10])   # group numbers the model invented<br>print(y[:10])            # the real species codes</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">[1 1 1 1 1 1 1 1 1 1]<br>[0 0 0 0 0 0 0 0 0 0]</div>
+          <p>The first 10 flowers are all setosa (species 0). k-means put them together in one group — but called it group 1. Cluster numbers are just names the algorithm invents; they are not species IDs.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Two Modern Variations</h3>
+          <ul class="lc-list">
+            <li><strong>Semi-supervised learning</strong> — a few labelled examples plus many unlabelled ones. Useful when labelling is expensive, e.g. a doctor can label only 200 X-rays out of 50,000.</li>
+            <li><strong>Self-supervised learning</strong> — the labels are created from the data itself, e.g. hide the next word in a sentence and ask the model to predict it. This is how large language models are pre-trained (see the Practical AI and Deep Learning courses).</li>
+          </ul>
+          <p>Both are built from the same supervised and unsupervised ideas you learn in this course.</p>
         </div>
         <div class="lc-card">
           <h3>Which Type Is It?</h3>
@@ -139,7 +176,16 @@ module MachineLearningContent
             <li>Calling clustering "classification" — clustering has no labels, so the group numbers have no fixed meaning.</li>
             <li>Treating a category stored as a number (like PIN code) as a regression target.</li>
             <li>Assuming unsupervised learning is "worse" — it simply answers a different question.</li>
+            <li>Calling a problem regression just because the label is stored as a number — star ratings 1–5 can be treated as classes; "predicted 3.4 stars" may not be what the business needs.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter. In the "Cluster vs real species" table, which species does k-means separate perfectly, and which two does it mix up?</li>
+            <li>Change <code>n_clusters=3</code> to <code>n_clusters=2</code>. Which species end up sharing a cluster? (Hint: look at which two were mixed before.)</li>
+            <li>Change the supervised flower to <code>[6.5, 3.0, 5.5, 2.0]</code>. Which species does the classifier predict?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Most real business ML is supervised learning. We will spend lessons 5–17 on it, then cover unsupervised learning (k-means, PCA) in lessons 18–19.
@@ -150,6 +196,8 @@ module MachineLearningContent
         from sklearn.tree import DecisionTreeClassifier
         from sklearn.cluster import KMeans
         import numpy as np
+        import warnings
+        warnings.filterwarnings("ignore", message="JsProxy")  # hide a harmless browser-runtime notice
 
         X, y = load_iris(return_X_y=True)
         names = load_iris().target_names
@@ -182,22 +230,27 @@ module MachineLearningContent
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
           <h1 class="lc-title">The ML Workflow</h1>
         </div>
-        <p class="lc-lead">Every ML project, from a college assignment to a production system, follows the same set of steps. Learning this workflow early saves you from the most common mistakes.</p>
+        <p class="lc-lead">Every ML project, from a college assignment to a production system, follows the same set of steps. Learning this workflow early saves you from the most common mistakes — especially the ones that make a model look better than it really is.</p>
         <div class="lc-card">
           <h3>The Seven Steps</h3>
           <ol class="lc-list">
-            <li><strong>Define the problem</strong> — What exactly are we predicting? Regression or classification?</li>
+            <li><strong>Define the problem</strong> — What exactly are we predicting? Regression or classification? What does a mistake cost?</li>
             <li><strong>Collect data</strong> — Past records with the answers you want to predict.</li>
             <li><strong>Explore and clean</strong> — Look for missing values, wrong entries, outliers.</li>
             <li><strong>Split</strong> — Keep a test set aside that the model never sees during training.</li>
-            <li><strong>Prepare features</strong> — Scale numbers, encode categories.</li>
-            <li><strong>Train and tune</strong> — Fit models, compare them, pick settings.</li>
-            <li><strong>Evaluate and deploy</strong> — Measure on the test set once, then use the model.</li>
+            <li><strong>Prepare features</strong> — Scale numbers, encode categories (learned from the training rows only).</li>
+            <li><strong>Train and tune</strong> — Fit a baseline and real models, compare them, pick settings.</li>
+            <li><strong>Evaluate and deploy</strong> — Measure on the test set once, then use and monitor the model.</li>
           </ol>
+          <p>In real projects you loop back often: a poor score in step 7 may send you back to collect better data (step 2) or build better features (step 5). What you must never do is loop back <em>because of</em> the test score and then report that same test score.</p>
         </div>
         <div class="lc-card">
-          <h3>The Workflow in Code</h3>
-          <div class="lc-code">from sklearn.datasets import load_wine<br>from sklearn.model_selection import train_test_split<br>from sklearn.preprocessing import StandardScaler<br>from sklearn.linear_model import LogisticRegression<br><br>X, y = load_wine(return_X_y=True)                       # 2. data<br>X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=42)  # 4. split<br>scaler = StandardScaler().fit(X_tr)                     # 5. prepare<br>model = LogisticRegression(max_iter=1000)<br>model.fit(scaler.transform(X_tr), y_tr)                 # 6. train<br>print(model.score(scaler.transform(X_te), y_te))        # 7. evaluate</div>
+          <h3>Worked Example: Will a Customer Leave?</h3>
+          <p>A telecom company wants to predict <strong>churn</strong> — whether a mobile customer will leave next month — from 8 usage features. We simulate realistic, noisy data with <code>make_classification</code> (10% of labels are deliberately flipped, as in real life where records are imperfect).</p>
+          <div class="lc-code">from sklearn.datasets import make_classification<br>from sklearn.model_selection import train_test_split<br>from sklearn.preprocessing import StandardScaler<br>from sklearn.linear_model import LogisticRegression<br>from sklearn.dummy import DummyClassifier<br><br>X, y = make_classification(n_samples=600, n_features=8, n_informative=4,<br>                           n_redundant=2, weights=[0.6, 0.4], flip_y=0.1,<br>                           class_sep=0.8, random_state=1)                   # 2. data<br>X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25,<br>                                          random_state=42, stratify=y)     # 4. split<br>scaler = StandardScaler().fit(X_tr)                                       # 5. prepare<br>X_tr_s, X_te_s = scaler.transform(X_tr), scaler.transform(X_te)<br>baseline = DummyClassifier(strategy="most_frequent").fit(X_tr_s, y_tr)    # 6. train<br>model = LogisticRegression().fit(X_tr_s, y_tr)<br>print("Baseline:", round(baseline.score(X_te_s, y_te), 3))                # 7. evaluate<br>print("Model:   ", round(model.score(X_te_s, y_te), 3))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">Baseline: 0.573<br>Model:    0.767</div>
+          <p>The baseline always says "stays" and is right 57.3% of the time, because 57% of customers stay. Our model reaches 76.7%. That gap — not the 76.7% on its own — is the real measure of what the model learned. It is far from perfect, which is normal for real, noisy data.</p>
         </div>
         <div class="lc-card">
           <h3>Where Time Actually Goes</h3>
@@ -210,54 +263,79 @@ module MachineLearningContent
               <tr><td>Evaluation and deployment</td><td>~10%</td></tr>
             </tbody>
           </table>
-          <p>Beginners think ML is mostly about algorithms. In practice, most of the work is getting good data.</p>
+          <p>These are rough rules of thumb, not measured facts — but practitioners agree that most of the work is getting good data, not choosing algorithms.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Three Data Sets, Three Jobs</h3>
+          <table class="lc-table">
+            <thead><tr><th>Set</th><th>Used for</th><th>Exam analogy</th></tr></thead>
+            <tbody>
+              <tr><td>Training set</td><td>Fitting the model's weights</td><td>Textbook exercises</td></tr>
+              <tr><td>Validation set / cross-validation</td><td>Comparing models and choosing settings</td><td>Mock tests</td></tr>
+              <tr><td>Test set</td><td>One final, honest score</td><td>The board exam</td></tr>
+            </tbody>
+          </table>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Peeking at the test set</strong> — tuning your model on test data makes the final score dishonestly high.</li>
-            <li><strong>Scaling before splitting</strong> — the scaler learns from test rows, which leaks information.</li>
-            <li><strong>No baseline</strong> — always compare with a dumb model (e.g. "always predict the most common class").</li>
+            <li><strong>Scaling before splitting</strong> — the scaler learns the mean and spread of the test rows, which leaks information.</li>
+            <li><strong>No baseline</strong> — 77% sounds good, but if 77% of customers stay, "always predict stay" also scores 77%.</li>
             <li><strong>Vague goal</strong> — "use AI on sales data" is not a problem; "predict next month's sales per shop" is.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and note the baseline and model test accuracy.</li>
+            <li>Change <code>flip_y=0.1</code> to <code>flip_y=0.0</code> (perfectly clean labels). How much does the model's accuracy go up? What does that tell you about the value of clean data?</li>
+            <li>Change <code>weights=[0.6, 0.4]</code> to <code>weights=[0.9, 0.1]</code>. What happens to the baseline accuracy? Is the model's accuracy still impressive?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Think of the test set like the final board exam paper. You may practise with sample papers (training and validation data) as much as you like, but you only sit the final exam once.
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        from sklearn.datasets import load_wine
+        from sklearn.datasets import make_classification
         from sklearn.model_selection import train_test_split
         from sklearn.preprocessing import StandardScaler
         from sklearn.linear_model import LogisticRegression
         from sklearn.dummy import DummyClassifier
 
-        # Step 1: Problem - predict which of 3 cultivars a wine comes from
-        # Step 2: Collect data
-        X, y = load_wine(return_X_y=True)
-        print("Step 2 | Samples:", X.shape[0], "Features:", X.shape[1])
+        # Step 1: Problem - will a mobile customer leave (churn = 1) next month?
+        # Step 2: Collect data (simulated: 8 usage features, 10% of labels are noisy)
+        X, y = make_classification(n_samples=600, n_features=8, n_informative=4,
+                                   n_redundant=2, weights=[0.6, 0.4], flip_y=0.1,
+                                   class_sep=0.8, random_state=1)
+        print("Step 2 | Customers:", X.shape[0], "| Features:", X.shape[1],
+              "| Churn rate:", round(y.mean(), 2))
 
         # Step 4: Split BEFORE doing anything else with the data
         X_tr, X_te, y_tr, y_te = train_test_split(
             X, y, test_size=0.25, random_state=42, stratify=y)
-        print("Step 4 | Train:", len(X_tr), "Test:", len(X_te))
+        print("Step 4 | Train:", len(X_tr), "| Test:", len(X_te))
 
-        # Step 5: Prepare features (fit scaler on TRAIN only)
+        # Step 5: Prepare features (fit the scaler on TRAIN only)
         scaler = StandardScaler().fit(X_tr)
         X_tr_s, X_te_s = scaler.transform(X_tr), scaler.transform(X_te)
-        print("Step 5 | Scaled feature 0 mean on train:", round(X_tr_s[:, 0].mean(), 3))
+        print("Step 5 | Scaled feature 0 on train: mean", abs(round(X_tr_s[:, 0].mean(), 3)),
+              "std", round(X_tr_s[:, 0].std(), 3))
 
         # Step 6: Train a baseline and a real model
         baseline = DummyClassifier(strategy="most_frequent").fit(X_tr_s, y_tr)
-        model = LogisticRegression(max_iter=1000).fit(X_tr_s, y_tr)
+        model = LogisticRegression().fit(X_tr_s, y_tr)
 
-        # Step 7: Evaluate once on the test set
-        print("Step 7 | Baseline accuracy:", round(baseline.score(X_te_s, y_te), 3))
-        print("Step 7 | Model accuracy:   ", round(model.score(X_te_s, y_te), 3))
+        # Step 7: Evaluate ONCE on the test set
+        print("Step 7 | Baseline test accuracy:", round(baseline.score(X_te_s, y_te), 3))
+        print("Step 7 | Model train accuracy:  ", round(model.score(X_tr_s, y_tr), 3))
+        print("Step 7 | Model test accuracy:   ", round(model.score(X_te_s, y_te), 3))
 
-        # Use the model on a "new" wine
-        new_wine = X_te[:1]
-        print("Prediction for a new wine: class", model.predict(scaler.transform(new_wine))[0])
+        # Use the model on 3 "new" customers
+        probs = model.predict_proba(scaler.transform(X_te[:3]))[:, 1]
+        for i, p in enumerate(probs):
+            print(f"Customer {i}: P(churn) = {p:.2f} -> {'LEAVE' if p >= 0.5 else 'STAY'} (actual: {y_te[i]})")
       PYTHON
     },
 
@@ -283,7 +361,10 @@ module MachineLearningContent
         </div>
         <div class="lc-card">
           <h3>Separating X and y with Pandas</h3>
-          <div class="lc-code">import pandas as pd<br><br>df = pd.DataFrame({<br>    "area_sqft": [850, 1200, 1500, 950],<br>    "bedrooms":  [2, 3, 3, 2],<br>    "city":      ["Pune", "Bengaluru", "Pune", "Chennai"],<br>    "price_lakh":[48, 95, 88, 60],<br>})<br>X = df.drop(columns="price_lakh")   # features<br>y = df["price_lakh"]                # label<br>print(X.shape, y.shape)             # (4, 3) (4,)</div>
+          <div class="lc-code">import pandas as pd<br><br>df = pd.DataFrame({<br>    "area_sqft": [850, 1200, 1500, 950],<br>    "bedrooms":  [2, 3, 3, 2],<br>    "city":      ["Pune", "Bengaluru", "Pune", "Chennai"],<br>    "price_lakh":[48, 95, 88, 60],<br>})<br>X = df.drop(columns="price_lakh")   # features<br>y = df["price_lakh"]                # label<br>print(X.shape, y.shape)<br>print(list(X.columns))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">(4, 3) (4,)<br>['area_sqft', 'bedrooms', 'city']</div>
+          <p>X is 2D (4 rows × 3 features); y is 1D (4 answers). Row <em>i</em> of X always belongs with element <em>i</em> of y — never sort or filter one without the other.</p>
         </div>
         <div class="lc-card">
           <h3>Types of Features</h3>
@@ -298,6 +379,20 @@ module MachineLearningContent
           <h3>Check Your Data First</h3>
           <p>Before training, always run a quick health check:</p>
           <div class="lc-code">df.info()            # column types and non-null counts<br>df.describe()        # min, max, mean of numeric columns<br>df.isna().sum()      # missing values per column<br>df["city"].value_counts()   # category counts</div>
+          <p>In the starter, this check finds one missing <code>area_sqft</code> (flat 107). We fill it with the median area. The median is safer than the mean when a few flats are very large, because one 5,000 sq ft penthouse would pull the mean up a lot but the median hardly moves.</p>
+          <p>In a real project, calculate the fill value from the <em>training</em> rows only (lesson 16 and 17 show how <code>SimpleImputer</code> inside a Pipeline does this for you). The pandas course covers missing-data tools in depth.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Good Features vs Bad Features</h3>
+          <table class="lc-table">
+            <thead><tr><th>Column</th><th>Keep?</th><th>Reason</th></tr></thead>
+            <tbody>
+              <tr><td>area_sqft</td><td>Yes</td><td>Known before sale; strongly related to price</td></tr>
+              <tr><td>city</td><td>Yes (after encoding)</td><td>Location matters, but it is text, so it must become numbers</td></tr>
+              <tr><td>flat_id</td><td>No</td><td>Just a serial number; any pattern it shows is an accident</td></tr>
+              <tr><td>registration_fee_paid</td><td>No — leakage</td><td>Calculated from the final price, so only known after the sale</td></tr>
+            </tbody>
+          </table>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -305,8 +400,16 @@ module MachineLearningContent
             <li><strong>Leaving the label inside X</strong> — the model "cheats" and gets perfect but useless scores.</li>
             <li><strong>Using an ID column as a feature</strong> — roll numbers or house IDs carry no real pattern.</li>
             <li><strong>Features that are only known after the fact</strong> — e.g. using "final match result" to predict the toss winner. This is called <em>data leakage</em>.</li>
-            <li>Passing a 1D list as X — scikit-learn wants 2D: use <code>[[5], [6]]</code>, not <code>[5, 6]</code>.</li>
+            <li>Passing a 1D list as X — scikit-learn wants 2D: use <code>[[5], [6]]</code>, not <code>[5, 6]</code>. For a NumPy array use <code>x.reshape(-1, 1)</code>.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check the shapes: X should be <code>(8, 4)</code> and y <code>(8,)</code>.</li>
+            <li>Remove <code>"flat_id"</code> from the <code>drop(columns=[...])</code> list and run again. How does the X shape change? Would a model learn anything real from that column?</li>
+            <li>Add a new column <code>"floor": [2, 5, 1, 8, 3, 4, 6, 10]</code> to the DataFrame. Is it numeric or categorical according to the printout?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Ask of every feature: "Would I actually know this value at the moment I need to make the prediction?" If not, remove it.
@@ -371,6 +474,18 @@ module MachineLearningContent
           <p>The order of the four returned values is always: <code>X_train, X_test, y_train, y_test</code>.</p>
         </div>
         <div class="lc-card">
+          <h3>Worked Example: Memorising vs Learning</h3>
+          <p>The starter creates 200 students with study hours and attendance, splits them 75/25, and trains two decision trees:</p>
+          <div class="lc-code">X_tr, X_te, y_tr, y_te = train_test_split(<br>    X, y, test_size=0.25, random_state=42, stratify=y)<br><br>tree  = DecisionTreeClassifier(random_state=0).fit(X_tr, y_tr)              # no depth limit<br>small = DecisionTreeClassifier(max_depth=3, random_state=0).fit(X_tr, y_tr)<br>print(tree.score(X_tr, y_tr), tree.score(X_te, y_te))<br>print(small.score(X_tr, y_tr), small.score(X_te, y_te))</div>
+          <p><strong>Output (rounded):</strong></p>
+          <div class="lc-code">Deep tree    -&gt; train acc: 1.0   | test acc: 0.86<br>Depth-3 tree -&gt; train acc: 0.947 | test acc: 0.9</div>
+          <p>If we had only measured on training data, the deep tree (100%) would look like the winner. The test set shows the truth: the simpler tree does better on students it has never seen.</p>
+        </div>
+        <div class="lc-card">
+          <h3>What stratify Actually Does</h3>
+          <p>With <code>stratify=y</code>, the split keeps the class proportions the same in both parts. The starter prints a pass rate of 0.54 overall, 0.54 in train and 0.54 in test. Without it, a small or imbalanced dataset can easily end up with, say, 0.60 in train and 0.40 in test — and the test score then measures a different problem.</p>
+        </div>
+        <div class="lc-card">
           <h3>Important Parameters</h3>
           <table class="lc-table">
             <thead><tr><th>Parameter</th><th>What it does</th></tr></thead>
@@ -388,8 +503,17 @@ module MachineLearningContent
             <li><strong>Evaluating on training data</strong> — gives an over-optimistic score.</li>
             <li><strong>Shuffling time-series data</strong> — predicting 2023 sales using rows from 2024 is cheating. Split by date instead.</li>
             <li><strong>No stratify on imbalanced data</strong> — if only 5% of emails are spam, a random split may put almost no spam in the test set.</li>
-            <li><strong>Tiny test sets</strong> — 5 test rows give a very noisy score.</li>
+            <li><strong>Tiny test sets</strong> — 5 test rows give a very noisy score: one mistake changes accuracy by 20 percentage points.</li>
+            <li><strong>Duplicate rows across the split</strong> — if the same customer appears twice, one copy may land in train and one in test, so the model is tested on something it has already seen. Remove duplicates (or split by customer) first.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and compare the train and test accuracy of the deep tree and the depth-3 tree.</li>
+            <li>Change <code>test_size=0.25</code> to <code>0.5</code>. How many rows are now in each set?</li>
+            <li>Change <code>random_state=42</code> in the first split to <code>1</code>, then <code>2</code>. Does the test accuracy of the deep tree change? This is why a single split can be "lucky" — lesson 15 fixes it with cross-validation.</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> A big gap between training score and test score is your first warning sign of <em>overfitting</em>. We will study it properly in lesson 14.
@@ -452,8 +576,19 @@ module MachineLearningContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Flat Prices</h3>
-          <div class="lc-code">from sklearn.linear_model import LinearRegression<br><br>area  = [[600], [800], [1000], [1200], [1500]]   # sq ft<br>price = [35, 46, 55, 66, 82]                     # lakhs<br><br>model = LinearRegression().fit(area, price)<br>print(model.coef_[0])        # ~0.052 lakh per sq ft<br>print(model.intercept_)      # ~3.9 lakhs<br>print(model.predict([[1100]]))   # ~61 lakhs</div>
-          <p>Read it as: every extra 100 sq ft adds about ₹5.2 lakhs.</p>
+          <div class="lc-code">from sklearn.linear_model import LinearRegression<br><br>area  = [[600], [800], [1000], [1200], [1500]]   # sq ft<br>price = [35, 46, 55, 66, 82]                     # lakhs<br><br>model = LinearRegression().fit(area, price)<br>print(round(model.coef_[0], 4))      # w: lakhs per sq ft<br>print(round(model.intercept_, 2))    # b: lakhs<br>print(model.predict([[1100]]).round(1))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">0.0519<br>3.88<br>[61.]</div>
+          <p>Read it as: every extra 100 sq ft adds about ₹5.2 lakhs. Check by hand: 0.0519 × 1100 + 3.88 = 61.0 lakhs. Do not read the intercept as "a 0 sq ft flat costs ₹3.88 lakhs" — 0 sq ft is far outside the data, so the intercept is just where the line crosses the axis.</p>
+        </div>
+        <div class="lc-card">
+          <h3>What "Best Line" Means: Least Squares</h3>
+          <p>For each flat, the <strong>residual</strong> is <code>actual − predicted</code>. Linear regression chooses w and b to make the <strong>sum of squared residuals</strong> as small as possible (this is called <em>ordinary least squares</em>, OLS).</p>
+          <ul class="lc-list">
+            <li>Squaring makes every error positive, so over- and under-predictions cannot cancel out.</li>
+            <li>Squaring also punishes big errors more than small ones — which is why one outlier can pull the line.</li>
+            <li><code>LinearRegression</code> solves this exactly with linear algebra (no trial and error). Lesson 7 shows another way to reach the same answer: gradient descent.</li>
+          </ul>
         </div>
         <div class="lc-card">
           <h3>Reading Coefficients</h3>
@@ -474,7 +609,16 @@ module MachineLearningContent
             <li><strong>Assuming a straight line fits everything</strong> — crop yield rises with fertiliser, then falls if you add too much. That curve is not linear.</li>
             <li><strong>Outliers</strong> — one wrongly entered price (e.g. 950 instead of 95) can pull the whole line.</li>
             <li>Using linear regression for yes/no answers — use logistic regression (lesson 9) instead.</li>
+            <li><strong>Trusting training R²</strong> — the starter gets R² = 0.998 on its own 10 flats. With 3 features and only 10 rows that is expected, and it says nothing about new flats.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter. By how many lakhs does the price change for each extra year of age?</li>
+            <li>Change the last price in <code>y</code> from <code>110</code> to <code>250</code> (a data-entry mistake). Run again and compare the area coefficient and the predictions. How much did one wrong row move the model?</li>
+            <li>Add a new flat to <code>new_flats</code>: <code>[5000, 6, 0]</code>. Is this prediction trustworthy? Why not?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Always start a regression problem with <code>LinearRegression</code>. It is fast, easy to explain, and gives you a baseline that fancier models must beat.
@@ -540,17 +684,34 @@ module MachineLearningContent
           <h3>In NumPy</h3>
           <div class="lc-code">w, b, lr = 0.0, 0.0, 0.01<br>for step in range(1000):<br>    y_hat = w * x + b<br>    error = y_hat - y<br>    dw = 2 * np.mean(error * x)<br>    db = 2 * np.mean(error)<br>    w -= lr * dw<br>    b -= lr * db</div>
           <p>After enough steps, <code>w</code> and <code>b</code> settle at the same values <code>LinearRegression</code> would give.</p>
+          <p><strong>Output of the starter (learning rate 0.01, 5000 steps):</strong></p>
+          <div class="lc-code">  step     0  loss=     4101.14  w=   0.000  b=   0.000<br>  step  1000  loss=       21.56  w=   7.986  b=  19.055<br>  step  2000  loss=       21.39  w=   7.819  b=  20.090<br>  ...<br>  step  5000  loss=       21.39  w=   7.808  b=  20.156<br><br>Gradient descent: w=7.808, b=20.156<br>Exact solution:   w=7.808, b=20.156</div>
+          <p>The data was generated from <code>marks = 8 × hours + 20</code> plus random noise, so the best line for <em>this sample</em> (7.808, 20.156) is close to, but not exactly, the true 8 and 20. The loss stops at about 21.4, not 0 — that remaining error is the noise, which no line can remove.</p>
         </div>
         <div class="lc-card">
           <h3>Choosing the Learning Rate</h3>
           <table class="lc-table">
             <thead><tr><th>Learning rate</th><th>What happens</th></tr></thead>
             <tbody>
-              <tr><td>Too small (0.00001)</td><td>Loss falls very slowly; needs many steps</td></tr>
-              <tr><td>Just right (0.01)</td><td>Loss falls smoothly and settles</td></tr>
-              <tr><td>Too large (1.0)</td><td>Steps overshoot the valley; loss jumps around or explodes</td></tr>
+              <tr><td>Too small (0.0001 here)</td><td>Loss falls very slowly; needs many more steps</td></tr>
+              <tr><td>Just right (0.01 here)</td><td>Loss falls smoothly and settles</td></tr>
+              <tr><td>Too large (0.05 here)</td><td>Steps overshoot the valley; loss grows every step and explodes</td></tr>
             </tbody>
           </table>
+          <p>There is no universal "good" learning rate: the safe range depends on the size of your feature values. In the starter, x goes up to 9, and 0.05 is already too large — the loss goes from 4,101 to about 130 billion in 10 steps. With features scaled to around −2…2, a much larger rate would work.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Closed Form vs Gradient Descent</h3>
+          <table class="lc-table">
+            <thead><tr><th></th><th>Exact least squares (LinearRegression)</th><th>Gradient descent</th></tr></thead>
+            <tbody>
+              <tr><td>How</td><td>Solves the equations directly</td><td>Many small downhill steps</td></tr>
+              <tr><td>Settings to choose</td><td>None</td><td>Learning rate, number of steps</td></tr>
+              <tr><td>Works for</td><td>Linear models with squared error</td><td>Almost any model with a differentiable loss</td></tr>
+              <tr><td>Very large data</td><td>Can become slow or memory-hungry</td><td>Scales well, especially mini-batch / stochastic versions</td></tr>
+            </tbody>
+          </table>
+          <p>This lesson uses the whole dataset for every step (<em>batch</em> gradient descent). Stochastic and mini-batch versions, momentum and Adam are covered in the Deep Learning course.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -558,7 +719,16 @@ module MachineLearningContent
             <li><strong>Unscaled features</strong> — if x is area in sq ft (hundreds or thousands), gradients become huge and training blows up. Scale x first.</li>
             <li><strong>Forgetting to update both w and b</strong> — the line can then never fit properly.</li>
             <li><strong>Stopping too early</strong> — always print the loss to check it has flattened.</li>
+            <li><strong>Wrong sign in the update</strong> — writing <code>w += lr * dw</code> walks <em>uphill</em> and the loss grows even with a tiny learning rate.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check that gradient descent matches the exact solution.</li>
+            <li>Change <code>lr=0.01</code> to <code>lr=0.0001</code> (keep 5000 steps). Is the loss still falling at the end? How far are w and b from the exact answer?</li>
+            <li>Find the largest learning rate that still converges: try <code>0.02</code>, <code>0.03</code> and <code>0.04</code> in the last call and watch whether the loss shrinks or grows.</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> The same loop — predict, compute loss, compute gradient, update — trains logistic regression and even huge neural networks. Only the model and loss formula change.
@@ -631,7 +801,20 @@ module MachineLearningContent
         </div>
         <div class="lc-card">
           <h3>In scikit-learn</h3>
-          <div class="lc-code">from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score<br>import numpy as np<br><br>mae  = mean_absolute_error(y_test, y_pred)<br>rmse = np.sqrt(mean_squared_error(y_test, y_pred))<br>r2   = r2_score(y_test, y_pred)</div>
+          <div class="lc-code">from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score<br>import numpy as np<br><br>actual = [3.0, 4.0, 5.0]<br>pred   = [2.5, 4.0, 6.0]<br>print(mean_absolute_error(actual, pred))<br>print(round(np.sqrt(mean_squared_error(actual, pred)), 3))<br>print(round(r2_score(actual, pred), 3))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">0.5<br>0.645<br>0.375</div>
+          <p>The same numbers as the hand calculation. (Newer scikit-learn versions also have <code>root_mean_squared_error</code>; taking <code>np.sqrt</code> of the MSE works in every version.)</p>
+        </div>
+        <div class="lc-card">
+          <h3>Always Compare with a Baseline</h3>
+          <p>The starter trains on the diabetes dataset (predicting disease progression one year later) and compares against <code>DummyRegressor</code>, which always predicts the training mean:</p>
+          <div class="lc-code">Model                     MAE     RMSE      R2<br>Baseline (mean)         65.53    74.88  -0.014<br>Linear Regression       41.55    53.37   0.485<br><br>Train R2: 0.519 | Test R2: 0.485</div>
+          <ul class="lc-list">
+            <li>The baseline's R² is slightly <strong>negative</strong> on the test set: the training mean is a bit worse than the test set's own mean. R² can go below 0 whenever a model is worse than "predict the mean".</li>
+            <li>Linear regression cuts the average error from 65.5 to 41.6 — a real improvement, even though R² = 0.485 sounds "low". Medical data is noisy; judge R² against the baseline and the problem, not against 1.0.</li>
+            <li>Train R² (0.519) and test R² (0.485) are close, so the model is not overfitting.</li>
+          </ul>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -639,8 +822,16 @@ module MachineLearningContent
             <li><strong>Reporting training scores</strong> — a high training R² says nothing about new data.</li>
             <li><strong>Comparing RMSE across different datasets</strong> — an RMSE of 5 is great for prices in lakhs but terrible for CGPA out of 10.</li>
             <li><strong>No baseline</strong> — always compare with a model that predicts the mean. If you cannot beat it, the model has learned nothing.</li>
-            <li>Mixing up argument order — sklearn metrics take <code>(y_true, y_pred)</code>.</li>
+            <li>Mixing up argument order — sklearn metrics take <code>(y_true, y_pred)</code>. For MAE and MSE the order does not change the answer, but for <code>r2_score</code> it does.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and confirm the hand-calculated values match the table in this lesson.</li>
+            <li>Change the last prediction in <code>pred</code> from <code>6.0</code> to <code>8.0</code>. Which grows more, MAE or RMSE? Why?</li>
+            <li>Swap the arguments to <code>r2_score(pred, actual)</code>. Do you get the same R²? Now you know why the order matters.</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Use MAE when explaining results to non-technical people ("on average we are off by 3 marks"). Use RMSE when large errors are especially costly.
@@ -698,7 +889,16 @@ module MachineLearningContent
         </div>
         <div class="lc-card">
           <h3>Worked Example</h3>
-          <div class="lc-code">from sklearn.linear_model import LogisticRegression<br><br># [study_hours, attendance_%]<br>X = [[2, 60], [3, 55], [4, 80], [6, 70], [7, 90], [8, 85]]<br>y = [0, 0, 0, 1, 1, 1]          # 1 = pass<br><br>model = LogisticRegression().fit(X, y)<br>print(model.predict_proba([[5, 75]]))   # [[P(fail), P(pass)]]<br>print(model.predict([[5, 75]]))         # class with prob ≥ 0.5</div>
+          <div class="lc-code">from sklearn.linear_model import LogisticRegression<br><br># [study_hours, attendance_%]<br>X = [[2, 60], [3, 55], [4, 80], [6, 70], [7, 90], [8, 85]]<br>y = [0, 0, 0, 1, 1, 1]          # 1 = pass<br><br>model = LogisticRegression().fit(X, y)<br>print(model.predict_proba([[5, 75]]).round(3))   # [[P(fail), P(pass)]]<br>print(model.predict([[5, 75]]))                  # class with prob ≥ 0.5</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">[[0.494 0.506]]<br>[1]</div>
+          <p>The model predicts pass, but only just: 50.6% vs 49.4%. <code>predict()</code> hides that doubt; <code>predict_proba()</code> shows it. The columns follow <code>model.classes_</code>, which here is <code>[0 1]</code>, so column 1 is P(pass).</p>
+        </div>
+        <div class="lc-card">
+          <h3>How It Learns: Log Loss</h3>
+          <p>Logistic regression is trained by minimising <strong>log loss</strong> (cross-entropy):</p>
+          <div class="lc-code">loss for one example = −[ y × log(p) + (1 − y) × log(1 − p) ]<br><br>true y = 1, predicted p = 0.9  →  loss = 0.105  (confident and right)<br>true y = 1, predicted p = 0.5  →  loss = 0.693  (unsure)<br>true y = 1, predicted p = 0.1  →  loss = 2.303  (confident and wrong)</div>
+          <p>Being confidently wrong is punished hardest. There is no exact formula for the best weights, so scikit-learn finds them with an iterative optimiser (a relative of the gradient descent from lesson 7). It also adds a small L2 penalty by default, controlled by <code>C</code> (lesson 14).</p>
         </div>
         <div class="lc-card">
           <h3>Linear vs Logistic Regression</h3>
@@ -718,7 +918,16 @@ module MachineLearningContent
             <li><strong>Only using predict()</strong> — <code>predict_proba()</code> tells you how confident the model is, which is often more useful.</li>
             <li><strong>Forgetting to scale features</strong> — logistic regression trains faster and more reliably on scaled data. If you see a "ConvergenceWarning", scale or raise <code>max_iter</code>.</li>
             <li><strong>Assuming 0.5 is always the right threshold</strong> — for disease screening you might flag anyone above 0.3.</li>
+            <li><strong>Misreading which class is "1"</strong> — in <code>load_breast_cancer</code>, 0 = malignant and 1 = benign, so <code>predict_proba(...)[:, 1]</code> is P(benign), not P(cancer). Always check <code>target_names</code> or <code>classes_</code>.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and look at the sigmoid table: what is sigmoid(0), and why is that the threshold point?</li>
+            <li>Add a student <code>[4, 95]</code> to the "New students" list. Does high attendance make up for fewer hours?</li>
+            <li>In part 3, print <code>clf.predict_proba(scaler.transform(X_te[:5]))</code> without <code>[:, 1]</code>. Check that each row adds up to 1.</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Logistic regression is the go-to baseline for any classification problem. It also works with more than two classes automatically (e.g. three wine types).
@@ -794,6 +1003,19 @@ module MachineLearningContent
           <div class="lc-code">TP = 15, FP = 3, FN = 5, TN = 77<br>Accuracy  = (15 + 77) / 100 = 0.92<br>Precision = 15 / 18 = 0.83<br>Recall    = 15 / 20 = 0.75<br>F1        = 2 × 0.83 × 0.75 / (0.83 + 0.75) = 0.79</div>
         </div>
         <div class="lc-card">
+          <h3>The Same Idea in scikit-learn</h3>
+          <div class="lc-code">from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score<br><br>y_true = [1, 1, 1, 1, 0, 0, 0, 0, 0, 0]   # 4 real positives<br>y_pred = [1, 1, 0, 0, 1, 0, 0, 0, 0, 0]<br>print(confusion_matrix(y_true, y_pred))<br>print(round(precision_score(y_true, y_pred), 3),<br>      recall_score(y_true, y_pred),<br>      round(f1_score(y_true, y_pred), 3))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">[[5 1]<br> [2 2]]<br>0.667 0.5 0.571</div>
+          <p>Read the matrix as [[TN FP] [FN TP]]: 5 TN, 1 FP, 2 FN, 2 TP. Precision = 2 / (2 + 1) = 0.667; recall = 2 / (2 + 2) = 0.5. Accuracy would be 7/10 = 0.7, which hides that half the real positives were missed.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Moving the Threshold</h3>
+          <p>The starter trains logistic regression on the breast cancer data (1 = malignant) and tries three thresholds on P(malignant):</p>
+          <div class="lc-code">Threshold 0.5: TN=106 FP=1 FN=6 TP=58   precision=0.983 recall=0.906<br>Threshold 0.2: TN=102 FP=5 FN=4 TP=60   precision=0.923 recall=0.938<br>Threshold 0.8: TN=107 FP=0 FN=9 TP=55   precision=1.000 recall=0.859</div>
+          <p>Lowering the threshold catches 2 more cancers but causes 4 more false alarms. There is no free lunch: you choose the trade-off based on the real cost of each mistake. Choose the threshold on validation data (or with cross-validation), not on the test set.</p>
+        </div>
+        <div class="lc-card">
           <h3>Which Metric Matters?</h3>
           <table class="lc-table">
             <thead><tr><th>Situation</th><th>Focus on</th><th>Why</th></tr></thead>
@@ -811,7 +1033,16 @@ module MachineLearningContent
             <li>Reporting only accuracy on imbalanced data.</li>
             <li>Mixing up precision and recall — say the questions out loud: "of predicted yes" vs "of actual yes".</li>
             <li>Forgetting that changing the threshold trades precision for recall.</li>
+            <li>Forgetting which class is "positive" — <code>precision_score</code> and <code>recall_score</code> measure class 1 by default (<code>pos_label=1</code>). The starter relabels the data so that 1 = malignant.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and find the "Always-benign" line: accuracy 0.626 but recall 0.0. Explain in one sentence why this model is useless.</li>
+            <li>Add <code>report(0.35)</code> after <code>report(0.2)</code>. Where does it sit between the 0.2 and 0.5 results?</li>
+            <li>In the <code>classification_report</code>, find the recall for "malignant". Which cell of the confusion matrix would you need to shrink to raise it?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> <code>classification_report(y_test, y_pred)</code> prints precision, recall and F1 for every class in one go. Make it a habit.
@@ -876,19 +1107,24 @@ module MachineLearningContent
         <div class="lc-card">
           <h3>Worked Example: Fruit Classifier</h3>
           <p>Features: [weight in grams, sweetness 1–10]. A new fruit is [160, 7]. Its 3 nearest neighbours are all apples (the nearest orange is 4th), so k-NN predicts <strong>apple</strong>.</p>
-          <div class="lc-code">from sklearn.neighbors import KNeighborsClassifier<br><br>X = [[150, 8], [170, 7], [140, 6], [130, 4], [120, 3], [180, 5]]<br>y = ["apple", "apple", "apple", "orange", "orange", "orange"]<br>knn = KNeighborsClassifier(n_neighbors=3).fit(X, y)<br>print(knn.predict([[160, 7]]))   # ['apple']</div>
+          <div class="lc-code">from sklearn.neighbors import KNeighborsClassifier<br><br>X = [[150, 8], [170, 7], [140, 6], [130, 4], [120, 3], [180, 5]]<br>y = ["apple", "apple", "apple", "orange", "orange", "orange"]<br>knn = KNeighborsClassifier(n_neighbors=3).fit(X, y)<br>print(knn.predict([[160, 7]]))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">['apple']</div>
+          <p>The starter prints the distances: 10.00, 10.05, 20.02 (apples), then 20.10 (orange). Notice that the distances are almost entirely made of the <em>weight</em> difference — a sweetness difference of 1 point counts as much as 1 gram. That is exactly the scaling problem described below.</p>
         </div>
         <div class="lc-card">
           <h3>Choosing k</h3>
           <table class="lc-table">
             <thead><tr><th>k</th><th>Behaviour</th></tr></thead>
             <tbody>
-              <tr><td>k = 1</td><td>Follows every noisy point; high variance, overfits</td></tr>
-              <tr><td>k = 5 to 15</td><td>Usually a good balance</td></tr>
-              <tr><td>k = very large</td><td>Almost always predicts the majority class; underfits</td></tr>
+              <tr><td>Small k (1)</td><td>Follows every noisy point; high variance, overfits</td></tr>
+              <tr><td>Medium k (about 5–15)</td><td>Often a good balance — confirm with cross-validation</td></tr>
+              <tr><td>Very large k</td><td>Smooths away real structure; with k = all rows it always predicts the majority class; underfits</td></tr>
             </tbody>
           </table>
-          <p>Use an odd k for two-class problems to avoid tied votes.</p>
+          <p>The starter shows this on 400 noisy "two moons" points (280 train, 120 test):</p>
+          <div class="lc-code">  k | train acc | test acc<br>  1 |     1.000 |    0.833<br>  3 |     0.911 |    0.875<br>  7 |     0.896 |    0.892<br> 15 |     0.893 |    0.875<br> 51 |     0.875 |    0.883<br>151 |     0.821 |    0.842</div>
+          <p>With k = 1, every training point is its own nearest neighbour, so training accuracy is a perfect 1.000 — but test accuracy is the worst of the small k values. That gap is overfitting. At k = 151 (more than half the training set) both scores drop: underfitting. The sweet spot here is around k = 7. Use an odd k for two-class problems to avoid tied votes.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -896,7 +1132,16 @@ module MachineLearningContent
             <li><strong>Not scaling features</strong> — if one feature is income in lakhs (0–50) and another is CIBIL score (300–900), the larger numbers dominate the distance. Always use <code>StandardScaler</code> with k-NN.</li>
             <li><strong>Too many features</strong> — in high dimensions, "nearest" loses meaning. Remove useless features.</li>
             <li><strong>Huge datasets</strong> — predictions are slow because every prediction compares against all stored points.</li>
+            <li><strong>Choosing k by test accuracy</strong> — pick k with cross-validation on the training set (lesson 15), then test once.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and compare the unscaled (0.722) and scaled (0.963) wine accuracy.</li>
+            <li>In part 3, change <code>noise=0.35</code> to <code>noise=0.1</code>. Does k = 1 still overfit badly? Why is small k less risky on clean data?</li>
+            <li>Add <code>251</code> to the list of k values. What happens to both accuracies when k is almost the whole training set?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> k-NN is a great sanity-check model. If a fancy model cannot beat a scaled k-NN, look harder at your features.
@@ -904,10 +1149,12 @@ module MachineLearningContent
       HTML
       starter_code: <<~'PYTHON'
         import numpy as np
-        from sklearn.datasets import load_wine
+        from sklearn.datasets import load_wine, make_moons
         from sklearn.model_selection import train_test_split
         from sklearn.preprocessing import StandardScaler
         from sklearn.neighbors import KNeighborsClassifier
+        import warnings
+        warnings.filterwarnings("ignore", message="JsProxy")  # hide a harmless browser-runtime notice
 
         # 1. k-NN by hand on a tiny fruit dataset: [weight_g, sweetness]
         X = np.array([[150, 8], [170, 7], [140, 6], [130, 4], [120, 3], [180, 5]])
@@ -925,17 +1172,19 @@ module MachineLearningContent
         # 2. Why scaling matters (wine features have very different ranges)
         Xw, yw = load_wine(return_X_y=True)
         X_tr, X_te, y_tr, y_te = train_test_split(Xw, yw, test_size=0.3, random_state=0, stratify=yw)
-        raw = KNeighborsClassifier(n_neighbors=5).fit(X_tr, y_tr)
         sc = StandardScaler().fit(X_tr)
+        raw = KNeighborsClassifier(n_neighbors=5).fit(X_tr, y_tr)
         scaled = KNeighborsClassifier(n_neighbors=5).fit(sc.transform(X_tr), y_tr)
-        print("\nWine, k=5, unscaled accuracy:", round(raw.score(X_te, y_te), 3))
-        print("Wine, k=5, scaled accuracy:  ", round(scaled.score(sc.transform(X_te), y_te), 3))
+        print("\nWine, k=5, unscaled test accuracy:", round(raw.score(X_te, y_te), 3))
+        print("Wine, k=5, scaled test accuracy:  ", round(scaled.score(sc.transform(X_te), y_te), 3))
 
-        # 3. Effect of k
-        print("\n k | train acc | test acc")
-        for k in [1, 3, 5, 11, 25, 60]:
-            m = KNeighborsClassifier(n_neighbors=k).fit(sc.transform(X_tr), y_tr)
-            print(f"{k:2d} | {m.score(sc.transform(X_tr), y_tr):9.3f} | {m.score(sc.transform(X_te), y_te):8.3f}")
+        # 3. Effect of k on noisy, overlapping data (two interleaved half-moons)
+        Xm, ym = make_moons(n_samples=400, noise=0.35, random_state=0)
+        X_tr, X_te, y_tr, y_te = train_test_split(Xm, ym, test_size=0.3, random_state=0, stratify=ym)
+        print("\n  k | train acc | test acc")
+        for k in [1, 3, 7, 15, 51, 151]:
+            m = KNeighborsClassifier(n_neighbors=k).fit(X_tr, y_tr)
+            print(f"{k:3d} | {m.score(X_tr, y_tr):9.3f} | {m.score(X_te, y_te):8.3f}")
       PYTHON
     },
 
@@ -960,7 +1209,21 @@ module MachineLearningContent
           <h3>How the Tree Picks Questions</h3>
           <p>At each step the tree tries every feature and every threshold, and picks the split that makes the groups <strong>purest</strong> — ideally each child node contains only one class. Purity is measured with <strong>Gini impurity</strong>:</p>
           <div class="lc-code">Gini = 1 − Σ (p_class)²<br><br>Node with 10 HIGH, 0 LOW   → Gini = 1 − (1² + 0²)   = 0.0   (pure)<br>Node with 5 HIGH, 5 LOW    → Gini = 1 − (0.5² + 0.5²) = 0.5 (mixed)</div>
-          <p>The split that lowers the weighted Gini the most wins.</p>
+          <p>The split that lowers the <strong>weighted</strong> Gini the most wins (each child's Gini is weighted by its share of rows).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Which Split Wins?</h3>
+          <p>The starter has 16 fields (9 HIGH, 7 LOW), so the starting Gini is 1 − (9/16)² − (7/16)² = 0.492. Compare two candidate first questions:</p>
+          <table class="lc-table">
+            <thead><tr><th>Split</th><th>Left child</th><th>Right child</th><th>Weighted Gini</th></tr></thead>
+            <tbody>
+              <tr><td>irrigation == 0?</td><td>7 rows: 5 LOW, 2 HIGH (Gini 0.408)</td><td>9 rows: 2 LOW, 7 HIGH (Gini 0.346)</td><td>(7 × 0.408 + 9 × 0.346) / 16 = <strong>0.373</strong></td></tr>
+              <tr><td>soil_ph ≤ 6.1?</td><td>4 rows: all LOW (Gini 0.0)</td><td>12 rows: 3 LOW, 9 HIGH (Gini 0.375)</td><td>(4 × 0 + 12 × 0.375) / 16 = <strong>0.281</strong></td></tr>
+            </tbody>
+          </table>
+          <p>The pH split gives purer groups, so the tree asks about soil pH first. <strong>Output</strong> of <code>export_text</code> in the starter:</p>
+          <div class="lc-code">|--- soil_ph &lt;= 6.10<br>|   |--- class: 0<br>|--- soil_ph &gt;  6.10<br>|   |--- soil_ph &lt;= 7.75<br>|   |   |--- rainfall_mm &lt;= 675.00<br>|   |   |   |--- class: 1<br>|   |   |--- rainfall_mm &gt;  675.00<br>|   |   |   |--- class: 1<br>|   |--- soil_ph &gt;  7.75<br>|   |   |--- class: 0</div>
+          <p>Notice the rainfall split where <em>both</em> leaves say class 1. That is not a bug: the split still made the groups purer (lower Gini), even though the majority class did not change. The tree picks splits by impurity, not by whether the prediction changes.</p>
         </div>
         <div class="lc-card">
           <h3>Important Settings</h3>
@@ -969,9 +1232,10 @@ module MachineLearningContent
             <tbody>
               <tr><td>max_depth</td><td>Maximum number of questions in a row. Smaller = simpler tree</td></tr>
               <tr><td>min_samples_leaf</td><td>Each leaf must contain at least this many rows</td></tr>
-              <tr><td>criterion</td><td>"gini" (default) or "entropy"</td></tr>
+              <tr><td>criterion</td><td>"gini" (default) or "entropy" (information gain) — they usually pick very similar splits</td></tr>
             </tbody>
           </table>
+          <p>For regression, <code>DecisionTreeRegressor</code> uses the same idea, but measures impurity with squared error and predicts the <em>average</em> value of the rows in each leaf.</p>
         </div>
         <div class="lc-card">
           <h3>Strengths and Weaknesses</h3>
@@ -987,8 +1251,17 @@ module MachineLearningContent
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Leaving <code>max_depth=None</code> and celebrating 100% training accuracy.</li>
-            <li>Reading feature importance as "cause" — it only shows what the tree used for splitting.</li>
+            <li>Reading feature importance as "cause" — it only shows what the tree used for splitting. In the starter, irrigation gets importance 0.000; that does not mean irrigation never matters for crops, only that this tree never split on it.</li>
+            <li>Scaling features "just in case" — harmless for trees, but it wastes effort; a tree only compares values against thresholds within one feature.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check the two weighted Gini values match the table above.</li>
+            <li>Change <code>max_depth=3</code> to <code>max_depth=1</code>. What single question does the tree ask now? How many rules are printed?</li>
+            <li>Set <code>criterion="entropy"</code> in <code>DecisionTreeClassifier(...)</code>. Does the first question change?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Use <code>sklearn.tree.export_text(model, feature_names=...)</code> to print a tree's rules as plain text — perfect for explaining your model in a viva.
@@ -1013,10 +1286,13 @@ module MachineLearningContent
             p = np.bincount(labels, minlength=2) / len(labels)
             return 1 - np.sum(p ** 2)
 
+        def weighted_gini(mask):
+            left, right = y[mask], y[~mask]
+            return (len(left) * gini(left) + len(right) * gini(right)) / len(y)
+
         print("Gini of all data:", round(gini(y), 3))
-        left, right = y[X[:, 2] == 0], y[X[:, 2] == 1]
-        print("Split on irrigation -> Gini left:", round(gini(left), 3),
-              "| Gini right:", round(gini(right), 3))
+        print("Weighted Gini, split irrigation == 0:", round(weighted_gini(X[:, 2] == 0), 3))
+        print("Weighted Gini, split soil_ph <= 6.1: ", round(weighted_gini(X[:, 1] <= 6.1), 3))
 
         tree = DecisionTreeClassifier(max_depth=3, random_state=0)
         tree.fit(X, y)
@@ -1037,83 +1313,105 @@ module MachineLearningContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
-          <h1 class="lc-title">Random Forests</h1>
+          <h1 class="lc-title">Random Forests and Gradient Boosting</h1>
         </div>
-        <p class="lc-lead">One decision tree is unstable and overfits easily. A <strong>random forest</strong> trains <strong>many different trees</strong> and lets them vote. The crowd is usually wiser than any single member.</p>
+        <p class="lc-lead">One decision tree is unstable and overfits easily. <strong>Ensembles</strong> combine many trees into one stronger model. A <strong>random forest</strong> trains many different trees <em>in parallel</em> and averages them; <strong>gradient boosting</strong> trains trees <em>one after another</em>, each fixing the mistakes of the ones before. Together they are the strongest "first choice" models for tabular data.</p>
         <div class="lc-card">
           <h3>Wisdom of the Crowd</h3>
           <p>Ask one cricket fan to predict the score of a match and they may be far off. Ask 100 fans and take the average, and you usually get much closer. Individual mistakes cancel out — as long as the fans think <em>differently</em>.</p>
           <p>A random forest makes its trees different in two ways:</p>
           <ul class="lc-list">
-            <li><strong>Bootstrap sampling (bagging)</strong> — each tree trains on a random sample of rows, drawn with replacement.</li>
-            <li><strong>Random features</strong> — at each split, a tree only looks at a random subset of the features.</li>
+            <li><strong>Bootstrap sampling (bagging)</strong> — each tree trains on a random sample of rows, drawn with replacement. On average a bootstrap sample contains only about 63% of the distinct rows; some rows appear twice or more.</li>
+            <li><strong>Random features</strong> — at each split, a tree only looks at a random subset of the features (for classification, by default √(number of features)).</li>
           </ul>
-          <p>For classification the trees vote; for regression their predictions are averaged.</p>
+          <p>For regression the trees' predictions are averaged. For classification, scikit-learn averages the trees' predicted <em>probabilities</em> and picks the most likely class (a "soft vote").</p>
         </div>
         <div class="lc-card">
-          <h3>In scikit-learn</h3>
-          <div class="lc-code">from sklearn.ensemble import RandomForestClassifier<br><br>forest = RandomForestClassifier(<br>    n_estimators=200,     # number of trees<br>    max_depth=None,       # trees can grow deep; averaging controls overfitting<br>    random_state=42,<br>)<br>forest.fit(X_train, y_train)<br>print(forest.score(X_test, y_test))<br>print(forest.feature_importances_)</div>
+          <h3>Boosting: Learning from Mistakes</h3>
+          <p>Gradient boosting starts with a very simple prediction, then adds small trees one at a time. Each new tree is trained to correct the errors (strictly: the gradient of the loss) left by all the trees so far. A <strong>learning rate</strong> shrinks each tree's contribution so the model improves in small, careful steps.</p>
+          <div class="lc-code">prediction = start + lr × tree1(x) + lr × tree2(x) + lr × tree3(x) + ...</div>
+          <p>scikit-learn's <code>HistGradientBoostingClassifier</code> / <code>HistGradientBoostingRegressor</code> are fast modern implementations (they also handle missing values natively). Popular libraries such as XGBoost, LightGBM and CatBoost use the same idea and dominate tabular-data competitions.</p>
         </div>
         <div class="lc-card">
-          <h3>Single Tree vs Forest</h3>
+          <h3>Worked Example</h3>
+          <div class="lc-code">from sklearn.ensemble import RandomForestClassifier, HistGradientBoostingClassifier<br><br>rf = RandomForestClassifier(n_estimators=300, random_state=0).fit(X_tr, y_tr)<br>gb = HistGradientBoostingClassifier(max_iter=200, learning_rate=0.1,<br>                                    random_state=0).fit(X_tr, y_tr)<br>print(rf.score(X_te, y_te), gb.score(X_te, y_te))</div>
+          <p><strong>Output of the starter</strong> (breast cancer data, 30% test):</p>
+          <div class="lc-code">Single tree        train=1.000 test=0.906<br>Forest   5 trees   train=0.995 test=0.959<br>Forest  50 trees   train=1.000 test=0.971<br>Forest 300 trees   train=1.000 test=0.971<br>Gradient boosting  train=1.000 test=0.959</div>
+          <p>The single tree memorises the training data (1.000) and scores 0.906 on the test set. The forests also fit the training data perfectly, but averaging many different trees raises the test score to 0.971. On this small, easy dataset boosting is about as good as the forest; on larger, messier tables a tuned boosting model often wins.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Tree vs Forest vs Boosting</h3>
           <table class="lc-table">
-            <thead><tr><th></th><th>Decision Tree</th><th>Random Forest</th></tr></thead>
+            <thead><tr><th></th><th>Decision Tree</th><th>Random Forest</th><th>Gradient Boosting</th></tr></thead>
             <tbody>
-              <tr><td>Accuracy</td><td>Good</td><td>Usually better</td></tr>
-              <tr><td>Overfitting</td><td>High risk</td><td>Much lower risk</td></tr>
-              <tr><td>Interpretability</td><td>Easy to print rules</td><td>Hard (hundreds of trees)</td></tr>
-              <tr><td>Speed</td><td>Very fast</td><td>Slower (but parallel with n_jobs)</td></tr>
-              <tr><td>Scaling needed?</td><td>No</td><td>No</td></tr>
+              <tr><td>How trees are built</td><td>One tree</td><td>Many, independently (parallel)</td><td>Many, in sequence</td></tr>
+              <tr><td>Main risk</td><td>Overfitting</td><td>Low risk; mostly works with defaults</td><td>Can overfit if too many trees or too high a learning rate</td></tr>
+              <tr><td>Key settings</td><td>max_depth</td><td>n_estimators, max_features</td><td>learning_rate, max_iter, max_depth</td></tr>
+              <tr><td>Interpretability</td><td>Easy to print rules</td><td>Hard (hundreds of trees)</td><td>Hard</td></tr>
+              <tr><td>Scaling needed?</td><td>No</td><td>No</td><td>No</td></tr>
             </tbody>
           </table>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Too few trees</strong> — 10 trees can be noisy. 100–500 is typical; more trees rarely hurt accuracy, only speed.</li>
-            <li><strong>Trusting feature importance blindly</strong> — it can favour features with many unique values (like an ID column).</li>
+            <li><strong>Too few trees in a forest</strong> — 5 trees can be noisy. 100–500 is typical; more trees rarely hurt a forest's accuracy, only its speed. (This is <em>not</em> true for boosting, where more rounds can overfit.)</li>
+            <li><strong>Trusting feature importance blindly</strong> — the default <code>feature_importances_</code> is impurity-based and favours features with many unique values (like an ID column). <code>sklearn.inspection.permutation_importance</code> on test data is more reliable.</li>
             <li><strong>Forgetting random_state</strong> — results change every run, which confuses comparisons.</li>
+            <li><strong>Raising boosting's learning rate to "train faster"</strong> — large steps overshoot, just like in lesson 7. Lower the learning rate and use more rounds instead.</li>
           </ul>
         </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter. How many of the 300 trees voted "benign" for patient 5 (the last value in the vote-share list)? Is the forest sure about that patient?</li>
+            <li>Change <code>n_estimators</code> in the loop to <code>[1, 2, 5]</code>. At what point does the forest beat the single tree?</li>
+            <li>Change the boosting <code>learning_rate=0.1</code> to <code>1.0</code>. Does the test score go up or down?</li>
+          </ol>
+        </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> For tabular data (rows and columns, like marks sheets or sales records), a random forest with default settings is one of the strongest "first try" models you can use.
+          <strong>Tip:</strong> For tabular data (rows and columns, like marks sheets or sales records), start with a random forest using default settings, then try <code>HistGradientBoostingClassifier</code>. Compare them with cross-validation (lesson 15), not a single split.
         </div>
       HTML
       starter_code: <<~'PYTHON'
         import numpy as np
-        from sklearn.datasets import load_wine
+        from sklearn.datasets import load_breast_cancer
         from sklearn.model_selection import train_test_split
         from sklearn.tree import DecisionTreeClassifier
-        from sklearn.ensemble import RandomForestClassifier
+        from sklearn.ensemble import RandomForestClassifier, HistGradientBoostingClassifier
 
-        data = load_wine()
+        data = load_breast_cancer()
         X_tr, X_te, y_tr, y_te = train_test_split(
             data.data, data.target, test_size=0.3, random_state=3, stratify=data.target)
 
-        # A single tree vs forests of different sizes
+        # 1. A single tree vs forests of different sizes (bagging)
         tree = DecisionTreeClassifier(random_state=0).fit(X_tr, y_tr)
-        print(f"Single tree      train={tree.score(X_tr, y_tr):.3f} test={tree.score(X_te, y_te):.3f}")
-        for n in [5, 50, 200]:
+        print(f"Single tree        train={tree.score(X_tr, y_tr):.3f} test={tree.score(X_te, y_te):.3f}")
+        for n in [5, 50, 300]:
             rf = RandomForestClassifier(n_estimators=n, random_state=0).fit(X_tr, y_tr)
-            print(f"Forest {n:3d} trees train={rf.score(X_tr, y_tr):.3f} test={rf.score(X_te, y_te):.3f}")
+            print(f"Forest {n:3d} trees   train={rf.score(X_tr, y_tr):.3f} test={rf.score(X_te, y_te):.3f}")
 
-        # How do individual trees in the forest disagree?
-        sample = X_te[:1]
-        votes = [int(t.predict(sample)[0]) for t in rf.estimators_]
-        print("\nVotes from 200 trees for one wine:", np.bincount(votes, minlength=3))
-        print("Forest prediction:", rf.predict(sample)[0], "| Actual:", y_te[0])
+        # 2. Gradient boosting: trees built one after another, each fixing earlier errors
+        gb = HistGradientBoostingClassifier(max_iter=200, learning_rate=0.1, random_state=0)
+        gb.fit(X_tr, y_tr)
+        print(f"Gradient boosting  train={gb.score(X_tr, y_tr):.3f} test={gb.score(X_te, y_te):.3f}")
 
-        # Bootstrap sample: rows drawn WITH replacement
-        rng = np.random.RandomState(0)
+        # 3. How much do the 300 trees agree on the first 5 test patients?
+        votes = np.array([t.predict(X_te[:5]) for t in rf.estimators_])   # shape (300, 5)
+        print("\nShare of trees voting 'benign' for 5 patients:", votes.mean(axis=0).round(2))
+        print("Forest predictions:", rf.predict(X_te[:5]), "| Actual:", y_te[:5])
+
+        # 4. Bootstrap sample: rows drawn WITH replacement
+        rng = np.random.default_rng(0)
         idx = rng.choice(10, size=10, replace=True)
         print("\nExample bootstrap of rows 0-9:", sorted(idx.tolist()))
-        print("Unique rows used:", len(set(idx)), "of 10")
+        print("Unique rows used:", len(set(idx.tolist())), "of 10")
 
-        # Top 5 most important features
+        # 5. Top 5 features by impurity-based importance
         order = np.argsort(rf.feature_importances_)[::-1][:5]
-        print("\nTop 5 features:")
+        print("\nTop 5 features (forest):")
         for i in order:
-            print(f"  {data.feature_names[i]:30s} {rf.feature_importances_[i]:.3f}")
+            print(f"  {data.feature_names[i]:22s} {rf.feature_importances_[i]:.3f}")
       PYTHON
     },
 
@@ -1150,7 +1448,26 @@ module MachineLearningContent
         <div class="lc-card">
           <h3>Worked Example</h3>
           <div class="lc-code">from sklearn.preprocessing import PolynomialFeatures<br>from sklearn.linear_model import LinearRegression, Ridge<br>from sklearn.pipeline import make_pipeline<br><br>wiggly = make_pipeline(PolynomialFeatures(15), LinearRegression())<br>smooth = make_pipeline(PolynomialFeatures(15), Ridge(alpha=1.0))</div>
-          <p>A degree-15 polynomial can bend through every training point. Ridge keeps it in check.</p>
+          <p>A degree-15 polynomial can bend through almost every training point. Ridge keeps it in check. The starter fits a curve of fertiliser vs crop yield (20 training points, 20 test points).</p>
+          <p><strong>Output of the starter:</strong></p>
+          <div class="lc-code">Degree | train RMSE | test RMSE<br>     1 |      0.637 |     0.757<br>     2 |      0.276 |     0.360<br>     5 |      0.241 |     0.363<br>    15 |      0.148 |     6.895<br><br>Degree 15 with Ridge regularisation:<br> alpha | train RMSE | test RMSE<br> 0.001 |      0.244 |     0.377<br>   0.1 |      0.273 |     0.396<br>     1 |      0.345 |     0.476<br>    10 |      0.548 |     0.653<br>   100 |      0.726 |     0.838</div>
+          <ul class="lc-list">
+            <li>Degree 1 (a straight line) <strong>underfits</strong>: both errors are high.</li>
+            <li>Degree 2 matches the true curve: low error on both sets.</li>
+            <li>Degree 15 without a penalty has the <em>lowest</em> training error (0.148) and a terrible test error (6.895): classic <strong>overfitting</strong>.</li>
+            <li>The same degree-15 model with a small Ridge penalty (alpha = 0.001) is back to a test error of 0.377. Too much penalty (alpha = 100) makes it underfit again.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Bias and Variance</h3>
+          <table class="lc-table">
+            <thead><tr><th>Term</th><th>Meaning</th><th>Symptom</th></tr></thead>
+            <tbody>
+              <tr><td>High bias</td><td>The model is too simple to capture the pattern</td><td>Underfitting: train and test error both high</td></tr>
+              <tr><td>High variance</td><td>The model changes a lot with small changes in training data</td><td>Overfitting: low train error, much higher test error</td></tr>
+            </tbody>
+          </table>
+          <p>Making a model more flexible lowers bias but raises variance. Regularisation strength (alpha, C, max_depth, k) is the knob that moves you along this trade-off.</p>
         </div>
         <div class="lc-card">
           <h3>Ways to Fight Overfitting</h3>
@@ -1167,8 +1484,17 @@ module MachineLearningContent
           <ul class="lc-list">
             <li>Judging a model by training score alone.</li>
             <li>Using regularisation without scaling — the penalty then treats features unfairly.</li>
-            <li>Picking alpha by looking at the test set (use cross-validation, lesson 15).</li>
+            <li>Picking alpha by looking at the test set (use cross-validation, lesson 15). The alpha table above is only for learning; in a real project you would choose alpha on training folds.</li>
+            <li>Mixing up the directions: in <code>Ridge</code>/<code>Lasso</code> a <em>larger</em> alpha is stronger regularisation; in <code>LogisticRegression</code> a <em>smaller</em> C is stronger.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and find the degree with the lowest <em>test</em> RMSE.</li>
+            <li>Add <code>8</code> and <code>12</code> to the degree list <code>[1, 2, 5, 15]</code>. At what degree does the test error start to explode?</li>
+            <li>Change the Lasso <code>alpha=0.05</code> to <code>0.5</code>. Does Lasso keep more or fewer polynomial terms?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Always print <em>both</em> train and test scores side by side. The gap between them is the clearest signal of overfitting.
@@ -1247,6 +1573,17 @@ module MachineLearningContent
           <h3>Using CV to Tune Settings</h3>
           <p><code>GridSearchCV</code> tries every combination of settings and picks the best by cross-validation:</p>
           <div class="lc-code">from sklearn.model_selection import GridSearchCV<br><br>grid = GridSearchCV(KNeighborsClassifier(), {"n_neighbors": [1, 3, 5, 7, 9]}, cv=5)<br>grid.fit(X_train, y_train)<br>print(grid.best_params_, grid.best_score_)</div>
+          <p>For each setting, GridSearchCV runs the full cross-validation. With 5 values and 5 folds that is 25 fits. Then, by default (<code>refit=True</code>), it retrains the best setting on <em>all</em> the training data, so <code>grid.predict</code> and <code>grid.score</code> use that final model.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <p>The starter uses the breast cancer data. First it shows how much a single validation split can vary, then compares three models with 5-fold CV and tunes a tree:</p>
+          <div class="lc-code">Single-split scores vary: [0.93  0.965 0.93  0.974 0.956]<br><br>Model          | CV mean | CV std<br>Decision tree  |   0.927 |  0.027<br>Random forest  |   0.963 |  0.025<br>Logistic reg.  |   0.978 |  0.010<br><br>Best tree depth: {'max_depth': 6} CV score: 0.943<br>Final test score (used once): 0.939</div>
+          <ul class="lc-list">
+            <li>The same tree scores anywhere from 0.93 to 0.974 depending only on which rows land in the validation split. One split is not enough to compare models.</li>
+            <li>Scaled logistic regression has the highest mean <em>and</em> the smallest spread, so it is the most reliable choice here.</li>
+            <li>The final test score (0.939) is close to the CV estimate (0.943) — a sign the CV estimate was honest.</li>
+          </ul>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1254,7 +1591,17 @@ module MachineLearningContent
             <li>Running cross-validation on the full dataset and then reporting the test set from the same data.</li>
             <li>Scaling all data before CV — the scaler sees the validation fold. Put the scaler in a Pipeline (lesson 17).</li>
             <li>Ignoring the spread of scores and only looking at the mean.</li>
+            <li>Reporting <code>grid.best_score_</code> as the final result — it was used to pick the winner, so it is slightly optimistic. Report the test score.</li>
+            <li>Using plain <code>KFold</code> on time-ordered data — the model trains on the future and validates on the past. Use <code>TimeSeriesSplit</code>.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and note which model has the best CV mean.</li>
+            <li>Change <code>n_splits=5</code> to <code>n_splits=10</code>. Do the means change much? What happens to the standard deviations?</li>
+            <li>Add <code>"min_samples_leaf": [1, 5, 10]</code> to the GridSearchCV parameter dictionary. How many combinations are tried now, and which one wins?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Use cross-validation on the training set to <em>choose</em> a model, then use the test set <em>once</em> to <em>report</em> its final score.
@@ -1331,11 +1678,24 @@ module MachineLearningContent
         </div>
         <div class="lc-card">
           <h3>Encoding Categories</h3>
-          <div class="lc-code">from sklearn.preprocessing import OneHotEncoder<br><br>cities = [["Delhi"], ["Mumbai"], ["Delhi"], ["Kolkata"]]<br>enc = OneHotEncoder(handle_unknown="ignore")<br>print(enc.fit_transform(cities).toarray())<br># columns: Delhi, Kolkata, Mumbai<br># [[1. 0. 0.]<br>#  [0. 0. 1.]<br>#  [1. 0. 0.]<br>#  [0. 1. 0.]]</div>
+          <div class="lc-code">from sklearn.preprocessing import OneHotEncoder<br><br>cities = [["Delhi"], ["Mumbai"], ["Delhi"], ["Kolkata"]]<br>enc = OneHotEncoder(handle_unknown="ignore", sparse_output=False)<br>print(enc.fit_transform(cities))<br>print(enc.get_feature_names_out())</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">[[1. 0. 0.]<br> [0. 0. 1.]<br> [1. 0. 0.]<br> [0. 1. 0.]]<br>['x0_Delhi' 'x0_Kolkata' 'x0_Mumbai']</div>
+          <p>Categories are sorted alphabetically, one column each. (With a DataFrame column the names become <code>city_Delhi</code>, etc., as in the starter.) By default the encoder returns a memory-saving sparse matrix; <code>sparse_output=False</code> gives a normal NumPy array.</p>
           <ul class="lc-list">
             <li><strong>One-hot encoding</strong> — one 0/1 column per category. Use for categories with no order (city, crop type).</li>
-            <li><strong>Ordinal encoding</strong> — map to 0, 1, 2… Use only when order is real (low &lt; medium &lt; high).</li>
+            <li><strong>Ordinal encoding</strong> — map to 0, 1, 2… Use only when order is real (low &lt; medium &lt; high). In a pipeline, use <code>OrdinalEncoder(categories=[["12th", "UG", "PG"]])</code> so you control the order (by default it would sort alphabetically: 12th, PG, UG — wrong).</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Scaling in Numbers</h3>
+          <p>From the starter, the training means are 10.27 lakhs (income) and 715 (CIBIL). After <code>StandardScaler</code>, the first applicant (4.5 lakhs, 640) becomes <code>[-0.80, -0.95]</code>: "a bit below average on both". Now a difference of 1 means "one standard deviation" for both features, so neither dominates a distance calculation.</p>
+          <div class="lc-code">StandardScaler means: [ 10.27 715.  ]<br>   income_lakh  cibil_score<br>0        -0.80        -0.95<br>1         0.24         0.82<br>...<br>One-hot columns: ['city_Chennai', 'city_Delhi', 'city_Kolkata', 'city_Mumbai']<br>Unseen city 'Pune' -&gt; [[0. 0. 0. 0.]]</div>
+          <p>An unseen city becomes all zeros instead of crashing the model.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Missing Values: Imputation</h3>
+          <p>Most scikit-learn models refuse <code>NaN</code>. <code>SimpleImputer(strategy="median")</code> for numbers or <code>strategy="most_frequent"</code> for categories fills the gaps. Like a scaler, it must learn its fill values from training data only — so it belongs inside the pipeline (next lesson).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1343,7 +1703,16 @@ module MachineLearningContent
             <li><strong>Fitting the scaler on all data</strong> — fit on training data only, then <code>transform</code> both train and test. Otherwise test information leaks into training.</li>
             <li><strong>Label-encoding cities as 0, 1, 2</strong> — the model thinks Mumbai (2) is "twice" Kolkata (1). Use one-hot instead.</li>
             <li><strong>Crashing on unseen categories</strong> — a new city in the test set breaks the encoder unless you set <code>handle_unknown="ignore"</code>.</li>
+            <li><strong>Using the old argument name</strong> — <code>OneHotEncoder(sparse=False)</code> was removed; the current name is <code>sparse_output</code>.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check that each scaled column has values on both sides of 0.</li>
+            <li>Add a very rich applicant: change <code>25.0</code> to <code>250.0</code> in <code>income_lakh</code>. Compare how StandardScaler and MinMaxScaler values change for the other applicants. Which scaler squashes everyone else together?</li>
+            <li>Replace <code>StandardScaler()</code> with <code>RobustScaler()</code> in the ColumnTransformer (import it from <code>sklearn.preprocessing</code>). What does the first row look like now?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> <code>ColumnTransformer</code> lets you scale numeric columns and one-hot encode text columns in one object — the next lesson shows how to combine it with a model in a Pipeline.
@@ -1371,11 +1740,11 @@ module MachineLearningContent
         print(pd.DataFrame(MinMaxScaler().fit_transform(nums), columns=nums.columns).round(2), "\n")
 
         # One-hot encode city (no natural order)
-        enc = OneHotEncoder(handle_unknown="ignore")
-        city_oh = enc.fit_transform(loans[["city"]]).toarray()
+        enc = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
+        city_oh = enc.fit_transform(loans[["city"]])
         print("One-hot columns:", list(enc.get_feature_names_out()))
         print(city_oh[:3])
-        print("Unseen city 'Pune' ->", enc.transform(pd.DataFrame({"city": ["Pune"]})).toarray())
+        print("Unseen city 'Pune' ->", enc.transform(pd.DataFrame({"city": ["Pune"]})))
 
         # Ordinal encoding for education (there IS an order)
         order = {"12th": 0, "UG": 1, "PG": 2}
@@ -1421,12 +1790,33 @@ module MachineLearningContent
           <p>Inside cross-validation, the scaler is re-fitted on each training fold only — this is the main reason pipelines prevent leakage.</p>
         </div>
         <div class="lc-card">
+          <h3>Worked Example: A Full Preprocessing Pipeline</h3>
+          <p>The starter predicts whether 300 students clear an entrance exam. 15 students left <code>study_hrs</code> blank, and <code>board</code> is text. One pipeline handles all of it:</p>
+          <div class="lc-code">pre = ColumnTransformer([<br>    ("num", Pipeline([("impute", SimpleImputer(strategy="median")),<br>                      ("scale", StandardScaler())]),<br>     ["marks_12th", "mock_score", "study_hrs"]),<br>    ("cat", OneHotEncoder(handle_unknown="ignore"), ["board"]),<br>])<br>pipe = Pipeline([("pre", pre), ("model", LogisticRegression(max_iter=1000))])<br>grid = GridSearchCV(pipe, {"model__C": [0.01, 0.1, 1, 10]}, cv=5).fit(X_tr, y_tr)</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">Cleared rate: 0.31 | Missing study_hrs: 15<br><br>Pipeline steps: ['pre', 'model']<br>Best C: 0.1 | CV accuracy: 0.751<br>Test accuracy: 0.813<br>P(clear) for new students: [0.69 0.12]</div>
+          <ul class="lc-list">
+            <li>The median used to fill blanks, the means and standard deviations for scaling and the list of boards are all learned inside <code>fit</code> — from the training fold only.</li>
+            <li>The new students are raw rows (one even has a blank <code>study_hrs</code>). The pipeline imputes, scales and encodes them automatically.</li>
+            <li>Baseline check: only 31% clear, so "always predict fail" scores about 0.69. The model's 0.813 is a real gain.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Scaling the whole dataset first and then putting only the model in the pipeline — the leak is still there.</li>
             <li>Typing one underscore in grid parameters (<code>model_C</code>) — it must be <code>model__C</code>.</li>
             <li>Forgetting that the last step must be the model; all earlier steps must be transformers.</li>
+            <li>Listing a column in no transformer — by default <code>ColumnTransformer</code> <em>drops</em> columns you do not mention (<code>remainder="drop"</code>). Use <code>remainder="passthrough"</code> to keep them.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and print <code>grid.best_estimator_</code> to see the whole fitted pipeline.</li>
+            <li>Remove <code>"study_hrs"</code> from the numeric column list and run again. Does the test accuracy drop? (That column is now silently dropped.)</li>
+            <li>Add <code>"model__class_weight": [None, "balanced"]</code> to the grid dictionary. Which setting wins? <code>"balanced"</code> gives the rarer "cleared" class more weight during training.</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Once your pipeline is fitted, it is your whole model. In a real app you save this single object (for example with <code>joblib</code>) and load it later to make predictions on raw input.
@@ -1438,6 +1828,7 @@ module MachineLearningContent
         from sklearn.pipeline import Pipeline
         from sklearn.compose import ColumnTransformer
         from sklearn.preprocessing import StandardScaler, OneHotEncoder
+        from sklearn.impute import SimpleImputer
         from sklearn.linear_model import LogisticRegression
         from sklearn.model_selection import train_test_split, GridSearchCV
 
@@ -1452,13 +1843,17 @@ module MachineLearningContent
         })
         logit = 0.04 * df.marks_12th + 0.06 * df.mock_score + 0.3 * df.study_hrs - 9
         df["cleared"] = (rng.rand(n) < 1 / (1 + np.exp(-logit))).astype(int)
-        print(df.head(), "\nCleared rate:", round(df.cleared.mean(), 2))
+        df.loc[rng.choice(n, 15, replace=False), "study_hrs"] = np.nan   # some forms left blank
+        print(df.head(), "\nCleared rate:", round(df.cleared.mean(), 2),
+              "| Missing study_hrs:", df.study_hrs.isna().sum())
 
         X, y = df.drop(columns="cleared"), df["cleared"]
         X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.25, random_state=0, stratify=y)
 
         pre = ColumnTransformer([
-            ("num", StandardScaler(), ["marks_12th", "mock_score", "study_hrs"]),
+            ("num", Pipeline([("impute", SimpleImputer(strategy="median")),
+                              ("scale", StandardScaler())]),
+             ["marks_12th", "mock_score", "study_hrs"]),
             ("cat", OneHotEncoder(handle_unknown="ignore"), ["board"]),
         ])
         pipe = Pipeline([("pre", pre), ("model", LogisticRegression(max_iter=1000))])
@@ -1469,9 +1864,9 @@ module MachineLearningContent
         print("Best C:", grid.best_params_["model__C"], "| CV accuracy:", round(grid.best_score_, 3))
         print("Test accuracy:", round(grid.score(X_te, y_te), 3))
 
-        # Predict on RAW new data - the pipeline scales and encodes automatically
+        # Predict on RAW new data - the pipeline imputes, scales and encodes automatically
         new = pd.DataFrame({"marks_12th": [92, 60], "mock_score": [85, 35],
-                            "study_hrs": [7.5, 2.0], "board": ["State", "CBSE"]})
+                            "study_hrs": [7.5, np.nan], "board": ["State", "CBSE"]})
         print("P(clear) for new students:", grid.predict_proba(new)[:, 1].round(2))
       PYTHON
     },
@@ -1487,7 +1882,7 @@ module MachineLearningContent
           <h3>The Algorithm</h3>
           <ol class="lc-list">
             <li>Choose <strong>k</strong>, the number of clusters.</li>
-            <li>Place k <strong>centroids</strong> (cluster centres) at random points.</li>
+            <li>Place k starting <strong>centroids</strong> (cluster centres). scikit-learn uses <em>k-means++</em>, which picks well-spread starting points instead of purely random ones.</li>
             <li><strong>Assign</strong> every point to its nearest centroid.</li>
             <li><strong>Update</strong> each centroid to the mean of the points assigned to it.</li>
             <li>Repeat steps 3–4 until the centroids stop moving.</li>
@@ -1496,30 +1891,46 @@ module MachineLearningContent
         <div class="lc-card">
           <h3>In scikit-learn</h3>
           <div class="lc-code">from sklearn.cluster import KMeans<br><br># [annual_spend_thousands, visits_per_month]<br>km = KMeans(n_clusters=3, n_init=10, random_state=0)<br>labels = km.fit_predict(X)<br>print(km.cluster_centers_)   # the 3 centroids<br>print(km.inertia_)           # total squared distance to centroids</div>
-          <p><code>n_init=10</code> runs k-means 10 times from different starting points and keeps the best result.</p>
+          <p><code>n_init=10</code> runs k-means 10 times from different starting points and keeps the result with the lowest inertia. k-means always converges, but it can get stuck in a poor local solution, so several restarts help.</p>
         </div>
         <div class="lc-card">
           <h3>Choosing k: The Elbow Method</h3>
           <p><strong>Inertia</strong> always falls as k grows (with k = number of points it becomes 0). Plot inertia for k = 1, 2, 3… and look for the "elbow" where the drop suddenly becomes small.</p>
           <table class="lc-table">
-            <thead><tr><th>k</th><th>Inertia (example)</th><th>Drop</th></tr></thead>
+            <thead><tr><th>k</th><th>Inertia (starter output)</th><th>Drop</th><th>Silhouette</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td>2800</td><td>—</td></tr>
-              <tr><td>2</td><td>1300</td><td>Big</td></tr>
-              <tr><td>3</td><td>350</td><td>Big</td></tr>
-              <tr><td>4</td><td>300</td><td>Small ← elbow at k = 3</td></tr>
-              <tr><td>5</td><td>260</td><td>Small</td></tr>
+              <tr><td>1</td><td>600.0</td><td>—</td><td>—</td></tr>
+              <tr><td>2</td><td>347.3</td><td>253</td><td>0.417</td></tr>
+              <tr><td>3</td><td>187.7</td><td>160</td><td><strong>0.495</strong></td></tr>
+              <tr><td>4</td><td>135.0</td><td>53 ← drops become small: elbow at k = 3</td><td>0.466</td></tr>
+              <tr><td>5</td><td>109.0</td><td>26</td><td>0.457</td></tr>
+              <tr><td>6</td><td>88.1</td><td>21</td><td>0.455</td></tr>
             </tbody>
           </table>
-          <p>The <strong>silhouette score</strong> (−1 to 1, higher is better) is another way to compare values of k.</p>
+          <p>The <strong>silhouette score</strong> (−1 to 1, higher is better) measures how much closer each point is to its own cluster than to the next-nearest cluster. It is undefined for k = 1. Here both methods agree on k = 3. (With 300 points scaled to mean 0 and std 1 over 2 features, the k = 1 inertia is exactly 300 × 2 = 600.)</p>
+        </div>
+        <div class="lc-card">
+          <h3>Describing the Clusters</h3>
+          <p>The starter then fits k = 3 and averages each cluster in <strong>original units</strong>:</p>
+          <div class="lc-code">Cluster sizes: [ 74 156  70]<br>  Cluster 0: avg spend Rs 118.0k, avg visits  2.5/month<br>  Cluster 1: avg spend Rs  33.8k, avg visits  2.8/month<br>  Cluster 2: avg spend Rs  82.3k, avg visits  8.3/month<br><br>New customer (Rs 100k spend, 3 visits) -&gt; cluster 0</div>
+          <p>Now we can name them: 0 = "big spenders, rare visits", 1 = "budget occasional shoppers", 2 = "loyal frequent visitors". There is no test set here because there are no labels to test against — the scaler is fitted on all the data, and the clusters are judged by how useful and stable they are.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Not scaling</strong> — k-means uses distances, so a feature measured in rupees will swamp one measured in visits.</li>
             <li><strong>Reading cluster numbers as meaningful</strong> — "cluster 0" is just a name; rerun with a different seed and it may be "cluster 2".</li>
-            <li><strong>Expecting any shape</strong> — k-means finds round, similar-sized blobs; it struggles with long or curved groups.</li>
+            <li><strong>Expecting any shape</strong> — k-means finds round, similar-sized blobs; it struggles with long or curved groups (DBSCAN or hierarchical clustering can do better there).</li>
+            <li><strong>Choosing k by inertia alone</strong> — inertia always falls as k grows, so "lowest inertia" would always pick the largest k.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check that the elbow and the best silhouette both point to k = 3.</li>
+            <li>Change the chosen <code>n_clusters=3</code> to <code>4</code>. Which cluster gets split in two? Do the four profiles still make business sense?</li>
+            <li>Remove scaling: in the final <code>KMeans(...).fit(Xs)</code> line, replace <code>Xs</code> with <code>X</code>, and comment out the last two lines. Look at the new cluster profiles: which feature now decides the clusters, and why?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> After clustering, describe each cluster in plain words by looking at its centroid, e.g. "high spend, few visits = premium occasional buyers". That description is what the business actually uses.
@@ -1531,6 +1942,8 @@ module MachineLearningContent
         from sklearn.cluster import KMeans
         from sklearn.preprocessing import StandardScaler
         from sklearn.metrics import silhouette_score
+        import warnings
+        warnings.filterwarnings("ignore", message="JsProxy")  # hide a harmless browser-runtime notice
 
         # Customers: [annual_spend_thousand_rupees, visits_per_month]
         X, _ = make_blobs(n_samples=300, centers=[[20, 2], [60, 10], [120, 4]],
@@ -1581,7 +1994,10 @@ module MachineLearningContent
         </div>
         <div class="lc-card">
           <h3>In scikit-learn</h3>
-          <div class="lc-code">from sklearn.decomposition import PCA<br>from sklearn.preprocessing import StandardScaler<br><br>X_scaled = StandardScaler().fit_transform(X)   # always scale first<br>pca = PCA(n_components=2)<br>X_2d = pca.fit_transform(X_scaled)<br>print(pca.explained_variance_ratio_)   # e.g. [0.36 0.19]</div>
+          <div class="lc-code">from sklearn.decomposition import PCA<br>from sklearn.preprocessing import StandardScaler<br><br>X = load_wine().data                           # 178 wines, 13 features<br>X_scaled = StandardScaler().fit_transform(X)   # scale first<br>pca = PCA(n_components=2)<br>X_2d = pca.fit_transform(X_scaled)<br>print(X.shape, "-&gt;", X_2d.shape)<br>print(pca.explained_variance_ratio_.round(3))</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">(178, 13) -&gt; (178, 2)<br>[0.362 0.192]</div>
+          <p>Two components keep 36.2% + 19.2% = 55.4% of the total variance of 13 features.</p>
           <p><code>explained_variance_ratio_</code> tells you what fraction of the total information each component keeps. You can also pass <code>PCA(n_components=0.95)</code> to keep enough components for 95% of the variance.</p>
         </div>
         <div class="lc-card">
@@ -1592,9 +2008,18 @@ module MachineLearningContent
               <tr><td>Visualisation</td><td>Squash 13 features to 2 so you can plot the data</td></tr>
               <tr><td>Speed</td><td>Fewer features means faster training</td></tr>
               <tr><td>Noise reduction</td><td>Small components often contain mostly noise</td></tr>
-              <tr><td>Correlated features</td><td>Combines overlapping features into independent ones</td></tr>
+              <tr><td>Correlated features</td><td>Combines overlapping features into uncorrelated ones</td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Scaling and "How Many Components?"</h3>
+          <div class="lc-code">Unscaled variance ratio: [0.998 0.002]<br>  PC1 is mostly: proline<br><br>Scaled - variance kept by first k components:<br>  k= 1: 0.362<br>  k= 2: 0.554<br>  k= 5: 0.802<br>  k= 8: 0.920<br>Components needed for 95%: 10<br>Accuracy with  2 components: 0.955<br>Accuracy with  5 components: 0.978<br>Accuracy with 13 components: 0.983</div>
+          <ul class="lc-list">
+            <li>Without scaling, PC1 "explains" 99.8% of the variance — only because proline is measured in the hundreds to over a thousand while other features are below 10. That is a units effect, not real information.</li>
+            <li>After scaling, you need 10 of 13 components to keep 95% of the variance.</li>
+            <li>Yet a classifier on just 2 components still reaches 0.955 cross-validated accuracy (vs 0.983 with all 13): the first components hold most of what separates the three wine classes. This is a lucky case — PCA ignores labels, so it does not always keep the most predictive directions.</li>
+          </ul>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1602,8 +2027,16 @@ module MachineLearningContent
             <li><strong>Not scaling first</strong> — a feature measured in large units (like proline in wine, ~1000) dominates PC1 purely because of its scale.</li>
             <li><strong>Thinking PCA uses labels</strong> — it is unsupervised; it only looks at X. The components with most variance are not always the most useful for prediction.</li>
             <li><strong>Expecting readable features</strong> — PC1 is a mix of all features, so it is harder to explain than "rainfall" or "area".</li>
-            <li>Fitting PCA on the full dataset before splitting — put it in a Pipeline instead.</li>
+            <li>Fitting PCA on the full dataset before splitting — put it in a Pipeline instead (the starter's accuracy check does this).</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and read off how much variance 3 components keep.</li>
+            <li>Change the list in the last loop to <code>[1, 2, 3]</code>. How much accuracy do you lose with only 1 component?</li>
+            <li>Print <code>pca.components_[0].round(2)</code> after fitting on scaled data. Which features have the largest (positive or negative) weights in PC1?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Check the cumulative sum <code>np.cumsum(pca.explained_variance_ratio_)</code> to decide how many components are "enough" for your problem.
@@ -1673,6 +2106,17 @@ module MachineLearningContent
           <div class="lc-code">X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)<br><br>pipe = Pipeline([("scale", StandardScaler()), ("model", LogisticRegression(max_iter=1000))])<br>grid = GridSearchCV(pipe, {"model__C": [0.01, 0.1, 1, 10]}, cv=5, scoring="recall")<br>grid.fit(X_tr, y_tr)<br><br>print(classification_report(y_te, grid.predict(X_te)))</div>
         </div>
         <div class="lc-card">
+          <h3>Worked Example: The Project's Output</h3>
+          <div class="lc-code">Shape: (569, 30) | Malignant share: 0.373<br>Missing values: 0<br>Baseline test accuracy: 0.632<br>LogReg: best {'model__C': 1} CV recall=0.959<br>Forest: best {'model__max_depth': None, 'model__n_estimators': 100} CV recall=0.935<br><br>Chosen model: LogReg<br>Confusion matrix [[TN FP] [FN TP]]:<br> [[71  1]<br> [ 3 39]]<br>              precision    recall  f1-score   support<br>      benign       0.96      0.99      0.97        72<br>   malignant       0.97      0.93      0.95        42<br>    accuracy                           0.96       114</div>
+          <p>How to write this up for a report or viva:</p>
+          <ul class="lc-list">
+            <li><strong>Baseline:</strong> always predicting "benign" scores 0.632, so accuracy alone is not impressive here.</li>
+            <li><strong>Model choice:</strong> scaled logistic regression (C = 1) had the best cross-validated recall (0.959) on the training set; the forest reached 0.935.</li>
+            <li><strong>Final test result (used once):</strong> 39 of 42 malignant tumours caught (recall 0.93), 1 false alarm among 72 benign cases.</li>
+            <li><strong>Honest limitation:</strong> 3 cancers were missed. In a real screening tool you would next lower the decision threshold (lesson 10), chosen with cross-validation, and inspect those 3 cases.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
           <h3>Course Review: Choosing a Model</h3>
           <table class="lc-table">
             <thead><tr><th>Model</th><th>Task</th><th>Needs scaling?</th><th>Key setting</th></tr></thead>
@@ -1682,6 +2126,7 @@ module MachineLearningContent
               <tr><td>k-NN</td><td>Both</td><td>Yes</td><td>n_neighbors</td></tr>
               <tr><td>Decision Tree</td><td>Both</td><td>No</td><td>max_depth</td></tr>
               <tr><td>Random Forest</td><td>Both</td><td>No</td><td>n_estimators, max_depth</td></tr>
+              <tr><td>Gradient Boosting</td><td>Both</td><td>No</td><td>learning_rate, max_iter</td></tr>
               <tr><td>K-Means</td><td>Clustering</td><td>Yes</td><td>n_clusters</td></tr>
               <tr><td>PCA</td><td>Dimensionality reduction</td><td>Yes</td><td>n_components</td></tr>
             </tbody>
@@ -1708,10 +2153,21 @@ module MachineLearningContent
             <li>Reporting the best of many test-set runs as "the" accuracy.</li>
             <li>Showing only accuracy on an imbalanced problem.</li>
             <li>Not explaining the model's errors — look at the false negatives and ask why.</li>
+            <li>Tuning only for recall without checking precision — a model that calls <em>everyone</em> malignant has recall 1.0. Always read the full classification report.</li>
+            <li>Keeping the fitted scaler and model as separate objects — save the whole fitted pipeline (e.g. <code>joblib.dump(best_grid.best_estimator_, "model.joblib")</code>) so it can be loaded and used on raw data later.</li>
           </ul>
         </div>
+        <div class="lc-card">
+          <h3>Try it: Extend the Project</h3>
+          <ol class="lc-list">
+            <li>Run the starter and write the four-line report above in your own words.</li>
+            <li>Add a third candidate: <code>"KNN": (Pipeline([("scale", StandardScaler()), ("model", KNeighborsClassifier())]), {"model__n_neighbors": [3, 7, 15]})</code> (import <code>KNeighborsClassifier</code> from <code>sklearn.neighbors</code>). Does it beat logistic regression on CV recall?</li>
+            <li>Change <code>scoring="recall"</code> to <code>scoring="f1"</code>. Does the chosen model or its best setting change?</li>
+            <li>Challenge: redo the whole workflow for regression on <code>load_diabetes</code>, with <code>DummyRegressor</code> as the baseline and <code>scoring="neg_root_mean_squared_error"</code>.</li>
+          </ol>
+        </div>
         <div class="lc-card lc-card--tip">
-          <strong>Next steps:</strong> Try this same workflow on other built-in datasets (<code>load_diabetes</code> for regression, <code>load_wine</code> for multi-class), then move on to the Deep Learning course to see how neural networks extend these ideas.
+          <strong>Next steps:</strong> Topics to explore after this course: support vector machines (<code>sklearn.svm.SVC</code>), handling heavily imbalanced data, model explanation tools (permutation importance, SHAP) and monitoring models after deployment. Then move on to the Deep Learning course to see how neural networks extend these ideas.
         </div>
       HTML
       starter_code: <<~'PYTHON'

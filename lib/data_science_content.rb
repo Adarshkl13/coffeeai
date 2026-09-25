@@ -47,7 +47,31 @@ module DataScienceContent
         <div class="lc-card">
           <h3>A Tiny End-to-End Example</h3>
           <div class="lc-code">import pandas as pd<br><br>orders = pd.DataFrame({<br>    'hour':    [13, 13, 20, 20, 21, 21],<br>    'minutes': [28, 31, 44, 47, 39, 52],<br>})<br><br># Ask: are dinner orders slower than lunch orders?<br>orders['slot'] = orders['hour'].apply(lambda h: 'dinner' if h &gt;= 19 else 'lunch')<br>print(orders.groupby('slot')['minutes'].mean())</div>
-          <p>Ask &rarr; organise &rarr; summarise &rarr; answer. That is data science in miniature.</p>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">slot<br>dinner    45.5<br>lunch     29.5<br>Name: minutes, dtype: float64</div>
+          <p>Ask &rarr; organise &rarr; summarise &rarr; answer. That is data science in miniature. Notice what the output does <em>not</em> tell us: whether dinner orders are slower because of traffic, because they travel further, or because the kitchen is busier. The starter code follows up on exactly that question.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Delivery time by slot:<br>        count  mean<br>slot<br>dinner      5  45.0<br>lunch       3  27.7<br><br>Dinner orders take about 17 minutes longer on average.<br><br>Average distance by slot (km):<br>slot<br>dinner    3.84<br>lunch     2.47</div>
+          <p>Dinner orders are slower — but they also travel about 1.4 km further. Part of the "dinner effect" may really be a "distance effect". With only 8 orders (3 at lunch), neither conclusion is solid yet. A good data scientist reports both the finding and its limits.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Starting with the tool, not the question</strong> — "let's use pandas on the orders file" produces tables, not answers.</li>
+            <li><strong>Trusting the first comparison</strong> — a difference between groups can be caused by another variable (here, distance). Lesson 14 covers confounders.</li>
+            <li><strong>Ignoring sample size</strong> — an average of 3 orders can change completely with one more order.</li>
+            <li><strong>Skipping the "communicate" stage</strong> — an insight nobody acts on has no value.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and read the two tables.</li>
+            <li>Change the dinner cut-off from <code>h &gt;= 18</code> to <code>h &gt;= 20</code>. Which orders move to "lunch", and how does the gap change?</li>
+            <li>Add a column <code>orders['min_per_km'] = orders['minutes'] / orders['distance_km']</code> and compare it by slot. Is dinner still slower per km?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Tools change every few years; the process does not. Focus on asking clear questions and checking your data, and the code becomes the easy part.
@@ -126,6 +150,28 @@ module DataScienceContent
           <div class="lc-code"># Question: Do toss winners win more often?<br># Metric:   % of matches where toss_winner == match_winner<br>won_both = (df['toss_winner'] == df['winner'])<br>print(f"{won_both.mean() * 100:.1f}% of toss winners also won")</div>
           <p>Notice how the metric is decided <em>before</em> writing the code. The code simply computes it.</p>
         </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Toss winner also won: 60% of matches<br><br>Win % for toss winners, by choice:<br>             count  win_pct<br>toss_choice<br>bat              3     67.0<br>field            7     57.0<br><br>Caution: only 10 matches - far too few to be sure!</div>
+          <p>The sharp question has a sharp answer: 60% (6 of 10). The follow-up suggests batting first after winning the toss did better — but that "67%" is 2 wins out of 3 matches. One different result would change it to 33% or 100%. This is why a good question also says how much data is needed to answer it.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Questions with no metric</strong> — "Is the team good?" cannot be computed; "What is the team's win % at home this season?" can.</li>
+            <li><strong>Asking a causal question of observational data</strong> — "Does the toss <em>cause</em> wins?" needs more care than "Do toss winners win more often?"</li>
+            <li><strong>Moving the goalposts</strong> — changing the question after seeing the data until something looks exciting ("fishing").</li>
+            <li><strong>Forgetting the decision</strong> — if no decision depends on the answer, the question may not be worth the effort.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check the 60% by counting rows yourself.</li>
+            <li>Write one descriptive, one diagnostic and one predictive question about this IPL data as comments in the code.</li>
+            <li>Compute a new metric: the win % of the team batting first. (Hint: if <code>toss_choice</code> is "bat", the toss winner batted first; otherwise the other team did.)</li>
+          </ol>
+        </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Avoid "fishing": if you test fifty random ideas, a few will look interesting just by luck. Decide your main question first, then explore.
         </div>
@@ -196,6 +242,7 @@ module DataScienceContent
             <li><strong>Dates</strong> stored as strings should become real datetime values.</li>
           </ul>
           <div class="lc-code">df['pincode'] = df['pincode'].astype(str)      # label, not number<br>df['grade'] = pd.Categorical(df['grade'],<br>                             categories=['C', 'B', 'A'], ordered=True)<br>df['date'] = pd.to_datetime(df['date'])</div>
+          <p>With <code>ordered=True</code> and categories listed from lowest to highest, comparisons such as <code>df['grade'] &gt;= 'B'</code> follow the real order (C &lt; B &lt; A) instead of alphabetical order, where "A" would come first.</p>
         </div>
         <div class="lc-card">
           <h3>Python Structures a Data Scientist Uses</h3>
@@ -205,6 +252,32 @@ module DataScienceContent
             <li><strong>pandas Series</strong> &mdash; one labelled column</li>
             <li><strong>pandas DataFrame</strong> &mdash; the whole table, each column with its own type</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Raw dtypes:<br>roll_no      int64<br>city        object<br>grade       object<br>marks       object<br>siblings     int64<br><br>Fixed dtypes:<br>roll_no       object<br>city          object<br>grade       category<br>marks          int64<br>siblings       int64<br>...<br>Ordinal  -&gt; median grade: B<br>Discrete -&gt; mean siblings: 1.4<br>Numeric  -&gt; mean marks: 76.8<br>Grades at least B: 4</div>
+          <ul class="lc-list">
+            <li><code>marks</code> loaded as <code>object</code> (text), so <code>marks.mean()</code> would fail until we convert it.</li>
+            <li><code>roll_no</code> loaded as a number but is really a label, so we store it as text.</li>
+            <li>For the ordinal grade we report a median (B), not a mean — "the average of A and C" has no meaning.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Averaging codes</strong> — the mean PIN code or roll number is a meaningless number.</li>
+            <li><strong>Treating ordinal data as evenly spaced</strong> — the gap between "Poor" and "Satisfactory" AQI is not the same as between "Good" and "Satisfactory".</li>
+            <li><strong>Losing leading zeros</strong> — PIN codes and phone numbers read as integers can lose leading zeros; read them as text (<code>dtype=str</code>).</li>
+            <li><strong>Leaving numbers as text</strong> — sorting text gives "100" before "55".</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and compare the raw and fixed dtypes.</li>
+            <li>Change the first mark from <code>'78'</code> to <code>'100'</code>, and print <code>students['marks'].max()</code> right after the DataFrame is created (before the fix). Why does it say <code>'91'</code>? Then check the max again after <code>pd.to_numeric</code>.</li>
+            <li>Add a column <code>'aqi_band': ['Good', 'Poor', 'Moderate', 'Good', 'Satisfactory']</code> and make it an ordered categorical with the right order.</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Run <code>df.dtypes</code> on every new dataset. An <code>object</code> dtype on a column you expected to be numeric is the first sign of dirty data.
@@ -271,6 +344,8 @@ module DataScienceContent
           <h3>Reading JSON Records</h3>
           <p>JSON is often nested: an order contains a customer, and a customer has a city. <code>pd.json_normalize</code> flattens nested keys into columns like <code>customer.city</code>.</p>
           <div class="lc-code">import json<br>records = json.loads(json_text)<br>orders = pd.json_normalize(records)<br>print(orders.columns.tolist())</div>
+          <p><strong>Output</strong> (for the three orders in the starter):</p>
+          <div class="lc-code">['id', 'amount', 'customer.name', 'customer.city']</div>
         </div>
         <div class="lc-card">
           <h3>Questions to Ask About Any Source</h3>
@@ -280,6 +355,40 @@ module DataScienceContent
             <li><strong>What does each column mean?</strong> Look for a data dictionary.</li>
             <li><strong>Are we allowed to use it?</strong> Check licence and privacy rules.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>CSV vs JSON at a Glance</h3>
+          <table class="lc-table">
+            <thead><tr><th></th><th>CSV</th><th>JSON</th></tr></thead>
+            <tbody>
+              <tr><td>Shape</td><td>Flat table, one row per record</td><td>Nested objects and lists</td></tr>
+              <tr><td>Types</td><td>Everything is text until parsed</td><td>Numbers, strings, true/false, null</td></tr>
+              <tr><td>pandas</td><td><code>pd.read_csv</code></td><td><code>json.loads</code> + <code>pd.json_normalize</code></td></tr>
+              <tr><td>Typical trap</td><td>Commas inside values, wrong date format</td><td>Lists inside records (one order with many items)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">CSV loaded: (6, 3)<br>city            object<br>date    datetime64[ns]<br>aqi              int64<br>...<br>Delhi        365.5<br>...<br>JSON columns: ['id', 'amount', 'customer.name', 'customer.city']<br>...<br>Revenue by city:<br>customer.city<br>Delhi    199<br>Pune     869</div>
+          <p>Because we passed <code>parse_dates=['date']</code>, the date column is a real <code>datetime64</code>, not text. The nested <code>customer</code> object became two flat columns, so we can group by <code>customer.city</code> directly.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Forgetting <code>parse_dates</code></strong> — dates stay as text, and sorting or filtering by month goes wrong.</li>
+            <li><strong>Assuming one row per record in JSON</strong> — an order with a list of 3 items may need <code>json_normalize(records, record_path='items')</code> to become 3 rows.</li>
+            <li><strong>Ignoring encodings</strong> — Hindi or Tamil text saved in the wrong encoding appears as garbled symbols; use <code>encoding='utf-8'</code>.</li>
+            <li><strong>Using data you are not allowed to use</strong> — scraped or shared personal data may break the licence or privacy law.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check the dtype of the <code>date</code> column.</li>
+            <li>Remove <code>parse_dates=['date']</code> and print <code>aqi.dtypes</code> again. What type is <code>date</code> now?</li>
+            <li>Add a fourth JSON order from Chennai for ₹410 and rerun. Does "Revenue by city" pick it up automatically?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Always keep an untouched copy of the raw data. Do your cleaning on a copy so you can start again if something goes wrong.
@@ -354,11 +463,38 @@ module DataScienceContent
         <div class="lc-card">
           <h3>Spotting Messy Labels</h3>
           <div class="lc-code">print(df['city'].value_counts())<br># Bangalore    3<br># Bengaluru    2<br># bengaluru    1   &lt;- same city, three spellings!</div>
-          <p>Inconsistent labels split one group into several and silently distort every group-level result.</p>
+          <p>Inconsistent labels split one group into several and silently distort every group-level result. (The pandas course covers the string tools for fixing them.)</p>
         </div>
         <div class="lc-card">
           <h3>Write Down What You Find</h3>
           <p>Keep a short list of issues as you inspect: "3 missing ratings, city spelled 3 ways, one negative time". This list becomes your cleaning plan for the next lessons.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Shape: (9, 6)<br>...<br>rating      2          &lt;- missing values<br>...<br>Numeric summary:<br>       amount  minutes  rating<br>count     9.0      9.0     7.0<br>mean    299.0   1133.6     4.3<br>min     129.0     -5.0     3.5<br>50%     299.0     28.0     4.5<br>max     549.0   9999.0     4.8<br><br>City labels:<br>Bangalore    3<br>Hyderabad    2<br>Chennai      2<br>Bengaluru    1<br>bengaluru    1<br><br>Duplicate rows: 1<br><br>Cleaning plan: missing ratings; impossible delivery times; inconsistent city spellings; duplicate rows</div>
+          <ul class="lc-list">
+            <li>The mean delivery time (1133.6 minutes!) is nonsense, while the median (28) looks normal — one placeholder value of 9999 is dragging the mean.</li>
+            <li>A negative minimum (−5) is impossible.</li>
+            <li>One city appears under three names, so a group-by would report three "cities".</li>
+            <li>Order 8 appears twice, which would double-count its revenue.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Only looking at <code>head()</code></strong> — the first five rows looked fine here; the problems were in rows 3, 6, 7 and 9.</li>
+            <li><strong>Fixing problems while inspecting</strong> — first list every issue, then clean in a planned order, so you can explain each change.</li>
+            <li><strong>Trusting the mean in <code>describe()</code></strong> — always compare it with the median (the 50% row).</li>
+            <li><strong>Missing placeholder values</strong> — 9999, 0 or −1 are often codes for "unknown", not real measurements.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and match each item in the cleaning plan to the evidence above.</li>
+            <li>Print <code>df.sample(3, random_state=0)</code>. Which rows do you get?</li>
+            <li>Add a check to the cleaning plan for ratings outside 1–5, then add a row with a rating of <code>6</code> to test it.</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> <code>df.sample(5, random_state=0)</code> is often better than <code>head()</code>: the first rows of a file are sometimes unusual (test entries, headers repeated).
@@ -415,9 +551,9 @@ module DataScienceContent
           <table class="lc-table">
             <thead><tr><th>Pattern</th><th>Example</th><th>Risk</th></tr></thead>
             <tbody>
-              <tr><td>Completely at random</td><td>A sensor glitch on random days</td><td>Low &mdash; dropping rows is usually fine</td></tr>
-              <tr><td>Related to other columns</td><td>Ratings missing more often for late orders</td><td>Medium &mdash; dropping biases results</td></tr>
-              <tr><td>Related to the value itself</td><td>Low scorers choose not to report marks</td><td>High &mdash; any simple fix misleads</td></tr>
+              <tr><td>Missing completely at random (MCAR)</td><td>A sensor glitch on random days</td><td>Low &mdash; dropping rows loses data but does not bias results</td></tr>
+              <tr><td>Missing at random (MAR) &mdash; explained by other columns</td><td>Ratings missing more often for late orders</td><td>Medium &mdash; dropping biases results; fill using the related columns</td></tr>
+              <tr><td>Missing not at random (MNAR) &mdash; related to the value itself</td><td>Low scorers choose not to report marks</td><td>High &mdash; any simple fix misleads; report the limitation</td></tr>
             </tbody>
           </table>
         </div>
@@ -439,6 +575,9 @@ module DataScienceContent
           <h3>Group-Aware Filling</h3>
           <p>Filling missing rainfall for Cherrapunji with the all-India average would be badly wrong. Fill within each group instead:</p>
           <div class="lc-code">df['rain_mm'] = df['rain_mm'].fillna(<br>    df.groupby('station')['rain_mm'].transform('median')<br>)</div>
+          <p><strong>Output of the starter</strong> — average daily July rainfall (mm) under each strategy:</p>
+          <div class="lc-code">             dropped  global_median  group_median  interpolated<br>station<br>Chennai         11.2           28.0          11.2          11.3<br>Cherrapunji    410.8          347.6         409.4         412.1<br>Mumbai          95.0           95.0          95.0          95.0</div>
+          <p>The global median of all stations is 95 mm. Filling Chennai's gap with it gives Chennai an imaginary wet day, so its average jumps from 11 to 28 mm — more than double. It also drags Cherrapunji down. The group-aware and interpolation methods stay close to what the station actually recorded. (Mumbai agrees in all four columns only by coincidence: its own median is also 95 mm.)</p>
         </div>
         <div class="lc-card">
           <h3>Always Measure the Impact</h3>
@@ -447,6 +586,23 @@ module DataScienceContent
             <li>Compare key statistics (mean, count) before and after cleaning.</li>
             <li>If conclusions flip depending on the method, say so in your report.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Calling <code>dropna()</code> on the whole table</strong> — it drops a row if <em>any</em> column is missing, which can silently remove half your data. Use <code>subset=</code>.</li>
+            <li><strong>Filling before splitting for a model</strong> — the fill value then uses information from test rows. Compute it on training data only (Machine Learning course, lessons 16–17).</li>
+            <li><strong>Treating 0 as "missing"</strong> — zero rainfall is a real measurement; a broken gauge is not.</li>
+            <li><strong>Not reporting what you did</strong> — "3 of 15 values filled with the station median" belongs in your write-up.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and explain why Chennai's <code>global_median</code> value is so high.</li>
+            <li>Add a "flag" column <code>rain['was_missing'] = rain['rain_mm'].isna()</code> before filling, and count flags per station.</li>
+            <li>Set another Cherrapunji day to <code>np.nan</code>. Which strategy changes the Cherrapunji average most?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Filling with the mean shrinks the spread of your data and makes it look more certain than it is. Use it sparingly and always report it.
@@ -527,7 +683,33 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Why the Median Is Robust</h3>
-          <p>Salaries of 5 people: 30k, 32k, 35k, 38k and 5 lakh. The mean is about 1.27 lakh &mdash; nobody earns that! The median, 35k, stays close to the typical person.</p>
+          <p>Salaries of 5 people: 30k, 32k, 35k, 38k and 5 lakh. The mean is (30 + 32 + 35 + 38 + 500) / 5 = 127k, about 1.27 lakh &mdash; nobody earns that! The median, 35k, stays close to the typical person.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Duplicate IDs: 1<br>Impossible amounts set to NaN: 1<br>IQR fences: 135 to 575<br>Outliers:<br>   order_id   amount<br>5         5  12000.0<br><br>Z-scores: [-0.34, -0.35, -0.31, -0.34, 2.67, -0.32, -0.36, -0.33, nan, -0.32]<br>...<br>Mean with party order:   1640<br>Median with party order: 350<br>Mean after capping:      371</div>
+          <ul class="lc-list">
+            <li>The IQR rule flags the ₹12,000 party order clearly.</li>
+            <li>Its z-score is only 2.67, below the usual cut-off of 3. With 9 values, one huge value inflates the standard deviation so much that it hides itself. (In fact, with n values no z-score can exceed (n − 1)/√n, which is 2.67 for n = 9.)</li>
+            <li>One order turns a typical ₹350 order into a "mean" of ₹1,640. Capping at the upper fence brings the mean back to ₹371.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Deleting every outlier</strong> — a real ₹12,000 party order is valuable business information; report it separately instead of hiding it.</li>
+            <li><strong>Using the z-score rule on small or skewed samples</strong> — the outlier inflates the std, as shown above.</li>
+            <li><strong>Dropping duplicates on all columns only</strong> — two rows with the same order ID but a different amount are not exact duplicates, yet one of them is wrong.</li>
+            <li><strong>Cleaning silently</strong> — keep a log: "removed 1 duplicate ID, set 1 negative amount to missing".</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check that the fences are Q1 − 1.5 × IQR and Q3 + 1.5 × IQR.</li>
+            <li>Change the party order from <code>12000</code> to <code>900</code>. Is it still an outlier by the IQR rule?</li>
+            <li>Add 20 more ordinary orders (for example <code>[300] * 20</code>, with new IDs). What happens to the party order's z-score now?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Never delete outliers just to make a chart look neater. Write down every row you remove and the reason.
@@ -599,11 +781,37 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Log Transform for Skewed Data</h3>
-          <p>Order values, city populations and incomes have a long right tail. <code>np.log1p()</code> compresses big values so patterns become visible.</p>
+          <p>Order values, city populations and incomes have a long right tail. <code>np.log1p(x)</code> computes log(1 + x): it compresses big values so patterns become visible, and still works when x is 0. In the starter, amounts from ₹150 to ₹2,200 (almost 15×) become 5.02 to 7.70.</p>
         </div>
         <div class="lc-card">
           <h3>Binning with pd.cut</h3>
           <div class="lc-code">bins   = [0, 50, 100, 200, 300, 500]<br>labels = ['Good', 'Satisfactory', 'Moderate', 'Poor', 'Very Poor+']<br>df['aqi_band'] = pd.cut(df['aqi'], bins=bins, labels=labels)</div>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">     city  cuisine   km  amount  hour  weekend  late_night distance_band  km_scaled  log_amount<br>0    pune  Biryani  2.0     320    13    False       False          near       0.08        5.77<br>1    pune    Pizza  6.5     780    20    False       False           far       0.77        6.66<br>2  mumbai  Biryani  4.0     450    21     True       False           mid       0.38        6.11<br>3  mumbai     Dosa  1.5     150    12     True       False          near       0.00        5.02<br>4    pune    Pizza  8.0    2200    23    False        True           far       1.00        7.70<br>5  mumbai     Dosa  3.0     260    19    False       False          near       0.23        5.56</div>
+          <ul class="lc-list">
+            <li>Six messy city spellings became two clean labels: "pune" and "mumbai".</li>
+            <li>3 and 4 August 2024 were a Saturday and a Sunday, so <code>weekend</code> is True for those rows (<code>dayofweek</code> counts Monday as 0).</li>
+            <li><code>pd.cut</code> bins include the right edge: 3.0 km falls in "near" (0, 3], and 6.5 km in "far".</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Leaking the answer into a feature</strong> — "delivered_at" to explain delivery time, or a "refund_issued" flag to predict complaints.</li>
+            <li><strong>Computing scaling or binning limits on all data before a model split</strong> — use training data only (the Machine Learning course shows how with pipelines).</li>
+            <li><strong>Using <code>np.log</code> on zeros</strong> — log(0) is −infinity; use <code>np.log1p</code>.</li>
+            <li><strong>Too many one-hot columns</strong> — a column with 5,000 different values creates 5,000 new columns; group rare values into "Other" first.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check the <code>weekend</code> column against a calendar.</li>
+            <li>Add a feature <code>orders['amount_per_km'] = orders['amount'] / orders['km']</code>. Which order is the most valuable per km?</li>
+            <li>Change the distance bins to <code>[0, 2, 5, 20]</code>. How many orders are "near" now?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Every feature should have a story: "late-night orders are slower because fewer riders are online". If you cannot explain a feature, be suspicious of it.
@@ -681,6 +889,7 @@ module DataScienceContent
             </tbody>
           </table>
           <div class="lc-code">marks.mean(), marks.median(), marks.mode()[0]<br>marks.std(), marks.quantile(0.75) - marks.quantile(0.25)</div>
+          <p>Variance and standard deviation come in two versions: the <strong>population</strong> formula divides by n, the <strong>sample</strong> formula divides by n &minus; 1. When your data is a sample and you want to estimate the spread of the whole population, n &minus; 1 corrects a small downward bias.</p>
         </div>
         <div class="lc-card">
           <h3>Same Mean, Different Story</h3>
@@ -689,6 +898,32 @@ module DataScienceContent
         <div class="lc-card">
           <h3>Comparing Across Scales: Coefficient of Variation</h3>
           <p>CV = std / mean. It lets you compare variability of things measured in different units, e.g. "Is Chennai's rainfall more variable than Mumbai's?" even though Mumbai gets far more rain.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">           mean  median  mode   std  range   IQR<br>section_A  70.0    70.0  70.0   2.9     10   3.5<br>section_B  70.0    70.0  40.0  30.2     60  59.0<br><br>pandas std (n-1): 2.944<br>numpy std (n):    2.793<br>numpy std ddof=1: 2.944<br><br>Rainfall CV (%):<br>Mumbai     23.3<br>Chennai    51.2</div>
+          <ul class="lc-list">
+            <li>Both sections have mean and median 70, but Section B's std (30.2) is ten times Section A's (2.9). The averages hide two completely different classrooms.</li>
+            <li>Section B has <em>two</em> modes, 40 and 100 (three students each). <code>mode()</code> returns both; <code>.iloc[0]</code> just shows the first. A two-humped distribution like this is exactly where "the average student" does not exist.</li>
+            <li>Mumbai's rainfall std is larger in mm, but relative to its mean Chennai's rainfall varies twice as much (CV 51% vs 23%).</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Reporting the mean alone</strong> — always give a spread (std or IQR) next to it.</li>
+            <li><strong>Mixing pandas and NumPy std</strong> — they use different defaults (n &minus; 1 vs n), so the numbers differ slightly.</li>
+            <li><strong>Using the mean for skewed data</strong> — for incomes or order values, the median describes the typical case better.</li>
+            <li><strong>Using CV when the mean is near zero or values can be negative</strong> — temperatures in °C, profit and loss: the CV becomes meaningless.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and explain in one sentence why Section B's IQR is so large.</li>
+            <li>Change one Section A mark from <code>75</code> to <code>25</code>. Which statistics change a lot and which barely move?</li>
+            <li>Compute the CV of Section A and Section B marks. Which class is more consistent?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> pandas <code>std()</code> uses the sample formula (divide by n&minus;1). NumPy <code>np.std()</code> divides by n unless you pass <code>ddof=1</code>. Know which one you are using.
@@ -770,6 +1005,33 @@ module DataScienceContent
           <h3>Measuring Skew</h3>
           <p><code>series.skew()</code> returns about 0 for symmetric data, a positive number for right skew and a negative number for left skew. Values beyond &plusmn;1 indicate strong skew.</p>
         </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Heights (cm)  (mean=164.0, median=164.2, skew=-0.01)<br>...<br>Order value (Rs)  (mean=366.3, median=321.2, skew=1.52)<br>    83.1 | ############<br>   194.3 | ###############################<br>   305.4 | ###########################<br>   416.6 | #############<br>   527.8 | #######<br>   639.0 | ###<br>   750.2 | #<br>...<br>Order hour of day  (mean=16.7, median=16.6, skew=0.02)<br>...<br>Within 1 std: 66.2%<br>Within 2 std: 96.2%<br>Within 3 std: 99.8%</div>
+          <ul class="lc-list">
+            <li>Heights: mean ≈ median and skew ≈ 0 — symmetric.</li>
+            <li>Order values: a long right tail pulls the mean (366) above the median (321); skew 1.52 is strong.</li>
+            <li>Order hours: two humps (lunch and dinner). The mean, 16.7 (about 4:40 pm), is a time when almost <em>nobody</em> orders — and skew ≈ 0 does not warn you. Always look at the shape, not just the numbers.</li>
+            <li>The simulated heights follow the 68-95-99.7 rule closely (66.2%, 96.2%, 99.8%) — it is approximate for a sample of 500.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Assuming everything is normal</strong> — incomes, order values and waiting times are usually right-skewed.</li>
+            <li><strong>Reading skew ≈ 0 as "bell-shaped"</strong> — the bimodal order hours have skew 0.02.</li>
+            <li><strong>Too few or too many histogram bins</strong> — 3 bins hide the shape, 200 bins show only noise. Try a few values.</li>
+            <li><strong>Applying the 68-95-99.7 rule to skewed data</strong> — it only holds for roughly normal distributions.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and match each histogram to a shape in the table above.</li>
+            <li>Change <code>bins=10</code> to <code>bins=4</code> in <code>text_hist</code>. Can you still see the two humps in the order hours?</li>
+            <li>Log-transform the order values (<code>np.log(order_values)</code>) and pass them to <code>text_hist</code>. What happens to the skew?</li>
+          </ol>
+        </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> For strongly skewed data, report the <strong>median and IQR</strong> instead of mean and std, or log-transform before analysis.
         </div>
@@ -831,11 +1093,37 @@ module DataScienceContent
           <h3>Bayes' Rule in One Example</h3>
           <p>A COVID test catches 95% of real cases and wrongly flags 5% of healthy people. Only 2% of people are infected. If you test positive, what is the chance you are infected?</p>
           <div class="lc-code">P(infected | positive) = P(pos | inf) &times; P(inf) / P(pos)<br>                       = 0.95 &times; 0.02 / (0.95 &times; 0.02 + 0.05 &times; 0.98)<br>                       &asymp; 0.28</div>
-          <p>Only about 28%! When something is rare, most positives are false alarms. This is called the <strong>base rate</strong> effect.</p>
+          <p>Only about 28%! When something is rare, most positives are false alarms. This is called the <strong>base rate</strong> effect. (The Artificial Intelligence course, lesson 11, uses Bayes' rule to reason about fraud alarms; here we focus on estimating probabilities from data.)</p>
         </div>
         <div class="lc-card">
           <h3>Simulation: Let the Computer Count</h3>
           <p>When the maths is hard, simulate thousands of random trials with NumPy and count how often the event happens. With a fixed seed, the result is reproducible.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">P(late)          = 0.183<br>P(on time)       = 0.817<br><br>Conditional table (rows sum to 1):<br>late     False  True<br>raining<br>False    0.903  0.097<br>True     0.565  0.435<br><br>P(late | raining) = 0.435<br>P(late | dry)     = 0.097<br>P(raining | late) = 0.608   &lt;- not the same as P(late | raining)!<br><br>P(infected | positive test) = 0.279<br>P(shared birthday in a class of 30) ~ 0.69</div>
+          <ul class="lc-list">
+            <li>The data was simulated with P(late | rain) = 0.40 and P(late | dry) = 0.10; from 2,000 orders we estimate 0.435 and 0.097 — close, but not exact. Estimates from data always carry sampling error (lesson 12).</li>
+            <li>Rain makes lateness about 4.5 times more likely. But only 25% of days are rainy, so 61% of late orders happen on rainy days — P(raining | late) answers a different question.</li>
+            <li>The birthday simulation matches the exact answer (about 0.71) closely; with 5,000 trials the estimate is within a couple of percentage points.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Swapping the condition</strong> — P(late | raining) and P(raining | late) are different numbers (0.435 vs 0.608 here).</li>
+            <li><strong>Assuming independence</strong> — multiplying P(rain) × P(late) is wrong when rain affects lateness.</li>
+            <li><strong>Adding probabilities of overlapping events</strong> — P(A or B) needs the "minus P(A and B)" correction.</li>
+            <li><strong>Trusting a probability from tiny counts</strong> — "2 of 3 orders were late" is not a reliable 67%.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and verify that each row of the conditional table sums to 1.</li>
+            <li>Change <code>normalize='index'</code> to <code>normalize='columns'</code>. Which conditional probabilities does the table show now?</li>
+            <li>Change the class size from 30 to 50 in the birthday simulation (both the <code>size</code> and the <code>&lt; 30</code>). What is the probability now?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> P(A | B) and P(B | A) are different. P(cricket fan | Indian) is high; P(Indian | cricket fan) is a completely different number.
@@ -905,7 +1193,7 @@ module DataScienceContent
           <h3>The Central Limit Theorem (CLT)</h3>
           <p>Take many random samples of size n and compute each sample's mean. Then:</p>
           <ul class="lc-list">
-            <li>The sample means form a roughly <strong>normal (bell-shaped)</strong> distribution, <em>even if the original data is skewed</em>, once n is reasonably large (often n &ge; 30).</li>
+            <li>The sample means form a roughly <strong>normal (bell-shaped)</strong> distribution, <em>even if the original data is skewed</em>, once n is large enough. n &ge; 30 is a common rule of thumb; very skewed data needs more.</li>
             <li>Their centre is the true population mean.</li>
             <li>Their spread, called the <strong>standard error</strong>, is &sigma; / &radic;n. Four times the sample size halves the error.</li>
           </ul>
@@ -914,7 +1202,35 @@ module DataScienceContent
           <h3>Confidence Intervals</h3>
           <p>Thanks to the CLT, a rough 95% confidence interval for a mean is:</p>
           <div class="lc-code">se = sample.std() / np.sqrt(len(sample))<br>low, high = sample.mean() - 1.96 * se, sample.mean() + 1.96 * se</div>
-          <p>Meaning: if we repeated this sampling many times, about 95% of the intervals built this way would contain the true mean.</p>
+          <p>Meaning: if we repeated this sampling many times, about 95% of the intervals built this way would contain the true mean. It does <em>not</em> mean "there is a 95% chance the true mean is in this particular interval" — the true mean is fixed; it is the interval that varies. For small samples, statisticians use the t-distribution (about 2.01 instead of 1.96 for n = 50); <code>scipy.stats.t.interval</code> computes it.</p>
+          <p><strong>Bootstrap CI</strong> — when you do not want to rely on formulas, resample your one sample <em>with replacement</em> thousands of times, compute the mean each time, and take the middle 95% of those means.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Population mean: 478.9   (skewed, long right tail)<br><br>n=  5: mean of means=481.9, spread (SE)=176.1, theory sigma/sqrt(n)=179.2<br>n= 30: mean of means=479.7, spread (SE)=73.8, theory sigma/sqrt(n)=73.2<br>n=120: mean of means=478.8, spread (SE)=36.5, theory sigma/sqrt(n)=36.6<br><br>One sample of 50: mean=474.9, 95% CI=(370.1, 579.7)<br>Contains true mean? True<br>Bootstrap 95% CI=(376.3, 586.0)<br>Intervals that contained the true mean: 92.9%</div>
+          <ul class="lc-list">
+            <li>The sample means centre on the true mean (≈ 479) for every n, and their spread matches σ/√n. Going from n = 30 to n = 120 (4×) halves the SE (73.8 → 36.5).</li>
+            <li>The text histograms (in the full output) are lopsided for n = 5 and bell-shaped for n = 120 — the CLT at work.</li>
+            <li>The formula CI and the bootstrap CI agree closely.</li>
+            <li>Repeating the whole study 1,000 times, 92.9% of the "95%" intervals caught the true mean — a little short, because this data is very skewed and 1.96 ignores small-sample uncertainty. Rules of thumb are approximations; simulation lets you check them.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Thinking the CLT makes the data normal</strong> — it is the distribution of <em>sample means</em> that becomes normal, not the individual values.</li>
+            <li><strong>Believing a bigger sample fixes bias</strong> — 1 lakh Instagram responses are still only Instagram users.</li>
+            <li><strong>Misreading the CI</strong> — "95% of customers spend between ₹370 and ₹580" is wrong; the interval is about the <em>mean</em>, not individual customers.</li>
+            <li><strong>Using the population std formula for the SE</strong> — for a sample use <code>std(ddof=1)</code>, as the starter does.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check that the SE halves when n goes from 30 to 120.</li>
+            <li>Change every <code>50</code> in the last three blocks of the code to <code>200</code> (the sample size). How much narrower is the CI? Does the coverage get closer to 95%?</li>
+            <li>Replace <code>1.96</code> with <code>2.01</code> (the t-value for n = 50) in the coverage loop. What coverage do you get?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Always report a range, not just a single number. "Average order is &#8377;420 &plusmn; &#8377;15" is far more honest than "Average order is &#8377;420".
@@ -942,8 +1258,21 @@ module DataScienceContent
         sample = rng.choice(population, 50)
         se = sample.std(ddof=1) / np.sqrt(len(sample))
         low, high = sample.mean() - 1.96 * se, sample.mean() + 1.96 * se
-        print(f"\nOne sample of 50: mean={sample.mean():.1f}, 95% CI=({low:.1f}, {high:.1f})")
+        print(f"\nOne sample of {len(sample)}: mean={sample.mean():.1f}, 95% CI=({low:.1f}, {high:.1f})")
         print("Contains true mean?", low <= population.mean() <= high)
+
+        # Bootstrap CI: resample the ONE sample we have, with replacement
+        boot = [rng.choice(sample, len(sample)).mean() for _ in range(5000)]
+        b_low, b_high = np.percentile(boot, [2.5, 97.5])
+        print(f"Bootstrap 95% CI=({b_low:.1f}, {b_high:.1f})")
+
+        # What "95% confidence" means: repeat the whole study 1000 times
+        hits = 0
+        for _ in range(1000):
+            s = rng.choice(population, 50)
+            se_s = s.std(ddof=1) / np.sqrt(50)
+            hits += s.mean() - 1.96 * se_s <= population.mean() <= s.mean() + 1.96 * se_s
+        print(f"Intervals that contained the true mean: {hits / 10:.1f}%")
       PYTHON
     },
 
@@ -968,11 +1297,14 @@ module DataScienceContent
         <div class="lc-card">
           <h3>Two-Sample t-test by Hand (Welch)</h3>
           <div class="lc-code">diff = a.mean() - b.mean()<br>se   = np.sqrt(a.var(ddof=1) / len(a) + b.var(ddof=1) / len(b))<br>t    = diff / se</div>
-          <p>A |t| above about 2 usually means p &lt; 0.05 for moderate sample sizes. Without SciPy we can get a p-value another way: a <strong>permutation test</strong>.</p>
+          <p>A |t| above about 2 usually means p &lt; 0.05 for moderate sample sizes. <code>scipy.stats.ttest_ind(a, b, equal_var=False)</code> gives the exact p-value for this Welch test. A second way, which needs no formulas at all, is a <strong>permutation test</strong>.</p>
         </div>
         <div class="lc-card">
           <h3>Permutation Test: Shuffle the Labels</h3>
           <p>If the method truly made no difference, the labels "old" and "new" are arbitrary. So shuffle them thousands of times and see how often a random split produces a difference as big as the real one. That fraction is the p-value.</p>
+          <p><strong>Output of the starter, part 1:</strong></p>
+          <div class="lc-code">Observed difference (effect size): 5.07 marks<br>Permutation p-value: 0.0077<br>Welch t-test: t = 2.92, p = 0.0069</div>
+          <p>Only about 0.8% of random shuffles produce a gap of 5.07 marks or more, and the t-test agrees (p ≈ 0.007). Two different methods, the same conclusion: a difference this large is very unlikely if the method had no effect.</p>
         </div>
         <div class="lc-card">
           <h3>Reading Results Correctly</h3>
@@ -986,47 +1318,80 @@ module DataScienceContent
             </tbody>
           </table>
         </div>
+        <div class="lc-card">
+          <h3>A/B Testing: Hypothesis Tests in Industry</h3>
+          <p>An e-commerce app shows the old checkout page (A) to 2,400 random visitors and a new page (B) to another 2,400. Because visitors are assigned <em>at random</em>, a real difference can be credited to the page itself. For conversion rates, a <strong>two-proportion z-test</strong> is standard:</p>
+          <div class="lc-code">p_pool = (conv_a + conv_b) / (n_a + n_b)<br>se = np.sqrt(p_pool * (1 - p_pool) * (1 / n_a + 1 / n_b))<br>z = (p_b - p_a) / se<br>p_value = 2 * stats.norm.sf(abs(z))      # two-sided</div>
+          <p><strong>Output:</strong></p>
+          <div class="lc-code">A/B test: A=5.0%  B=6.5%  difference=+1.5 points  z=2.23  p=0.0256</div>
+          <p>The new page converts 1.5 percentage points better (a 30% relative lift), and p = 0.026 &lt; 0.05. Before celebrating, decide in advance: the sample size, how long the test runs, and the one metric you will judge it on. Stopping the test the moment p dips below 0.05 ("peeking") inflates false positives.</p>
+        </div>
+        <div class="lc-card">
+          <h3>The Multiple-Testing Trap</h3>
+          <p>With α = 0.05, about 1 in 20 tests of a <em>non-existent</em> effect will still come out "significant". The starter runs 20 tests on groups drawn from the same distribution:</p>
+          <div class="lc-code">20 tests with no real effect -&gt; 1 'significant' result(s) by pure chance</div>
+          <p>Test 20 metrics, or 20 city segments, and you should expect a false "discovery". Reporting only that one is called <strong>p-hacking</strong>. Fixes: pick the main metric before looking, and adjust for many tests (for example the Bonferroni correction: use α / number of tests).</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>"p = 0.03 means a 3% chance the null hypothesis is true"</strong> — no. The p-value assumes H&#8320; is true and asks how surprising the data would be.</li>
+            <li><strong>"Not significant" read as "no effect"</strong> — small samples often cannot detect real effects.</li>
+            <li><strong>Ignoring the effect size</strong> — report "5.07 marks better (p = 0.007)", not just "significant".</li>
+            <li><strong>Peeking and stopping early</strong> in an A/B test, or testing many metrics and reporting only the winner.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and compare the permutation and t-test p-values.</li>
+            <li>In the A/B test, change <code>conv_b</code> to <code>135</code> (5.6%). Is the result still significant at 0.05?</li>
+            <li>Keep the same rates but double both samples: <code>n_a = n_b = 4800</code> and <code>conv_a, conv_b = 240, 270</code>. What happens to the p-value? What does this say about sample size?</li>
+            <li>Change the multiple-testing loop to 100 tests. About how many false alarms do you expect?</li>
+          </ol>
+        </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> With huge samples, even a 0.1-mark difference becomes "significant". Always report the <strong>effect size</strong> (the actual difference) alongside the p-value.
+          <strong>Tip:</strong> With huge samples, even a 0.1-mark difference becomes "significant". Always report the <strong>effect size</strong> (the actual difference, ideally with a confidence interval from lesson 12) alongside the p-value.
         </div>
       HTML
       starter_code: <<~'PYTHON'
         import numpy as np
+        from scipy import stats
 
         rng = np.random.default_rng(12)
 
-        # Test marks for two batches of a coaching centre
+        # Part 1: test marks for two batches of a coaching centre
         old_method = np.array([62, 71, 58, 69, 74, 66, 70, 61, 68, 72, 65, 63, 75, 67, 70])
         new_method = np.array([70, 76, 64, 73, 79, 68, 75, 69, 72, 80, 71, 66, 77, 74, 73])
-
         diff = new_method.mean() - old_method.mean()
-        print(f"Old mean: {old_method.mean():.2f}   New mean: {new_method.mean():.2f}")
         print(f"Observed difference (effect size): {diff:.2f} marks")
 
-        # Welch t-statistic by hand
-        se = np.sqrt(old_method.var(ddof=1) / len(old_method) +
-                     new_method.var(ddof=1) / len(new_method))
-        t = diff / se
-        print(f"t-statistic: {t:.2f}")
+        # Permutation test: shuffle the labels 10,000 times (two-sided)
+        combined, n_new = np.concatenate([old_method, new_method]), len(new_method)
+        fake = np.array([(lambda s: s[:n_new].mean() - s[n_new:].mean())(rng.permutation(combined))
+                         for _ in range(10_000)])
+        print(f"Permutation p-value: {np.mean(np.abs(fake) >= abs(diff)):.4f}")
 
-        # Permutation test for the p-value (two-sided)
-        combined = np.concatenate([old_method, new_method])
-        n_new = len(new_method)
-        n_iter = 10_000
-        count = 0
-        for _ in range(n_iter):
-            shuffled = rng.permutation(combined)
-            fake_diff = shuffled[:n_new].mean() - shuffled[n_new:].mean()
-            if abs(fake_diff) >= abs(diff):
-                count += 1
-        p_value = count / n_iter
-        print(f"Permutation p-value: {p_value:.4f}")
+        # The same question with SciPy's Welch t-test
+        t, p = stats.ttest_ind(new_method, old_method, equal_var=False)
+        print(f"Welch t-test: t = {t:.2f}, p = {p:.4f}")
 
-        alpha = 0.05
-        if p_value < alpha:
-            print("Decision: reject H0 - the improvement is unlikely to be chance.")
-        else:
-            print("Decision: fail to reject H0 - not enough evidence.")
+        # Part 2: an A/B test of two checkout pages (conversions out of visitors)
+        conv_a, n_a = 120, 2400        # old page: 5.0%
+        conv_b, n_b = 156, 2400        # new page: 6.5%
+        p_a, p_b = conv_a / n_a, conv_b / n_b
+        p_pool = (conv_a + conv_b) / (n_a + n_b)
+        se = np.sqrt(p_pool * (1 - p_pool) * (1 / n_a + 1 / n_b))
+        z = (p_b - p_a) / se
+        p_ab = 2 * stats.norm.sf(abs(z))
+        print(f"\nA/B test: A={p_a:.1%}  B={p_b:.1%}  difference={(p_b - p_a) * 100:+.1f} points  z={z:.2f}  p={p_ab:.4f}")
+
+        # Part 3: multiple testing - 20 tests where NOTHING is really different
+        false_alarms = 0
+        for _ in range(20):
+            a, b = rng.normal(70, 8, 30), rng.normal(70, 8, 30)
+            false_alarms += stats.ttest_ind(a, b, equal_var=False).pvalue < 0.05
+        print(f"\n20 tests with no real effect -> {false_alarms} 'significant' result(s) by pure chance")
       PYTHON
     },
 
@@ -1068,6 +1433,32 @@ module DataScienceContent
         <div class="lc-card">
           <h3>How Do We Show Causation?</h3>
           <p>The gold standard is a <strong>randomised controlled experiment</strong> (an A/B test): randomly assign who gets the treatment so that confounders are balanced between groups. When experiments are impossible, careful study design and domain knowledge are needed.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Correlation matrix:<br>           temp  icecream  drownings<br>temp       1.00      0.99       0.88<br>icecream   0.99      1.00       0.85<br>drownings  0.88      0.85       1.00<br><br>Ice-cream vs drownings (all days): r = 0.85  &lt;- looks strong!<br><br>Within each season (temperature roughly fixed):<br>  summer: r = 0.28<br>  winter: r = 0.20<br>The link mostly disappears -&gt; temperature was the confounder.<br><br>U-shaped data: Pearson r = -0.00, yet y depends perfectly on x.</div>
+          <ul class="lc-list">
+            <li>In the simulation, ice-cream never affects drownings — both are driven only by temperature — yet r = 0.85 across all days.</li>
+            <li>Within one season, temperature varies only a little, so the link weakens to about 0.2–0.3 (what remains comes from day-to-day temperature changes inside the season).</li>
+            <li>For y = x², Pearson r is 0 even though y is completely determined by x: r measures only <em>straight-line</em> association. Spearman's rank correlation catches relationships that always go up (or always go down), but it would also miss this U-shape.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Writing "X causes Y" from a correlation</strong> — say "is associated with" unless you ran an experiment.</li>
+            <li><strong>Concluding "no relationship" from r ≈ 0</strong> — look at the data; the pattern may be curved.</li>
+            <li><strong>Letting one outlier create a correlation</strong> — a single extreme point can push r from 0.1 to 0.8; Spearman is more robust.</li>
+            <li><strong>Squaring the wrong idea</strong> — r = 0.5 does not mean "50% related"; r² = 0.25 means a straight line explains 25% of the variation.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and read the correlation matrix.</li>
+            <li>Compute <code>df['icecream'].corr(df['drownings'], method='spearman')</code>. Is it close to the Pearson value?</li>
+            <li>For the U-shaped data, compute the correlation of <code>x ** 2</code> with <code>y</code> instead. What do you get, and why?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Write "is associated with" rather than "causes" unless your data came from a randomised experiment.
@@ -1128,7 +1519,7 @@ module DataScienceContent
         <div class="lc-card">
           <h3>Several Metrics at Once</h3>
           <div class="lc-code">summary = df.groupby('city').agg(<br>    orders=('order_id', 'count'),<br>    revenue=('amount', 'sum'),<br>    avg_value=('amount', 'mean'),<br>    late_rate=('late', 'mean'),<br>).sort_values('revenue', ascending=False)</div>
-          <p>The mean of a True/False column is the <strong>proportion</strong> of True values &mdash; a handy trick for rates.</p>
+          <p>The mean of a True/False column is the <strong>proportion</strong> of True values &mdash; a handy trick for rates. (The pandas course covers <code>groupby</code>, named aggregation and pivot tables in depth; here the focus is on reading them correctly.)</p>
         </div>
         <div class="lc-card">
           <h3>Two-Way Views with pivot_table</h3>
@@ -1139,7 +1530,34 @@ module DataScienceContent
           <ul class="lc-list">
             <li>A group with 2 orders and a 100% late rate is not a crisis &mdash; always show the count next to a rate.</li>
             <li><strong>Simpson's paradox</strong>: a trend in every subgroup can reverse when the groups are combined, because group sizes differ. Check results at more than one level.</li>
+            </ul>
+            <p>Example: two delivery partners, X and Y. Y is better on short trips <em>and</em> on long trips, yet worse overall — because most of Y's orders are the hard, long trips.</p>
+            <div class="lc-code">d = pd.DataFrame({'partner': ['X', 'X', 'Y', 'Y'], 'trip': ['short', 'long', 'short', 'long'],<br>                  'on_time': [90, 30, 19, 70], 'orders': [100, 50, 20, 100]})<br>by_trip = d.assign(rate=d.on_time / d.orders).pivot(index='partner', columns='trip', values='rate')<br>overall = d.groupby('partner')[['on_time', 'orders']].sum()<br>by_trip['overall'] = overall.on_time / overall.orders<br>print(by_trip.round(2))</div>
+            <p><strong>Output:</strong></p>
+            <div class="lc-code">trip     long  short  overall<br>partner<br>X         0.6   0.90     0.80<br>Y         0.7   0.95     0.74</div>
+            <p>Judging partners on the overall rate would punish Y for taking the difficult trips. The fair comparison is within each trip type.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">           orders  revenue  avg_value  late_rate  revenue_share_%<br>city<br>Hyderabad     125    66097      529.0       16.8             42.8<br>Pune           90    45486      505.0       12.2             29.4<br>Kolkata        57    28227      495.0       31.6             18.3<br>Jaipur         28    14660      524.0        7.1              9.5<br>...<br>Insight: Hyderabad is the biggest market (42.8% of revenue).<br>Insight: Kolkata has the highest late rate (31.6% of 57 orders).</div>
+          <p>Kolkata's late rate is about double the others' — and it is based on 57 orders, not 5, so it is worth acting on. Jaipur's low 7.1% rests on only 28 orders (2 late ones), so treat it with care.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Showing rates without counts</strong> — always print the group size next to a percentage.</li>
+            <li><strong>Averaging averages</strong> — the mean of four city averages is not the overall average when cities have different numbers of orders.</li>
+            <li><strong>Comparing totals across groups of different size</strong> — Hyderabad earns most partly because it has the most orders; compare per-order values too.</li>
+            <li><strong>Stopping at one level</strong> — as Simpson's paradox shows, a combined result can point the opposite way from every subgroup.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check that the revenue shares add up to about 100%.</li>
+            <li>Add <code>median_value=('amount', 'median')</code> to the <code>agg</code> call. Is the median close to the mean in each city?</li>
+            <li>Compute the overall late rate with <code>df['late'].mean()</code>, and compare it with the plain average of the four city late rates. Why are they different?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Use <strong>share of total</strong> (e.g. <code>revenue / revenue.sum()</code>) to turn raw numbers into insight: "Hyderabad brings 38% of revenue" is easier to act on than "&#8377;18,400".
@@ -1223,9 +1641,35 @@ module DataScienceContent
             <thead><tr><th>Observation</th><th>Finding</th></tr></thead>
             <tbody>
               <tr><td>AQI median is 280 in Nov, 90 in Jul</td><td>Air quality is strongly seasonal &mdash; worst after the monsoon</td></tr>
-              <tr><td>corr(traffic, AQI) = 0.6</td><td>Traffic is associated with AQI; worth a deeper look</td></tr>
+              <tr><td>corr(traffic, AQI) = 0.16 (the starter)</td><td>Weak association in this data; season and city explain far more of the AQI</td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">1. Overview (36, 4)<br>                 dtype  missing  unique<br>city            object        0       3<br>month            int32        0      12<br>traffic_index  float64        0      35<br>aqi            float64        2      33<br><br>2. AQI summary: count 34, mean 188.6, median 169.5, max 377<br><br>3. corr(traffic, AQI) = 0.16<br>Delhi 255.0, Mumbai 181.0, Bengaluru 133.0  (median AQI)<br><br>4. Median AQI by city and season:<br>season     winter  summer  monsoon  post-monsoon<br>Bengaluru   154.0   131.0     98.0         177.0<br>Delhi       316.0   248.0    152.0         373.0<br>Mumbai      180.0   181.0    102.0         221.0</div>
+          <ul class="lc-list">
+            <li>Step 1 finds 2 missing AQI values before anything else.</li>
+            <li>Step 3 shows traffic is only weakly linked to AQI (r = 0.16) in this data.</li>
+            <li>Step 4 reveals the big story: season. Every city is cleanest in the monsoon and worst after it — Delhi reaches a median of 373.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Jumping straight to a model</strong> — you would have missed the seasonal pattern that explains most of the AQI.</li>
+            <li><strong>Looking only at overall numbers</strong> — the overall median AQI (169.5) describes no real city-season.</li>
+            <li><strong>Not writing notes as you go</strong> — findings you do not record are lost by the time you write the report.</li>
+            <li><strong>Treating EDA findings as proven</strong> — EDA suggests hypotheses; testing them is a separate step (lesson 13).</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and write your own two-line findings for step 5.</li>
+            <li>Compute the traffic–AQI correlation within each city: <code>df.groupby('city')[['traffic_index', 'aqi']].corr()</code>. Is it stronger inside a city?</li>
+            <li>Find the two rows with missing AQI (<code>df[df['aqi'].isna()]</code>). Which city and month are they?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> EDA is not a straight line. A surprising finding in step 3 often sends you back to step 1 to check whether it is a data error.
@@ -1311,8 +1755,30 @@ module DataScienceContent
           <div class="lc-code">for team, runs in totals.items():<br>    bar = '&#9608;' * int(runs / scale)<br>    print(f"{team:5s} {bar} {runs}")</div>
         </div>
         <div class="lc-card">
-          <h3>For Later: Matplotlib in a Notebook</h3>
+          <h3>For Later: Matplotlib in a Notebook (run this in Jupyter or Colab)</h3>
           <div class="lc-code">import matplotlib.pyplot as plt<br>totals.sort_values().plot(kind='barh')<br>plt.title('MI scored the most runs')<br>plt.xlabel('Total runs')<br>plt.show()</div>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">MI scored the most runs this season<br>  MI   ######################################## 2480<br>  KKR  ......................................   2390<br>  CSK  .....................................    2310<br>  RCB  ...................................      2205<br>  SRH  ..................................       2150<br><br>Misleading version (axis starts at 2100):<br>  MI   ###################################### 2480<br>  KKR  ############################# 2390<br>  CSK  ##################### 2310<br>  RCB  ########## 2205<br>  SRH  ##### 2150<br>Real gap between best and worst: only 15%</div>
+          <p>Same five numbers, two very different impressions. Starting at zero, the bars are nearly equal — the honest picture. Starting at 2,100, MI's bar looks about 7 times longer than SRH's, although MI scored only 15% more runs. The rainfall chart keeps months in calendar order, because for time the order <em>is</em> the message.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Cutting the axis of a bar chart</strong> — bar length must be proportional to the value. (A line chart may zoom in, if the axis is clearly labelled.)</li>
+            <li><strong>Pie charts with many slices</strong> — people cannot compare angles well; use a sorted bar chart.</li>
+            <li><strong>Sorting a time series by value</strong> — it destroys the pattern over time.</li>
+            <li><strong>Dual y-axes</strong> — two scales on one chart can be stretched to make any two lines look related.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and compare the honest and misleading charts.</li>
+            <li>Change the misleading axis start from <code>2100</code> to <code>2000</code> (and the divisor from <code>10</code> to <code>12</code>). Does it still exaggerate?</li>
+            <li>Make a bar chart of rainfall sorted from wettest to driest month. What story does it tell, and what story does it lose?</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Before making any chart, write one sentence: "This chart shows that ____." If you cannot fill the blank, you do not need the chart yet.
@@ -1363,7 +1829,7 @@ module DataScienceContent
             <thead><tr><th>Type</th><th>Predicts</th><th>Example</th><th>Typical metric</th></tr></thead>
             <tbody>
               <tr><td>Regression</td><td>A number</td><td>Delivery minutes</td><td>MAE (average error)</td></tr>
-              <tr><td>Classification</td><td>A category</td><td>Will the student pass?</td><td>Accuracy</td></tr>
+              <tr><td>Classification</td><td>A category</td><td>Will the student pass?</td><td>Accuracy, plus precision and recall when classes are imbalanced</td></tr>
             </tbody>
           </table>
         </div>
@@ -1384,8 +1850,34 @@ module DataScienceContent
           <h3>Reading the Error in Context</h3>
           <p>An MAE of 4 minutes is excellent for 40-minute deliveries but terrible for 5-minute ones. Always compare the error to the typical size of what you predict and to the baseline.</p>
         </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Baseline MAE (always predict the mean): 9.1 min<br>Linear model MAE:                       3.1 min<br>Improvement: 65%<br><br>What the model learned:<br>  +1 km    -&gt; +3.2 minutes<br>  +1 peak  -&gt; +8.3 minutes<br>  +1 items -&gt; +1.4 minutes<br><br>Prediction for a 4 km, 2-item order at 8 pm: 36 min</div>
+          <ul class="lc-list">
+            <li>The model cuts the average error from 9.1 to 3.1 minutes compared with always guessing the mean — a real improvement.</li>
+            <li>The data was simulated with 3.2 minutes per km, 8 for peak hours and 1.5 per item; the model recovered 3.2, 8.3 and 1.4 from 300 training orders.</li>
+            <li>The remaining 3.1-minute error is mostly the random noise built into the data — no model can predict pure chance.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Reporting training error</strong> — measure on the held-out test set.</li>
+            <li><strong>No baseline</strong> — without the 9.1-minute baseline, "3.1 minutes" has no context.</li>
+            <li><strong>Reading coefficients as causes</strong> — "+8.3 minutes at peak" is an association learned from this data, not proof that peak hours cause it (rider shortage might).</li>
+            <li><strong>Predicting far outside the data</strong> — the model has never seen a 30 km order.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and explain the "Improvement: 65%" line.</li>
+            <li>Remove <code>'peak'</code> from <code>X</code> (use <code>df[['km', 'items']]</code>, and delete <code>'peak'</code> from <code>new_order</code>). How much worse is the MAE?</li>
+            <li>Add the leaky feature <code>df['delivered_minute'] = df['minutes']</code> to <code>X</code>. What MAE do you get, and why is this model useless in real life?</li>
+          </ol>
+        </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> A model is only as good as its data. The cleaning and EDA you did earlier usually improve results more than switching to a fancier algorithm.
+          <strong>Tip:</strong> This lesson is a bridge: the Machine Learning course covers train/test splits, metrics, cross-validation and many more models in depth. A model is only as good as its data. The cleaning and EDA you did earlier usually improve results more than switching to a fancier algorithm.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1461,7 +1953,7 @@ module DataScienceContent
         <div class="lc-card">
           <h3>Data Ethics Essentials</h3>
           <ul class="lc-list">
-            <li><strong>Privacy</strong>: remove or mask names, phone numbers and Aadhaar-like IDs. India's <em>Digital Personal Data Protection Act, 2023</em> requires consent and care with personal data.</li>
+            <li><strong>Privacy</strong>: remove or mask names, phone numbers and Aadhaar-like IDs. India's <em>Digital Personal Data Protection Act, 2023</em> requires consent, a clear purpose and security safeguards for personal data; the DPDP Rules notified in November 2025 make most of these duties apply from May 2027.</li>
             <li><strong>Consent and purpose</strong>: use data only for the purpose people agreed to.</li>
             <li><strong>Bias</strong>: if past data reflects unfair decisions, a model trained on it will repeat them.</li>
             <li><strong>Honesty</strong>: do not cherry-pick the one result that looks good or hide results that don't.</li>
@@ -1470,7 +1962,30 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Anonymising Before Sharing</h3>
-          <div class="lc-code">df['student_id'] = df['name'].map(lambda n: 'S' + hashlib.sha256(n.encode()).hexdigest()[:6])<br>df = df.drop(columns=['name', 'phone'])</div>
+          <div class="lc-code">SALT = "keep-this-secret-2026"   # store it separately, never share it<br>df['student_id'] = df['name'].map(<br>    lambda n: 'S' + hashlib.sha256((SALT + n).encode()).hexdigest()[:6])<br>df = df.drop(columns=['name', 'phone'])</div>
+          <p>This is <strong>pseudonymisation</strong>, not full anonymisation. Without the secret salt, anyone could hash a list of common names and match the codes back to students. Even with it, the data can still identify people when combined with other columns — so under the DPDP Act it should still be treated as personal data. Suppressing tiny groups (below) is a second layer of protection.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Shareable data:<br>  section  maths student_id<br>0       A     78    Sa1af5f<br>...<br>7       C     48    Sc14ae3<br><br>Section report (groups under 3 hidden):<br>         count  mean<br>section<br>A            3  75.0<br>B            4  70.5<br>C            1   NaN<br><br>Headline: Section A has the highest average Maths score.<br>Evidence: 75.0 vs school average 69.4.<br>Confidence: low - only 8 students in total.<br>Action: share Section A teaching methods; collect a full term of data.</div>
+          <p>Section C has only one student, so its average would reveal that student's exact mark — the report hides it (NaN). The summary follows the headline → evidence → confidence → action structure and is honest about how little data there is.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Thinking a hashed name is anonymous</strong> — an unsalted hash of "Priya" is the same for everyone who computes it.</li>
+            <li><strong>Hiding uncertainty</strong> — "Section A is best" from 3 students is a hint, not a fact; say so.</li>
+            <li><strong>Jargon for a non-technical audience</strong> — "coefficient", "p-value" and "heteroscedastic" belong in the appendix, not the headline.</li>
+            <li><strong>Cherry-picking</strong> — reporting the one metric that looks good and leaving out the ones that do not.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it</h3>
+          <ol class="lc-list">
+            <li>Run the starter and check which section's average is hidden, and why.</li>
+            <li>Change <code>MIN_GROUP = 3</code> to <code>5</code>. Which sections are hidden now? Is the report still useful?</li>
+            <li>Rewrite the four summary lines for parents instead of the principal: plain words, no numbers they cannot interpret.</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Ask yourself: "Would the people in this dataset be comfortable with how I am using and presenting their data?" If not, rethink.
@@ -1488,10 +2003,11 @@ module DataScienceContent
             'maths':   [78, 85, 62, 91, 55, 70, 66, 48],
         })
 
-        # 1. Anonymise: replace names with stable codes, drop contact details
+        # 1. Pseudonymise: replace names with codes made with a SECRET salt, drop contacts
+        SALT = "keep-this-secret-2026"      # without a secret, anyone can hash common names
         safe = raw.copy()
         safe['student_id'] = safe['name'].map(
-            lambda n: 'S' + hashlib.sha256(n.encode()).hexdigest()[:6])
+            lambda n: 'S' + hashlib.sha256((SALT + n).encode()).hexdigest()[:6])
         safe = safe.drop(columns=['name', 'phone'])
         print("Shareable data:")
         print(safe)
@@ -1534,7 +2050,7 @@ module DataScienceContent
               <tr><td>Clean</td><td>Fix labels, drop duplicates, handle missing and impossible values</td><td>6&ndash;7</td></tr>
               <tr><td>Features</td><td>Attendance bands, a "long commute" flag</td><td>8</td></tr>
               <tr><td>Explore</td><td>Distributions, correlations, group comparisons</td><td>9&ndash;16</td></tr>
-              <tr><td>Test</td><td>Is the gap between groups bigger than chance?</td><td>13</td></tr>
+              <tr><td>Test</td><td>Is the gap between groups bigger than chance? How big is it (confidence interval)?</td><td>12&ndash;13</td></tr>
               <tr><td>Communicate</td><td>Headline, evidence, confidence, action</td><td>19</td></tr>
             </tbody>
           </table>
@@ -1559,6 +2075,33 @@ module DataScienceContent
             <li>Build a simple model to flag students at risk and compare it to a baseline.</li>
             <li>Rewrite the final summary for a parent audience.</li>
           </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Worked Example: Output of the Starter</h3>
+          <div class="lc-code">Shape: (122, 5) | duplicates: 2 | missing maths: 3<br><br>Correlation with maths:<br>study_hours    0.66<br>attendance     0.22<br>commute_min   -0.18<br><br>Low-score rate (%) by attendance band:<br>&lt;75      14.0<br>75-90     2.6<br>90+       3.6<br><br>Headline: study_hours has the strongest link to marks; attendance band &lt;75 is most at risk.<br>Evidence: short-commute students score 5.2 marks higher (95% CI 0.5 to 10.0, p = 0.045, n = 117).<br>Action: extra classes for the &lt;75 attendance group; review timings for long commuters.</div>
+          <ul class="lc-list">
+            <li>Cleaning removed 2 duplicate rows and 3 rows with no Maths mark (122 → 117), fixed the section label "b " and replaced one impossible attendance of 140%.</li>
+            <li>Students below 75% attendance are about 4–5 times more likely to score under 40.</li>
+            <li>The commute gap is 5.2 marks, but the confidence interval runs from 0.5 to 10 marks and p = 0.045 is just under 0.05. Honest wording: "probably real, size uncertain". This is observational data, so we say "associated with", not "caused by".</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Common Mistakes</h3>
+          <ul class="lc-list">
+            <li><strong>Cleaning without recording</strong> — your report must say what was dropped and filled, and why.</li>
+            <li><strong>Declaring causation</strong> — long commutes may go with other factors (family income, school choice).</li>
+            <li><strong>Reporting only the p-value</strong> — give the size of the gap and its confidence interval.</li>
+            <li><strong>Ending with charts instead of an action</strong> — the school needs to know what to do next.</li>
+          </ul>
+        </div>
+        <div class="lc-card">
+          <h3>Try it: Extend the Capstone</h3>
+          <ol class="lc-list">
+            <li>Run the starter and write a five-line report (question, data and cleaning, finding, confidence, action).</li>
+            <li>Compare Maths marks by section with <code>df.groupby('section')['maths'].agg(['count', 'mean', 'median'])</code>. Is any section clearly different?</li>
+            <li>Change the long-commute cut-off from 60 to 45 minutes. Do the gap, CI and p-value change?</li>
+            <li>Challenge: build a simple model that flags students at risk (lesson 18) and compare its accuracy with a baseline.</li>
+          </ol>
         </div>
         <div class="lc-card lc-card--tip">
           <strong>Tip:</strong> Put a project like this on GitHub with a short README explaining your question, method and findings. It makes an excellent portfolio piece for internships.
@@ -1603,11 +2146,14 @@ module DataScienceContent
         both = np.concatenate([a, b])
         perm = [np.mean(p[len(a):]) - np.mean(p[:len(a)]) for p in (rng.permutation(both) for _ in range(5000))]
         p_val = np.mean(np.abs(perm) >= abs(obs))
+        boot = [rng.choice(b, len(b)).mean() - rng.choice(a, len(a)).mean() for _ in range(3000)]
+        ci_low, ci_high = np.percentile(boot, [2.5, 97.5])        # bootstrap 95% CI of the gap
         # COMMUNICATE
         risk = df.groupby('att_band', observed=False)['low_score'].mean().idxmax()
         top = df[['study_hours', 'attendance', 'commute_min']].corrwith(df['maths']).abs().idxmax()
         print(f"\nHeadline: {top} has the strongest link to marks; attendance band {risk} is most at risk.")
-        print(f"Evidence: short-commute students score {obs:.1f} marks higher (p = {p_val:.3f}, n = {len(df)}).")
+        print(f"Evidence: short-commute students score {obs:.1f} marks higher "
+              f"(95% CI {ci_low:.1f} to {ci_high:.1f}, p = {p_val:.3f}, n = {len(df)}).")
         print(f"Action: extra classes for the {risk} attendance group; review timings for long commuters.")
       PYTHON
     }
