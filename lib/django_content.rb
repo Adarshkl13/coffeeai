@@ -308,10 +308,16 @@ module DjangoContent
           <p>Decorators such as <code>@require_GET</code>, <code>@require_POST</code> and <code>@require_http_methods(["GET", "POST"])</code> reject other methods with <code>405 Method Not Allowed</code>.</p>
         </div>
         <div class="lc-card">
+          <h3>Async Views</h3>
+          <p>A view can also be written with <code>async def</code>. Inside it you can <code>await</code> slow input/output, such as calls to other web APIs. Django runs it natively under an ASGI server (Uvicorn, lesson 19); under WSGI it still works, just without the benefit.</p>
+        <div class="lc-code">import asyncio<br><br>async def course_stats(request):<br>&nbsp;&nbsp;&nbsp;&nbsp;await asyncio.sleep(0.01)                  # e.g. await an API call<br>&nbsp;&nbsp;&nbsp;&nbsp;return JsonResponse({"courses": len(COURSES)})<br><br>r = await AsyncClient().get("/stats/")        # test async views with AsyncClient<br>print(r.status_code, r.content.decode())      # 200 {"courses": 2}</div>
+          <p>Only use <code>async def</code> when the view really waits on network calls. Normal ORM code is synchronous, so a plain <code>def</code> view is simpler for most pages. The editor lets you use <code>await</code> at the top level; in a real project you write <code>async def test_...</code> methods in your tests.</p>
+        </div>
+        <div class="lc-card">
           <h3>Worked Example: A Small Course Site</h3>
         <div class="lc-code">def course_detail(request, pk):<br>&nbsp;&nbsp;&nbsp;&nbsp;if pk not in COURSES:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise Http404("No such course")<br>&nbsp;&nbsp;&nbsp;&nbsp;return JsonResponse({"id": pk, "title": COURSES[pk]})<br><br>def old_courses(request):<br>&nbsp;&nbsp;&nbsp;&nbsp;return redirect("course-list")<br><br>@require_POST<br>def enrol(request, pk):<br>&nbsp;&nbsp;&nbsp;&nbsp;return HttpResponse(f"Enrolled in course {pk}", status=201)</div>
           <p><strong>Output</strong> of the starter code:</p>
-        <div class="lc-code">reverse('course-detail', args=[2]) -&gt; /courses/2/<br>GET  /courses/?level=beginner   200 2 courses (level=beginner)<br>GET  /courses/2/                200 {"id": 2, "title": "Django for Beginners"}<br>GET  /courses/9/                404<br>GET  /courses/abc/              404<br>GET  /old-courses/              302 /courses/<br>GET  /courses/1/enrol/          405<br>POST /courses/1/enrol/          201 Enrolled in course 1</div>
+        <div class="lc-code">reverse('course-detail', args=[2]) -&gt; /courses/2/<br>GET  /courses/?level=beginner   200 2 courses (level=beginner)<br>GET  /courses/2/                200 {"id": 2, "title": "Django for Beginners"}<br>GET  /courses/9/                404<br>GET  /courses/abc/              404<br>GET  /old-courses/              302 /courses/<br>GET  /courses/1/enrol/          405<br>POST /courses/1/enrol/          201 Enrolled in course 1<br>GET  /stats/ (async view)       200 {"courses": 2}</div>
           <p>Notice the two different 404s: <code>/courses/9/</code> matched the pattern but the view raised <code>Http404</code>; <code>/courses/abc/</code> never matched <code>&lt;int:pk&gt;</code> at all.</p>
         </div>
         <div class="lc-card">
@@ -333,6 +339,7 @@ module DjangoContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
+        import asyncio
         import django
         from django.conf import settings
 
@@ -344,7 +351,7 @@ module DjangoContent
         from django.shortcuts import redirect
         from django.urls import path, reverse
         from django.views.decorators.http import require_POST
-        from django.test import Client
+        from django.test import Client, AsyncClient
 
         COURSES = {1: "Python Basics", 2: "Django for Beginners"}   # stand-in for a database
 
@@ -364,7 +371,12 @@ module DjangoContent
         def enrol(request, pk):
             return HttpResponse(f"Enrolled in course {pk}", status=201)
 
+        async def course_stats(request):                             # an async view
+            await asyncio.sleep(0.01)                                # e.g. await an API call
+            return JsonResponse({"courses": len(COURSES)})
+
         urlpatterns = [
+            path("stats/", course_stats),
             path("courses/", course_list, name="course-list"),
             path("courses/<int:pk>/", course_detail, name="course-detail"),
             path("courses/<int:pk>/enrol/", enrol, name="course-enrol"),
@@ -382,6 +394,9 @@ module DjangoContent
             r = c.get(url) if method == "GET" else c.post(url)
             extra = r.get("Location", "") or (r.content.decode() if r.status_code < 400 else "")
             print(f"{method:<4} {url:<26} {r.status_code} {extra}")
+
+        r = await AsyncClient().get("/stats/")                       # async views: use AsyncClient
+        print(f"GET  /stats/ (async view)       {r.status_code} {r.content.decode()}")
       PYTHON
     },
 
@@ -428,6 +443,12 @@ module DjangoContent
         <div class="lc-code">{# templates/base.html #}<br>&lt;!DOCTYPE html&gt;<br>&lt;html&gt;<br>&lt;head&gt;&lt;title&gt;{% block title %}My Site{% endblock %}&lt;/title&gt;&lt;/head&gt;<br>&lt;body&gt;<br>&nbsp;&nbsp;&lt;nav&gt;&lt;a href="{% url 'blog:post-list' %}"&gt;Blog&lt;/a&gt;&lt;/nav&gt;<br>&nbsp;&nbsp;{% block content %}{% endblock %}<br>&lt;/body&gt;<br>&lt;/html&gt;<br><br>{# blog/templates/blog/post_list.html #}<br>{% extends "base.html" %}<br>{% block title %}Posts{% endblock %}<br>{% block content %}<br>&nbsp;&nbsp;{% for post in posts %}<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;&lt;a href="{% url 'blog:post-detail' post.pk %}"&gt;{{ post.title }}&lt;/a&gt;&lt;/h2&gt;<br>&nbsp;&nbsp;{% empty %}<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;No posts yet.&lt;/p&gt;<br>&nbsp;&nbsp;{% endfor %}<br>{% endblock %}</div>
         </div>
         <div class="lc-card">
+          <h3>Template Partials (Django 6.0+)</h3>
+          <p>Sometimes a small piece of HTML (a card, a table row) repeats inside one template. Since Django 6.0 you can name that piece with <code>{% partialdef %}</code> and reuse it with <code>{% partial %}</code>, without making a separate file for <code>{% include %}</code>.</p>
+        <div class="lc-code">{# courses/cards.html #}<br>{% partialdef card %}<br>&nbsp;&nbsp;&lt;div class="card"&gt;{{ c.title }} | Rs {{ c.fee }}&lt;/div&gt;<br>{% endpartialdef %}<br><br>{% for c in courses %}<br>&nbsp;&nbsp;{% partial card %}<br>{% endfor %}</div>
+          <p>A <code>partialdef</code> on its own renders nothing where it is defined; add <code>inline</code> (<code>{% partialdef card inline %}</code>) to also render it in place. You can load just one partial with the <code>template_name#partial_name</code> syntax, for example <code>render(request, "courses/cards.html#card", {"c": course})</code>. This is handy for HTMX-style pages that update one fragment at a time.</p>
+        </div>
+        <div class="lc-card">
           <h3>Rendering from a View</h3>
         <div class="lc-code">from django.shortcuts import render<br><br>def post_list(request):<br>&nbsp;&nbsp;&nbsp;&nbsp;posts = Post.objects.order_by("-created")<br>&nbsp;&nbsp;&nbsp;&nbsp;return render(request, "blog/post_list.html", {"posts": posts})</div>
           <p><code>render()</code> loads the template, fills it with the context and returns an <code>HttpResponse</code>. Where does Django look for <code>"blog/post_list.html"</code>? In the folders listed in <code>TEMPLATES["DIRS"]</code>, and (with <code>"APP_DIRS": True</code>) in every installed app's <code>templates/</code> folder. That is why app templates live in <code>blog/templates/blog/</code>: the extra <code>blog/</code> folder stops two apps' <code>list.html</code> files from clashing.</p>
@@ -435,8 +456,8 @@ module DjangoContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-        <div class="lc-code">Hi Priya Sharma! You have 3 messages. Bio: (none)<br>Comment: &amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt; | Unsafe: &lt;script&gt;alert(1)&lt;/script&gt;<br><br>--- courses/list.html ---<br>&lt;title&gt;Courses (2)&lt;/title&gt;<br>&lt;main&gt;<br>&nbsp;&nbsp;1. PYTHON BASICS - Rs 0 [FREE]<br>&nbsp;&nbsp;2. DJANGO WEB APPS - Rs 1499<br>&lt;/main&gt;</div>
-          <p>Look at the second line. By default Django turned <code>&lt;script&gt;</code> into harmless text (<code>&amp;lt;script&amp;gt;</code>). The <code>|safe</code> filter switched escaping off, so a real browser would run that script. Only use <code>|safe</code> on HTML you created yourself, never on user input.</p>
+        <div class="lc-code">Hi Priya Sharma! You have 3 messages. Bio: (none)<br>Comment: &amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt; | Unsafe: &lt;script&gt;alert(1)&lt;/script&gt;<br><br>--- courses/list.html ---<br>&lt;title&gt;Courses (2)&lt;/title&gt;<br>&lt;main&gt;<br>&nbsp;&nbsp;1. PYTHON BASICS - Rs 0 [FREE]<br>&nbsp;&nbsp;2. DJANGO WEB APPS - Rs 1499<br>&lt;/main&gt;<br><br>--- with an empty list ---<br>&lt;title&gt;Courses (0)&lt;/title&gt;<br>&lt;main&gt;<br>&nbsp;&nbsp;No courses yet.<br>&lt;/main&gt;<br><br>--- partials ---<br>Whole page:  [Python Basics | Rs 0] [Django Web Apps | Rs 1499]<br>Only #card:  [Django Web Apps | Rs 1499]</div>
+          <p>Look at the second line. By default Django turned <code>&lt;script&gt;</code> into harmless text (<code>&amp;lt;script&amp;gt;</code>). The <code>|safe</code> filter switched escaping off, so a real browser would run that script. Only use <code>|safe</code> on HTML you created yourself, never on user input. The last two lines come from one template: the loop reused the <code>card</code> partial twice, and <code>"courses/cards.html#card"</code> rendered only that fragment.</p>
         </div>
         <div class="lc-card">
           <h3>Keep Logic in the View</h3>
@@ -478,6 +499,10 @@ module DjangoContent
                 "{% empty %}  No courses yet.\n{% endfor %}"
                 "{% endblock %}"
             ),
+            "courses/cards.html": (                     # template partials (Django 6.0+)
+                "{% partialdef card %}[{{ c.title }} | Rs {{ c.fee }}]{% endpartialdef %}"
+                "{% for c in courses %}{% partial card %} {% endfor %}"
+            ),
         }
         settings.configure(
             DEBUG=True, SECRET_KEY="lesson-only", ALLOWED_HOSTS=["testserver"],
@@ -507,6 +532,11 @@ module DjangoContent
         print(render_to_string("courses/list.html", {"courses": courses}))
         print("\n--- with an empty list ---")
         print(render_to_string("courses/list.html", {"courses": []}))
+
+        # 3. Partials: define a fragment once, reuse it, or render it alone with "#name"
+        print("\n--- partials ---")
+        print("Whole page: ", render_to_string("courses/cards.html", {"courses": courses}))
+        print("Only #card: ", render_to_string("courses/cards.html#card", {"c": courses[1]}))
       PYTHON
     },
 
@@ -1868,6 +1898,14 @@ module DjangoContent
           <p>Even when <code>BlockBotsMiddleware</code> stopped the request, the outer <code>log_middleware</code> still ran its "after" part and added the header. That is the onion at work.</p>
         </div>
         <div class="lc-card">
+          <h3>Built-in Content Security Policy (Django 6.0+)</h3>
+          <p>A <strong>Content Security Policy</strong> (CSP) is a response header that tells the browser which scripts, styles and images it may load. Even if an attacker sneaks a <code>&lt;script&gt;</code> into your page, the browser refuses to run it. Since Django 6.0, CSP is built in: <code>ContentSecurityPolicyMiddleware</code> reads the <code>SECURE_CSP</code> setting and adds the header to every response.</p>
+        <div class="lc-code"># settings.py<br>from django.utils.csp import CSP<br><br>MIDDLEWARE = [..., "django.middleware.csp.ContentSecurityPolicyMiddleware"]<br>SECURE_CSP = {<br>&nbsp;&nbsp;&nbsp;&nbsp;"default-src": [CSP.SELF],               # only load things from our own site<br>&nbsp;&nbsp;&nbsp;&nbsp;"script-src": [CSP.SELF, CSP.NONCE],     # plus inline scripts that carry the nonce<br>}<br># TEMPLATES OPTIONS: add "django.template.context_processors.csp" (gives {{ csp_nonce }})<br><br>{# template #}<br>&lt;script nonce="{{ csp_nonce }}"&gt;hello()&lt;/script&gt;</div>
+          <p><strong>Output</strong> of a test request (the random nonce is replaced by <code>&lt;nonce&gt;</code>; it changes on every request):</p>
+        <div class="lc-code">Header: default-src 'self'; script-src 'self' 'nonce-&lt;nonce&gt;'<br>Page:   &lt;script nonce="&lt;nonce&gt;"&gt;hello()&lt;/script&gt;<br>Same nonce in both: True</div>
+          <p><code>CSP.SELF</code> becomes <code>'self'</code>, and <code>CSP.NONCE</code> becomes a fresh random <code>'nonce-...'</code> value that matches <code>{{ csp_nonce }}</code> in the page, so only your own inline script runs. To try a policy without breaking anything, use <code>SECURE_CSP_REPORT_ONLY</code> first: the browser only reports violations. For one view, change the policy with the <code>@csp_override({...})</code> decorator from <code>django.views.decorators.csp</code>.</p>
+        </div>
+        <div class="lc-card">
           <h3>Signals</h3>
         <div class="lc-code"># accounts/signals.py<br>from django.conf import settings<br>from django.db.models.signals import post_save<br>from django.dispatch import receiver<br><br>@receiver(post_save, sender=settings.AUTH_USER_MODEL)<br>def create_profile(sender, instance, created, **kwargs):<br>&nbsp;&nbsp;&nbsp;&nbsp;if created:                                  # only for new users<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Profile.objects.create(user=instance)<br><br># accounts/apps.py: import the module so the receivers are registered<br>class AccountsConfig(AppConfig):<br>&nbsp;&nbsp;&nbsp;&nbsp;name = "accounts"<br>&nbsp;&nbsp;&nbsp;&nbsp;def ready(self):<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from . import signals</div>
           <table class="lc-table">
@@ -2006,7 +2044,7 @@ module DjangoContent
           <h3>Worked Example: Output of the Starter</h3>
           <p>The starter holds the code and its tests in one file and runs them with Python's <code>unittest</code> runner, which is what <code>manage.py test</code> uses underneath. One test is wrong on purpose so you can see a failure:</p>
         <div class="lc-code">test_slug_title (__main__.SlugTests.test_slug_title) ... ok<br>test_buggy_expectation (__main__.PostViewTests.test_buggy_expectation) ... FAIL<br>test_draft_returns_404 (__main__.PostViewTests.test_draft_returns_404) ... ok<br>test_published_post_is_shown (__main__.PostViewTests.test_published_post_is_shown) ... ok<br>FAIL: test_buggy_expectation (__main__.PostViewTests.test_buggy_expectation)<br>AssertionError: 2 != 3<br><br>Ran 4 tests: 1 failure(s), 0 error(s)</div>
-          <p>Only two posts exist, because <code>setUpTestData</code> created two and nothing else leaked in. Always read the failure message: it shows the actual value first and the expected value second.</p>
+          <p>Only two posts exist, because <code>setUpTestData</code> created two and nothing else leaked in. Always read the failure message. <code>2 != 3</code> simply lists the two arguments in the order you passed them (first, second); Django does not know which one is "expected". Pick one habit and keep it everywhere: pass the <strong>actual</strong> value first and the <strong>expected</strong> value second, as <code>assertEqual(Post.objects.count(), 3)</code> does here.</p>
         </div>
         <div class="lc-card">
           <h3>What to Test</h3>
@@ -2261,12 +2299,27 @@ module DjangoContent
             <tbody>
               <tr><td><code>select_related("author")</code></td><td><code>ForeignKey</code>, <code>OneToOneField</code> (forward)</td><td>One query with a SQL <code>JOIN</code></td></tr>
               <tr><td><code>prefetch_related("tags")</code></td><td><code>ManyToManyField</code>, reverse FK (<code>author.posts</code>)</td><td>One extra query, joined in Python</td></tr>
+              <tr><td><code>fetch_mode(models.FETCH_PEERS)</code> (Django 6.1+)</td><td><code>ForeignKey</code>, <code>OneToOneField</code>, deferred fields</td><td>On first access, loads the field for <em>every</em> object from the same QuerySet: 2 queries</td></tr>
               <tr><td><code>only("title")</code> / <code>defer("body")</code></td><td>Wide tables</td><td>Load fewer columns</td></tr>
               <tr><td><code>values_list("title", flat=True)</code></td><td>You only need a few values</td><td>No model objects at all</td></tr>
               <tr><td><code>count()</code>, <code>exists()</code></td><td>"How many?", "Any?"</td><td>SQL does the work; no rows loaded</td></tr>
               <tr><td><code>bulk_create()</code>, <code>update()</code></td><td>Many rows at once</td><td>One query instead of one per row</td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="lc-card">
+          <h3>Fetch Modes (Django 6.1+)</h3>
+          <p>Django 6.1 added <strong>fetch modes</strong>, which control what happens when you touch a field that was not loaded yet (a foreign key, or a field left out with <code>only()</code>/<code>defer()</code>).</p>
+        <div class="lc-code">from django.db import models<br><br>posts = Post.objects.fetch_mode(models.FETCH_PEERS)<br>for post in posts:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(post.author.name)     # 2 queries in total, not 1 + N</div>
+          <table class="lc-table">
+            <thead><tr><th>Mode</th><th>On first access of a missing field</th></tr></thead>
+            <tbody>
+              <tr><td><code>models.FETCH_ONE</code> (default)</td><td>Loads it for this one object only: the classic N+1</td></tr>
+              <tr><td><code>models.FETCH_PEERS</code></td><td>Loads it for this object and all its "peers" from the same QuerySet</td></tr>
+              <tr><td><code>models.FETCH_RAISE</code></td><td>Raises <code>FieldFetchBlocked</code>, e.g. <code>Fetching of Post.author blocked.</code></td></tr>
+            </tbody>
+          </table>
+          <p><code>FETCH_PEERS</code> is a safety net for code you did not optimise. When you know what a page needs, <code>select_related()</code> (1 query) is still the clearest choice. <code>FETCH_RAISE</code> is useful in tests to catch lazy loading you forgot about.</p>
         </div>
         <div class="lc-card">
           <h3>Measure First</h3>
@@ -2292,8 +2345,8 @@ module DjangoContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-        <div class="lc-code">N+1: loop reads post.author    6 queries<br>select_related('author')       1 query<br>reverse FK, no prefetch        6 queries<br>prefetch_related('posts')      2 queries<br><br>&nbsp;&nbsp;&nbsp;(computing report...)<br>get_or_set #1: 500<br>get_or_set #2: 500<br><br>GET / -&gt; rendered 1 time(s)<br>GET / -&gt; rendered 1 time(s)<br>GET / -&gt; rendered 1 time(s)</div>
-          <p>Five posts with five authors: the loop needed 1 + 5 = 6 queries; <code>select_related</code> needed 1. The report was computed only once; the second call came from the cache. The cached view ran its code once and served the next two requests from the cache.</p>
+        <div class="lc-code">N+1: loop reads post.author    6 queries<br>select_related('author')       1 query<br>fetch_mode(FETCH_PEERS)        2 queries<br>reverse FK, no prefetch        6 queries<br>prefetch_related('posts')      2 queries<br><br>&nbsp;&nbsp;&nbsp;(computing report...)<br>get_or_set #1: 500<br>get_or_set #2: 500<br><br>GET / -&gt; rendered 1 time(s)<br>GET / -&gt; rendered 1 time(s)<br>GET / -&gt; rendered 1 time(s)</div>
+          <p>Five posts with five authors: the loop needed 1 + 5 = 6 queries; <code>select_related</code> needed 1; <code>FETCH_PEERS</code> needed 2 (the posts, then all five authors at once). The report was computed only once; the second call came from the cache. The cached view ran its code once and served the next two requests from the cache.</p>
         </div>
         <div class="lc-card">
           <h3>Other Speed Tools</h3>
@@ -2364,6 +2417,7 @@ module DjangoContent
 
         count_queries("N+1: loop reads post.author", lambda: [p.author.name for p in Post.objects.all()])
         count_queries("select_related('author')", lambda: [p.author.name for p in Post.objects.select_related("author")])
+        count_queries("fetch_mode(FETCH_PEERS)", lambda: [p.author.name for p in Post.objects.fetch_mode(models.FETCH_PEERS)])
         count_queries("reverse FK, no prefetch", lambda: [list(a.posts.all()) for a in Author.objects.all()])
         count_queries("prefetch_related('posts')", lambda: [list(a.posts.all()) for a in Author.objects.prefetch_related("posts")])
 
@@ -2436,6 +2490,23 @@ module DjangoContent
           <h3>A Release, Step by Step</h3>
         <div class="lc-code">pip install -r requirements.txt<br>python manage.py check --deploy<br>python manage.py migrate --noinput          # apply new migrations<br>python manage.py collectstatic --noinput    # gather static files<br># restart gunicorn / uvicorn</div>
           <p>Use PostgreSQL with <code>psycopg</code> (version 3: <code>pip install "psycopg[binary]"</code>) and read the connection details from environment variables, for example with <code>dj-database-url</code>. Configure <code>LOGGING</code> and an error tracker (such as Sentry) so you hear about 500 errors, and set <code>ADMINS</code> plus email settings if you want error emails.</p>
+        </div>
+        <div class="lc-card">
+          <h3>Sending Email and Email Backends</h3>
+          <p>Password resets, receipts and error reports all need email. <code>send_mail(subject, message, from_email, recipient_list)</code> sends one message (with <code>from_email=None</code> Django uses <code>DEFAULT_FROM_EMAIL</code>); <code>EmailMessage</code> gives you more control (<code>cc</code>, <code>bcc</code>, attachments). The <strong>backend</strong> decides what "send" really means:</p>
+          <table class="lc-table">
+            <thead><tr><th>Backend (<code>django.core.mail.backends...</code>)</th><th>What it does</th><th>Use in</th></tr></thead>
+            <tbody>
+              <tr><td><code>smtp.EmailBackend</code></td><td>Sends real email through an SMTP server</td><td>Production</td></tr>
+              <tr><td><code>console.EmailBackend</code></td><td>Prints the email in the terminal</td><td>Development</td></tr>
+              <tr><td><code>locmem.EmailBackend</code></td><td>Keeps messages in the list <code>django.core.mail.outbox</code></td><td>Tests (the test runner switches to it automatically)</td></tr>
+            </tbody>
+          </table>
+          <p>Paste this into the editor to try it:</p>
+        <div class="lc-code">import django<br>from django.conf import settings<br><br>settings.configure(<br>&nbsp;&nbsp;&nbsp;&nbsp;MAILERS={"default": {"BACKEND": "django.core.mail.backends.locmem.EmailBackend"}},<br>&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT_FROM_EMAIL="AI Academy &lt;noreply@example.com&gt;",<br>)<br>django.setup()<br><br>from django.core import mail<br>from django.core.mail import send_mail, EmailMessage<br><br>sent = send_mail("Welcome, Priya!", "Thanks for joining.", None, ["priya@example.com"])<br>print("send_mail returned:", sent)<br><br>msg = EmailMessage("Your receipt", "Course: Django, Rs 1499", to=["priya@example.com"],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cc=["accounts@example.com"])<br>msg.send()<br><br>print("Outbox size:", len(mail.outbox))<br>for m in mail.outbox:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(f"- {m.subject!r} from {m.from_email} to {m.to} (sent_using={m.sent_using!r})")</div>
+          <p><strong>Output</strong>:</p>
+        <div class="lc-code">send_mail returned: 1<br>Outbox size: 2<br>- 'Welcome, Priya!' from AI Academy &lt;noreply@example.com&gt; to ['priya@example.com'] (sent_using='default')<br>- 'Your receipt' from AI Academy &lt;noreply@example.com&gt; to ['priya@example.com'] (sent_using='default')</div>
+          <p><strong>New in Django 6.1:</strong> backends are configured with the <code>MAILERS</code> setting (as above), and new projects get the console backend by default. The old <code>EMAIL_BACKEND</code>, <code>EMAIL_HOST</code>, <code>EMAIL_PORT</code> ... settings still work but are deprecated and will be removed in Django 7.0. <strong>Since Django 6.0:</strong> optional arguments such as <code>html_message=</code> must be passed by keyword, and <code>EmailMessage.message()</code> returns Python's modern <code>email.message.EmailMessage</code>. Never send email inside a slow request if you can avoid it; queue it as a background task (lesson 18).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -2539,7 +2610,7 @@ module DjangoContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-        <div class="lc-code">1. Home:            [Hello Django - 0 comments]<br>2. Logged out:      /login/?next=/posts/1/<br>3. Valid comment:   302 (Comment added) Hello Django | riya: Great post!;<br>4. Spam comment:    Hello Django | riya: Great post!; ERRORS: No spam, please.<br>5. Draft post:      404<br>6. Home again:      [Hello Django - 1 comments]</div>
+        <div class="lc-code">1. Home:            [Hello Django - 0 comments]<br>2. Logged out:      /login/?next=/posts/1/<br>3. Valid comment:   302 (Comment added) Hello Django | riya: Great post!;<br>4. Spam comment:    Hello Django | riya: Great post!; ERRORS: No spam, please.<br>5. Draft post:      404<br>6. Home again:      [Hello Django - 1 comment]</div>
           <ul class="lc-list">
             <li>Line 1: the draft is not listed, because <code>get_queryset()</code> filters it out.</li>
             <li>Line 2: a logged-out visitor is sent to the login page with <code>?next=</code>.</li>
@@ -2597,7 +2668,7 @@ module DjangoContent
             name, label, path = "__main__", "blog", "."
 
         TEMPLATES_DICT = {
-            "blog/post_list.html": "{% for p in posts %}[{{ p.title }} - {{ p.num_comments }} comments] {% endfor %}",
+            "blog/post_list.html": "{% for p in posts %}[{{ p.title }} - {{ p.num_comments }} comment{{ p.num_comments|pluralize }}] {% endfor %}",
             "blog/post_detail.html": "{% for m in messages %}({{ m }}) {% endfor %}{{ post.title }} | "
                                      "{% for c in post.comments.all %}{{ c.author }}: {{ c.text }}; {% endfor %}"
                                      "{% if form.errors %}ERRORS: {{ form.text.errors.0 }}{% endif %}",
