@@ -1,0 +1,32 @@
+# Learner cards for the home page (home/_stories).
+#
+# stories:  REAL learners only, with their permission. The section is titled "Real stories from real learners".
+# examples: illustrative people (not real reviews). Shown only while `stories` is empty, under the title
+#           "Made for people like you", and every card carries an "Example" label.
+# To turn an example into a real story: move it to `stories` once the person is real and has agreed.
+#
+# Each entry:
+#   - name: Full name
+#     role: Job title
+#     course: Course title (as it appears in the app)
+#     quote: 2 to 4 sentences
+#     photo: stories/<file>.jpg   (optional; put the file in app/assets/images/stories/. Without it, initials show)
+stories: []
+
+examples:
+  - name: Arjun Reddy
+    role: Software Engineer
+    course: Generative AI Fundamentals
+    quote: The course helped me understand how generative AI really works under the hood. Now I use it every day to write, test and review code faster.
+  - name: Lukas Becker
+    role: AI Engineer
+    course: Building RAG Applications
+    quote: The step-by-step lessons helped me build my first RAG app with a vector database and ship it at work within a month.
+  - name: Priya Nair
+    role: Doctor, General Medicine
+    course: AI for Doctors in Clinical Practice
+    quote: The course showed me how to use AI to double-check my clinical notes and find recent research faster, without losing my own judgement.
+  - name: Rahul Verma
+    role: Corporate Lawyer
+    course: AI for Contract Review
+    quote: I now review contracts with AI as a first pass and spend my time on the clauses that actually need a lawyer's attention.

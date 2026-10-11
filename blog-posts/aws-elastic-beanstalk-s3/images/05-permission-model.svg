@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="800" fill="#ffffff"/>
+  <text x="600" y="46" text-anchor="middle" font-size="28" font-weight="700" fill="#1f2937">How the app gets permission: a role, not access keys</text>
+
+  <!-- Left: access keys (avoid) -->
+  <rect x="30" y="80" width="360" height="690" rx="18" fill="#fef2f2" stroke="#dc2626" stroke-width="3"/>
+  <text x="210" y="124" text-anchor="middle" font-size="24" font-weight="700" fill="#dc2626">Access keys (avoid)</text>
+  <rect x="60" y="150" width="300" height="110" rx="12" fill="#ffffff" stroke="#dc2626" stroke-width="2"/>
+  <text x="210" y="190" text-anchor="middle" font-size="18" fill="#1f2937" font-family="Menlo, Consolas, monospace">AWS_ACCESS_KEY_ID=</text>
+  <text x="210" y="218" text-anchor="middle" font-size="18" fill="#1f2937" font-family="Menlo, Consolas, monospace">AKIAIOSFODNN7EXAMPLE</text>
+  <text x="210" y="244" text-anchor="middle" font-size="18" fill="#6b7280" font-family="Menlo, Consolas, monospace">(in code or .env)</text>
+  <g font-size="21" fill="#1f2937">
+    <text x="60" y="310">✕  They work until you</text>
+    <text x="90" y="338">delete them.</text>
+    <text x="60" y="388">✕  They leak through Git,</text>
+    <text x="90" y="416">logs and screenshots.</text>
+    <text x="60" y="466">✕  You must rotate them</text>
+    <text x="90" y="494">by hand.</text>
+  </g>
+  <text x="210" y="580" text-anchor="middle" font-size="20" fill="#6b7280">Use keys only where</text>
+  <text x="210" y="608" text-anchor="middle" font-size="20" fill="#6b7280">roles are not possible,</text>
+  <text x="210" y="636" text-anchor="middle" font-size="20" fill="#6b7280">for example on Heroku.</text>
+
+  <!-- Right: role (this post) -->
+  <rect x="420" y="80" width="750" height="690" rx="18" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+  <text x="795" y="124" text-anchor="middle" font-size="24" font-weight="700" fill="#16a34a">IAM role on the EC2 instance (this post)</text>
+
+  <!-- chain -->
+  <rect x="450" y="150" width="190" height="90" rx="12" fill="#fff7ed" stroke="#ff9900" stroke-width="2.5"/>
+  <text x="545" y="190" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">EC2 instance</text>
+  <text x="545" y="220" text-anchor="middle" font-size="19" fill="#6b7280">runs Flask + boto3</text>
+
+  <line x1="640" y1="195" x2="681" y2="195" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+
+  <rect x="685" y="150" width="160" height="90" rx="12" fill="#ffffff" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="765" y="190" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Instance</text>
+  <text x="765" y="220" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">profile</text>
+
+  <line x1="845" y1="195" x2="886" y2="195" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+
+  <rect x="890" y="150" width="255" height="90" rx="12" fill="#fef3c7" stroke="#ff9900" stroke-width="2.5"/>
+  <text x="1017" y="190" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">IAM role</text>
+  <text x="1017" y="220" text-anchor="middle" font-size="19" fill="#1f2937" font-family="Menlo, Consolas, monospace">photobook-ec2-role</text>
+
+  <text x="450" y="282" font-size="20" fill="#1f2937">boto3 gets short-lived keys from the instance. AWS rotates them.</text>
+
+  <!-- Policies -->
+  <text x="450" y="330" font-size="21" font-weight="700" fill="#1f2937">Policies attached to the role</text>
+
+  <rect x="450" y="348" width="690" height="92" rx="12" fill="#ffffff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="470" y="384" font-size="20" font-weight="700" fill="#2563eb" font-family="Menlo, Consolas, monospace">AWSElasticBeanstalkWebTier</text>
+  <text x="470" y="418" font-size="20" fill="#1f2937">AWS managed. Lets Elastic Beanstalk upload logs and run.</text>
+
+  <rect x="450" y="458" width="690" height="220" rx="12" fill="#ffffff" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="470" y="494" font-size="20" font-weight="700" fill="#16a34a" font-family="Menlo, Consolas, monospace">photobook-s3-access</text>
+  <text x="780" y="494" font-size="20" fill="#6b7280">(your policy)</text>
+  <g font-size="20" fill="#1f2937">
+    <text x="470" y="534"><tspan fill="#16a34a" font-weight="700">✓</tspan>  s3:ListBucket  on the bucket, prefix photos/</text>
+    <text x="470" y="568"><tspan fill="#16a34a" font-weight="700">✓</tspan>  s3:PutObject  on photos/*</text>
+    <text x="470" y="602"><tspan fill="#16a34a" font-weight="700">✓</tspan>  s3:GetObject  on photos/*  (for presigned links)</text>
+    <text x="470" y="646"><tspan fill="#dc2626" font-weight="700">✕</tspan>  No delete. No other buckets. No other services.</text>
+  </g>
+
+  <text x="795" y="728" text-anchor="middle" font-size="20" fill="#6b7280">Least privilege: the app can do only what it needs.</text>
+</svg>

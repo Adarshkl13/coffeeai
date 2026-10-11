@@ -1,0 +1,40 @@
+<%# Python code editor for the original course (same markup as the course lessons' live editor). Local: code. %>
+<div class="live-editor" data-controller="code-editor"
+     data-code-editor-starter-value="<%= CGI.escapeHTML(code) %>"
+     data-code-editor-mode-value="python">
+  <div class="le-header">
+    <div class="le-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+      </svg>
+      <span>Code Editor</span>
+      <span class="le-badge le-badge-blue">Python</span>
+    </div>
+    <div class="le-actions">
+      <button class="le-btn le-run" data-action="click->code-editor#run">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Run
+      </button>
+      <button class="le-btn le-reset" data-action="click->code-editor#reset">Reset</button>
+    </div>
+  </div>
+  <div class="le-body">
+    <div class="le-editor-pane">
+      <div class="le-line-nums" data-code-editor-target="lineNums">1</div>
+      <textarea class="le-textarea"
+                data-code-editor-target="textarea"
+                data-action="input->code-editor#onInput keydown->code-editor#handleTab"
+                spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off"><%= code %></textarea>
+    </div>
+    <div class="le-console-pane">
+      <div class="le-console-bar">
+        <div class="le-console-dots">
+          <span class="le-preview-dot le-dot-r"></span><span class="le-preview-dot le-dot-y"></span><span class="le-preview-dot le-dot-g"></span>
+        </div>
+        <span class="le-preview-label">🐍 Python Output</span>
+        <span class="le-console-hint">Click Run ▶ to execute</span>
+      </div>
+      <iframe class="le-iframe le-console-iframe" data-code-editor-target="preview" sandbox="allow-scripts"></iframe>
+    </div>
+  </div>
+</div>

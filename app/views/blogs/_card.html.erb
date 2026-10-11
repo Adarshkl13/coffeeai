@@ -1,0 +1,15 @@
+<%# A blog post card: cover image, tag, title, summary and a "Read Blog" button. %>
+<article class="blog-card" style="--c: <%= post.color %>">
+  <%= link_to blog_path(post), class: "blog-card-cover", tabindex: -1, aria: { hidden: true } do %>
+    <img src="<%= post.image_url_path(post.cover_image) %>" alt="">
+  <% end %>
+  <div class="blog-card-body">
+    <div class="blog-card-meta">
+      <span class="blog-tag"><%= post.icon %> <%= post.tag %></span>
+      <span><%= post.reading_minutes %> min read</span>
+    </div>
+    <h3 class="blog-card-title"><%= link_to post.title, blog_path(post) %></h3>
+    <p class="blog-card-desc"><%= post.subtitle %></p>
+    <%= link_to blog_path(post), class: "blog-card-btn" do %>Read Blog →<% end %>
+  </div>
+</article>

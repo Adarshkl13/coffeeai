@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+<rect width="1200" height="100%" fill="#ffffff"/>
+<rect x="20" y="20" width="1160" height="480" rx="18" fill="#f3f4f6" stroke="#9ca3af" stroke-width="3" stroke-dasharray="14 10"/>
+<g transform="translate(560 90)" fill="none" stroke="#6b7280" stroke-width="5" stroke-linejoin="round">
+<rect x="0" y="18" width="80" height="56" rx="10"/>
+<path d="M24 18 l8 -12 h16 l8 12"/>
+<circle cx="40" cy="46" r="15"/>
+</g>
+<text x="600" y="232" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="34" font-weight="700" fill="#1f2937">Add your screenshot</text>
+<text x="600" y="292" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="23" font-weight="600" fill="#2563eb">Your browser → the PhotoBook app on Elastic Beanstalk</text>
+<text x="600" y="345" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="21" fill="#6b7280">Show the page after an upload: the green &quot;Photo uploaded.&quot; message,</text>
+<text x="600" y="379" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="21" fill="#6b7280">the upload form, and a few photo thumbnails.</text>
+<text x="600" y="413" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="21" fill="#6b7280">The address bar should show the elasticbeanstalk.com domain.</text>
+</svg>

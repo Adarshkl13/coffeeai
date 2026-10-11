@@ -1,8 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="dark">
   <head>
-    <title>Admin — AI Academy</title>
+    <title>Admin — CoffeeBean AI</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+    <meta name="theme-color" content="#0a0a1c">
+    <%= render "shared/theme_head" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
@@ -13,7 +19,7 @@
       <div class="admin-nav-inner">
         <div class="admin-nav-left">
           <%= link_to admin_root_path, class: "admin-logo" do %>
-            <span>AI Academy</span>
+            <span>CoffeeBean AI</span>
             <span class="admin-badge">Admin</span>
           <% end %>
           <%= link_to "Dashboard", admin_root_path, class: "admin-nav-link" %>
@@ -21,6 +27,7 @@
           <%= link_to "Courses", admin_courses_path, class: "admin-nav-link" %>
         </div>
         <div class="admin-nav-right">
+          <%= render "shared/theme_toggle" %>
           <%= link_to "← Back to Site", root_path, class: "admin-nav-link" %>
           <%= link_to "Sign Out", destroy_user_session_path, class: "admin-nav-link", data: { turbo_method: :delete } %>
         </div>

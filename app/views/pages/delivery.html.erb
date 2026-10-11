@@ -1,0 +1,18 @@
+<%= render layout: "pages/page", locals: { title: "Delivery Policy", subtitle: "Last updated: 4 October 2026" } do %>
+  <p>CoffeeBean AI sells a digital service: online access to courses, lessons and AI learning tools. Nothing is shipped to you, and there are no delivery charges.</p>
+
+  <h2>How you receive your plan</h2>
+  <ul>
+    <li>Your plan starts straight after Cashfree confirms your payment. This usually takes a few seconds.</li>
+    <li>You use it by logging in to <%= COMPANY[:website] %> with the account you paid from. You can use it on any device with a web browser.</li>
+    <li>You can see your plan end date on the <%= link_to "Pricing", pricing_path %> page.</li>
+  </ul>
+
+  <h2>If access does not start</h2>
+  <ul>
+    <li>Refresh the page or log out and in again.</li>
+    <li>If your plan has still not started 30 minutes after a successful payment, write to <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a> with your order number. We will start it or refund you, as our <%= link_to "Refund Policy", refund_policy_path %> explains.</li>
+  </ul>
+
+  <p>CoffeeBean AI is owned and operated by <strong><%= COMPANY[:legal_name] %></strong>.</p>
+<% end %>

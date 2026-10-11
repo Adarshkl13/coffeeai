@@ -1,0 +1,55 @@
+<%# Home page learning path: four stops that light up in order as the section scrolls into view
+    (showcase_controller.js). Each stop shows a small picture of the real thing. Styles: design.css "Home path". %>
+<section class="h-section h-section-alt hp" data-controller="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Your path from first lesson to certificate</h2>
+        <p>Four simple steps. Every course follows the same path.</p>
+      </div>
+    </div>
+
+    <ol class="hp-track">
+      <li class="hp-stop" data-showcase-target="step">
+        <span class="hp-dot">1</span>
+        <div class="hp-visual hp-v-course" aria-hidden="true">
+          <span class="hp-mini-icon">🤖</span>
+          <span class="hp-mini-cat">Generative AI</span>
+          <b>Generative AI Fundamentals</b>
+          <span class="hp-mini-btn">Start →</span>
+        </div>
+        <h3>Choose a course</h3>
+        <p>From Python and web basics to AI for HR, law, finance and more.</p>
+      </li>
+
+      <li class="hp-stop" data-showcase-target="step">
+        <span class="hp-dot">2</span>
+        <div class="hp-visual hp-v-picture" aria-hidden="true">
+          <%= image_tag "podcast/what-is-ai-md.jpg", alt: "", loading: "lazy", width: 960, height: 640 %>
+        </div>
+        <h3>Learn with pictures</h3>
+        <p>Each lesson explains one idea with a clear diagram and simple words.</p>
+      </li>
+
+      <li class="hp-stop" data-showcase-target="step">
+        <span class="hp-dot">3</span>
+        <div class="hp-visual hp-v-sort" aria-hidden="true">
+          <div class="hp-bucket"><i>AI tool</i><span class="hp-chip hp-chip-a">ChatGPT</span><span class="hp-chip hp-chip-a">Gemini</span></div>
+          <div class="hp-bucket"><i>Not AI</i><span class="hp-chip hp-chip-b">Calculator</span><span class="hp-chip hp-chip-b">Notepad</span></div>
+        </div>
+        <h3>Practise with activities</h3>
+        <p>Sort, order and test ideas, then run real code in your browser.</p>
+      </li>
+
+      <li class="hp-stop" data-showcase-target="step">
+        <span class="hp-dot">4</span>
+        <div class="hp-visual hp-v-done" aria-hidden="true">
+          <span class="hp-ring"><b>100%</b></span>
+          <span class="hp-done-text"><b>Course complete</b>Certificate ready 🎓</span>
+        </div>
+        <h3>Get your certificate</h3>
+        <p>Finish every lesson and get a certificate you can print or share.</p>
+      </li>
+    </ol>
+  </div>
+</section>

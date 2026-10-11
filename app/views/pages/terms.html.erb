@@ -1,0 +1,64 @@
+<%= render layout: "pages/page", locals: { title: "Terms of Service", subtitle: "Last updated: 4 October 2026" } do %>
+  <p>CoffeeBean AI (<%= COMPANY[:website] %>) is owned and operated by <strong><%= COMPANY[:legal_name] %></strong> ("we", "us"). By creating an account or using CoffeeBean AI, you agree to these terms. If you do not agree, please do not use the site. Please read them. They are short.</p>
+
+  <h2>Your account</h2>
+  <ul>
+    <li>Keep your password safe. You are responsible for what happens in your account.</li>
+    <li>Give a real email address, so you can recover your account.</li>
+    <li>One account is for one person. Do not share your account or your plan.</li>
+    <li>Tell us straight away at <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a> if you think someone else is using your account.</li>
+  </ul>
+
+  <h2>Plans and payments</h2>
+  <ul>
+    <li>Courses and lessons, with the AI tools inside them, need a paid plan. There is no free plan for lessons.</li>
+    <li>Ask CoffeeBean AI and the code Editor do not need a plan. Anyone can ask a few questions and use the Editor. To keep asking, save chats or publish pages, you need an account.</li>
+    <li>The plans are: <% Plan::PLANS.each_with_index do |plan, i| %><%= ", " if i.positive? %><strong><%= plan.name %> for ₹<%= number_with_delimiter(plan.price) %></strong><% end %>. Every plan gives full access to all courses, lessons and AI tools from the day the payment is confirmed until the plan ends. If you already have a plan, the new time is added to the end of it.</li>
+    <li>Each plan is a one-time payment. It does <strong>not</strong> renew automatically. When it ends, you can no longer open lessons until you buy a new plan. Your progress is kept.</li>
+    <li>Prices are in Indian rupees (INR). We may change prices in the future, but a change never affects a plan you have already paid for.</li>
+    <li>Payments are processed by Cashfree Payments. We do not see or store your card, UPI or bank details.</li>
+    <li>Refunds are covered by our <%= link_to "Refund Policy", refund_policy_path %>, and delivery by our <%= link_to "Delivery Policy", delivery_policy_path %>.</li>
+  </ul>
+
+  <h2>Fair use</h2>
+  <ul>
+    <li>Use the site only for lawful purposes and to learn. Do not try to break, overload or attack it.</li>
+    <li>The AI tools and labs have fair daily limits so everyone gets a fair share. Do not try to get around them.</li>
+    <li>Do not upload illegal content, other people's private information, or content you have no right to share.</li>
+    <li>Pages you publish from the Editor are public. You are responsible for what they contain.</li>
+  </ul>
+
+  <h2>Course content and copyright</h2>
+  <ul>
+    <li>All lessons, text, diagrams, images, code, logos and software on CoffeeBean AI belong to <%= COMPANY[:legal_name] %> unless we say otherwise.</li>
+    <li>You may use the code from lessons in your own projects.</li>
+    <li>You may not copy, sell or publish whole lessons or courses somewhere else, or make your own versions of them, without our written permission.</li>
+    <li>You may share short parts and AI answers if you say they came from CoffeeBean AI and you do not use them in a misleading or unlawful way.</li>
+    <li>We work hard to keep lessons correct and up to date, but technology changes fast. Always check important details, such as prices, laws and security settings, in official sources.</li>
+  </ul>
+
+  <h2>Your content</h2>
+  <p>You keep ownership of what you write or upload (questions, notes, files and Editor pages). You let us store and show it inside CoffeeBean AI so the features work. We may remove content that breaks these terms.</p>
+
+  <h2>AI features</h2>
+  <p>Answers from Ask AI and the labs are created by AI models. They can be wrong or out of date. Check them before you rely on them. They are for learning only and are not professional, medical, legal or financial advice.</p>
+
+  <h2>Copyright complaints</h2>
+  <p>If you think something on CoffeeBean AI uses your work without permission, write to <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a> with your name and contact details, a description of your work, proof that you own it, and the link to the page. We will look at it and reply.</p>
+
+  <h2>No guarantee and limit of liability</h2>
+  <ul>
+    <li>CoffeeBean AI is provided "as is". We try hard to keep it working, but we cannot promise it will always be available, error-free or secure.</li>
+    <li>As far as the law allows, we are not responsible for indirect losses, or for losses caused by relying on lesson content or AI answers. Our total responsibility to you is never more than the amount you paid for your current plan.</li>
+  </ul>
+
+  <h2>Changes and ending</h2>
+  <ul>
+    <li>We may change these terms. We will update the date at the top when we do. If you keep using the site after a change, you accept the new terms.</li>
+    <li>We may suspend or close accounts that break these terms. If we close your account without a good reason, we will refund the unused part of your plan.</li>
+    <li>You can stop using CoffeeBean AI at any time. To delete your account, <%= link_to "contact us", contact_path %>.</li>
+  </ul>
+
+  <h2>Law</h2>
+  <p>These terms are governed by the laws of India. If there is a dispute, please write to us first. We will try to solve it with you.</p>
+<% end %>

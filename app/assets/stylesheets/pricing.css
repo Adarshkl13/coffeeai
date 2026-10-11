@@ -1,0 +1,63 @@
+/* Pricing page (app/views/payments/pricing.html.erb). Uses the tokens from design.css, so it follows both themes. */
+.price-body { max-width: 1120px; }
+.price-head { text-align: center; margin: 12px auto 30px; max-width: 720px; }
+.price-head h1 { margin: 12px 0 10px; font-size: clamp(30px, 4vw, 46px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; color: var(--txt); }
+.price-head p { color: var(--txt2); font-size: 17px; line-height: 1.6; }
+.price-active { margin: 0 auto 24px; max-width: 760px; padding: 14px 18px; border-radius: 14px; text-align: center;
+  background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.4); color: var(--txt); font-size: 15px; }
+.price-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
+.price-card { display: flex; flex-direction: column; }
+.price-card .price-list { flex: 1; }
+.price-phone-row { max-width: 460px; margin: 0 auto 30px; display: flex; flex-direction: column; gap: 8px; }
+.price-phone-row label { font-size: 14px; font-weight: 600; color: var(--txt2); text-align: center; }
+.price-terms { text-align: center; max-width: 720px; margin: 22px auto 0; }
+.price-card { position: relative; padding: 28px 26px; border-radius: 20px; background: var(--bg1); border: 1px solid var(--border); }
+.price-card-main { border: 1.5px solid rgba(139,92,246,.6); box-shadow: 0 24px 60px -28px rgba(99,102,241,.7); }
+.price-tag { position: absolute; top: -13px; left: 24px; padding: 5px 12px; border-radius: 99px; background: var(--grad-brand); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.price-card h2 { margin: 0 0 8px; font-size: 20px; font-weight: 700; color: var(--txt); }
+.price-amount { margin: 0; color: var(--txt2); font-size: 16px; }
+.price-amount span { font-size: 40px; font-weight: 800; letter-spacing: -.02em; color: var(--txt); }
+.price-note { margin: 6px 0 18px; color: var(--txt2); font-size: 14.5px; }
+.price-list { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.price-list li { position: relative; padding-left: 28px; color: var(--txt); font-size: 15px; line-height: 1.5; }
+.price-list li::before { content: "✓"; position: absolute; left: 0; top: 0; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%;
+  background: rgba(139,92,246,.18); color: #a78bfa; font-size: 12px; font-weight: 800; }
+.price-btn { width: 100%; }
+.price-pay { display: flex; flex-direction: column; gap: 10px; }
+.price-pay label { font-size: 14px; font-weight: 600; color: var(--txt2); }
+.price-phone { display: flex; align-items: center; border: 1px solid var(--border2); border-radius: 12px; background: var(--bg2); overflow: hidden; }
+.price-phone:focus-within { border-color: var(--brand); box-shadow: var(--ring); }
+.price-phone span { padding: 0 12px; color: var(--txt2); font-weight: 600; border-right: 1px solid var(--border2); align-self: stretch; display: grid; place-items: center; }
+.price-phone input { flex: 1; min-width: 0; padding: 13px 14px; border: 0; outline: 0; background: transparent; color: var(--txt); font: 500 16px var(--font); letter-spacing: .04em; }
+.price-error { margin: 0; color: #f87171; font-size: 14px; }
+.price-error[hidden] { display: none; }
+.price-small { margin: 14px 0 0; color: var(--txt3); font-size: 13px; line-height: 1.6; }
+.price-small a, .price-faq a { color: var(--brand); font-weight: 600; }
+.price-faq, .price-history { margin-top: 44px; }
+.price-faq h2, .price-history h2 { font-size: 22px; font-weight: 700; color: var(--txt); margin: 0 0 14px; }
+.price-faq details { border: 1px solid var(--border); border-radius: 14px; background: var(--bg1); margin-bottom: 10px; }
+.price-faq summary { cursor: pointer; padding: 16px 18px; font-weight: 600; color: var(--txt); list-style: none; }
+.price-faq summary::-webkit-details-marker { display: none; }
+.price-faq summary::after { content: "+"; float: right; color: var(--txt2); font-weight: 700; }
+.price-faq details[open] summary::after { content: "−"; }
+.price-faq details p { margin: 0; padding: 0 18px 16px; color: var(--txt2); line-height: 1.65; }
+.price-table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; }
+.price-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.price-table th, .price-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); color: var(--txt); white-space: nowrap; }
+.price-table th { background: var(--bg2); color: var(--txt2); font-weight: 600; }
+.price-table tr:last-child td { border-bottom: 0; }
+.price-status { padding: 3px 9px; border-radius: 99px; font-size: 12.5px; font-weight: 600; }
+.price-status-paid { background: rgba(16,185,129,.15); color: #34d399; }
+.price-status-pending { background: rgba(245,158,11,.15); color: #fbbf24; }
+.price-status-failed { background: rgba(248,113,113,.15); color: #f87171; }
+html[data-theme="light"] .price-list li::before { color: #6d28d9; }
+html[data-theme="light"] .price-status-paid { color: #047857; }
+html[data-theme="light"] .price-status-pending { color: #b45309; }
+html[data-theme="light"] .price-status-failed, html[data-theme="light"] .price-error { color: #dc2626; }
+@media (max-width: 900px) {
+  .price-grid { grid-template-columns: minmax(0, 1fr); max-width: 480px; margin: 0 auto; }
+  .price-card-main { order: -1; }
+  .price-card { padding: 24px 18px; }
+}
+.price-head .price-extra { margin-top: 10px; font-size: 15px; color: var(--txt2); }
+.price-head .price-extra a { color: var(--brand); font-weight: 600; }

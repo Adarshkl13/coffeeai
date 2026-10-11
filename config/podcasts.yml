@@ -1,0 +1,766 @@
+# Course podcasts on Cloudflare R2. Built from ~/Documents by scratchpad podcasts/build_map.rb and build_map2.rb.
+# Each course: episodes → languages → R2 object key + length in seconds. Files are served from base_url.
+base_url: https://pub-08a5d9c1682b43e794cb5308ce36231c.r2.dev
+courses:
+  ai-accounting-bookkeeping:
+  - title: AI for Accounting and Bookkeeping
+    languages:
+      en:
+        key: courses/ai-accounting-bookkeeping/episode-1-en.m4a
+        seconds: 1491
+  ai-api-testing:
+  - title: API Testing with Artificial Intelligence
+    languages:
+      en:
+        key: courses/ai-api-testing/episode-1-en.m4a
+        seconds: 1504
+  ai-assisted-development:
+  - title: AI Assisted Development
+    languages:
+      en:
+        key: courses/ai-assisted-development/episode-1-en.m4a
+        seconds: 1342
+  ai-brand-deals-creator-income:
+  - title: AI for Brand Deals and Creator Income
+    languages:
+      en:
+        key: courses/ai-brand-deals-creator-income/episode-1-en.m4a
+        seconds: 1477
+  ai-compensation-payroll:
+  - title: AI for Compensation and Payroll Management
+    languages:
+      en:
+        key: courses/ai-compensation-payroll/episode-1-en.m4a
+        seconds: 1519
+  ai-content-marketing:
+  - title: AI Content Marketing Guide
+    languages:
+      en:
+        key: courses/ai-content-marketing/episode-1-en.m4a
+        seconds: 1423
+  ai-contract-review:
+  - title: AI for Contract Review Under Indian Law
+    languages:
+      en:
+        key: courses/ai-contract-review/episode-1-en.m4a
+        seconds: 1410
+  ai-decision-making:
+  - title: AI Decision Making A Manager's Guide
+    languages:
+      en:
+        key: courses/ai-decision-making/episode-1-en.m4a
+        seconds: 1656
+  ai-doctors-clinical-practice:
+  - title: Clinical AI Decision Support in Practice
+    languages:
+      en:
+        key: courses/ai-doctors-clinical-practice/episode-1-en.m4a
+        seconds: 1365
+  ai-email-marketing:
+  - title: AI Email Marketing Course
+    languages:
+      en:
+        key: courses/ai-email-marketing/episode-1-en.m4a
+        seconds: 1562
+  ai-employee-experience:
+  - title: Designing Employee Experience and Onboarding with AI
+    languages:
+      en:
+        key: courses/ai-employee-experience/episode-1-en.m4a
+        seconds: 1363
+  ai-fair-hiring:
+  - title: AI for Fair Hiring Principles and Practices
+    languages:
+      en:
+        key: courses/ai-fair-hiring/episode-1-en.m4a
+        seconds: 1632
+  ai-financial-analysis:
+  - title: AI Financial Analysis Basics
+    languages:
+      en:
+        key: courses/ai-financial-analysis/episode-1-en.m4a
+        seconds: 1006
+  ai-for-branding:
+  - title: AI for Small Business Branding
+    languages:
+      en:
+        key: courses/ai-for-branding/episode-1-en.m4a
+        seconds: 1431
+  ai-for-crm:
+  - title: Mastering CRM Setup and AI Data Automation
+    languages:
+      en:
+        key: courses/ai-for-crm/episode-1-en.m4a
+        seconds: 1291
+  ai-for-freelancers:
+  - title: AI for Freelancers
+    languages:
+      en:
+        key: courses/ai-for-freelancers/episode-1-en.m4a
+        seconds: 1345
+  ai-for-insurance:
+  - title: AI for Insurance Fundamentals and Practical Guide
+    languages:
+      en:
+        key: courses/ai-for-insurance/episode-1-en.m4a
+        seconds: 1367
+  ai-for-onboarding:
+  - title: AI for Onboarding Building Employee Journeys
+    languages:
+      en:
+        key: courses/ai-for-onboarding/episode-1-en.m4a
+        seconds: 1217
+  ai-for-paid-ads:
+  - title: Mastering AI-Powered Digital Advertising Strategies
+    languages:
+      en:
+        key: courses/ai-for-paid-ads/episode-1-en.m4a
+        seconds: 809
+  ai-for-podcasts:
+  - title: Podcast Production Guide for Beginners
+    languages:
+      en:
+        key: courses/ai-for-podcasts/episode-1-en.m4a
+        seconds: 1469
+  ai-for-recruitment:
+  - title: AI-Powered Recruitment and Hiring Strategy Guide
+    languages:
+      en:
+        key: courses/ai-for-recruitment/episode-1-en.m4a
+        seconds: 1551
+  ai-for-seo:
+  - title: AI For SEO
+    languages:
+      en:
+        key: courses/ai-for-seo/episode-1-en.m4a
+        seconds: 1280
+  ai-hospital-operations:
+  - title: AI-Driven Hospital Operations and Management
+    languages:
+      en:
+        key: courses/ai-hospital-operations/episode-1-en.m4a
+        seconds: 1437
+  ai-hr-policies-compliance:
+  - title: AI for HR Policies and Compliance
+    languages:
+      en:
+        key: courses/ai-hr-policies-compliance/episode-1-en.m4a
+        seconds: 1385
+  ai-images-design:
+  - title: AI Images and Design for Small Businesses
+    languages:
+      en:
+        key: courses/ai-images-design/episode-1-en.m4a
+        seconds: 987
+  ai-influencer-marketing:
+  - title: AI for Influencer Marketing Campaigns
+    languages:
+      en:
+        key: courses/ai-influencer-marketing/episode-1-en.m4a
+        seconds: 1525
+  ai-investing-research:
+  - title: AI Investing and Stock Research Guide
+    languages:
+      en:
+        key: courses/ai-investing-research/episode-1-en.m4a
+        seconds: 1308
+  ai-lead-generation:
+  - title: AI for Lead Generation
+    languages:
+      en:
+        key: courses/ai-lead-generation/episode-1-en.m4a
+        seconds: 1641
+  ai-learning-development:
+  - title: AI-Driven Learning and Development Strategies
+    languages:
+      en:
+        key: courses/ai-learning-development/episode-1-en.m4a
+        seconds: 1593
+  ai-legal-drafting:
+  - title: AI-Powered Legal Drafting and Document Precision
+    languages:
+      en:
+        key: courses/ai-legal-drafting/episode-1-en.m4a
+        seconds: 1677
+  ai-legal-research:
+  - title: AI for Legal Research
+    languages:
+      en:
+        key: courses/ai-legal-research/episode-1-en.m4a
+        seconds: 1343
+  ai-litigation-court-prep:
+  - title: AI for Litigation and Court Preparation
+    languages:
+      en:
+        key: courses/ai-litigation-court-prep/episode-1-en.m4a
+        seconds: 1601
+  ai-medical-documentation:
+  - title: AI for Clinical Documentation
+    languages:
+      en:
+        key: courses/ai-medical-documentation/episode-1-en.m4a
+        seconds: 1430
+  ai-medical-imaging:
+  - title: Foundations of Artificial Intelligence in Medical Imaging
+    languages:
+      en:
+        key: courses/ai-medical-imaging/episode-1-en.m4a
+        seconds: 665
+  ai-medical-research:
+  - title: AI for Medical Research Literature Search and Evidence Appraisal
+    languages:
+      en:
+        key: courses/ai-medical-research/episode-1-en.m4a
+        seconds: 1379
+  ai-meetings-communication:
+  - title: AI for Meetings and Communication
+    languages:
+      en:
+        key: courses/ai-meetings-communication/episode-1-en.m4a
+        seconds: 1461
+  ai-multilingual-support:
+  - title: Multilingual Support with AI
+    languages:
+      en:
+        key: courses/ai-multilingual-support/episode-1-en.m4a
+        seconds: 1260
+  ai-patient-chatbots:
+  - title: Designing Safe Healthcare AI Chatbots
+    languages:
+      en:
+        key: courses/ai-patient-chatbots/episode-1-en.m4a
+        seconds: 1475
+  ai-people-managers:
+  - title: Managing People with Artificial Intelligence
+    languages:
+      en:
+        key: courses/ai-people-managers/episode-1-en.m4a
+        seconds: 1398
+  ai-performance-management:
+  - title: AI-Driven Performance Management Fair, Useful Reviews and Goals
+    languages:
+      en:
+        key: courses/ai-performance-management/episode-1-en.m4a
+        seconds: 1243
+  ai-personal-finance:
+  - title: AI for Personal Finance
+    languages:
+      en:
+        key: courses/ai-personal-finance/episode-1-en.m4a
+        seconds: 1480
+  ai-pricing-inventory:
+  - title: E-Commerce AI Pricing and Inventory Management
+    languages:
+      en:
+        key: courses/ai-pricing-inventory/episode-1-en.m4a
+        seconds: 1417
+  ai-product-listings:
+  - title: Crafting Honest Marketplace Product Listings
+    languages:
+      en:
+        key: courses/ai-product-listings/episode-1-en.m4a
+        seconds: 1335
+  ai-product-photos-videos:
+  - title: AI Product Visuals Mastery Guide
+    languages:
+      en:
+        key: courses/ai-product-photos-videos/episode-1-en.m4a
+        seconds: 1476
+  ai-project-management:
+  - title: AI for Project Management
+    languages:
+      en:
+        key: courses/ai-project-management/episode-1-en.m4a
+        seconds: 1577
+  ai-reviews-returns:
+  - title: AI for Reviews and Returns in E-Commerce
+    languages:
+      en:
+        key: courses/ai-reviews-returns/episode-1-en.m4a
+        seconds: 760
+  ai-safety:
+  - title: Designing Responsible and Secure AI Applications
+    languages:
+      en:
+        key: courses/ai-safety/episode-1-en.m4a
+        seconds: 1446
+  ai-sales-calls:
+  - title: AI for Sales Calls
+    languages:
+      en:
+        key: courses/ai-sales-calls/episode-1-en.m4a
+        seconds: 1368
+  ai-sales-forecasting:
+  - title: Sales Forecasting with AI
+    languages:
+      en:
+        key: courses/ai-sales-forecasting/episode-1-en.m4a
+        seconds: 774
+  ai-sales-outreach:
+  - title: AI for Sales Outreach
+    languages:
+      en:
+        key: courses/ai-sales-outreach/episode-1-en.m4a
+        seconds: 1431
+  - title: Mastering AI Sales Outreach Campaigns
+    languages:
+      en:
+        key: courses/ai-sales-outreach/episode-2-en.m4a
+        seconds: 1360
+  ai-short-videos:
+  - title: AI for Short Videos
+    languages:
+      en:
+        key: courses/ai-short-videos/episode-1-en.m4a
+        seconds: 1434
+  ai-small-business-automation:
+  - title: AI Automation for Small Business
+    languages:
+      en:
+        key: courses/ai-small-business-automation/episode-1-en.m4a
+        seconds: 977
+  ai-social-media-marketing:
+  - title: How to Use AI for Social Media
+    languages:
+      en:
+        key: courses/ai-social-media-marketing/episode-1-en.m4a
+        seconds: 1222
+  ai-software-testing:
+  - title: AI for Software Testing
+    languages:
+      en:
+        key: courses/ai-software-testing/episode-1-en.m4a
+        seconds: 1468
+  ai-starting-a-business:
+  - title: AI for Starting a Business
+    languages:
+      en:
+        key: courses/ai-starting-a-business/episode-1-en.m4a
+        seconds: 1482
+  ai-store-growth:
+  - title: AI for E-commerce Store Growth and Operations
+    languages:
+      en:
+        key: courses/ai-store-growth/episode-1-en.m4a
+        seconds: 1515
+  ai-strategy-leaders:
+  - title: AI Strategy and Implementation for Leaders
+    languages:
+      en:
+        key: courses/ai-strategy-leaders/episode-1-en.m4a
+        seconds: 1514
+  ai-support-chatbots:
+  - title: Building AI Support Chatbots
+    languages:
+      en:
+        key: courses/ai-support-chatbots/episode-1-en.m4a
+        seconds: 1592
+  ai-test-automation:
+  - title: AI Test Automation and Playwright Fundamentals
+    languages:
+      en:
+        key: courses/ai-test-automation/episode-1-en.m4a
+        seconds: 1300
+  ai-test-data-bug-triage:
+  - title: AI Test Data and Bug Triage Guide
+    languages:
+      en:
+        key: courses/ai-test-data-bug-triage/episode-1-en.m4a
+        seconds: 1572
+  ai-ticket-management:
+  - title: AI Customer Support Operations and Management
+    languages:
+      en:
+        key: courses/ai-ticket-management/episode-1-en.m4a
+        seconds: 1495
+  ai-voice-call-centres:
+  - title: AI for Voice and Call Centres
+    languages:
+      en:
+        key: courses/ai-voice-call-centres/episode-1-en.m4a
+        seconds: 1278
+  ai-workforce-planning:
+  - title: Workforce Planning and Analysis
+    languages:
+      en:
+        key: courses/ai-workforce-planning/episode-1-en.m4a
+        seconds: 1623
+  ai-writers-bloggers:
+  - title: AI Content Creation for Writers
+    languages:
+      en:
+        key: courses/ai-writers-bloggers/episode-1-en.m4a
+        seconds: 1364
+  ai-youtube-creators:
+  - title: Mastering AI for YouTube Content Creation
+    languages:
+      en:
+        key: courses/ai-youtube-creators/episode-1-en.m4a
+        seconds: 1429
+  artificial-intelligence:
+  - title: Artificial Intelligence Foundations and Search Algorithms
+    languages:
+      en:
+        key: courses/artificial-intelligence/episode-1-en.m4a
+        seconds: 1566
+      hi:
+        key: courses/artificial-intelligence/episode-1-hi.m4a
+        seconds: 764
+      kn:
+        key: courses/artificial-intelligence/episode-1-kn.m4a
+        seconds: 1315
+      ta:
+        key: courses/artificial-intelligence/episode-1-ta.m4a
+        seconds: 1217
+      te:
+        key: courses/artificial-intelligence/episode-1-te.m4a
+        seconds: 1528
+      ml:
+        key: courses/artificial-intelligence/episode-1-ml.m4a
+        seconds: 1080
+  beginner-ai-python:
+  - title: AI Basics
+    module: 1
+    languages:
+      en:
+        key: courses/beginner-ai-python/module-1-en.m4a
+        seconds: 357
+      hi:
+        key: courses/beginner-ai-python/module-1-hi.m4a
+        seconds: 313
+      kn:
+        key: courses/beginner-ai-python/module-1-kn.m4a
+        seconds: 232
+      ta:
+        key: courses/beginner-ai-python/module-1-ta.m4a
+        seconds: 312
+      te:
+        key: courses/beginner-ai-python/module-1-te.m4a
+        seconds: 294
+      ml:
+        key: courses/beginner-ai-python/module-1-ml.m4a
+        seconds: 353
+  - title: Five Programming Concepts Behind AI Prompts
+    module: 2
+    languages:
+      en:
+        key: courses/beginner-ai-python/module-2-en.m4a
+        seconds: 312
+      hi:
+        key: courses/beginner-ai-python/module-2-hi.m4a
+        seconds: 290
+      kn:
+        key: courses/beginner-ai-python/module-2-kn.m4a
+        seconds: 336
+      ta:
+        key: courses/beginner-ai-python/module-2-ta.m4a
+        seconds: 315
+      te:
+        key: courses/beginner-ai-python/module-2-te.m4a
+        seconds: 331
+      ml:
+        key: courses/beginner-ai-python/module-2-ml.m4a
+        seconds: 303
+  - title: Turning Messy Data Into AI Predictions
+    module: 3
+    languages:
+      en:
+        key: courses/beginner-ai-python/module-3-en.m4a
+        seconds: 212
+      hi:
+        key: courses/beginner-ai-python/module-3-hi.m4a
+        seconds: 297
+      kn:
+        key: courses/beginner-ai-python/module-3-kn.m4a
+        seconds: 348
+      ta:
+        key: courses/beginner-ai-python/module-3-ta.m4a
+        seconds: 334
+      te:
+        key: courses/beginner-ai-python/module-3-te.m4a
+        seconds: 394
+      ml:
+        key: courses/beginner-ai-python/module-3-ml.m4a
+        seconds: 351
+  - title: Machine Learning Is Just Mathematical Equations
+    module: 4
+    languages:
+      en:
+        key: courses/beginner-ai-python/module-4-en.m4a
+        seconds: 312
+      hi:
+        key: courses/beginner-ai-python/module-4-hi.m4a
+        seconds: 342
+      kn:
+        key: courses/beginner-ai-python/module-4-kn.m4a
+        seconds: 379
+      ta:
+        key: courses/beginner-ai-python/module-4-ta.m4a
+        seconds: 256
+      te:
+        key: courses/beginner-ai-python/module-4-te.m4a
+        seconds: 335
+      ml:
+        key: courses/beginner-ai-python/module-4-ml.m4a
+        seconds: 273
+  build-with-generative-ai:
+  - title: Building Generative AI Applications
+    languages:
+      en:
+        key: courses/build-with-generative-ai/episode-1-en.m4a
+        seconds: 716
+  building-ai-agents:
+  - title: Building AI Agents from First Principles
+    languages:
+      en:
+        key: courses/building-ai-agents/episode-1-en.m4a
+        seconds: 798
+      hi:
+        key: courses/building-ai-agents/episode-1-hi.m4a
+        seconds: 994
+      kn:
+        key: courses/building-ai-agents/episode-1-kn.m4a
+        seconds: 1075
+      ta:
+        key: courses/building-ai-agents/episode-1-ta.m4a
+        seconds: 1057
+      te:
+        key: courses/building-ai-agents/episode-1-te.m4a
+        seconds: 1409
+      ml:
+        key: courses/building-ai-agents/episode-1-ml.m4a
+        seconds: 1137
+  building-mcp-servers:
+  - title: Building Model Context Protocol Servers
+    languages:
+      en:
+        key: courses/building-mcp-servers/episode-1-en.m4a
+        seconds: 1506
+  building-rag-applications:
+  - title: Building RAG Applications
+    languages:
+      en:
+        key: courses/building-rag-applications/episode-1-en.m4a
+        seconds: 1564
+      hi:
+        key: courses/building-rag-applications/episode-1-hi.m4a
+        seconds: 1270
+      kn:
+        key: courses/building-rag-applications/episode-1-kn.m4a
+        seconds: 1086
+      ta:
+        key: courses/building-rag-applications/episode-1-ta.m4a
+        seconds: 1042
+      te:
+        key: courses/building-rag-applications/episode-1-te.m4a
+        seconds: 989
+      ml:
+        key: courses/building-rag-applications/episode-1-ml.m4a
+        seconds: 592
+  computer-vision:
+  - title: Foundations of Computer Vision
+    languages:
+      en:
+        key: courses/computer-vision/episode-1-en.m4a
+        seconds: 926
+  customer-feedback-analysis:
+  - title: Customer Feedback Analysis and Action
+    languages:
+      en:
+        key: courses/customer-feedback-analysis/episode-1-en.m4a
+        seconds: 1544
+  data-science:
+  - title: The Data Science Lifecycle and Process Guide
+    languages:
+      en:
+        key: courses/data-science/episode-1-en.m4a
+        seconds: 1240
+      hi:
+        key: courses/data-science/episode-1-hi.m4a
+        seconds: 992
+      kn:
+        key: courses/data-science/episode-1-kn.m4a
+        seconds: 792
+      ta:
+        key: courses/data-science/episode-1-ta.m4a
+        seconds: 1353
+      te:
+        key: courses/data-science/episode-1-te.m4a
+        seconds: 1149
+      ml:
+        key: courses/data-science/episode-1-ml.m4a
+        seconds: 1090
+  deep-learning:
+  - title: Foundations of Deep Learning and Neural Networks
+    languages:
+      en:
+        key: courses/deep-learning/episode-1-en.m4a
+        seconds: 1300
+      hi:
+        key: courses/deep-learning/episode-1-hi.m4a
+        seconds: 1233
+      kn:
+        key: courses/deep-learning/episode-1-kn.m4a
+        seconds: 1172
+      ta:
+        key: courses/deep-learning/episode-1-ta.m4a
+        seconds: 1175
+      te:
+        key: courses/deep-learning/episode-1-te.m4a
+        seconds: 1291
+      ml:
+        key: courses/deep-learning/episode-1-ml.m4a
+        seconds: 948
+  evaluating-ai-apps:
+  - title: Evaluating AI Applications
+    languages:
+      en:
+        key: courses/evaluating-ai-apps/episode-1-en.m4a
+        seconds: 1477
+  fine-tuning-llms:
+  - title: Mastering LLM Fine-Tuning
+    languages:
+      en:
+        key: courses/fine-tuning-llms/episode-1-en.m4a
+        seconds: 855
+  generative-ai-fundamentals:
+  - title: Generative AI Fundamentals A Practical Guide
+    languages:
+      en:
+        key: courses/generative-ai-fundamentals/episode-1-en.m4a
+        seconds: 1621
+  generative-ai-professionals:
+  - title: Generative AI for Professionals
+    languages:
+      en:
+        key: courses/generative-ai-professionals/episode-1-en.m4a
+        seconds: 1176
+  generative-ai-tools-applications:
+  - title: Generative AI Tools and Applications
+    languages:
+      en:
+        key: courses/generative-ai-tools-applications/episode-1-en.m4a
+        seconds: 1267
+  how-llms-work:
+  - title: How LLMs Work
+    languages:
+      en:
+        key: courses/how-llms-work/episode-1-en.m4a
+        seconds: 1287
+  html-css:
+  - title: HTML and CSS Fundamentals
+    languages:
+      en:
+        key: courses/html-css/episode-1-en.m4a
+        seconds: 836
+  hr-analytics-ai:
+  - title: HR Analytics and Workforce Planning Guide
+    languages:
+      en:
+        key: courses/hr-analytics-ai/episode-1-en.m4a
+        seconds: 1531
+  java:
+  - title: Modern Java Programming Fundamentals
+    languages:
+      en:
+        key: courses/java/episode-1-en.m4a
+        seconds: 1302
+  javascript:
+  - title: Modern JavaScript Fundamentals
+    languages:
+      en:
+        key: courses/javascript/episode-1-en.m4a
+        seconds: 1373
+  legal-ethics-ai:
+  - title: AI Ethics and Law Practice
+    languages:
+      en:
+        key: courses/legal-ethics-ai/episode-1-en.m4a
+        seconds: 1338
+  machine-learning:
+  - title: Machine Learning Essentials Algorithms, Workflows, and Evaluation
+    languages:
+      en:
+        key: courses/machine-learning/episode-1-en.m4a
+        seconds: 1447
+      hi:
+        key: courses/machine-learning/episode-1-hi.m4a
+        seconds: 1193
+      kn:
+        key: courses/machine-learning/episode-1-kn.m4a
+        seconds: 1137
+      ta:
+        key: courses/machine-learning/episode-1-ta.m4a
+        seconds: 1434
+      te:
+        key: courses/machine-learning/episode-1-te.m4a
+        seconds: 1481
+      ml:
+        key: courses/machine-learning/episode-1-ml.m4a
+        seconds: 1273
+  marketing-analytics-ai:
+  - title: Marketing Analytics with AI
+    languages:
+      en:
+        key: courses/marketing-analytics-ai/episode-1-en.m4a
+        seconds: 1551
+  master-generative-ai:
+  - title: Mastering Generative AI Models
+    languages:
+      en:
+        key: courses/master-generative-ai/episode-1-en.m4a
+        seconds: 1560
+  prompt-engineering:
+  - title: Mastering Prompt Engineering for Developers
+    languages:
+      en:
+        key: courses/prompt-engineering/episode-1-en.m4a
+        seconds: 1187
+  python:
+  - title: Python Programming Masterclass Guide
+    languages:
+      en:
+        key: courses/python/episode-1-en.m4a
+        seconds: 1508
+      hi:
+        key: courses/python/episode-1-hi.m4a
+        seconds: 1282
+      kn:
+        key: courses/python/episode-1-kn.m4a
+        seconds: 1284
+      ta:
+        key: courses/python/episode-1-ta.m4a
+        seconds: 1066
+      te:
+        key: courses/python/episode-1-te.m4a
+        seconds: 1307
+      ml:
+        key: courses/python/episode-1-ml.m4a
+        seconds: 1294
+  safe-healthcare-ai:
+  - title: Ethical AI in Healthcare
+    languages:
+      en:
+        key: courses/safe-healthcare-ai/episode-1-en.m4a
+        seconds: 1139
+  testing-ai-apps:
+  - title: Testing AI Chatbots and Language Models
+    languages:
+      en:
+        key: courses/testing-ai-apps/episode-1-en.m4a
+        seconds: 1379
+  vector-databases:
+  - title: Vector Databases Architecture and Search
+    languages:
+      en:
+        key: courses/vector-databases/episode-1-en.m4a
+        seconds: 1637
+      hi:
+        key: courses/vector-databases/episode-1-hi.m4a
+        seconds: 1678
+      kn:
+        key: courses/vector-databases/episode-1-kn.m4a
+        seconds: 1287
+      ml:
+        key: courses/vector-databases/episode-1-ml.m4a
+        seconds: 1273

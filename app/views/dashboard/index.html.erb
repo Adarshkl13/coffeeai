@@ -1,83 +1,77 @@
-<% content_for :title, "Dashboard — AI Academy" %>
+<% content_for :title, "Dashboard — CoffeeBean AI" %>
 <% content_for :body_class, "page-scrollable" %>
+<% name = current_user.email.split("@").first.tr("._-", " ").split.first.to_s.capitalize %>
 
 <div class="dash-page">
   <%= render "shared/navbar" %>
 
   <div class="dash-body">
-
-    <%# Welcome bar %>
-    <div class="dash-welcome">
+    <%# Greeting %>
+    <div class="d-hello">
       <div>
-        <h1 class="dash-greeting">Welcome back, <span><%= current_user.email.split("@").first.capitalize %></span> 👋</h1>
-        <p class="dash-sub">Keep going — you're building the skills of the future.</p>
+        <h1>Welcome back, <span class="grad-text"><%= name %></span> 👋</h1>
+        <p><%= @stats[:lessons].zero? ? "Pick a course below and finish your first lesson today." : "Keep going. Every lesson builds on the last one." %></p>
       </div>
-      <div class="dash-score-card">
-        <div class="score-num"><%= @total_correct %></div>
-        <div class="score-label">Correct Answers</div>
-        <div class="score-sub"><%= @total_attempts %> total attempts</div>
-      </div>
+      <%= link_to "Browse all courses →", courses_path, class: "btn btn-ghost" %>
     </div>
 
-    <%# Featured AI Academy course %>
-    <div class="dash-section">
-      <h2 class="dash-section-title">Featured Course</h2>
-      <div class="featured-course-card">
-        <div class="fc-icon">🎓</div>
-        <div class="fc-body">
-          <div class="fc-tag">AI Academy Original</div>
-          <h3 class="fc-title">Beginner AI with Python</h3>
-          <p class="fc-desc">A comprehensive 28-lesson visual course covering AI fundamentals, types of AI, ML basics, and hands-on Python. Our most popular learning path.</p>
-          <div class="fc-stats">
-            <div class="fc-stat"><span class="fc-stat-num"><%= @ai_progress[:done] %></span><span class="fc-stat-label">/ 28 lessons done</span></div>
-            <div class="fc-progress-wrap">
-              <div class="fc-progress-bar"><div class="fc-progress-fill" style="width: <%= @ai_progress[:pct] %>%"></div></div>
-              <span class="fc-pct"><%= @ai_progress[:pct] %>%</span>
+    <%# Stats %>
+    <div class="d-stats">
+      <div class="d-stat"><div class="d-stat-icon" style="background: rgba(139,92,246,.16)">📚</div><div><strong><%= @stats[:started] %></strong><span>Courses started</span></div></div>
+      <div class="d-stat"><div class="d-stat-icon" style="background: rgba(59,130,246,.16)">✅</div><div><strong><%= @stats[:lessons] %></strong><span>Lessons completed</span></div></div>
+      <div class="d-stat"><div class="d-stat-icon" style="background: rgba(16,185,129,.16)">🎯</div><div><strong><%= @stats[:correct] %></strong><span>Correct answers</span></div></div>
+      <div class="d-stat"><div class="d-stat-icon" style="background: rgba(245,158,11,.16)">🏆</div><div><strong><%= @stats[:finished] %></strong><span>Courses finished</span></div></div>
+    </div>
+
+    <%# Continue learning %>
+    <% if @in_progress.any? %>
+      <section class="d-section">
+        <div class="section-head"><div><h2>Continue learning</h2></div></div>
+        <div class="d-continue">
+          <% @in_progress.each do |course| %>
+            <% prog = @progress[course.id] %>
+            <div class="d-cont" style="--c: <%= course.ui_color %>">
+              <div class="c-card-icon" aria-hidden="true"><%= course.icon %></div>
+              <div class="d-cont-body">
+                <h3><%= link_to course.title, course_lesson_path(course_slug: course.slug, id: prog[:next_lesson].id), class: "d-cont-link" %></h3>
+                <p>Next: <%= prog[:next_lesson].title %></p>
+                <div class="c-card-bar" aria-label="<%= prog[:pct] %>% complete"><span style="width: <%= prog[:pct] %>%"></span></div>
+              </div>
+              <span class="d-cont-go" aria-hidden="true">→</span>
             </div>
-          </div>
-        </div>
-        <div class="fc-action">
-          <%= link_to lesson_path(@ai_progress[:done] > 0 ? @ai_progress[:done] + 1 : 1), class: "fc-btn" do %>
-            <%= @ai_progress[:done] > 0 ? "Continue" : "Start" %> Course →
           <% end %>
         </div>
-      </div>
-    </div>
+      </section>
+    <% end %>
 
-    <%# All courses grid %>
-    <div class="dash-section">
-      <h2 class="dash-section-title">All Courses</h2>
-      <div class="dash-courses-grid">
-        <% @courses_with_progress.each do |cp| %>
-          <div class="dash-course-card" style="--c: <%= cp[:course].color %>">
-            <div class="dcc-header">
-              <div class="dcc-icon"><%= cp[:course].icon %></div>
-              <div class="dcc-title-wrap">
-                <h3 class="dcc-title"><%= cp[:course].title %></h3>
-                <p class="dcc-count"><%= cp[:done] %>/<%= cp[:total] %> lessons</p>
-              </div>
-              <div class="dcc-pct" style="color: var(--c)"><%= cp[:pct] %>%</div>
-            </div>
-            <div class="dcc-progress">
-              <div class="dcc-bar"><div class="dcc-fill" style="width: <%= cp[:pct] %>%; background: var(--c)"></div></div>
-            </div>
-            <p class="dcc-desc"><%= truncate(cp[:course].description, length: 80) %></p>
-            <div class="dcc-actions">
-              <%= link_to course_path(cp[:course]), class: "dcc-btn-outline" do %>View Course<% end %>
-              <%
-                next_lesson = cp[:course].course_lessons.ordered.find do |l|
-                  !current_user.course_progress_for(l.id)&.done?
-                end || cp[:course].course_lessons.ordered.first
-              %>
-              <%= link_to course_lesson_path(course_slug: cp[:course].slug, id: next_lesson.id),
-                    class: "dcc-btn-primary", style: "background: var(--c)" do %>
-                <%= cp[:done] > 0 ? "Continue" : "Start" %>
-              <% end %>
-            </div>
-          </div>
+    <%# Featured original course %>
+    <section class="d-section">
+      <div class="d-feature">
+        <div class="d-feature-icon" aria-hidden="true">🎓</div>
+        <div>
+          <span class="eyebrow">CoffeeBean AI Original</span>
+          <h3>Beginner AI with Python</h3>
+          <p>A visual 28-lesson course on AI basics, the types of AI, machine learning and hands-on Python.</p>
+          <div class="c-card-bar" aria-label="<%= @ai_progress[:pct] %>% complete"><span style="width: <%= @ai_progress[:pct] %>%"></span></div>
+          <p style="font-size: 12.5px; margin-top: 6px; color: var(--txt3)"><%= @ai_progress[:done] %> of <%= @ai_progress[:total] %> lessons done</p>
+        </div>
+        <%= link_to lesson_path([@ai_progress[:done] + 1, @ai_progress[:total]].min), class: "btn btn-primary btn-lg" do %>
+          <%= @ai_progress[:done] > 0 ? "Continue" : "Start course" %> <span aria-hidden="true">→</span>
         <% end %>
       </div>
-    </div>
+    </section>
+
+    <%# Certificates %>
+    <% if @certificates.any? %>
+      <section class="d-section">
+        <div class="section-head"><div><h2>Your certificates</h2><p>Click a certificate to open it, print it or share its link.</p></div></div>
+        <div class="d-certs">
+          <% @certificates.each do |cert| %>
+            <%= render "certificates/thumb", certificate: cert %>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
 
   </div>
 

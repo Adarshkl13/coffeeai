@@ -1,22 +1,37 @@
 class DashboardController < ApplicationController
   before_action :authenticate_user!
 
+  AI_COURSE_LESSONS = 28   # the original "Beginner AI with Python" course (LessonsController)
+
   def index
-    @courses = Course.published.ordered
-    @courses_with_progress = @courses.map do |course|
-      {
-        course: course,
-        pct: course.completion_percentage(current_user),
-        done: course.completed_lessons_count(current_user),
-        total: course.course_lessons.count
-      }
+    @courses = Course.published.ordered.includes(:course_lessons)
+    @progress = Course.progress_for(current_user, @courses)
+
+    # Courses the learner has started but not finished, most recently used first.
+    last_used = current_user.course_progresses.joins(:course_lesson)
+                            .group("course_lessons.course_id").maximum(:updated_at)
+    @in_progress = @courses.select { |c| @progress[c.id][:done].positive? && @progress[c.id][:pct] < 100 }
+                           .sort_by { |c| last_used[c.id] || Time.at(0) }.reverse.first(3)
+
+    ai_done = current_user.lesson_progresses.where(status: [LessonProgress.statuses[:completed], LessonProgress.statuses[:skipped]]).count
+    @ai_progress = { done: ai_done, total: AI_COURSE_LESSONS, pct: (ai_done * 100.0 / AI_COURSE_LESSONS).round }
+
+    @stats = {
+      started: @progress.count { |_, p| p[:done].positive? },
+      lessons: @progress.sum { |_, p| p[:done] } + ai_done,
+      correct: current_user.exercise_attempts.where(correct: true).count,
+      finished: @progress.count { |_, p| p[:total].positive? && p[:pct] == 100 }
+    }
+
+    # Certificates: give any that are due (finished courses), then list them all.
+    # (only courses without a certificate yet are checked, so this stays a few queries however many courses are done)
+    have = current_user.certificates.pluck(:course_key).to_set
+    @courses.each do |c|
+      next if have.include?(c.slug)
+      p = @progress[c.id]
+      Certificate.award(current_user, c) if p[:total].positive? && p[:completed] == p[:total]
     end
-
-    # AI Academy static course progress
-    ai_done  = current_user.lesson_progresses.where(status: [ LessonProgress.statuses[:completed], LessonProgress.statuses[:skipped] ]).count
-    @ai_progress = { done: ai_done, total: 28, pct: (ai_done.to_f / 28 * 100).round }
-
-    @total_correct = current_user.exercise_attempts.where(correct: true).count
-    @total_attempts = current_user.exercise_attempts.count
+    Certificate.award_original(current_user, total: AI_COURSE_LESSONS) if ai_done >= AI_COURSE_LESSONS
+    @certificates = current_user.certificates.order(issued_at: :desc)
   end
 end

@@ -1,219 +1,92 @@
-<% content_for :title, "AI Academy — Build Your Future with AI Skills" %>
+<% content_for :title, "CoffeeBean AI — Learn AI, One Coffee Break at a Time" %>
 <% content_for :body_class, "page-scrollable" %>
 
-<%
-  hero_slides = [
-    { image: "home1.png", highlight: "AI Skills", accent: "#a3ff2f", caption: "Interactive AI learning built for ambitious beginners." },
-    { image: "home2.png", highlight: "Learning", accent: "#ffcc00", caption: "Step-by-step lessons that make technical ideas feel approachable." },
-    { image: "home3.png", highlight: "Career", accent: "#ff3b1f", caption: "Build practical momentum with skills employers actually value." },
-    { image: "home4.png", highlight: "Future", accent: "#42c8ff", caption: "Prepare for the next wave of AI, coding, and data careers." }
-  ]
-
-  category_pills = ["AI", "Python", "ML", "Data Science", "HTML", "Coding", "Gaming"]
-  hero_stats = [
-    { icon: "◔", value: "10K+", label: "Students" },
-    { icon: "▣", value: "500+", label: "Lessons" },
-    { icon: "</>", value: "100+", label: "Projects" }
-  ]
-  tutor_prompts = [
-    { accent: "violet", title: "Explain", subtitle: "Machine Learning" },
-    { accent: "green", title: "Help me with", subtitle: "Python code" },
-    { accent: "amber", title: "Suggest", subtitle: "a project idea" }
-  ]
-%>
-
-<style>
-  @media (max-width: 900px) {
-    .home-nav__pills,
-    .home-hero-floating-card,
-    .signup-card {
-      display: none !important;
-    }
-  }
-</style>
 
 <div class="home-page">
-  <header class="home-nav home-nav-hero">
-    <div class="home-nav__brand">
-      <%= link_to root_path, class: "home-nav__brand-link" do %>
-        <span class="home-nav__logo">✣</span>
-        <span>AI Academy</span>
-      <% end %>
-    </div>
+  <%= render "shared/navbar" %>
 
-    <nav class="home-nav__pills" aria-label="Popular categories">
-      <% category_pills.each_with_index do |pill, index| %>
-        <button type="button" class="category-pill <%= "active" if index.zero? %>"><%= pill %></button>
-      <% end %>
-    </nav>
-
-    <div class="home-nav__actions">
-      <%= link_to "Editor", editor_path, class: "home-link-button" %>
-      <%= link_to "Log in", new_user_session_path, class: "home-link-button" %>
-      <%= link_to "Sign up", new_user_registration_path, class: "home-solid-button" %>
-    </div>
-  </header>
-
-  <section class="home-hero" data-controller="home-hero-slider" data-home-hero-slider-interval-value="3000">
-    <div class="home-hero-shell hero-layout">
-      <aside class="hero-stats-sidebar">
-        <% hero_stats.each do |stat| %>
-          <div class="hero-stat-card">
-            <div class="hero-stat-icon"><%= stat[:icon] %></div>
-            <strong><%= stat[:value] %></strong>
-            <span><%= stat[:label] %></span>
-          </div>
-        <% end %>
-      </aside>
-
-      <div class="home-hero-stage hero-center-stage">
-        <div class="home-hero-slides hero-image-shell">
-          <% hero_slides.each_with_index do |slide, index| %>
-            <article class="home-hero-slide hero-slide <%= "is-active active" if index.zero? %>"
-                     data-home-hero-slider-target="slide"
-                     style="--slide-accent: <%= slide[:accent] %>;">
-              <div class="home-hero-image">
-                <%= image_tag slide[:image], alt: "AI Academy hero slide #{index + 1}", class: "home-hero-photo hero-slide-image" %>
-              </div>
-
-              <div class="home-hero-overlay hero-slide-overlay">
-                <div class="home-hero-copy hero-copy">
-                  <span class="home-hero-chip hero-copy-line">Develop your</span>
-                  <span class="home-hero-chip home-hero-chip-accent hero-copy-line accent">/ <%= slide[:highlight] %></span>
-                </div>
-                <p class="home-hero-caption"><%= slide[:caption] %></p>
-              </div>
-            </article>
-          <% end %>
-
-          <div class="home-hero-indicators hero-slide-dots" aria-hidden="true">
-            <% hero_slides.each_with_index do |_slide, index| %>
-              <span class="home-hero-indicator hero-slide-dot <%= "is-active active" if index.zero? %>" data-home-hero-slider-target="indicator"></span>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="home-hero-floating-card signup-card">
-          <div class="home-hero-floating-copy signup-card__copy">
-            <p class="home-hero-floating-kicker signup-card__eyebrow">AI Academy</p>
-            <h2>Grow your career and unlock new opportunities</h2>
-            <p>
-              Learn AI, Coding, Machine Learning, Python, Data Science, and future-ready skills
-              through interactive lessons and projects.
-            </p>
-          </div>
-
-          <div class="home-hero-floating-actions signup-card__actions">
-            <%= link_to "Start Learning — It's Free", new_user_registration_path, class: "home-hero-btn hero-cta hero-cta--primary" %>
-            <%= link_to "Explore Courses", "#courses", class: "home-hero-btn hero-cta hero-cta--secondary" %>
-          </div>
+  <%# ── Hero ─────────────────────────────────────────────── %>
+  <section class="h-hero">
+    <div class="wrap h-hero-grid h-hero-podcast">
+      <div>
+        <span class="h-badge"><b>New</b> AI courses for HR, software testers and managers</span>
+        <h1 class="h-title">Learn AI, one <span class="grad-text">coffee break</span> at a time</h1>
+        <p class="h-sub">Short, hands-on lessons in simple English. Learn to code, build with AI and use AI at work, from your first web page to your own AI agent.</p>
+        <div class="h-cta">
+          <%= link_to new_user_registration_path, class: "btn btn-primary btn-lg" do %>Get started <span aria-hidden="true">→</span><% end %>
+          <%= link_to "Explore courses", "#courses", class: "btn btn-ghost btn-lg" %>
         </div>
       </div>
 
-      <aside class="hero-tutor-widget">
-        <div class="hero-tutor-widget__orb">🤖</div>
-        <h3>AI Tutor</h3>
-        <div class="hero-tutor-widget__status">
-          <span class="status-dot"></span>
-          Online
-        </div>
-        <p>Ask me anything about AI or Coding</p>
-
-        <div class="hero-tutor-widget__prompts">
-          <% tutor_prompts.each do |prompt| %>
-            <button type="button" class="tutor-prompt <%= prompt[:accent] %>">
-              <strong><%= prompt[:title] %></strong>
-              <span><%= prompt[:subtitle] %></span>
-            </button>
-          <% end %>
-        </div>
-
-        <%= link_to "Ask Question", new_user_registration_path, class: "home-hero-btn hero-cta hero-cta--tutor" %>
-      </aside>
+      <%= render "home/podcast" %>
+      <%= render "home/infographics" %>
     </div>
   </section>
 
-  <section class="courses-section" id="courses">
-    <div class="section-inner">
-      <h2 class="section-title">Build skills that stand out</h2>
-      <p class="section-sub">Practical, project-based courses designed for beginners and professionals alike.</p>
+  <%# ── Courses ──────────────────────────────────────────── %>
+  <%# ── Two live lesson activities, before the courses ──── %>
+  <%= render "home/activities" %>
 
-      <div class="courses-grid">
+  <%# ── For professionals: job areas, then AI at work in a real job ── %>
+  <%= render "home/professions", courses: @courses %>
+  <%= render "home/role_demo", courses: @courses %>
+
+  <section class="h-section h-section-alt" id="courses">
+    <div class="wrap" data-controller="course-filter" data-course-filter-default-value="featured">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">Courses</span>
+          <h2>Build skills that stand out</h2>
+          <p>Pick a topic, or search for what you want to learn.</p>
+        </div>
+      </div>
+      <%= render "shared/course_filter", categories: @categories, total: @courses.size, featured: true %>
+      <div class="c-grid">
+        <%= render "shared/original_course_card", hidden: true %>
         <% @courses.each do |course| %>
-          <div class="course-card-home" style="--course-color: <%= course.color %>">
-            <div class="course-card-icon"><%= course.icon %></div>
-            <div class="course-card-body">
-              <h3 class="course-card-title"><%= course.title %></h3>
-              <p class="course-card-desc"><%= truncate(course.description, length: 80) %></p>
-              <div class="course-card-meta">
-                <span><%= course.course_lessons.count %> lessons</span>
-              </div>
-            </div>
-            <%= link_to user_signed_in? ? course_path(course) : new_user_registration_path,
-                  class: "course-card-link" do %>
-              Start Learning →
-            <% end %>
-          </div>
+          <%= render "shared/course_card", course: course, lessons: course.course_lessons.size, hidden: !course.featured? %>
         <% end %>
+      </div>
+    </div>
+  </section>
 
-        <div class="course-card-home course-card-featured" style="--course-color: #9d5cf6">
-          <div class="course-card-icon">🎓</div>
-          <div class="course-card-body">
-            <h3 class="course-card-title">AI Academy <span class="featured-pill">Featured</span></h3>
-            <p class="course-card-desc">28-lesson deep dive with visual learning images — our original flagship AI course.</p>
-            <div class="course-card-meta">
-              <span>28 lessons</span>
-              <span class="meta-dot">·</span>
-              <span>With visuals</span>
-            </div>
+  <%# ── Learning path and bento grid (they replaced "How it works" and "Why CoffeeBean AI") ── %>
+  <%= render "home/bento", courses: @courses %>
+  <%= render "home/path" %>
+  <%= render "home/stories" %>
+
+  <%# ── Blog ─────────────────────────────────────────────── %>
+  <% if @blog_posts.any? %>
+    <section class="h-section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">From the blog</span>
+            <h2>Step-by-step guides</h2>
           </div>
-          <%= link_to user_signed_in? ? lesson_path(1) : new_user_registration_path,
-                class: "course-card-link" do %>
-            Start Learning →
-          <% end %>
+          <%= link_to "View all posts →", blogs_path, class: "dash-section-link" %>
+        </div>
+        <div class="blog-grid">
+          <%= render partial: "blogs/card", collection: @blog_posts, as: :post %>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
+  <%# ── Call to action ───────────────────────────────────── %>
+  <section class="h-section" style="padding-top: 8px">
+    <div class="wrap">
+      <div class="h-cta-band">
+        <h2>Ready to start learning?</h2>
+        <p>Choose a plan and start your first lesson in the next five minutes.</p>
+        <div class="h-cta">
+          <%= link_to "See plans", pricing_path, class: "btn btn-primary btn-lg" %>
+          <%= link_to "Log in", new_user_session_path, class: "btn btn-ghost btn-lg" %>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="features-section">
-    <div class="section-inner">
-      <h2 class="section-title">Why AI Academy?</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <h3>Beginner Friendly</h3>
-          <p>No experience needed. Every lesson starts from scratch with clear explanations and examples.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">⚡</div>
-          <h3>Instant Feedback</h3>
-          <p>Check your answers immediately and learn from your mistakes with clear explanations.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔒</div>
-          <h3>Structured Learning</h3>
-          <p>Lessons unlock progressively so you always build on a solid foundation.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📈</div>
-          <h3>Track Progress</h3>
-          <p>See your completion percentage, scores, and progress across every course.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="cta-section">
-    <div class="section-inner cta-inner">
-      <h2>Ready to start your AI journey?</h2>
-      <p>Join thousands of learners building the skills of tomorrow — completely free.</p>
-      <div class="cta-buttons">
-        <%= link_to "Create Free Account", new_user_registration_path, class: "btn-primary" %>
-        <%= link_to "Sign In", new_user_session_path, class: "btn-outline" %>
-      </div>
-    </div>
-  </section>
-
+  <%= render "home/ask_robot" %>
   <%= render "shared/footer" %>
 </div>

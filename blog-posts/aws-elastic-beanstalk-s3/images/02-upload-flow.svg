@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="930" viewBox="0 0 1200 930" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"/>
+    </marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#16a34a"/>
+    </marker>
+  </defs>
+  <style>text{paint-order:stroke;stroke:#ffffff;stroke-width:6px;stroke-linejoin:round}</style>
+  <rect width="1200" height="930" fill="#ffffff"/>
+  <text x="600" y="44" text-anchor="middle" font-size="28" font-weight="700" fill="#1f2937">Upload and view: who talks to whom</text>
+
+  <!-- Lifeline heads -->
+  <rect x="60" y="70" width="180" height="60" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="150" y="108" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Browser</text>
+  <rect x="340" y="70" width="180" height="60" rx="12" fill="#f3f4f6" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="430" y="108" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">nginx</text>
+  <rect x="620" y="70" width="180" height="60" rx="12" fill="#fff7ed" stroke="#ff9900" stroke-width="2.5"/>
+  <text x="710" y="108" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Flask app</text>
+  <rect x="930" y="70" width="200" height="60" rx="12" fill="#ecfdf5" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="1030" y="108" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Amazon S3</text>
+
+  <!-- Lifelines -->
+  <g stroke="#d1d5db" stroke-width="2.5" stroke-dasharray="8 8">
+    <line x1="150" y1="130" x2="150" y2="875"/>
+    <line x1="430" y1="130" x2="430" y2="875"/>
+    <line x1="710" y1="130" x2="710" y2="875"/>
+    <line x1="1030" y1="130" x2="1030" y2="875"/>
+  </g>
+
+  <!-- Section label: upload -->
+  <text x="20" y="168" font-size="20" font-weight="700" fill="#ff9900">UPLOAD</text>
+
+  <!-- 1 -->
+  <text x="290" y="196" text-anchor="middle" font-size="20" fill="#1f2937">POST /upload (the photo)</text>
+  <line x1="150" y1="210" x2="426" y2="210" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <!-- 2 -->
+  <text x="570" y="248" text-anchor="middle" font-size="20" fill="#1f2937">forwards it</text>
+  <line x1="430" y1="262" x2="706" y2="262" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <!-- 3 self check -->
+  <rect x="722" y="286" width="286" height="62" rx="10" fill="#fef3c7" stroke="#ff9900" stroke-width="2"/>
+  <text x="865" y="312" text-anchor="middle" font-size="20" fill="#1f2937">check type (JPEG/PNG/WebP)</text>
+  <text x="865" y="337" text-anchor="middle" font-size="20" fill="#1f2937">and size (max 5 MB)</text>
+  <!-- 4 -->
+  <text x="870" y="384" text-anchor="middle" font-size="20" fill="#1f2937">upload_fileobj</text>
+  <line x1="710" y1="398" x2="1026" y2="398" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <text x="870" y="424" text-anchor="middle" font-size="18" fill="#6b7280" font-family="Menlo, Consolas, monospace">photos/&lt;uuid&gt;.jpg</text>
+  <!-- 5 -->
+  <text x="870" y="458" text-anchor="middle" font-size="20" fill="#6b7280">200 OK</text>
+  <line x1="1030" y1="470" x2="714" y2="470" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#a)"/>
+  <!-- 6 -->
+  <text x="430" y="508" text-anchor="middle" font-size="20" fill="#6b7280">302 redirect to /?uploaded=1</text>
+  <line x1="710" y1="522" x2="154" y2="522" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#a)"/>
+
+  <!-- Section label: view -->
+  <line x1="20" y1="556" x2="1180" y2="556" stroke="#e5e7eb" stroke-width="2"/>
+  <text x="20" y="586" font-size="20" font-weight="700" fill="#16a34a">VIEW</text>
+
+  <!-- 7 -->
+  <text x="430" y="614" text-anchor="middle" font-size="20" fill="#1f2937">GET / (through nginx)</text>
+  <line x1="150" y1="628" x2="706" y2="628" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <!-- 8 -->
+  <text x="870" y="664" text-anchor="middle" font-size="20" fill="#1f2937">list_objects_v2 (photos/)</text>
+  <line x1="710" y1="678" x2="1026" y2="678" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <!-- 9 self sign -->
+  <rect x="722" y="700" width="286" height="62" rx="10" fill="#fef3c7" stroke="#ff9900" stroke-width="2"/>
+  <text x="865" y="726" text-anchor="middle" font-size="20" fill="#1f2937">sign a link for each photo</text>
+  <text x="865" y="751" text-anchor="middle" font-size="20" fill="#6b7280">(no network call)</text>
+  <!-- 10 -->
+  <text x="430" y="790" text-anchor="middle" font-size="20" fill="#6b7280">HTML with &lt;img src="presigned URL"&gt;</text>
+  <line x1="710" y1="804" x2="154" y2="804" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="8 6" marker-end="url(#a)"/>
+  <!-- 11 -->
+  <text x="590" y="846" text-anchor="middle" font-size="20" font-weight="700" fill="#16a34a">GET photo with the presigned URL (straight to S3)</text>
+  <line x1="150" y1="860" x2="1026" y2="860" stroke="#16a34a" stroke-width="3" marker-end="url(#g)"/>
+  <text x="590" y="892" text-anchor="middle" font-size="20" fill="#6b7280">S3 checks the signature and the expiry time, then sends the photo</text>
+</svg>

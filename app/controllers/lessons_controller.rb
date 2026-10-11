@@ -1,6 +1,9 @@
+require_relative "../../lib/beginner_ai_python_content"
+
 class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_lesson
+  before_action :require_plan, only: %i[show complete skip], unless: -> { @lesson[:id] == 1 }
   before_action :ensure_accessible, only: %i[show]
 
   # ── Static course data ───────────────────────────────────────────
@@ -9,7 +12,7 @@ class LessonsController < ApplicationController
     { id: 2, name: "Python Basics" },
     { id: 3, name: "Data Handling" },
     { id: 4, name: "Machine Learning" },
-    { id: 5, name: "AI Project" }
+    { id: 5, name: "AI Chatbot with OpenAI" }
   ].freeze
 
   LESSONS = [
@@ -245,7 +248,7 @@ class LessonsController < ApplicationController
       question: "After training and testing a model, it must be deployed to be used by real users in production.",
       correct_answer: "True",
       options: [ "True", "False" ] }
-  ].freeze
+  ].map { |l| l.merge(BeginnerAiPythonContent.meta_for(l[:id])) }.freeze   # title and quiz from each lesson's image
 
   # ── Actions ──────────────────────────────────────────────────────
 
@@ -263,7 +266,7 @@ class LessonsController < ApplicationController
     if @next_lesson
       redirect_to lesson_path(@next_lesson[:id]), notice: "Lesson complete! Keep going 🎉"
     else
-      redirect_to lesson_path(@lesson[:id]), notice: "🎓 You've completed the entire course!"
+      redirect_to lesson_path(@lesson[:id]), notice: "🎓 You've completed the entire course! Your certificate is in the sidebar."
     end
   end
 
@@ -304,8 +307,9 @@ class LessonsController < ApplicationController
     return true if lesson[:id] == 1
     prev_lesson = LESSONS.find { |l| l[:id] == lesson[:id] - 1 }
     return true unless prev_lesson
-    prog = current_user.progress_for(prev_lesson[:id])
-    prog&.done?
+    # All of the learner's progress is loaded once per request (the sidebar checks every lesson)
+    @progress_by_lesson ||= current_user.lesson_progresses.index_by(&:lesson_id)
+    @progress_by_lesson[prev_lesson[:id]]&.done?
   end
 
   def build_view_data
@@ -316,10 +320,12 @@ class LessonsController < ApplicationController
       completed = lessons.count { |l| all_progresses[l[:id]]&.done? }
       lessons_with_status = lessons.map do |l|
         prog  = all_progresses[l[:id]]
-        locked = !accessible?(l)
+        pro    = !full_access? && l[:id] > 1
+        locked = pro || !accessible?(l)
         l.merge(
           progress_status: prog&.status || "not_started",
-          locked: locked
+          locked: locked,
+          pro: pro
         )
       end
       mod.merge(lessons: lessons_with_status, completed: completed)
@@ -327,6 +333,7 @@ class LessonsController < ApplicationController
 
     total_done = all_progresses.values.count(&:done?)
     @progress_pct = (total_done.to_f / LESSONS.size * 100).round
+    @certificate = Certificate.award_original(current_user, total: LESSONS.size)
 
     @current_progress = all_progresses[@lesson[:id]]
   end

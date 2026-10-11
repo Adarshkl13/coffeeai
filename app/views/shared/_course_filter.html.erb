@@ -1,0 +1,31 @@
+<%#
+  Category tabs + search above a course grid. Locals: categories (names, in order), total.
+  The grid below must be inside the same data-controller="course-filter" element.
+%>
+<div class="c-filter">
+  <div class="c-tabs" role="tablist" aria-label="Course categories">
+    <% if local_assigns[:featured] %>
+      <button type="button" class="c-tab is-active" role="tab" aria-selected="true"
+              data-course-filter-target="tab" data-category="featured" data-action="course-filter#pick">
+        Featured
+      </button>
+    <% else %>
+      <button type="button" class="c-tab is-active" role="tab" aria-selected="true"
+              data-course-filter-target="tab" data-category="all" data-action="course-filter#pick">
+        All
+      </button>
+    <% end %>
+    <% categories.each do |cat, _count| %>
+      <button type="button" class="c-tab" role="tab" aria-selected="false"
+              data-course-filter-target="tab" data-category="<%= cat %>" data-action="course-filter#pick">
+        <%= cat %>
+      </button>
+    <% end %>
+  </div>
+  <label class="c-search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+    <input type="search" placeholder="Search courses" aria-label="Search courses"
+           data-course-filter-target="search" data-action="input->course-filter#filter">
+  </label>
+</div>
+<p class="c-empty" data-course-filter-target="empty" hidden>No courses match your search. Try another word.</p>

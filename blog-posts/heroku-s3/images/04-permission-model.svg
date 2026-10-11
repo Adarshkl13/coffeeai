@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker>
+  </defs>
+  <rect width="1200" height="680" fill="#ffffff"/>
+  <text x="600" y="48" text-anchor="middle" font-size="28" font-weight="700" fill="#1f2937">Permissions: access keys with a small policy</text>
+
+  <!-- A: config vars -->
+  <rect x="40" y="95" width="320" height="180" rx="14" fill="#f3f2fb" stroke="#6762a6" stroke-width="2"/>
+  <text x="200" y="135" text-anchor="middle" font-size="22" font-weight="700" fill="#6762a6">Heroku config vars</text>
+  <text x="200" y="180" text-anchor="middle" font-size="20" fill="#1f2937" font-family="Menlo, Consolas, monospace">AWS_ACCESS_KEY_ID</text>
+  <text x="200" y="212" text-anchor="middle" font-size="20" fill="#1f2937" font-family="Menlo, Consolas, monospace">AWS_SECRET_ACCESS_KEY</text>
+  <text x="200" y="250" text-anchor="middle" font-size="20" fill="#6b7280">read by boto3</text>
+
+  <!-- B: IAM user -->
+  <rect x="450" y="95" width="310" height="180" rx="14" fill="#fff7ea" stroke="#ff9900" stroke-width="2"/>
+  <text x="605" y="135" text-anchor="middle" font-size="22" font-weight="700" fill="#b45309">IAM user</text>
+  <text x="605" y="175" text-anchor="middle" font-size="22" fill="#1f2937">photobook-app</text>
+  <text x="605" y="215" text-anchor="middle" font-size="20" fill="#6b7280">policy:</text>
+  <text x="605" y="245" text-anchor="middle" font-size="20" fill="#6b7280">PhotoBookS3Access</text>
+
+  <!-- C: bucket -->
+  <rect x="850" y="95" width="310" height="180" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="1005" y="135" text-anchor="middle" font-size="22" font-weight="700" fill="#15803d">S3 bucket (private)</text>
+  <text x="1005" y="178" text-anchor="middle" font-size="20" fill="#1f2937">photobook-uploads-</text>
+  <text x="1005" y="206" text-anchor="middle" font-size="20" fill="#1f2937">yourname</text>
+  <text x="1005" y="248" text-anchor="middle" font-size="20" fill="#6b7280">Block Public Access: on</text>
+
+  <line x1="362" y1="185" x2="446" y2="185" stroke="#374151" stroke-width="3" marker-end="url(#grey)"/>
+  <text x="404" y="162" text-anchor="middle" font-size="20" fill="#374151">keys</text>
+  <line x1="762" y1="185" x2="846" y2="185" stroke="#374151" stroke-width="3" marker-end="url(#grey)"/>
+  <text x="804" y="162" text-anchor="middle" font-size="20" fill="#374151">policy</text>
+
+  <!-- allowed -->
+  <rect x="40" y="320" width="550" height="270" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="65" y="362" font-size="22" font-weight="700" fill="#15803d">Allowed (only this bucket)</text>
+  <g font-size="20" fill="#1f2937" font-family="Menlo, Consolas, monospace">
+    <text x="65" y="412"><tspan fill="#16a34a" font-weight="700">✓</tspan> s3:PutObject    photos/*</text>
+    <text x="65" y="452"><tspan fill="#16a34a" font-weight="700">✓</tspan> s3:GetObject    photos/*</text>
+    <text x="65" y="492"><tspan fill="#16a34a" font-weight="700">✓</tspan> s3:DeleteObject photos/*</text>
+    <text x="65" y="532"><tspan fill="#16a34a" font-weight="700">✓</tspan> s3:ListBucket   prefix photos/</text>
+  </g>
+  <text x="65" y="572" font-size="20" fill="#6b7280">Presigned URLs use these same permissions.</text>
+
+  <!-- denied -->
+  <rect x="610" y="320" width="550" height="270" rx="14" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+  <text x="635" y="362" font-size="22" font-weight="700" fill="#b91c1c">Not allowed (denied by default)</text>
+  <g font-size="21" fill="#1f2937">
+    <text x="635" y="412"><tspan fill="#dc2626" font-weight="700">✗</tspan>  Any other bucket</text>
+    <text x="635" y="452"><tspan fill="#dc2626" font-weight="700">✗</tspan>  Change or delete the bucket</text>
+    <text x="635" y="492"><tspan fill="#dc2626" font-weight="700">✗</tspan>  IAM, EC2, billing, other services</text>
+    <text x="635" y="532"><tspan fill="#dc2626" font-weight="700">✗</tspan>  Sign in to the AWS console</text>
+  </g>
+
+  <text x="600" y="640" text-anchor="middle" font-size="22" fill="#6b7280">Heroku apps cannot use IAM roles, so the app uses an IAM user with small permissions.</text>
+</svg>

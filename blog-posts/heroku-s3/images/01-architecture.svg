@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="780" viewBox="0 0 1200 780" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
+    <marker id="orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
+    <marker id="green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker>
+    <marker id="purple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6762a6"/></marker>
+  </defs>
+  <rect width="1200" height="780" fill="#ffffff"/>
+  <text x="600" y="50" text-anchor="middle" font-size="28" font-weight="700" fill="#1f2937">PhotoBook: Flask on Heroku, photos in Amazon S3</text>
+
+  <!-- Browser -->
+  <rect x="40" y="250" width="240" height="150" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="160" y="310" text-anchor="middle" font-size="24" font-weight="700" fill="#1f2937">Browser</text>
+  <text x="160" y="345" text-anchor="middle" font-size="20" fill="#6b7280">HTML + JavaScript</text>
+
+  <!-- Heroku -->
+  <rect x="600" y="90" width="560" height="215" rx="18" fill="#f3f2fb" stroke="#6762a6" stroke-width="2"/>
+  <text x="624" y="126" font-size="22" font-weight="700" fill="#6762a6">Heroku app (region: eu)</text>
+  <rect x="625" y="145" width="250" height="140" rx="12" fill="#ffffff" stroke="#6762a6" stroke-width="1.5"/>
+  <text x="750" y="205" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">web dyno</text>
+  <text x="750" y="238" text-anchor="middle" font-size="20" fill="#6b7280">Flask + gunicorn</text>
+  <rect x="890" y="145" width="250" height="140" rx="12" fill="#ffffff" stroke="#6762a6" stroke-width="1.5"/>
+  <text x="1015" y="180" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Config vars</text>
+  <text x="1015" y="210" text-anchor="middle" font-size="20" fill="#6b7280">S3_BUCKET</text>
+  <text x="1015" y="238" text-anchor="middle" font-size="20" fill="#6b7280">AWS_REGION</text>
+  <text x="1015" y="266" text-anchor="middle" font-size="20" fill="#6b7280">AWS access keys</text>
+
+  <!-- AWS -->
+  <rect x="600" y="350" width="560" height="230" rx="18" fill="#fff7ea" stroke="#ff9900" stroke-width="2"/>
+  <text x="705" y="386" font-size="22" font-weight="700" fill="#b45309">AWS (region: eu-west-1)</text>
+  <rect x="625" y="405" width="300" height="150" rx="12" fill="#ffffff" stroke="#ff9900" stroke-width="1.5"/>
+  <text x="775" y="450" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">S3 bucket (private)</text>
+  <text x="775" y="483" text-anchor="middle" font-size="20" fill="#6b7280">photobook-uploads-</text>
+  <text x="775" y="510" text-anchor="middle" font-size="20" fill="#6b7280">yourname</text>
+  <text x="775" y="537" text-anchor="middle" font-size="20" fill="#6b7280" font-family="Menlo, Consolas, monospace">photos/&lt;uuid&gt;.jpg</text>
+  <rect x="945" y="405" width="195" height="150" rx="12" fill="#ffffff" stroke="#ff9900" stroke-width="1.5"/>
+  <text x="1042" y="455" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">IAM user</text>
+  <text x="1042" y="488" text-anchor="middle" font-size="20" fill="#6b7280">photobook-app</text>
+  <text x="1042" y="518" text-anchor="middle" font-size="20" fill="#6b7280">small policy</text>
+
+  <!-- keys link -->
+  <line x1="1042" y1="287" x2="1042" y2="400" stroke="#6762a6" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="1054" y="335" font-size="20" fill="#6762a6">keys of</text>
+
+  <!-- arrows -->
+  <line x1="282" y1="300" x2="620" y2="212" stroke="#2563eb" stroke-width="3" marker-end="url(#blue)"/>
+  <line x1="680" y1="287" x2="680" y2="400" stroke="#6762a6" stroke-width="3" marker-end="url(#purple)"/>
+  <line x1="282" y1="345" x2="620" y2="452" stroke="#d97706" stroke-width="3" marker-end="url(#orange)"/>
+  <line x1="620" y1="505" x2="286" y2="385" stroke="#16a34a" stroke-width="3" stroke-dasharray="9 6" marker-end="url(#green)"/>
+
+  <!-- badges -->
+  <g font-size="20" font-weight="700" text-anchor="middle" fill="#ffffff">
+    <circle cx="451" cy="256" r="17" fill="#2563eb"/><text x="451" y="263">1</text>
+    <circle cx="680" cy="330" r="17" fill="#6762a6"/><text x="680" y="337">2</text>
+    <circle cx="440" cy="395" r="17" fill="#d97706"/><text x="440" y="402">3</text>
+    <circle cx="470" cy="452" r="17" fill="#16a34a"/><text x="470" y="459">4</text>
+  </g>
+
+  <!-- legend -->
+  <g font-size="22" fill="#1f2937">
+    <circle cx="60" cy="637" r="15" fill="#2563eb"/><text x="60" y="644" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">1</text>
+    <text x="90" y="644">The browser loads the page and asks Flask for an upload link.</text>
+    <circle cx="60" cy="677" r="15" fill="#6762a6"/><text x="60" y="684" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">2</text>
+    <text x="90" y="684">Flask uses the IAM user's keys to sign links and list the photos.</text>
+    <circle cx="60" cy="717" r="15" fill="#d97706"/><text x="60" y="724" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">3</text>
+    <text x="90" y="724">The browser uploads the photo straight to S3 (HTTP PUT).</text>
+    <circle cx="60" cy="757" r="15" fill="#16a34a"/><text x="60" y="764" text-anchor="middle" fill="#fff" font-size="18" font-weight="700">4</text>
+    <text x="90" y="764">The browser shows each photo with a temporary GET link.</text>
+  </g>
+</svg>

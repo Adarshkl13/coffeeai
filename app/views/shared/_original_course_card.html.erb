@@ -1,0 +1,40 @@
+<%# Course card for the original "Beginner AI with Python" course (LessonsController::LESSONS), which is not a
+    Course record. Matches shared/_course_card. Optional local: hidden. %>
+<%
+  total = LessonsController::LESSONS.size
+  if user_signed_in?
+    done_ids = current_user.lesson_progresses.where(status: [LessonProgress.statuses[:completed], LessonProgress.statuses[:skipped]]).pluck(:lesson_id)
+    pct = (done_ids.size * 100.0 / total).round
+    next_id = (LessonsController::LESSONS.map { |l| l[:id] } - done_ids).first || 1
+    label = done_ids.empty? ? "Start" : (pct == 100 ? "Review" : "Continue")
+  end
+  title = "Beginner AI with Python"
+  desc = "Start here: what AI is, Python basics, data, machine learning, and building your own AI chatbot with the OpenAI API."
+%>
+<article class="c-card" style="--c: #7c3aed"
+         data-course-filter-target="card" data-category="AI & Data" data-featured="false"<%= " hidden" if local_assigns[:hidden] %>
+         data-search="<%= [title, "ai basics beginner", "AI & Data", desc].join(' ').downcase %>">
+  <div class="c-card-top">
+    <div class="c-card-icon" aria-hidden="true">🎓</div>
+    <div class="c-card-heading">
+      <span class="c-card-cat">AI &amp; Data</span>
+      <h3 class="c-card-title"><%= link_to title, user_signed_in? ? lesson_path(next_id) : new_user_registration_path %></h3>
+    </div>
+  </div>
+  <p class="c-card-desc"><%= desc %></p>
+  <div class="c-card-meta">
+    <% if user_signed_in? %>
+      <span class="c-card-pct"><%= pct %>%</span>
+    <% else %>
+      <span>Beginner friendly</span>
+    <% end %>
+  </div>
+  <% if user_signed_in? %>
+    <div class="c-card-bar" role="progressbar" aria-valuenow="<%= pct %>" aria-valuemin="0" aria-valuemax="100" aria-label="<%= title %> progress">
+      <span style="width: <%= pct %>%"></span>
+    </div>
+  <% end %>
+  <div class="c-card-actions">
+    <%= link_to (user_signed_in? ? lesson_path(next_id) : new_user_registration_path), class: "btn btn-course btn-sm" do %><%= user_signed_in? ? label : "Start" %> <span aria-hidden="true">→</span><% end %>
+  </div>
+</article>

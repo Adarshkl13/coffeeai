@@ -1,5 +1,22 @@
 import { Controller } from "@hotwired/stimulus"
 
+// Your work is saved in this browser (localStorage) as you type, so a refresh keeps it.
+// Reset goes back to the starter page and clears the saved copy.
+const DRAFT_KEY = "ai-academy-editor-draft"
+
+// The preview is an iframe built from the code (srcdoc), so a link like href="#about" would load
+// the editor page inside the preview. This makes "#section" links scroll inside the preview instead,
+// the same way they work on the published page.
+const PREVIEW_LINKS = `document.addEventListener("click", function (e) {
+  var a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a) return;
+  e.preventDefault();
+  var id = decodeURIComponent(a.getAttribute("href").slice(1));
+  var el = id ? document.getElementById(id) : null;
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  else if (!id) window.scrollTo({ top: 0, behavior: "smooth" });
+});`
+
 export default class extends Controller {
   static targets = [
     "html",
@@ -18,8 +35,62 @@ export default class extends Controller {
   ]
 
   connect() {
+    // Remember when the learner has placed the cursor in the HTML box (used by insertImage).
+    this.markCaret = () => { this.htmlCaretSet = true }
+    this.htmlTarget.addEventListener("mouseup", this.markCaret)
+    this.htmlTarget.addEventListener("keyup", this.markCaret)
     this.slugWasEdited = false
+    this.restoreDraft()
     this.run()
+  }
+
+  restoreDraft() {
+    let draft
+    try { draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null") } catch { draft = null }
+    if (!draft) return
+    // An untouched copy of the old shopping-cart starter is not real work: show the new starter instead.
+    if (typeof draft.js === "string" && draft.js.includes("cartCount") && typeof draft.html === "string" && draft.html.includes('id="cartCount"')) {
+      this.clearDraft()
+      return
+    }
+    if (typeof draft.html === "string") this.htmlTarget.value = draft.html
+    if (typeof draft.css === "string") this.cssTarget.value = draft.css
+    if (typeof draft.js === "string") this.jsTarget.value = draft.js
+    if (draft.title) this.pageTitleTarget.value = draft.title
+    if (draft.slug) this.pageSlugTarget.value = draft.slug
+    if (draft.slugEdited) this.slugWasEdited = true
+    if (draft.publishedId) this.publishedIdTarget.value = draft.publishedId
+    if (draft.publicUrl) this.showPublicLink(draft.publicUrl)
+    this.statusTarget.textContent = "Your saved work was restored."
+  }
+
+  saveDraft() {
+    // Only keep a saved copy when the code differs from the starter, so starter updates always show.
+    if (this.isStarter()) { this.clearDraft(); return }
+    const draft = {
+      html: this.htmlTarget.value,
+      css: this.cssTarget.value,
+      js: this.jsTarget.value,
+      title: this.pageTitleTarget.value,
+      slug: this.pageSlugTarget.value,
+      slugEdited: this.slugWasEdited,
+      publishedId: this.publishedIdTarget.value,
+      publicUrl: this.publicUrl || null
+    }
+    try { localStorage.setItem(DRAFT_KEY, JSON.stringify(draft)) } catch {}
+  }
+
+  isStarter() {
+    return this.htmlTarget.value === (this.htmlTarget.dataset.defaultValue || "") &&
+      this.cssTarget.value === (this.cssTarget.dataset.defaultValue || "") &&
+      this.jsTarget.value === (this.jsTarget.dataset.defaultValue || "") &&
+      this.pageTitleTarget.value === this.pageTitleTarget.defaultValue &&
+      this.pageSlugTarget.value === this.pageSlugTarget.defaultValue &&
+      !this.publishedIdTarget.value
+  }
+
+  clearDraft() {
+    try { localStorage.removeItem(DRAFT_KEY) } catch {}
   }
 
   run() {
@@ -36,6 +107,7 @@ export default class extends Controller {
   </head>
   <body>
     ${html}
+    <script>${PREVIEW_LINKS}<\/script>
     <script>${js.replace(/<\/script/gi, "<\\/script")}<\/script>
   </body>
 </html>`
@@ -44,6 +116,7 @@ export default class extends Controller {
   queueRun() {
     clearTimeout(this.runTimer)
     this.runTimer = setTimeout(() => this.run(), 450)
+    this.saveDraft()
   }
 
   reset() {
@@ -52,17 +125,20 @@ export default class extends Controller {
     this.jsTarget.value = this.jsTarget.dataset.defaultValue || ""
     this.statusTarget.textContent = ""
     this.uploadInputTarget.value = ""
+    this.clearDraft()
+    this.saveDraft()
     this.run()
   }
 
   syncSlug() {
-    if (this.slugWasEdited) return
-    this.pageSlugTarget.value = this.slugify(this.pageTitleTarget.value || "my-first-ai-project")
+    if (!this.slugWasEdited) this.pageSlugTarget.value = this.slugify(this.pageTitleTarget.value || "my-ice-cream-shop")
+    this.saveDraft()
   }
 
   markSlugEdited() {
     this.slugWasEdited = true
     this.pageSlugTarget.value = this.slugify(this.pageSlugTarget.value)
+    this.saveDraft()
   }
 
   async publish() {
@@ -129,12 +205,18 @@ export default class extends Controller {
     const visibility = data.is_public ? "Public" : "Private"
     this.publishStatusTarget.textContent = `${data.message}. ${visibility} link is ready.`
     this.publishStatusTarget.classList.remove("is-error")
+    this.showPublicLink(data.public_url)
+    this.saveDraft()
+  }
+
+  showPublicLink(url) {
+    this.publicUrl = url
     this.publicLinkTarget.hidden = false
     this.publicLinkTarget.innerHTML = `
-      <a href="${this.escapeAttribute(data.public_url)}" target="_blank" rel="noopener">${this.escapeHtml(data.public_url)}</a>
+      <a href="${this.escapeAttribute(url)}" target="_blank" rel="noopener">${this.escapeHtml(url)}</a>
       <button type="button"
               data-action="editor#copyPublicLink"
-              data-url="${this.escapeAttribute(data.public_url)}">Copy public link</button>
+              data-url="${this.escapeAttribute(url)}">Copy public link</button>
     `
   }
 
@@ -187,21 +269,29 @@ export default class extends Controller {
     }
   }
 
+  // Inserts an uploaded image where the learner last clicked or typed in the HTML box. If they have not
+  // placed the cursor there yet, it goes just after the first heading (not above the whole page).
   insertImage(event) {
     const url = event.currentTarget.dataset.url
     if (!url) return
 
-    const tag = `<img src="${url}" alt="Uploaded image">`
+    const tag = `\n<img src="${url}" alt="My image" style="max-width: 100%; height: auto;">\n`
     const textarea = this.htmlTarget
-    const start = textarea.selectionStart
-    const end = textarea.selectionEnd
+    let start = textarea.selectionStart
+    let end = textarea.selectionEnd
+    if (!this.htmlCaretSet) {
+      const h1 = textarea.value.search(/<\/h1>/i)
+      start = end = h1 >= 0 ? h1 + "</h1>".length : textarea.value.length
+    }
     const before = textarea.value.slice(0, start)
     const after = textarea.value.slice(end)
 
     textarea.value = `${before}${tag}${after}`
     textarea.focus()
     textarea.selectionStart = textarea.selectionEnd = start + tag.length
+    this.htmlCaretSet = true
     this.run()
+    this.saveDraft()
   }
 
   async deleteImage(event) {
@@ -272,7 +362,7 @@ export default class extends Controller {
       .trim()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "")
-      .replace(/-{2,}/g, "-") || "my-first-ai-project"
+      .replace(/-{2,}/g, "-") || "my-ice-cream-shop"
   }
 
   get csrfToken() {

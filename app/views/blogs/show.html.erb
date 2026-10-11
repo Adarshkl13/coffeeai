@@ -1,0 +1,36 @@
+<% content_for :title, "#{@post.title} — CoffeeBean AI Blog" %>
+<% content_for :body_class, "page-scrollable" %>
+
+<div class="dash-page">
+  <%= render "shared/navbar" %>
+
+  <div class="dash-body">
+    <article class="blog-article" style="--c: <%= @post.color %>">
+      <nav class="blog-crumbs">
+        <%= link_to "Dashboard", user_signed_in? ? dashboard_path : root_path %> › <%= link_to "Blog", blogs_path %> › <span><%= @post.tag %></span>
+      </nav>
+
+      <header class="blog-article-head">
+        <span class="blog-tag"><%= @post.icon %> <%= @post.tag %></span>
+        <h1 class="blog-article-title"><%= @post.title %></h1>
+        <p class="blog-article-sub"><%= @post.subtitle %></p>
+        <p class="blog-article-meta"><%= @post.published_on.strftime("%-d %B %Y") %> · <%= @post.reading_minutes %> min read</p>
+      </header>
+
+      <div class="blog-prose">
+        <%= raw @post.body_html %>
+      </div>
+    </article>
+
+    <% if @other_posts.any? %>
+      <section class="blog-more">
+        <h2 class="dash-section-title">More from the blog</h2>
+        <div class="blog-grid">
+          <%= render partial: "blogs/card", collection: @other_posts, as: :post %>
+        </div>
+      </section>
+    <% end %>
+  </div>
+
+  <%= render "shared/footer" %>
+</div>

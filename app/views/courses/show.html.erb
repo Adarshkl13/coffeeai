@@ -1,35 +1,44 @@
-<% content_for :title, "#{@course.title} — AI Academy" %>
+<% content_for :title, "#{@course.title} — CoffeeBean AI" %>
 <% content_for :body_class, "page-scrollable" %>
 <%
-  course_category =
-    if @course.respond_to?(:category) && @course.category.present?
-      @course.category
-    elsif %w[git github].include?(@course.slug)
-      "Developer Tools"
-    elsif %w[sql mysql postgresql].include?(@course.slug)
-      "Database"
-    elsif %w[python django ruby php java practical-ai nodejs].include?(@course.slug)
-      "Backend"
-    elsif %w[html-css javascript react typescript bootstrap].include?(@course.slug)
-      "Frontend"
-    elsif %w[machine-learning artificial-intelligence data-science pandas numpy deep-learning].include?(@course.slug)
-      "AI & Data"
-    else
-      "Course"
-    end
+  course_category = @course.category_name
   lesson_sections =
-    if @course.slug == "deep-learning"
+    if Course::LESSON_SECTIONS.key?(@course.slug)
+      Course::LESSON_SECTIONS[@course.slug]
+    elsif @course.slug == "deep-learning"
       { 1 => "Fundamentals", 6 => "Neural Networks" }
     elsif @course.slug == "git"
       { 1 => "Foundations", 11 => "Branching and Collaboration" }
     elsif @course.slug == "github"
       { 1 => "Platform Basics", 11 => "Collaboration Workflows" }
+    elsif @course.slug == "ai-assisted-development"
+      { 1 => "Unit 1 · Mindset", 7 => "Unit 2 · Context & Prompting", 14 => "Unit 3 · Safe AI Coding Workflow", 23 => "Capstone" }
+    elsif @course.slug == "vector-databases"
+      { 1 => "Unit 1 · Embeddings & Similarity", 6 => "Unit 2 · Qdrant Fundamentals", 12 => "Unit 3 · Indexing & Scale", 17 => "Unit 4 · Use Cases & Capstone" }
+    elsif @course.slug == "building-rag-applications"
+      { 1 => "Unit 1 · The RAG Mental Model", 5 => "Unit 2 · Ingestion & Chunking", 10 => "Unit 3 · Retrieval & Grounded Generation", 16 => "Unit 4 · Serving & Evaluating", 21 => "Capstone" }
+    elsif @course.slug == "building-ai-agents"
+      { 1 => "Unit 1 · Agent Foundations", 5 => "Unit 2 · The Agent Loop from Scratch", 11 => "Unit 3 · Tool Design", 15 => "Unit 4 · Context & State", 19 => "Unit 5 · Failure Modes & Guardrails", 22 => "Unit 6 · Observability & Evaluation", 24 => "Capstone" }
+    elsif @course.slug == "prompt-engineering"
+      { 1 => "Unit 1 · Prompt Basics", 6 => "Unit 2 · Reliable Output", 11 => "Unit 3 · Prompts for Real Tasks", 16 => "Unit 4 · Testing & Safety", 20 => "Capstone" }
+    elsif @course.slug == "how-llms-work"
+      { 1 => "Unit 1 · From Text to Numbers", 6 => "Unit 2 · Inside the Transformer", 12 => "Unit 3 · Training a Model", 17 => "Unit 4 · Using Models Well", 22 => "Capstone" }
+    elsif @course.slug == "building-mcp-servers"
+      { 1 => "Unit 1 · MCP Basics", 6 => "Unit 2 · Building Server Features", 12 => "Unit 3 · Clients & Connections", 17 => "Unit 4 · Security & Production", 20 => "Capstone" }
+    elsif @course.slug == "evaluating-ai-apps"
+      { 1 => "Unit 1 · Why Evals Matter", 5 => "Unit 2 · Building an Eval Set", 11 => "Unit 3 · Grading Methods", 16 => "Unit 4 · Evals in Practice", 20 => "Capstone" }
+    elsif @course.slug == "computer-vision"
+      { 1 => "Unit 1 · Images as Data", 6 => "Unit 2 · Classic Image Processing", 11 => "Unit 3 · Deep Learning for Vision", 17 => "Unit 4 · Modern Vision", 22 => "Capstone" }
+    elsif @course.slug == "fine-tuning-llms"
+      { 1 => "Unit 1 · When to Fine-Tune", 5 => "Unit 2 · Preparing Data", 10 => "Unit 3 · Training Methods", 16 => "Unit 4 · Evaluating & Serving", 20 => "Capstone" }
+    elsif @course.slug == "ai-safety"
+      { 1 => "Unit 1 · Foundations", 5 => "Unit 2 · Securing AI Apps", 10 => "Unit 3 · Fairness, Privacy & Truth", 15 => "Unit 4 · Safety in Practice", 20 => "Capstone" }
     else
       {}
     end
 %>
 
-<div class="course-detail-page">
+<div class="course-detail-page" style="--course-c: <%= @course.ui_color %>">
   <%= render "shared/navbar" %>
 
   <div class="course-hero" style="--course-color: <%= @course.color %>">
@@ -57,9 +66,13 @@
           </svg>
           <span class="ring-label"><%= @completion_pct %>%</span>
         </div>
-        <%= link_to course_lesson_path(course_slug: @course.slug, id: @continue_lesson.id),
-              class: "course-start-btn", style: "background: #{@course.color}" do %>
-          <%= @done_count > 0 ? "Continue Learning" : "Start Course" %> →
+        <% if @continue_lesson %>
+          <%= link_to course_lesson_path(course_slug: @course.slug, id: @continue_lesson.id),
+                class: "course-start-btn", style: "background: #{@course.ui_color}" do %>
+            <%= @done_count > 0 ? "Continue Learning" : "Start Course" %> →
+          <% end %>
+        <% else %>
+          <%= link_to "Unlock all lessons →", pricing_path, class: "course-start-btn", style: "background: #{@course.ui_color}" %>
         <% end %>
       </div>
     </div>
@@ -67,12 +80,28 @@
 
   <div class="course-lessons-section">
     <div class="cls-inner">
+      <% if @certificate %>
+        <section class="crt-course-section">
+          <%= render "certificates/thumb", certificate: @certificate, caption: false %>
+          <div class="crt-course-text">
+            <h2>🎓 You earned your certificate</h2>
+            <p>Well done! You finished all <%= @certificate.lesson_count %> lessons of <%= @course.title %>. Click the certificate to open it, print it, save it as a PDF or copy its link to share.</p>
+          </div>
+        </section>
+      <% end %>
+      <%= render "courses/podcast", episodes: @podcast, locked: !full_access? if @podcast.any? %>
+      <% unless full_access? %>
+        <p class="crt-hint plan-hint">🔓 The first lesson is free. <%= link_to "Choose a plan", pricing_path %> to open all <%= @lessons.size %> lessons and listen to the course podcast.</p>
+      <% end %>
+      <% if !@certificate && @completion_pct == 100 %>
+        <p class="crt-hint">🏆 To earn your certificate, complete the lessons you skipped (<%= @completed_only %> of <%= @lessons.size %> completed).</p>
+      <% end %>
       <h2 class="cls-title">Course Content</h2>
       <p class="cls-meta"><%= @lessons_with_status.size %> lessons · <%= @done_count %> completed</p>
 
       <div class="lessons-list">
         <% @lessons_with_status.each do |lws| %>
-          <% lesson = lws[:lesson]; prog = lws[:progress]; locked = lws[:locked] %>
+          <% lesson = lws[:lesson]; prog = lws[:progress]; locked = lws[:locked]; pro = lws[:pro] %>
           <% status = prog&.status || "not_started" %>
           <% if lesson_sections[lesson.position].present? %>
             <div class="course-section-divider course-section-divider-wide"><%= lesson_sections[lesson.position] %></div>
@@ -80,11 +109,18 @@
           <div class="lesson-row <%= status %> <%= locked ? 'locked' : '' %>">
             <div class="lr-num"><%= lesson.position %></div>
             <div class="lr-body">
-              <p class="lr-title"><%= lesson.title %></p>
-              <p class="lr-desc"><%= truncate(lesson.description, length: 80) %></p>
+              <% if pro %>
+                <p class="lr-title"><%= pro_blur(lesson.title) %></p>
+                <p class="lr-desc"><%= pro_blur(truncate(lesson.description, length: 80)) %></p>
+              <% else %>
+                <p class="lr-title"><%= lesson.title %></p>
+                <p class="lr-desc"><%= truncate(lesson.description, length: 80) %></p>
+              <% end %>
             </div>
             <div class="lr-status">
-              <% if locked %>
+              <% if pro %>
+                <span class="lr-badge badge-locked">🔒 Plan</span>
+              <% elsif locked %>
                 <span class="lr-badge badge-locked">🔒 Locked</span>
               <% elsif status == "completed" %>
                 <span class="lr-badge badge-done">✓ Done</span>
@@ -97,7 +133,9 @@
               <% end %>
             </div>
             <div class="lr-action">
-              <% if locked %>
+              <% if pro %>
+                <%= link_to "Unlock", pricing_path, class: "lr-locked-btn lr-unlock" %>
+              <% elsif locked %>
                 <span class="lr-locked-btn">Locked</span>
               <% else %>
                 <%= link_to course_lesson_path(course_slug: @course.slug, id: lesson.id),

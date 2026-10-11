@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhotoBook</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 860px; margin: 2rem auto; padding: 0 1rem; color: #1f2937; }
+    form { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
+    .msg { padding: .6rem .8rem; border-radius: 6px; }
+    .ok { background: #dcfce7; }
+    .err { background: #fee2e2; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: .75rem; }
+    .grid img { width: 100%; height: 160px; object-fit: cover; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>PhotoBook</h1>
+
+  {% if setup_needed %}
+    <p class="msg err">Setup needed: set the <code>S3_BUCKET</code> environment variable.</p>
+  {% else %}
+    <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+      <input type="file" name="photo" accept="image/jpeg,image/png,image/webp" required>
+      <button type="submit">Upload</button>
+      <small>JPEG, PNG or WebP. Max 5 MB.</small>
+    </form>
+
+    {% if uploaded %}<p class="msg ok">Photo uploaded.</p>{% endif %}
+    {% if error %}<p class="msg err">{{ error }}</p>{% endif %}
+
+    <div class="grid">
+      {% for photo in photos %}
+        <a href="{{ photo.url }}"><img src="{{ photo.url }}" alt="Uploaded photo" loading="lazy"></a>
+      {% else %}
+        <p>No photos yet. Upload the first one.</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+</body>
+</html>

@@ -1,0 +1,90 @@
+<%# Home page "See AI at work in your job": pick a role, see a real-style prompt, the AI's draft (typed out)
+    and what the professional must still check. role_demo_controller.js. Styles: design.css "Home role demo". %>
+<%
+  roles = [
+    { key: "engineer", label: "🛠️ Engineer", course: "ai-assisted-development",
+      ask: "Write a Python function that returns the 3 most common words in a sentence. Add a short comment.",
+      draft: "from collections import Counter\n\ndef top_words(text, n=3):\n    # Count each word, ignoring upper and lower case\n    words = text.lower().split()\n    return Counter(words).most_common(n)",
+      check: ["Run it and test it with real examples", "Handle punctuation and empty text", "Understand every line before you use it"], code: true },
+    { key: "doctor", label: "🩺 Doctor", course: "ai-doctors-clinical-practice",
+      ask: "Explain type 2 diabetes to a new patient in simple words. Use short sentences. Do not use any patient details.",
+      draft: "Type 2 diabetes means your body does not use sugar from food well, so sugar stays in your blood.\n\nYou can keep it under control with healthy food, regular exercise and, for some people, medicine.\n\nYour doctor will check your blood sugar and help you make a plan.",
+      check: ["The medical facts are correct", "It matches your clinic's advice", "No private patient data was shared"] },
+    { key: "lawyer", label: "⚖️ Lawyer", course: "ai-contract-review",
+      ask: "Summarise this rental agreement in 4 short points for my client. Point out anything unusual. (Names removed.)",
+      draft: "• A 12-month tenancy, starting on 1 May.\n• Rent is due on the 1st of each month.\n• The tenant pays for small repairs.\n• Unusual: the landlord can visit with only 2 hours' notice.",
+      check: ["Every point matches the document", "Unusual terms are checked against the law", "Client names were removed first"] },
+    { key: "marketer", label: "📣 Marketer", course: "ai-email-marketing",
+      ask: "Write 3 subject lines for our spring sale email. Friendly tone. Under 45 characters each.",
+      draft: "1. Spring is here, and so are the savings\n2. Fresh deals for a fresh season\n3. Your spring sale starts today",
+      check: ["It fits your brand voice", "The offer details are correct", "Test the lines before sending to everyone"] },
+    { key: "tester", label: "🧪 Tester", course: "ai-software-testing",
+      ask: "Write test cases for a login form with email and password. Include edge cases.",
+      draft: "1. Correct email and password: the user logs in.\n2. Wrong password: an error shows and the user stays out.\n3. Empty email: \"Email is required\".\n4. Email without @: \"Enter a valid email\".\n5. Five failed tries: the account is locked for a while.",
+      check: ["The cases match the real requirements", "Add the cases AI missed", "Run them and record the results"] },
+    { key: "creator", label: "🎬 Content creator", course: "ai-youtube-creators",
+      ask: "Give me 5 YouTube video ideas about saving money for students. Short, catchy titles.",
+      draft: "1. I tried a no-spend week. Here is what happened\n2. 7 money mistakes every student makes\n3. Cheap meals that still taste great\n4. How I saved for my first laptop\n5. Student discounts most people miss",
+      check: ["The ideas fit your channel and audience", "Every money tip is true", "Add your own voice and stories"] },
+    { key: "hr", label: "🤝 HR", course: "ai-for-recruitment",
+      ask: "Write a friendly job advert for a junior accountant. Use fair, inclusive words. Under 80 words.",
+      draft: "Join our finance team as a Junior Accountant!\n\nYou will help with monthly accounts, invoices and reports. We will train you and support you as you grow.\n\nYou have basic accounting knowledge, care for detail and a wish to learn.\n\nWe welcome people from every background. Flexible hours are available.",
+      check: ["Pay, hours and duties are correct", "The words are fair to every applicant", "It follows your company's hiring rules"] },
+    { key: "finance", label: "💹 Finance", course: "ai-accounting-bookkeeping",
+      ask: "Sort these expenses into categories: taxi to client, printer ink, team lunch, software subscription, train ticket.",
+      draft: "• Travel: taxi to client, train ticket\n• Office supplies: printer ink\n• Meals: team lunch\n• Software: software subscription",
+      check: ["The categories match your accounts", "Tax rules for each item are checked", "The totals match your receipts"] },
+    { key: "sales", label: "📈 Sales", course: "ai-sales-outreach",
+      ask: "Write a short follow-up email to a customer who asked for a demo last week but has not replied. Polite, not pushy.",
+      draft: "Subject: Your demo, whenever suits you\n\nHi Sam,\n\nI hope your week is going well. Would you still like a demo? I can show you the main features in 20 minutes.\n\nWould Tuesday or Thursday work for you?\n\nBest wishes,\nAlex",
+      check: ["The name and details are correct", "It sounds like you", "It respects the customer's choices"] },
+    { key: "business", label: "🏪 Business owner", course: "ai-small-business-automation",
+      ask: "Write a short Instagram post announcing that my bakery now delivers at weekends.",
+      draft: "Fresh bread, now at your door! 🥐\n\nFrom this Saturday, we deliver every weekend. Order by Friday evening and we will bring your favourites warm from the oven.\n\nTap the link in our bio to order.",
+      check: ["Days, times and prices are correct", "It sounds like your brand", "You can really deliver what it promises"] }
+  ]
+  by_slug = courses.index_by(&:slug)
+%>
+<section class="h-section hr" data-controller="role-demo">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>See AI at work in your job</h2>
+        <p>You ask in plain English. AI writes a first draft. You check it. Our courses teach all three steps.</p>
+      </div>
+    </div>
+
+    <div class="hr-tabs" role="tablist" aria-label="Choose a job">
+      <% roles.each_with_index do |r, i| %>
+        <button type="button" class="hr-tab<%= " is-on" if i.zero? %>" role="tab" aria-selected="<%= i.zero? %>"
+                data-role-demo-target="tab" data-action="role-demo#pick" data-key="<%= r[:key] %>"><%= r[:label] %></button>
+      <% end %>
+    </div>
+
+    <% roles.each_with_index do |r, i| %>
+      <% course = by_slug[r[:course]] %>
+      <div class="hr-panel" role="tabpanel" data-role-demo-target="panel" data-key="<%= r[:key] %>"<%= " hidden" unless i.zero? %>>
+        <div class="hr-step hr-ask">
+          <span class="hr-num">1</span>
+          <p class="hr-label">You ask</p>
+          <p class="hr-bubble hr-bubble-me"><%= r[:ask] %></p>
+        </div>
+        <div class="hr-step hr-draft">
+          <span class="hr-num">2</span>
+          <p class="hr-label">AI writes a draft</p>
+          <p class="hr-bubble hr-bubble-ai<%= " hr-code" if r[:code] %>" data-role-demo-target="draft" data-text="<%= r[:draft] %>"><%= r[:draft] %></p>
+        </div>
+        <div class="hr-step hr-check">
+          <span class="hr-num">3</span>
+          <p class="hr-label">You check it</p>
+          <ul>
+            <% r[:check].each do |c| %><li><%= c %></li><% end %>
+          </ul>
+          <% if course %>
+            <%= link_to "Learn this in #{course.title} →", course_path(course.slug), class: "hr-link" %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

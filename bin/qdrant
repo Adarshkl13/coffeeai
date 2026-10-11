@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Runs a local Qdrant (the vector database behind the Vector Lab and RAG Lab) on http://localhost:6333.
+# The first run downloads the Qdrant binary into tmp/qdrant/. Data is kept in storage/qdrant/.
+# Usage: bin/qdrant          (runs in this terminal; Ctrl+C to stop)
+#        bin/qdrant --daemon (runs in the background; log in log/qdrant.log)
+set -euo pipefail
+cd "$(dirname "$0")/.."
+VERSION="v1.19.1"
+DIR="tmp/qdrant"
+BIN="$DIR/qdrant"
+
+if curl -s -m 2 http://localhost:6333/healthz >/dev/null 2>&1; then
+  echo "Qdrant is already running on http://localhost:6333"; exit 0
+fi
+
+if [ ! -x "$BIN" ]; then
+  case "$(uname -m)" in
+    arm64|aarch64) ARCH="aarch64" ;;
+    *) ARCH="x86_64" ;;
+  esac
+  echo "Downloading Qdrant $VERSION ($ARCH)…"
+  mkdir -p "$DIR"
+  curl -sSL "https://github.com/qdrant/qdrant/releases/download/$VERSION/qdrant-$ARCH-apple-darwin.tar.gz" | tar xz -C "$DIR"
+  chmod +x "$BIN"
+fi
+
+mkdir -p storage/qdrant log
+export QDRANT__STORAGE__STORAGE_PATH="$PWD/storage/qdrant/storage"
+export QDRANT__STORAGE__SNAPSHOTS_PATH="$PWD/storage/qdrant/snapshots"
+export QDRANT__TELEMETRY_DISABLED=true
+
+if [ "${1:-}" = "--daemon" ]; then
+  nohup "$BIN" > log/qdrant.log 2>&1 &
+  for _ in $(seq 1 30); do
+    curl -s -m 1 http://localhost:6333/healthz >/dev/null 2>&1 && { echo "Qdrant started on http://localhost:6333 (log: log/qdrant.log)"; exit 0; }
+    sleep 0.5
+  done
+  echo "Qdrant did not start. See log/qdrant.log"; exit 1
+else
+  exec "$BIN"
+fi

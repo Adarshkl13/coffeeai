@@ -1,0 +1,57 @@
+<%# Home page infographic carousel (carousel_controller.js), beside the AI Podcast player.
+    Images: app/assets/images/podcast/<key>-md.jpg in the carousel, <key>.jpg when opened full size. %>
+<%
+  slides = [
+    { key: "what-is-ai",      title: "What is AI?" },
+    { key: "ai-in-real-life", title: "AI in real life: everyday uses" },
+    { key: "types-of-ai",     title: "Types of AI" },
+    { key: "ai-vs-ml-vs-dl",  title: "AI vs ML vs DL" },
+    { key: "why-learn-ai",    title: "Why learn AI?" }
+  ]
+%>
+<section class="ig" data-controller="carousel" data-carousel-interval-value="5000"
+         data-action="mouseenter->carousel#pause mouseleave->carousel#resume focusin->carousel#pause focusout->carousel#resume"
+         aria-roledescription="carousel" aria-label="AI infographics">
+  <div class="ig-frame">
+    <div class="ig-track" data-carousel-target="track"
+         data-action="pointerdown->carousel#swipeStart pointerup->carousel#swipeEnd pointercancel->carousel#swipeCancel">
+      <% slides.each_with_index do |s, i| %>
+        <figure class="ig-slide" role="group" aria-roledescription="slide" aria-label="<%= i + 1 %> of <%= slides.size %>: <%= s[:title] %>"
+                data-carousel-target="slide" data-title="<%= s[:title] %>" data-full="<%= image_path("podcast/#{s[:key]}.jpg") %>">
+          <button type="button" class="ig-open" data-action="carousel#open" aria-label="Open <%= s[:title] %> full size">
+            <%= image_tag "podcast/#{s[:key]}-md.jpg", alt: "#{s[:title]} infographic", width: 960, height: 640,
+                          loading: (i.zero? ? "eager" : "lazy"), draggable: false %>
+          </button>
+        </figure>
+      <% end %>
+    </div>
+    <button type="button" class="ig-arrow ig-prev" aria-label="Previous infographic" data-action="carousel#prev">‹</button>
+    <button type="button" class="ig-arrow ig-next" aria-label="Next infographic" data-action="carousel#next">›</button>
+    <span class="ig-zoom" aria-hidden="true">Click to enlarge</span>
+  </div>
+
+  <div class="ig-foot">
+    <b class="ig-caption" data-carousel-target="caption" aria-live="polite"><%= slides.first[:title] %></b>
+    <div class="ig-dots">
+      <% slides.each_with_index do |s, i| %>
+        <button type="button" class="ig-dot" aria-label="Show <%= s[:title] %>" aria-current="<%= i.zero? %>"
+                data-carousel-target="dot" data-action="carousel#goTo" data-index="<%= i %>"></button>
+      <% end %>
+    </div>
+  </div>
+
+  <dialog class="ig-viewer" data-carousel-target="viewer" data-action="click->carousel#backdropClose keydown->carousel#viewerKey" aria-label="Infographic">
+    <div class="ig-viewer-inner">
+      <div class="ig-viewer-bar">
+        <b data-carousel-target="viewerTitle"></b>
+        <button type="button" class="ig-viewer-close" aria-label="Close" data-action="carousel#close">✕</button>
+      </div>
+      <img alt="" data-carousel-target="viewerImage">
+      <div class="ig-viewer-nav">
+        <button type="button" class="btn btn-ghost btn-sm" data-action="carousel#prev">← Previous</button>
+        <span data-carousel-target="viewerCount"></span>
+        <button type="button" class="btn btn-ghost btn-sm" data-action="carousel#next">Next →</button>
+      </div>
+    </div>
+  </dialog>
+</section>

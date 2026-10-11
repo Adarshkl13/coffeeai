@@ -16,6 +16,12 @@ class CourseLesson < ApplicationRecord
     course.course_lessons.where("position < ?", position).order(:position).last
   end
 
+  # Lock state for a whole ordered list in memory (no query per lesson). progress: { course_lesson_id => CourseProgress }.
+  # Same rule as accessible_by?: lesson 1 is open; any other lesson opens when the one before it is done.
+  def self.open_states(ordered_lessons, progress)
+    ordered_lessons.each_with_index.to_h { |l, i| [l.id, i.zero? || l.position == 1 || progress[ordered_lessons[i - 1].id]&.done?] }
+  end
+
   def accessible_by?(user)
     return true if position == 1
     prev = prev_lesson

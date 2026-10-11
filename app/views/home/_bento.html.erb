@@ -1,0 +1,88 @@
+<%# Home page "bento" grid: tiles of different sizes, each showing a real part of the app
+    (code editor, certificate, podcasts, Ask AI, courses). Animations: showcase_controller.js.
+    Styles: design.css "Home bento". Local: courses (for the scrolling strip). %>
+<%
+  sample = Struct.new(:holder_name, :course_title, :lesson_count, :issued_at, :code)
+                 .new("Your Name", "Generative AI Fundamentals", 20, Date.current, "CB-SAMPLE")
+  code = %(course = "Generative AI"\nlessons = ["Prompts", "Tokens", "Agents"]\n\nprint("Welcome to", course)\nfor number, lesson in enumerate(lessons, 1):\n    print(number, lesson)\n)
+  langs = [["English", "en"], ["हिंदी", "hi"], ["ಕನ್ನಡ", "kn"], ["தமிழ்", "ta"], ["తెలుగు", "te"], ["മലയാളം", "ml"]]
+  strip = courses.select(&:featured?).first(16)
+%>
+<section class="h-section hb" data-controller="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Everything you need, in one place</h2>
+        <p>Code, listen, ask questions and earn certificates, all inside CoffeeBean AI.</p>
+      </div>
+    </div>
+
+    <div class="hb-grid">
+      <%# Code editor %>
+      <article class="hb-tile hb-code">
+        <div class="hb-text">
+          <h3>Run code in your browser</h3>
+          <p>Python, JavaScript, SQL and more run right in the lesson. There is nothing to install.</p>
+        </div>
+        <div class="hb-editor" aria-label="Example: a short Python program and its output">
+          <div class="hb-editor-bar"><span></span><span></span><span></span><b>main.py</b><em>▶ Run</em></div>
+          <pre><code data-showcase-target="code" data-text="<%= code %>"><%= code %></code></pre>
+          <div class="hb-output" data-showcase-target="output">
+            <b>Output</b>
+            <samp>Welcome to Generative AI<br>1 Prompts<br>2 Tokens<br>3 Agents</samp>
+          </div>
+        </div>
+      </article>
+
+      <%# Certificate %>
+      <article class="hb-tile hb-cert">
+        <div class="hb-text">
+          <h3>Earn a certificate</h3>
+          <p>Finish a course and get a certificate with your name. Print it or share its link.</p>
+        </div>
+        <div class="hb-cert-card" aria-hidden="true"><%= render "certificates/certificate", certificate: sample %></div>
+      </article>
+
+      <%# Podcasts %>
+      <article class="hb-tile hb-pod">
+        <div class="hb-text">
+          <h3>Listen in six languages</h3>
+          <p>Course podcasts you can play on the way to work.</p>
+        </div>
+        <div class="hb-wave" aria-hidden="true"><% 18.times do |i| %><i style="--i: <%= i %>"></i><% end %></div>
+        <div class="hb-langs">
+          <% langs.each do |name, code| %><span lang="<%= code %>"><%= name %></span><% end %>
+        </div>
+      </article>
+
+      <%# Ask AI %>
+      <article class="hb-tile hb-ask">
+        <div class="hb-text">
+          <h3>Ask AI when you are stuck</h3>
+          <p>Get a simple answer any time.</p>
+        </div>
+        <div class="hb-chat" aria-hidden="true">
+          <p class="hb-msg hb-msg-me">What is a token?</p>
+          <p class="hb-msg hb-msg-ai">A token is a small piece of text, like a word or part of a word. AI reads text as tokens.</p>
+        </div>
+        <%= link_to "Try Ask AI →", ask_path, class: "hb-link" %>
+      </article>
+
+      <%# Courses strip %>
+      <article class="hb-tile hb-courses">
+        <div class="hb-text">
+          <h3>Courses for every goal</h3>
+          <p>Learn to code, build with AI or use AI in your job.</p>
+        </div>
+        <div class="hb-marquee" aria-hidden="true">
+          <div class="hb-marquee-track">
+            <% 2.times do %>
+              <% strip.each do |c| %><span class="hb-pill" style="--c: <%= c.ui_color %>"><i><%= c.icon %></i><%= c.title %></span><% end %>
+            <% end %>
+          </div>
+        </div>
+        <%= link_to "See all courses →", "#courses", class: "hb-link" %>
+      </article>
+    </div>
+  </div>
+</section>

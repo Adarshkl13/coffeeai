@@ -1,42 +1,109 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<% content_for :title, "Account settings — CoffeeBean AI" %>
+<% content_for :body_class, "page-scrollable" %>
+<%
+  user = current_user
+  payments = user.payments.order(created_at: :desc).limit(3)
+%>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+<div class="dash-page">
+  <%= render "shared/navbar" %>
 
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
+  <div class="dash-body acct-body">
+    <header class="acct-head">
+      <div class="acct-avatar" aria-hidden="true"><%= user.email[0].upcase %></div>
+      <div>
+        <h1>Account settings</h1>
+        <p><%= user.email %> · Member since <%= user.created_at.strftime("%-d %B %Y") %></p>
+      </div>
+    </header>
+
+    <%# ── Plan ───────────────────────────────────────────── %>
+    <section class="acct-card">
+      <h2>Your plan</h2>
+      <% if user.admin? %>
+        <p class="acct-status acct-status-on">✅ Admin account: full access to everything.</p>
+      <% elsif user.member? %>
+        <p class="acct-status acct-status-on">✅ Full access until <strong><%= user.access_until.strftime("%-d %B %Y") %></strong>.</p>
+        <p class="acct-muted">Plans do not renew automatically. You can add more time at any time.</p>
+        <%= link_to "Add more time", pricing_path, class: "btn btn-ghost btn-sm" %>
+      <% else %>
+        <p class="acct-status acct-status-off">
+          <% if user.access_until %>Your plan ended on <%= user.access_until.strftime("%-d %B %Y") %>.<% else %>You do not have a plan yet.<% end %>
+          Ask AI and the Editor do not need one. Lessons do.
+        </p>
+        <%= link_to "See plans", pricing_path, class: "btn btn-primary btn-sm" %>
+      <% end %>
+
+      <% if payments.any? %>
+        <h3>Recent payments</h3>
+        <ul class="acct-payments">
+          <% payments.each do |p| %>
+            <li>
+              <span><%= p.created_at.strftime("%-d %b %Y") %> · <%= p.plan_info&.name %> · ₹<%= number_with_delimiter(p.amount) %></span>
+              <span class="price-status price-status-<%= p.status.downcase %>"><%= { "PAID" => "Paid", "PENDING" => "Not finished", "FAILED" => "Failed" }[p.status] %></span>
+            </li>
+          <% end %>
+        </ul>
+        <%= link_to "All payments and order numbers", pricing_path(anchor: "payments"), class: "acct-link" %>
+      <% end %>
+    </section>
+
+    <%# ── Email and password ─────────────────────────────── %>
+    <section class="acct-card">
+      <h2>Your details</h2>
+      <p class="acct-muted">To save changes, type your current password at the bottom.</p>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "auth-form acct-form" }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="field-group">
+          <%= f.label :name, class: "field-label" do %>Full name <span class="field-hint">(shown on your certificates)</span><% end %>
+          <%= f.text_field :name, autocomplete: "name", maxlength: 80, class: "field-input", placeholder: "For example: Adarsh Kumar" %>
+        </div>
+
+        <div class="field-group">
+          <%= f.label :email, "Email address", class: "field-label" %>
+          <%= f.email_field :email, autocomplete: "email", class: "field-input" %>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <p class="acct-muted">Waiting for you to confirm: <%= resource.unconfirmed_email %></p>
+        <% end %>
+
+        <div class="acct-row">
+          <div class="field-group">
+            <%= f.label :password, class: "field-label" do %>
+              New password <span class="field-hint">(leave blank to keep it<% if @minimum_password_length %>; <%= @minimum_password_length %>+ characters<% end %>)</span>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "new-password", class: "field-input" %>
+          </div>
+          <div class="field-group">
+            <%= f.label :password_confirmation, "Confirm new password", class: "field-label" %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "field-input" %>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <%= f.label :current_password, class: "field-label" do %>
+            Current password <span class="field-hint">(needed to save changes)</span>
+          <% end %>
+          <%= f.password_field :current_password, autocomplete: "current-password", class: "field-input", required: true %>
+        </div>
+
+        <%= f.submit "Save changes", class: "btn btn-primary" %>
+      <% end %>
+    </section>
+
+    <%# ── Delete ─────────────────────────────────────────── %>
+    <section class="acct-card acct-danger">
+      <h2>Delete your account</h2>
+      <p class="acct-muted">
+        To delete your account and your learning data, email
+        <a href="mailto:<%= COMPANY[:email] %>?subject=Delete%20my%20account"><%= COMPANY[:email] %></a>
+        from <strong><%= user.email %></strong>. We keep payment records only as long as the law requires.
+        See our <%= link_to "Privacy Policy", privacy_path %>.
+      </p>
+    </section>
   </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i></p>
-    <p><%= f.password_field :password, autocomplete: "new-password" %></p>
-    <% if @minimum_password_length %>
-      <p><em><%= @minimum_password_length %> characters minimum</em></p>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <p><%= f.label :password_confirmation %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
-  </div>
-
-  <div class="field">
-    <p><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i></p>
-    <p><%= f.password_field :current_password, autocomplete: "current-password" %></p>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+  <%= render "shared/footer" %>
+</div>

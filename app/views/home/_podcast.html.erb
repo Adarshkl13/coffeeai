@@ -1,0 +1,92 @@
+<%# Home page "AI Podcast": the AI Basics audio overview in six languages.
+    Audio files: public/podcasts/ai-basics/<code>.m4a.
+    The player is podcast_controller.js. %>
+<%
+  languages = [
+    { code: "en", name: "English",   label: "English", seconds: 357 },
+    { code: "hi", name: "Hindi",     label: "हिन्दी",   seconds: 313 },
+    { code: "kn", name: "Kannada",   label: "ಕನ್ನಡ",    seconds: 232 },
+    { code: "ta", name: "Tamil",     label: "தமிழ்",    seconds: 312 },
+    { code: "te", name: "Telugu",    label: "తెలుగు",   seconds: 294 },
+    { code: "ml", name: "Malayalam", label: "മലയാളം",  seconds: 353 }
+  ].map { |l| l.merge(src: "/podcasts/ai-basics/#{l[:code]}.m4a") }
+  fmt = ->(s) { "#{s / 60}:#{format('%02d', s % 60)}" }
+  bars = [14, 26, 40, 22, 54, 34, 66, 44, 30, 58, 38, 24, 46, 18]
+%>
+
+<div class="bc" data-controller="podcast"
+     data-podcast-languages-value="<%= languages.to_json %>">
+
+  <section class="bc-card" aria-label="AI Podcast player">
+    <header class="bc-head">
+      <div>
+        <span class="bc-brand"><span class="bc-logo"><%= render "shared/logo_mark", size: 16 %></span>CoffeeBean AI</span>
+        <h2 class="bc-title">AI Podcast</h2>
+        <p class="bc-sub">Short AI lessons. In your language.</p>
+      </div>
+      <span class="bc-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4M8 7v10M12 4v16M16 7v10M20 10v4"/></svg>
+        Audio overview
+      </span>
+    </header>
+
+    <div class="bc-stage" aria-hidden="true">
+      <div class="bc-wave bc-wave-left"><% bars.size.times do |i| %><i style="--d: <%= ((bars.size - 1 - i) * -0.09).round(2) %>s"></i><% end %></div>
+      <div class="bc-mic">
+        <svg viewBox="0 0 120 150" width="96" height="120">
+          <defs>
+            <linearGradient id="bcMicBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d6af0"/><stop offset="1" stop-color="#2a2370"/></linearGradient>
+            <linearGradient id="bcMicGrille" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8d4ff"/><stop offset="1" stop-color="#7c78c8"/></linearGradient>
+          </defs>
+          <rect x="34" y="8" width="52" height="82" rx="26" fill="url(#bcMicGrille)"/>
+          <g stroke="#4b45a8" stroke-width="2" opacity=".55"><path d="M38 30h44M36 42h48M36 54h48M38 66h44M42 78h36"/><path d="M48 12v74M60 9v80M72 12v74"/></g>
+          <rect x="30" y="56" width="60" height="14" rx="7" fill="url(#bcMicBody)"/>
+          <path d="M22 62v6a38 38 0 0 0 76 0v-6" fill="none" stroke="#8b87e8" stroke-width="6" stroke-linecap="round"/>
+          <rect x="56" y="104" width="8" height="24" rx="4" fill="#5f5bd0"/>
+          <rect x="34" y="126" width="52" height="10" rx="5" fill="#3c3790"/>
+        </svg>
+      </div>
+      <div class="bc-wave bc-wave-right"><% bars.size.times do |i| %><i style="--d: <%= (i * -0.09).round(2) %>s"></i><% end %></div>
+    </div>
+
+    <div class="bc-langs" role="group" aria-label="Podcast language">
+      <% languages.each do |l| %>
+        <button type="button" class="bc-lang" lang="<%= l[:code] %>" title="<%= l[:name] %>" aria-pressed="<%= l[:code] == 'en' %>"
+                data-podcast-target="lang" data-action="podcast#pickLanguage" data-code="<%= l[:code] %>">
+          <%= l[:label] %>
+        </button>
+      <% end %>
+    </div>
+
+    <div class="bc-track">
+      <p class="bc-track-title">AI Basics</p>
+      <p class="bc-track-meta"><span data-podcast-target="langName">English</span> · CoffeeBean AI</p>
+    </div>
+
+    <div class="bc-progress">
+      <input type="range" min="0" max="<%= languages.first[:seconds] %>" step="0.1" value="0" aria-label="Seek"
+             data-podcast-target="seek" data-action="input->podcast#seek">
+      <div class="bc-times"><span data-podcast-target="current">0:00</span><span data-podcast-target="duration"><%= fmt.(languages.first[:seconds]) %></span></div>
+    </div>
+
+    <div class="bc-controls">
+      <span class="bc-spacer" aria-hidden="true"></span>
+      <button type="button" class="bc-ctl" aria-label="Back 10 seconds" data-action="podcast#back">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><text x="12" y="15.5" font-size="7.5" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">10</text></svg>
+      </button>
+      <button type="button" class="bc-play" aria-label="Play" data-podcast-target="play" data-action="podcast#toggle">
+        <svg class="bc-icon-play" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>
+        <svg class="bc-icon-pause" width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4.5" width="4.2" height="15" rx="1.2"/><rect x="13.8" y="4.5" width="4.2" height="15" rx="1.2"/></svg>
+      </button>
+      <button type="button" class="bc-ctl" aria-label="Forward 10 seconds" data-action="podcast#forward">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/><text x="12" y="15.5" font-size="7.5" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none">10</text></svg>
+      </button>
+      <button type="button" class="bc-speed" aria-label="Playback speed" data-podcast-target="speed" data-action="podcast#cycleSpeed">1×</button>
+    </div>
+
+    <audio preload="none" data-podcast-target="audio"
+           data-action="play->podcast#playing pause->podcast#paused ended->podcast#ended timeupdate->podcast#tick loadedmetadata->podcast#loaded error->podcast#failed"></audio>
+    <p class="bc-error" data-podcast-target="error" hidden>This podcast could not load. Please try again.</p>
+  </section>
+
+</div>

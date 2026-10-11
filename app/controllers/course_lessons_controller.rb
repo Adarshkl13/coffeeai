@@ -1,6 +1,7 @@
 class CourseLessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_course_and_lesson
+  before_action :require_plan, only: %i[show complete skip], unless: -> { @lesson.position == 1 }
   before_action :ensure_accessible, only: [:show]
 
   def show
@@ -12,14 +13,19 @@ class CourseLessonsController < ApplicationController
                                  .where(course_lesson_id: @course.course_lessons.pluck(:id))
                                  .index_by(&:course_lesson_id)
 
-    @lessons_with_status = @course.course_lessons.ordered.map do |l|
+    ordered = @course.course_lessons.ordered.to_a
+    open    = CourseLesson.open_states(ordered, all_progresses)
+    @lessons_with_status = ordered.map do |l|
       prog   = all_progresses[l.id]
-      locked = !l.accessible_by?(current_user)
-      { lesson: l, progress: prog, locked: locked }
+      pro    = !full_access? && l.position > 1
+      locked = pro || !open[l.id]
+      { lesson: l, progress: prog, locked: locked, pro: pro }
     end
 
     @current_progress = all_progresses[@lesson.id] || progress
     @completion_pct   = @course.completion_percentage(current_user)
+    @certificate      = Certificate.award(current_user, @course) if @completion_pct == 100
+    @completed_only   = @course.fully_completed_count(current_user)
   end
 
   def complete
@@ -32,7 +38,7 @@ class CourseLessonsController < ApplicationController
                   notice: "Lesson complete! Keep it up 🎉"
     else
       redirect_to course_path(@course),
-                  notice: "🎓 You finished #{@course.title}!"
+                  notice: "🎓 You finished #{@course.title}! Your certificate is ready."
     end
   end
 

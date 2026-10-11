@@ -1,16 +1,12 @@
-<% content_for :title, "Sign In — AI Academy" %>
+<% content_for :title, "Sign In — CoffeeBean AI" %>
 
 <div class="auth-page">
   <div class="auth-card">
     <div class="auth-logo">
       <div class="auth-logo-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2a10 10 0 1 0 10 10" stroke-linecap="round"/>
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-linecap="round"/>
-        </svg>
+        <%= render "shared/logo_mark", size: 24 %>
       </div>
-      <span class="auth-logo-text">AI <strong>Academy</strong></span>
+      <span class="auth-logo-text">CoffeeBean <strong>AI</strong></span>
     </div>
 
     <h1 class="auth-title">Welcome back</h1>
@@ -45,7 +41,7 @@
 
     <p class="auth-switch">
       Don't have an account?
-      <%= link_to "Sign up for free", new_registration_path(resource_name), class: "auth-switch-link" %>
+      <%= link_to "Sign up", new_registration_path(resource_name), class: "auth-switch-link" %>
     </p>
   </div>
 </div>

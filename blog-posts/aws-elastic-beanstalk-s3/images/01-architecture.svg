@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#16a34a"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="760" fill="#ffffff"/>
+
+  <text x="600" y="48" text-anchor="middle" font-size="28" font-weight="700" fill="#1f2937">PhotoBook on AWS: the big picture</text>
+
+  <!-- Browser -->
+  <rect x="30" y="220" width="180" height="130" rx="16" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/>
+  <text x="120" y="275" text-anchor="middle" font-size="24" font-weight="700" fill="#1f2937">Browser</text>
+  <text x="120" y="308" text-anchor="middle" font-size="20" fill="#6b7280">your visitor</text>
+
+  <!-- Elastic Beanstalk environment -->
+  <rect x="290" y="80" width="540" height="420" rx="18" fill="#fff7ed" stroke="#ff9900" stroke-width="3"/>
+  <text x="315" y="120" font-size="23" font-weight="700" fill="#1f2937">Elastic Beanstalk environment</text>
+  <text x="315" y="150" font-size="20" fill="#6b7280">Region: eu-west-2 (London)</text>
+
+  <!-- EC2 instance -->
+  <rect x="315" y="172" width="490" height="304" rx="14" fill="#ffffff" stroke="#fdba74" stroke-width="2.5" stroke-dasharray="10 7"/>
+  <text x="335" y="206" font-size="20" fill="#6b7280">EC2 instance (Amazon Linux 2023)</text>
+
+  <rect x="335" y="225" width="185" height="110" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+  <text x="427" y="270" text-anchor="middle" font-size="23" font-weight="700" fill="#1f2937">nginx</text>
+  <text x="427" y="302" text-anchor="middle" font-size="20" fill="#6b7280">port 80</text>
+
+  <rect x="600" y="225" width="185" height="110" rx="12" fill="#ecfdf5" stroke="#16a34a" stroke-width="2.5"/>
+  <text x="692" y="262" text-anchor="middle" font-size="23" font-weight="700" fill="#1f2937">Flask app</text>
+  <text x="692" y="292" text-anchor="middle" font-size="20" fill="#6b7280">gunicorn</text>
+  <text x="692" y="318" text-anchor="middle" font-size="20" fill="#6b7280">port 8000</text>
+
+  <line x1="520" y1="280" x2="596" y2="280" stroke="#1f2937" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="335" y="360" width="450" height="96" rx="12" fill="#fef3c7" stroke="#ff9900" stroke-width="2.5"/>
+  <text x="560" y="398" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">IAM role (instance profile)</text>
+  <text x="560" y="430" text-anchor="middle" font-size="20" fill="#6b7280">gives the app temporary keys. No keys in code.</text>
+
+  <!-- S3 -->
+  <rect x="920" y="195" width="250" height="190" rx="16" fill="#ecfdf5" stroke="#16a34a" stroke-width="3"/>
+  <text x="1045" y="240" text-anchor="middle" font-size="24" font-weight="700" fill="#1f2937">Amazon S3</text>
+  <text x="1045" y="274" text-anchor="middle" font-size="20" fill="#6b7280">private bucket</text>
+  <text x="1045" y="316" text-anchor="middle" font-size="19" fill="#1f2937" font-family="Menlo, Consolas, monospace">photos/</text>
+  <text x="1045" y="344" text-anchor="middle" font-size="19" fill="#1f2937" font-family="Menlo, Consolas, monospace">&lt;uuid&gt;.jpg</text>
+
+  <!-- Arrow 1: browser -> nginx -->
+  <line x1="210" y1="285" x2="331" y2="285" stroke="#1f2937" stroke-width="3" marker-end="url(#arrow)"/>
+  <circle cx="255" cy="250" r="18" fill="#2563eb"/>
+  <text x="255" y="257" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">1</text>
+
+  <!-- Arrow 2: flask -> S3 -->
+  <line x1="785" y1="280" x2="916" y2="280" stroke="#1f2937" stroke-width="3" marker-end="url(#arrow)"/>
+  <circle cx="870" cy="245" r="18" fill="#2563eb"/>
+  <text x="870" y="252" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">2</text>
+
+  <!-- Arrow 3: S3 -> browser (presigned GET) -->
+  <path d="M1045 385 V560 H120 V354" fill="none" stroke="#16a34a" stroke-width="3" stroke-dasharray="10 7" marker-end="url(#arrowGreen)"/>
+  <circle cx="600" cy="560" r="18" fill="#16a34a"/>
+  <text x="600" y="567" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">3</text>
+
+  <!-- Legend -->
+  <circle cx="60" cy="630" r="15" fill="#2563eb"/>
+  <text x="60" y="637" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">1</text>
+  <text x="90" y="638" font-size="21" fill="#1f2937">The browser opens pages and uploads photos. nginx passes them to Flask.</text>
+  <circle cx="60" cy="672" r="15" fill="#2563eb"/>
+  <text x="60" y="679" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">2</text>
+  <text x="90" y="680" font-size="21" fill="#1f2937">Flask saves photos in S3 and lists them. The IAM role gives it permission.</text>
+  <circle cx="60" cy="714" r="15" fill="#16a34a"/>
+  <text x="60" y="721" text-anchor="middle" font-size="18" font-weight="700" fill="#ffffff">3</text>
+  <text x="90" y="722" font-size="21" fill="#1f2937">The browser loads each photo straight from S3 with a presigned GET URL.</text>
+</svg>

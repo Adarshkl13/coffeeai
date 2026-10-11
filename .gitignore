@@ -33,3 +33,9 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 .DS_Store
+
+# Files learners' code creates when lessons run locally, and Qdrant's marker file
+/data.json
+/.qdrant-initialized
+# Images uploaded in the Editor (user content, not code)
+/public/uploads/*

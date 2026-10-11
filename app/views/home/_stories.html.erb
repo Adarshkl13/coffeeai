@@ -1,0 +1,46 @@
+<%# Home page learner cards (config/testimonials.yml, Testimonial).
+    Real stories → "Real stories from real learners". Otherwise the examples → "Made for people like you", each labelled "Example".
+    With neither, sample cards show in development only. %>
+<% stories = Testimonial.for_home %>
+<% if stories.any? %>
+  <% examples = stories.first.example %>
+  <section class="h-section hs" aria-labelledby="hs-title">
+    <div class="wrap">
+      <div class="hs-head">
+        <% if examples %>
+          <h2 id="hs-title">Made for people like you</h2>
+          <p>Examples of how engineers, doctors and lawyers can use what they learn on CoffeeBean AI.</p>
+        <% else %>
+          <h2 id="hs-title">Real stories from real learners</h2>
+          <p>See how learners use what they learn on CoffeeBean AI in their studies and work.</p>
+        <% end %>
+      </div>
+
+      <% if stories.first.sample %>
+        <p class="hs-note">Preview only, on your computer. These are sample cards. Add real learner stories in <code>config/testimonials.yml</code>. The live site hides this section until you do.</p>
+      <% end %>
+
+      <div class="hs-grid">
+        <% stories.each do |s| %>
+          <figure class="hs-card<%= " hs-sample" if s.sample %>">
+            <div class="hs-photo">
+              <% if s.photo.present? %>
+                <%= image_tag s.photo, alt: s.name, loading: "lazy" %>
+              <% else %>
+                <span class="hs-initials" aria-hidden="true"><%= s.sample ? "?" : s.initials %></span>
+              <% end %>
+              <% if s.course.present? %><span class="hs-course"><%= s.course %></span><% end %>
+              <% if s.example %><span class="hs-example">Example</span><% end %>
+            </div>
+            <span class="hs-mark" aria-hidden="true">“</span>
+            <blockquote class="hs-quote"><p><%= s.quote %></p></blockquote>
+            <figcaption class="hs-who">
+              <b><%= s.name %></b>
+              <% if s.role.present? %><span><%= s.role %></span><% end %>
+            </figcaption>
+          </figure>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

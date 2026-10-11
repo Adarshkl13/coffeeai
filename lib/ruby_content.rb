@@ -7,21 +7,21 @@ module RubyContent
           <h1 class="lc-title">Introduction to Ruby</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">Ruby is a friendly, expressive programming language created by <strong>Yukihiro "Matz" Matsumoto</strong> and first released in 1995. Matz designed it to make programmers <em>happy</em>: the code is short, readable and often looks close to plain English.</p>
+          <p class="lc-lead">Ruby is a friendly programming language. <strong>Yukihiro "Matz" Matsumoto</strong> created it, and it was first released in 1995. Matz wanted Ruby to make programmers <em>happy</em>. Ruby code is short and easy to read. It often looks close to plain English.</p>
         </div>
         <div class="lc-section">
           <h2>Why Learn Ruby?</h2>
           <ul class="lc-list">
-            <li><strong>Everything is an object</strong> — even numbers, <code>true</code> and <code>nil</code> have methods you can call.</li>
-            <li><strong>Ruby on Rails</strong> — the web framework behind GitHub, Shopify, Basecamp and thousands of start-ups is written in Ruby.</li>
-            <li><strong>Blocks and iterators</strong> — looping over data is short and clear: <code>marks.each { |m| puts m }</code>.</li>
-            <li><strong>Great tooling</strong> — <code>irb</code> (interactive Ruby), <code>gem</code> and <code>bundler</code> for libraries, and a large community.</li>
+            <li><strong>Everything is an object</strong>: an object is a value that has its own methods (actions you can call on it). Even numbers, <code>true</code> and <code>nil</code> have methods.</li>
+            <li><strong>Ruby on Rails</strong>: this web framework (a toolkit for building websites) is written in Ruby. GitHub, Shopify, Basecamp and thousands of start-ups use it.</li>
+            <li><strong>Blocks and iterators</strong>: you can loop over (go through) data with short, clear code: <code>marks.each { |m| puts m }</code>.</li>
+            <li><strong>Great tools</strong>: <code>irb</code> (interactive Ruby), plus <code>gem</code> and <code>bundler</code> for libraries (ready-made code you can use). Ruby also has a large community.</li>
           </ul>
         </div>
         <div class="lc-section">
           <h2>Which Ruby Version?</h2>
-          <p>The newest stable release is <strong>Ruby 4.0</strong> (released December 2025). The editor in this course runs <strong>Ruby 3.4</strong> directly in your browser. Everything taught here works the same in 3.4 and 4.0; where a feature is new, the lesson says which version added it.</p>
-          <p>On your own computer you run a file with <code>ruby hello.rb</code>, or type <code>irb</code> to try code line by line.</p>
+          <p>The newest stable version is <strong>Ruby 4.0</strong>. It came out in December 2025. The editor in this course runs <strong>Ruby 3.4</strong> right in your browser. Everything in this course works the same in 3.4 and 4.0. When a feature is new, the lesson tells you which version added it.</p>
+          <p>On your own computer, you run a file with <code>ruby hello.rb</code>. You can also type <code>irb</code> to try code one line at a time.</p>
         </div>
         <div class="lc-section">
           <h2>Three Ways to Print</h2>
@@ -29,11 +29,11 @@ module RubyContent
             <thead><tr><th>Method</th><th>What it prints</th><th>Newline?</th><th>Best for</th></tr></thead>
             <tbody>
               <tr><td><code>puts</code></td><td>Friendly text (<code>to_s</code>)</td><td>Yes</td><td>Normal output for users</td></tr>
-              <tr><td><code>print</code></td><td>Friendly text (<code>to_s</code>)</td><td>No</td><td>Several pieces on one line</td></tr>
-              <tr><td><code>p</code></td><td>Developer view (<code>inspect</code>) — shows quotes and <code>nil</code></td><td>Yes</td><td>Debugging</td></tr>
+              <tr><td><code>print</code></td><td>Friendly text (<code>to_s</code>)</td><td>No</td><td>Many pieces on one line</td></tr>
+              <tr><td><code>p</code></td><td>Developer view (<code>inspect</code>): shows quotes and <code>nil</code></td><td>Yes</td><td>Debugging (finding mistakes)</td></tr>
             </tbody>
           </table>
-          <p><code>puts</code> prints each element of an array on its own line, and prints an empty line for <code>nil</code>. <code>p</code> shows the value exactly as Ruby sees it.</p>
+          <p><code>puts</code> prints each element of an array (a list of values) on its own line. For <code>nil</code>, it prints an empty line. <code>p</code> shows the value exactly as Ruby sees it.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
@@ -61,21 +61,21 @@ module RubyContent
         Integer
         false
         RUBY</code></pre></div>
-          <p>Notice the blank line: <code>puts nil</code> prints nothing but a newline, while <code>p nil</code> prints the word <code>nil</code>.</p>
+          <p>Look at the blank line. <code>puts nil</code> prints only a newline. But <code>p nil</code> prints the word <code>nil</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Everything Is an Object</h2>
-          <p>In many languages, numbers are "plain values". In Ruby, <code>7</code> is an object of class <code>Integer</code>, so you can ask it questions with methods:</p>
+          <p>In many languages, numbers are just "plain values". In Ruby, <code>7</code> is an object of class <code>Integer</code>. A class is the type of an object. So you can ask the number questions with methods:</p>
           <div class="lc-code-block"><pre><code>puts 7.even?        # false
         puts 10.to_s + "!"  # 10!
         puts 3.times.to_a.inspect   # [0, 1, 2]
         puts nil.class      # NilClass
         puts "abc".length   # 3</code></pre></div>
-          <p>Parentheses are optional when calling methods: <code>puts("hi")</code> and <code>puts "hi"</code> do the same thing. Ruby style usually leaves them out for <code>puts</code> and similar commands.</p>
+          <p>You do not need brackets when you call a method. <code>puts("hi")</code> and <code>puts "hi"</code> do the same thing. Ruby programmers usually leave them out for <code>puts</code> and similar commands.</p>
         </div>
         <div class="lc-section">
           <h2>Return Values</h2>
-          <p>Every Ruby expression gives back a value. <code>puts</code> and <code>print</code> return <code>nil</code>, but <code>p</code> returns the object you passed. That is why <code>p</code> is handy for quick debugging inside bigger expressions.</p>
+          <p>Every Ruby expression (a piece of code that makes a value) gives back a value. <code>puts</code> and <code>print</code> return <code>nil</code>. But <code>p</code> returns the object you gave it. So <code>p</code> is useful for quick debugging inside bigger expressions.</p>
           <div class="lc-code-block"><pre><code>x = p(5)    # prints 5
         y = puts 5  # prints 5
         p x         # 5
@@ -84,17 +84,17 @@ module RubyContent
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Forgetting the quotes around text: <code>puts Hello</code> makes Ruby look for a constant called <code>Hello</code> and raises <code>NameError</code>.</li>
-            <li>Using <code>print</code> and wondering why everything is on one line — add <code>"\n"</code> or use <code>puts</code>.</li>
-            <li>Using <code>puts</code> to debug <code>nil</code> or empty strings — both print a blank line. Use <code>p</code> to see the real value.</li>
-            <li>Mixing up <code>puts "5" + 5</code> (error: cannot add a number to a string) with <code>puts "5" + "5"</code> (<code>55</code>).</li>
+            <li>Forgetting the quotes around text. With <code>puts Hello</code>, Ruby looks for a constant (a fixed named value) called <code>Hello</code>. It then raises (shows) a <code>NameError</code>.</li>
+            <li>Using <code>print</code> and not knowing why everything is on one line. Add <code>"\n"</code> or use <code>puts</code>.</li>
+            <li>Using <code>puts</code> to debug <code>nil</code> or empty strings. Both print a blank line. Use <code>p</code> to see the real value.</li>
+            <li>Mixing up <code>puts "5" + 5</code> and <code>puts "5" + "5"</code>. The first is an error, because you cannot add a number to a string. The second prints <code>55</code>.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, add three lines: print your name with <code>puts</code>, print your city and state on <em>one</em> line using two <code>print</code> calls, then use <code>p</code> to show <code>"Ruby"</code> with its quotes. Finally, print <code>2026.class</code> and <code>2026.odd?</code>.</p>
+          <p>In the editor, add three lines. First, print your name with <code>puts</code>. Next, print your city and state on <em>one</em> line with two <code>print</code> calls. Then use <code>p</code> to show <code>"Ruby"</code> with its quotes. Last, print <code>2026.class</code> and <code>2026.odd?</code>.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> When you are not sure what a value is, wrap it in <code>p</code>. Ruby developers use <code>p</code> all the time while debugging, then switch to <code>puts</code> for the final output.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Not sure what a value is? Wrap it in <code>p</code>. Ruby developers use <code>p</code> a lot while debugging. Then they switch to <code>puts</code> for the final output.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 1: Introduction to Ruby
@@ -142,7 +142,7 @@ module RubyContent
           <h1 class="lc-title">Variables, Numbers and nil</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">A variable is a <strong>name that points to an object</strong>. Ruby is dynamically typed: you never write the type, and the same name can later point to a different kind of object. In this lesson you will also learn how Ruby's numbers behave and what <code>nil</code> really means.</p>
+          <p class="lc-lead">A variable is a <strong>name that points to an object</strong>. Ruby is dynamically typed. This means you never write the type. The same name can later point to a different kind of object. In this lesson, you will also learn how Ruby numbers work and what <code>nil</code> really means.</p>
         </div>
         <div class="lc-section">
           <h2>Naming Rules</h2>
@@ -151,39 +151,39 @@ module RubyContent
             <tbody>
               <tr><td>Local variable</td><td><code>snake_case</code></td><td><code>total_marks</code></td><td>The current method or block</td></tr>
               <tr><td>Instance variable</td><td>starts with <code>@</code></td><td><code>@name</code></td><td>One object (lesson 12)</td></tr>
-              <tr><td>Constant</td><td>starts with a capital</td><td><code>GST_RATE</code></td><td>The class/module where defined</td></tr>
-              <tr><td>Global variable</td><td>starts with <code>$</code></td><td><code>$debug</code></td><td>Everywhere — avoid</td></tr>
+              <tr><td>Constant</td><td>starts with a capital</td><td><code>GST_RATE</code></td><td>The class/module where it is defined</td></tr>
+              <tr><td>Global variable</td><td>starts with <code>$</code></td><td><code>$debug</code></td><td>Everywhere (avoid these)</td></tr>
             </tbody>
           </table>
-          <p>Reassigning a constant works but prints a warning (<code>already initialized constant</code>). Treat constants as fixed values.</p>
+          <p>You can give a constant a new value, but Ruby prints a warning (<code>already initialized constant</code>). Treat constants as fixed values.</p>
         </div>
         <div class="lc-section">
           <h2>Integers and Floats</h2>
           <ul class="lc-list">
-            <li><code>Integer</code> — whole numbers of <strong>any size</strong>: <code>2 ** 100</code> just works. Use underscores for readability: <code>1_00_000</code> is 100000.</li>
-            <li><code>Float</code> — decimal numbers such as <code>3.5</code>. They are stored in binary, so some results are slightly off: <code>0.1 + 0.2</code> gives <code>0.30000000000000004</code>.</li>
-            <li><code>Rational</code> — exact fractions such as <code>1/3r</code>. Useful when exactness matters.</li>
+            <li><code>Integer</code>: whole numbers of <strong>any size</strong>. <code>2 ** 100</code> just works. Use underscores to make big numbers easy to read: <code>1_00_000</code> is 100000.</li>
+            <li><code>Float</code>: decimal numbers such as <code>3.5</code>. Ruby stores them in binary, so some results are a little wrong. For example, <code>0.1 + 0.2</code> gives <code>0.30000000000000004</code>.</li>
+            <li><code>Rational</code>: exact fractions such as <code>1/3r</code>. Use them when the answer must be exact.</li>
           </ul>
           <table class="lc-table">
             <thead><tr><th>Expression</th><th>Result</th><th>Why</th></tr></thead>
             <tbody>
-              <tr><td><code>7 / 2</code></td><td><code>3</code></td><td>Integer ÷ Integer drops the decimal part</td></tr>
-              <tr><td><code>-7 / 2</code></td><td><code>-4</code></td><td>Integer division rounds <em>down</em> (towards minus infinity)</td></tr>
-              <tr><td><code>7.0 / 2</code> or <code>7.fdiv(2)</code></td><td><code>3.5</code></td><td>One Float makes the result a Float</td></tr>
-              <tr><td><code>7 % 3</code></td><td><code>1</code></td><td>Remainder (modulo)</td></tr>
-              <tr><td><code>17.divmod(5)</code></td><td><code>[3, 2]</code></td><td>Quotient and remainder together</td></tr>
+              <tr><td><code>7 / 2</code></td><td><code>3</code></td><td>Integer ÷ Integer removes the decimal part</td></tr>
+              <tr><td><code>-7 / 2</code></td><td><code>-4</code></td><td>Integer division rounds <em>down</em> (to the smaller number)</td></tr>
+              <tr><td><code>7.0 / 2</code> or <code>7.fdiv(2)</code></td><td><code>3.5</code></td><td>If one number is a Float, the result is a Float</td></tr>
+              <tr><td><code>7 % 3</code></td><td><code>1</code></td><td>Remainder (what is left over, called modulo)</td></tr>
+              <tr><td><code>17.divmod(5)</code></td><td><code>[3, 2]</code></td><td>Quotient (whole-number result) and remainder together</td></tr>
               <tr><td><code>3.14159.round(2)</code></td><td><code>3.14</code></td><td>Round to 2 decimal places</td></tr>
             </tbody>
           </table>
         </div>
         <div class="lc-section">
           <h2>Converting Between Types</h2>
-          <p><code>to_i</code>, <code>to_f</code> and <code>to_s</code> are forgiving: <code>"42abc".to_i</code> is <code>42</code> and <code>"abc".to_i</code> is <code>0</code>. When bad input should be an error, use the strict versions <code>Integer("42")</code> and <code>Float("3.5")</code>, which raise <code>ArgumentError</code> for invalid text. Add <code>exception: false</code> to get <code>nil</code> instead.</p>
+          <p><code>to_i</code>, <code>to_f</code> and <code>to_s</code> are forgiving. They do not complain about bad text. <code>"42abc".to_i</code> is <code>42</code>, and <code>"abc".to_i</code> is <code>0</code>. Sometimes bad input should cause an error. Then use the strict versions <code>Integer("42")</code> and <code>Float("3.5")</code>. They raise <code>ArgumentError</code> for invalid text. Add <code>exception: false</code> to get <code>nil</code> instead.</p>
         </div>
         <div class="lc-section">
           <h2>nil and Truthiness</h2>
-          <p><code>nil</code> means "no value". It is a real object of class <code>NilClass</code>. In conditions, <strong>only <code>nil</code> and <code>false</code> are falsy</strong>. Everything else is truthy — including <code>0</code>, <code>""</code> and <code>[]</code>. This is different from Python and JavaScript.</p>
-          <p>The operator <code>||=</code> assigns only when the variable is <code>nil</code> or <code>false</code>: <code>name ||= "Guest"</code>.</p>
+          <p><code>nil</code> means "no value". It is a real object of class <code>NilClass</code>. In conditions, <strong>only <code>nil</code> and <code>false</code> are falsy</strong> (count as false). Everything else is truthy (counts as true). This includes <code>0</code>, <code>""</code> and <code>[]</code>. Python and JavaScript work differently.</p>
+          <p>The operator <code>||=</code> sets a value only when the variable is <code>nil</code> or <code>false</code>: <code>name ||= "Guest"</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
@@ -220,18 +220,18 @@ module RubyContent
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Expecting <code>7 / 2</code> to be <code>3.5</code>. Make one side a Float or use <code>fdiv</code>.</li>
-            <li>Comparing floats with <code>==</code>: <code>0.1 + 0.2 == 0.3</code> is <code>false</code>. Round first, or use <code>Rational</code>.</li>
-            <li>Using <code>"abc".to_i</code> to validate input — it silently returns <code>0</code>. Use <code>Integer(text)</code> when invalid input must be caught.</li>
-            <li>Writing <code>if count == 0</code> as <code>if count</code> — <code>0</code> is truthy in Ruby, so the check always passes.</li>
-            <li>Calling a method on <code>nil</code> by accident, which raises <code>NoMethodError: undefined method ... for nil</code>. Check with <code>value.nil?</code> first.</li>
+            <li>Expecting <code>7 / 2</code> to be <code>3.5</code>. Make one side a Float, or use <code>fdiv</code>.</li>
+            <li>Comparing floats with <code>==</code>. <code>0.1 + 0.2 == 0.3</code> is <code>false</code>. Round first, or use <code>Rational</code>.</li>
+            <li>Using <code>"abc".to_i</code> to check input. It returns <code>0</code> without any warning. Use <code>Integer(text)</code> when you must catch invalid input.</li>
+            <li>Writing <code>if count == 0</code> as <code>if count</code>. In Ruby, <code>0</code> is truthy, so this check always passes.</li>
+            <li>Calling a method on <code>nil</code> by mistake. This raises <code>NoMethodError: undefined method ... for nil</code>. Check with <code>value.nil?</code> first.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, a shop sells a notebook for ₹45. Store the price and a quantity of 7 in variables, then print the subtotal, the 18% GST (rounded to 2 decimal places) and the total. Next, convert the text <code>"250"</code> to a number with <code>Integer</code> and add it to the total.</p>
+          <p>A shop sells a notebook for ₹45. In the editor, store the price and a quantity of 7 in variables. Print the subtotal, then the 18% GST (rounded to 2 decimal places), then the total. Next, change the text <code>"250"</code> to a number with <code>Integer</code>. Add it to the total.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> For money in real applications, store amounts as whole paise (Integer) or use the <code>bigdecimal</code> gem. Floats are fine for measurements, but tiny rounding errors add up in bills and bank balances.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> For money in real apps, store amounts as whole paise (Integer). Or use the <code>bigdecimal</code> gem. Floats are fine for measurements. But in bills and bank balances, tiny rounding errors add up.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 2: Variables, Numbers and nil
@@ -286,15 +286,15 @@ module RubyContent
           <h1 class="lc-title">Working with Strings</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">Strings hold text. Ruby strings come with more than a hundred methods, support <strong>interpolation</strong> with <code>#{}</code>, and can be mutable or frozen. Knowing the difference between methods that <em>return a new string</em> and methods that <em>change the string</em> will save you from many bugs.</p>
+          <p class="lc-lead">Strings hold text. Ruby strings have more than a hundred methods. They support <strong>interpolation</strong> (putting values inside text) with <code>#{}</code>. A string can be mutable (can change) or frozen (cannot change). Some methods <em>return a new string</em>. Other methods <em>change the string</em> itself. Knowing the difference will save you from many bugs.</p>
         </div>
         <div class="lc-section">
           <h2>Quotes and Interpolation</h2>
           <ul class="lc-list">
-            <li><strong>Double quotes</strong> run code inside <code>#{}</code> and understand escapes such as <code>\n</code> (newline) and <code>\t</code> (tab).</li>
-            <li><strong>Single quotes</strong> keep the text exactly as written: <code>'#{1 + 1}'</code> stays as those characters.</li>
-            <li>Interpolation calls <code>to_s</code> for you, so <code>"Age: #{21}"</code> works without converting the number. Concatenation with <code>+</code> does <em>not</em>: <code>"Age: " + 21</code> raises <code>TypeError</code>.</li>
-            <li>For long text, use a <strong>squiggly heredoc</strong> <code>&lt;&lt;~TEXT ... TEXT</code>, which removes the leading indentation.</li>
+            <li><strong>Double quotes</strong> run the code inside <code>#{}</code>. They also understand escapes (special codes) such as <code>\n</code> (newline) and <code>\t</code> (tab).</li>
+            <li><strong>Single quotes</strong> keep the text exactly as you wrote it. <code>'#{1 + 1}'</code> stays as those characters.</li>
+            <li>Interpolation calls <code>to_s</code> for you. So <code>"Age: #{21}"</code> works without changing the number to text. Joining with <code>+</code> (concatenation) does <em>not</em> do this. <code>"Age: " + 21</code> raises <code>TypeError</code>.</li>
+            <li>For long text, use a <strong>squiggly heredoc</strong> <code>&lt;&lt;~TEXT ... TEXT</code>. It removes the spaces at the start of each line.</li>
           </ul>
         </div>
         <div class="lc-section">
@@ -304,26 +304,26 @@ module RubyContent
             <tbody>
               <tr><td><code>upcase</code> / <code>downcase</code> / <code>capitalize</code></td><td><code>"asha".capitalize</code></td><td><code>"Asha"</code></td></tr>
               <tr><td><code>strip</code></td><td><code>"  hi  ".strip</code></td><td><code>"hi"</code></td></tr>
-              <tr><td><code>length</code></td><td><code>"Pune".length</code></td><td><code>4</code></td></tr>
+              <tr><td><code>length</code></td><td><code>"London".length</code></td><td><code>6</code></td></tr>
               <tr><td><code>include?</code> / <code>start_with?</code></td><td><code>"a@b.in".include?("@")</code></td><td><code>true</code></td></tr>
-              <tr><td><code>sub</code> / <code>gsub</code></td><td><code>"a-b-c".gsub("-", "+")</code></td><td><code>"a+b+c"</code> (<code>sub</code> replaces only the first)</td></tr>
+              <tr><td><code>sub</code> / <code>gsub</code></td><td><code>"a-b-c".gsub("-", "+")</code></td><td><code>"a+b+c"</code> (<code>sub</code> changes only the first one)</td></tr>
               <tr><td><code>split</code> / <code>join</code></td><td><code>"a,b".split(",")</code></td><td><code>["a", "b"]</code></td></tr>
               <tr><td><code>*</code></td><td><code>"-" * 5</code></td><td><code>"-----"</code></td></tr>
               <tr><td><code>ljust</code> / <code>rjust</code> / <code>center</code></td><td><code>"7".rjust(3, "0")</code></td><td><code>"007"</code></td></tr>
               <tr><td><code>format</code></td><td><code>format("%.2f", 3.14159)</code></td><td><code>"3.14"</code></td></tr>
             </tbody>
           </table>
-          <p>Methods ending in <code>?</code> return <code>true</code>/<code>false</code>. Methods ending in <code>!</code> (like <code>upcase!</code>) change the string itself instead of returning a new one.</p>
-          <p><code>sub</code>, <code>gsub</code>, <code>split</code>, <code>scan</code> and <code>match?</code> also accept a <strong>regular expression</strong> such as <code>/\d+/</code> ("one or more digits") instead of plain text — Lesson 11 teaches these patterns in depth.</p>
+          <p>Methods that end in <code>?</code> return <code>true</code>/<code>false</code>. Methods that end in <code>!</code> (like <code>upcase!</code>) change the string itself. They do not return a new one.</p>
+          <p><code>sub</code>, <code>gsub</code>, <code>split</code>, <code>scan</code> and <code>match?</code> can also take a <strong>regular expression</strong> (a text pattern) instead of plain text. An example is <code>/\d+/</code> ("one or more digits"). Lesson 11 teaches these patterns in detail.</p>
         </div>
         <div class="lc-section">
           <h2>Mutation and Frozen Strings</h2>
-          <p><code>+</code> builds a <strong>new</strong> string. <code>&lt;&lt;</code> appends to the <strong>same</strong> string, changing it for every variable that points to it.</p>
-          <p>A string can be <strong>frozen</strong> with <code>.freeze</code>; changing it then raises <code>FrozenError</code>. Many Ruby files start with the magic comment <code># frozen_string_literal: true</code>, which freezes every string literal in that file. Since Ruby 3.4, literals in files <em>without</em> that comment are "chilled": changing one still works, but Ruby prints a deprecation warning when deprecation warnings are turned on (<code>ruby -W:deprecated</code>). The plan is for literals to become frozen by default in a future version. When you need a string you will modify, create it with <code>String.new</code>, <code>+""</code> or <code>.dup</code>.</p>
+          <p><code>+</code> makes a <strong>new</strong> string. <code>&lt;&lt;</code> adds text to the end of the <strong>same</strong> string. This changes it for every variable that points to it.</p>
+          <p>You can <strong>freeze</strong> a string with <code>.freeze</code>. After that, changing it raises <code>FrozenError</code>. Many Ruby files start with the magic comment <code># frozen_string_literal: true</code>. It freezes every string literal (text written in quotes) in that file. Since Ruby 3.4, literals in files <em>without</em> that comment are "chilled". You can still change one. But Ruby prints a deprecation warning (a note that this will stop working) if these warnings are turned on (<code>ruby -W:deprecated</code>). The plan is to make literals frozen by default in a future version. Do you need a string that you will change? Create it with <code>String.new</code>, <code>+""</code> or <code>.dup</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
-          <div class="lc-code-block"><pre><code>city = String.new("bengaluru")
+          <div class="lc-code-block"><pre><code>city = String.new("london")
         puts "I live in #{city.capitalize}."
         puts 'Single: #{city}'
         loud = city.upcase
@@ -348,11 +348,11 @@ module RubyContent
         end
         puts format("Total: %.2f", 1234.5)</code></pre></div>
           <p>Output:</p>
-          <div class="lc-code-block lc-output"><pre><code>I live in Bengaluru.
+          <div class="lc-code-block lc-output"><pre><code>I live in London.
         Single: #{city}
-        bengaluru
-        BENGALURU
-        BENGALURU
+        london
+        LONDON
+        LONDON
         Hi there
         Hi there
         Hi there!
@@ -360,23 +360,23 @@ module RubyContent
         18
         can't modify frozen String: "fixed"
         Total: 1234.50</code></pre></div>
-          <p><code>length</code> counts characters, while <code>bytesize</code> counts bytes. Hindi, Tamil and other Indian scripts use 3 bytes per character in UTF-8, so the two numbers differ.</p>
+          <p><code>length</code> counts characters. <code>bytesize</code> counts bytes. In UTF-8, Hindi, Tamil and other Indian scripts use 3 bytes per character. So the two numbers are different.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Using single quotes and expecting interpolation: <code>'Hi #{name}'</code> prints the braces literally.</li>
-            <li>Joining text and numbers with <code>+</code>: <code>"Total: " + 5</code> raises <code>TypeError</code>. Use interpolation.</li>
-            <li>Expecting <code>name.upcase</code> to change <code>name</code>. It returns a new string; use <code>name = name.upcase</code> or <code>upcase!</code>.</li>
-            <li>Relying on the return value of bang methods: <code>"HI".upcase!</code> returns <code>nil</code> when nothing changed.</li>
-            <li>Mutating a string that another variable shares with <code>&lt;&lt;</code> — both variables see the change.</li>
+            <li>Using single quotes and expecting interpolation. <code>'Hi #{name}'</code> prints the braces as plain text.</li>
+            <li>Joining text and numbers with <code>+</code>. <code>"Total: " + 5</code> raises <code>TypeError</code>. Use interpolation.</li>
+            <li>Expecting <code>name.upcase</code> to change <code>name</code>. It returns a new string. Use <code>name = name.upcase</code> or <code>upcase!</code>.</li>
+            <li>Trusting the return value of bang methods (methods whose names end in an exclamation mark). <code>"HI".upcase!</code> returns <code>nil</code> when nothing changed.</li>
+            <li>Changing a shared string with <code>&lt;&lt;</code>. If another variable points to it, both variables see the change.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, take the string <code>"  priya SHARMA  "</code> and produce <code>"Priya Sharma"</code> (strip, then capitalize each word with <code>split</code>, <code>map(&amp;:capitalize)</code> and <code>join(" ")</code>). Then print a receipt line where the item name is left-aligned in 12 characters and the price is right-aligned with 2 decimals.</p>
+          <p>In the editor, take the string <code>"  priya SHARMA  "</code> and turn it into <code>"Priya Sharma"</code>. First strip it. Then capitalize each word with <code>split</code>, <code>map(&amp;:capitalize)</code> and <code>join(" ")</code>. Next, print a receipt line. Put the item name on the left in 12 characters. Put the price on the right with 2 decimals.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Put <code># frozen_string_literal: true</code> at the top of new Ruby files. It prevents accidental changes to shared strings and matches the direction Ruby is moving in. Rails and RuboCop projects already use it widely.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Put <code># frozen_string_literal: true</code> at the top of new Ruby files. It stops shared strings from being changed by mistake. It also matches where Ruby is going in the future. Many Rails and RuboCop projects already use it.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 3: Working with Strings
@@ -418,7 +418,7 @@ module RubyContent
         puts "-" * 20
 
         puts "=== Frozen strings ==="
-        city = "Mumbai".freeze
+        city = "New York".freeze
         puts city.frozen?
         begin
           city << "!"
@@ -435,7 +435,7 @@ module RubyContent
           <h1 class="lc-title">Conditionals and case</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">Programs make decisions with <code>if</code>, <code>unless</code> and <code>case</code>. In Ruby these are <strong>expressions</strong>: they return a value, so you can assign the result of a whole <code>if</code> or <code>case</code> to a variable.</p>
+          <p class="lc-lead">Programs make decisions with <code>if</code>, <code>unless</code> and <code>case</code>. In Ruby, these are <strong>expressions</strong>. This means they return a value. So you can store the result of a whole <code>if</code> or <code>case</code> in a variable.</p>
         </div>
         <div class="lc-section">
           <h2>if, elsif, else and unless</h2>
@@ -449,7 +449,7 @@ module RubyContent
 
         puts "Retake the exam" unless passed   # modifier form
         status = age &gt;= 18 ? "adult" : "minor"  # ternary</code></pre></div>
-          <p>Use <code>unless</code> only for simple negative checks and never with <code>else</code> — <code>if</code> reads better there.</p>
+          <p>Use <code>unless</code> only for simple "not" checks. Never use it with <code>else</code>. In that case, <code>if</code> is easier to read.</p>
         </div>
         <div class="lc-section">
           <h2>Comparison and Logic Operators</h2>
@@ -457,27 +457,27 @@ module RubyContent
             <thead><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr></thead>
             <tbody>
               <tr><td><code>==</code> / <code>!=</code></td><td>equal / not equal</td><td><code>5 == 5.0</code> → <code>true</code></td></tr>
-              <tr><td><code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code></td><td>ordering</td><td><code>"apple" &lt; "banana"</code> → <code>true</code></td></tr>
+              <tr><td><code>&lt;</code> <code>&lt;=</code> <code>&gt;</code> <code>&gt;=</code></td><td>order (smaller / bigger)</td><td><code>"apple" &lt; "banana"</code> → <code>true</code></td></tr>
               <tr><td><code>&amp;&amp;</code> / <code>||</code> / <code>!</code></td><td>and / or / not</td><td><code>age &gt;= 18 &amp;&amp; has_id</code></td></tr>
-              <tr><td><code>between?</code></td><td>inclusive range check</td><td><code>15.between?(10, 20)</code> → <code>true</code></td></tr>
-              <tr><td><code>&amp;.</code></td><td>safe navigation: call only if not <code>nil</code></td><td><code>user&amp;.name</code> → <code>nil</code> when <code>user</code> is <code>nil</code></td></tr>
+              <tr><td><code>between?</code></td><td>range check (includes both ends)</td><td><code>15.between?(10, 20)</code> → <code>true</code></td></tr>
+              <tr><td><code>&amp;.</code></td><td>safe navigation: calls only if not <code>nil</code></td><td><code>user&amp;.name</code> → <code>nil</code> when <code>user</code> is <code>nil</code></td></tr>
             </tbody>
           </table>
-          <p>Ruby also has the words <code>and</code>, <code>or</code> and <code>not</code>, but they have very low precedence. Use them only for control flow like <code>save or raise "failed"</code>; for conditions, use <code>&amp;&amp;</code> and <code>||</code>.</p>
+          <p>Ruby also has the words <code>and</code>, <code>or</code> and <code>not</code>. But they have very low precedence (Ruby runs them last). Use them only for control flow, like <code>save or raise "failed"</code>. For conditions, use <code>&amp;&amp;</code> and <code>||</code>.</p>
         </div>
         <div class="lc-section">
           <h2>case / when</h2>
-          <p><code>case</code> compares one value against many options using the <code>===</code> operator. That is why a <code>when</code> can hold a range, a class, a regular expression or several values:</p>
+          <p><code>case</code> compares one value with many options. It uses the <code>===</code> operator to do this. So a <code>when</code> can hold a range, a class, a regular expression or many values:</p>
           <table class="lc-table">
             <thead><tr><th><code>when</code> clause</th><th>Matches if…</th></tr></thead>
             <tbody>
               <tr><td><code>when 90..100</code></td><td>the value is inside the range</td></tr>
-              <tr><td><code>when "Sat", "Sun"</code></td><td>the value equals any of the listed items</td></tr>
+              <tr><td><code>when "Sat", "Sun"</code></td><td>the value is equal to any item in the list</td></tr>
               <tr><td><code>when Integer</code></td><td>the value is an Integer</td></tr>
               <tr><td><code>when /\A\d{6}\z/</code></td><td>the string matches the pattern (a 6-digit PIN code)</td></tr>
             </tbody>
           </table>
-          <p>Lesson 19 introduces <code>case/in</code> (pattern matching), which can also look <em>inside</em> arrays and hashes.</p>
+          <p>Lesson 19 teaches <code>case/in</code> (pattern matching). It can also look <em>inside</em> arrays and hashes.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
@@ -515,23 +515,23 @@ module RubyContent
         nil
         Guest
         Valid PIN code</code></pre></div>
-          <p><code>then</code> lets you keep a short <code>when</code> on one line. Because <code>case</code> returns a value, the method <code>grade</code> needs no <code>return</code>.</p>
+          <p><code>then</code> lets you write a short <code>when</code> on one line. <code>case</code> returns a value, so the method <code>grade</code> does not need <code>return</code>.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Writing <code>elseif</code> or <code>else if</code> — the Ruby keyword is <code>elsif</code>.</li>
-            <li>Using <code>=</code> (assignment) instead of <code>==</code> in a condition: <code>if score = 100</code> is always true.</li>
-            <li>Forgetting that <code>0</code> and <code>""</code> are truthy: <code>if items.length</code> is always true; use <code>if items.any?</code>.</li>
-            <li>Overlapping ranges in <code>case</code> — the first matching <code>when</code> wins, so put the most specific ranges first.</li>
-            <li>Using <code>and</code>/<code>or</code> in assignments: <code>ok = true and false</code> sets <code>ok</code> to <code>true</code>.</li>
+            <li>Writing <code>elseif</code> or <code>else if</code>. The Ruby keyword is <code>elsif</code>.</li>
+            <li>Using <code>=</code> (assignment) instead of <code>==</code> in a condition. <code>if score = 100</code> is always true.</li>
+            <li>Forgetting that <code>0</code> and <code>""</code> are truthy. <code>if items.length</code> is always true. Use <code>if items.any?</code>.</li>
+            <li>Ranges that overlap in <code>case</code>. The first <code>when</code> that matches wins. So put the most specific ranges first.</li>
+            <li>Using <code>and</code>/<code>or</code> in assignments. <code>ok = true and false</code> sets <code>ok</code> to <code>true</code>.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, write a method <code>ticket_price(age)</code> for a cinema: under 5 is free, 5–17 costs ₹150, 18–59 costs ₹250, and 60 or older costs ₹120. Use <code>case</code> with ranges, and test it with ages 3, 17, 18, 59 and 60.</p>
+          <p>In the editor, write a method <code>ticket_price(age)</code> for a cinema. Under 5 is free. Ages 5–17 cost ₹150. Ages 18–59 cost ₹250. Age 60 or older costs ₹120. Use <code>case</code> with ranges. Test it with ages 3, 17, 18, 59 and 60.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Prefer <strong>guard clauses</strong> over deep nesting: <code>return "Invalid" if marks.negative?</code> at the top of a method keeps the main logic flat and easy to read.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Use <strong>guard clauses</strong> (early exits) instead of deep nesting (many checks inside other checks). Put <code>return "Invalid" if marks.negative?</code> at the top of a method. This keeps the main code flat and easy to read.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 4: Conditionals and case
@@ -594,43 +594,43 @@ module RubyContent
           <h1 class="lc-title">Loops, Ranges and Iterators</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">Ruby has classic loops like <code>while</code>, but most Ruby code repeats work with <strong>iterators</strong> — methods such as <code>each</code> and <code>times</code> that take a block. <strong>Ranges</strong> like <code>1..10</code> describe a sequence of values and work beautifully with iterators.</p>
+          <p class="lc-lead">Ruby has classic loops like <code>while</code>. But most Ruby code repeats work with <strong>iterators</strong>. These are methods such as <code>each</code> and <code>times</code> that take a block (a piece of code you pass to a method). <strong>Ranges</strong> like <code>1..10</code> describe a sequence of values. They work very well with iterators.</p>
         </div>
         <div class="lc-section">
           <h2>Ranges</h2>
           <table class="lc-table">
             <thead><tr><th>Range</th><th>Contains</th><th>Notes</th></tr></thead>
             <tbody>
-              <tr><td><code>1..5</code></td><td>1, 2, 3, 4, 5</td><td>Two dots: end <strong>included</strong></td></tr>
-              <tr><td><code>1...5</code></td><td>1, 2, 3, 4</td><td>Three dots: end <strong>excluded</strong></td></tr>
+              <tr><td><code>1..5</code></td><td>1, 2, 3, 4, 5</td><td>Two dots: the end is <strong>included</strong></td></tr>
+              <tr><td><code>1...5</code></td><td>1, 2, 3, 4</td><td>Three dots: the end is <strong>left out</strong></td></tr>
               <tr><td><code>"a".."e"</code></td><td>a, b, c, d, e</td><td>Works for strings too</td></tr>
-              <tr><td><code>(1..)</code></td><td>1, 2, 3, … forever</td><td>Endless range — stop it with <code>break</code>, <code>first</code> or <code>take</code></td></tr>
-              <tr><td><code>(..18)</code></td><td>anything up to 18</td><td>Beginless range — good for comparisons</td></tr>
+              <tr><td><code>(1..)</code></td><td>1, 2, 3, … forever</td><td>Endless range: stop it with <code>break</code>, <code>first</code> or <code>take</code></td></tr>
+              <tr><td><code>(..18)</code></td><td>anything up to 18</td><td>Beginless range: good for comparisons</td></tr>
             </tbody>
           </table>
-          <p>Useful range methods: <code>to_a</code>, <code>include?</code>, <code>sum</code>, <code>step</code>, <code>each_slice</code>. Ranges also slice arrays and strings: <code>"Ruby"[1..]</code> is <code>"uby"</code>.</p>
+          <p>Useful range methods: <code>to_a</code>, <code>include?</code>, <code>sum</code>, <code>step</code>, <code>each_slice</code>. You can also use ranges to take a part of an array or string: <code>"Ruby"[1..]</code> is <code>"uby"</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Choosing a Loop</h2>
           <table class="lc-table">
-            <thead><tr><th>Goal</th><th>Idiomatic Ruby</th></tr></thead>
+            <thead><tr><th>Goal</th><th>Usual Ruby way</th></tr></thead>
             <tbody>
               <tr><td>Repeat N times</td><td><code>3.times { |i| ... }</code> (i = 0, 1, 2)</td></tr>
               <tr><td>Count between two numbers</td><td><code>1.upto(5)</code>, <code>10.downto(1)</code>, <code>0.step(20, 5)</code></td></tr>
               <tr><td>Visit every item</td><td><code>list.each { |x| ... }</code></td></tr>
-              <tr><td>Need the position too</td><td><code>list.each_with_index { |x, i| ... }</code></td></tr>
+              <tr><td>You also need the position</td><td><code>list.each_with_index { |x, i| ... }</code></td></tr>
               <tr><td>Repeat until a condition changes</td><td><code>while balance &gt; 0 ... end</code> or <code>until done ... end</code></td></tr>
               <tr><td>Repeat forever until <code>break</code></td><td><code>loop do ... end</code></td></tr>
             </tbody>
           </table>
-          <p><code>for x in list</code> exists, but Ruby developers rarely use it: its variable stays alive after the loop, while block variables stay inside the block.</p>
+          <p><code>for x in list</code> exists, but Ruby developers rarely use it. Its variable still exists after the loop ends. Block variables stay inside the block.</p>
         </div>
         <div class="lc-section">
           <h2>Controlling a Loop</h2>
           <ul class="lc-list">
-            <li><code>next</code> skips to the next item (like <code>continue</code> in other languages).</li>
+            <li><code>next</code> jumps to the next item (like <code>continue</code> in other languages).</li>
             <li><code>break</code> stops the loop. <code>break value</code> also makes the loop <em>return</em> that value.</li>
-            <li><code>{ }</code> and <code>do ... end</code> both create blocks. Convention: braces for one line, <code>do ... end</code> for several lines.</li>
+            <li><code>{ }</code> and <code>do ... end</code> both create blocks. The usual rule: use braces for one line and <code>do ... end</code> for many lines.</li>
           </ul>
         </div>
         <div class="lc-section">
@@ -682,18 +682,18 @@ module RubyContent
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Mixing up <code>..</code> and <code>...</code>: <code>(1...10).to_a</code> stops at 9.</li>
-            <li>Writing <code>i++</code> — Ruby has no <code>++</code>. Use <code>i += 1</code>.</li>
-            <li>Forgetting to change the condition inside <code>while</code>, which causes an infinite loop.</li>
-            <li>Calling <code>to_a</code> on an endless range like <code>(1..).to_a</code> — it never finishes. Use <code>first(n)</code> or <code>take(n)</code>.</li>
-            <li>Expecting <code>5.times</code> to count 1 to 5. It counts 0 to 4; use <code>1.upto(5)</code> instead.</li>
+            <li>Mixing up <code>..</code> and <code>...</code>. <code>(1...10).to_a</code> stops at 9.</li>
+            <li>Writing <code>i++</code>. Ruby has no <code>++</code>. Use <code>i += 1</code>.</li>
+            <li>Forgetting to change the condition inside <code>while</code>. This causes an infinite loop (a loop that never stops).</li>
+            <li>Calling <code>to_a</code> on an endless range like <code>(1..).to_a</code>. It never finishes. Use <code>first(n)</code> or <code>take(n)</code>.</li>
+            <li>Expecting <code>5.times</code> to count 1 to 5. It counts 0 to 4. Use <code>1.upto(5)</code> instead.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, print the multiplication table of 7 from 7 × 1 to 7 × 10 using <code>1.upto(10)</code>. Then use an endless range with <code>break</code> to find the first number greater than 100 that is divisible by both 7 and 9.</p>
+          <p>In the editor, print the multiplication table of 7, from 7 × 1 to 7 × 10. Use <code>1.upto(10)</code>. Then use an endless range with <code>break</code>. Find the first number greater than 100 that you can divide by both 7 and 9.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> When you find yourself writing a counter variable and a <code>while</code> loop to walk through a list, there is almost always an iterator that does it in one line. Lesson 10 shows many of them.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Are you writing a counter variable and a <code>while</code> loop to go through a list? There is almost always an iterator that does it in one line. Lesson 10 shows many of them.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 5: Loops, Ranges and Iterators
@@ -715,7 +715,7 @@ module RubyContent
         puts "Lift-off!"
 
         puts "=== each and each_with_index ==="
-        cities = %w[Delhi Mumbai Chennai Kolkata]
+        cities = ["Chicago", "New York", "Los Angeles", "Philadelphia"]
         cities.each_with_index do |city, i|
           puts "#{i + 1}. #{city}"
         end
@@ -749,7 +749,7 @@ module RubyContent
           <h1 class="lc-title">Arrays</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">An array is an <strong>ordered list</strong> of objects. Ruby arrays grow and shrink as needed, can hold any mix of types, and come with a rich set of methods. The key skill is knowing which methods <em>return a new array</em> and which <em>change the original</em>.</p>
+          <p class="lc-lead">An array is an <strong>ordered list</strong> of objects. Ruby arrays grow and shrink when needed. They can hold any mix of types. They also have many useful methods. The key skill is to know which methods <em>return a new array</em> and which <em>change the original</em>.</p>
         </div>
         <div class="lc-section">
           <h2>Creating and Reading Arrays</h2>
@@ -779,20 +779,20 @@ module RubyContent
               <tr><td>Flatten nested arrays</td><td><code>flatten!</code></td><td><code>flatten</code></td></tr>
             </tbody>
           </table>
-          <p>Set-like operators return new arrays: <code>a | b</code> (union), <code>a &amp; b</code> (common items), <code>a - b</code> (difference).</p>
+          <p>These set operators return new arrays: <code>a | b</code> (union: items in either), <code>a &amp; b</code> (common items), <code>a - b</code> (difference: items in a but not b).</p>
         </div>
         <div class="lc-section">
           <h2>Asking Questions</h2>
           <ul class="lc-list">
             <li><code>include?(x)</code>, <code>empty?</code>, <code>any?</code>, <code>length</code> (same as <code>size</code>), <code>count(x)</code>.</li>
-            <li><code>index(x)</code> gives the position of the first match or <code>nil</code>.</li>
-            <li><code>min</code>, <code>max</code>, <code>sum</code>, <code>minmax</code> work on numbers (and on strings for min/max).</li>
-            <li><code>join(", ")</code> turns an array into a string; <code>"a b".split</code> goes the other way.</li>
+            <li><code>index(x)</code> gives the position of the first match, or <code>nil</code>.</li>
+            <li><code>min</code>, <code>max</code>, <code>sum</code> and <code>minmax</code> work on numbers. min/max also work on strings.</li>
+            <li><code>join(", ")</code> turns an array into a string. <code>"a b".split</code> does the opposite.</li>
           </ul>
         </div>
         <div class="lc-section">
           <h2>Destructuring</h2>
-          <p>Assign parts of an array to several variables at once. The splat <code>*</code> collects "the rest":</p>
+          <p>Destructuring means putting parts of an array into many variables at once. The splat <code>*</code> collects "the rest":</p>
           <div class="lc-code-block"><pre><code>first, second, *rest = [10, 20, 30, 40]
         # first = 10, second = 20, rest = [30, 40]
         *init, last = [1, 2, 3]
@@ -833,23 +833,23 @@ module RubyContent
         [1, 2, 5]
         [1, 2, 3, 4]
         head=5 tail=[3, 8, 1]</code></pre></div>
-          <p><code>compact</code>, <code>uniq</code> and <code>sort</code> returned new arrays, so <code>nums</code> is unchanged.</p>
+          <p><code>compact</code>, <code>uniq</code> and <code>sort</code> returned new arrays. So <code>nums</code> did not change.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Off-by-one: the last index is <code>arr.length - 1</code>, or simply use <code>arr[-1]</code> / <code>arr.last</code>.</li>
-            <li><code>Array.new(3, [])</code> puts the <strong>same</strong> inner array in every slot, so changing one changes all. Use <code>Array.new(3) { [] }</code>.</li>
-            <li>Expecting <code>arr.sort</code> to sort <code>arr</code> in place. It returns a new array; use <code>sort!</code> or reassign.</li>
-            <li>Changing an array (<code>delete</code>, <code>push</code>) while looping over it with <code>each</code> — items get skipped. Build a new array with <code>reject</code> or <code>select</code> instead (lesson 10).</li>
-            <li>Confusing <code>arr[2, 3]</code> (start at index 2, take <strong>3 items</strong>) with <code>arr[2..3]</code> (indexes 2 <strong>to</strong> 3, only 2 items).</li>
+            <li>Off-by-one errors (being wrong by one position). The last index is <code>arr.length - 1</code>. Or just use <code>arr[-1]</code> / <code>arr.last</code>.</li>
+            <li><code>Array.new(3, [])</code> puts the <strong>same</strong> inner array in every slot. So changing one changes all of them. Use <code>Array.new(3) { [] }</code>.</li>
+            <li>Expecting <code>arr.sort</code> to sort <code>arr</code> itself. It returns a new array. Use <code>sort!</code>, or assign the result back to the variable.</li>
+            <li>Changing an array (<code>delete</code>, <code>push</code>) while you loop over it with <code>each</code>. Some items get skipped. Build a new array with <code>reject</code> or <code>select</code> instead (lesson 10).</li>
+            <li>Mixing up <code>arr[2, 3]</code> (start at index 2, take <strong>3 items</strong>) and <code>arr[2..3]</code> (indexes 2 <strong>to</strong> 3, so only 2 items).</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, start with <code>scores = [45, 90, 72, 90, 38, 66]</code>. Print the top three distinct scores, the number of scores below 50, and the position of the first 90. Then remove every score below 50 without changing the original array.</p>
+          <p>In the editor, start with <code>scores = [45, 90, 72, 90, 38, 66]</code>. Print the top three different scores. Print how many scores are below 50. Print the position of the first 90. Then remove every score below 50, but do not change the original array.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Read a method name carefully before using it: if it ends in <code>!</code> or is one of <code>push</code>, <code>pop</code>, <code>shift</code>, <code>unshift</code>, <code>delete</code>, <code>&lt;&lt;</code>, it changes the array. Most other methods leave the original alone.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Read a method name carefully before you use it. Some methods change the array: names ending in <code>!</code>, and <code>push</code>, <code>pop</code>, <code>shift</code>, <code>unshift</code>, <code>delete</code>, <code>&lt;&lt;</code>. Most other methods do not change the original.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 6: Arrays
@@ -906,25 +906,25 @@ module RubyContent
           <h1 class="lc-title">Hashes and Symbols</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">A hash stores <strong>key → value</strong> pairs, like a dictionary. Keys are usually <strong>symbols</strong> such as <code>:name</code> — lightweight, unchangeable names. Hashes keep their keys in the order you inserted them.</p>
+          <p class="lc-lead">A hash stores <strong>key → value</strong> pairs, like a dictionary. Keys are usually <strong>symbols</strong> such as <code>:name</code>. A symbol is a light name that cannot change. Hashes keep their keys in the order you added them.</p>
         </div>
         <div class="lc-section">
           <h2>Symbols vs Strings</h2>
-          <p>A symbol is written with a colon: <code>:status</code>. Every <code>:status</code> in your program is <strong>the same object</strong>, and symbols cannot be changed. A string like <code>"status"</code> is text data: each literal can be a separate object and (unless frozen) can be modified.</p>
+          <p>You write a symbol with a colon: <code>:status</code>. Every <code>:status</code> in your program is <strong>the same object</strong>. Symbols cannot be changed. A string like <code>"status"</code> is text data. Each literal can be a separate object. You can change it, unless it is frozen.</p>
           <table class="lc-table">
             <thead><tr><th></th><th>Symbol <code>:name</code></th><th>String <code>"name"</code></th></tr></thead>
             <tbody>
-              <tr><td>Purpose</td><td>A fixed identifier (hash key, option, state)</td><td>Text that users see or that changes</td></tr>
-              <tr><td>Same object each time?</td><td>Yes — <code>:a.equal?(:a)</code> is <code>true</code></td><td>Not necessarily</td></tr>
+              <tr><td>Purpose</td><td>A fixed name (hash key, option, state)</td><td>Text that users see, or text that changes</td></tr>
+              <tr><td>Same object each time?</td><td>Yes: <code>:a.equal?(:a)</code> is <code>true</code></td><td>Not necessarily</td></tr>
               <tr><td>Can be changed?</td><td>Never</td><td>Yes, unless frozen</td></tr>
               <tr><td>Convert</td><td><code>:name.to_s</code> → <code>"name"</code></td><td><code>"name".to_sym</code> → <code>:name</code></td></tr>
             </tbody>
           </table>
-          <p>The practical rule: use symbols for <em>names in your code</em> and strings for <em>data</em>. Note that <code>:name</code> and <code>"name"</code> are different keys — a hash built with one will not find the other.</p>
+          <p>A simple rule: use symbols for <em>names in your code</em>, and strings for <em>data</em>. Note that <code>:name</code> and <code>"name"</code> are different keys. A hash made with one will not find the other.</p>
         </div>
         <div class="lc-section">
           <h2>Creating and Reading Hashes</h2>
-          <div class="lc-code-block"><pre><code>student = { name: "Asha", age: 20, city: "Pune" }   # symbol keys
+          <div class="lc-code-block"><pre><code>student = { name: "Asha", age: 20, city: "London" }   # symbol keys
         prices  = { "chai" =&gt; 20, "dosa" =&gt; 60 }            # string keys use =&gt;
 
         student[:name]              # "Asha"
@@ -933,8 +933,8 @@ module RubyContent
         student.fetch(:email)       # raises KeyError: key not found: :email
         student[:age] = 21          # update
         student[:course] = "BCA"    # add</code></pre></div>
-          <p>Since Ruby 3.1 you can use shorthand when the key matches a variable name: <code>name = "Ravi"; { name: }</code> is <code>{ name: "Ravi" }</code>.</p>
-          <p>Ruby 3.4 prints hashes in a new style: <code>{name: "Asha", "chai" =&gt; 20}</code>. Older versions printed <code>{:name=&gt;"Asha", "chai"=&gt;20}</code>; you will still see that style in older tutorials.</p>
+          <p>Since Ruby 3.1, you can use a short form when the key has the same name as a variable: <code>name = "Ravi"; { name: }</code> is <code>{ name: "Ravi" }</code>.</p>
+          <p>Ruby 3.4 prints hashes in a new style: <code>{name: "Asha", "chai" =&gt; 20}</code>. Older versions printed <code>{:name=&gt;"Asha", "chai"=&gt;20}</code>. You will still see that style in older tutorials.</p>
         </div>
         <div class="lc-section">
           <h2>Useful Hash Methods</h2>
@@ -942,13 +942,13 @@ module RubyContent
             <thead><tr><th>Method</th><th>What it does</th></tr></thead>
             <tbody>
               <tr><td><code>each { |key, value| }</code></td><td>Loop over pairs</td></tr>
-              <tr><td><code>keys</code>, <code>values</code>, <code>key?(k)</code>, <code>size</code></td><td>Inspect the hash</td></tr>
-              <tr><td><code>select</code> / <code>reject</code></td><td>Keep or drop pairs; returns a hash</td></tr>
-              <tr><td><code>transform_values</code></td><td>Change every value; returns a hash</td></tr>
+              <tr><td><code>keys</code>, <code>values</code>, <code>key?(k)</code>, <code>size</code></td><td>Look inside the hash</td></tr>
+              <tr><td><code>select</code> / <code>reject</code></td><td>Keep or remove pairs. Returns a hash</td></tr>
+              <tr><td><code>transform_values</code></td><td>Change every value. Returns a hash</td></tr>
               <tr><td><code>sort_by { |k, v| v }</code></td><td>Returns an array of <code>[key, value]</code> pairs</td></tr>
-              <tr><td><code>merge(other)</code></td><td>Combine two hashes; later values win</td></tr>
-              <tr><td><code>dig(:a, :b)</code></td><td>Safely read nested data; <code>nil</code> if any level is missing</td></tr>
-              <tr><td><code>Hash.new(0)</code></td><td>Default value 0 for missing keys — perfect for counting</td></tr>
+              <tr><td><code>merge(other)</code></td><td>Join two hashes. Later values win</td></tr>
+              <tr><td><code>dig(:a, :b)</code></td><td>Safely read nested data (data inside data). Gives <code>nil</code> if any level is missing</td></tr>
+              <tr><td><code>Hash.new(0)</code></td><td>Default value 0 for missing keys. Great for counting</td></tr>
             </tbody>
           </table>
         </div>
@@ -966,7 +966,7 @@ module RubyContent
         %w[red blue red green red].each { |c| votes[c] += 1 }
         p votes
 
-        order = { id: 7, customer: { name: "Ravi", address: { city: "Kochi" } } }
+        order = { id: 7, customer: { name: "Ravi", address: { city: "Boston" } } }
         p order.dig(:customer, :address, :city)
         p order.dig(:customer, :phone, :mobile)
         p :done.equal?(:done)</code></pre></div>
@@ -978,24 +978,24 @@ module RubyContent
         {apple: 80, mango: 0, banana: 50}
         [:apple, 40]
         {"red" =&gt; 3, "blue" =&gt; 1, "green" =&gt; 1}
-        "Kochi"
+        "Boston"
         nil
         true</code></pre></div>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Mixing key types: <code>{ name: "A" }["name"]</code> is <code>nil</code> because the key is the symbol <code>:name</code>. Data from JSON or web forms usually has <strong>string</strong> keys.</li>
-            <li>Using <code>hash[key]</code> when a missing key is a bug. <code>fetch</code> raises <code>KeyError</code> immediately, so the bug is easy to find.</li>
-            <li><code>Hash.new([])</code> shares one array between all missing keys. Use <code>Hash.new { |h, k| h[k] = [] }</code> for a fresh array per key.</li>
-            <li>Expecting <code>sort_by</code> or <code>max_by</code> to return a hash — they return arrays of pairs. Add <code>.to_h</code> if you need a hash back.</li>
+            <li>Mixing key types. <code>{ name: "A" }["name"]</code> is <code>nil</code>, because the key is the symbol <code>:name</code>. Data from JSON or web forms usually has <strong>string</strong> keys.</li>
+            <li>Using <code>hash[key]</code> when a missing key is a bug. <code>fetch</code> raises <code>KeyError</code> right away, so the bug is easy to find.</li>
+            <li><code>Hash.new([])</code> shares one array between all missing keys. Use <code>Hash.new { |h, k| h[k] = [] }</code> to get a new array for each key.</li>
+            <li>Expecting <code>sort_by</code> or <code>max_by</code> to return a hash. They return arrays of pairs. Add <code>.to_h</code> if you need a hash back.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, count how many times each word appears in <code>"the cat and the hat and the bat"</code> using <code>Hash.new(0)</code>. Print the words sorted by count (highest first). Then solve it again in one line with <code>split.tally</code>.</p>
+          <p>In the editor, count how many times each word appears in <code>"the cat and the hat and the bat"</code>. Use <code>Hash.new(0)</code>. Print the words sorted by count, highest first. Then solve it again in one line with <code>split.tally</code>.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> <code>tally</code> (Ruby 2.7+) counts items for you: <code>%w[a b a].tally</code> returns <code>{"a" =&gt; 2, "b" =&gt; 1}</code>. It is one of the most useful one-liners in Ruby.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> <code>tally</code> (Ruby 2.7+) counts items for you. <code>%w[a b a].tally</code> returns <code>{"a" =&gt; 2, "b" =&gt; 1}</code>. It is one of the most useful one-line tricks in Ruby.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 7: Hashes and Symbols
@@ -1007,7 +1007,7 @@ module RubyContent
         p({ name: "A" }["name"])         # string key != symbol key
 
         puts "=== A student record ==="
-        student = { name: "Asha", age: 20, city: "Pune" }
+        student = { name: "Asha", age: 20, city: "London" }
         student[:course] = "BCA"
         student[:age] += 1
         p student
@@ -1035,7 +1035,7 @@ module RubyContent
         p text.split.tally == counts
 
         puts "=== Nested data with dig ==="
-        order = { id: 7, customer: { name: "Ravi", address: { city: "Kochi" } } }
+        order = { id: 7, customer: { name: "Ravi", address: { city: "Boston" } } }
         p order.dig(:customer, :address, :city)
         p order.dig(:customer, :phone, :mobile)
 
@@ -1053,7 +1053,7 @@ module RubyContent
           <h1 class="lc-title">Methods and Keyword Arguments</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">Methods package code under a name so you can reuse it. Ruby methods <strong>return the value of their last expression</strong> automatically, and <strong>keyword arguments</strong> make calls self-explaining: <code>transfer(amount: 500, to: "Ravi")</code>.</p>
+          <p class="lc-lead">A method puts some code under a name, so you can use it again. Ruby methods <strong>return the value of their last expression</strong> by themselves. <strong>Keyword arguments</strong> (arguments passed by name) make calls easy to understand: <code>transfer(amount: 500, to: "Ravi")</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Defining Methods</h2>
@@ -1067,7 +1067,7 @@ module RubyContent
           return nil if b.zero?               # early return
           a.fdiv(b)
         end</code></pre></div>
-          <p>Naming conventions: <code>snake_case</code>; end with <code>?</code> when the method answers yes/no (<code>adult?</code>), and with <code>!</code> when it is a "dangerous" version that changes its receiver or raises (<code>save!</code>).</p>
+          <p>Naming rules: use <code>snake_case</code>. End the name with <code>?</code> when the method answers yes/no (<code>adult?</code>). End it with <code>!</code> when it is a "dangerous" version. This version changes its receiver (the object it is called on) or raises an error (<code>save!</code>).</p>
         </div>
         <div class="lc-section">
           <h2>Kinds of Parameters</h2>
@@ -1076,22 +1076,22 @@ module RubyContent
             <tbody>
               <tr><td>Required positional</td><td><code>def area(w, h)</code></td><td><code>area(3, 4)</code></td></tr>
               <tr><td>Optional positional</td><td><code>def greet(name, greeting = "Hi")</code></td><td><code>greet("Asha")</code></td></tr>
-              <tr><td>Rest (splat)</td><td><code>def total(*nums)</code></td><td><code>total(1, 2, 3)</code> → <code>nums = [1, 2, 3]</code></td></tr>
+              <tr><td>Rest (splat: all extra values)</td><td><code>def total(*nums)</code></td><td><code>total(1, 2, 3)</code> → <code>nums = [1, 2, 3]</code></td></tr>
               <tr><td>Required keyword</td><td><code>def emi(principal:, rate:)</code></td><td><code>emi(rate: 9, principal: 50_000)</code></td></tr>
               <tr><td>Optional keyword</td><td><code>def emi(principal:, months: 12)</code></td><td><code>emi(principal: 50_000)</code></td></tr>
               <tr><td>Keyword rest</td><td><code>def tag(name, **attrs)</code></td><td><code>tag("a", href: "/", id: 1)</code></td></tr>
               <tr><td>Block</td><td><code>def run(&amp;block)</code></td><td><code>run { ... }</code> (lesson 9)</td></tr>
             </tbody>
           </table>
-          <p>Keyword arguments can be given in any order, and a typo or missing keyword raises a clear <code>ArgumentError</code>. Prefer them when a method has more than two parameters or has boolean options.</p>
+          <p>You can give keyword arguments in any order. A typo or a missing keyword raises a clear <code>ArgumentError</code>. Use them when a method has more than two parameters, or has true/false options.</p>
         </div>
         <div class="lc-section">
           <h2>Scope</h2>
-          <p>A method <strong>cannot see local variables</strong> defined outside it. Pass values in as arguments and get results back with the return value. This keeps methods independent and easy to test.</p>
+          <p>A method <strong>cannot see local variables</strong> created outside it. Pass values in as arguments. Get results back with the return value. This keeps methods separate and easy to test.</p>
         </div>
         <div class="lc-section">
           <h2>Recursion: A Method That Calls Itself</h2>
-          <p>A <strong>recursive</strong> method solves a problem by calling itself on a smaller version of the same problem. Every recursive method needs two parts: a <strong>base case</strong> that stops, and a <strong>recursive case</strong> that moves towards it.</p>
+          <p>A <strong>recursive</strong> method calls itself. It solves a problem by calling itself on a smaller version of the same problem. Every recursive method needs two parts. A <strong>base case</strong> stops the calls. A <strong>recursive case</strong> moves closer to the base case.</p>
           <div class="lc-code-block"><pre><code>def factorial(n)
           return 1 if n &lt;= 1       # base case: stop here
           n * factorial(n - 1)     # recursive case: a smaller problem
@@ -1104,7 +1104,7 @@ module RubyContent
           <p>Output:</p>
           <div class="lc-code-block lc-output"><pre><code>120
         15</code></pre></div>
-          <p>Forget the base case and the method calls itself until Ruby runs out of stack space and raises <code>SystemStackError</code> ("stack level too deep"). Recursion shines for nested data (folders, menus, JSON trees); for simple counting a loop or <code>(1..n).reduce(:*)</code> is clearer.</p>
+          <p>If you forget the base case, the method keeps calling itself. Then Ruby runs out of stack space (memory for method calls). It raises <code>SystemStackError</code> ("stack level too deep"). Recursion works best for nested data, such as folders, menus and JSON trees. For simple counting, a loop or <code>(1..n).reduce(:*)</code> is clearer.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
@@ -1143,23 +1143,23 @@ module RubyContent
         2 9
         missing keyword: :annual_rate
         wrong number of arguments (given 0, expected 1)</code></pre></div>
-          <p>A method returns one object, but that object can be an array — destructuring (<code>low, high = ...</code>) makes it feel like multiple return values.</p>
+          <p>A method returns one object. But that object can be an array. With destructuring (<code>low, high = ...</code>), it feels like the method returns many values.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Putting a space before the parentheses: <code>greet ("Asha", "Hi")</code> is a syntax error. Write <code>greet("Asha", "Hi")</code>.</li>
-            <li>Ending a method with <code>puts result</code> when the caller needs the value — <code>puts</code> returns <code>nil</code>. Return the value and print it outside.</li>
-            <li>Changing an argument inside the method: <code>def add(list, item) = list &lt;&lt; item</code> also changes the caller's array. Return a new object (<code>list + [item]</code>) unless changing it is the whole point.</li>
-            <li>Many positional booleans like <code>send_mail(user, true, false)</code> — nobody knows what they mean. Use keywords: <code>send_mail(user, urgent: true, copy: false)</code>.</li>
-            <li>Trying to read an outer local variable inside <code>def</code> — it raises <code>NameError</code>.</li>
+            <li>Putting a space before the brackets. <code>greet ("Asha", "Hi")</code> is a syntax error. Write <code>greet("Asha", "Hi")</code>.</li>
+            <li>Ending a method with <code>puts result</code> when the caller needs the value. <code>puts</code> returns <code>nil</code>. Return the value, and print it outside the method.</li>
+            <li>Changing an argument inside the method. <code>def add(list, item) = list &lt;&lt; item</code> also changes the caller's array. Return a new object (<code>list + [item]</code>), unless the method is meant to change it.</li>
+            <li>Many true/false values by position, like <code>send_mail(user, true, false)</code>. Nobody knows what they mean. Use keywords: <code>send_mail(user, urgent: true, copy: false)</code>.</li>
+            <li>Trying to read an outside local variable inside <code>def</code>. It raises <code>NameError</code>.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, write <code>bmi(weight_kg:, height_m:)</code> that returns the BMI rounded to 1 decimal, and <code>bmi_category(bmi)</code> that returns <code>"Underweight"</code> (below 18.5), <code>"Normal"</code> (18.5 to below 25) or <code>"Overweight"</code>. Call them for 58 kg / 1.65 m and 82 kg / 1.70 m.</p>
+          <p>In the editor, write <code>bmi(weight_kg:, height_m:)</code>. It returns the BMI rounded to 1 decimal. Also write <code>bmi_category(bmi)</code>. It returns <code>"Underweight"</code> (below 18.5), <code>"Normal"</code> (18.5 to below 25) or <code>"Overweight"</code>. Call them for 58 kg / 1.65 m and 82 kg / 1.70 m.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Keep methods short — ideally under 10 lines — and give them names that say <em>what</em> they return (<code>total_with_gst</code>) rather than <em>how</em> they work. Small methods are easier to test (lesson 21).</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Keep methods short, best under 10 lines. Give them names that say <em>what</em> they return (<code>total_with_gst</code>), not <em>how</em> they work. Small methods are easier to test (lesson 21).</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 8: Methods and Keyword Arguments
@@ -1222,11 +1222,11 @@ module RubyContent
           <h1 class="lc-title">Blocks, Procs and Lambdas</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">A <strong>block</strong> is a chunk of code you pass to a method — the <code>{ |x| ... }</code> after <code>each</code> is a block. When you want to store a block in a variable and call it later, you turn it into an object: a <strong>Proc</strong> or a <strong>lambda</strong>. All three are <em>closures</em>: they remember the variables around them.</p>
+          <p class="lc-lead">A <strong>block</strong> is a piece of code you pass to a method. The <code>{ |x| ... }</code> after <code>each</code> is a block. Sometimes you want to store a block in a variable and call it later. Then you turn it into an object: a <strong>Proc</strong> or a <strong>lambda</strong>. All three are <em>closures</em>. This means they remember the variables around them.</p>
         </div>
         <div class="lc-section">
           <h2>yield: Calling the Block</h2>
-          <p>Inside a method, <code>yield</code> runs the block the caller passed and gives back the block's value. <code>block_given?</code> tells you whether a block was passed at all.</p>
+          <p>Inside a method, <code>yield</code> runs the block that the caller passed. It gives back the block's value. <code>block_given?</code> tells you if a block was passed at all.</p>
           <div class="lc-code-block"><pre><code>def with_timer_label(label)
           puts "Start #{label}"
           result = yield          # run the caller's block
@@ -1235,7 +1235,7 @@ module RubyContent
         end
 
         with_timer_label("report") { 6 * 7 }   # prints Start/End, returns 42</code></pre></div>
-          <p>To keep the block as an object, name it with <code>&amp;</code>: <code>def on_save(&amp;callback)</code>. Now <code>callback</code> is a Proc you can store and <code>call</code> later.</p>
+          <p>To keep the block as an object, give it a name with <code>&amp;</code>: <code>def on_save(&amp;callback)</code>. Now <code>callback</code> is a Proc. You can store it and <code>call</code> it later.</p>
         </div>
         <div class="lc-section">
           <h2>Proc vs Lambda</h2>
@@ -1249,20 +1249,20 @@ module RubyContent
           <table class="lc-table">
             <thead><tr><th></th><th>Lambda (<code>lambda</code>, <code>-&gt;</code>)</th><th>Proc (<code>proc</code>, <code>Proc.new</code>, a named <code>&amp;block</code>)</th></tr></thead>
             <tbody>
-              <tr><td>Wrong number of arguments</td><td>Raises <code>ArgumentError</code> (strict, like a method)</td><td>Ignores extras, fills missing with <code>nil</code></td></tr>
+              <tr><td>Wrong number of arguments</td><td>Raises <code>ArgumentError</code> (strict, like a method)</td><td>Ignores extra ones. Fills missing ones with <code>nil</code></td></tr>
               <tr><td><code>return</code> inside it</td><td>Returns from the lambda only</td><td>Returns from the <em>method where the proc was created</em></td></tr>
               <tr><td><code>lambda?</code></td><td><code>true</code></td><td><code>false</code></td></tr>
-              <tr><td>Use it for</td><td>Stored functions, callbacks, strategies</td><td>Blocks passed to iterators</td></tr>
+              <tr><td>Use it for</td><td>Stored functions, callbacks (code to run later), strategies</td><td>Blocks passed to iterators</td></tr>
             </tbody>
           </table>
         </div>
         <div class="lc-section">
           <h2>Shortcuts You Will See Everywhere</h2>
           <ul class="lc-list">
-            <li><code>names.map(&amp;:upcase)</code> — <code>&amp;:upcase</code> turns the symbol into a block that calls <code>upcase</code> on each item.</li>
-            <li><code>nums.map(&amp;add_gst)</code> — <code>&amp;</code> also passes a lambda as the block.</li>
-            <li><code>method(:puts)</code> gives a Method object; <code>list.each(&amp;method(:puts))</code> passes it as a block.</li>
-            <li>Numbered parameter <code>_1</code> (Ruby 2.7+) and <code>it</code> (Ruby 3.4+) name the single block argument: <code>nums.map { it * 2 }</code>. <code>it</code> does not work in Ruby 3.3 or older, so use <code>|x|</code> when your code must run everywhere.</li>
+            <li><code>names.map(&amp;:upcase)</code>: <code>&amp;:upcase</code> turns the symbol into a block. The block calls <code>upcase</code> on each item.</li>
+            <li><code>nums.map(&amp;add_gst)</code>: <code>&amp;</code> also passes a lambda as the block.</li>
+            <li><code>method(:puts)</code> gives a Method object. <code>list.each(&amp;method(:puts))</code> passes it as a block.</li>
+            <li>The numbered parameter <code>_1</code> (Ruby 2.7+) and <code>it</code> (Ruby 3.4+) are names for the single block argument: <code>nums.map { it * 2 }</code>. <code>it</code> does not work in Ruby 3.3 or older. So use <code>|x|</code> when your code must run everywhere.</li>
           </ul>
         </div>
         <div class="lc-section">
@@ -1305,22 +1305,22 @@ module RubyContent
         wrong number of arguments (given 1, expected 2)
         8
         ["Asha", "Ravi"]</code></pre></div>
-          <p>The lambda captured the <em>variable</em> <code>discount</code>, not its value at creation time — that is what "closure" means.</p>
+          <p>The lambda kept the <em>variable</em> <code>discount</code>, not the value it had when the lambda was made. That is what "closure" means.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Calling <code>yield</code> when no block was passed raises <code>LocalJumpError (no block given (yield))</code>. Check <code>block_given?</code> first.</li>
-            <li>Mixing brace and <code>do...end</code> precedence: <code>puts [1, 2].map do |x| x * 2 end</code> passes the block to <code>puts</code>, not to <code>map</code>. Use braces for one-liners.</li>
-            <li>Using <code>proc</code> when you wanted a strict function — wrong argument counts are silently accepted. Choose a lambda.</li>
-            <li>Using <code>return</code> inside a proc that outlives its method — it raises <code>LocalJumpError</code>. Use <code>next</code> to leave a block early.</li>
+            <li>Calling <code>yield</code> when no block was passed. This raises <code>LocalJumpError (no block given (yield))</code>. Check <code>block_given?</code> first.</li>
+            <li>Mixing up the precedence (order of binding) of braces and <code>do...end</code>. <code>puts [1, 2].map do |x| x * 2 end</code> passes the block to <code>puts</code>, not to <code>map</code>. Use braces for one-line blocks.</li>
+            <li>Using <code>proc</code> when you wanted a strict function. A wrong number of arguments is accepted without any error. Choose a lambda.</li>
+            <li>Using <code>return</code> inside a proc that is still used after its method has finished. It raises <code>LocalJumpError</code>. Use <code>next</code> to leave a block early.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, write a method <code>retry_up_to(times)</code> that yields the attempt number (1, 2, 3...) and stops as soon as the block returns <code>true</code>. Then build a hash of lambdas <code>{ add: -&gt;(a, b) { a + b }, mul: ... }</code> and use it as a tiny calculator: <code>ops[:mul].call(6, 7)</code>.</p>
+          <p>In the editor, write a method <code>retry_up_to(times)</code>. It yields the attempt number (1, 2, 3...). It stops as soon as the block returns <code>true</code>. Then build a hash of lambdas <code>{ add: -&gt;(a, b) { a + b }, mul: ... }</code>. Use it as a tiny calculator: <code>ops[:mul].call(6, 7)</code>.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Most of the time you only need <strong>blocks</strong>. Reach for a <strong>lambda</strong> when you must store behaviour in a variable or hash, and write your own <code>yield</code> methods when several places share the same "before and after" code.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Most of the time, you only need <strong>blocks</strong>. Use a <strong>lambda</strong> when you must store behaviour in a variable or hash. Write your own <code>yield</code> methods when many places share the same "before and after" code.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 9: Blocks, Procs and Lambdas
@@ -1383,18 +1383,18 @@ module RubyContent
           <h1 class="lc-title">Enumerable in Depth</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead"><code>Enumerable</code> is a module full of collection methods — <code>map</code>, <code>select</code>, <code>reduce</code>, <code>group_by</code> and dozens more. Arrays, hashes, ranges and sets all include it. Learning these methods lets you replace most hand-written loops with one clear line.</p>
+          <p class="lc-lead"><code>Enumerable</code> is a module (a group of shared methods) for collections. It has <code>map</code>, <code>select</code>, <code>reduce</code>, <code>group_by</code> and dozens more. Arrays, hashes, ranges and sets all include it. With these methods, you can replace most hand-written loops with one clear line.</p>
         </div>
         <div class="lc-section">
           <h2>Pick the Right Method</h2>
           <table class="lc-table">
             <thead><tr><th>I want to…</th><th>Method</th><th>Example → result</th></tr></thead>
             <tbody>
-              <tr><td>Transform every item</td><td><code>map</code></td><td><code>[1, 2].map { |x| x * 10 }</code> → <code>[10, 20]</code></td></tr>
-              <tr><td>Keep matching items</td><td><code>select</code> (alias <code>filter</code>)</td><td><code>[1, 2, 3].select(&amp;:odd?)</code> → <code>[1, 3]</code></td></tr>
-              <tr><td>Drop matching items</td><td><code>reject</code></td><td><code>[1, 2, 3].reject(&amp;:odd?)</code> → <code>[2]</code></td></tr>
-              <tr><td>Transform and drop <code>nil</code>/<code>false</code></td><td><code>filter_map</code></td><td><code>[1, 2, 3].filter_map { |x| x * 2 if x.odd? }</code> → <code>[2, 6]</code></td></tr>
-              <tr><td>First match</td><td><code>find</code> (alias <code>detect</code>)</td><td><code>[4, 7, 9].find(&amp;:odd?)</code> → <code>7</code></td></tr>
+              <tr><td>Change every item</td><td><code>map</code></td><td><code>[1, 2].map { |x| x * 10 }</code> → <code>[10, 20]</code></td></tr>
+              <tr><td>Keep matching items</td><td><code>select</code> (other name: <code>filter</code>)</td><td><code>[1, 2, 3].select(&amp;:odd?)</code> → <code>[1, 3]</code></td></tr>
+              <tr><td>Remove matching items</td><td><code>reject</code></td><td><code>[1, 2, 3].reject(&amp;:odd?)</code> → <code>[2]</code></td></tr>
+              <tr><td>Change items and remove <code>nil</code>/<code>false</code></td><td><code>filter_map</code></td><td><code>[1, 2, 3].filter_map { |x| x * 2 if x.odd? }</code> → <code>[2, 6]</code></td></tr>
+              <tr><td>First match</td><td><code>find</code> (other name: <code>detect</code>)</td><td><code>[4, 7, 9].find(&amp;:odd?)</code> → <code>7</code></td></tr>
               <tr><td>Combine into one value</td><td><code>reduce</code> / <code>sum</code></td><td><code>[2, 3, 4].reduce(:*)</code> → <code>24</code></td></tr>
               <tr><td>Best / worst by a rule</td><td><code>max_by</code>, <code>min_by</code>, <code>sort_by</code></td><td><code>%w[kiwi fig].min_by(&amp;:length)</code> → <code>"fig"</code></td></tr>
               <tr><td>Group or split</td><td><code>group_by</code>, <code>partition</code>, <code>chunk_while</code></td><td><code>(1..6).partition(&amp;:even?)</code> → <code>[[2, 4, 6], [1, 3, 5]]</code></td></tr>
@@ -1408,30 +1408,30 @@ module RubyContent
         </div>
         <div class="lc-section">
           <h2>Hashes Are Enumerable Too</h2>
-          <p>When you call an Enumerable method on a hash, each item is a <code>[key, value]</code> pair. Name both parts in the block:</p>
+          <p>When you call an Enumerable method on a hash, each item is a <code>[key, value]</code> pair. Give both parts a name in the block:</p>
           <div class="lc-code-block"><pre><code>stock = { rice: 40, dal: 0, atta: 12 }
         stock.select { |_item, qty| qty.zero? }   # {dal: 0}          (a hash)
         stock.map { |item, qty| "#{item}=#{qty}" } # ["rice=40", ...]   (an array)
         stock.sum { |_item, qty| qty }            # 52
         stock.sort_by { |_item, qty| qty }.to_h   # {dal: 0, atta: 12, rice: 40}</code></pre></div>
-          <p>A leading underscore (<code>_item</code>) tells readers, and Ruby's warnings, that you do not use that value.</p>
+          <p>An underscore at the start (<code>_item</code>) tells readers, and Ruby's warnings, that you do not use that value.</p>
         </div>
         <div class="lc-section">
           <h2>reduce Explained</h2>
-          <p><code>reduce</code> (alias <code>inject</code>) keeps a running value called the <em>accumulator</em>. For <code>[5, 10, 15].reduce(0) { |sum, x| sum + x }</code> the accumulator goes 0 → 5 → 15 → 30. For simple totals, <code>sum</code> is clearer.</p>
+          <p><code>reduce</code> (other name: <code>inject</code>) keeps a running value called the <em>accumulator</em>. For <code>[5, 10, 15].reduce(0) { |sum, x| sum + x }</code>, the accumulator goes 0 → 5 → 15 → 30. For simple totals, <code>sum</code> is clearer.</p>
         </div>
         <div class="lc-section">
           <h2>Chaining and Laziness</h2>
-          <p>Enumerable methods return new collections, so you can chain them: <code>orders.select(&amp;:paid?).map(&amp;:amount).sum</code>. Each step creates an intermediate array. For very large or <strong>infinite</strong> sequences, add <code>.lazy</code>: work happens only for the items you actually ask for.</p>
+          <p>Enumerable methods return new collections. So you can chain them (call one after another): <code>orders.select(&amp;:paid?).map(&amp;:amount).sum</code>. Each step makes an in-between array. For very large or <strong>infinite</strong> sequences, add <code>.lazy</code>. Then Ruby does the work only for the items you really ask for.</p>
           <div class="lc-code-block"><pre><code>(1..).lazy.map { |n| n * n }.select(&amp;:even?).first(3)   # [4, 16, 36]</code></pre></div>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
           <div class="lc-code-block"><pre><code>students = [
-          { name: "Asha",  city: "Pune",  marks: 91 },
-          { name: "Ravi",  city: "Delhi", marks: 67 },
-          { name: "Meena", city: "Pune",  marks: 78 },
-          { name: "Dev",   city: "Delhi", marks: 38 }
+          { name: "Asha",  city: "London",  marks: 91 },
+          { name: "Ravi",  city: "Chicago", marks: 67 },
+          { name: "Meena", city: "London",  marks: 78 },
+          { name: "Dev",   city: "Chicago", marks: 38 }
         ]
 
         p students.map { |s| s[:name] }
@@ -1451,26 +1451,26 @@ module RubyContent
         "Asha"
         274
         3 passed, 1 failed
-        {"Pune" =&gt; ["Asha", "Meena"], "Delhi" =&gt; ["Ravi", "Dev"]}
+        {"London" =&gt; ["Asha", "Meena"], "Chicago" =&gt; ["Ravi", "Dev"]}
         ["Asha", "Meena"]
         [5, -6, 7]
-        {"Pune" =&gt; 169, "Delhi" =&gt; 105}</code></pre></div>
+        {"London" =&gt; 169, "Chicago" =&gt; 105}</code></pre></div>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
             <li>Using <code>each</code> to build a new array (<code>result = []; list.each { result &lt;&lt; ... }</code>). Use <code>map</code> or <code>select</code>.</li>
-            <li>Using <code>map</code> for side effects only (like printing) — use <code>each</code>, which says "I only care about the effect".</li>
+            <li>Using <code>map</code> only for side effects (like printing). Use <code>each</code>. It says "I only care about the effect".</li>
             <li>Forgetting that <code>select</code> on a <strong>hash</strong> returns a hash, but <code>map</code> on a hash returns an <strong>array</strong>.</li>
-            <li>Writing <code>reduce { |sum, x| sum + x }</code> on an empty array — it returns <code>nil</code>. Give a starting value: <code>reduce(0)</code>, or use <code>sum</code>.</li>
-            <li>Calling <code>map</code> on an infinite range without <code>lazy</code> — the program never finishes.</li>
+            <li>Writing <code>reduce { |sum, x| sum + x }</code> on an empty array. It returns <code>nil</code>. Give a starting value: <code>reduce(0)</code>, or use <code>sum</code>.</li>
+            <li>Calling <code>map</code> on an infinite range without <code>lazy</code>. The program never finishes.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, using the <code>orders</code> data, print (1) the total revenue from paid orders, (2) the customer who spent the most, and (3) a hash of item → number of orders using <code>tally</code>. Try to write each answer as a single chain.</p>
+          <p>In the editor, use the <code>orders</code> data. Print (1) the total revenue from paid orders, (2) the customer who spent the most, and (3) a hash of item → number of orders, using <code>tally</code>. Try to write each answer as one chain.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Read a chain out loud: "orders, <em>select</em> the paid ones, <em>map</em> to amount, <em>sum</em>". If it reads like the requirement, it is good Ruby. If a chain gets longer than about four steps, give the middle results names.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Read a chain out loud: "orders, <em>select</em> the paid ones, <em>map</em> to amount, <em>sum</em>". If it sounds like the task, it is good Ruby. If a chain has more than about four steps, give the middle results names.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 10: Enumerable in Depth
@@ -1527,28 +1527,28 @@ module RubyContent
           <h1 class="lc-title">Regular Expressions</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">A <strong>regular expression</strong> (regexp) is a small pattern language for text: "six digits", "a word after a #", "anything that looks like an email". Ruby has regexps built into the language — you write them between slashes, <code>/\d{6}/</code> — and string methods such as <code>match?</code>, <code>scan</code>, <code>gsub</code> and <code>split</code> all accept them. You will use them to validate form input, pull data out of logs and clean up messy text.</p>
+          <p class="lc-lead">A <strong>regular expression</strong> (regexp) is a small language for text patterns. Examples are "six digits", "a word after a #" or "anything that looks like an email". Regexps are built into Ruby. You write them between slashes: <code>/\d{6}/</code>. String methods such as <code>match?</code>, <code>scan</code>, <code>gsub</code> and <code>split</code> all accept them. You will use them to check form input, get data out of logs and clean up messy text.</p>
         </div>
         <div class="lc-section">
           <h2>Writing a Pattern</h2>
-          <p>A regexp literal is <code>/pattern/flags</code>, an instance of the class <code>Regexp</code>. When the pattern contains many slashes, <code>%r{...}</code> is easier to read: <code>%r{\A/users/\d+\z}</code>.</p>
+          <p>A regexp literal is written as <code>/pattern/flags</code>. It is an object of the class <code>Regexp</code>. If the pattern has many slashes, <code>%r{...}</code> is easier to read: <code>%r{\A/users/\d+\z}</code>.</p>
           <table class="lc-table">
             <thead><tr><th>Piece</th><th>Meaning</th><th>Example</th></tr></thead>
             <tbody>
               <tr><td><code>\d</code> <code>\w</code> <code>\s</code></td><td>A digit; a word character (letter, digit, <code>_</code>); whitespace</td><td><code>/\d\d/</code> matches <code>"42"</code></td></tr>
               <tr><td><code>\D</code> <code>\W</code> <code>\S</code></td><td>The opposite: NOT a digit / word character / space</td><td><code>/\S+/</code> matches one word</td></tr>
               <tr><td><code>.</code></td><td>Any character except a newline</td><td><code>/c.t/</code> matches <code>"cat"</code>, <code>"cut"</code></td></tr>
-              <tr><td><code>[abc]</code> <code>[a-z]</code> <code>[^0-9]</code></td><td>One character from a set; <code>^</code> inside means "not"</td><td><code>/[6-9]/</code> matches one digit 6 to 9</td></tr>
-              <tr><td><code>*</code> <code>+</code> <code>?</code> <code>{n}</code> <code>{n,m}</code></td><td>Repeat: 0+, 1+, 0 or 1, exactly n, n to m times</td><td><code>/\d{6}/</code> — six digits</td></tr>
-              <tr><td><code>\A</code> <code>\z</code></td><td>Start and end of the <strong>whole string</strong></td><td><code>/\A\d{6}\z/</code> — only six digits</td></tr>
-              <tr><td><code>^</code> <code>$</code></td><td>Start and end of a <strong>line</strong></td><td>Use for multi-line text, not for validation</td></tr>
-              <tr><td><code>\b</code></td><td>A word boundary</td><td><code>/\bcat\b/</code> does not match inside <code>"concat"</code></td></tr>
-              <tr><td><code>(...)</code> <code>(?&lt;name&gt;...)</code></td><td>A group that captures; a <strong>named</strong> capture</td><td><code>/(?&lt;year&gt;\d{4})/</code></td></tr>
+              <tr><td><code>[abc]</code> <code>[a-z]</code> <code>[^0-9]</code></td><td>One character from a set. <code>^</code> inside means "not"</td><td><code>/[6-9]/</code> matches one digit 6 to 9</td></tr>
+              <tr><td><code>*</code> <code>+</code> <code>?</code> <code>{n}</code> <code>{n,m}</code></td><td>Repeat: 0+, 1+, 0 or 1, exactly n, n to m times</td><td><code>/\d{6}/</code>: six digits</td></tr>
+              <tr><td><code>\A</code> <code>\z</code></td><td>Start and end of the <strong>whole string</strong></td><td><code>/\A\d{6}\z/</code>: only six digits</td></tr>
+              <tr><td><code>^</code> <code>$</code></td><td>Start and end of a <strong>line</strong></td><td>Use for text with many lines, not for checking input</td></tr>
+              <tr><td><code>\b</code></td><td>A word boundary (the edge of a word)</td><td><code>/\bcat\b/</code> does not match inside <code>"concat"</code></td></tr>
+              <tr><td><code>(...)</code> <code>(?&lt;name&gt;...)</code></td><td>A group that captures (saves) text. A <strong>named</strong> capture</td><td><code>/(?&lt;year&gt;\d{4})/</code></td></tr>
               <tr><td><code>a|b</code></td><td>Either <code>a</code> or <code>b</code></td><td><code>/chai|coffee/</code></td></tr>
-              <tr><td><code>\.</code> <code>\+</code> <code>\/</code></td><td>A backslash makes a special character literal</td><td><code>/\d+\.\d+/</code> matches <code>"1.5"</code></td></tr>
+              <tr><td><code>\.</code> <code>\+</code> <code>\/</code></td><td>A backslash makes a special character mean itself</td><td><code>/\d+\.\d+/</code> matches <code>"1.5"</code></td></tr>
             </tbody>
           </table>
-          <p>Flags go after the closing slash: <code>i</code> ignores case (<code>/ruby/i</code>), <code>x</code> lets you add spaces and <code># comments</code> inside the pattern, and <code>m</code> lets <code>.</code> match newlines too. Note: Ruby's <code>m</code> is <em>not</em> the same as the <code>m</code> flag in JavaScript or Python — in Ruby, <code>^</code> and <code>$</code> always work per line.</p>
+          <p>Flags go after the closing slash. <code>i</code> ignores case (<code>/ruby/i</code>). <code>x</code> lets you add spaces and <code># comments</code> inside the pattern. <code>m</code> lets <code>.</code> match newlines too. Note: Ruby's <code>m</code> is <em>not</em> the same as the <code>m</code> flag in JavaScript or Python. In Ruby, <code>^</code> and <code>$</code> always work per line.</p>
         </div>
         <div class="lc-section">
           <h2>Which Method Should I Use?</h2>
@@ -1559,12 +1559,12 @@ module RubyContent
               <tr><td>Find where it matches</td><td><code>str =~ re</code></td><td>Index of the first match, or <code>nil</code></td></tr>
               <tr><td>Read the captured parts</td><td><code>str.match(re)</code></td><td>A <code>MatchData</code> (<code>m[1]</code>, <code>m[:year]</code>) or <code>nil</code></td></tr>
               <tr><td>Get just the matched text</td><td><code>str[re]</code></td><td>The first matching substring, or <code>nil</code></td></tr>
-              <tr><td>Find every match</td><td><code>str.scan(re)</code></td><td>An array of matches (arrays of groups if the pattern has groups)</td></tr>
-              <tr><td>Replace first / all matches</td><td><code>sub</code> / <code>gsub</code></td><td>A new string; the replacement can be a string, a hash or a block</td></tr>
+              <tr><td>Find every match</td><td><code>str.scan(re)</code></td><td>An array of matches (arrays of groups, if the pattern has groups)</td></tr>
+              <tr><td>Replace first / all matches</td><td><code>sub</code> / <code>gsub</code></td><td>A new string. The replacement can be a string, a hash or a block</td></tr>
               <tr><td>Split on a pattern</td><td><code>str.split(re)</code></td><td>An array of pieces</td></tr>
             </tbody>
           </table>
-          <p>In a replacement string, <code>'\1'</code> means "the text of group 1". Use single quotes so Ruby does not treat <code>\1</code> as an escape. <code>case</code>/<code>when</code> also works with regexps, because <code>Regexp#===</code> means "matches": <code>when /\A\d+\z/ then "number"</code>.</p>
+          <p>In a replacement string, <code>'\1'</code> means "the text of group 1". Use single quotes, so Ruby does not treat <code>\1</code> as an escape. <code>case</code>/<code>when</code> also works with regexps. This is because <code>Regexp#===</code> means "matches": <code>when /\A\d+\z/ then "number"</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
@@ -1598,23 +1598,23 @@ module RubyContent
         ["chai", "dosa", "idli"]
         "dog cap"
         asha at iitb.ac.in</code></pre></div>
-          <p>The last example shows a Ruby special: when a regexp <strong>literal</strong> with named groups is on the <em>left</em> of <code>=~</code>, Ruby creates local variables (<code>user</code>, <code>host</code>) from the group names.</p>
+          <p>The last example shows a special Ruby feature. Put a regexp <strong>literal</strong> with named groups on the <em>left</em> of <code>=~</code>. Then Ruby creates local variables (<code>user</code>, <code>host</code>) from the group names.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Validating with <code>^</code> and <code>$</code>. They match at <em>line</em> breaks, so <code>"600036\nX".match?(/^\d{6}$/)</code> is <code>true</code>. For validation always use <code>\A</code> and <code>\z</code>.</li>
-            <li>Forgetting to escape a dot: <code>/1.5/</code> also matches <code>"125"</code>. Write <code>/1\.5/</code>, and pass user input through <code>Regexp.escape</code> before building a pattern with <code>Regexp.new</code>.</li>
-            <li>Greedy repeats taking too much: <code>"&lt;b&gt;hi&lt;/b&gt;"[/&lt;.+&gt;/]</code> returns the whole string. Add <code>?</code> for the shortest match: <code>/&lt;.+?&gt;/</code> gives <code>"&lt;b&gt;"</code>.</li>
-            <li>Using <code>=~</code> or <code>match</code> only to get true/false — <code>match?</code> is clearer and faster.</li>
-            <li>Writing a huge regexp for something a library already does, such as parsing JSON, CSV or HTML. Regexps are for small, well-defined text patterns.</li>
+            <li>Checking input with <code>^</code> and <code>$</code>. They match at <em>line</em> breaks. So <code>"600036\nX".match?(/^\d{6}$/)</code> is <code>true</code>. To check input, always use <code>\A</code> and <code>\z</code>.</li>
+            <li>Forgetting to escape a dot. <code>/1.5/</code> also matches <code>"125"</code>. Write <code>/1\.5/</code>. Also pass user input through <code>Regexp.escape</code> before you build a pattern with <code>Regexp.new</code>.</li>
+            <li>Greedy repeats (repeats that take as much as they can) taking too much. <code>"&lt;b&gt;hi&lt;/b&gt;"[/&lt;.+&gt;/]</code> returns the whole string. Add <code>?</code> for the shortest match: <code>/&lt;.+?&gt;/</code> gives <code>"&lt;b&gt;"</code>.</li>
+            <li>Using <code>=~</code> or <code>match</code> only to get true/false. <code>match?</code> is clearer and faster.</li>
+            <li>Writing a huge regexp for a job that a library already does, such as parsing (reading) JSON, CSV or HTML. Regexps are for small, clear text patterns.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, add a <code>VEHICLE</code> pattern for Indian number plates such as <code>"MH12AB1234"</code> (2 letters, 2 digits, 1–2 letters, 4 digits) and check <code>"MH12AB1234"</code>, <code>"KA05M9999"</code> and <code>"12MHAB1234"</code>. Then use <code>scan</code> to pull every amount out of <code>"Paid Rs 250 on Mon, Rs 99 on Tue"</code> and print their sum.</p>
+          <p>In the editor, add a <code>VEHICLE</code> pattern for Indian number plates such as <code>"MH12AB1234"</code>. The format is 2 letters, 2 digits, 1–2 letters, then 4 digits. Check <code>"MH12AB1234"</code>, <code>"KA05M9999"</code> and <code>"12MHAB1234"</code>. Then use <code>scan</code> to get every amount from <code>"Paid Rs 250 on Mon, Rs 99 on Tue"</code>. Print their sum.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Build and test patterns step by step in <code>irb</code> or on <strong>rubular.com</strong>, a regexp tester made for Ruby. For long patterns use the <code>x</code> flag and put each part on its own line with a comment — your future self will thank you.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Build and test patterns step by step in <code>irb</code> or on <strong>rubular.com</strong>. It is a regexp tester made for Ruby. For long patterns, use the <code>x</code> flag. Put each part on its own line with a comment. This makes the pattern much easier to read later.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 11: Regular Expressions
@@ -1672,7 +1672,7 @@ module RubyContent
           <h1 class="lc-title">Classes and Objects</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">A <strong>class</strong> is a blueprint; an <strong>object</strong> is one thing built from it. Each object keeps its own data in <strong>instance variables</strong> (<code>@balance</code>) and responds to the <strong>methods</strong> defined in its class. This is object-oriented programming — and in Ruby, everything already works this way.</p>
+          <p class="lc-lead">A <strong>class</strong> is a plan for making things. An <strong>object</strong> is one thing made from that plan. Each object keeps its own data in <strong>instance variables</strong> (<code>@balance</code>). These are variables that belong to one object. An object also answers the <strong>methods</strong> (actions) defined in its class. This way of working is called object-oriented programming. In Ruby, everything already works this way.</p>
         </div>
         <div class="lc-section">
           <h2>Defining a Class</h2>
@@ -1706,15 +1706,15 @@ module RubyContent
               <tr><td><code>attr_accessor :name</code></td><td>both</td><td>both of the above</td></tr>
             </tbody>
           </table>
-          <p>Expose as little as possible. A bank balance should have a reader, but changes should go through methods like <code>deposit</code> that can check the rules. Write your own setter when you need validation.</p>
+          <p>Show as little of the object as you can. A bank balance should have a reader (getter). But changes should go through methods like <code>deposit</code>, which can check the rules. Write your own setter when you need validation (checking that a value is allowed).</p>
         </div>
         <div class="lc-section">
           <h2>self, Class Methods and Visibility</h2>
           <ul class="lc-list">
-            <li>Inside an instance method, <code>self</code> is the current object. Inside a setter call you <strong>must</strong> write <code>self.name = ...</code>; plain <code>name = ...</code> creates a local variable.</li>
-            <li><code>def self.from_csv_line(line)</code> defines a <strong>class method</strong>, called as <code>BankAccount.from_csv_line(...)</code>. Good for alternative constructors.</li>
-            <li>Methods after <code>private</code> can only be called from inside the object, without an explicit receiver. <code>protected</code> methods can also be called on <em>other</em> objects of the same class (useful for comparisons).</li>
-            <li>To count objects, use a class-level instance variable: set <code>@count = 0</code> in the class body and read it from class methods. Avoid <code>@@class_variables</code>: they are shared with every subclass and cause surprises.</li>
+            <li>Inside an instance method, <code>self</code> is the current object. To call a setter, you <strong>must</strong> write <code>self.name = ...</code>. Plain <code>name = ...</code> creates a local variable instead.</li>
+            <li><code>def self.from_csv_line(line)</code> defines a <strong>class method</strong> (a method you call on the class, not on an object). You call it as <code>BankAccount.from_csv_line(...)</code>. It is good for extra ways to create objects (alternative constructors).</li>
+            <li>Methods after <code>private</code> can only be called from inside the object. You call them without writing an object before the dot (no explicit receiver). <code>protected</code> methods can also be called on <em>other</em> objects of the same class. This is useful for comparisons.</li>
+            <li>To count objects, use an instance variable on the class itself. Set <code>@count = 0</code> in the class body. Then read it from class methods. Avoid <code>@@class_variables</code>. They are shared with every subclass (child class), and this causes unexpected results.</li>
           </ul>
         </div>
         <div class="lc-section">
@@ -1776,23 +1776,23 @@ module RubyContent
         pass_mark is private
         marks must be 0-100
         [:@name, :@marks]</code></pre></div>
-          <p>The custom setter <code>marks=</code> guards the data both in <code>initialize</code> and later. The counter lives on the class object itself, so it is not shared with subclasses.</p>
+          <p>The custom setter <code>marks=</code> checks the data in <code>initialize</code> and also later. The counter is stored on the class object itself. So it is not shared with subclasses.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
             <li>Writing <code>marks = value</code> inside a method and expecting the setter to run. Use <code>self.marks = value</code>.</li>
-            <li>Misspelling <code>initialize</code> (for example <code>initialise</code>) — Ruby just treats it as a normal method and <code>new</code> raises <code>ArgumentError</code>.</li>
-            <li>Reading an instance variable that was never set: <code>@nmae</code> silently gives <code>nil</code>. Prefer the reader method <code>name</code>, which raises <code>NameError</code> if you misspell it.</li>
-            <li>Adding <code>attr_accessor</code> for everything. It lets any code change any field and skips your validation.</li>
-            <li>Forgetting <code>to_s</code> — <code>puts obj</code> then prints something like <code>#&lt;Student:0x000...&gt;</code>.</li>
+            <li>Misspelling <code>initialize</code> (for example <code>initialise</code>). Ruby then treats it as a normal method, and <code>new</code> raises <code>ArgumentError</code>.</li>
+            <li>Reading an instance variable that was never set. <code>@nmae</code> gives <code>nil</code> with no error. Use the reader method <code>name</code> instead. It raises <code>NameError</code> if you misspell it.</li>
+            <li>Adding <code>attr_accessor</code> for everything. It lets any code change any field. It also skips your validation.</li>
+            <li>Forgetting <code>to_s</code>. Then <code>puts obj</code> prints something like <code>#&lt;Student:0x000...&gt;</code>.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, add a <code>transfer(amount, to:)</code> method to <code>BankAccount</code> that withdraws from this account and deposits into <code>to</code>, returning <code>false</code> (and changing nothing) if the withdrawal fails. Transfer ₹300 from Asha to Ravi and print both accounts and Asha's history.</p>
+          <p>In the editor, add a <code>transfer(amount, to:)</code> method to <code>BankAccount</code>. It should withdraw from this account and deposit into <code>to</code>. If the withdrawal fails, it should return <code>false</code> and change nothing. Transfer ₹300 from Asha to Ravi. Then print both accounts and Asha's history.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Design objects around <em>behaviour</em>, not just data. Ask "what should this object be able to do?" (<code>deposit</code>, <code>withdraw</code>) before "what fields does it have?". When you only need a bundle of data, lesson 18's <code>Data</code> class is simpler.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Plan objects around <em>behaviour</em> (what they do), not just data. First ask "what should this object be able to do?" (<code>deposit</code>, <code>withdraw</code>). Then ask "what fields does it have?". When you only need a group of data, the <code>Data</code> class from lesson 18 is simpler.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 12: Classes and Objects
@@ -1855,7 +1855,7 @@ module RubyContent
           <h1 class="lc-title">Inheritance and Polymorphism</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead"><strong>Inheritance</strong> lets a class reuse and extend another class: <code>class Car &lt; Vehicle</code>. <strong>Polymorphism</strong> means different objects answer the same method call in their own way — so one loop can handle many kinds of objects. Ruby adds <strong>duck typing</strong>: what matters is what an object can <em>do</em>, not what class it is.</p>
+          <p class="lc-lead"><strong>Inheritance</strong> lets a class reuse another class and add to it: <code>class Car &lt; Vehicle</code>. <strong>Polymorphism</strong> means different objects answer the same method call in their own way. So one loop can handle many kinds of objects. Ruby also uses <strong>duck typing</strong>. This means what an object can <em>do</em> matters, not what class it is.</p>
         </div>
         <div class="lc-section">
           <h2>Inheriting and Overriding</h2>
@@ -1877,7 +1877,7 @@ module RubyContent
           def monthly_pay = super + @bonus  # parent's result + extra
           def role = "Manager"              # override
         end</code></pre></div>
-          <p>A Ruby class has exactly <strong>one</strong> parent (single inheritance). To share behaviour between unrelated classes, use modules (lesson 14).</p>
+          <p>A Ruby class has exactly <strong>one</strong> parent. This is called single inheritance. To share behaviour between classes that are not related, use modules (lesson 14).</p>
         </div>
         <div class="lc-section">
           <h2>The Three Forms of super</h2>
@@ -1889,18 +1889,18 @@ module RubyContent
               <tr><td><code>super(a, b)</code></td><td>Exactly <code>a</code> and <code>b</code></td></tr>
             </tbody>
           </table>
-          <p>Bare <code>super</code> in the <code>Manager#initialize</code> above would pass three arguments to <code>Employee#initialize</code>, which only accepts two — an <code>ArgumentError</code>. That is why we wrote <code>super(name, salary)</code>.</p>
+          <p>Plain <code>super</code> in <code>Manager#initialize</code> above would pass three arguments to <code>Employee#initialize</code>. But that method only accepts two, so you get an <code>ArgumentError</code>. That is why we wrote <code>super(name, salary)</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Method Lookup and Type Checks</h2>
-          <p>When you call a method, Ruby searches the object's class, then its parent, and so on up the chain shown by <code>ancestors</code>. Every class ultimately inherits from <code>Object</code> (and <code>BasicObject</code>).</p>
+          <p>When you call a method, Ruby first looks in the object's class. Then it looks in the parent class, and so on up the chain. <code>ancestors</code> shows this chain. In the end, every class inherits from <code>Object</code> (and <code>BasicObject</code>).</p>
           <table class="lc-table">
             <thead><tr><th>Check</th><th><code>m = Manager.new(...)</code></th></tr></thead>
             <tbody>
-              <tr><td><code>m.is_a?(Employee)</code></td><td><code>true</code> — any ancestor counts</td></tr>
-              <tr><td><code>m.instance_of?(Employee)</code></td><td><code>false</code> — exact class only</td></tr>
+              <tr><td><code>m.is_a?(Employee)</code></td><td><code>true</code>: any ancestor counts</td></tr>
+              <tr><td><code>m.instance_of?(Employee)</code></td><td><code>false</code>: exact class only</td></tr>
               <tr><td><code>Manager.superclass</code></td><td><code>Employee</code></td></tr>
-              <tr><td><code>m.respond_to?(:monthly_pay)</code></td><td><code>true</code> — the duck-typing check</td></tr>
+              <tr><td><code>m.respond_to?(:monthly_pay)</code></td><td><code>true</code>: the duck-typing check</td></tr>
             </tbody>
           </table>
         </div>
@@ -1950,22 +1950,22 @@ module RubyContent
         Shape must define area
         Printing: circle with area 12.57
         Printing: invoice for Rs 500</code></pre></div>
-          <p>The last loop is duck typing: <code>puts</code> and interpolation only need <code>to_s</code>, so an <code>Invoice</code> works even though it is not a <code>Shape</code>.</p>
+          <p>The last loop is duck typing. <code>puts</code> and interpolation only need <code>to_s</code>. So an <code>Invoice</code> works, even though it is not a <code>Shape</code>.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Writing bare <code>super</code> when the parent takes different arguments. Use <code>super(...)</code> with the right values, or <code>super()</code> for none.</li>
-            <li>Forgetting to call <code>super</code> in a child's <code>initialize</code>, so the parent's instance variables are never set (they read as <code>nil</code>).</li>
-            <li>Checking classes everywhere: <code>if x.is_a?(Circle) ... elsif x.is_a?(Rect)</code>. Give each class the method and just call it — that is polymorphism.</li>
-            <li>Building deep inheritance trees for code reuse. If the child is not truly a kind of the parent ("is-a"), prefer composition (an object that <em>has</em> another object) or a module.</li>
+            <li>Writing plain <code>super</code> when the parent takes different arguments. Use <code>super(...)</code> with the right values. Use <code>super()</code> for no arguments.</li>
+            <li>Forgetting to call <code>super</code> in a child's <code>initialize</code>. Then the parent's instance variables are never set. They read as <code>nil</code>.</li>
+            <li>Checking classes everywhere: <code>if x.is_a?(Circle) ... elsif x.is_a?(Rect)</code>. Give each class the method and just call it. That is polymorphism.</li>
+            <li>Building many levels of inheritance just to reuse code. The child may not really be a kind of the parent ("is-a"). Then use composition (an object that <em>has</em> another object) or a module.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, add an <code>Intern</code> class that inherits from <code>Employee</code>, has a fixed stipend instead of a salary, and overrides <code>monthly_pay</code> and <code>role</code>. Add an intern to the <code>staff</code> array and check that the payroll loop works without any changes.</p>
+          <p>In the editor, add an <code>Intern</code> class that inherits from <code>Employee</code>. It has a fixed stipend (a small fixed payment) instead of a salary. It overrides (replaces) <code>monthly_pay</code> and <code>role</code>. Add an intern to the <code>staff</code> array. Check that the payroll loop works without any changes.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> A good test for inheritance is the sentence "a <em>Child</em> is a kind of <em>Parent</em>". "A Manager is a kind of Employee" works. "A Car is a kind of Engine" does not — a car <em>has</em> an engine.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Here is a good test for inheritance. Say the sentence "a <em>Child</em> is a kind of <em>Parent</em>". "A Manager is a kind of Employee" works. "A Car is a kind of Engine" does not. A car <em>has</em> an engine.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 13: Inheritance and Polymorphism
@@ -2028,7 +2028,7 @@ module RubyContent
           <h1 class="lc-title">Modules and Mixins</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">A <strong>module</strong> is a container for methods and constants that cannot create objects. Modules have two big jobs: <strong>namespacing</strong> (grouping related names so they do not clash) and <strong>mixins</strong> (sharing behaviour between classes that are not related by inheritance).</p>
+          <p class="lc-lead">A <strong>module</strong> is a container for methods and constants. Unlike a class, it cannot create objects. Modules have two main jobs. The first is <strong>namespacing</strong>: grouping related names so they do not clash. The second is <strong>mixins</strong>: sharing behaviour between classes that are not related by inheritance.</p>
         </div>
         <div class="lc-section">
           <h2>Modules as Namespaces</h2>
@@ -2045,7 +2045,7 @@ module RubyContent
         Payments::Upi.new.pay(100)    # "Paid Rs 100 by UPI"
         Payments.with_gst(100)        # 118.0
         Payments::GST_RATE            # 0.18</code></pre></div>
-          <p><code>::</code> reaches inside a module. Rails apps use namespaces everywhere, for example <code>Admin::UsersController</code>.</p>
+          <p><code>::</code> gets something from inside a module. Rails apps use namespaces a lot, for example <code>Admin::UsersController</code>.</p>
         </div>
         <div class="lc-section">
           <h2>include, extend and prepend</h2>
@@ -2054,14 +2054,14 @@ module RubyContent
             <tbody>
               <tr><td><code>include</code></td><td>instance methods</td><td>just <strong>after</strong> the class</td><td>Share behaviour (most common)</td></tr>
               <tr><td><code>extend</code></td><td>methods on that one object / class</td><td>not in the class's chain</td><td>Add class-level helpers</td></tr>
-              <tr><td><code>prepend</code></td><td>instance methods that run <strong>before</strong> the class's own</td><td>just <strong>before</strong> the class</td><td>Wrap a method (logging, timing) and call <code>super</code></td></tr>
+              <tr><td><code>prepend</code></td><td>instance methods that run <strong>before</strong> the class's own</td><td>just <strong>before</strong> the class</td><td>Add code around a method (logging, timing) and call <code>super</code></td></tr>
             </tbody>
           </table>
-          <p>A class can include many modules, which is how Ruby gets most of the benefits of multiple inheritance without its problems. The mixed-in methods can call methods the class provides — for example a module can use <code>name</code> if every including class defines <code>name</code>.</p>
+          <p>A class can include many modules. This gives Ruby most of the benefits of multiple inheritance (having many parents), without its problems. The mixed-in methods can call methods that the class has. For example, a module can use <code>name</code> if every class that includes it defines <code>name</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Refinements: Safer Monkey Patching</h2>
-          <p>Ruby lets you reopen any class, even <code>String</code>, and add methods. Doing that globally ("monkey patching") can break other code. A <strong>refinement</strong> limits the change to the files that opt in with <code>using</code>:</p>
+          <p>Ruby lets you reopen any class, even <code>String</code>, and add methods. Doing this for the whole program is called "monkey patching". It can break other code. A <strong>refinement</strong> limits the change to the files that ask for it with <code>using</code>:</p>
           <div class="lc-code-block"><pre><code>module RupeeFormat
           refine Integer do
             def to_rupees = "Rs #{self.to_s.reverse.scan(/\d{1,3}/).join(',').reverse}"
@@ -2070,7 +2070,7 @@ module RubyContent
 
         using RupeeFormat          # active from here to the end of this file
         1500000.to_rupees          # "Rs 1,500,000"</code></pre></div>
-          <p>Refinements are an advanced tool; most code never needs them. Prefer a plain helper method first.</p>
+          <p>Refinements are an advanced tool. Most code never needs them. Try a plain helper method first.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
@@ -2118,20 +2118,20 @@ module RubyContent
         3
         true
         true</code></pre></div>
-          <p>Because <code>Loud</code> is prepended, Ruby finds <code>Loud#greet</code> first; its <code>super</code> continues to <code>Greetable#greet</code>.</p>
+          <p><code>Loud</code> is prepended, so Ruby finds <code>Loud#greet</code> first. Its <code>super</code> then goes on to <code>Greetable#greet</code>.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Calling <code>Greetable.new</code> — you cannot create objects from a module. Only classes make instances.</li>
+            <li>Calling <code>Greetable.new</code>. You cannot create objects from a module. Only classes make instances (objects).</li>
             <li>Using <code>include</code> when you wanted class methods (<code>Ticket.instances</code>). Class-level helpers need <code>extend</code>.</li>
-            <li>Defining module methods with <code>def self.x</code> and expecting <code>include</code> to share them — <code>self.</code> methods stay on the module itself.</li>
-            <li>Monkey patching core classes globally (<code>class String; def ...</code>) in application code. Use a helper method, a refinement, or your own class.</li>
+            <li>Defining module methods with <code>def self.x</code> and expecting <code>include</code> to share them. <code>self.</code> methods stay on the module itself.</li>
+            <li>Monkey patching core classes for the whole program (<code>class String; def ...</code>) in application code. Use a helper method, a refinement, or your own class.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, write a module <code>Taxable</code> with a method <code>price_with_gst</code> that uses the including class's <code>price</code> and <code>Payments::GST_RATE</code>. Include it in <code>Book</code> only, print the price with GST for a ₹450 book, and check the result of <code>Book.include?(Taxable)</code> and <code>Course.include?(Taxable)</code>.</p>
+          <p>In the editor, write a module <code>Taxable</code> with a method <code>price_with_gst</code>. It uses the <code>price</code> of the class that includes it, and <code>Payments::GST_RATE</code>. Include it in <code>Book</code> only. Print the price with GST for a ₹450 book. Then check the result of <code>Book.include?(Taxable)</code> and <code>Course.include?(Taxable)</code>.</p>
         </div>
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Ruby's own library is built from mixins. <code>Array</code> includes <code>Enumerable</code>, <code>Integer</code> includes <code>Comparable</code>. In the next lesson you will include these two modules in your own classes.</p></div>
       HTML
@@ -2195,7 +2195,7 @@ module RubyContent
           <h1 class="lc-title">Comparable and Enumerable Mixins</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">Ruby's two most famous mixins give your classes superpowers in exchange for <strong>one method each</strong>. Define <code>&lt;=&gt;</code> and include <code>Comparable</code> to get <code>&lt;</code>, <code>&gt;</code>, <code>between?</code>, <code>clamp</code> and sorting. Define <code>each</code> and include <code>Enumerable</code> to get <code>map</code>, <code>select</code>, <code>sort_by</code>, <code>sum</code> and 50+ more.</p>
+          <p class="lc-lead">Ruby's two most famous mixins give your classes many new abilities. You only write <strong>one method each</strong>. Define <code>&lt;=&gt;</code> and include <code>Comparable</code> to get <code>&lt;</code>, <code>&gt;</code>, <code>between?</code>, <code>clamp</code> and sorting. Define <code>each</code> and include <code>Enumerable</code> to get <code>map</code>, <code>select</code>, <code>sort_by</code>, <code>sum</code> and 50+ more.</p>
         </div>
         <div class="lc-section">
           <h2>The Spaceship Operator</h2>
@@ -2205,7 +2205,7 @@ module RubyContent
         5 &lt;=&gt; 5        # 0
         5 &lt;=&gt; "5"      # nil
         [1, 9] &lt;=&gt; [2, 0]   # -1  (arrays compare item by item)</code></pre></div>
-          <p>The array trick is handy: to compare by several fields, return <code>[major, minor] &lt;=&gt; [other.major, other.minor]</code>.</p>
+          <p>The array trick is useful. To compare by several fields, return <code>[major, minor] &lt;=&gt; [other.major, other.minor]</code>.</p>
         </div>
         <div class="lc-section">
           <h2>What You Get for Free</h2>
@@ -2216,11 +2216,11 @@ module RubyContent
               <tr><td><code>Enumerable</code></td><td><code>each</code> (yield every item)</td><td><code>map</code> <code>select</code> <code>reject</code> <code>find</code> <code>sort_by</code> <code>min_by</code> <code>sum</code> <code>count</code> <code>group_by</code> <code>each_slice</code> <code>to_a</code> <code>include?</code> <code>first</code> <code>lazy</code> …</td></tr>
             </tbody>
           </table>
-          <p><code>sort</code> and <code>max</code> on an Enumerable class also need its items to be comparable (for example Integers, or your own Comparable objects).</p>
+          <p><code>sort</code> and <code>max</code> on an Enumerable class also need its items to be comparable. For example, Integers, or your own Comparable objects.</p>
         </div>
         <div class="lc-section">
           <h2>Writing a Good each</h2>
-          <p>Your <code>each</code> should yield every item and return <code>self</code>. When called <strong>without</strong> a block, return an Enumerator with <code>return to_enum(:each) unless block_given?</code>. This makes <code>collection.each.with_index</code> and external iteration work, just like with arrays.</p>
+          <p>Your <code>each</code> should yield (pass to the block) every item and return <code>self</code>. It may be called <strong>without</strong> a block. Then return an Enumerator (an object that steps through items) with <code>return to_enum(:each) unless block_given?</code>. This makes <code>collection.each.with_index</code> and external iteration work, just like with arrays.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
@@ -2266,7 +2266,7 @@ module RubyContent
         ["Naatu Naatu", "Jai Ho"]
         ["Jai Ho", 3]
         true</code></pre></div>
-          <p>Comparing version strings as text says <code>"1.10.0" &lt; "1.9.2"</code> (because <code>"1" &lt; "9"</code>). A <code>Version</code> class with <code>&lt;=&gt;</code> compares numbers and gets it right.</p>
+          <p>If you compare version strings as text, you get <code>"1.10.0" &lt; "1.9.2"</code>. This happens because <code>"1" &lt; "9"</code>. A <code>Version</code> class with <code>&lt;=&gt;</code> compares numbers and gets it right.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
@@ -2274,14 +2274,14 @@ module RubyContent
             <li>Defining <code>&lt;</code> and <code>&gt;</code> by hand. Define only <code>&lt;=&gt;</code> and include <code>Comparable</code>.</li>
             <li>Returning <code>true</code>/<code>false</code> from <code>&lt;=&gt;</code>. It must return a negative number, zero, a positive number, or <code>nil</code>.</li>
             <li>Including <code>Enumerable</code> but naming the method <code>each_item</code>. Enumerable only calls <code>each</code>.</li>
-            <li>Returning the internal array from <code>each</code> or exposing it with a reader — callers can then change your collection. Yield items instead.</li>
+            <li>Returning the internal array from <code>each</code>, or giving it out with a reader. Other code can then change your collection. Yield items instead.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, create a <code>Student</code> class with <code>name</code> and <code>marks</code> that includes <code>Comparable</code> (higher marks first; break ties by name using the array trick). Then write a <code>Classroom</code> class that includes <code>Enumerable</code>. Print the topper with <code>max</code>, the full sorted list, and the names of students who scored 40 or more.</p>
+          <p>In the editor, create a <code>Student</code> class with <code>name</code> and <code>marks</code>. It includes <code>Comparable</code>. Higher marks come first. If marks are equal, order by name using the array trick. Then write a <code>Classroom</code> class that includes <code>Enumerable</code>. Print the topper with <code>max</code>. Also print the full sorted list and the names of students who scored 40 or more.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> This is the Ruby way of designing: implement a tiny <em>protocol</em> (<code>each</code>, <code>&lt;=&gt;</code>, <code>to_s</code>) and plug into everything the language already knows how to do with it.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> This is the Ruby way of designing. Write a small <em>protocol</em> (a few agreed methods like <code>each</code>, <code>&lt;=&gt;</code>, <code>to_s</code>). Then your class works with everything the language already does with these methods.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 15: Comparable and Enumerable Mixins
@@ -2340,7 +2340,7 @@ module RubyContent
           <h1 class="lc-title">Metaprogramming Basics</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead"><strong>Metaprogramming</strong> means writing code that looks at or creates other code while the program runs. You have already used it: <code>attr_accessor :name</code> is an ordinary method that <em>defines</em> two methods for you. Rails is full of this (<code>has_many</code>, <code>validates</code>, <code>enum</code>). This lesson teaches the handful of tools behind that magic, so it stops being magic — and when you should <em>not</em> use them.</p>
+          <p class="lc-lead"><strong>Metaprogramming</strong> means writing code that looks at or creates other code while the program runs. You have already used it. <code>attr_accessor :name</code> is a normal method that <em>defines</em> two methods for you. Rails uses this a lot (<code>has_many</code>, <code>validates</code>, <code>enum</code>). This lesson teaches the few tools behind it, so it no longer feels like magic. It also shows when you should <em>not</em> use them.</p>
         </div>
         <div class="lc-section">
           <h2>The Toolbox</h2>
@@ -2361,7 +2361,7 @@ module RubyContent
         </div>
         <div class="lc-section">
           <h2>How attr_accessor Really Works</h2>
-          <p>Inside a class body, <code>self</code> is the class itself, so a <em>class method</em> such as <code>attr_reader</code> can run there and add methods to the class. You can write your own "macro" the same way — put it in a module and <code>extend</code> it (Lesson 14):</p>
+          <p>Inside a class body, <code>self</code> is the class itself. So a <em>class method</em> such as <code>attr_reader</code> can run there and add methods to the class. You can write your own "macro" (a method that writes methods) the same way. Put it in a module and <code>extend</code> it (Lesson 14):</p>
           <div class="lc-code-block"><pre><code>module Defaults
           def attr_with_default(name, default)
             define_method(name) { instance_variable_get("@#{name}") || default }
@@ -2373,7 +2373,7 @@ module RubyContent
           extend Defaults
           attr_with_default :city, "Unknown"
         end</code></pre></div>
-          <p>Now <code>Profile.new.city</code> returns <code>"Unknown"</code> until someone calls <code>city=</code>. The block given to <code>define_method</code> becomes the method body, and because it is a block it can use local variables around it, like <code>default</code> (a closure, Lesson 9).</p>
+          <p>Now <code>Profile.new.city</code> returns <code>"Unknown"</code> until someone calls <code>city=</code>. The block given to <code>define_method</code> becomes the method body. Because it is a block, it can use local variables around it, like <code>default</code>. This is called a closure (Lesson 9).</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
@@ -2428,23 +2428,23 @@ module RubyContent
         "dark"
         true
         undefined method 'colour' for an instance of Settings</code></pre></div>
-          <p>Adding <code>:cancelled</code> to <code>STATUSES</code> would create <code>cancelled?</code> automatically — this is how Rails' <code>enum</code> works. In <code>Settings</code>, calling <code>super</code> for unknown names keeps the normal <code>NoMethodError</code>, and <code>respond_to_missing?</code> keeps <code>respond_to?</code> honest.</p>
+          <p>Adding <code>:cancelled</code> to <code>STATUSES</code> would create <code>cancelled?</code> automatically. This is how Rails' <code>enum</code> works. In <code>Settings</code>, calling <code>super</code> for unknown names keeps the normal <code>NoMethodError</code>. And <code>respond_to_missing?</code> makes <code>respond_to?</code> give the correct answer.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Using <code>send</code> with a method name that came from user input. It can call <strong>private</strong> methods (even <code>exit</code> or <code>system</code>). Use <code>public_send</code>, and check the name against an allow-list first.</li>
-            <li>Defining <code>method_missing</code> without calling <code>super</code> for names you do not handle — typos then silently return <code>nil</code> instead of raising <code>NoMethodError</code>.</li>
-            <li>Defining <code>method_missing</code> but not <code>respond_to_missing?</code>, so <code>respond_to?</code> says <code>false</code> for methods that actually work.</li>
-            <li>Using <code>method_missing</code> when the list of names is known in advance. <code>define_method</code> in a loop is faster, shows up in <code>instance_methods</code>, and is easier to debug.</li>
-            <li>Metaprogramming for its own sake. If a plain method or a hash lookup does the job, write that — code is read far more often than it is written.</li>
+            <li>Using <code>send</code> with a method name that came from user input. It can call <strong>private</strong> methods (even <code>exit</code> or <code>system</code>). Use <code>public_send</code>. First check the name against an allow-list (a list of allowed names).</li>
+            <li>Defining <code>method_missing</code> without calling <code>super</code> for names you do not handle. Typos then return <code>nil</code> with no error, instead of raising <code>NoMethodError</code>.</li>
+            <li>Defining <code>method_missing</code> but not <code>respond_to_missing?</code>. Then <code>respond_to?</code> says <code>false</code> for methods that actually work.</li>
+            <li>Using <code>method_missing</code> when you already know the list of names. <code>define_method</code> in a loop is faster. It shows up in <code>instance_methods</code>, and it is easier to debug.</li>
+            <li>Using metaprogramming when you do not need it. If a plain method or a hash lookup does the job, write that. People read code much more often than they write it.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, add a <code>:grade</code> attribute to <code>tracked_attr</code> and set it twice, then print <code>s.changes</code>. Next, add <code>fail?</code> to the <code>define_method</code> loop (true when marks are below 40). Finally, ask the user-style list <code>%w[name marks roll_no]</code> for values, but only call names that pass <code>s.respond_to?(name)</code> — which one is skipped, and why?</p>
+          <p>In the editor, add a <code>:grade</code> attribute to <code>tracked_attr</code>. Set it twice, then print <code>s.changes</code>. Next, add <code>fail?</code> to the <code>define_method</code> loop. It is true when marks are below 40. Finally, take the list <code>%w[name marks roll_no]</code>, like names typed by a user, and get their values. Only call names that pass <code>s.respond_to?(name)</code>. Which one is skipped, and why?</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> When a Rails method seems magical, open <code>irb</code> or <code>bin/rails console</code> and ask Ruby: <code>obj.method(:name).owner</code> and <code>obj.method(:name).source_location</code> tell you exactly which module defined it and in which file.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> When a Rails method seems like magic, open <code>irb</code> or <code>bin/rails console</code> and ask Ruby. <code>obj.method(:name).owner</code> and <code>obj.method(:name).source_location</code> tell you which module defined it and in which file.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 16: Metaprogramming Basics
@@ -2507,7 +2507,7 @@ module RubyContent
           <h1 class="lc-title">Exception Handling</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">An <strong>exception</strong> is an object that signals "something went wrong" — dividing by zero, a missing hash key, invalid input. If nobody handles it, the program stops. With <code>begin/rescue</code> you can handle errors you expect, clean up with <code>ensure</code>, and define your own error classes for your business rules.</p>
+          <p class="lc-lead">An <strong>exception</strong> is an object that says "something went wrong". Examples are dividing by zero, a missing hash key, or bad input. If no code handles it, the program stops. With <code>begin/rescue</code> you can handle errors you expect. You can clean up with <code>ensure</code>. You can also define your own error classes for your business rules.</p>
         </div>
         <div class="lc-section">
           <h2>The Full Structure</h2>
@@ -2522,15 +2522,15 @@ module RubyContent
         ensure
           puts "ALWAYS runs - close files, release locks"
         end</code></pre></div>
-          <p>Inside a method you can skip <code>begin</code>: put <code>rescue</code> and <code>ensure</code> directly before the method's <code>end</code>. Blocks with <code>do ... end</code> allow this too.</p>
+          <p>Inside a method you can leave out <code>begin</code>. Put <code>rescue</code> and <code>ensure</code> just before the method's <code>end</code>. Blocks with <code>do ... end</code> allow this too.</p>
         </div>
         <div class="lc-section">
           <h2>The Exception Hierarchy</h2>
           <table class="lc-table">
             <thead><tr><th>Class</th><th>Raised when…</th></tr></thead>
             <tbody>
-              <tr><td><code>Exception</code></td><td>Root of everything — <strong>never rescue this</strong>; it includes system signals and exit</td></tr>
-              <tr><td>└ <code>StandardError</code></td><td>Normal program errors. Bare <code>rescue</code> catches this and its children</td></tr>
+              <tr><td><code>Exception</code></td><td>The top of all errors. <strong>Never rescue this</strong>. It includes system signals and exit</td></tr>
+              <tr><td>└ <code>StandardError</code></td><td>Normal program errors. Plain <code>rescue</code> catches this and its children</td></tr>
               <tr><td>&nbsp;&nbsp;├ <code>ArgumentError</code></td><td>Wrong arguments, <code>Integer("abc")</code></td></tr>
               <tr><td>&nbsp;&nbsp;├ <code>ZeroDivisionError</code></td><td><code>10 / 0</code> with integers</td></tr>
               <tr><td>&nbsp;&nbsp;├ <code>KeyError</code> / <code>IndexError</code></td><td><code>hash.fetch(:missing)</code>, <code>[1].fetch(5)</code></td></tr>
@@ -2539,7 +2539,7 @@ module RubyContent
               <tr><td>&nbsp;&nbsp;└ <code>RuntimeError</code></td><td>Default for <code>raise "message"</code></td></tr>
             </tbody>
           </table>
-          <p>Rescue the <strong>most specific</strong> class you can. Put specific <code>rescue</code> clauses before general ones, because Ruby uses the first one that matches.</p>
+          <p>Rescue the <strong>most specific</strong> class you can. Put specific <code>rescue</code> clauses before general ones. Ruby uses the first one that matches.</p>
         </div>
         <div class="lc-section">
           <h2>Raising and Custom Errors</h2>
@@ -2552,7 +2552,7 @@ module RubyContent
         raise InsufficientFundsError.new(250)             # custom class
         raise ArgumentError, "amount must be positive"    # class + message
         raise "something odd"                             # RuntimeError</code></pre></div>
-          <p>Inherit custom errors from <code>StandardError</code> (not <code>Exception</code>) so that normal <code>rescue</code> clauses can catch them. A bare <code>raise</code> inside <code>rescue</code> re-raises the current error after you have logged it.</p>
+          <p>Make custom errors inherit from <code>StandardError</code> (not <code>Exception</code>). Then normal <code>rescue</code> clauses can catch them. A plain <code>raise</code> inside <code>rescue</code> raises the current error again. Use it after you have logged the error.</p>
         </div>
         <div class="lc-section">
           <h2>Reading an Error Message and Debugging</h2>
@@ -2562,13 +2562,13 @@ module RubyContent
           <div class="lc-code-block lc-output"><pre><code>main.rb:1:in 'Integer#/': divided by 0 (ZeroDivisionError)
         	from main.rb:1:in 'Object#average'
         	from main.rb:2:in '&lt;main&gt;'</code></pre></div>
-          <p>Read it like this: the <strong>first line</strong> says what went wrong (<code>ZeroDivisionError</code>, "divided by 0") and where (file <code>main.rb</code>, line 1, inside <code>Integer#/</code>). Each <code>from</code> line is one step further back up the call chain. Walk down until you reach the first line of <em>your</em> code — here line 2 called <code>average</code> with an empty array. In code, <code>e.backtrace</code> gives the same lines as an array and <code>e.full_message</code> the whole text.</p>
+          <p>Read it like this. The <strong>first line</strong> says what went wrong (<code>ZeroDivisionError</code>, "divided by 0"). It also says where: file <code>main.rb</code>, line 1, inside <code>Integer#/</code>. Each <code>from</code> line is one step further back in the chain of calls. Go down until you reach the first line of <em>your</em> code. Here, line 2 called <code>average</code> with an empty array. In code, <code>e.backtrace</code> gives the same lines as an array. <code>e.full_message</code> gives the whole text.</p>
           <table class="lc-table">
             <thead><tr><th>Debugging tool</th><th>How</th><th>Where it works</th></tr></thead>
             <tbody>
               <tr><td>Print a value</td><td><code>p value</code>, <code>pp nested_hash</code></td><td>Everywhere, including this editor</td></tr>
-              <tr><td>Pause and explore</td><td>Put <code>binding.irb</code> on a line; an <code>irb</code> prompt opens there with all local variables</td><td>Your own computer</td></tr>
-              <tr><td>Step through code</td><td><code>require "debug"</code> then <code>binding.break</code>, or run <code>rdbg app.rb</code>; commands <code>next</code>, <code>step</code>, <code>continue</code></td><td>Your own computer (the <code>debug</code> gem ships with Ruby)</td></tr>
+              <tr><td>Pause and explore</td><td>Put <code>binding.irb</code> on a line. An <code>irb</code> prompt opens there with all local variables</td><td>Your own computer</td></tr>
+              <tr><td>Step through code</td><td><code>require "debug"</code> then <code>binding.break</code>, or run <code>rdbg app.rb</code>. Commands: <code>next</code>, <code>step</code>, <code>continue</code></td><td>Your own computer (the <code>debug</code> gem comes with Ruby)</td></tr>
             </tbody>
           </table>
         </div>
@@ -2627,18 +2627,18 @@ module RubyContent
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li><code>rescue Exception</code> — it also catches <code>Interrupt</code> (Ctrl+C) and <code>SystemExit</code>, making programs impossible to stop. Rescue <code>StandardError</code> or something more specific.</li>
-            <li>Swallowing errors silently: <code>rescue =&gt; e; end</code> hides bugs. At least log <code>e.class</code> and <code>e.message</code>, or re-raise.</li>
-            <li>Using exceptions for normal flow, like checking whether a key exists. Use <code>key?</code>, <code>fetch(key, default)</code> or <code>Integer(text, exception: false)</code>.</li>
-            <li>Wrapping a huge block in one <code>begin/rescue</code>. Keep the protected code small so you know exactly which line can fail.</li>
-            <li>Inheriting custom errors from <code>Exception</code> — a plain <code>rescue</code> will not catch them.</li>
+            <li>Writing <code>rescue Exception</code>. It also catches <code>Interrupt</code> (Ctrl+C) and <code>SystemExit</code>, so you cannot stop the program. Rescue <code>StandardError</code> or something more specific.</li>
+            <li>Hiding errors with no message. <code>rescue =&gt; e; end</code> hides bugs. At least log <code>e.class</code> and <code>e.message</code>, or raise the error again.</li>
+            <li>Using exceptions for normal program steps, like checking if a key exists. Use <code>key?</code>, <code>fetch(key, default)</code> or <code>Integer(text, exception: false)</code>.</li>
+            <li>Putting a very large block inside one <code>begin/rescue</code>. Keep the protected code small. Then you know exactly which line can fail.</li>
+            <li>Making custom errors inherit from <code>Exception</code>. A plain <code>rescue</code> will not catch them.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, write <code>safe_divide(a, b)</code> that returns the result, or the string <code>"cannot divide by zero"</code> when <code>b</code> is 0, and always prints <code>"done"</code> from an <code>ensure</code>. Then create an <code>InvalidMarksError</code> and raise it from a method when marks are outside 0–100.</p>
+          <p>In the editor, write <code>safe_divide(a, b)</code>. It returns the result. It returns the string <code>"cannot divide by zero"</code> when <code>b</code> is 0. It always prints <code>"done"</code> from an <code>ensure</code>. Then create an <code>InvalidMarksError</code>. Raise it from a method when marks are outside 0–100.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> For a library or app, create one base error (<code>class MyApp::Error &lt; StandardError</code>) and inherit all your custom errors from it. Callers can then rescue everything from your code with a single <code>rescue MyApp::Error</code>.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> For a library or app, create one base error (<code>class MyApp::Error &lt; StandardError</code>). Make all your custom errors inherit from it. Other code can then rescue every error from your code with a single <code>rescue MyApp::Error</code>.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 17: Exception Handling
@@ -2700,7 +2700,7 @@ module RubyContent
           <h1 class="lc-title">Struct and Data</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">Many objects are mostly <strong>a few named values</strong>: a point, an order line, an API response. Writing a full class with <code>initialize</code> and readers for each is repetitive. <code>Struct</code> and <code>Data</code> build such classes in one line — <code>Data</code> (Ruby 3.2+) makes <strong>immutable value objects</strong>, which is the modern default.</p>
+          <p class="lc-lead">Many objects are mostly <strong>a few named values</strong>: a point, an order line, an API response. Writing a full class with <code>initialize</code> and readers for each one takes a lot of repeated code. <code>Struct</code> and <code>Data</code> build such classes in one line. <code>Data</code> (Ruby 3.2+) makes <strong>immutable value objects</strong>. These are objects that cannot change after you create them. This is the modern default.</p>
         </div>
         <div class="lc-section">
           <h2>Data.define: Immutable Values</h2>
@@ -2714,7 +2714,7 @@ module RubyContent
         a.to_h                        # {x: 1, y: 2}
         # a.x = 10  -&gt; NoMethodError: Data has no setters
         # Point.new(x: 1) -&gt; ArgumentError: missing keyword: :y</code></pre></div>
-          <p>You can add methods in a block: <code>Point = Data.define(:x, :y) do ... end</code>. To validate or set defaults, override <code>initialize</code> with keyword arguments and call <code>super</code>.</p>
+          <p>You can add methods in a block: <code>Point = Data.define(:x, :y) do ... end</code>. To check values or set defaults, override <code>initialize</code> with keyword arguments. Then call <code>super</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Struct: Mutable Records</h2>
@@ -2724,7 +2724,7 @@ module RubyContent
         line.qty += 1                       # setters exist
         line.to_a                           # ["Pen", 10, 4]
         Item.new("Pen")                     # missing members become nil!</code></pre></div>
-          <p>Before Ruby 3.2 you needed <code>keyword_init: true</code> to pass keywords to a Struct; now both styles work by default.</p>
+          <p>Before Ruby 3.2, you needed <code>keyword_init: true</code> to pass keywords to a Struct. Now both styles work by default.</p>
         </div>
         <div class="lc-section">
           <h2>Which One Should I Use?</h2>
@@ -2738,7 +2738,7 @@ module RubyContent
               <tr><td>Best for</td><td>Loose data (JSON)</td><td>Quick mutable records, older code</td><td>Value objects: money, points, results</td><td>Objects with behaviour and state changes</td></tr>
             </tbody>
           </table>
-          <p>Immutable values are easier to reason about: nobody can change a <code>Data</code> object behind your back, so you can safely share it and use it as a hash key.</p>
+          <p>Immutable values are easier to think about. No other code can change a <code>Data</code> object without you knowing. So you can safely share it and use it as a hash key.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
@@ -2784,22 +2784,22 @@ module RubyContent
         qty must be positive
         false
         #&lt;struct Seat row="F", number=14&gt;</code></pre></div>
-          <p>The custom <code>initialize</code> gives <code>qty</code> a default of 1 and rejects bad values, then <code>super</code> stores the fields. <code>with</code> returned a <em>new</em> item; <code>chai</code> itself never changed.</p>
+          <p>The custom <code>initialize</code> gives <code>qty</code> a default of 1 and rejects bad values. Then <code>super</code> stores the fields. <code>with</code> returned a <em>new</em> item. <code>chai</code> itself never changed.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Trying to change a <code>Data</code> field (<code>item.qty = 2</code>) — there are no setters. Use <code>item.with(qty: 2)</code> to get an updated copy.</li>
-            <li>Using <code>Struct</code> and forgetting a value: <code>Item.new("Pen")</code> silently sets <code>price</code> to <code>nil</code>. <code>Data</code> raises an error instead.</li>
-            <li>Assuming "immutable" is deep: if a <code>Data</code> field holds an array, the array itself can still be changed. Freeze it, or store frozen values.</li>
+            <li>Trying to change a <code>Data</code> field (<code>item.qty = 2</code>). There are no setters. Use <code>item.with(qty: 2)</code> to get an updated copy.</li>
+            <li>Using <code>Struct</code> and forgetting a value. <code>Item.new("Pen")</code> sets <code>price</code> to <code>nil</code> with no warning. <code>Data</code> raises an error instead.</li>
+            <li>Thinking "immutable" goes all the way down. If a <code>Data</code> field holds an array, the array itself can still be changed. Freeze it, or store frozen values.</li>
             <li>Using <code>Data</code> for objects whose job is to change over time (a bank account, a game character). Use a normal class there.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, define <code>Coordinate = Data.define(:lat, :lng)</code> with a method <code>to_s</code> that prints <code>"12.97N, 77.59E"</code>. Create coordinates for Bengaluru and Chennai, check that two equal coordinates are <code>==</code>, and use them as keys in a hash of city names.</p>
+          <p>In the editor, define <code>Coordinate = Data.define(:lat, :lng)</code> with a method <code>to_s</code> that prints <code>"37.77N, 122.42W"</code>. Create coordinates for San Francisco and Los Angeles. Check that two equal coordinates are <code>==</code>. Use them as keys in a hash of city names.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> <code>Data</code> and <code>Struct</code> objects work with pattern matching out of the box — <code>case point in {x: 0, y:}</code> — which is exactly what the next lesson covers.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> <code>Data</code> and <code>Struct</code> objects work with pattern matching with no extra setup: <code>case point in {x: 0, y:}</code>. The next lesson covers this.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 18: Struct and Data
@@ -2856,7 +2856,7 @@ module RubyContent
           <h1 class="lc-title">Pattern Matching</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead"><strong>Pattern matching</strong> with <code>case/in</code> (stable since Ruby 3.0) checks the <em>shape</em> of data and pulls out the parts you need in one step. It shines when handling JSON-like hashes, API responses, commands and <code>Data</code> objects.</p>
+          <p class="lc-lead"><strong>Pattern matching</strong> with <code>case/in</code> (stable since Ruby 3.0) checks the <em>shape</em> of data. It also takes out the parts you need in one step. It works very well for JSON-like hashes, API responses, commands and <code>Data</code> objects.</p>
         </div>
         <div class="lc-section">
           <h2>case/when vs case/in</h2>
@@ -2864,7 +2864,7 @@ module RubyContent
             <thead><tr><th></th><th><code>case/when</code> (lesson 4)</th><th><code>case/in</code></th></tr></thead>
             <tbody>
               <tr><td>Checks</td><td>One value with <code>===</code></td><td>The structure: types, keys, array length, nested values</td></tr>
-              <tr><td>Binds variables</td><td>No</td><td>Yes — <code>in {name: String =&gt; name}</code> sets <code>name</code></td></tr>
+              <tr><td>Binds variables</td><td>No</td><td>Yes: <code>in {name: String =&gt; name}</code> sets <code>name</code></td></tr>
               <tr><td>No branch matches</td><td>Returns <code>nil</code></td><td>Raises <code>NoMatchingPatternError</code> (add <code>else</code>)</td></tr>
             </tbody>
           </table>
@@ -2876,24 +2876,24 @@ module RubyContent
             <tbody>
               <tr><td><code>in Integer | Float</code></td><td>Any value where <code>Integer === v</code> or <code>Float === v</code></td></tr>
               <tr><td><code>in 0..17</code></td><td>A value inside the range</td></tr>
-              <tr><td><code>in [x, y]</code></td><td>An array of <strong>exactly</strong> two items, binding <code>x</code> and <code>y</code></td></tr>
+              <tr><td><code>in [x, y]</code></td><td>An array of <strong>exactly</strong> two items. Binds (sets) <code>x</code> and <code>y</code></td></tr>
               <tr><td><code>in [first, *rest]</code></td><td>An array with at least one item</td></tr>
               <tr><td><code>in [*, 0, *]</code></td><td>"Find pattern": an array that contains 0 anywhere</td></tr>
-              <tr><td><code>in {status: "ok", data:}</code></td><td>A hash with those keys (extra keys allowed), binding <code>data</code></td></tr>
+              <tr><td><code>in {status: "ok", data:}</code></td><td>A hash with those keys (extra keys allowed). Binds <code>data</code></td></tr>
               <tr><td><code>in {name: String =&gt; n}</code></td><td>Check the type <strong>and</strong> bind the value to <code>n</code></td></tr>
               <tr><td><code>in {id:, **nil}</code></td><td>A hash with only the key <code>:id</code></td></tr>
-              <tr><td><code>in ^expected</code></td><td>"Pin": compare with an existing variable instead of binding a new one</td></tr>
+              <tr><td><code>in ^expected</code></td><td>"Pin": compare with a variable you already have, instead of binding a new one</td></tr>
               <tr><td><code>in Point(x:, y:)</code></td><td>A <code>Point</code> object (Data/Struct) with its fields bound</td></tr>
               <tr><td><code>in [x, y] if x == y</code></td><td>Guard: the pattern matches <strong>and</strong> the condition is true</td></tr>
             </tbody>
           </table>
-          <p>Hash patterns only work with <strong>symbol keys</strong>. Parse JSON with <code>symbolize_names: true</code> before matching (lesson 20).</p>
+          <p>Hash patterns only work with <strong>symbol keys</strong>. Read JSON with <code>symbolize_names: true</code> before matching (lesson 20).</p>
         </div>
         <div class="lc-section">
           <h2>One-Line Forms</h2>
           <ul class="lc-list">
             <li><code>value in pattern</code> returns <code>true</code>/<code>false</code>: <code>config in {debug: true}</code>.</li>
-            <li><code>value =&gt; pattern</code> destructures and raises <code>NoMatchingPatternError</code> if it does not fit: <code>user =&gt; {name:, city:}</code> creates <code>name</code> and <code>city</code>.</li>
+            <li><code>value =&gt; pattern</code> takes the value apart into variables (destructures). It raises <code>NoMatchingPatternError</code> if it does not fit: <code>user =&gt; {name:, city:}</code> creates <code>name</code> and <code>city</code>.</li>
           </ul>
         </div>
         <div class="lc-section">
@@ -2935,7 +2935,7 @@ module RubyContent
         expected = "admin"
         is_admin = ({ role: "admin" } in { role: ^expected })
         p is_admin
-        user = { name: "Asha", city: "Pune", age: 20 }
+        user = { name: "Asha", city: "London", age: 20 }
         user =&gt; { name:, city: }
         puts "#{name} from #{city}"</code></pre></div>
           <p>Output:</p>
@@ -2949,24 +2949,24 @@ module RubyContent
         on the y-axis at 5
         on the diagonal
         true
-        Asha from Pune</code></pre></div>
-          <p>Notice that <code>{status: 503, retry: true}</code> matched <code>{status: 500.. =&gt; code}</code> even with the extra <code>retry</code> key, and the order of <code>in</code> branches matters: the empty-items case is checked first.</p>
+        Asha from London</code></pre></div>
+          <p>Notice that <code>{status: 503, retry: true}</code> matched <code>{status: 500.. =&gt; code}</code> even with the extra <code>retry</code> key. Also, the order of <code>in</code> branches matters. The empty-items case is checked first.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Forgetting <code>else</code>: if nothing matches, <code>case/in</code> raises <code>NoMatchingPatternError</code> instead of returning <code>nil</code>.</li>
-            <li>Writing <code>in {name: name}</code> expecting to compare with an existing <code>name</code> variable — it <em>binds</em> a new value. Use <code>^name</code> to compare.</li>
-            <li>Matching string-keyed hashes (<code>{"status" =&gt; 200}</code>) with hash patterns — only symbol keys work.</li>
-            <li>Expecting array patterns to allow extra items: <code>[1, 2, 3] in [a, b]</code> is <code>false</code>. Use <code>[a, b, *]</code>.</li>
-            <li>Mixing <code>when</code> and <code>in</code> branches in the same <code>case</code> — that is a syntax error.</li>
+            <li>Forgetting <code>else</code>. If nothing matches, <code>case/in</code> raises <code>NoMatchingPatternError</code> instead of returning <code>nil</code>.</li>
+            <li>Writing <code>in {name: name}</code> to compare with an existing <code>name</code> variable. It <em>binds</em> a new value instead. Use <code>^name</code> to compare.</li>
+            <li>Matching string-keyed hashes (<code>{"status" =&gt; 200}</code>) with hash patterns. Only symbol keys work.</li>
+            <li>Expecting array patterns to allow extra items. <code>[1, 2, 3] in [a, b]</code> is <code>false</code>. Use <code>[a, b, *]</code>.</li>
+            <li>Mixing <code>when</code> and <code>in</code> branches in the same <code>case</code>. That is a syntax error.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, write <code>handle(command)</code> for a tiny chat bot that receives arrays like <code>["greet", "Asha"]</code>, <code>["add", 2, 3]</code>, <code>["add", *numbers]</code> and <code>["quit"]</code>. Use array patterns with <code>Integer</code> checks, and return a helpful message for anything unknown.</p>
+          <p>In the editor, write <code>handle(command)</code> for a small chat bot. It receives arrays like <code>["greet", "Asha"]</code>, <code>["add", 2, 3]</code>, <code>["add", *numbers]</code> and <code>["quit"]</code>. Use array patterns with <code>Integer</code> checks. Return a helpful message for anything unknown.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Your own classes can support hash patterns by defining <code>deconstruct_keys(keys)</code> (return a hash) and array patterns by defining <code>deconstruct</code> (return an array). <code>Data</code> and <code>Struct</code> already define both.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Your own classes can support hash patterns. Define <code>deconstruct_keys(keys)</code> and return a hash. For array patterns, define <code>deconstruct</code> and return an array. <code>Data</code> and <code>Struct</code> already define both.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 19: Pattern Matching
@@ -3029,7 +3029,7 @@ module RubyContent
           <h1 class="lc-title">JSON, Files and the Standard Library</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">Ruby ships with a large <strong>standard library</strong>: JSON, dates and times, sets, hashing and more. You load most of it with <code>require</code>. This lesson shows the pieces you will use in almost every real program, including reading and writing files.</p>
+          <p class="lc-lead">Ruby comes with a large <strong>standard library</strong> (ready-made code that is installed with Ruby). It has JSON, dates and times, sets, hashing and more. You load most of it with <code>require</code>. This lesson shows the parts you will use in almost every real program. This includes reading and writing files.</p>
         </div>
         <div class="lc-section">
           <h2>Core, Default Gems and Bundled Gems</h2>
@@ -3038,16 +3038,16 @@ module RubyContent
             <tbody>
               <tr><td>Core</td><td><code>String</code>, <code>Array</code>, <code>Hash</code>, <code>File</code>, <code>Time</code></td><td>Always available</td></tr>
               <tr><td>Autoloaded / core since 4.0</td><td><code>Set</code></td><td>No <code>require</code> needed since Ruby 3.2 (it became a core class in Ruby 4.0)</td></tr>
-              <tr><td>Default gems</td><td><code>json</code>, <code>date</code>, <code>time</code>, <code>digest</code>, <code>securerandom</code></td><td><code>require "json"</code> — installed with Ruby</td></tr>
-              <tr><td>Bundled gems</td><td><code>csv</code>, <code>bigdecimal</code>, <code>base64</code> (since Ruby 3.4), <code>minitest</code></td><td>Installed with Ruby, but in a Bundler project you must add them to your <code>Gemfile</code> (for example <code>gem "csv"</code>)</td></tr>
+              <tr><td>Default gems</td><td><code>json</code>, <code>date</code>, <code>time</code>, <code>digest</code>, <code>securerandom</code></td><td><code>require "json"</code>. Installed with Ruby</td></tr>
+              <tr><td>Bundled gems</td><td><code>csv</code>, <code>bigdecimal</code>, <code>base64</code> (since Ruby 3.4), <code>minitest</code></td><td>Installed with Ruby. But in a Bundler project you must add them to your <code>Gemfile</code> (for example <code>gem "csv"</code>)</td></tr>
               <tr><td>Other gems</td><td><code>rails</code>, <code>nokogiri</code></td><td><code>gem install</code> or <code>bundle add</code></td></tr>
             </tbody>
           </table>
-          <p><strong>Note for this editor:</strong> the in-browser Ruby 3.4 includes <code>json</code>, <code>csv</code>, <code>date</code>, <code>time</code>, <code>set</code>, <code>digest</code>, <code>securerandom</code> and more, but not <code>bigdecimal</code>, network access or files on your disk. Run the file examples on your own computer.</p>
+          <p><strong>Note for this editor:</strong> the Ruby 3.4 in your browser includes <code>json</code>, <code>csv</code>, <code>date</code>, <code>time</code>, <code>set</code>, <code>digest</code>, <code>securerandom</code> and more. It does not have <code>bigdecimal</code>, network access or files on your disk. Run the file examples on your own computer.</p>
         </div>
         <div class="lc-section">
           <h2>Gems and Bundler</h2>
-          <p>A <strong>gem</strong> is a packaged Ruby library from <code>rubygems.org</code>. In a real project you do not install gems by hand one at a time; you list them in a <code>Gemfile</code> and let <strong>Bundler</strong> install exactly the right versions for everyone on the team.</p>
+          <p>A <strong>gem</strong> is a packaged Ruby library from <code>rubygems.org</code>. In a real project, you do not install gems by hand one at a time. You list them in a <code>Gemfile</code>. Then <strong>Bundler</strong> installs exactly the right versions for everyone on the team.</p>
           <div class="lc-code-block"><pre><code># Gemfile
         source "https://rubygems.org"
 
@@ -3064,7 +3064,7 @@ module RubyContent
               <tr><td><code>bundle update rainbow</code></td><td>Moves one gem to a newer allowed version and updates the lock file</td></tr>
             </tbody>
           </table>
-          <p>Commit both <code>Gemfile</code> and <code>Gemfile.lock</code> to Git for applications, so every computer and server runs the same versions. Inside a Bundler project, <code>require</code> only finds gems listed in the <code>Gemfile</code>.</p>
+          <p>For applications, commit both <code>Gemfile</code> and <code>Gemfile.lock</code> to Git. Then every computer and server runs the same versions. Inside a Bundler project, <code>require</code> only finds gems listed in the <code>Gemfile</code>.</p>
         </div>
         <div class="lc-section">
           <h2>JSON</h2>
@@ -3081,14 +3081,14 @@ module RubyContent
         </div>
         <div class="lc-section">
           <h2>CSV</h2>
-          <p>CSV (comma-separated values) is how spreadsheets export data. Do not split lines on commas yourself — a value like <code>"Sharma, Priya"</code> contains a comma inside quotes. The <code>csv</code> library handles that correctly:</p>
+          <p>CSV (comma-separated values) is a common format that spreadsheets use to export data. Do not split lines on commas yourself. A value like <code>"Sharma, Priya"</code> has a comma inside quotes. The <code>csv</code> library handles that correctly:</p>
           <div class="lc-code-block"><pre><code>require "csv"
 
         rows = CSV.parse(text, headers: true, header_converters: :symbol, converters: :integer)
         rows.map(&amp;:to_h)                 # [{name: "Asha", marks: 91}, ...]
         CSV.generate_line(["Ravi", 67])  # "Ravi,67\n"
         # On your computer: CSV.foreach("marks.csv", headers: true) { |row| ... }</code></pre></div>
-          <p><code>headers: true</code> uses the first line as column names, <code>header_converters: :symbol</code> turns them into symbols, and <code>converters: :integer</code> turns number-looking values into Integers.</p>
+          <p><code>headers: true</code> uses the first line as column names. <code>header_converters: :symbol</code> turns them into symbols. <code>converters: :integer</code> turns values that look like numbers into Integers.</p>
         </div>
         <div class="lc-section">
           <h2>Files (on your own computer)</h2>
@@ -3103,8 +3103,8 @@ module RubyContent
               <tr><td>Check / list</td><td><code>File.exist?(path)</code>, <code>Dir.glob("data/*.json")</code></td></tr>
             </tbody>
           </table>
-          <p>Always use the block form of <code>File.open</code>: the file is closed automatically, even if an exception happens inside the block. Missing files raise <code>Errno::ENOENT</code>.</p>
-          <p>A file's content is just a string, so every string method works on it. The starter code uses a heredoc string in place of a file.</p>
+          <p>Always use the block form of <code>File.open</code>. The file is then closed automatically, even if an exception happens inside the block. Missing files raise <code>Errno::ENOENT</code>.</p>
+          <p>A file's content is just a string, so every string method works on it. The starter code uses a heredoc string (a multi-line string) in place of a file.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
@@ -3115,8 +3115,8 @@ module RubyContent
 
         report = &lt;&lt;~TEXT
           name,city,marks
-          "Sharma, Priya",Pune,91
-          Ravi,Delhi,67
+          "Sharma, Priya",London,91
+          Ravi,Chicago,67
         TEXT
         table = CSV.parse(report, headers: true, header_converters: :symbol, converters: :integer)
         students = table.map(&amp;:to_h)
@@ -3137,32 +3137,32 @@ module RubyContent
         p tags.to_a.sort
         puts Digest::SHA256.hexdigest("hello")[0, 12]</code></pre></div>
           <p>Output:</p>
-          <div class="lc-code-block lc-output"><pre><code>{name: "Sharma, Priya", city: "Pune", marks: 91}
-        [{"name":"Sharma, Priya","city":"Pune","marks":91},{"name":"Ravi","city":"Delhi","marks":67}]
+          <div class="lc-code-block lc-output"><pre><code>{name: "Sharma, Priya", city: "London", marks: 91}
+        [{"name":"Sharma, Priya","city":"London","marks":91},{"name":"Ravi","city":"Chicago","marks":67}]
         158
         Monday, 26 January 2026
         333
         2026-02-26
         ["json", "rails", "ruby"]
         2cf24dba5fb0</code></pre></div>
-          <p>The quoted name kept its comma, and <code>converters: :integer</code> made the marks real numbers, so <code>sum</code> works without conversion. <code>date &gt;&gt; 1</code> moves one month forward.</p>
+          <p>The quoted name kept its comma. <code>converters: :integer</code> made the marks real numbers, so <code>sum</code> works without conversion. <code>date &gt;&gt; 1</code> moves one month forward.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Reading <code>data[:name]</code> after a plain <code>JSON.parse</code> — the keys are strings, so you get <code>nil</code>. Use <code>data["name"]</code> or <code>symbolize_names: true</code>.</li>
+            <li>Reading <code>data[:name]</code> after a plain <code>JSON.parse</code>. The keys are strings, so you get <code>nil</code>. Use <code>data["name"]</code> or <code>symbolize_names: true</code>.</li>
             <li>Forgetting <code>require "json"</code> and getting <code>NoMethodError: undefined method 'to_json'</code>.</li>
-            <li>Opening files without a block and forgetting <code>close</code>. Prefer <code>File.open(...) { }</code>, <code>File.read</code> or <code>File.write</code>.</li>
-            <li>Using <code>File.readlines</code> on a huge log file — it loads everything into memory. Use <code>File.foreach</code>.</li>
-            <li>Splitting CSV lines with <code>line.split(",")</code> — it breaks on quoted values that contain commas. Use <code>CSV.parse</code>.</li>
-            <li>On Ruby 3.4+, writing <code>require "csv"</code> in a Bundler project without adding <code>gem "csv"</code> to the Gemfile — it raises <code>LoadError</code>, because csv is now a bundled gem.</li>
+            <li>Opening files without a block and forgetting <code>close</code>. Use <code>File.open(...) { }</code>, <code>File.read</code> or <code>File.write</code>.</li>
+            <li>Using <code>File.readlines</code> on a very large log file. It loads everything into memory. Use <code>File.foreach</code>.</li>
+            <li>Splitting CSV lines with <code>line.split(",")</code>. It fails on quoted values that contain commas. Use <code>CSV.parse</code>.</li>
+            <li>On Ruby 3.4+, writing <code>require "csv"</code> in a Bundler project without adding <code>gem "csv"</code> to the Gemfile. It raises <code>LoadError</code>, because csv is now a bundled gem.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, add a student whose name contains a comma (use quotes in the CSV text) and check that it is parsed correctly. Then print the students with 75 marks or more as pretty JSON with <code>JSON.pretty_generate</code>. Finally, print how many days are left from 25 September 2026 until your next birthday using <code>Date</code>.</p>
+          <p>In the editor, add a student whose name contains a comma (use quotes in the CSV text). Check that it is parsed correctly. Then print the students with 75 marks or more as neatly formatted JSON with <code>JSON.pretty_generate</code>. Finally, use <code>Date</code> to print how many days are left from 25 September 2026 until your next birthday.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Before installing a gem, check the standard library. <code>Set</code>, <code>JSON</code>, <code>Date</code>, <code>Digest</code>, <code>SecureRandom</code> and <code>Time#iso8601</code> cover a surprising amount of everyday work.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Before installing a gem, check the standard library. <code>Set</code>, <code>JSON</code>, <code>Date</code>, <code>Digest</code>, <code>SecureRandom</code> and <code>Time#iso8601</code> cover a lot of everyday work.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 20: JSON, Files and the Standard Library
@@ -3175,9 +3175,9 @@ module RubyContent
         # In a real program: text = File.read("students.csv")
         text = <<~DATA
           name,city,marks,joined
-          Asha,Pune,91,2025-07-01
-          "Iyer, Ravi",Delhi,67,2024-07-15
-          Meena,Chennai,78,2025-01-10
+          Asha,London,91,2025-07-01
+          "Iyer, Ravi",Chicago,67,2024-07-15
+          Meena,Los Angeles,78,2025-01-10
         DATA
 
         puts "=== Parse CSV text ==="
@@ -3190,7 +3190,7 @@ module RubyContent
         puts json.lines.first(7).join
         loaded = JSON.parse(json, symbolize_names: true)
         puts "Loaded #{loaded.size} records, first key: #{loaded.first.keys.first.inspect}"
-        p JSON.parse('{"city": "Pune"}')        # string keys by default
+        p JSON.parse('{"city": "London"}')        # string keys by default
 
         puts "=== Dates ==="
         today = Date.new(2026, 9, 25)           # fixed date so output never changes
@@ -3201,7 +3201,7 @@ module RubyContent
 
         puts "=== Set, Digest, SecureRandom ==="
         cities = Set.new(students.map { |s| s[:city] })
-        cities << "Pune"                        # duplicates are ignored
+        cities << "London"                        # duplicates are ignored
         puts "Cities: #{cities.to_a.sort.join(', ')} (#{cities.size})"
         puts "SHA-256 of 'hello': #{Digest::SHA256.hexdigest('hello')[0, 16]}..."
         token = SecureRandom.hex(8)             # random each run
@@ -3216,7 +3216,7 @@ module RubyContent
           <h1 class="lc-title">Testing with Minitest</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">Professional Ruby code comes with <strong>automated tests</strong>: small programs that check your code gives the right answers. <strong>Minitest</strong> ships with Ruby as a bundled gem and is the default testing library in Rails. Tests let you change code with confidence — if something breaks, a test tells you at once.</p>
+          <p class="lc-lead">Professional Ruby code comes with <strong>automated tests</strong>. These are small programs that check your code gives the right answers. <strong>Minitest</strong> comes with Ruby as a bundled gem. It is the default testing library in Rails. Tests let you change code without fear. If something breaks, a test tells you at once.</p>
         </div>
         <div class="lc-section">
           <h2>A Minitest File</h2>
@@ -3243,11 +3243,11 @@ module RubyContent
             assert_raises(ArgumentError) { @cart.add("Pen", -5) }
           end
         end</code></pre></div>
-          <p>Each method whose name starts with <code>test_</code> is one test. Run the file with <code>ruby test/cart_test.rb</code>. In a Rails app you run <code>bin/rails test</code>; in a Bundler project add <code>gem "minitest"</code> to the Gemfile.</p>
+          <p>Each method whose name starts with <code>test_</code> is one test. Run the file with <code>ruby test/cart_test.rb</code>. In a Rails app, you run <code>bin/rails test</code>. In a Bundler project, add <code>gem "minitest"</code> to the Gemfile.</p>
         </div>
         <div class="lc-section">
           <h2>Reading the Output</h2>
-          <p>Minitest prints a dot for each passing test, <code>F</code> for a failure and <code>E</code> for an unexpected exception. When a test fails you see something like this (the seed and timings change on every run):</p>
+          <p>Minitest prints a dot for each passing test. It prints <code>F</code> for a failure and <code>E</code> for an unexpected exception. When a test fails, you see something like this (the seed and timings change on every run):</p>
           <div class="lc-code-block"><pre><code>Run options: --seed 40312
 
         # Running:
@@ -3262,7 +3262,7 @@ module RubyContent
           Actual: 260
 
         3 runs, 3 assertions, 1 failures, 0 errors, 0 skips</code></pre></div>
-          <p>The <code>--seed</code> shows that Minitest runs tests in a <strong>random order</strong>. That catches tests that secretly depend on each other. Use the same seed (<code>--seed 40312</code>) to repeat a run exactly.</p>
+          <p>The <code>--seed</code> shows that Minitest runs tests in a <strong>random order</strong>. This finds tests that depend on each other without you knowing. Use the same seed (<code>--seed 40312</code>) to repeat a run exactly.</p>
         </div>
         <div class="lc-section">
           <h2>Assertions You Will Use Most</h2>
@@ -3274,24 +3274,24 @@ module RubyContent
               <tr><td><code>assert_nil value</code></td><td>value is <code>nil</code></td></tr>
               <tr><td><code>assert_includes list, item</code></td><td><code>list.include?(item)</code></td></tr>
               <tr><td><code>assert_in_delta 0.3, 0.1 + 0.2, 0.001</code></td><td>floats are close enough</td></tr>
-              <tr><td><code>assert_raises(KeyError) { ... }</code></td><td>the block raises that error (returns the exception so you can check its message)</td></tr>
-              <tr><td><code>assert_match(/\d+/, text)</code></td><td>the text matches the regular expression</td></tr>
+              <tr><td><code>assert_raises(KeyError) { ... }</code></td><td>the block raises that error. It returns the exception, so you can check its message</td></tr>
+              <tr><td><code>assert_match(/\d+/, text)</code></td><td>the text matches the regular expression (a text pattern)</td></tr>
             </tbody>
           </table>
-          <p>Minitest also has a spec style (<code>describe</code> / <code>it</code> / <code>_(x).must_equal y</code>). Another popular framework is <strong>RSpec</strong>; the ideas are the same.</p>
+          <p>Minitest also has a spec style (<code>describe</code> / <code>it</code> / <code>_(x).must_equal y</code>). Another popular framework is <strong>RSpec</strong>. The ideas are the same.</p>
         </div>
         <div class="lc-section">
           <h2>Red, Green, Refactor</h2>
           <ul class="lc-list">
-            <li><strong>Red</strong> — write a test for the behaviour you want. Run it and watch it fail.</li>
-            <li><strong>Green</strong> — write the simplest code that makes it pass.</li>
-            <li><strong>Refactor</strong> — clean up the code while the tests stay green.</li>
+            <li><strong>Red</strong>: write a test for the behaviour you want. Run it and see it fail.</li>
+            <li><strong>Green</strong>: write the simplest code that makes it pass.</li>
+            <li><strong>Refactor</strong>: clean up the code while the tests keep passing (green).</li>
           </ul>
-          <p>This rhythm is called test-driven development (TDD). Even if you do not always write tests first, test every bug you fix so it can never come back.</p>
+          <p>This cycle is called test-driven development (TDD). You may not always write tests first. But write a test for every bug you fix, so it can never come back.</p>
         </div>
         <div class="lc-section">
           <h2>Worked Example: How assert_equal Works</h2>
-          <p>The editor has no gems, but an assertion is just a method that raises when something is wrong. This tiny version shows the idea:</p>
+          <p>The editor has no gems. But an assertion (a check in a test) is just a method that raises an error when something is wrong. This small version shows the idea:</p>
           <div class="lc-code-block"><pre><code>class AssertionFailed &lt; StandardError; end
 
         def assert_equal(expected, actual)
@@ -3311,23 +3311,23 @@ module RubyContent
           <div class="lc-code-block lc-output"><pre><code>PASS add_gst(100)
         PASS add_gst(50)
         FAIL add_gst(17): Expected: 20.0, Actual: 20.06</code></pre></div>
-          <p>The third test has a wrong expectation. A failing test means <em>either</em> the code or the test is wrong — read both before changing anything.</p>
+          <p>The third test has a wrong expectation. A failing test means <em>either</em> the code or the test is wrong. Read both before you change anything.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Swapping the arguments: <code>assert_equal @cart.total, 280</code>. If the cart wrongly totals 260, the message then says "Expected: 260, Actual: 280", which is confusing. Expected value first.</li>
-            <li>Testing floats with <code>assert_equal</code> after arithmetic — use <code>assert_in_delta</code>.</li>
+            <li>Swapping the arguments: <code>assert_equal @cart.total, 280</code>. Say the cart total is wrongly 260. The message then says "Expected: 260, Actual: 280", which is confusing. Put the expected value first.</li>
+            <li>Testing floats (decimal numbers) with <code>assert_equal</code> after arithmetic. Use <code>assert_in_delta</code>.</li>
             <li>Tests that depend on each other or on shared state. Build fresh objects in <code>setup</code>.</li>
-            <li>Naming a method <code>check_total</code> instead of <code>test_total</code> — Minitest silently skips it.</li>
-            <li>Only testing the "happy path". Also test edge cases: empty input, zero, negative numbers, missing keys.</li>
+            <li>Naming a method <code>check_total</code> instead of <code>test_total</code>. Minitest skips it with no warning.</li>
+            <li>Only testing the "happy path" (the normal case where all goes well). Also test edge cases (unusual inputs): empty input, zero, negative numbers, missing keys.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, the starter contains a tiny test runner and a <code>Cart</code> class with one failing test. Read the failure message, decide whether the code or the test is wrong, and fix it. Then add two tests: one for <code>count</code> after adding items with quantities, and one checking that an empty cart has a total of 0.</p>
+          <p>In the editor, the starter code has a small test runner and a <code>Cart</code> class with one failing test. Read the failure message. Decide if the code or the test is wrong, and fix it. Then add two tests. One tests <code>count</code> after adding items with quantities. The other checks that an empty cart has a total of 0.</p>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Good test names read like specifications: <code>test_rejects_negative_price</code>, <code>test_total_includes_gst</code>. When one fails, the name alone tells you what broke.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Good test names read like rules the code must follow: <code>test_rejects_negative_price</code>, <code>test_total_includes_gst</code>. When one fails, the name alone tells you what broke.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # Lesson 21: Testing with Minitest
@@ -3390,15 +3390,15 @@ module RubyContent
           <h1 class="lc-title">Capstone Project: Library Manager</h1>
         </div>
         <div class="lc-intro">
-          <p class="lc-lead">Time to combine everything. You will build a small <strong>library manager</strong> for a college library: load books from JSON, lend and return them, reject invalid actions with clear errors, and print a report. The finished starter is only 50 lines — because it uses the right Ruby tool at every step.</p>
+          <p class="lc-lead">Now you will use everything together. You will build a small <strong>library manager</strong> for a college library. It loads books from JSON and lends and returns them. It rejects wrong actions with clear errors and prints a report. The finished starter is only 50 lines. This is because it uses the right Ruby tool at every step.</p>
         </div>
         <div class="lc-section">
           <h2>Project Brief</h2>
           <ul class="lc-list">
             <li>Load the catalogue from JSON text into immutable <code>Book</code> values.</li>
-            <li>Keep books and loans inside a <code>Library</code> object; nobody outside may change them directly.</li>
+            <li>Keep books and loans inside a <code>Library</code> object. No outside code may change them directly.</li>
             <li>Process a list of commands (<code>lend</code>, <code>return</code>, anything else) and print <code>OK</code>, <code>FAIL</code> or <code>SKIP</code> for each.</li>
-            <li>Lending a missing or already-lent book, or returning a book that is not on loan, must raise a <code>Library::Error</code> that is turned into a <code>FAIL</code> line — the program never crashes.</li>
+            <li>Some actions must raise a <code>Library::Error</code>: lending a missing or already-lent book, or returning a book that is not on loan. The error is turned into a <code>FAIL</code> line. The program never crashes.</li>
             <li>Print the catalogue sorted by year and a report of books on loan and on the shelf.</li>
           </ul>
         </div>
@@ -3424,10 +3424,10 @@ module RubyContent
           <h2>Step by Step</h2>
           <ul class="lc-list">
             <li><strong>1. Model the data.</strong> A book never changes, so it is a <code>Data</code> value with a friendly <code>to_s</code>.</li>
-            <li><strong>2. Build the collection.</strong> <code>Library</code> stores books in a hash for fast lookup by ISBN, defines <code>each</code>, and includes <code>Enumerable</code> — so sorting, counting and grouping come for free.</li>
-            <li><strong>3. Enforce the rules.</strong> <code>lend</code> and <code>give_back</code> raise <code>Library::Error</code> with a message that explains exactly what went wrong.</li>
-            <li><strong>4. Dispatch commands.</strong> <code>run</code> uses <code>case/in</code> to check each command's shape, calls the library, and rescues <code>Library::Error</code> into a <code>FAIL</code> line. Unknown actions fall into the last pattern.</li>
-            <li><strong>5. Report.</strong> The main program parses JSON, loops over commands and prints the results.</li>
+            <li><strong>2. Build the collection.</strong> <code>Library</code> stores books in a hash, so it can find a book by ISBN quickly. It defines <code>each</code> and includes <code>Enumerable</code>. So you get sorting, counting and grouping for free.</li>
+            <li><strong>3. Enforce the rules.</strong> <code>lend</code> and <code>give_back</code> raise <code>Library::Error</code>. Its message explains exactly what went wrong.</li>
+            <li><strong>4. Dispatch commands.</strong> <code>run</code> uses <code>case/in</code> to check each command's shape. It calls the library. It rescues <code>Library::Error</code> and turns it into a <code>FAIL</code> line. Unknown actions match the last pattern.</li>
+            <li><strong>5. Report.</strong> The main program reads the JSON, loops over the commands and prints the results.</li>
           </ul>
         </div>
         <div class="lc-section">
@@ -3455,7 +3455,7 @@ module RubyContent
         "Gitanjali"
         ["1"]
         #&lt;data Book isbn="1", title="Godan", author="Premchand", year=1936&gt;</code></pre></div>
-          <p>Three one-line methods turned <code>Library</code> into a full collection. The anonymous block parameter <code>&amp;</code> (Ruby 3.1+) forwards the caller's block straight to <code>each_value</code>.</p>
+          <p>Three one-line methods turned <code>Library</code> into a full collection. The anonymous block parameter <code>&amp;</code> (Ruby 3.1+) is a block parameter with no name. It passes the caller's block straight to <code>each_value</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Expected Output of the Starter</h2>
@@ -3477,23 +3477,23 @@ module RubyContent
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
           <ul class="lc-list">
-            <li>Loading commands from JSON without <code>symbolize_names: true</code>. Hash patterns only match symbol keys, so no <code>in</code> branch would match and <code>run</code> would crash with <code>NoMatchingPatternError</code>.</li>
-            <li>Rescuing <code>StandardError</code> in <code>run</code> instead of <code>Library::Error</code> — real bugs (like a typo causing <code>NoMethodError</code>) would be hidden as "FAIL" messages.</li>
-            <li>Exposing <code>@loans</code> with <code>attr_accessor</code> so other code can edit loans directly and skip the rules in <code>lend</code>.</li>
-            <li>Putting the most general pattern (<code>in {action:}</code>) first — it would match every command.</li>
+            <li>Loading commands from JSON without <code>symbolize_names: true</code>. Hash patterns only match symbol keys. So no <code>in</code> branch would match, and <code>run</code> would crash with <code>NoMatchingPatternError</code>.</li>
+            <li>Rescuing <code>StandardError</code> in <code>run</code> instead of <code>Library::Error</code>. Real bugs (like a typo causing <code>NoMethodError</code>) would then be hidden as "FAIL" messages.</li>
+            <li>Giving out <code>@loans</code> with <code>attr_accessor</code>. Then other code can edit loans directly and skip the rules in <code>lend</code>.</li>
+            <li>Putting the most general pattern (<code>in {action:}</code>) first. It would match every command.</li>
           </ul>
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>Extend the project in the editor, one step at a time, running after each change:</p>
+          <p>Add to the project in the editor, one step at a time. Run it after each change:</p>
           <ul class="lc-list">
-            <li>Add a <code>"search"</code> command with a <code>query</code> that lists titles containing the text (case-insensitive). Build the pattern safely with <code>Regexp.new(Regexp.escape(query), Regexp::IGNORECASE)</code> (Lesson 11).</li>
+            <li>Add a <code>"search"</code> command with a <code>query</code>. It lists titles that contain the text, ignoring upper and lower case. Build the pattern safely with <code>Regexp.new(Regexp.escape(query), Regexp::IGNORECASE)</code> (Lesson 11).</li>
             <li>Limit each member to 2 books at a time and raise a new <code>Library::LimitReached &lt; Library::Error</code>.</li>
-            <li>Store a due date with each loan (<code>Date.new(2026, 9, 25) + 14</code>) and print overdue books with a fine of ₹5 per day.</li>
-            <li>Add a <code>to_json</code> method that saves the library state, and on your own computer write it to a file and add Minitest tests for <code>lend</code> and <code>give_back</code>.</li>
+            <li>Store a due date with each loan (<code>Date.new(2026, 9, 25) + 14</code>). Print overdue books with a fine of ₹5 per day.</li>
+            <li>Add a <code>to_json</code> method that saves the library state. On your own computer, write it to a file. Also add Minitest tests for <code>lend</code> and <code>give_back</code>.</li>
           </ul>
         </div>
-        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Your next step is <strong>Ruby on Rails</strong>, where the same ideas appear everywhere: classes with validations, modules as concerns, blocks for callbacks, Enumerable on query results, and Minitest for tests. Put this project on GitHub with a README and tests — it is a great first portfolio piece.</p></div>
+        <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Your next step is <strong>Ruby on Rails</strong>. The same ideas appear everywhere there: classes with validations, modules as concerns, blocks for callbacks, Enumerable on query results, and Minitest for tests. Put this project on GitHub with a README and tests. It is a great first project to show employers.</p></div>
       HTML
       starter_code: <<~'RUBY'
         # frozen_string_literal: true

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="848" viewBox="0 0 1200 848" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+<defs>
+<marker id="m2563eb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>
+<marker id="md97706" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
+<marker id="m6762a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6762a6"/></marker>
+<marker id="m16a34a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker>
+<marker id="m6b7280" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+</defs>
+<rect width="1200" height="848" fill="#ffffff"/>
+<text x="600" y="46" text-anchor="middle" font-size="28" font-weight="700" fill="#1f2937">Upload flow: the photo goes straight to S3</text>
+<rect x="40" y="70" width="260" height="56" rx="12" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+<text x="170" y="106" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Browser</text>
+<line x1="170" y1="126" x2="170" y2="770" stroke="#d1d5db" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="490" y="70" width="260" height="56" rx="12" fill="#f3f2fb" stroke="#6762a6" stroke-width="2"/>
+<text x="620" y="106" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Flask on Heroku</text>
+<line x1="620" y1="126" x2="620" y2="770" stroke="#d1d5db" stroke-width="2" stroke-dasharray="6 6"/>
+<rect x="920" y="70" width="260" height="56" rx="12" fill="#fff7ea" stroke="#ff9900" stroke-width="2"/>
+<text x="1050" y="106" text-anchor="middle" font-size="22" font-weight="700" fill="#1f2937">Amazon S3</text>
+<line x1="1050" y1="126" x2="1050" y2="770" stroke="#d1d5db" stroke-width="2" stroke-dasharray="6 6"/>
+<line x1="170" y1="185" x2="614" y2="185" stroke="#2563eb" stroke-width="3" marker-end="url(#m2563eb)"/>
+<text x="395.0" y="173" text-anchor="middle" font-size="20" fill="#1f2937" stroke="#ffffff" stroke-width="7" paint-order="stroke" stroke-linejoin="round">POST /api/presign {type, size}</text>
+<circle cx="140" cy="185" r="15" fill="#2563eb"/><text x="140" y="191" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">1</text>
+<rect x="634" y="213" width="380" height="68" rx="10" fill="#f3f2fb" stroke="#6762a6"/>
+<text x="650" y="240" font-size="20" fill="#1f2937">Check type and size.</text>
+<text x="650" y="268" font-size="20" fill="#1f2937">Make key photos/&lt;uuid&gt;.jpg</text>
+<circle cx="590" cy="257" r="15" fill="#6762a6"/><text x="590" y="263" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">2</text>
+<line x1="620" y1="329" x2="176" y2="329" stroke="#6b7280" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#m6b7280)"/>
+<text x="395.0" y="317" text-anchor="middle" font-size="20" fill="#1f2937" stroke="#ffffff" stroke-width="7" paint-order="stroke" stroke-linejoin="round">{ url, key }  (presigned PUT, 5 minutes)</text>
+<circle cx="140" cy="329" r="15" fill="#374151"/><text x="140" y="335" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">3</text>
+<line x1="170" y1="401" x2="1044" y2="401" stroke="#d97706" stroke-width="3" marker-end="url(#md97706)"/>
+<text x="610.0" y="389" text-anchor="middle" font-size="20" fill="#1f2937" stroke="#ffffff" stroke-width="7" paint-order="stroke" stroke-linejoin="round">PUT photo straight to S3 (same Content-Type)</text>
+<circle cx="140" cy="401" r="15" fill="#d97706"/><text x="140" y="407" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">4</text>
+<line x1="1050" y1="473" x2="176" y2="473" stroke="#6b7280" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#m6b7280)"/>
+<text x="610.0" y="461" text-anchor="middle" font-size="20" fill="#1f2937" stroke="#ffffff" stroke-width="7" paint-order="stroke" stroke-linejoin="round">200 OK</text>
+<circle cx="140" cy="473" r="15" fill="#374151"/><text x="140" y="479" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">5</text>
+<line x1="170" y1="545" x2="614" y2="545" stroke="#2563eb" stroke-width="3" marker-end="url(#m2563eb)"/>
+<text x="395.0" y="533" text-anchor="middle" font-size="20" fill="#1f2937" stroke="#ffffff" stroke-width="7" paint-order="stroke" stroke-linejoin="round">POST /api/confirm {key}</text>
+<circle cx="140" cy="545" r="15" fill="#2563eb"/><text x="140" y="551" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">6</text>
+<line x1="620" y1="617" x2="1044" y2="617" stroke="#6762a6" stroke-width="3" marker-end="url(#m6762a6)"/>
+<text x="835.0" y="605" text-anchor="middle" font-size="20" fill="#1f2937" stroke="#ffffff" stroke-width="7" paint-order="stroke" stroke-linejoin="round">HEAD object: real size and type</text>
+<circle cx="590" cy="617" r="15" fill="#6762a6"/><text x="590" y="623" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">7</text>
+<line x1="620" y1="689" x2="176" y2="689" stroke="#6b7280" stroke-width="3" stroke-dasharray="8 6" marker-end="url(#m6b7280)"/>
+<text x="395.0" y="677" text-anchor="middle" font-size="20" fill="#1f2937" stroke="#ffffff" stroke-width="7" paint-order="stroke" stroke-linejoin="round">ok  (page reloads)</text>
+<circle cx="140" cy="689" r="15" fill="#374151"/><text x="140" y="695" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">8</text>
+<line x1="170" y1="761" x2="1044" y2="761" stroke="#16a34a" stroke-width="3" marker-end="url(#m16a34a)"/>
+<text x="610.0" y="749" text-anchor="middle" font-size="20" fill="#1f2937" stroke="#ffffff" stroke-width="7" paint-order="stroke" stroke-linejoin="round">GET photo with presigned GET URL</text>
+<circle cx="140" cy="761" r="15" fill="#16a34a"/><text x="140" y="767" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">9</text>
+<text x="600" y="818" text-anchor="middle" font-size="21" fill="#6b7280">The file never passes through the dyno, so the 30-second router timeout does not matter.</text>
+</svg>

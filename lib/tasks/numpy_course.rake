@@ -5,7 +5,7 @@ namespace :content do
   task numpy: :environment do
     course = Course.find_or_create_by!(slug: "numpy") do |c|
       c.title       = "NumPy"
-      c.description = "NumPy is Python's numerical computing foundation. Master ndarrays, views and copies, broadcasting, vectorisation, random Generators, statistics, linear algebra and NumPy 2 best practice, then build a regression model from scratch."
+      c.description = "NumPy is the base for number work in Python. Learn ndarrays, views and copies, broadcasting, vectorised code, random numbers, statistics, linear algebra and NumPy 2 good practice. Then build a regression model from scratch."
       c.color       = "#4dabcf"
       c.icon        = "🔢"
       c.position    = 16
@@ -37,32 +37,32 @@ namespace :content do
     }
 
     descriptions = {
-      1  => "Discover the ndarray, why NumPy is much faster than Python lists, and how vectorised maths replaces loops.",
-      2  => "Build arrays from lists and with zeros, ones, full, eye, arange and linspace, and avoid the float-step trap.",
-      3  => "Read shape, ndim, size and dtype, convert types with astype, and avoid platform-dependent integers and silent overflow.",
-      4  => "Select elements, rows, columns and sub-grids with [row, col] indexing and start:stop:step slices, and assign new values.",
-      5  => "Learn which operations share memory (views) and which create new data (copies), and use .copy() to avoid accidental changes.",
-      6  => "Do element-wise arithmetic, use ufuncs like sqrt, exp and maximum, and understand division by zero and in-place dtype rules.",
-      7  => "Summarise arrays with sum, mean, max, argmax, any and all, and control the direction with axis and keepdims.",
-      8  => "Change array shapes with reshape and -1, transpose, add or remove axes, and prepare data in the (samples, features) shape.",
-      9  => "Filter, count and modify array elements with boolean masks, combine conditions with & | ~, and label data with np.where and np.select.",
-      10 => "Select, reorder and update elements with index arrays, use np.ix_ for sub-grids, find top-k with argsort, and count safely with np.add.at.",
-      11 => "Join arrays with concatenate, vstack, hstack, column_stack and stack, and split them into equal or uneven parts.",
-      12 => "Apply the three broadcasting rules to combine arrays of different shapes, build tables and distance matrices, and avoid silent shape bugs.",
-      13 => "Sort with sort and argsort, find top-k with partition, search with searchsorted, and compare arrays with unique, isin and set functions.",
-      14 => "Generate reproducible random numbers with np.random.default_rng: integers, uniform and normal values, sampling, shuffling and splits.",
+      1  => "Meet the ndarray. See why NumPy is much faster than Python lists, and how vectorised maths replaces loops.",
+      2  => "Build arrays from lists and with zeros, ones, full, eye, arange and linspace. Avoid the float-step trap.",
+      3  => "Read shape, ndim, size and dtype. Change types with astype, and avoid integer sizes that differ by platform and hidden overflow.",
+      4  => "Select elements, rows, columns and small grids with [row, col] indexing and start:stop:step slices. Assign new values.",
+      5  => "Learn which operations share memory (views) and which make new data (copies). Use .copy() to avoid changes by mistake.",
+      6  => "Do maths element by element and use ufuncs like sqrt, exp and maximum. Learn what happens with division by zero and in-place dtype rules.",
+      7  => "Summarise arrays with sum, mean, max, argmax, any and all. Choose the direction with axis and keepdims.",
+      8  => "Change array shapes with reshape and -1, transpose, and add or remove axes. Put data in the (samples, features) shape.",
+      9  => "Filter, count and change elements with boolean masks. Combine conditions with & | ~, and label data with np.where and np.select.",
+      10 => "Select, reorder and update elements with index arrays. Use np.ix_ for small grids, argsort for top-k, and np.add.at to count safely.",
+      11 => "Join arrays with concatenate, vstack, hstack, column_stack and stack. Split them into equal or unequal parts.",
+      12 => "Use the three broadcasting rules to combine arrays of different shapes. Build tables and distance matrices, and avoid hidden shape bugs.",
+      13 => "Sort with sort and argsort, and find top-k with partition. Search with searchsorted, and compare arrays with unique, isin and set functions.",
+      14 => "Make random numbers you can repeat with np.random.default_rng. Get integers, uniform and normal values, samples, shuffles and splits.",
       15 => "Describe data with mean, median, standard deviation, percentiles, IQR, z-scores, correlation, histograms and nan-aware functions.",
-      16 => "Multiply matrices with @, compute dot products and norms, solve equations with np.linalg.solve, and fit a line with lstsq.",
-      17 => "Detect and handle nan and inf, use nan-aware functions, and compare floats safely despite rounding error.",
-      18 => "Save arrays with np.save and np.savez, read and write CSV text, handle allow_pickle safely, and convert to lists and pandas.",
-      19 => "Replace Python loops with vectorised expressions, understand why np.vectorize is not fast, and save memory with dtypes and buffers.",
-      20 => "Build a complete NumPy ML pipeline: generate data, split, scale without leakage, train with lstsq and gradient descent, and evaluate.",
+      16 => "Multiply matrices with @ and find dot products and norms. Solve equations with np.linalg.solve, and fit a line with lstsq.",
+      17 => "Find and handle nan and inf. Use nan-aware functions, and compare floats safely even with rounding errors.",
+      18 => "Save arrays with np.save and np.savez, and read and write CSV text. Use allow_pickle safely, and convert to lists and pandas.",
+      19 => "Replace Python loops with vectorised code. Learn why np.vectorize is not fast, and save memory with dtypes and buffers.",
+      20 => "Build a full NumPy ML pipeline. Make data, split it, scale it without leakage, train with lstsq and gradient descent, and check the results.",
     }
 
     exercises = {
       1  => { type: "multiple_choice", q: "What does print(np.array([2, 4]) * 2) display?",
               opts: ["A) [4 8]", "B) [2, 4, 2, 4]", "C) [2 4 2 4]"], ans: "A" },
-      2  => { type: "multiple_choice", q: "You need exactly 6 evenly spaced values from 0 to 1, with both 0 and 1 included. Which call is correct?",
+      2  => { type: "multiple_choice", q: "You need exactly 6 evenly spaced values from 0 to 1. Both 0 and 1 must be included. Which call is correct?",
               opts: ["A) np.arange(0, 1, 6)", "B) np.arange(0, 1, 0.2)", "C) np.linspace(0, 1, 6)"], ans: "C" },
       3  => { type: "true_false", q: "np.array([2.9, -2.9]).astype(np.int64) rounds to the nearest whole number and gives [3 -3].",
               opts: ["True", "False"], ans: "False" },
@@ -90,16 +90,16 @@ namespace :content do
               opts: ["A) rng.integers(1, 7, size=10)", "B) rng.integers(1, 6, size=10)", "C) rng.random(1, 6, size=10)"], ans: "A" },
       15 => { type: "multiple_choice", q: "x = np.array([2, 4, 6]). NumPy's x.std() and pandas' pd.Series(x).std() give different answers. Why?",
               opts: ["A) NumPy ignores the first value in the array", "B) NumPy uses ddof=0 (divide by n) but pandas uses ddof=1 (divide by n - 1)", "C) pandas rounds the result to 2 decimal places"], ans: "B" },
-      16 => { type: "true_false", q: "For two 2x2 NumPy arrays A and B, A * B performs standard matrix multiplication.",
+      16 => { type: "true_false", q: "For two 2x2 NumPy arrays A and B, A * B does normal matrix multiplication.",
               opts: ["True", "False"], ans: "False" },
       17 => { type: "multiple_choice", q: "a = np.array([1.0, np.nan, 3.0]). What does np.sum(a == np.nan) return?",
-              opts: ["A) 1, because one element is nan", "B) nan, because nan spreads through sums", "C) 0, because nan is never equal to anything, even nan"], ans: "C" },
-      18 => { type: "multiple_choice", q: "You want to store the arrays X_train and y_train together in one file and load each back by name. Which call fits best?",
+              opts: ["A) 1, because one element is nan", "B) nan, because nan spreads through sums", "C) 0, because nan is never equal to anything, not even nan"], ans: "C" },
+      18 => { type: "multiple_choice", q: "You want to store the arrays X_train and y_train together in one file. You want to load each one back by name. Which call is best?",
               opts: ["A) np.savez('data.npz', X=X_train, y=y_train)", "B) np.save('data.npy', X_train, y_train)", "C) np.savetxt('data.csv', [X_train, y_train])"], ans: "A" },
-      19 => { type: "true_false", q: "np.where(x > 0, x, 0) is usually much faster than a Python for-loop that builds the same result, especially for large arrays.",
+      19 => { type: "true_false", q: "np.where(x > 0, x, 0) is usually much faster than a Python for-loop that builds the same result. This is most true for large arrays.",
               opts: ["True", "False"], ans: "True" },
-      20 => { type: "multiple_choice", q: "In the capstone, why are the mean and standard deviation for scaling computed from the training rows only?",
-              opts: ["A) Because NumPy cannot compute statistics on the test rows", "B) So that no information from the test set leaks into training, keeping the test score honest", "C) Because the training set is larger, so its statistics are always exactly the same as the test set's"], ans: "B" },
+      20 => { type: "multiple_choice", q: "In the final project, why do you get the mean and standard deviation for scaling from the training rows only?",
+              opts: ["A) Because NumPy cannot compute statistics on the test rows", "B) So that no information from the test set leaks into training. This keeps the test score honest", "C) Because the training set is larger, so its statistics are always the same as the test set's"], ans: "B" },
     }
 
     NumpyContent::LESSONS.each do |position, data|

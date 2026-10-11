@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhotoBook</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+    .grid img { width: 100%; height: 160px; object-fit: cover; border-radius: 8px; }
+    #status { margin-left: 8px; }
+  </style>
+</head>
+<body>
+  <h1>PhotoBook</h1>
+
+  <form id="upload-form">
+    <input type="file" id="photo" accept="image/jpeg,image/png,image/webp" required>
+    <button type="submit">Upload</button>
+    <span id="status"></span>
+  </form>
+
+  <h2>Photos</h2>
+  {% if photos %}
+    <div class="grid">
+      {% for photo in photos %}
+        <a href="{{ photo.url }}" target="_blank"><img src="{{ photo.url }}" alt="{{ photo.key }}"></a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No photos yet. Upload the first one.</p>
+  {% endif %}
+
+  <script>
+    const MAX_BYTES = {{ max_bytes }};
+    const ALLOWED = ["image/jpeg", "image/png", "image/webp"];
+    const form = document.getElementById("upload-form");
+    const statusText = document.getElementById("status");
+
+    async function postJSON(url, body) {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Request failed");
+      return data;
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const file = document.getElementById("photo").files[0];
+      if (!file) return;
+
+      // Quick checks in the browser. Flask checks again.
+      if (!ALLOWED.includes(file.type)) { statusText.textContent = "Only JPEG, PNG or WebP."; return; }
+      if (file.size > MAX_BYTES) { statusText.textContent = "The file must be smaller than 5 MB."; return; }
+
+      try {
+        statusText.textContent = "Uploading...";
+        // 1. Ask Flask for a presigned PUT URL.
+        const { url, key } = await postJSON("/api/presign", { content_type: file.type, size: file.size });
+
+        // 2. Send the file straight to S3. Content-Type must match the signed value.
+        const put = await fetch(url, { method: "PUT", headers: { "Content-Type": file.type }, body: file });
+        if (!put.ok) throw new Error("S3 upload failed with status " + put.status);
+
+        // 3. Ask Flask to check the file in S3.
+        await postJSON("/api/confirm", { key: key });
+        statusText.textContent = "Done!";
+        window.location.reload();
+      } catch (err) {
+        statusText.textContent = "Error: " + err.message;
+      }
+    });
+  </script>
+</body>
+</html>

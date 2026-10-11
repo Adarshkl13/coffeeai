@@ -1,0 +1,55 @@
+<%# Home page "Interactive lessons": two real lesson activities, side by side, so visitors can see how we teach.
+    The widgets are the same Stimulus controllers the lessons use (tokenizer, vector-plot). %>
+<%
+  demos = [
+    { slug: "how-llms-work", course: "How LLMs Work", lesson: "Lesson 2", tag: "Tokens",
+      title: "See how AI reads your words",
+      text: "AI models do not read words. They read <strong>tokens</strong>: small pieces of text. Type anything and see it split into tokens, the same way a real model sees it.",
+      tries: ["Click <em>unbelievably</em>. One long word becomes several tokens.",
+              "Type <code>cat</code>, then <code>Cat</code>. Each gets a different token ID."],
+      widget: { controller: "tokenizer", data: { tokenizer_text_value: "My name is Alex", tokenizer_lazy_value: true } } },
+    { slug: "vector-databases", course: "Vector Databases", lesson: "Lesson 4", tag: "Vectors",
+      title: "See how AI measures meaning",
+      text: "AI turns text into arrows called <strong>vectors</strong>. Arrows that point the same way have a similar meaning. Drag <span class=\"hd-a\">A</span> and <span class=\"hd-b\">B</span> and watch three ways of measuring how close they are.",
+      tries: ["Click <em>Same direction, different length</em>. Cosine says 1.00: the same meaning.",
+              "Click <em>Opposite</em>. Cosine drops to -1.00: opposite meanings."],
+      widget: { controller: "vector-plot", data: {} } }
+  ]
+%>
+<section class="h-section h-demos" id="try">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <h2>Understand AI by seeing it work</h2>
+        <p>Real activities from our lessons. Learn by trying them yourself.</p>
+      </div>
+    </div>
+
+    <div class="hd-grid">
+      <% demos.each do |d| %>
+        <article class="hd-card">
+          <header class="hd-head">
+            <div class="hd-tags">
+              <span class="hd-tag"><%= d[:tag] %></span>
+              <span class="hd-from"><%= d[:course] %> · <%= d[:lesson] %></span>
+            </div>
+            <h3><%= d[:title] %></h3>
+            <p><%= d[:text].html_safe %></p>
+          </header>
+
+          <div class="lesson-rich-body hd-widget">
+            <%= tag.div class: "lcw", data: { controller: d[:widget][:controller] }.merge(d[:widget][:data]) %>
+          </div>
+
+          <footer class="hd-foot">
+            <p class="hd-try-title">Things to try</p>
+            <ul class="hd-try">
+              <% d[:tries].each do |t| %><li><%= t.html_safe %></li><% end %>
+            </ul>
+            <%= link_to "Explore the #{d[:course]} course →", course_path(d[:slug]), class: "hd-link" %>
+          </footer>
+        </article>
+      <% end %>
+    </div>
+  </div>
+</section>

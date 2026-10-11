@@ -6,17 +6,17 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Introduction to MySQL</h1>
         </div>
-        <p class="lc-lead">MySQL is one of the most widely used open-source relational databases. It powers WordPress, countless PHP, Node.js and Python web apps, and large sites that run thousands of MySQL servers. This course assumes you know basic SQL (from the SQL course) and focuses on <strong>what is special about MySQL</strong>.</p>
+        <p class="lc-lead">MySQL is one of the most popular open-source relational databases. A relational database stores data in tables with rows and columns. MySQL runs WordPress and many PHP, Node.js and Python web apps. Some large sites run thousands of MySQL servers. This course expects you to know basic SQL (from the SQL course). It teaches <strong>what is special about MySQL</strong>.</p>
 
         <div class="lc-card">
           <h3>A Client–Server Database</h3>
           <ul class="lc-list">
-            <li>The <strong>server</strong> (<code>mysqld</code>) runs as a background service, listening on port <strong>3306</strong> by default.</li>
-            <li><strong>Clients</strong> connect to it over the network: the <code>mysql</code> command-line client, MySQL Workbench, or your app's driver.</li>
-            <li>One server holds many <strong>databases</strong> (MySQL also calls them <em>schemas</em>); each database holds tables.</li>
-            <li>Every connection logs in as a <strong>user</strong> with specific privileges (lesson 17).</li>
+            <li>The <strong>server</strong> (<code>mysqld</code>) runs in the background as a service. By default, it listens on port <strong>3306</strong>.</li>
+            <li><strong>Clients</strong> (programs that talk to the server) connect over the network. Examples: the <code>mysql</code> command-line client, MySQL Workbench, or your app's driver.</li>
+            <li>One server holds many <strong>databases</strong>. MySQL also calls them <em>schemas</em>. Each database holds tables.</li>
+            <li>Every connection logs in as a <strong>user</strong>. Each user has its own privileges (permissions), see lesson 17.</li>
           </ul>
-          <p>Compare SQLite, which is a library inside your program with the whole database in one file and no server at all.</p>
+          <p>SQLite is different. It is a library inside your program. The whole database is one file, and there is no server.</p>
         </div>
 
         <div class="lc-card">
@@ -24,23 +24,23 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th>Series</th><th>Type</th><th>Status (September 2026)</th></tr></thead>
             <tbody>
-              <tr><td>MySQL 9.7</td><td>LTS (long-term support)</td><td>Released April 2026 — the newest LTS; good choice for new projects</td></tr>
-              <tr><td>MySQL 8.4</td><td>LTS</td><td>Supported (premier support to 2029); very common in production</td></tr>
-              <tr><td>MySQL 26.7</td><td>Innovation</td><td>Released 28 July 2026 (26.7.0). New features about every quarter; each supported only until the next (26.10 is due in October 2026)</td></tr>
-              <tr><td>MySQL 8.0</td><td>Old</td><td>End of life (April 2026) — upgrade</td></tr>
+              <tr><td>MySQL 9.7</td><td>LTS (long-term support)</td><td>Released April 2026. The newest LTS. A good choice for new projects.</td></tr>
+              <tr><td>MySQL 8.4</td><td>LTS</td><td>Supported (premier support until 2029). Very common in production.</td></tr>
+              <tr><td>MySQL 26.7</td><td>Innovation</td><td>Released 28 July 2026 (26.7.0). New features come about every three months. Each one is supported only until the next one (26.10 is due in October 2026).</td></tr>
+              <tr><td>MySQL 8.0</td><td>Old</td><td>End of life (April 2026). You should upgrade.</td></tr>
             </tbody>
           </table>
-          <p><strong>New version numbers:</strong> after 9.7 LTS, innovation releases use calendar versions <code>YY.M.P</code> — 26.7.0 means 2026, July, patch 0. There is no 9.8. The LTS lines 8.4 and 9.7 keep their names.</p>
-          <p>Everything in this course works on MySQL 8.4 and 9.7. MariaDB is a separate fork of MySQL; much is similar, but features like JSON and authentication differ.</p>
+          <p><strong>New version numbers:</strong> after 9.7 LTS, innovation releases use calendar versions: <code>YY.M.P</code>. For example, 26.7.0 means 2026, July, patch 0. There is no 9.8. The LTS lines 8.4 and 9.7 keep their names.</p>
+          <p>Everything in this course works on MySQL 8.4 and 9.7. MariaDB is a separate fork (a copy that grew into its own project) of MySQL. Much is the same, but some features are different, such as JSON and authentication.</p>
         </div>
 
         <div class="lc-card">
           <h3>A First Session in the mysql Client</h3>
         <div class="lc-code">$ mysql -u root -p<br>mysql&gt; CREATE DATABASE school CHARACTER SET utf8mb4;<br>mysql&gt; USE school;<br>mysql&gt; CREATE TABLE `students` (<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;&nbsp;&nbsp;`id`&nbsp;&nbsp;&nbsp;INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;&nbsp;&nbsp;`name` VARCHAR(100) NOT NULL,<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;&nbsp;&nbsp;`city` VARCHAR(50)<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt; ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;<br>mysql&gt; SHOW TABLES;<br>+------------------+<br>| Tables_in_school |<br>+------------------+<br>| students&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>+------------------+<br>mysql&gt; DESCRIBE students;<br>+-------+--------------+------+-----+---------+----------------+<br>| Field | Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Null | Key | Default | Extra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>+-------+--------------+------+-----+---------+----------------+<br>| id&nbsp;&nbsp;&nbsp;&nbsp;| int unsigned | NO&nbsp;&nbsp;&nbsp;| PRI | NULL&nbsp;&nbsp;&nbsp;&nbsp;| auto_increment |<br>| name&nbsp;&nbsp;| varchar(100) | NO&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| NULL&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>| city&nbsp;&nbsp;| varchar(50)&nbsp;&nbsp;| YES&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| NULL&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>+-------+--------------+------+-----+---------+----------------+</div>
           <ul class="lc-list">
-            <li><strong>Backticks</strong> <code>`name`</code> quote identifiers in MySQL (standard SQL uses double quotes). You only need them for names that clash with keywords or contain spaces.</li>
-            <li><code>ENGINE=InnoDB</code> picks the storage engine. InnoDB is the default and the right choice for almost everything (lesson 13).</li>
-            <li><code>SHOW DATABASES;</code>, <code>SHOW TABLES;</code>, <code>DESCRIBE t;</code> and <code>SHOW CREATE TABLE t;</code> are how you explore a server.</li>
+            <li>In MySQL, <strong>backticks</strong> <code>`name`</code> quote identifiers (names of tables and columns). Standard SQL uses double quotes. You only need them when a name is also a keyword or has spaces.</li>
+            <li><code>ENGINE=InnoDB</code> picks the storage engine (the part that stores the data). InnoDB is the default. It is the right choice for almost everything (lesson 13).</li>
+            <li>Use <code>SHOW DATABASES;</code>, <code>SHOW TABLES;</code>, <code>DESCRIBE t;</code> and <code>SHOW CREATE TABLE t;</code> to explore a server.</li>
           </ul>
         </div>
 
@@ -60,25 +60,25 @@ module MysqlContent
 
         <div class="lc-card">
           <h3>About This Course's Editor</h3>
-          <p>The Run button runs <strong>real SQLite with a MySQL compatibility layer</strong>. It understands most everyday MySQL syntax: AUTO_INCREMENT, backticks, <code>ENGINE=</code>/<code>CHARSET=</code> options, <code>SHOW TABLES</code>, <code>DESCRIBE</code>, <code>LIMIT a, b</code>, <code>CONCAT</code>, <code>IFNULL</code>, <code>DATE_FORMAT</code>, <code>INSERT IGNORE</code>, <code>ON DUPLICATE KEY UPDATE</code>, simple triggers, JSON <code>-&gt;</code>/<code>-&gt;&gt;</code> and window functions. Server-only features — users and privileges, stored procedures, replication — print "Not supported in the browser sandbox"; the lessons show them with real MySQL output, and you should try them on a real server (a local install or the Docker image <code>mysql:8.4</code>). Visible differences: DECIMAL values print without trailing zeros (<code>499</code> instead of <code>499.00</code>) and <code>EXPLAIN</code> shows SQLite's plan format.</p>
+          <p>The Run button runs <strong>real SQLite with a MySQL compatibility layer</strong>. This layer makes SQLite understand most everyday MySQL syntax: AUTO_INCREMENT, backticks, <code>ENGINE=</code>/<code>CHARSET=</code> options, <code>SHOW TABLES</code>, <code>DESCRIBE</code>, <code>LIMIT a, b</code>, <code>CONCAT</code>, <code>IFNULL</code>, <code>DATE_FORMAT</code>, <code>INSERT IGNORE</code>, <code>ON DUPLICATE KEY UPDATE</code>, simple triggers, JSON <code>-&gt;</code>/<code>-&gt;&gt;</code> and window functions. Some features only work on a real server: users and privileges, stored procedures and replication. For these, the editor prints "Not supported in the browser sandbox". The lessons show them with real MySQL output. Try them on a real server (a local install or the Docker image <code>mysql:8.4</code>). There are two visible differences. DECIMAL values print without trailing zeros (<code>499</code> instead of <code>499.00</code>). <code>EXPLAIN</code> shows SQLite's plan format.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Forgetting <code>USE dbname;</code> and getting "No database selected".</li>
-            <li>Using single quotes around table names (<code>'students'</code> is a string); use backticks or nothing.</li>
-            <li>Learning from tutorials written for MySQL 5.x (old <code>utf8</code>, <code>mysql_native_password</code>, MyISAM tables).</li>
+            <li>Forgetting <code>USE dbname;</code>. You then get the error "No database selected".</li>
+            <li>Putting single quotes around table names. <code>'students'</code> is a string. Use backticks or nothing.</li>
+            <li>Learning from old tutorials written for MySQL 5.x. They use old <code>utf8</code>, <code>mysql_native_password</code> and MyISAM tables.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>In the starter code, add a <code>`courses`</code> table with an AUTO_INCREMENT id and a title, run <code>SHOW TABLES;</code> again and <code>DESCRIBE courses;</code>.</p>
+          <p>In the starter code, add a <code>`courses`</code> table with an AUTO_INCREMENT id and a title. Then run <code>SHOW TABLES;</code> again and <code>DESCRIBE courses;</code>.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> <code>SHOW CREATE TABLE students\G</code> in the mysql client prints the complete, exact definition MySQL stored — including defaults you did not type. <code>\G</code> prints results vertically, which is easier to read for wide rows.
+          <strong>Tip:</strong> In the mysql client, <code>SHOW CREATE TABLE students\G</code> prints the full, exact table definition that MySQL stored. It even shows defaults you did not type. <code>\G</code> prints results vertically (top to bottom). This is easier to read for wide rows.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -93,10 +93,10 @@ module MysqlContent
 
         -- id is generated automatically
         INSERT INTO `students` (`name`, `city`, `marks`) VALUES
-            ('Asha',   'Indore',   88),
-            ('Bharat', 'Nagpur',   72),
-            ('Chitra', 'Indore',   95),
-            ('Deepak', 'Varanasi', 64);
+            ('Asha',   'Leeds',      88),
+            ('Bharat', 'Denver',     72),
+            ('Chitra', 'Leeds',      95),
+            ('Deepak', 'Canterbury', 64);
 
         -- Explore the database
         SHOW TABLES;
@@ -105,7 +105,7 @@ module MysqlContent
         -- Quick SQL review: filter, sort, limit
         SELECT id, name, marks
         FROM students
-        WHERE city = 'Indore'
+        WHERE city = 'Leeds'
         ORDER BY marks DESC;
 
         -- MySQL-style LIMIT offset, count: skip 1 row, return 2
@@ -122,7 +122,7 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">MySQL Data Types</h1>
         </div>
-        <p class="lc-lead">MySQL has a large set of precise data types. Unlike SQLite, MySQL really enforces them: a <code>TINYINT</code> cannot hold 1000, a <code>VARCHAR(20)</code> cannot hold 25 characters. Choosing well saves space, keeps data valid and makes indexes faster.</p>
+        <p class="lc-lead">MySQL has many exact data types. A data type says what kind of value a column can hold. SQLite is loose about types, but MySQL really enforces them. A <code>TINYINT</code> cannot hold 1000. A <code>VARCHAR(20)</code> cannot hold 25 characters. Good choices save space, keep data valid and make indexes faster.</p>
 
         <div class="lc-card">
           <h3>Integers</h3>
@@ -136,13 +136,13 @@ module MysqlContent
               <tr><td><code>BIGINT</code></td><td>8</td><td>about ±9.2 × 10<sup>18</sup></td><td>0 to about 1.8 × 10<sup>19</sup></td></tr>
             </tbody>
           </table>
-          <p><code>UNSIGNED</code> forbids negatives and doubles the positive range — good for ids and counts. The number in <code>INT(11)</code> is only a display width, deprecated since 8.0.17 — write plain <code>INT</code>. <code>BOOLEAN</code> is a synonym for <code>TINYINT(1)</code>: <code>TRUE</code> is 1 and <code>FALSE</code> is 0.</p>
+          <p><code>UNSIGNED</code> does not allow negative numbers. It doubles the positive range. This is good for ids and counts. The number in <code>INT(11)</code> is only a display width. It is deprecated (no longer recommended) since 8.0.17, so write plain <code>INT</code>. <code>BOOLEAN</code> is another name for <code>TINYINT(1)</code>: <code>TRUE</code> is 1 and <code>FALSE</code> is 0.</p>
         </div>
 
         <div class="lc-card">
           <h3>Exact vs Approximate Numbers</h3>
         <div class="lc-code">price&nbsp;&nbsp;&nbsp;&nbsp;DECIMAL(10,2)&nbsp;&nbsp;&nbsp;-- exact: up to 99999999.99 (10 digits, 2 after the point)<br>rating&nbsp;&nbsp;&nbsp;FLOAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- approximate, 4 bytes<br>distance DOUBLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- approximate, 8 bytes</div>
-          <p>Use <code>DECIMAL</code> for money and anything that must add up exactly. <code>FLOAT</code>/<code>DOUBLE</code> are binary approximations: summing <code>0.1</code> and <code>0.2</code> stored in <code>FLOAT</code> columns gives something like <code>0.30000000447</code>, not <code>0.30</code>. (In MySQL a literal like <code>0.1</code> typed in a query is exact DECIMAL; the problem comes from FLOAT/DOUBLE columns.)</p>
+          <p>Use <code>DECIMAL</code> for money and anything that must add up exactly. <code>FLOAT</code>/<code>DOUBLE</code> store close guesses in binary, not exact values. Store <code>0.1</code> and <code>0.2</code> in <code>FLOAT</code> columns and add them. You get something like <code>0.30000000447</code>, not <code>0.30</code>. (In MySQL, a number like <code>0.1</code> typed in a query is an exact DECIMAL. The problem comes from FLOAT/DOUBLE columns.)</p>
         </div>
 
         <div class="lc-card">
@@ -154,10 +154,10 @@ module MysqlContent
               <tr><td><code>VARCHAR(n)</code></td><td>up to n <em>characters</em></td><td>names, emails, titles</td></tr>
               <tr><td><code>TEXT</code> (also TINY/MEDIUM/LONG)</td><td>up to 64 KB (16 MB / 4 GB for MEDIUM/LONG)</td><td>descriptions, articles</td></tr>
               <tr><td><code>ENUM('a','b','c')</code></td><td>one value from a fixed list</td><td>short, stable lists like <code>'S','M','L'</code></td></tr>
-              <tr><td><code>BLOB</code> family</td><td>raw bytes</td><td>small binary data (store big files in object storage instead)</td></tr>
+              <tr><td><code>BLOB</code> family</td><td>raw bytes</td><td>small binary data (put big files in object storage instead)</td></tr>
             </tbody>
           </table>
-          <p>ENUM is compact, but adding a value needs an <code>ALTER TABLE</code>, and it sorts by list position, not alphabetically. For lists that change, use a lookup table or a <code>VARCHAR</code> with a <code>CHECK</code> constraint.</p>
+          <p>ENUM uses little space. But to add a value, you need an <code>ALTER TABLE</code>. ENUM also sorts by position in the list, not in alphabetical order. For lists that change, use a lookup table. Or use a <code>VARCHAR</code> with a <code>CHECK</code> constraint (a rule on allowed values).</p>
         </div>
 
         <div class="lc-card">
@@ -172,26 +172,26 @@ module MysqlContent
             </tbody>
           </table>
         <div class="lc-code">created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,<br>updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</div>
-          <p><code>ON UPDATE CURRENT_TIMESTAMP</code> is a MySQL feature that refreshes the column on every update. Add <code>(3)</code> or <code>(6)</code> for fractions of a second: <code>DATETIME(3)</code>. Because TIMESTAMP ends in 2038, prefer <code>DATETIME</code> for dates like expiry dates or dates of birth.</p>
+          <p><code>ON UPDATE CURRENT_TIMESTAMP</code> is a MySQL feature. It sets the column to the current time on every update. Add <code>(3)</code> or <code>(6)</code> for parts of a second: <code>DATETIME(3)</code>. TIMESTAMP ends in 2038. So use <code>DATETIME</code> for dates like expiry dates or dates of birth.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><code>FLOAT</code> for prices or balances.</li>
-            <li><code>VARCHAR(255)</code> for everything "just because" — pick realistic limits; they document your data.</li>
-            <li>Storing phone numbers or PIN codes as <code>INT</code> — leading zeros vanish and you never do arithmetic on them. Use <code>VARCHAR</code>/<code>CHAR</code>.</li>
+            <li>Using <code>FLOAT</code> for prices or balances.</li>
+            <li>Using <code>VARCHAR(255)</code> for everything without a reason. Pick realistic limits. They show what your data looks like.</li>
+            <li>Storing phone numbers or PIN codes as <code>INT</code>. Leading zeros are lost, and you never do maths on them. Use <code>VARCHAR</code>/<code>CHAR</code>.</li>
             <li>Using <code>TIMESTAMP</code> for dates that may be after 2038.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Design a <code>trains</code> table: train number (5-digit text like <code>'12951'</code>), name, distance in km (integer), base fare (DECIMAL), and a <code>has_pantry</code> BOOLEAN. Insert two trains and find those with a pantry.</p>
+          <p>Design a <code>trains</code> table with these columns: train number (5-digit text like <code>'12951'</code>), name, distance in km (integer), base fare (DECIMAL), and a <code>has_pantry</code> BOOLEAN. Insert two trains. Then find the trains with a pantry.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Choose the smallest type that will <em>safely</em> fit future data. <code>TINYINT UNSIGNED</code> for age is fine; <code>INT</code> for a primary key that may pass 2 billion rows is not — use <code>BIGINT UNSIGNED</code> for big, fast-growing tables.
+          <strong>Tip:</strong> Choose the smallest type that will <em>safely</em> fit future data. <code>TINYINT UNSIGNED</code> for age is fine. <code>INT</code> is not fine for a primary key that may pass 2 billion rows. Use <code>BIGINT UNSIGNED</code> for big tables that grow fast.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -238,7 +238,7 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Strict Mode and sql_mode</h1>
         </div>
-        <p class="lc-lead">MySQL's <code>sql_mode</code> setting decides how strictly the server treats bad data and ambiguous SQL. With <strong>strict mode</strong> on (the default since MySQL 5.7), invalid values cause an error. Old tutorials and old servers ran without it, silently changing your data — you must recognise both behaviours.</p>
+        <p class="lc-lead">MySQL has a setting called <code>sql_mode</code>. It decides how strict the server is with bad data and unclear SQL. With <strong>strict mode</strong> on, invalid values cause an error. Strict mode is the default since MySQL 5.7. Old tutorials and old servers ran without it. They changed your data without telling you. You must know both behaviours.</p>
 
         <div class="lc-card">
           <h3>The Default sql_mode (MySQL 8.4 and later)</h3>
@@ -246,8 +246,8 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th>Mode</th><th>Effect</th></tr></thead>
             <tbody>
-              <tr><td><code>STRICT_TRANS_TABLES</code></td><td>invalid or out-of-range values are errors, not warnings (for transactional tables such as InnoDB)</td></tr>
-              <tr><td><code>ONLY_FULL_GROUP_BY</code></td><td>rejects SELECT columns that are neither grouped nor aggregated</td></tr>
+              <tr><td><code>STRICT_TRANS_TABLES</code></td><td>invalid or out-of-range values are errors, not warnings (for transactional tables, such as InnoDB)</td></tr>
+              <tr><td><code>ONLY_FULL_GROUP_BY</code></td><td>rejects SELECT columns that are not grouped and not aggregated (not inside a function like COUNT or SUM)</td></tr>
               <tr><td><code>NO_ZERO_DATE</code>, <code>NO_ZERO_IN_DATE</code></td><td>rejects <code>'0000-00-00'</code> and dates like <code>'2026-00-10'</code></td></tr>
               <tr><td><code>ERROR_FOR_DIVISION_BY_ZERO</code></td><td>division by zero in INSERT/UPDATE is an error (in SELECT it still returns NULL)</td></tr>
               <tr><td><code>NO_ENGINE_SUBSTITUTION</code></td><td>error if the requested storage engine is not available</td></tr>
@@ -267,37 +267,37 @@ module MysqlContent
               <tr><td><code>'abc'</code> into INT</td><td>ERROR 1366: Incorrect integer value</td><td>stored as <code>0</code> + warning</td></tr>
             </tbody>
           </table>
-          <p>In non-strict mode, run <code>SHOW WARNINGS;</code> after a statement to see what MySQL changed. In strict mode the whole statement fails and nothing is inserted.</p>
+          <p>In non-strict mode, run <code>SHOW WARNINGS;</code> after a statement. It shows what MySQL changed. In strict mode, the whole statement fails and nothing is inserted.</p>
         </div>
 
         <div class="lc-card">
           <h3>ONLY_FULL_GROUP_BY</h3>
         <div class="lc-code">SELECT city, name, COUNT(*) FROM customers GROUP BY city;<br>-- ERROR 1055: Expression #2 of SELECT list is not in GROUP BY clause and contains<br>-- nonaggregated column 'shop.customers.name' ...<br><br>SELECT city, COUNT(*), ANY_VALUE(name) AS example_name<br>FROM customers GROUP BY city;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- OK: you say "any name is fine"</div>
-          <p>Fix the query, do not switch the mode off. Either group by the column, aggregate it (<code>MIN(name)</code>, <code>GROUP_CONCAT(name)</code>), or use <code>ANY_VALUE()</code> when any value really is acceptable. MySQL also allows a column that is <em>functionally dependent</em> on the grouped primary key.</p>
+          <p>Fix the query. Do not switch the mode off. You have three choices. Group by the column. Or aggregate it (<code>MIN(name)</code>, <code>GROUP_CONCAT(name)</code>). Or use <code>ANY_VALUE()</code> when any value really is fine. MySQL also allows a column that is <em>functionally dependent</em> on the grouped primary key. This means the key decides the column's value.</p>
         </div>
 
         <div class="lc-card">
           <h3>Changing sql_mode (and Why You Usually Should Not)</h3>
         <div class="lc-code">SET SESSION sql_mode = CONCAT(@@SESSION.sql_mode, ',PIPES_AS_CONCAT');&nbsp;&nbsp;-- this connection only<br>SET GLOBAL&nbsp;&nbsp;sql_mode = '...';&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- new connections (needs privilege; lost on restart)<br>-- permanent: sql_mode = ... under [mysqld] in my.cnf, or SET PERSIST sql_mode = '...';</div>
-          <p>A common bad "fix" copied from forums is <code>SET GLOBAL sql_mode = ''</code>, which turns off strict mode everywhere. The errors disappear but the data corruption starts. Fix the data or the query instead.</p>
+          <p>People often copy a bad "fix" from forums: <code>SET GLOBAL sql_mode = ''</code>. It turns off strict mode everywhere. The errors go away, but your data starts to get damaged. Fix the data or the query instead.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Disabling strict mode to make an old app "work".</li>
-            <li>Using <code>INSERT IGNORE</code> to load data — it turns strict-mode errors back into warnings, so values get truncated silently.</li>
-            <li>Testing on a local server with one sql_mode and deploying to a server with another. Check <code>SELECT @@sql_mode;</code> on both.</li>
+            <li>Turning off strict mode to make an old app "work".</li>
+            <li>Using <code>INSERT IGNORE</code> to load data. It turns strict-mode errors back into warnings. Values then get cut short without any error.</li>
+            <li>Testing on a local server with one sql_mode, then deploying to a server with another. Check <code>SELECT @@sql_mode;</code> on both.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>The starter loads raw data into a staging table, finds the rows strict mode would reject, and copies only valid rows. Add a staging row with a customer name of 12 characters and a quantity of 256 and check that both rules catch it.</p>
+          <p>The starter code loads raw data into a staging table (a temporary holding table). It finds the rows that strict mode would reject. Then it copies only the valid rows. Add a staging row with a 12-character customer name and a quantity of 256. Check that both rules catch it.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> For bulk imports (CSV files, old systems), load into a <strong>staging table</strong> with loose types first, validate with SELECT queries, then <code>INSERT ... SELECT</code> the good rows into the real table. You get a clear report of bad rows instead of a failed import.
+          <strong>Tip:</strong> For bulk imports (CSV files, old systems), first load the data into a <strong>staging table</strong> with loose types. Check it with SELECT queries. Then use <code>INSERT ... SELECT</code> to copy the good rows into the real table. You get a clear report of bad rows instead of a failed import.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -352,19 +352,19 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Character Sets and Collations</h1>
         </div>
-        <p class="lc-lead">A <strong>character set</strong> decides which characters a column can store and how they are encoded as bytes. A <strong>collation</strong> decides how text is compared and sorted — whether <code>'Ravi' = 'ravi'</code>, and whether <code>'é'</code> equals <code>'e'</code>. Getting these right is essential for Indian languages, names and emoji.</p>
+        <p class="lc-lead">A <strong>character set</strong> decides which characters a column can store. It also decides how they are stored as bytes. A <strong>collation</strong> decides how text is compared and sorted. For example: is <code>'Ravi' = 'ravi'</code>? Does <code>'é'</code> equal <code>'e'</code>? You must get these right for Indian languages, names and emoji.</p>
 
         <div class="lc-card">
           <h3>Always Use utf8mb4</h3>
           <table class="lc-table">
             <thead><tr><th>Character set</th><th>Bytes per character</th><th>Emoji and all of Unicode?</th><th>Status</th></tr></thead>
             <tbody>
-              <tr><td><code>utf8mb4</code></td><td>1–4</td><td>Yes</td><td>Default since MySQL 8.0 — use it</td></tr>
-              <tr><td><code>utf8mb3</code> (old name <code>utf8</code>)</td><td>1–3</td><td>No — 😀 fails with "Incorrect string value"</td><td>Deprecated</td></tr>
-              <tr><td><code>latin1</code></td><td>1</td><td>No — Western European only</td><td>Legacy</td></tr>
+              <tr><td><code>utf8mb4</code></td><td>1–4</td><td>Yes</td><td>Default since MySQL 8.0. Use it.</td></tr>
+              <tr><td><code>utf8mb3</code> (old name <code>utf8</code>)</td><td>1–3</td><td>No. 😀 fails with "Incorrect string value"</td><td>Deprecated</td></tr>
+              <tr><td><code>latin1</code></td><td>1</td><td>No. Western European only</td><td>Legacy</td></tr>
             </tbody>
           </table>
-          <p>MySQL's old <code>utf8</code> is <em>not</em> full UTF-8; it is 3-byte <code>utf8mb3</code>. Devanagari, Tamil and Bengali letters fit in 3 bytes, but emoji and some rare characters need 4. Always write <code>utf8mb4</code> explicitly.</p>
+          <p>MySQL's old <code>utf8</code> is <em>not</em> full UTF-8. It is the 3-byte <code>utf8mb3</code>. Devanagari, Tamil and Bengali letters fit in 3 bytes. But emoji and some rare characters need 4 bytes. Always write <code>utf8mb4</code> yourself.</p>
         </div>
 
         <div class="lc-card">
@@ -377,37 +377,37 @@ module MysqlContent
         <div class="lc-card">
           <h3>Setting Charset and Collation</h3>
         <div class="lc-code">CREATE DATABASE shop CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;<br><br>CREATE TABLE users (<br>&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,<br>&nbsp;&nbsp;&nbsp;&nbsp;email&nbsp;&nbsp;&nbsp;&nbsp;VARCHAR(255) NOT NULL UNIQUE,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- inherits ai_ci<br>&nbsp;&nbsp;&nbsp;&nbsp;password_hash VARBINARY(60) NOT NULL,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- bytes, not text<br>&nbsp;&nbsp;&nbsp;&nbsp;api_key&nbsp;&nbsp;VARCHAR(64) COLLATE utf8mb4_bin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- must match exactly<br>) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;</div>
-          <p>Settings cascade: server → database → table → column. A UNIQUE index uses the column's collation, so with <code>_ci</code> the emails <code>'Ravi@x.com'</code> and <code>'ravi@x.com'</code> count as duplicates — usually exactly what you want for emails, and exactly what you do <em>not</em> want for case-sensitive tokens.</p>
+          <p>Settings pass down: server → database → table → column. A UNIQUE index uses the column's collation. So with <code>_ci</code>, the emails <code>'Ravi@x.com'</code> and <code>'ravi@x.com'</code> count as duplicates. This is usually what you want for emails. It is <em>not</em> what you want for case-sensitive tokens.</p>
         </div>
 
         <div class="lc-card">
           <h3>Bytes vs Characters</h3>
         <div class="lc-code">SELECT CHAR_LENGTH('नमस्ते') AS chars, LENGTH('नमस्ते') AS bytes;&nbsp;&nbsp;&nbsp;-- 6, 18<br>SELECT CHAR_LENGTH('😀')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS chars, LENGTH('😀')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS bytes;&nbsp;&nbsp;&nbsp;-- 1, 4</div>
-          <p><code>VARCHAR(n)</code> limits <em>characters</em>, but row size and index limits are in <em>bytes</em> (InnoDB index keys can be up to 3072 bytes, so an indexed utf8mb4 VARCHAR can be at most 768 characters).</p>
+          <p><code>VARCHAR(n)</code> limits <em>characters</em>. But row size and index limits are in <em>bytes</em>. (InnoDB index keys can be up to 3072 bytes. So an indexed utf8mb4 VARCHAR can have at most 768 characters.)</p>
         </div>
 
         <div class="lc-card">
           <h3>The Connection Matters Too</h3>
-          <p>Text is also encoded between your app and the server. If the connection uses a different charset you get <em>mojibake</em> such as <code>à¤¨à¤®</code> instead of नम. Set it in the driver (for example <code>charset=utf8mb4</code> in the connection string) or run <code>SET NAMES utf8mb4;</code>.</p>
+          <p>Text is also encoded on its way between your app and the server. If the connection uses a different charset, you get <em>mojibake</em> (broken, garbled text). For example, <code>à¤¨à¤®</code> instead of नम. Set the charset in the driver (for example <code>charset=utf8mb4</code> in the connection string). Or run <code>SET NAMES utf8mb4;</code>.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Creating tables with <code>utf8</code> (really utf8mb3) and then failing on emoji.</li>
-            <li>Joining two columns with different collations and getting "Illegal mix of collations".</li>
+            <li>Creating tables with <code>utf8</code> (really utf8mb3). Then emoji fail.</li>
+            <li>Joining two columns with different collations. You get the error "Illegal mix of collations".</li>
             <li>Using a <code>_ci</code> collation for passwords, tokens or case-sensitive codes.</li>
-            <li>Fixing only the table charset but not the connection charset.</li>
+            <li>Fixing the table charset but not the connection charset.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Add a row with your name in your own script (Devanagari, Tamil, Bengali, Gurmukhi...) plus an emoji, and search for it. On a real MySQL server, compare <code>WHERE name = 'ananya'</code> with and without <code>COLLATE utf8mb4_bin</code>.</p>
+          <p>Add a row with your name in your own script (Devanagari, Tamil, Bengali, Gurmukhi...) and an emoji. Then search for it. On a real MySQL server, try <code>WHERE name = 'ananya'</code> with and without <code>COLLATE utf8mb4_bin</code>. Compare the results.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> To convert an old table: <code>ALTER TABLE t CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;</code> — test on a copy first, because it rewrites the whole table and can change which values count as duplicates.
+          <strong>Tip:</strong> To convert an old table, use <code>ALTER TABLE t CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;</code>. Test it on a copy first. It rewrites the whole table. It can also change which values count as duplicates.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -449,15 +449,15 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">AUTO_INCREMENT and LAST_INSERT_ID</h1>
         </div>
-        <p class="lc-lead"><code>AUTO_INCREMENT</code> makes MySQL generate a new number for each inserted row — the usual way to create primary keys. <code>LAST_INSERT_ID()</code> tells your connection which number it just got, so you can insert related rows safely.</p>
+        <p class="lc-lead"><code>AUTO_INCREMENT</code> makes MySQL create a new number for each inserted row. This is the usual way to create primary keys. <code>LAST_INSERT_ID()</code> tells your connection which number it just got. Then you can safely insert related rows.</p>
 
         <div class="lc-card">
           <h3>Declaring It</h3>
         <div class="lc-code">CREATE TABLE customers (<br>&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;&nbsp;&nbsp;BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,<br>&nbsp;&nbsp;&nbsp;&nbsp;name VARCHAR(100) NOT NULL<br>) ENGINE=InnoDB AUTO_INCREMENT=1001;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- optional: first id will be 1001</div>
           <ul class="lc-list">
-            <li>Only one AUTO_INCREMENT column per table, and it must be indexed (normally it is the primary key).</li>
-            <li>Leave the column out of the INSERT (or insert <code>NULL</code>) to get the next number.</li>
-            <li>Use <code>INT UNSIGNED</code> (up to ~4.29 billion) or <code>BIGINT UNSIGNED</code> for tables that grow fast. Running out of ids stops all inserts.</li>
+            <li>A table can have only one AUTO_INCREMENT column. It must be indexed (normally it is the primary key).</li>
+            <li>To get the next number, leave the column out of the INSERT (or insert <code>NULL</code>).</li>
+            <li>Use <code>INT UNSIGNED</code> (up to ~4.29 billion) or <code>BIGINT UNSIGNED</code> for tables that grow fast. If you run out of ids, all inserts stop.</li>
           </ul>
         </div>
 
@@ -466,10 +466,10 @@ module MysqlContent
         <div class="lc-code">INSERT INTO customers (name) VALUES ('Meenakshi');<br>SET @cid = LAST_INSERT_ID();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- e.g. 1001<br>INSERT INTO orders (customer_id, total) VALUES (@cid, 1499.00);<br>SELECT @cid AS customer_id;</div>
         <div class="lc-code">+-------------+<br>| customer_id |<br>+-------------+<br>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1001 |<br>+-------------+</div>
           <ul class="lc-list">
-            <li>It is <strong>per connection</strong>: another user inserting at the same moment does not change your value. That is why it is safe.</li>
-            <li>After a <em>multi-row</em> INSERT it returns the id of the <strong>first</strong> row inserted.</li>
-            <li>Inserting an explicit id (<code>VALUES (500, 'X')</code>) does not change it.</li>
-            <li>In application code use the driver's value: <code>cursor.lastrowid</code> (Python), <code>result.insertId</code> (Node mysql2), <code>$pdo-&gt;lastInsertId()</code> (PHP).</li>
+            <li>It works <strong>per connection</strong>. Another user may insert at the same moment, but your value does not change. That is why it is safe.</li>
+            <li>After a <em>multi-row</em> INSERT, it returns the id of the <strong>first</strong> inserted row.</li>
+            <li>If you insert your own id (<code>VALUES (500, 'X')</code>), it does not change.</li>
+            <li>In application code, use the driver's value: <code>cursor.lastrowid</code> (Python), <code>result.insertId</code> (Node mysql2), <code>$pdo-&gt;lastInsertId()</code> (PHP).</li>
           </ul>
         </div>
 
@@ -478,48 +478,48 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th>Approach</th><th>Problem</th></tr></thead>
             <tbody>
-              <tr><td><code>SELECT MAX(id) FROM customers</code> after inserting</td><td>another connection may have inserted in between — you get <em>their</em> id</td></tr>
-              <tr><td><code>SELECT MAX(id) + 1</code> before inserting</td><td>two users compute the same number; one insert fails or overwrites</td></tr>
-              <tr><td><code>LAST_INSERT_ID()</code></td><td>correct under concurrency</td></tr>
+              <tr><td><code>SELECT MAX(id) FROM customers</code> after inserting</td><td>another connection may insert in between. Then you get <em>their</em> id</td></tr>
+              <tr><td><code>SELECT MAX(id) + 1</code> before inserting</td><td>two users get the same number. One insert fails or overwrites the other</td></tr>
+              <tr><td><code>LAST_INSERT_ID()</code></td><td>correct even when many users insert at once</td></tr>
             </tbody>
           </table>
         </div>
 
         <div class="lc-card">
           <h3>Gaps Are Normal</h3>
-          <p>AUTO_INCREMENT values are unique and increasing, but <strong>not gap-free</strong>. Numbers are skipped when:</p>
+          <p>AUTO_INCREMENT values are unique and always go up. But they are <strong>not gap-free</strong>. Numbers are skipped when:</p>
           <ul class="lc-list">
             <li>rows are deleted (ids are never reused);</li>
-            <li>a transaction that inserted rows is rolled back;</li>
-            <li>an insert fails or is ignored (for example a duplicate with <code>INSERT IGNORE</code>);</li>
-            <li>you insert an explicit larger id — the counter jumps above it.</li>
+            <li>a transaction that inserted rows is rolled back (undone);</li>
+            <li>an insert fails or is ignored (for example, a duplicate with <code>INSERT IGNORE</code>);</li>
+            <li>you insert your own larger id. The counter jumps above it.</li>
           </ul>
-          <p>Since MySQL 8.0 the counter is saved across restarts. (In 5.7, InnoDB recalculated it as <code>MAX(id) + 1</code> after a restart, so deleted top ids could be reused — old behaviour.) If the business needs gap-free invoice numbers, generate them separately inside a transaction; do not rely on AUTO_INCREMENT.</p>
+          <p>Since MySQL 8.0, the counter is kept after a restart. (In 5.7, InnoDB set it again to <code>MAX(id) + 1</code> after a restart. So deleted top ids could be reused. This is old behaviour.) Does the business need invoice numbers with no gaps? Then create them separately inside a transaction. Do not depend on AUTO_INCREMENT.</p>
         </div>
 
         <div class="lc-card">
           <h3>Useful Commands</h3>
         <div class="lc-code">ALTER TABLE customers AUTO_INCREMENT = 5000;&nbsp;&nbsp;&nbsp;-- next id (must be above current max)<br>SHOW TABLE STATUS LIKE 'customers'\G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- see Auto_increment: 5000<br>SELECT UUID();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- alternative: globally unique ids</div>
-          <p>UUIDs are handy when ids are created on many servers or in the browser. Store them compactly as <code>BINARY(16)</code> with <code>UUID_TO_BIN(UUID(), 1)</code> — the <code>1</code> reorders the time part so new values stay roughly sequential, which is kinder to InnoDB's clustered index.</p>
+          <p>UUIDs (long random ids) are useful when ids are created on many servers or in the browser. Store them in a small form as <code>BINARY(16)</code> with <code>UUID_TO_BIN(UUID(), 1)</code>. The <code>1</code> moves the time part to the front. New values then stay roughly in order. This is better for InnoDB's clustered index (the index that stores the rows in key order).</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Using <code>MAX(id)</code> to find the id you just inserted.</li>
-            <li>Treating gaps as missing data and "fixing" them by renumbering — ids may be referenced elsewhere (URLs, other tables, logs).</li>
-            <li><code>INT</code> signed ids on tables that will pass 2.1 billion rows.</li>
-            <li>Showing sequential ids in public URLs, letting anyone guess how many orders you have.</li>
+            <li>Thinking gaps are missing data and "fixing" them by renumbering. Other places may use those ids (URLs, other tables, logs).</li>
+            <li>Using signed <code>INT</code> ids on tables that will pass 2.1 billion rows.</li>
+            <li>Showing ids in order in public URLs. Anyone can then guess how many orders you have.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Insert a new customer, store <code>LAST_INSERT_ID()</code> in <code>@new_cust</code>, and give that customer two orders. Then delete the newest order and insert another — which id does it get, and why?</p>
+          <p>Insert a new customer. Store <code>LAST_INSERT_ID()</code> in <code>@new_cust</code>. Give that customer two orders. Then delete the newest order and insert another one. Which id does it get, and why?</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> <code>LAST_INSERT_ID()</code> belongs to the connection, so call it on the <em>same</em> connection that did the INSERT. With connection pools, run both statements inside one transaction or use the driver's insert id.
+          <strong>Tip:</strong> <code>LAST_INSERT_ID()</code> belongs to the connection. So call it on the <em>same</em> connection that did the INSERT. With connection pools (shared sets of connections), run both statements inside one transaction. Or use the driver's insert id.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -568,7 +568,7 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Constraints and Foreign Keys in InnoDB</h1>
         </div>
-        <p class="lc-lead">You met constraints in the SQL course. This lesson covers how <strong>MySQL</strong> implements them: what InnoDB enforces, the exact error messages you will see, the rules foreign keys must follow, and the version history that makes old tutorials misleading.</p>
+        <p class="lc-lead">You learned about constraints (rules on your data) in the SQL course. This lesson shows how <strong>MySQL</strong> handles them. You will see what InnoDB enforces and the exact error messages. You will learn the rules foreign keys must follow. You will also see the version history that makes old tutorials wrong.</p>
 
         <div class="lc-card">
           <h3>What MySQL Enforces</h3>
@@ -577,8 +577,8 @@ module MysqlContent
             <tbody>
               <tr><td><code>PRIMARY KEY</code>, <code>UNIQUE</code></td><td>enforced (uses an index)</td><td>1062 Duplicate entry 'ravi@x.com' for key 'users.email'</td></tr>
               <tr><td><code>NOT NULL</code></td><td>enforced</td><td>1048 Column 'name' cannot be null</td></tr>
-              <tr><td><code>CHECK</code></td><td>enforced since <strong>8.0.16</strong> (older versions parsed and ignored it!)</td><td>3819 Check constraint 'price_positive' is violated</td></tr>
-              <tr><td><code>FOREIGN KEY</code></td><td>enforced by InnoDB only (MyISAM silently ignores it)</td><td>1452 Cannot add or update a child row / 1451 Cannot delete or update a parent row</td></tr>
+              <tr><td><code>CHECK</code></td><td>enforced since <strong>8.0.16</strong> (older versions read it and then ignored it!)</td><td>3819 Check constraint 'price_positive' is violated</td></tr>
+              <tr><td><code>FOREIGN KEY</code></td><td>enforced by InnoDB only (MyISAM ignores it without any warning)</td><td>1452 Cannot add or update a child row / 1451 Cannot delete or update a parent row</td></tr>
             </tbody>
           </table>
         </div>
@@ -586,7 +586,7 @@ module MysqlContent
         <div class="lc-card">
           <h3>Foreign Key Syntax</h3>
         <div class="lc-code">CREATE TABLE orders (<br>&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,<br>&nbsp;&nbsp;&nbsp;&nbsp;customer_id INT UNSIGNED NOT NULL,<br>&nbsp;&nbsp;&nbsp;&nbsp;total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DECIMAL(10,2) NOT NULL,<br>&nbsp;&nbsp;&nbsp;&nbsp;CONSTRAINT fk_orders_customer<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (customer_id) REFERENCES customers (id)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON DELETE RESTRICT<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON UPDATE CASCADE,<br>&nbsp;&nbsp;&nbsp;&nbsp;CONSTRAINT total_positive CHECK (total &gt; 0)<br>) ENGINE=InnoDB;</div>
-          <p>Trying to insert an order for customer 99 who does not exist:</p>
+          <p>Here you try to insert an order for customer 99, who does not exist:</p>
         <div class="lc-code">ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails<br>(`shop`.`orders`, CONSTRAINT `fk_orders_customer` FOREIGN KEY (`customer_id`)<br>REFERENCES `customers` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE)</div>
         </div>
 
@@ -594,36 +594,36 @@ module MysqlContent
           <h3>InnoDB's Foreign Key Rules</h3>
           <ul class="lc-list">
             <li>Both tables must be <strong>InnoDB</strong>.</li>
-            <li>The columns must have <strong>matching types</strong> — <code>INT UNSIGNED</code> cannot reference <code>INT</code>; string columns need the same character set and collation. Mismatches give <em>ERROR 3780</em> ("Referencing column ... and referenced column ... are incompatible").</li>
-            <li>The referenced column must be indexed (usually the primary key). MySQL creates an index on the child column automatically if none exists.</li>
-            <li>Actions: <code>RESTRICT</code> / <code>NO ACTION</code> (the default — both check immediately in InnoDB), <code>CASCADE</code>, <code>SET NULL</code>. <code>SET DEFAULT</code> is parsed but rejected by InnoDB.</li>
-            <li>Rows changed by a cascade do <strong>not</strong> fire triggers on the child table.</li>
+            <li>The columns must have <strong>matching types</strong>. <code>INT UNSIGNED</code> cannot reference <code>INT</code>. String columns need the same character set and collation. If they do not match, you get <em>ERROR 3780</em> ("Referencing column ... and referenced column ... are incompatible").</li>
+            <li>The referenced column (in the parent table) must be indexed. Usually it is the primary key. If the child column has no index, MySQL creates one for you.</li>
+            <li>Actions: <code>RESTRICT</code> / <code>NO ACTION</code> (the default; in InnoDB both check right away), <code>CASCADE</code>, <code>SET NULL</code>. InnoDB reads <code>SET DEFAULT</code> but rejects it.</li>
+            <li>Rows changed by a cascade (an automatic follow-on change) do <strong>not</strong> fire triggers on the child table.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Managing Constraints</h3>
         <div class="lc-code">ALTER TABLE orders ADD CONSTRAINT fk_orders_customer<br>&nbsp;&nbsp;&nbsp;&nbsp;FOREIGN KEY (customer_id) REFERENCES customers (id);<br>ALTER TABLE orders DROP FOREIGN KEY fk_orders_customer;<br>ALTER TABLE orders DROP CHECK total_positive;<br><br>-- List constraints<br>SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE<br>FROM information_schema.TABLE_CONSTRAINTS<br>WHERE TABLE_SCHEMA = 'shop' AND TABLE_NAME = 'orders';<br><br>-- Bulk loading tables in any order (use with great care!)<br>SET FOREIGN_KEY_CHECKS = 0;&nbsp;&nbsp;&nbsp;-- ... load ...&nbsp;&nbsp;&nbsp;SET FOREIGN_KEY_CHECKS = 1;</div>
-          <p>Turning <code>FOREIGN_KEY_CHECKS</code> off is how <code>mysqldump</code> files load tables in any order. Rows inserted while it is off are <strong>not re-checked</strong> when you turn it back on, so orphans can slip in.</p>
+          <p>Turning <code>FOREIGN_KEY_CHECKS</code> off lets <code>mysqldump</code> files load tables in any order. Rows inserted while it is off are <strong>not checked again</strong> when you turn it back on. So orphans (child rows with no parent) can get in.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Trusting CHECK constraints on a pre-8.0.16 server (they did nothing).</li>
-            <li>A child column <code>INT</code> referencing a parent <code>INT UNSIGNED</code>.</li>
+            <li>Trusting CHECK constraints on a server older than 8.0.16 (they did nothing).</li>
+            <li>A child column <code>INT</code> that references a parent <code>INT UNSIGNED</code>.</li>
             <li>Leaving <code>FOREIGN_KEY_CHECKS = 0</code> on in a session after an import.</li>
-            <li>Unnamed constraints — MySQL generates names like <code>orders_ibfk_1</code>, which make errors and migrations harder to read.</li>
+            <li>Constraints with no name. MySQL then makes names like <code>orders_ibfk_1</code>. These make errors and migrations harder to read.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>In the starter, change <code>ON DELETE SET NULL</code> on <code>tickets.assignee_id</code> to <code>ON DELETE CASCADE</code> and run it again. What happens to Omkar's tickets now? Which choice is right for a support-ticket system?</p>
+          <p>In the starter code, change <code>ON DELETE SET NULL</code> on <code>tickets.assignee_id</code> to <code>ON DELETE CASCADE</code>. Run it again. What happens to Omkar's tickets now? Which choice is right for a support-ticket system?</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Name constraints with a pattern — <code>fk_child_parent</code>, <code>chk_table_rule</code>, <code>uq_table_column</code>. When error 1452 appears in production logs at 2 a.m., the name alone tells you what went wrong.
+          <strong>Tip:</strong> Name constraints with a pattern: <code>fk_child_parent</code>, <code>chk_table_rule</code>, <code>uq_table_column</code>. Say error 1452 appears in production logs at 2 a.m. The name alone tells you what went wrong.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -680,16 +680,16 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Upserts and Duplicate Keys</h1>
         </div>
-        <p class="lc-lead">What should happen when you insert a row whose key already exists? MySQL gives you three tools: <code>INSERT IGNORE</code>, <code>REPLACE</code> and <code>INSERT ... ON DUPLICATE KEY UPDATE</code>. They look similar but behave very differently — one of them can silently delete data.</p>
+        <p class="lc-lead">You insert a row, but its key already exists. What should happen? MySQL gives you three tools: <code>INSERT IGNORE</code>, <code>REPLACE</code> and <code>INSERT ... ON DUPLICATE KEY UPDATE</code>. They look alike but work very differently. One of them can delete data without telling you.</p>
 
         <div class="lc-card">
           <h3>The Three Options</h3>
           <table class="lc-table">
             <thead><tr><th>Statement</th><th>On a duplicate PRIMARY KEY / UNIQUE value</th><th>Risk</th></tr></thead>
             <tbody>
-              <tr><td><code>INSERT IGNORE</code></td><td>skips the row, raises a warning</td><td>also turns <em>other</em> errors (too-long strings, NULL in NOT NULL) into warnings — bad data slips in</td></tr>
-              <tr><td><code>REPLACE</code></td><td><strong>deletes</strong> the old row, inserts the new one</td><td>unlisted columns reset to defaults; new AUTO_INCREMENT id; <code>ON DELETE CASCADE</code> children are deleted</td></tr>
-              <tr><td><code>INSERT ... ON DUPLICATE KEY UPDATE</code></td><td>updates the existing row with the expressions you give</td><td>the safe, precise choice</td></tr>
+              <tr><td><code>INSERT IGNORE</code></td><td>skips the row and gives a warning</td><td>also turns <em>other</em> errors (too-long strings, NULL in NOT NULL) into warnings. Bad data gets in</td></tr>
+              <tr><td><code>REPLACE</code></td><td><strong>deletes</strong> the old row, then inserts the new one</td><td>columns you did not list go back to defaults. The row gets a new AUTO_INCREMENT id. <code>ON DELETE CASCADE</code> children are deleted</td></tr>
+              <tr><td><code>INSERT ... ON DUPLICATE KEY UPDATE</code></td><td>updates the existing row with the expressions you give</td><td>the safe, exact choice</td></tr>
             </tbody>
           </table>
         </div>
@@ -697,44 +697,44 @@ module MysqlContent
         <div class="lc-card">
           <h3>ON DUPLICATE KEY UPDATE (Modern Syntax)</h3>
         <div class="lc-code">INSERT INTO stock (sku, name, qty)<br>VALUES ('TEA-1', 'Tea 250g', 20),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;('JAM-1', 'Mango Jam', 4)<br>AS new<br>ON DUPLICATE KEY UPDATE<br>&nbsp;&nbsp;&nbsp;&nbsp;qty&nbsp;&nbsp;= stock.qty + new.qty,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- add the delivered quantity<br>&nbsp;&nbsp;&nbsp;&nbsp;name = new.name;</div>
-          <p><code>AS new</code> (MySQL 8.0.19+) names the row you tried to insert, like <code>excluded</code> in PostgreSQL/SQLite. The old form <code>qty = qty + VALUES(qty)</code> still works but is <strong>deprecated since 8.0.20</strong> — old way, don't use it in new code. Why deprecated? Since 8.0.19, <code>VALUES</code> is also a statement of its own (<code>VALUES ROW(1, 'a')</code>), so a <code>VALUES()</code> <em>function</em> with a different meaning inside the same INSERT is confusing, and the row alias works the same way as standard SQL table aliases. MySQL plans to remove <code>VALUES()</code> here.</p>
-          <p><strong>In this sandbox:</strong> the compatibility layer does not understand the <code>AS new</code> row alias, so the starter code repeats the delivered number as a constant (<code>qty = qty + 7</code>). A comment next to each upsert shows the <code>AS new</code> form to use on a real server.</p>
-          <p>The "affected rows" count tells you what happened per row: <strong>1</strong> = inserted, <strong>2</strong> = an existing row was updated, <strong>0</strong> = the existing row already had those values.</p>
+          <p><code>AS new</code> (MySQL 8.0.19+) gives a name to the row you tried to insert. It is like <code>excluded</code> in PostgreSQL/SQLite. The old form <code>qty = qty + VALUES(qty)</code> still works. But it is <strong>deprecated since 8.0.20</strong>. It is the old way, so do not use it in new code. Why is it deprecated? Since 8.0.19, <code>VALUES</code> is also a statement of its own (<code>VALUES ROW(1, 'a')</code>). So a <code>VALUES()</code> <em>function</em> with a different meaning in the same INSERT is confusing. The row alias works the same way as standard SQL table aliases. MySQL plans to remove <code>VALUES()</code> here.</p>
+          <p><strong>In this sandbox:</strong> the compatibility layer does not understand the <code>AS new</code> row alias. So the starter code repeats the delivered number as a fixed value (<code>qty = qty + 7</code>). A comment next to each upsert (update-or-insert) shows the <code>AS new</code> form for a real server.</p>
+          <p>The "affected rows" count tells you what happened to each row: <strong>1</strong> = inserted, <strong>2</strong> = an existing row was updated, <strong>0</strong> = the existing row already had those values.</p>
         </div>
 
         <div class="lc-card">
           <h3>Why REPLACE Is Dangerous</h3>
         <div class="lc-code">-- products(id, sku UNIQUE, name, qty, price); reviews has ON DELETE CASCADE<br>REPLACE INTO products (sku, name) VALUES ('TEA-1', 'Tea (new pack)');</div>
         <div class="lc-code">Query OK, 2 rows affected&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 1 delete + 1 insert<br>-- qty is back to 0, price is NULL, the row has a NEW id,<br>-- and every review of the old TEA-1 row was cascade-deleted.</div>
-          <p>Use REPLACE only for tables where "throw the old row away completely" is really what you want, such as a cache table.</p>
+          <p>Use REPLACE only when you really want to throw the old row away completely. A cache table is one example.</p>
         </div>
 
         <div class="lc-card">
           <h3>Which Key Counts as a Duplicate?</h3>
           <ul class="lc-list">
-            <li><strong>Any</strong> PRIMARY KEY or UNIQUE index can trigger ON DUPLICATE KEY UPDATE. If a table has two unique keys (say <code>sku</code> and <code>barcode</code>), a row may clash with a <em>different</em> existing row than you expect. Keep one natural unique key per upsert target.</li>
-            <li>Upserts can consume AUTO_INCREMENT values even when they end up updating, so expect gaps in ids.</li>
-            <li>Under a <code>_ci</code> collation, <code>'tea-1'</code> and <code>'TEA-1'</code> are duplicates.</li>
+            <li><strong>Any</strong> PRIMARY KEY or UNIQUE index can start ON DUPLICATE KEY UPDATE. Say a table has two unique keys, <code>sku</code> and <code>barcode</code>. A row may clash with a <em>different</em> existing row than you expect. Keep one natural unique key per upsert table.</li>
+            <li>Upserts can use up AUTO_INCREMENT values even when they only update. So expect gaps in ids.</li>
+            <li>With a <code>_ci</code> collation, <code>'tea-1'</code> and <code>'TEA-1'</code> are duplicates.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Using <code>INSERT IGNORE</code> for imports and silently losing or truncating data.</li>
-            <li>Using <code>REPLACE</code> as an "update or insert" and wiping columns and child rows.</li>
-            <li>Doing <code>SELECT</code> then <code>INSERT</code> or <code>UPDATE</code> in application code — two requests can race. One upsert statement is atomic.</li>
+            <li>Using <code>INSERT IGNORE</code> for imports. Data is then lost or cut short without any error.</li>
+            <li>Using <code>REPLACE</code> as "update or insert". It wipes columns and child rows.</li>
+            <li>Running <code>SELECT</code> and then <code>INSERT</code> or <code>UPDATE</code> in application code. Two requests can run at the same time and clash. One upsert statement is atomic (it runs as one step).</li>
             <li>Writing <code>VALUES(col)</code> in new code instead of a row alias.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>A second delivery brings 5 Soap and 12 Tea. Write the two upserts so the quantities add up. Then use <code>INSERT IGNORE</code> to add a new agent whose email already exists with different capital letters — was it inserted?</p>
+          <p>A second delivery brings 5 Soap and 12 Tea. Write the two upserts so the quantities add up. Then use <code>INSERT IGNORE</code> to add a new agent. Use an email that already exists, but with different capital letters. Was it inserted?</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Design the UNIQUE key first ("one row per sku", "one row per user per day"), then write the upsert against it. An upsert without a matching unique key is just a normal insert that creates duplicates.
+          <strong>Tip:</strong> Design the UNIQUE key first ("one row per sku", "one row per user per day"). Then write the upsert for that key. Without a matching unique key, an upsert is just a normal insert. It creates duplicates.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -790,7 +790,7 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">String, Date and GROUP_CONCAT Functions</h1>
         </div>
-        <p class="lc-lead">MySQL has its own, very practical function library. This lesson covers the ones you will use every week: <code>CONCAT</code> and friends for text, <code>DATE_FORMAT</code>, <code>DATE_ADD</code> and <code>TIMESTAMPDIFF</code> for dates, and <code>GROUP_CONCAT</code> to roll many rows into one string.</p>
+        <p class="lc-lead">MySQL has its own set of very useful functions. This lesson covers the ones you will use every week. For text: <code>CONCAT</code> and similar functions. For dates: <code>DATE_FORMAT</code>, <code>DATE_ADD</code> and <code>TIMESTAMPDIFF</code>. And <code>GROUP_CONCAT</code> joins many rows into one string.</p>
 
         <div class="lc-card">
           <h3>Joining and Cutting Text</h3>
@@ -800,13 +800,13 @@ module MysqlContent
               <tr><td><code>CONCAT(a, b, ...)</code></td><td><code>CONCAT('Ram', ' ', 'Kumar')</code></td><td><code>'Ram Kumar'</code> (NULL if any argument is NULL)</td></tr>
               <tr><td><code>CONCAT_WS(sep, ...)</code></td><td><code>CONCAT_WS(' ', 'Ram', NULL, 'Kumar')</code></td><td><code>'Ram Kumar'</code> (skips NULLs)</td></tr>
               <tr><td><code>SUBSTRING_INDEX(s, delim, n)</code></td><td><code>SUBSTRING_INDEX('priya@gmail.com', '@', -1)</code></td><td><code>'gmail.com'</code></td></tr>
-              <tr><td><code>LEFT</code> / <code>RIGHT</code></td><td><code>LEFT('Hyderabad', 3)</code></td><td><code>'Hyd'</code></td></tr>
+              <tr><td><code>LEFT</code> / <code>RIGHT</code></td><td><code>LEFT('Seattle', 3)</code></td><td><code>'Sea'</code></td></tr>
               <tr><td><code>LPAD(s, n, pad)</code></td><td><code>LPAD('42', 5, '0')</code></td><td><code>'00042'</code></td></tr>
               <tr><td><code>LOCATE(sub, s)</code></td><td><code>LOCATE('@', 'a@b.com')</code></td><td><code>2</code></td></tr>
               <tr><td><code>FORMAT(n, d)</code></td><td><code>FORMAT(1234567.891, 2)</code></td><td><code>'1,234,567.89'</code> (a string, for display only)</td></tr>
             </tbody>
           </table>
-          <p>Remember: in MySQL <code>||</code> means logical OR by default, not concatenation (and that use of <code>||</code> is deprecated). Always use <code>CONCAT()</code>.</p>
+          <p>Remember: in MySQL, <code>||</code> means logical OR by default. It does not join strings. (This use of <code>||</code> is also deprecated.) Always use <code>CONCAT()</code>.</p>
         </div>
 
         <div class="lc-card">
@@ -823,39 +823,39 @@ module MysqlContent
               <tr><td><code>%W</code> / <code>%a</code></td><td>Friday / Fri</td><td><code>%s</code></td><td>seconds</td></tr>
             </tbody>
           </table>
-          <p>The reverse, text to date, is <code>STR_TO_DATE('25/09/2026', '%d/%m/%Y')</code> → <code>2026-09-25</code>.</p>
+          <p>To go the other way, from text to date, use <code>STR_TO_DATE('25/09/2026', '%d/%m/%Y')</code> → <code>2026-09-25</code>.</p>
         </div>
 
         <div class="lc-card">
           <h3>Date Arithmetic</h3>
         <div class="lc-code">SELECT DATE_ADD('2026-09-25', INTERVAL 30 DAY)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS due_date,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 2026-10-25<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATE_ADD('2026-01-31', INTERVAL 1 MONTH)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS month_later,&nbsp;&nbsp;&nbsp;-- 2026-02-28<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DATEDIFF('2026-12-25', '2026-09-25')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS days_left,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 91<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIMESTAMPDIFF(YEAR, '2000-12-01', '2026-09-25')&nbsp;&nbsp;&nbsp;&nbsp;AS age,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 25<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LAST_DAY('2026-02-10')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS month_end;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 2026-02-28</div>
-          <p><code>TIMESTAMPDIFF(YEAR, dob, today)</code> counts <em>complete</em> years, so it gives the correct age even before this year's birthday. <code>NOW()</code> gives the current date and time, <code>CURDATE()</code> today's date; both use the session time zone.</p>
+          <p><code>TIMESTAMPDIFF(YEAR, dob, today)</code> counts <em>complete</em> years. So it gives the correct age, even before this year's birthday. <code>NOW()</code> gives the current date and time. <code>CURDATE()</code> gives today's date. Both use the session time zone.</p>
         </div>
 
         <div class="lc-card">
           <h3>GROUP_CONCAT</h3>
         <div class="lc-code">SELECT batch,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GROUP_CONCAT(name ORDER BY name SEPARATOR ', ') AS students,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUNT(*) AS total<br>FROM students<br>GROUP BY batch;</div>
-          <p>It is an aggregate like <code>COUNT</code>, supporting <code>DISTINCT</code>, <code>ORDER BY</code> and <code>SEPARATOR</code> (default is a comma). The result is cut off at <code>group_concat_max_len</code> bytes — <strong>1024 by default</strong> — with only a warning. Raise it for long lists: <code>SET SESSION group_concat_max_len = 100000;</code></p>
+          <p>It is an aggregate (a function over many rows) like <code>COUNT</code>. It supports <code>DISTINCT</code>, <code>ORDER BY</code> and <code>SEPARATOR</code> (the default is a comma). The result is cut off at <code>group_concat_max_len</code> bytes. This is <strong>1024 by default</strong>, and you only get a warning. Raise it for long lists: <code>SET SESSION group_concat_max_len = 100000;</code></p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><code>'a' || 'b'</code> in MySQL — returns 0, not <code>'ab'</code>.</li>
-            <li><code>%M</code> for minutes in DATE_FORMAT (it is the month name; minutes are <code>%i</code>).</li>
-            <li>Age as <code>YEAR(CURDATE()) - YEAR(dob)</code> — off by one before the birthday. Use <code>TIMESTAMPDIFF</code>.</li>
-            <li>Sorting or comparing <code>FORMAT()</code> output — it is text with commas.</li>
-            <li>Silent GROUP_CONCAT truncation at 1024 bytes.</li>
+            <li>Writing <code>'a' || 'b'</code> in MySQL. It returns 0, not <code>'ab'</code>.</li>
+            <li>Using <code>%M</code> for minutes in DATE_FORMAT. It is the month name. Minutes are <code>%i</code>.</li>
+            <li>Finding age with <code>YEAR(CURDATE()) - YEAR(dob)</code>. It is wrong by one year before the birthday. Use <code>TIMESTAMPDIFF</code>.</li>
+            <li>Sorting or comparing <code>FORMAT()</code> output. It is text with commas.</li>
+            <li>GROUP_CONCAT cutting results at 1024 bytes without an error.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Show each student's email domain using <code>SUBSTRING_INDEX</code>, then list the students in each batch whose fees are due in the next 15 days after <code>'2026-09-25'</code>, with the due date formatted as <code>'Sat 10 Oct'</code> (<code>'%a %e %b'</code>).</p>
+          <p>Show each student's email domain using <code>SUBSTRING_INDEX</code>. Then list the students in each batch whose fees are due in the 15 days after <code>'2026-09-25'</code>. Format the due date as <code>'Sat 10 Oct'</code> (<code>'%a %e %b'</code>).</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Keep dates as real <code>DATE</code>/<code>DATETIME</code> values in tables and format only in the final SELECT (or in the app). Formatted strings like <code>'25/09/2026'</code> cannot be sorted or compared as dates.
+          <strong>Tip:</strong> Keep dates as real <code>DATE</code>/<code>DATETIME</code> values in tables. Format them only in the final SELECT (or in the app). Formatted strings like <code>'25/09/2026'</code> cannot be sorted or compared as dates.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -908,7 +908,7 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">JOINs and Multi-Table Changes</h1>
         </div>
-        <p class="lc-lead">A quick review of joins, then the parts that are <strong>specific to MySQL</strong>: no <code>FULL OUTER JOIN</code> (and how to emulate it), MySQL's multi-table <code>UPDATE</code> and <code>DELETE</code> syntax, and how MySQL 8's optimizer treats <code>IN</code> and <code>EXISTS</code>.</p>
+        <p class="lc-lead">First, a quick review of joins. Then the parts that are <strong>specific to MySQL</strong>. MySQL has no <code>FULL OUTER JOIN</code>, and you will learn how to get the same result. You will see MySQL's multi-table <code>UPDATE</code> and <code>DELETE</code> syntax. You will also see how MySQL 8's optimizer (the part that plans queries) handles <code>IN</code> and <code>EXISTS</code>.</p>
 
         <div class="lc-card">
           <h3>Quick Review</h3>
@@ -919,7 +919,7 @@ module MysqlContent
               <tr><td><code>LEFT [OUTER] JOIN</code></td><td>all left rows + matches</td><td>Yes</td></tr>
               <tr><td><code>RIGHT [OUTER] JOIN</code></td><td>all right rows + matches</td><td>Yes</td></tr>
               <tr><td><code>CROSS JOIN</code></td><td>every combination</td><td>Yes (in MySQL, <code>JOIN</code> without <code>ON</code> is also a cross join)</td></tr>
-              <tr><td><code>FULL [OUTER] JOIN</code></td><td>all rows from both sides</td><td><strong>No</strong> — emulate with UNION</td></tr>
+              <tr><td><code>FULL [OUTER] JOIN</code></td><td>all rows from both sides</td><td><strong>No</strong>. Build it with UNION</td></tr>
             </tbody>
           </table>
         </div>
@@ -927,35 +927,35 @@ module MysqlContent
         <div class="lc-card">
           <h3>Emulating FULL OUTER JOIN</h3>
         <div class="lc-code">SELECT s.name, c.title<br>FROM students s LEFT JOIN clubs c ON c.id = s.club_id<br>UNION<br>SELECT s.name, c.title<br>FROM students s RIGHT JOIN clubs c ON c.id = s.club_id;</div>
-          <p><code>UNION</code> removes the matched rows that appear in both halves. If genuine duplicate rows are possible, use <code>UNION ALL</code> and add <code>WHERE s.id IS NULL</code> to the second half so it returns only the unmatched right-side rows.</p>
+          <p><code>UNION</code> removes the matched rows that appear in both halves. But real duplicate rows may exist in your data. In that case, use <code>UNION ALL</code>. Add <code>WHERE s.id IS NULL</code> to the second half. Then it returns only the right-side rows with no match.</p>
         </div>
 
         <div class="lc-card">
           <h3>Multi-Table UPDATE and DELETE (MySQL Syntax)</h3>
         <div class="lc-code">-- Give a 10% fee discount to students in the Robotics club<br>UPDATE students s<br>JOIN clubs c ON c.id = s.club_id<br>SET s.fee = s.fee * 0.90<br>WHERE c.title = 'Robotics';<br><br>-- Delete students who belong to a club that has been closed<br>DELETE s<br>FROM students s<br>JOIN clubs c ON c.id = s.club_id<br>WHERE c.is_closed = 1;</div>
-          <p>This is MySQL-specific. PostgreSQL writes <code>UPDATE ... FROM</code>; standard SQL uses a subquery. In <code>DELETE s FROM ...</code>, the table name(s) right after DELETE say <em>which</em> table loses rows. The portable version, which works everywhere (and in this course's editor), uses a subquery:</p>
+          <p>This syntax works only in MySQL. PostgreSQL writes <code>UPDATE ... FROM</code>. Standard SQL uses a subquery. In <code>DELETE s FROM ...</code>, the table name(s) right after DELETE say <em>which</em> table loses rows. The portable version works everywhere (and in this course's editor). It uses a subquery (a query inside another query):</p>
         <div class="lc-code">UPDATE students<br>SET fee = fee * 0.90<br>WHERE club_id IN (SELECT id FROM clubs WHERE title = 'Robotics');</div>
         </div>
 
         <div class="lc-card">
           <h3>IN vs EXISTS in MySQL 8</h3>
-          <p>Old advice said "EXISTS is always faster than IN" or the opposite. In MySQL 8 the optimizer rewrites both <code>IN (subquery)</code> and <code>EXISTS (subquery)</code> into <strong>semijoins</strong>, and <code>NOT IN</code> / <code>NOT EXISTS</code> into <strong>antijoins</strong> (8.0.17+), so they usually get the same plan. Choose by meaning and readability, and check with <code>EXPLAIN</code> when it matters. The one real difference is <strong>NULL</strong>: <code>NOT IN</code> returns no rows if the subquery contains a NULL; <code>NOT EXISTS</code> does not have that trap.</p>
+          <p>Old advice said "EXISTS is always faster than IN", or the opposite. In MySQL 8, the optimizer rewrites both <code>IN (subquery)</code> and <code>EXISTS (subquery)</code> into <strong>semijoins</strong>. It rewrites <code>NOT IN</code> / <code>NOT EXISTS</code> into <strong>antijoins</strong> (8.0.17+). So they usually get the same plan. Choose the one that is clearer to read. Check with <code>EXPLAIN</code> when speed matters. The one real difference is <strong>NULL</strong>. <code>NOT IN</code> returns no rows if the subquery has a NULL. <code>NOT EXISTS</code> does not have this problem.</p>
         </div>
 
         <div class="lc-card">
           <h3>Other MySQL Join Notes</h3>
           <ul class="lc-list">
             <li><code>JOIN ... USING (club_id)</code> works when both columns have the same name.</li>
-            <li>Avoid <code>NATURAL JOIN</code>: it joins on every same-named column, and adding a column like <code>updated_at</code> to both tables silently changes the result.</li>
-            <li>Joining text columns with different collations can fail with "Illegal mix of collations" — keep collations consistent (lesson 4).</li>
-            <li>Index the columns you join on; foreign keys in InnoDB get one automatically.</li>
+            <li>Avoid <code>NATURAL JOIN</code>. It joins on every column with the same name. If you add a column like <code>updated_at</code> to both tables, the result changes without warning.</li>
+            <li>Joining text columns with different collations can fail with "Illegal mix of collations". Keep collations the same (lesson 4).</li>
+            <li>Index the columns you join on. In InnoDB, foreign keys get an index automatically.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Writing <code>FULL OUTER JOIN</code> in MySQL — a syntax error. <code>a FULL JOIN b</code> is worse: MySQL reads <code>FULL</code> as an alias for <code>a</code> and silently runs an INNER JOIN.</li>
+            <li>Writing <code>FULL OUTER JOIN</code> in MySQL. It is a syntax error. <code>a FULL JOIN b</code> is worse. MySQL reads <code>FULL</code> as an alias for <code>a</code>. It then runs an INNER JOIN without any warning.</li>
             <li>Running a multi-table UPDATE without first running the same JOIN as a SELECT.</li>
             <li>Forgetting the table name after <code>DELETE</code> in a join delete.</li>
           </ul>
@@ -963,7 +963,7 @@ module MysqlContent
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Rewrite the "students with no club" query in the starter using <code>NOT EXISTS</code>. Then write (in your notes, for a real server) a multi-table UPDATE that sets <code>clubs.member_count</code> using a joined derived table of counts.</p>
+          <p>Rewrite the "students with no club" query in the starter code using <code>NOT EXISTS</code>. Then write a multi-table UPDATE in your notes, for a real server. It should set <code>clubs.member_count</code> by joining a derived table (a subquery in FROM) of counts.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
@@ -1018,53 +1018,53 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">CTEs and Window Functions in MySQL</h1>
         </div>
-        <p class="lc-lead">Common table expressions (<code>WITH</code>) and window functions (<code>OVER (...)</code>) arrived in <strong>MySQL 8.0</strong>. The SQL course taught how they work; this lesson covers MySQL's details — recursion limits, column types in recursive CTEs, <code>WITH ROLLUP</code>, and the old 5.7 workarounds you should replace.</p>
+        <p class="lc-lead">Common table expressions (<code>WITH</code>) and window functions (<code>OVER (...)</code>) came in <strong>MySQL 8.0</strong>. The SQL course taught how they work. This lesson covers the MySQL details: recursion limits, column types in recursive CTEs, <code>WITH ROLLUP</code>, and the old 5.7 workarounds you should replace.</p>
 
         <div class="lc-card">
           <h3>Same Syntax as Standard SQL</h3>
         <div class="lc-code">WITH monthly AS (<br>&nbsp;&nbsp;&nbsp;&nbsp;SELECT DATE_FORMAT(paid_on, '%Y-%m') AS month, SUM(amount) AS revenue<br>&nbsp;&nbsp;&nbsp;&nbsp;FROM payments GROUP BY month<br>)<br>SELECT month, revenue,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUM(revenue) OVER (ORDER BY month)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS running_total,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;revenue - LAG(revenue) OVER (ORDER BY month) AS change_vs_last<br>FROM monthly;</div>
-          <p>All the standard window functions exist: <code>ROW_NUMBER</code>, <code>RANK</code>, <code>DENSE_RANK</code>, <code>NTILE</code>, <code>LAG</code>, <code>LEAD</code>, <code>FIRST_VALUE</code>, <code>LAST_VALUE</code>, <code>NTH_VALUE</code>, <code>PERCENT_RANK</code>, <code>CUME_DIST</code>, plus aggregates with <code>OVER</code>. Named windows (<code>WINDOW w AS (...)</code>) are supported too.</p>
+          <p>All the standard window functions exist: <code>ROW_NUMBER</code>, <code>RANK</code>, <code>DENSE_RANK</code>, <code>NTILE</code>, <code>LAG</code>, <code>LEAD</code>, <code>FIRST_VALUE</code>, <code>LAST_VALUE</code>, <code>NTH_VALUE</code>, <code>PERCENT_RANK</code>, <code>CUME_DIST</code>, and also aggregates with <code>OVER</code>. Named windows (<code>WINDOW w AS (...)</code>) work too.</p>
         </div>
 
         <div class="lc-card">
           <h3>Recursive CTEs: Two MySQL Rules</h3>
         <div class="lc-code">WITH RECURSIVE days (d) AS (<br>&nbsp;&nbsp;&nbsp;&nbsp;SELECT DATE('2026-09-01')<br>&nbsp;&nbsp;&nbsp;&nbsp;UNION ALL<br>&nbsp;&nbsp;&nbsp;&nbsp;SELECT DATE_ADD(d, INTERVAL 1 DAY) FROM days WHERE d &lt; '2026-09-07'<br>)<br>SELECT d FROM days;</div>
           <ol class="lc-list">
-            <li><strong>Recursion limit.</strong> <code>cte_max_recursion_depth</code> is 1000 by default. A CTE that recurses more fails with <em>ERROR 3636: Recursive query aborted after 1001 iterations</em>. Raise it for one session with <code>SET SESSION cte_max_recursion_depth = 10000;</code> — but first check that your stop condition is right.</li>
-            <li><strong>Column types come from the first (anchor) SELECT.</strong> If the anchor produces <code>'1'</code> and later rows build <code>'1 &gt; 2 &gt; 3'</code>, strict mode raises <em>Data too long</em>. Widen the column in the anchor: <code>CAST(name AS CHAR(200))</code>.</li>
+            <li><strong>Recursion limit.</strong> <code>cte_max_recursion_depth</code> is 1000 by default. A CTE that repeats more times fails with <em>ERROR 3636: Recursive query aborted after 1001 iterations</em>. You can raise it for one session with <code>SET SESSION cte_max_recursion_depth = 10000;</code>. But first check that your stop condition is right.</li>
+            <li><strong>Column types come from the first (anchor) SELECT.</strong> Say the anchor gives <code>'1'</code> and later rows build <code>'1 &gt; 2 &gt; 3'</code>. Strict mode then gives the error <em>Data too long</em>. Make the column wider in the anchor: <code>CAST(name AS CHAR(200))</code>.</li>
           </ol>
         </div>
 
         <div class="lc-card">
           <h3>WITH ROLLUP: Subtotals the MySQL Way</h3>
         <div class="lc-code">SELECT IFNULL(city, 'ALL CITIES') AS city, SUM(amount) AS revenue<br>FROM payments<br>GROUP BY city WITH ROLLUP;</div>
-        <div class="lc-code">+------------+---------+<br>| city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| revenue |<br>+------------+---------+<br>| Jaipur&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;12000 |<br>| Surat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;9000 |<br>| ALL CITIES |&nbsp;&nbsp;&nbsp;21000 |<br>+------------+---------+</div>
-          <p><code>WITH ROLLUP</code> adds a super-aggregate row where the grouped column is NULL. <code>GROUPING(city)</code> (8.0+) returns 1 on those rows, which is safer than IFNULL when the data itself can contain NULL cities.</p>
+        <div class="lc-code">+------------+---------+<br>| city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| revenue |<br>+------------+---------+<br>| Birmingham |&nbsp;&nbsp;&nbsp;&nbsp;9000 |<br>| Manchester |&nbsp;&nbsp;&nbsp;12000 |<br>| ALL CITIES |&nbsp;&nbsp;&nbsp;21000 |<br>+------------+---------+</div>
+          <p><code>WITH ROLLUP</code> adds a total row (a super-aggregate row). In that row, the grouped column is NULL. <code>GROUPING(city)</code> (8.0+) returns 1 on those rows. This is safer than IFNULL when the data itself can have NULL cities.</p>
         </div>
 
         <div class="lc-card">
           <h3>Old Way (MySQL 5.7) — Don't Use</h3>
         <div class="lc-code">-- Ranking with user variables, common in old answers online:<br>SELECT name, score, @r := @r + 1 AS rnk<br>FROM players, (SELECT @r := 0) init<br>ORDER BY score DESC;</div>
-          <p>Setting user variables inside expressions is <strong>deprecated</strong>, and the evaluation order was never guaranteed. Replace it with <code>ROW_NUMBER() OVER (ORDER BY score DESC)</code>.</p>
+          <p>Setting user variables inside expressions is <strong>deprecated</strong>. Also, the order of evaluation was never guaranteed. Replace it with <code>ROW_NUMBER() OVER (ORDER BY score DESC)</code>.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Filtering on a window function in WHERE — wrap it in a CTE and filter outside.</li>
-            <li>Forgetting that <code>LAST_VALUE</code> with the default frame returns the <em>current</em> row; add <code>ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</code>.</li>
-            <li>Raising <code>cte_max_recursion_depth</code> to hide an infinite recursion.</li>
-            <li>Using these features on a server older than 8.0 — they do not exist there.</li>
+            <li>Filtering on a window function in WHERE. Put it in a CTE and filter outside.</li>
+            <li>Forgetting that <code>LAST_VALUE</code> with the default frame returns the <em>current</em> row. Add <code>ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING</code>.</li>
+            <li>Raising <code>cte_max_recursion_depth</code> to hide a recursion that never stops.</li>
+            <li>Using these features on a server older than 8.0. They do not exist there.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Use a recursive CTE of dates for September 2026 and LEFT JOIN it to <code>payments</code> so every day appears with its revenue (0 when none). Then use <code>NTILE(2)</code> to split days into "busy" and "quiet" halves.</p>
+          <p>Make a recursive CTE of dates for September 2026. LEFT JOIN it to <code>payments</code>, so every day appears with its revenue (0 when there is none). Then use <code>NTILE(2)</code> to split the days into "busy" and "quiet" halves.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Window functions are computed after WHERE, GROUP BY and HAVING, but before ORDER BY and LIMIT. So <code>SUM(SUM(amount)) OVER (...)</code> — a window over a grouped aggregate — is legal and very handy for "share of total" reports.
+          <strong>Tip:</strong> Window functions run after WHERE, GROUP BY and HAVING, but before ORDER BY and LIMIT. So <code>SUM(SUM(amount)) OVER (...)</code> is allowed. It is a window over a grouped aggregate. It is very useful for "share of total" reports.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -1076,9 +1076,9 @@ module MysqlContent
             paid_on DATE NOT NULL
         ) ENGINE=InnoDB;
         INSERT INTO payments (city, amount, paid_on) VALUES
-            ('Jaipur', 5000, '2026-07-10'), ('Surat', 3000, '2026-07-22'),
-            ('Jaipur', 4000, '2026-08-05'), ('Surat', 6000, '2026-08-18'),
-            ('Jaipur', 3000, '2026-09-02');
+            ('Manchester', 5000, '2026-07-10'), ('Birmingham', 3000, '2026-07-22'),
+            ('Manchester', 4000, '2026-08-05'), ('Birmingham', 6000, '2026-08-18'),
+            ('Manchester', 3000, '2026-09-02');
 
         -- CTE + running total + month-over-month change
         WITH monthly AS (
@@ -1117,7 +1117,7 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">The JSON Data Type</h1>
         </div>
-        <p class="lc-lead">MySQL has a native <code>JSON</code> column type. It rejects invalid JSON, stores documents in a fast binary format, and gives you operators to read and change parts of a document. It is ideal for data whose shape varies — product attributes, settings, API payloads — alongside normal columns.</p>
+        <p class="lc-lead">MySQL has a built-in <code>JSON</code> column type. It refuses invalid JSON. It stores each document (one JSON value) in a fast binary format. It also gives you operators (special symbols) to read and change parts of a document. Use it next to normal columns for data whose shape changes from row to row, such as product attributes, settings and API payloads.</p>
 
         <div class="lc-card">
           <h3>A JSON Column</h3>
@@ -1129,26 +1129,26 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th>Expression</th><th>Result</th><th>Type</th></tr></thead>
             <tbody>
-              <tr><td><code>attrs-&gt;'$.brand'</code></td><td><code>"Lava"</code> (with quotes)</td><td>JSON — same as <code>JSON_EXTRACT(attrs, '$.brand')</code></td></tr>
-              <tr><td><code>attrs-&gt;&gt;'$.brand'</code></td><td><code>Lava</code></td><td>text — same as <code>JSON_UNQUOTE(JSON_EXTRACT(...))</code></td></tr>
-              <tr><td><code>attrs-&gt;&gt;'$.colors[0]'</code></td><td><code>black</code></td><td>array element (0-based)</td></tr>
+              <tr><td><code>attrs-&gt;'$.brand'</code></td><td><code>"Lava"</code> (with quotes)</td><td>JSON, same as <code>JSON_EXTRACT(attrs, '$.brand')</code></td></tr>
+              <tr><td><code>attrs-&gt;&gt;'$.brand'</code></td><td><code>Lava</code></td><td>text, same as <code>JSON_UNQUOTE(JSON_EXTRACT(...))</code></td></tr>
+              <tr><td><code>attrs-&gt;&gt;'$.colors[0]'</code></td><td><code>black</code></td><td>array element (counting starts at 0)</td></tr>
               <tr><td><code>attrs-&gt;'$.colors'</code></td><td><code>["black", "blue"]</code></td><td>the whole array as JSON</td></tr>
             </tbody>
           </table>
-          <p>Use <code>-&gt;&gt;</code> in WHERE clauses and output; <code>-&gt;</code> when you need JSON back. A path that does not exist returns NULL.</p>
+          <p>Use <code>-&gt;&gt;</code> in WHERE clauses and in output. Use <code>-&gt;</code> when you need JSON back. A path (the address of a value inside the document) that does not exist returns NULL.</p>
         <div class="lc-code">SELECT name, attrs-&gt;&gt;'$.brand' AS brand<br>FROM products<br>WHERE attrs-&gt;&gt;'$.brand' = 'Lava' AND attrs-&gt;&gt;'$.ram_gb' &gt;= 8;</div>
         </div>
 
         <div class="lc-card">
           <h3>Building and Changing JSON</h3>
         <div class="lc-code">SELECT JSON_OBJECT('sku', 'PH-1', 'price', 19999);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- {"sku": "PH-1", "price": 19999}<br>SELECT JSON_ARRAY('a', 1, NULL);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- ["a", 1, null]<br><br>UPDATE products SET attrs = JSON_SET(attrs, '$.ram_gb', 12, '$.has_5g', true) WHERE id = 1;<br>UPDATE products SET attrs = JSON_REMOVE(attrs, '$.colors[1]') WHERE id = 1;</div>
-          <p><code>JSON_SET</code> adds or replaces, <code>JSON_INSERT</code> only adds, <code>JSON_REPLACE</code> only replaces, <code>JSON_REMOVE</code> deletes. InnoDB can apply these as partial in-place updates instead of rewriting the whole document.</p>
+          <p><code>JSON_SET</code> adds or replaces, <code>JSON_INSERT</code> only adds, <code>JSON_REPLACE</code> only replaces, <code>JSON_REMOVE</code> deletes. InnoDB can change just that part of the document. It does not need to rewrite the whole document.</p>
         </div>
 
         <div class="lc-card">
-          <h3>More Powerful Tools (MySQL 8.0+)</h3>
+          <h3>More Useful Tools (MySQL 8.0+)</h3>
         <div class="lc-code">-- Search inside arrays<br>SELECT name FROM products WHERE 'blue' MEMBER OF (attrs-&gt;'$.colors');<br>SELECT name FROM products WHERE JSON_CONTAINS(attrs-&gt;'$.colors', '"blue"');<br><br>-- Rows -&gt; JSON<br>SELECT JSON_ARRAYAGG(name) FROM products;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- ["Phone X", ...]<br><br>-- JSON -&gt; rows: JSON_TABLE turns an array into a table<br>SELECT p.name, c.color<br>FROM products p,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSON_TABLE(p.attrs, '$.colors[*]' COLUMNS (color VARCHAR(20) PATH '$')) AS c;</div>
-          <p>A JSON column cannot be indexed directly. Index a <strong>generated column</strong> that extracts a value (next lesson), or use a <strong>multi-valued index</strong> for arrays: <code>INDEX ((CAST(attrs-&gt;'$.colors' AS CHAR(20) ARRAY)))</code>, which speeds up <code>MEMBER OF</code> and <code>JSON_CONTAINS</code>.</p>
+          <p>You cannot index a JSON column directly. Instead, index a <strong>generated column</strong> that pulls out one value (see the next lesson). For arrays, use a <strong>multi-valued index</strong>: <code>INDEX ((CAST(attrs-&gt;'$.colors' AS CHAR(20) ARRAY)))</code>. This makes <code>MEMBER OF</code> and <code>JSON_CONTAINS</code> faster.</p>
         </div>
 
         <div class="lc-card">
@@ -1156,9 +1156,9 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th>Use normal columns when...</th><th>Use JSON when...</th></tr></thead>
             <tbody>
-              <tr><td>every row has the value (name, price)</td><td>attributes differ by category (RAM for phones, fabric for shirts)</td></tr>
-              <tr><td>you filter, join or sort on it often</td><td>you mostly store and return it as a whole</td></tr>
-              <tr><td>you need foreign keys or CHECK rules</td><td>the shape comes from an external API</td></tr>
+              <tr><td>every row has the value (name, price)</td><td>attributes are different for each category (RAM for phones, fabric for shirts)</td></tr>
+              <tr><td>you filter, join or sort on it often</td><td>you mostly save it and read it back as one whole piece</td></tr>
+              <tr><td>you need foreign keys or CHECK rules</td><td>the shape comes from an outside API</td></tr>
             </tbody>
           </table>
         </div>
@@ -1166,19 +1166,19 @@ module MysqlContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Comparing with <code>-&gt;</code> instead of <code>-&gt;&gt;</code>: <code>attrs-&gt;'$.brand' = 'Lava'</code> compares JSON <code>"Lava"</code> to text.</li>
-            <li>Sorting by <code>attrs-&gt;&gt;'$.ram_gb'</code> — it is text, so "16" sorts before "8". Use <code>CAST(attrs-&gt;&gt;'$.ram_gb' AS UNSIGNED)</code>.</li>
-            <li>Putting everything in one JSON column and losing types, constraints and indexes.</li>
+            <li>Comparing with <code>-&gt;</code> instead of <code>-&gt;&gt;</code>: <code>attrs-&gt;'$.brand' = 'Lava'</code> compares the JSON value <code>"Lava"</code> with text.</li>
+            <li>Sorting by <code>attrs-&gt;&gt;'$.ram_gb'</code>. The value is text, so "16" comes before "8". Use <code>CAST(attrs-&gt;&gt;'$.ram_gb' AS UNSIGNED)</code>.</li>
+            <li>Putting everything in one JSON column. You then lose types, constraints (rules on the data) and indexes.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Add a laptop with <code>{"brand": "Acer", "ram_gb": 16, "colors": ["silver"]}</code>. List products with at least 8 GB RAM, showing brand and first colour. Then use <code>JSON_SET</code> to add <code>"warranty_years": 2</code> to the laptop.</p>
+          <p>Add a laptop with <code>{"brand": "Acer", "ram_gb": 16, "colors": ["silver"]}</code>. List the products with at least 8 GB RAM. Show the brand and the first colour. Then use <code>JSON_SET</code> to add <code>"warranty_years": 2</code> to the laptop.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> MySQL normalises JSON when storing it: extra spaces vanish, duplicate keys keep the last value, and keys are re-ordered. Do not rely on the key order you inserted.
+          <strong>Tip:</strong> MySQL tidies JSON when it stores it. Extra spaces are removed. If a key appears twice, only the last value is kept. Keys may also change order. So do not depend on the key order you inserted.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -1228,12 +1228,12 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Generated Columns</h1>
         </div>
-        <p class="lc-lead">A <strong>generated column</strong> is calculated from other columns in the same row by an expression you define. MySQL keeps it correct automatically — nobody can forget to update it — and you can index it, which is the standard way to make JSON fields and computed values fast to search.</p>
+        <p class="lc-lead">A <strong>generated column</strong> gets its value from other columns in the same row. You give the formula (an expression). MySQL keeps the value correct by itself, so nobody can forget to update it. You can also index it. This is the usual way to make JSON fields and calculated values fast to search.</p>
 
         <div class="lc-card">
           <h3>Syntax</h3>
         <div class="lc-code">CREATE TABLE order_lines (<br>&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,<br>&nbsp;&nbsp;&nbsp;&nbsp;qty&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INT UNSIGNED&nbsp;&nbsp;NOT NULL,<br>&nbsp;&nbsp;&nbsp;&nbsp;unit_price&nbsp;&nbsp;&nbsp;DECIMAL(10,2) NOT NULL,<br>&nbsp;&nbsp;&nbsp;&nbsp;discount_pct TINYINT UNSIGNED NOT NULL DEFAULT 0,<br>&nbsp;&nbsp;&nbsp;&nbsp;line_total&nbsp;&nbsp;&nbsp;DECIMAL(12,2)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GENERATED ALWAYS AS (qty * unit_price * (100 - discount_pct) / 100) STORED<br>);<br>INSERT INTO order_lines (qty, unit_price, discount_pct) VALUES (3, 250.00, 10);<br>SELECT line_total FROM order_lines;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 675.00</div>
-          <p><code>GENERATED ALWAYS</code> is optional; <code>total DECIMAL(12,2) AS (...)</code> means the same. You never insert into the column — MySQL rejects an explicit value (only <code>DEFAULT</code> is allowed).</p>
+          <p><code>GENERATED ALWAYS</code> is optional; <code>total DECIMAL(12,2) AS (...)</code> means the same. You never insert a value into this column. MySQL refuses a value you give (only <code>DEFAULT</code> is allowed).</p>
         </div>
 
         <div class="lc-card">
@@ -1241,11 +1241,11 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th></th><th>VIRTUAL (default)</th><th>STORED</th></tr></thead>
             <tbody>
-              <tr><td>Saved on disk?</td><td>No — computed when read</td><td>Yes — computed on INSERT/UPDATE</td></tr>
+              <tr><td>Saved on disk?</td><td>No, calculated when you read it</td><td>Yes, calculated on INSERT/UPDATE</td></tr>
               <tr><td>Space</td><td>none (except in indexes)</td><td>like a normal column</td></tr>
               <tr><td>Can be indexed?</td><td>Yes (InnoDB secondary index)</td><td>Yes, including as primary key</td></tr>
               <tr><td>Adding with ALTER TABLE</td><td>usually instant</td><td>rebuilds the table</td></tr>
-              <tr><td>Good for</td><td>cheap expressions, JSON extraction you index</td><td>expensive expressions read very often</td></tr>
+              <tr><td>Good for</td><td>quick expressions, JSON values you index</td><td>slow expressions that are read very often</td></tr>
             </tbody>
           </table>
         </div>
@@ -1253,21 +1253,21 @@ module MysqlContent
         <div class="lc-card">
           <h3>Indexing a Value Inside JSON</h3>
         <div class="lc-code">CREATE TABLE devices (<br>&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;&nbsp;&nbsp;&nbsp;INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,<br>&nbsp;&nbsp;&nbsp;&nbsp;specs JSON NOT NULL,<br>&nbsp;&nbsp;&nbsp;&nbsp;brand VARCHAR(30) AS (specs-&gt;&gt;'$.brand') VIRTUAL,<br>&nbsp;&nbsp;&nbsp;&nbsp;INDEX idx_devices_brand (brand)<br>);<br>SELECT id FROM devices WHERE brand = 'Lava';&nbsp;&nbsp;&nbsp;-- uses idx_devices_brand</div>
-          <p>This is the classic MySQL pattern for fast JSON search. The optimizer can also use the index when you write the same expression, <code>WHERE specs-&gt;&gt;'$.brand' = 'Lava'</code>, but querying the named column is clearer.</p>
+          <p>This is the common MySQL way to search JSON fast. The optimizer (the part of MySQL that plans a query) can also use the index if you write the same expression: <code>WHERE specs-&gt;&gt;'$.brand' = 'Lava'</code>. But using the column name is clearer.</p>
         </div>
 
         <div class="lc-card">
           <h3>Functional Indexes (8.0.13+)</h3>
         <div class="lc-code">CREATE INDEX idx_users_email_domain<br>&nbsp;&nbsp;&nbsp;&nbsp;ON users ((SUBSTRING_INDEX(email, '@', -1)));&nbsp;&nbsp;&nbsp;-- note the double parentheses<br>SELECT COUNT(*) FROM users WHERE SUBSTRING_INDEX(email, '@', -1) = 'gmail.com';</div>
-          <p>A functional index is a shortcut: MySQL creates a hidden virtual generated column for you. The query must use <strong>exactly the same expression</strong> for the index to help.</p>
+          <p>A functional index is a shortcut. MySQL creates a hidden virtual generated column for you. Your query must use <strong>exactly the same expression</strong>, or the index will not help.</p>
         </div>
 
         <div class="lc-card">
           <h3>Rules for the Expression</h3>
           <ul class="lc-list">
-            <li>Must be <strong>deterministic</strong>: no <code>NOW()</code>, <code>RAND()</code>, <code>UUID()</code>, user variables or stored functions.</li>
-            <li>No subqueries; it can only use columns of the <em>same row</em>.</li>
-            <li>It may use other generated columns defined before it, but not the AUTO_INCREMENT column.</li>
+            <li>It must be <strong>deterministic</strong> (same inputs always give the same result): no <code>NOW()</code>, <code>RAND()</code>, <code>UUID()</code>, user variables or stored functions.</li>
+            <li>No subqueries. It can only use columns of the <em>same row</em>.</li>
+            <li>It can use other generated columns defined before it. It cannot use the AUTO_INCREMENT column.</li>
           </ul>
         </div>
 
@@ -1275,18 +1275,18 @@ module MysqlContent
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Trying to <code>INSERT</code> a value into a generated column.</li>
-            <li>Using a generated column for something time-based like "age" — <code>NOW()</code> is not allowed, and the value would go stale anyway. Compute age in the query.</li>
-            <li>Making a slow expression VIRTUAL on a column that is read millions of times.</li>
+            <li>Using a generated column for something that depends on time, like "age". <code>NOW()</code> is not allowed, and the value would become out of date anyway. Calculate age in the query.</li>
+            <li>Using VIRTUAL for a slow expression on a column that is read millions of times.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Add a generated column <code>full_name</code> = <code>CONCAT_WS(' ', first_name, last_name)</code> to a new <code>members</code> table and index it. Then add a STORED column <code>gst_amount</code> = 18% of <code>line_total</code> to <code>order_lines</code>.</p>
+          <p>Add a generated column <code>full_name</code> = <code>CONCAT_WS(' ', first_name, last_name)</code> to a new <code>members</code> table, and index it. Then add a STORED column <code>gst_amount</code> = 18% of <code>line_total</code> to <code>order_lines</code>.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Generated columns are a clean alternative to triggers for "keep this derived value in sync" — there is no code to forget and no trigger to debug.
+          <strong>Tip:</strong> Use generated columns instead of triggers to keep a calculated value up to date. There is no code to forget and no trigger to debug.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -1336,31 +1336,31 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">InnoDB Transactions and Locking</h1>
         </div>
-        <p class="lc-lead"><strong>InnoDB</strong> is MySQL's default storage engine. It gives you ACID transactions, row-level locking, crash recovery and foreign keys. This lesson shows how InnoDB transactions behave in MySQL — autocommit, implicit commits, the default isolation level, and locking reads for things like seat booking.</p>
+        <p class="lc-lead"><strong>InnoDB</strong> is MySQL's default storage engine (the part that stores and reads the data). It gives you ACID transactions, row-level locking, crash recovery and foreign keys. This lesson shows how InnoDB transactions work in MySQL. It covers autocommit, implicit commits, the default isolation level, and locking reads for tasks like seat booking.</p>
 
         <div class="lc-card">
           <h3>InnoDB vs MyISAM</h3>
           <table class="lc-table">
             <thead><tr><th>Feature</th><th>InnoDB (default)</th><th>MyISAM (legacy)</th></tr></thead>
             <tbody>
-              <tr><td>Transactions, ROLLBACK</td><td>Yes</td><td>No — each statement is final</td></tr>
+              <tr><td>Transactions, ROLLBACK</td><td>Yes</td><td>No, each statement is final</td></tr>
               <tr><td>Locking</td><td>row-level</td><td>whole table</td></tr>
               <tr><td>Crash recovery</td><td>automatic (redo log)</td><td>may need <code>REPAIR TABLE</code></td></tr>
               <tr><td>Foreign keys</td><td>Yes</td><td>ignored</td></tr>
             </tbody>
           </table>
-          <p>Use InnoDB for application tables. (Other engines exist — MEMORY, ARCHIVE, NDB for MySQL Cluster — but they are for special cases.) Check a table's engine with <code>SHOW TABLE STATUS LIKE 'orders'</code>.</p>
+          <p>Use InnoDB for application tables. (Other engines exist, such as MEMORY, ARCHIVE and NDB for MySQL Cluster, but they are for special cases.) To see a table's engine, use <code>SHOW TABLE STATUS LIKE 'orders'</code>.</p>
         </div>
 
         <div class="lc-card">
           <h3>Autocommit and Explicit Transactions</h3>
         <div class="lc-code">SELECT @@autocommit;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 1: every statement commits on its own<br>START TRANSACTION;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- or BEGIN<br>UPDATE wallets SET balance = balance - 500 WHERE user_id = 1 AND balance &gt;= 500;<br>UPDATE wallets SET balance = balance + 500 WHERE user_id = 2;<br>COMMIT;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- or ROLLBACK</div>
-          <p><strong>Implicit commits:</strong> DDL statements such as <code>CREATE TABLE</code>, <code>ALTER TABLE</code>, <code>DROP TABLE</code> and <code>TRUNCATE</code> commit the current transaction automatically and cannot be rolled back. Never mix schema changes into a transaction you might need to undo.</p>
+          <p><strong>Implicit commits:</strong> DDL statements (statements that change table structure) such as <code>CREATE TABLE</code>, <code>ALTER TABLE</code>, <code>DROP TABLE</code> and <code>TRUNCATE</code> commit the current transaction by themselves. You cannot roll them back. Never put schema changes in a transaction that you might need to undo.</p>
         </div>
 
         <div class="lc-card">
           <h3>Isolation: REPEATABLE READ by Default</h3>
-          <p>InnoDB uses <strong>MVCC</strong> (multi-version concurrency control): readers see a consistent <em>snapshot</em> and do not block writers. Under the default <code>REPEATABLE READ</code>, every plain SELECT in a transaction sees the data as it was at the transaction's first read.</p>
+          <p>InnoDB uses <strong>MVCC</strong> (multi-version concurrency control). Readers see a fixed <em>snapshot</em> (a copy of the data at one moment), and they do not block writers. With the default <code>REPEATABLE READ</code>, every plain SELECT in a transaction sees the data as it was at the transaction's first read.</p>
           <table class="lc-table">
             <thead><tr><th>Time</th><th>Session A</th><th>Session B</th></tr></thead>
             <tbody>
@@ -1370,56 +1370,56 @@ module MysqlContent
               <tr><td>4</td><td><code>SELECT seats_left ... FOR UPDATE;</code> → 1 (locking read sees latest)</td><td></td></tr>
             </tbody>
           </table>
-          <p>Change the level per session with <code>SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;</code> — many high-traffic apps use READ COMMITTED to reduce locking.</p>
+          <p>You can change the level for one session with <code>SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;</code>. Many busy apps use READ COMMITTED to reduce locking.</p>
         </div>
 
         <div class="lc-card">
           <h3>Locking Reads: Booking the Last Seat</h3>
         <div class="lc-code">START TRANSACTION;<br>SELECT seats_left FROM shows WHERE id = 1 FOR UPDATE;&nbsp;&nbsp;&nbsp;-- locks this row<br>-- app checks seats_left &gt; 0 ...<br>UPDATE shows SET seats_left = seats_left - 1 WHERE id = 1;<br>INSERT INTO bookings (show_id, user_id) VALUES (1, 42);<br>COMMIT;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- lock released</div>
           <ul class="lc-list">
-            <li><code>FOR UPDATE</code> — exclusive lock; other <code>FOR UPDATE</code> readers and writers wait.</li>
-            <li><code>FOR SHARE</code> — shared lock; others can read-lock but not change the row.</li>
-            <li><code>NOWAIT</code> — fail immediately if the row is locked. <code>SKIP LOCKED</code> — skip locked rows; ideal for job queues where many workers pick tasks.</li>
+            <li><code>FOR UPDATE</code>: an exclusive lock. Other <code>FOR UPDATE</code> readers and all writers must wait.</li>
+            <li><code>FOR SHARE</code>: a shared lock. Others can also lock the row for reading, but they cannot change it.</li>
+            <li><code>NOWAIT</code>: fail at once if the row is locked. <code>SKIP LOCKED</code>: skip locked rows. This is very useful for job queues where many workers pick tasks.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Deadlocks and Lock Waits</h3>
-          <p>If two transactions each hold a lock the other needs, InnoDB detects the <strong>deadlock</strong>, rolls one back and returns <em>ERROR 1213: Deadlock found when trying to get lock; try restarting transaction</em>. If a lock is simply held too long you get <em>ERROR 1205: Lock wait timeout exceeded</em> (<code>innodb_lock_wait_timeout</code>, 50 seconds by default). Your application should catch 1213 and <strong>retry</strong> the whole transaction. Keep transactions short and touch rows in a consistent order to make deadlocks rare.</p>
+          <p>Sometimes two transactions each hold a lock that the other one needs. This is a <strong>deadlock</strong>. InnoDB finds it, rolls one transaction back and returns <em>ERROR 1213: Deadlock found when trying to get lock; try restarting transaction</em>. If a lock is just held for too long, you get <em>ERROR 1205: Lock wait timeout exceeded</em> (<code>innodb_lock_wait_timeout</code>, 50 seconds by default). Your application should catch error 1213 and <strong>retry</strong> the whole transaction. Keep transactions short. Always change rows in the same order. This makes deadlocks rare.</p>
         </div>
 
         <div class="lc-card">
           <h3>Changing a Live Table: Online DDL</h3>
-          <p><code>ALTER TABLE</code> on a busy production table is a locking question too. InnoDB picks the cheapest <strong>algorithm</strong>; you can name one so MySQL fails fast instead of silently copying a huge table:</p>
+          <p>Running <code>ALTER TABLE</code> on a busy production table also involves locks. InnoDB picks the cheapest <strong>algorithm</strong> (method). You can name one yourself. Then MySQL fails at once instead of quietly copying a huge table:</p>
         <div class="lc-code">ALTER TABLE orders ADD COLUMN coupon VARCHAR(20), ALGORITHM=INSTANT;&nbsp;&nbsp;&nbsp;-- metadata only, any size<br>ALTER TABLE orders ADD INDEX idx_status (status), ALGORITHM=INPLACE, LOCK=NONE;&nbsp;&nbsp;-- reads and writes continue<br>ALTER TABLE orders MODIFY total BIGINT, ALGORITHM=COPY;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- type change: full table copy</div>
           <table class="lc-table">
             <thead><tr><th>Algorithm</th><th>What happens</th><th>Typical operations</th></tr></thead>
             <tbody>
               <tr><td>INSTANT (default when possible)</td><td>only the table definition changes</td><td>add or drop a column, rename a column, change a default</td></tr>
-              <tr><td>INPLACE</td><td>rebuilt inside InnoDB; DML usually allowed</td><td>add a secondary index, add a foreign key (with <code>foreign_key_checks=0</code>)</td></tr>
+              <tr><td>INPLACE</td><td>rebuilt inside InnoDB; DML (INSERT, UPDATE, DELETE) usually allowed</td><td>add a secondary index, add a foreign key (with <code>foreign_key_checks=0</code>)</td></tr>
               <tr><td>COPY</td><td>a new table is built row by row; writes blocked</td><td>change a column's data type</td></tr>
             </tbody>
           </table>
-          <p>Every ALTER also needs a brief <strong>metadata lock</strong>: one long-running transaction that has touched <code>orders</code> makes the ALTER wait — and every new query on <code>orders</code> queues behind it. Check <code>SHOW PROCESSLIST</code> for long transactions first. Instant add/drop is limited to 64 row versions per table in 8.4 (255 from 9.1); after that use INPLACE or COPY.</p>
+          <p>Every ALTER also needs a short <strong>metadata lock</strong> (a lock on the table definition). If one long transaction has used <code>orders</code>, the ALTER must wait. Then every new query on <code>orders</code> waits in line behind it. So first check <code>SHOW PROCESSLIST</code> for long transactions. Instant add/drop is limited to 64 row versions per table in 8.4 (255 from 9.1). After that, use INPLACE or COPY.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Expecting ROLLBACK to undo a <code>CREATE</code> or <code>ALTER</code> (implicit commit).</li>
-            <li>Checking availability with a plain SELECT and then updating — two users can both see "1 seat left". Use <code>FOR UPDATE</code> or a conditional UPDATE.</li>
-            <li>Leaving a transaction open in a console session and blocking everyone else's updates.</li>
+            <li>Expecting ROLLBACK to undo a <code>CREATE</code> or <code>ALTER</code>. They cause an implicit commit.</li>
+            <li>Checking free seats with a plain SELECT and then updating. Two users can both see "1 seat left". Use <code>FOR UPDATE</code> or a conditional UPDATE.</li>
+            <li>Leaving a transaction open in a console session. This blocks everyone else's updates.</li>
             <li>Not retrying after a deadlock error.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>In the starter, try to book 3 seats for show 2 (only 2 left) with <code>UPDATE shows SET seats_left = seats_left - 3 WHERE id = 2 AND seats_left &gt;= 3</code> inside a transaction. The output shows <em>0 rows updated</em> (the mysql client says <code>Rows matched: 0  Changed: 0</code>) — so ROLLBACK instead of inserting the booking. Check both tables afterwards.</p>
+          <p>In the starter, try to book 3 seats for show 2 (only 2 left) with <code>UPDATE shows SET seats_left = seats_left - 3 WHERE id = 2 AND seats_left &gt;= 3</code> inside a transaction. The output shows <em>0 rows updated</em> (the mysql client says <code>Rows matched: 0  Changed: 0</code>). So use ROLLBACK instead of inserting the booking. Check both tables afterwards.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> A single conditional statement — <code>UPDATE shows SET seats_left = seats_left - 1 WHERE id = 1 AND seats_left &gt; 0</code> — is atomic and needs no explicit lock. Check its affected-row count (1 = booked, 0 = sold out). Reach for <code>SELECT ... FOR UPDATE</code> when the decision needs more logic than one WHERE clause.
+          <strong>Tip:</strong> One conditional statement, <code>UPDATE shows SET seats_left = seats_left - 1 WHERE id = 1 AND seats_left &gt; 0</code>, is atomic (it runs fully or not at all). It needs no extra lock. Check how many rows it changed (1 = booked, 0 = sold out). Use <code>SELECT ... FOR UPDATE</code> when the decision needs more logic than one WHERE clause.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -1472,22 +1472,22 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Indexes and EXPLAIN</h1>
         </div>
-        <p class="lc-lead">Indexes decide whether a query touches 5 rows or 5 million. In InnoDB the <strong>primary key is the table</strong> — rows are stored in primary-key order — and every other index points back to it. <code>EXPLAIN</code> shows which index MySQL chose; <code>EXPLAIN ANALYZE</code> shows what really happened.</p>
+        <p class="lc-lead">An index (a sorted list that helps MySQL find rows fast) decides if a query reads 5 rows or 5 million. In InnoDB the <strong>primary key is the table</strong>. Rows are stored in primary-key order, and every other index points back to it. <code>EXPLAIN</code> shows which index MySQL chose. <code>EXPLAIN ANALYZE</code> shows what really happened.</p>
 
         <div class="lc-card">
           <h3>How InnoDB Stores Indexes</h3>
           <ul class="lc-list">
-            <li><strong>Clustered index</strong> = the primary key. The table's rows live inside this B-tree, sorted by PK. Lookups by PK are the fastest possible.</li>
-            <li><strong>Secondary indexes</strong> store the indexed columns <em>plus the primary key</em>. A lookup finds the PK in the secondary index, then fetches the row from the clustered index.</li>
-            <li>So keep the PK <strong>short and increasing</strong> (an <code>INT</code>/<code>BIGINT</code> AUTO_INCREMENT). A random UUID string PK makes every secondary index bigger and inserts scattered.</li>
-            <li>A table without a PK gets a hidden 6-byte row id — always define one.</li>
+            <li><strong>Clustered index</strong> = the primary key (PK). The table's rows are stored inside this B-tree (a sorted tree structure), in PK order. Finding a row by PK is the fastest way.</li>
+            <li><strong>Secondary indexes</strong> store the indexed columns <em>plus the primary key</em>. MySQL first finds the PK in the secondary index. Then it gets the row from the clustered index.</li>
+            <li>So keep the PK <strong>short and increasing</strong> (an <code>INT</code>/<code>BIGINT</code> AUTO_INCREMENT). A random UUID string as PK makes every secondary index bigger. It also spreads inserts all over the table.</li>
+            <li>A table without a PK gets a hidden 6-byte row id. Always define a PK.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Creating Indexes</h3>
         <div class="lc-code">CREATE INDEX idx_orders_customer ON orders (customer_id);<br>CREATE INDEX idx_orders_status_date ON orders (status, created_at);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- composite<br>CREATE UNIQUE INDEX uq_users_email ON users (email);<br>CREATE INDEX idx_users_name_prefix ON users (name(10));&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- prefix of a long string<br>CREATE INDEX idx_orders_recent ON orders (created_at DESC);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- descending (8.0+)<br>ALTER TABLE orders ALTER INDEX idx_orders_customer INVISIBLE;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- test before dropping<br>SHOW INDEX FROM orders;</div>
-          <p>An <strong>invisible index</strong> (8.0+) is still maintained but ignored by the optimizer. Make an index invisible, watch performance, and only then <code>DROP INDEX</code> — switching it back to VISIBLE is instant.</p>
+          <p>An <strong>invisible index</strong> (8.0+) is still kept up to date, but the optimizer does not use it. Make an index invisible and watch performance. Only then use <code>DROP INDEX</code>. Switching it back to VISIBLE is instant.</p>
         </div>
 
         <div class="lc-card">
@@ -1497,52 +1497,52 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th><code>type</code> (best → worst)</th><th>Meaning</th></tr></thead>
             <tbody>
-              <tr><td><code>const</code> / <code>eq_ref</code></td><td>at most one row via PK or UNIQUE index</td></tr>
-              <tr><td><code>ref</code></td><td>several rows via a non-unique index</td></tr>
+              <tr><td><code>const</code> / <code>eq_ref</code></td><td>at most one row, found with the PK or a UNIQUE index</td></tr>
+              <tr><td><code>ref</code></td><td>several rows, found with a non-unique index</td></tr>
               <tr><td><code>range</code></td><td>an index range: <code>BETWEEN</code>, <code>&gt;</code>, <code>IN (...)</code></td></tr>
               <tr><td><code>index</code></td><td>reads the whole index</td></tr>
-              <tr><td><code>ALL</code></td><td>full table scan — the one to worry about on big tables</td></tr>
+              <tr><td><code>ALL</code></td><td>full table scan (reads every row); a problem on big tables</td></tr>
             </tbody>
           </table>
-          <p>In <code>Extra</code>: <em>Using index</em> = covering index (no table lookup, good); <em>Using filesort</em> = an extra sort step; <em>Using temporary</em> = a temporary table (common with GROUP BY on unindexed columns). <code>rows</code> is an estimate; run <code>ANALYZE TABLE orders;</code> if estimates look badly wrong.</p>
+          <p>In <code>Extra</code>: <em>Using index</em> = a covering index (the index has all needed columns, so no table lookup; good). <em>Using filesort</em> = an extra sort step. <em>Using temporary</em> = a temporary table (common with GROUP BY on columns without an index). <code>rows</code> is only an estimate. If the estimates look very wrong, run <code>ANALYZE TABLE orders;</code>.</p>
         </div>
 
         <div class="lc-card">
           <h3>EXPLAIN ANALYZE (8.0.18+)</h3>
         <div class="lc-code">EXPLAIN ANALYZE SELECT * FROM orders WHERE customer_id = 42;<br>-&gt; Index lookup on orders using idx_orders_customer (customer_id=42)<br>&nbsp;&nbsp;&nbsp;(cost=0.7 rows=2) (actual time=0.031..0.036 rows=2 loops=1)</div>
-          <p>It <strong>runs</strong> the query and prints the plan as a tree with real timings and row counts next to the estimates. It works with <code>SELECT</code>, <code>TABLE</code> and <strong>multi-table</strong> <code>UPDATE</code>/<code>DELETE</code> statements (a single-table UPDATE or DELETE gives an error). Because it really runs the statement, try it on a multi-table UPDATE/DELETE only inside <code>START TRANSACTION; ... ROLLBACK;</code>. <code>EXPLAIN FORMAT=TREE</code> shows the same tree without running the query.</p>
+          <p>It <strong>runs</strong> the query. Then it prints the plan as a tree, with real times and row counts next to the estimates. It works with <code>SELECT</code>, <code>TABLE</code> and <strong>multi-table</strong> <code>UPDATE</code>/<code>DELETE</code> statements. A single-table UPDATE or DELETE gives an error. It really runs the statement. So try it on a multi-table UPDATE/DELETE only inside <code>START TRANSACTION; ... ROLLBACK;</code>. <code>EXPLAIN FORMAT=TREE</code> shows the same tree without running the query.</p>
         </div>
 
         <div class="lc-card">
           <h3>FULLTEXT Search</h3>
         <div class="lc-code">CREATE FULLTEXT INDEX ft_articles ON articles (title, body);<br><br>SELECT title, MATCH(title, body) AGAINST ('monsoon farming') AS score<br>FROM articles<br>WHERE MATCH(title, body) AGAINST ('monsoon farming')&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- natural language mode<br>ORDER BY score DESC;<br><br>SELECT title FROM articles<br>WHERE MATCH(title, body) AGAINST ('+monsoon -flood' IN BOOLEAN MODE);&nbsp;&nbsp;&nbsp;-- must / must not</div>
-          <p><code>LIKE '%monsoon%'</code> cannot use a B-tree index and scans every row; a FULLTEXT index can. InnoDB ignores words shorter than 3 characters (<code>innodb_ft_min_token_size</code>) and common stopwords. For Chinese, Japanese or Korean text, create the index <code>WITH PARSER ngram</code>. For large-scale search with typo tolerance, teams often add a dedicated engine such as OpenSearch.</p>
+          <p><code>LIKE '%monsoon%'</code> cannot use a B-tree index, so it reads every row. A FULLTEXT index can help here. InnoDB ignores words shorter than 3 characters (<code>innodb_ft_min_token_size</code>). It also ignores common stopwords (very common words like "the"). For Chinese, Japanese or Korean text, create the index <code>WITH PARSER ngram</code>. For very large search that also handles spelling mistakes, teams often add a separate search engine such as OpenSearch.</p>
         </div>
 
         <div class="lc-card">
           <h3>Partitioning Very Large Tables</h3>
-          <p><strong>Partitioning</strong> splits one table into pieces stored separately, while queries still see one table. It helps mainly with <em>data lifecycle</em>: dropping a whole month of old logs is instant, while <code>DELETE</code> of millions of rows is slow.</p>
+          <p><strong>Partitioning</strong> splits one table into pieces that are stored separately. Queries still see one table. It helps mostly with <em>data lifecycle</em> (removing old data). Dropping a whole month of old logs is instant. A <code>DELETE</code> of millions of rows is slow.</p>
         <div class="lc-code">CREATE TABLE page_views (<br>&nbsp;&nbsp;id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,<br>&nbsp;&nbsp;viewed_on DATE NOT NULL,<br>&nbsp;&nbsp;url&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VARCHAR(255) NOT NULL,<br>&nbsp;&nbsp;PRIMARY KEY (id, viewed_on)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- must include the partitioning column<br>)<br>PARTITION BY RANGE COLUMNS (viewed_on) (<br>&nbsp;&nbsp;PARTITION p2026_08 VALUES LESS THAN ('2026-09-01'),<br>&nbsp;&nbsp;PARTITION p2026_09 VALUES LESS THAN ('2026-10-01'),<br>&nbsp;&nbsp;PARTITION pmax&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUES LESS THAN (MAXVALUE)<br>);<br><br>ALTER TABLE page_views DROP PARTITION p2026_08;&nbsp;&nbsp;&nbsp;-- removes August in a moment<br>EXPLAIN SELECT COUNT(*) FROM page_views WHERE viewed_on &gt;= '2026-09-10';<br>-- partitions: p2026_09,pmax&nbsp;&nbsp;&nbsp;(partition pruning)</div>
-          <p>Rules: every PRIMARY KEY and UNIQUE key must contain all partitioning columns; partitioned InnoDB tables cannot have or be referenced by <strong>foreign keys</strong>; queries that do not filter on the partition column must check every partition. Partitioning is not a replacement for a good index — reach for it only for tables with hundreds of millions of rows or time-based cleanup. (The browser sandbox cannot run PARTITION BY; try it on a real server.)</p>
+          <p>Rules: every PRIMARY KEY and UNIQUE key must contain all partitioning columns. Partitioned InnoDB tables cannot have <strong>foreign keys</strong>, and no foreign key can point to them. Queries that do not filter on the partition column must check every partition. Partitioning does not replace a good index. Use it only for tables with hundreds of millions of rows, or for cleanup by date. (The browser sandbox cannot run PARTITION BY. Try it on a real server.)</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Wrapping indexed columns in functions: <code>WHERE DATE(created_at) = '2026-09-25'</code> cannot use an index on <code>created_at</code>. Write a range: <code>created_at &gt;= '2026-09-25' AND created_at &lt; '2026-09-26'</code> (or add a functional index).</li>
-            <li>Composite index in the wrong order: <code>(created_at, status)</code> does not help <code>WHERE status = 'paid'</code>.</li>
-            <li>Comparing a string column to a number (<code>WHERE phone = 9800000001</code>) — MySQL converts every row and skips the index. Quote it.</li>
+            <li>Putting indexed columns inside functions: <code>WHERE DATE(created_at) = '2026-09-25'</code> cannot use an index on <code>created_at</code>. Write a range instead: <code>created_at &gt;= '2026-09-25' AND created_at &lt; '2026-09-26'</code> (or add a functional index).</li>
+            <li>A composite index (an index on several columns) in the wrong order: <code>(created_at, status)</code> does not help <code>WHERE status = 'paid'</code>.</li>
+            <li>Comparing a string column with a number (<code>WHERE phone = 9800000001</code>). MySQL converts every row and does not use the index. Put the number in quotes.</li>
             <li>Dropping an index without making it invisible first.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>In the starter, look at the plan for <code>WHERE status = 'paid' AND created_at &gt;= '2026-09-01'</code> before and after adding the composite index. Then rewrite the <code>DATE(created_at)</code> query as a range and compare plans.</p>
+          <p>In the starter, look at the plan for <code>WHERE status = 'paid' AND created_at &gt;= '2026-09-01'</code> before and after you add the composite index. Then rewrite the <code>DATE(created_at)</code> query as a range and compare the plans.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Turn on the <strong>slow query log</strong> (<code>slow_query_log = ON</code>, <code>long_query_time = 1</code>) in staging and production. It tells you which queries deserve an index, instead of guessing.
+          <strong>Tip:</strong> Turn on the <strong>slow query log</strong> (<code>slow_query_log = ON</code>, <code>long_query_time = 1</code>) in staging and production. It shows you which queries need an index, so you do not have to guess.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -1594,16 +1594,16 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Views and Stored Procedures</h1>
         </div>
-        <p class="lc-lead">A <strong>view</strong> saves a SELECT under a name. A <strong>stored procedure</strong> saves a whole program — several statements, variables, IF/ELSE, error handling — inside the MySQL server, run with <code>CALL</code>. Both let many apps share one trusted piece of SQL.</p>
+        <p class="lc-lead">A <strong>view</strong> saves a SELECT under a name. A <strong>stored procedure</strong> saves a whole program inside the MySQL server: several statements, variables, IF/ELSE and error handling. You run it with <code>CALL</code>. Both let many apps share one trusted piece of SQL.</p>
 
         <div class="lc-card">
           <h3>Views in MySQL</h3>
         <div class="lc-code">CREATE OR REPLACE VIEW v_active_customers AS<br>SELECT id, name, city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- phone and email deliberately left out<br>FROM customers<br>WHERE is_active = 1<br>WITH CHECK OPTION;</div>
           <ul class="lc-list">
-            <li><code>CREATE OR REPLACE VIEW</code> changes a view in one step (or use <code>ALTER VIEW</code>).</li>
-            <li>Simple views (one table, no GROUP BY / DISTINCT / aggregates) are <strong>updatable</strong>: an UPDATE on the view changes the base table.</li>
-            <li><code>WITH CHECK OPTION</code> rejects inserts or updates through the view that would create rows the view cannot see (here, <code>is_active = 0</code>).</li>
-            <li><code>SQL SECURITY DEFINER</code> (default) runs the view with its creator's privileges; with <code>INVOKER</code> it uses the caller's. Grant users SELECT on the view but not the table to hide columns.</li>
+            <li><code>CREATE OR REPLACE VIEW</code> changes a view in one step. You can also use <code>ALTER VIEW</code>.</li>
+            <li>Simple views (one table, no GROUP BY / DISTINCT / aggregates) are <strong>updatable</strong>. An UPDATE on the view changes the base table (the real table under it).</li>
+            <li><code>WITH CHECK OPTION</code> refuses inserts or updates through the view if they would create rows the view cannot see (here, <code>is_active = 0</code>).</li>
+            <li><code>SQL SECURITY DEFINER</code> (the default) runs the view with the privileges (permissions) of the person who created it. With <code>INVOKER</code> it uses the caller's privileges. To hide columns, give users SELECT on the view but not on the table.</li>
           </ul>
         </div>
 
@@ -1617,12 +1617,12 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th>Piece</th><th>Purpose</th></tr></thead>
             <tbody>
-              <tr><td><code>DELIMITER //</code></td><td>tells the <em>mysql client</em> that <code>;</code> no longer ends the statement, so the body's semicolons reach the server intact. It is a client command, not SQL; GUI tools and drivers do not need it.</td></tr>
+              <tr><td><code>DELIMITER //</code></td><td>tells the <em>mysql client</em> that <code>;</code> no longer ends the statement. So the semicolons in the body reach the server unchanged. It is a client command, not SQL. GUI tools and drivers do not need it.</td></tr>
               <tr><td><code>IN</code> / <code>OUT</code> / <code>INOUT</code></td><td>input parameters, output parameters (read back through a <code>@variable</code>), or both</td></tr>
-              <tr><td><code>DECLARE</code></td><td>local variables, cursors and handlers — must come first in a BEGIN block</td></tr>
-              <tr><td><code>DECLARE ... HANDLER</code></td><td>what to do when an error or warning occurs</td></tr>
-              <tr><td><code>SIGNAL SQLSTATE '45000'</code></td><td>raise your own error with a message</td></tr>
-              <tr><td><code>IF</code>, <code>CASE</code>, <code>WHILE</code>, <code>LOOP</code>, <code>REPEAT</code></td><td>control flow</td></tr>
+              <tr><td><code>DECLARE</code></td><td>local variables, cursors and handlers; must come first in a BEGIN block</td></tr>
+              <tr><td><code>DECLARE ... HANDLER</code></td><td>what to do when an error or warning happens</td></tr>
+              <tr><td><code>SIGNAL SQLSTATE '45000'</code></td><td>create your own error with a message</td></tr>
+              <tr><td><code>IF</code>, <code>CASE</code>, <code>WHILE</code>, <code>LOOP</code>, <code>REPEAT</code></td><td>control flow (decisions and loops)</td></tr>
             </tbody>
           </table>
         <div class="lc-code">SHOW PROCEDURE STATUS WHERE Db = 'shop';<br>SHOW CREATE PROCEDURE place_order\G<br>DROP PROCEDURE IF EXISTS place_order;</div>
@@ -1633,31 +1633,31 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th>Pros</th><th>Cons</th></tr></thead>
             <tbody>
-              <tr><td>One round trip for many statements</td><td>Harder to version, test and debug than app code</td></tr>
-              <tr><td>Same rules for every app and script</td><td>Ties you to MySQL's procedural language</td></tr>
-              <tr><td>Users can be granted EXECUTE without table access</td><td>Scaling the database is harder than scaling app servers</td></tr>
+              <tr><td>One round trip for many statements</td><td>Harder to track versions, test and debug than app code</td></tr>
+              <tr><td>Same rules for every app and script</td><td>Locks you into MySQL's own programming language</td></tr>
+              <tr><td>Users can get EXECUTE without access to the tables</td><td>Adding power to the database is harder than adding app servers</td></tr>
             </tbody>
           </table>
-          <p>Many modern teams keep business logic in the application and use procedures for data-heavy maintenance jobs. Either way, keep procedures in version control as migration files.</p>
+          <p>Many teams today keep business logic in the application. They use procedures for maintenance jobs that work on a lot of data. In both cases, keep procedures in version control as migration files.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Forgetting <code>DELIMITER</code> in the mysql client — the CREATE stops at the first <code>;</code> with a syntax error.</li>
-            <li>Parameter names equal to column names (<code>customer_id</code>) — inside queries MySQL uses the parameter. Prefix them: <code>p_customer</code>.</li>
-            <li>No error handler, so a failure leaves a transaction half-done.</li>
-            <li>Building SQL strings from parameters with <code>PREPARE</code> and <code>CONCAT</code> — that reintroduces SQL injection.</li>
+            <li>Forgetting <code>DELIMITER</code> in the mysql client. The CREATE then stops at the first <code>;</code> with a syntax error.</li>
+            <li>Giving parameters the same names as columns (<code>customer_id</code>). Inside queries, MySQL uses the parameter. Add a prefix: <code>p_customer</code>.</li>
+            <li>No error handler. Then a failure leaves a transaction half-done.</li>
+            <li>Building SQL strings from parameters with <code>PREPARE</code> and <code>CONCAT</code>. That brings back the risk of SQL injection.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>The browser sandbox cannot store procedures, so the starter runs the procedure's steps by hand with user variables. Change <code>@amount</code> to <code>0</code> and write down what the real procedure would do. On a real server, create <code>place_order</code> and call it.</p>
+          <p>The browser sandbox cannot store procedures. So the starter runs the procedure's steps one by one with user variables. Change <code>@amount</code> to <code>0</code> and write down what the real procedure would do. On a real server, create <code>place_order</code> and call it.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Name views with a prefix like <code>v_</code> and procedures with a verb (<code>place_order</code>, <code>archive_old_logs</code>). In <code>SHOW TABLES</code> output, views and tables otherwise look identical.
+          <strong>Tip:</strong> Name views with a prefix like <code>v_</code> and procedures with a verb (<code>place_order</code>, <code>archive_old_logs</code>). Without this, views and tables look the same in <code>SHOW TABLES</code> output.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -1676,8 +1676,8 @@ module MysqlContent
             amount      DECIMAL(10,2) NOT NULL
         ) ENGINE=InnoDB;
         INSERT INTO customers (name, phone, city, is_active) VALUES
-            ('Esha', '9800011111', 'Kanpur', TRUE), ('Faisal', '9800022222', 'Mysuru', TRUE),
-            ('Gita', '9800033333', 'Kanpur', FALSE);
+            ('Esha', '9800011111', 'Dallas', TRUE), ('Faisal', '9800022222', 'Oxford', TRUE),
+            ('Gita', '9800033333', 'Dallas', FALSE);
 
         -- A view that hides phone numbers and inactive customers
         CREATE VIEW v_active_customers AS
@@ -1710,17 +1710,17 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Stored Functions and Triggers</h1>
         </div>
-        <p class="lc-lead">A <strong>stored function</strong> returns one value and can be used inside any SQL expression, like a built-in function. A <strong>trigger</strong> runs automatically when a row is inserted, updated or deleted — perfect for audit logs and last-line-of-defence validation. <strong>Events</strong> run SQL on a schedule.</p>
+        <p class="lc-lead">A <strong>stored function</strong> returns one value. You can use it inside any SQL expression, like a built-in function. A <strong>trigger</strong> runs by itself when a row is inserted, updated or deleted. It is very good for audit logs (records of changes) and for a final check on data. <strong>Events</strong> run SQL on a schedule.</p>
 
         <div class="lc-card">
           <h3>Stored Functions</h3>
         <div class="lc-code">DELIMITER //<br>CREATE FUNCTION gst_amount(p_amount DECIMAL(10,2), p_rate DECIMAL(4,2))<br>RETURNS DECIMAL(10,2)<br>DETERMINISTIC NO SQL<br>BEGIN<br>&nbsp;&nbsp;&nbsp;&nbsp;RETURN ROUND(p_amount * p_rate / 100, 2);<br>END //<br>DELIMITER ;<br><br>SELECT item, price, gst_amount(price, 18) AS gst FROM products;</div>
-          <p>Binary logging is on by default in MySQL 8+, so a function must declare its nature: <code>DETERMINISTIC</code> (same inputs → same result), <code>NO SQL</code> or <code>READS SQL DATA</code>. Otherwise CREATE FUNCTION fails with <em>ERROR 1418</em>. Declare honestly — a wrong DETERMINISTIC can give wrong results on replicas.</p>
+          <p>Binary logging is on by default in MySQL 8+. So a function must say what kind it is: <code>DETERMINISTIC</code> (same inputs → same result), <code>NO SQL</code> or <code>READS SQL DATA</code>. If not, CREATE FUNCTION fails with <em>ERROR 1418</em>. Be honest here. A wrong DETERMINISTIC can give wrong results on replicas (copy servers).</p>
           <table class="lc-table">
             <thead><tr><th></th><th>Procedure</th><th>Function</th></tr></thead>
             <tbody>
               <tr><td>Called with</td><td><code>CALL proc(...)</code></td><td>inside an expression: <code>SELECT f(x)</code></td></tr>
-              <tr><td>Returns</td><td>OUT parameters and/or result sets</td><td>exactly one value (<code>RETURN</code>)</td></tr>
+              <tr><td>Returns</td><td>OUT parameters, result sets, or both</td><td>exactly one value (<code>RETURN</code>)</td></tr>
               <tr><td>Transactions inside</td><td>allowed</td><td>not allowed</td></tr>
             </tbody>
           </table>
@@ -1737,47 +1737,47 @@ module MysqlContent
               <tr><td>DELETE</td><td>the deleted row</td><td>—</td></tr>
             </tbody>
           </table>
-          <p>A single-statement trigger needs no <code>BEGIN ... END</code> or DELIMITER. MySQL triggers are always <code>FOR EACH ROW</code> (there are no statement-level triggers). You can have several triggers for the same event; order them with <code>FOLLOWS</code> / <code>PRECEDES</code>.</p>
+          <p>A trigger with one statement needs no <code>BEGIN ... END</code> or DELIMITER. MySQL triggers are always <code>FOR EACH ROW</code> (there are no statement-level triggers). You can have several triggers for the same event. Set their order with <code>FOLLOWS</code> / <code>PRECEDES</code>.</p>
         </div>
 
         <div class="lc-card">
           <h3>BEFORE Triggers: Fix or Reject Data</h3>
         <div class="lc-code">DELIMITER //<br>CREATE TRIGGER trg_products_before_update<br>BEFORE UPDATE ON products<br>FOR EACH ROW<br>BEGIN<br>&nbsp;&nbsp;&nbsp;&nbsp;IF NEW.price &lt; 0 THEN<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Price cannot be negative';<br>&nbsp;&nbsp;&nbsp;&nbsp;END IF;<br>&nbsp;&nbsp;&nbsp;&nbsp;SET NEW.name = TRIM(NEW.name);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- clean the value before it is saved<br>END //<br>DELIMITER ;</div>
-          <p>For simple rules a <code>CHECK</code> constraint is clearer; use a trigger when the rule needs logic or other tables.</p>
+          <p>For simple rules, a <code>CHECK</code> constraint is clearer. Use a trigger when the rule needs logic or other tables.</p>
         </div>
 
         <div class="lc-card">
           <h3>Trigger Limits to Know</h3>
           <ul class="lc-list">
-            <li>A trigger cannot modify the table it is defined on with UPDATE/INSERT (<em>ERROR 1442</em>) — change <code>NEW</code> in a BEFORE trigger instead.</li>
+            <li>A trigger cannot use UPDATE/INSERT on its own table (<em>ERROR 1442</em>). Change <code>NEW</code> in a BEFORE trigger instead.</li>
             <li>Rows changed by foreign key cascades do <strong>not</strong> fire triggers.</li>
-            <li>Triggers run inside the same transaction: if the trigger fails, the whole statement fails and is rolled back.</li>
-            <li>They are invisible in application code — document them, and list them with <code>SHOW TRIGGERS;</code>.</li>
+            <li>Triggers run inside the same transaction. If the trigger fails, the whole statement fails and is rolled back.</li>
+            <li>You cannot see them in application code. Write them down in your docs, and list them with <code>SHOW TRIGGERS;</code>.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Events: Scheduled SQL</h3>
         <div class="lc-code">CREATE EVENT ev_purge_sessions<br>ON SCHEDULE EVERY 1 DAY STARTS '2026-09-26 02:00:00'<br>DO DELETE FROM sessions WHERE expires_at &lt; NOW();</div>
-          <p>The event scheduler is on by default since MySQL 8.0 (<code>SHOW VARIABLES LIKE 'event_scheduler';</code>). It is handy for cleanup jobs; for anything that needs retries, alerts or logs, an external scheduler (cron, a job queue) is easier to monitor.</p>
+          <p>The event scheduler is on by default since MySQL 8.0 (<code>SHOW VARIABLES LIKE 'event_scheduler';</code>). It is useful for cleanup jobs. For jobs that need retries, alerts or logs, use an outside scheduler (cron, a job queue). It is easier to watch.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Putting slow queries in triggers on busy tables — every single insert or update pays the cost.</li>
-            <li>Chains of triggers firing triggers that nobody can follow.</li>
+            <li>Putting slow queries in triggers on busy tables. Every insert or update then becomes slower.</li>
+            <li>Long chains of triggers that start other triggers. Nobody can follow them.</li>
             <li>Declaring a function <code>DETERMINISTIC</code> when it reads changing data.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Add an <code>AFTER DELETE</code> trigger that writes the deleted product's id and name into a <code>deleted_products</code> table, then delete one product and check the table.</p>
+          <p>Add an <code>AFTER DELETE</code> trigger. It should write the deleted product's id and name into a <code>deleted_products</code> table. Then delete one product and check the table.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Audit triggers are one of the best uses of triggers: they record <em>who changed what and when</em> no matter which app, script or admin made the change. Add <code>changed_at DATETIME DEFAULT CURRENT_TIMESTAMP</code> to the log table and have the trigger store <code>USER()</code> in a <code>changed_by</code> column. (Inside a trigger, <code>CURRENT_USER()</code> returns the trigger's <em>definer</em>, not the person who made the change.)
+          <strong>Tip:</strong> Audit triggers are one of the best uses of triggers. They record <em>who changed what and when</em>, for every app, script or admin that makes a change. Add <code>changed_at DATETIME DEFAULT CURRENT_TIMESTAMP</code> to the log table. Make the trigger store <code>USER()</code> in a <code>changed_by</code> column. (Inside a trigger, <code>CURRENT_USER()</code> returns the trigger's <em>definer</em>, not the person who made the change.)
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -1826,15 +1826,15 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Users, Roles and Privileges</h1>
         </div>
-        <p class="lc-lead">Every connection to MySQL logs in as an <strong>account</strong>, and each account has exactly the <strong>privileges</strong> you grant it. Giving your web app the root password is like giving every visitor the keys to the server room. This lesson shows how to set up accounts properly in MySQL 8.4 and later.</p>
+        <p class="lc-lead">Every connection to MySQL logs in as an <strong>account</strong>. Each account has only the <strong>privileges</strong> (permissions) you grant it. If your web app uses the root password, any attacker who breaks into the app gets full control of the database. This lesson shows how to set up accounts correctly in MySQL 8.4 and later.</p>
 
         <div class="lc-card">
           <h3>Accounts Are 'user'@'host'</h3>
         <div class="lc-code">CREATE USER 'shop_app'@'10.0.1.%' IDENTIFIED BY 'a-long-random-password';<br>CREATE USER 'report'@'localhost'&nbsp;&nbsp;IDENTIFIED BY '...';<br>CREATE USER 'admin_asha'@'%'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IDENTIFIED BY '...' REQUIRE SSL;</div>
           <ul class="lc-list">
-            <li>An account is a user name <strong>plus</strong> the host it may connect from. <code>'report'@'localhost'</code> can only connect from the database machine itself.</li>
-            <li><code>%</code> is a wildcard: <code>'10.0.1.%'</code> = any machine in that subnet; <code>'%'</code> = anywhere. Prefer the narrowest host that works.</li>
-            <li>Passwords are stored hashed. The default authentication plugin is <code>caching_sha2_password</code>. The old <code>mysql_native_password</code> is deprecated, <strong>disabled by default in 8.4</strong> and <strong>removed in 9.0</strong> — old drivers that only support it must be upgraded.</li>
+            <li>An account is a user name <strong>plus</strong> the host (computer) it can connect from. <code>'report'@'localhost'</code> can only connect from the database machine itself.</li>
+            <li><code>%</code> is a wildcard (it matches anything): <code>'10.0.1.%'</code> = any machine in that subnet; <code>'%'</code> = anywhere. Choose the smallest host range that works.</li>
+            <li>Passwords are stored hashed (scrambled so they cannot be read). The default authentication plugin is <code>caching_sha2_password</code>. The old <code>mysql_native_password</code> is deprecated (going away), <strong>disabled by default in 8.4</strong> and <strong>removed in 9.0</strong>. Old drivers that only support it must be upgraded.</li>
           </ul>
         </div>
 
@@ -1847,16 +1847,16 @@ module MysqlContent
               <tr><td>Global</td><td><code>ON *.*</code></td><td>DBAs only</td></tr>
               <tr><td>Database</td><td><code>ON shop.*</code></td><td>the application</td></tr>
               <tr><td>Table / column</td><td><code>ON shop.orders</code>, <code>SELECT (col)</code></td><td>reporting, analysts</td></tr>
-              <tr><td>Routine</td><td><code>ON PROCEDURE shop.x</code></td><td>apps that may only call procedures</td></tr>
+              <tr><td>Routine</td><td><code>ON PROCEDURE shop.x</code></td><td>apps that can only call procedures</td></tr>
             </tbody>
           </table>
-          <p>Since MySQL 8.0, <code>GRANT</code> no longer creates accounts — run <code>CREATE USER</code> first. <code>FLUSH PRIVILEGES</code> is not needed after GRANT, REVOKE or CREATE USER; it only matters if someone edits the grant tables directly (don't).</p>
+          <p>Since MySQL 8.0, <code>GRANT</code> does not create accounts. Run <code>CREATE USER</code> first. You do not need <code>FLUSH PRIVILEGES</code> after GRANT, REVOKE or CREATE USER. It only matters if someone edits the grant tables directly (do not do this).</p>
         </div>
 
         <div class="lc-card">
           <h3>Roles (MySQL 8.0+)</h3>
         <div class="lc-code">CREATE ROLE 'app_read', 'app_write';<br>GRANT SELECT ON shop.* TO 'app_read';<br>GRANT INSERT, UPDATE, DELETE ON shop.* TO 'app_write';<br><br>GRANT 'app_read', 'app_write' TO 'shop_app'@'10.0.1.%';<br>GRANT 'app_read' TO 'report'@'localhost';<br>SET DEFAULT ROLE ALL TO 'shop_app'@'10.0.1.%', 'report'@'localhost';</div>
-          <p>A role is a named bundle of privileges. Grant privileges to roles and roles to people; when someone changes team you change one line. Granted roles are <strong>inactive until activated</strong> — <code>SET DEFAULT ROLE</code> activates them at login.</p>
+          <p>A role is a named group of privileges. Grant privileges to roles, and grant roles to people. When someone changes team, you change only one line. Granted roles are <strong>inactive until activated</strong>. <code>SET DEFAULT ROLE</code> turns them on at login.</p>
         </div>
 
         <div class="lc-card">
@@ -1868,29 +1868,29 @@ module MysqlContent
           <h3>Least-Privilege Checklist</h3>
           <ul class="lc-list">
             <li>One account per application (and per environment), never <code>root</code>.</li>
-            <li>Apps get only DML (<code>SELECT, INSERT, UPDATE, DELETE</code>) on their own database. Schema changes run from a separate migration account.</li>
+            <li>Apps get only DML (data commands: <code>SELECT, INSERT, UPDATE, DELETE</code>) on their own database. Schema changes run from a separate migration account.</li>
             <li>No <code>GRANT OPTION</code>, <code>SUPER</code>, <code>FILE</code> or <code>*.*</code> for apps.</li>
-            <li>Keep MySQL off the public internet: <code>bind-address</code> on a private interface, a firewall, and TLS for remote connections.</li>
-            <li>Store passwords in a secrets manager or environment variables, not in the code repository.</li>
+            <li>Do not expose MySQL to the public internet. Use <code>bind-address</code> on a private network interface, a firewall, and TLS (encryption) for remote connections.</li>
+            <li>Keep passwords in a secrets manager or in environment variables, not in the code repository.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Thinking <code>'app'@'localhost'</code> and <code>'app'@'%'</code> are the same account — they are two different accounts with separate passwords and grants.</li>
-            <li><code>GRANT ALL ON *.*</code> "just to make it work".</li>
-            <li>Forgetting <code>SET DEFAULT ROLE</code>, then wondering why the user has no privileges.</li>
+            <li>Thinking <code>'app'@'localhost'</code> and <code>'app'@'%'</code> are the same account. They are two different accounts, with separate passwords and grants.</li>
+            <li>Using <code>GRANT ALL ON *.*</code> "just to make it work".</li>
+            <li>Forgetting <code>SET DEFAULT ROLE</code>. Then the user seems to have no privileges.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>User management needs a real server, so the starter runs an <em>access review</em> on a small copy of grant data. Add a query that finds accounts holding any privilege on <code>*.*</code>, then write (for a real server) the REVOKE statements to fix them.</p>
+          <p>User management needs a real server. So the starter runs an <em>access review</em> (a check of who can do what) on a small copy of grant data. Add a query that finds accounts with any privilege on <code>*.*</code>. Then write the REVOKE statements that would fix them on a real server.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> On a real server, <code>SELECT user, host, plugin FROM mysql.user;</code> quickly shows every account, where it can log in from, and whether any still use an old authentication plugin.
+          <strong>Tip:</strong> On a real server, <code>SELECT user, host, plugin FROM mysql.user;</code> quickly shows every account and where it can log in from. It also shows if any account still uses an old authentication plugin.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -1942,16 +1942,16 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Backups and Replication</h1>
         </div>
-        <p class="lc-lead">Disks fail, people run <code>DELETE</code> without WHERE, and servers get hacked. A <strong>backup</strong> you have actually restored is the only real protection. <strong>Replication</strong> copies every change to other servers for high availability and read scaling — but it is <em>not</em> a backup.</p>
+        <p class="lc-lead">Disks fail. People run <code>DELETE</code> without WHERE. Servers get hacked. The only real protection is a <strong>backup</strong> that you have actually restored and tested. <strong>Replication</strong> copies every change to other servers. This keeps the database available and spreads the reads. But it is <em>not</em> a backup.</p>
 
         <div class="lc-card">
           <h3>Backup Types</h3>
           <table class="lc-table">
             <thead><tr><th>Type</th><th>Tools</th><th>Good for</th></tr></thead>
             <tbody>
-              <tr><td>Logical (SQL statements)</td><td><code>mysqldump</code>, MySQL Shell <code>util.dumpInstance()</code></td><td>small/medium databases, moving between versions, restoring one table</td></tr>
+              <tr><td>Logical (SQL statements)</td><td><code>mysqldump</code>, MySQL Shell <code>util.dumpInstance()</code></td><td>small or medium databases, moving between versions, restoring one table</td></tr>
               <tr><td>Physical (copies data files)</td><td>Percona XtraBackup, MySQL Enterprise Backup, the CLONE plugin</td><td>large databases, fast full restores</td></tr>
-              <tr><td>Point-in-time recovery</td><td>a full backup + the <strong>binary log</strong> replayed with <code>mysqlbinlog</code></td><td>"restore to 10:41, just before the bad DELETE"</td></tr>
+              <tr><td>Point-in-time recovery</td><td>a full backup + the <strong>binary log</strong> replayed with <code>mysqlbinlog</code></td><td>"restore to 10:41, just before the wrong DELETE"</td></tr>
             </tbody>
           </table>
         </div>
@@ -1960,17 +1960,17 @@ module MysqlContent
           <h3>mysqldump</h3>
         <div class="lc-code"># Consistent backup of one database without locking InnoDB tables<br>mysqldump -u backup -p --single-transaction --routines --events \<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--databases shop &gt; shop_2026-09-25.sql<br><br># Restore<br>mysql -u root -p &lt; shop_2026-09-25.sql<br><br># One table only<br>mysqldump -u backup -p --single-transaction shop orders &gt; orders.sql</div>
           <ul class="lc-list">
-            <li><code>--single-transaction</code> takes a consistent snapshot of InnoDB tables without blocking writes.</li>
-            <li>Triggers are dumped by default; <strong>stored procedures/functions (<code>--routines</code>) and events (<code>--events</code>) are not</strong> — add the flags.</li>
-            <li><code>mysqlpump</code> was deprecated and is removed in MySQL 8.4. For big databases, MySQL Shell's <code>util.dumpInstance()</code> / <code>util.loadDump()</code> dump and load in parallel and are much faster.</li>
+            <li><code>--single-transaction</code> takes a consistent snapshot (a copy of all tables at one moment) of InnoDB tables. It does not block writes.</li>
+            <li>Triggers are included by default. <strong>Stored procedures/functions (<code>--routines</code>) and events (<code>--events</code>) are not</strong>, so add these flags.</li>
+            <li><code>mysqlpump</code> was deprecated and is removed in MySQL 8.4. For big databases, use MySQL Shell's <code>util.dumpInstance()</code> / <code>util.loadDump()</code>. They dump and load in parallel and are much faster.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>The Binary Log and Point-in-Time Recovery</h3>
-          <p>The binary log (on by default since MySQL 8.0, in <code>ROW</code> format) records every change. Replay it on top of last night's backup, stopping just before the mistake:</p>
+          <p>The binary log records every change. It is on by default since MySQL 8.0, in <code>ROW</code> format. Restore last night's backup, then replay the log on top of it. Stop just before the mistake:</p>
         <div class="lc-code">mysqlbinlog --stop-datetime="2026-09-25 10:41:00" binlog.000042 binlog.000043 | mysql -u root -p</div>
-          <p>Binary logs are kept for 30 days by default (<code>binlog_expire_logs_seconds</code>). Copy them off the server along with your backups.</p>
+          <p>Binary logs are kept for 30 days by default (<code>binlog_expire_logs_seconds</code>). Copy them to another place, together with your backups.</p>
         </div>
 
         <div class="lc-card">
@@ -1978,16 +1978,16 @@ module MysqlContent
         <div class="lc-code">[source]&nbsp;&nbsp;--binary log--&gt;&nbsp;&nbsp;[replica 1]&nbsp;&nbsp;(reads, reports)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\--&gt;&nbsp;&nbsp;[replica 2]&nbsp;&nbsp;(standby for failover)</div>
         <div class="lc-code">-- on the replica (MySQL 8.4 and later syntax, with GTIDs)<br>CHANGE REPLICATION SOURCE TO<br>&nbsp;&nbsp;&nbsp;&nbsp;SOURCE_HOST = '10.0.1.10', SOURCE_USER = 'repl', SOURCE_PASSWORD = '...',<br>&nbsp;&nbsp;&nbsp;&nbsp;SOURCE_AUTO_POSITION = 1, SOURCE_SSL = 1;<br>START REPLICA;<br>SHOW REPLICA STATUS\G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- check Replica_IO_Running, Replica_SQL_Running, Seconds_Behind_Source</div>
           <ul class="lc-list">
-            <li>Replication is <strong>asynchronous</strong> by default: a replica may be seconds behind (replication lag). Reading from a replica right after writing to the source can show old data.</li>
-            <li><strong>GTIDs</strong> (global transaction ids) let replicas track their position automatically — use them.</li>
+            <li>Replication is <strong>asynchronous</strong> by default. This means a replica (copy server) can be some seconds behind. This delay is called replication lag. If you read from a replica right after writing to the source, you may see old data.</li>
+            <li><strong>GTIDs</strong> (global transaction ids) let replicas keep track of their position by themselves. Use them.</li>
             <li>The old commands <code>CHANGE MASTER TO</code>, <code>START SLAVE</code> and <code>SHOW SLAVE STATUS</code> were <strong>removed in MySQL 8.4</strong>. Old tutorials still show them.</li>
-            <li>For automatic failover, MySQL offers <strong>Group Replication</strong> and <strong>InnoDB Cluster</strong> (Group Replication + MySQL Router + MySQL Shell).</li>
+            <li>For automatic failover (switching to a standby server when the main one fails), MySQL offers <strong>Group Replication</strong> and <strong>InnoDB Cluster</strong> (Group Replication + MySQL Router + MySQL Shell).</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Replication Is Not a Backup</h3>
-          <p>If someone runs <code>DROP TABLE orders</code> on the source, every replica drops it within a second. Replication protects you from a <em>server</em> failing, not from a <em>mistake</em>. You need both.</p>
+          <p>If someone runs <code>DROP TABLE orders</code> on the source, every replica drops it within a second. Replication protects you when a <em>server</em> fails. It does not protect you from a <em>mistake</em>. You need both.</p>
         </div>
 
         <div class="lc-card">
@@ -1995,11 +1995,11 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th>Tool</th><th>What it tells you</th></tr></thead>
             <tbody>
-              <tr><td><code>my.cnf</code> / <code>SET PERSIST</code></td><td>server settings; <code>SET PERSIST max_connections = 300;</code> changes a variable now and keeps it after a restart</td></tr>
-              <tr><td>Error log</td><td>startup problems, crashes and replication errors — the first place to look (<code>SELECT @@log_error;</code>)</td></tr>
-              <tr><td>Slow query log</td><td>every query slower than <code>long_query_time</code>; summarise it with <code>mysqldumpslow</code></td></tr>
+              <tr><td><code>my.cnf</code> / <code>SET PERSIST</code></td><td>server settings; <code>SET PERSIST max_connections = 300;</code> changes a setting now and keeps it after a restart</td></tr>
+              <tr><td>Error log</td><td>startup problems, crashes and replication errors; the first place to look (<code>SELECT @@log_error;</code>)</td></tr>
+              <tr><td>Slow query log</td><td>every query slower than <code>long_query_time</code>; get a summary with <code>mysqldumpslow</code></td></tr>
               <tr><td><code>SHOW PROCESSLIST</code></td><td>who is connected and what each connection is running right now</td></tr>
-              <tr><td><code>information_schema</code></td><td>metadata as tables: <code>SELECT table_name, table_rows FROM information_schema.tables WHERE table_schema = 'shop';</code></td></tr>
+              <tr><td><code>information_schema</code></td><td>metadata (data about your tables) as tables: <code>SELECT table_name, table_rows FROM information_schema.tables WHERE table_schema = 'shop';</code></td></tr>
               <tr><td><code>performance_schema</code> and <code>sys</code></td><td>live statistics; for example <code>SELECT * FROM sys.statement_analysis LIMIT 5;</code> (heaviest queries) and <code>sys.schema_unused_indexes</code></td></tr>
             </tbody>
           </table>
@@ -2008,20 +2008,20 @@ module MysqlContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Never testing a restore — many teams discover a broken backup on the day they need it.</li>
-            <li>Forgetting <code>--routines --events</code>, then restoring a database with no procedures.</li>
-            <li>Keeping backups only on the same server (or the same cloud account) as the database.</li>
-            <li>Sending all reads to replicas without handling lag.</li>
+            <li>Never testing a restore. Many teams find out a backup is broken on the day they need it.</li>
+            <li>Forgetting <code>--routines --events</code>. The restored database then has no procedures.</li>
+            <li>Keeping backups only on the same server as the database (or in the same cloud account).</li>
+            <li>Sending all reads to replicas without handling replication lag.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>The starter is a trimmed <code>mysqldump</code> file. Run it to "restore" the database, then write more verification queries: orders per customer and the newest <code>created_at</code>. In a real restore you compare these numbers with the source server.</p>
+          <p>The starter is a short <code>mysqldump</code> file. Run it to "restore" the database. Then write more queries to check it: orders per customer and the newest <code>created_at</code>. In a real restore, you compare these numbers with the source server.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Follow the <strong>3-2-1 rule</strong>: 3 copies of your data, on 2 different kinds of storage, with 1 copy off-site. Then schedule a monthly restore test and record how long it took — that is your real recovery time.
+          <strong>Tip:</strong> Follow the <strong>3-2-1 rule</strong>: keep 3 copies of your data, on 2 different kinds of storage, with 1 copy in another place. Then test a restore every month and write down how long it took. That is your real recovery time.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -2038,7 +2038,7 @@ module MysqlContent
           PRIMARY KEY (`id`)
         ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-        INSERT INTO `customers` VALUES (1,'Kavya','Madurai'),(2,'Laksh','Bhopal'),(3,'Manav','Madurai');
+        INSERT INTO `customers` VALUES (1,'Kavya','Glasgow'),(2,'Laksh','Nottingham'),(3,'Manav','Glasgow');
 
         DROP TABLE IF EXISTS `orders`;
         CREATE TABLE `orders` (
@@ -2073,18 +2073,18 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">MySQL in Applications</h1>
         </div>
-        <p class="lc-lead">Most SQL is sent by programs, not typed by people. This lesson covers the habits that make an application talk to MySQL safely and quickly: <strong>parameterised queries</strong> against SQL injection, connection pools, correct charset and time zone settings, efficient pagination, and avoiding the N+1 query problem.</p>
+        <p class="lc-lead">Most SQL is sent by programs, not typed by people. This lesson shows good habits that help an application use MySQL safely and quickly. They are: <strong>parameterised queries</strong> to stop SQL injection, connection pools, correct charset and time zone settings, fast pagination, and avoiding the N+1 query problem.</p>
 
         <div class="lc-card">
           <h3>SQL Injection in One Example</h3>
         <div class="lc-code"># DANGEROUS: user input pasted into the SQL text<br>email = request.form["email"]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# attacker types:&nbsp;&nbsp;' OR '1'='1<br>sql = "SELECT id, name FROM users WHERE email = '" + email + "'"<br># becomes: SELECT id, name FROM users WHERE email = '' OR '1'='1'&nbsp;&nbsp;&nbsp;-&gt; every user!</div>
-          <p>The attacker's text became part of the SQL <em>code</em>. The fix is not "escape quotes carefully" — it is to send the SQL and the values <strong>separately</strong>, so input is always treated as data. Injection has appeared in every edition of the OWASP Top 10 list of web security risks.</p>
+          <p>The attacker's text became part of the SQL <em>code</em>. The fix is not "escape quotes carefully". The fix is to send the SQL and the values <strong>separately</strong>. Then input is always treated as data. Injection has been in every edition of the OWASP Top 10, a list of the main web security risks.</p>
         </div>
 
         <div class="lc-card">
           <h3>Parameterised Queries in Popular Drivers</h3>
         <div class="lc-code"># Python (mysql-connector-python / PyMySQL)<br>cur.execute("SELECT id, name FROM users WHERE email = %s", (email,))<br><br>// Node.js (mysql2)<br>const [rows] = await pool.execute("SELECT id, name FROM users WHERE email = ?", [email]);<br><br>// PHP (PDO)<br>$stmt = $pdo-&gt;prepare("SELECT id, name FROM users WHERE email = ?");<br>$stmt-&gt;execute([$email]);<br><br>// Java (JDBC)<br>PreparedStatement ps = conn.prepareStatement("SELECT id, name FROM users WHERE email = ?");<br>ps.setString(1, email);</div>
-          <p>Placeholders work for <strong>values</strong> only. Table names, column names and <code>ASC</code>/<code>DESC</code> cannot be parameters — pick them from a fixed allow-list in code (<code>sort = "price" if choice == "price" else "name"</code>). Inside MySQL itself the same idea is <code>PREPARE stmt FROM '... WHERE email = ?'; EXECUTE stmt USING @email;</code>.</p>
+          <p>Placeholders work for <strong>values</strong> only. Table names, column names and <code>ASC</code>/<code>DESC</code> cannot be parameters. Choose them from a fixed allow-list (a list of allowed values) in code (<code>sort = "price" if choice == "price" else "name"</code>). Inside MySQL itself, the same idea is <code>PREPARE stmt FROM '... WHERE email = ?'; EXECUTE stmt USING @email;</code>.</p>
         </div>
 
         <div class="lc-card">
@@ -2092,11 +2092,11 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th>Setting</th><th>Recommendation</th></tr></thead>
             <tbody>
-              <tr><td>Connection pool</td><td>reuse a small pool (e.g. 5–20 per app server); opening a connection per request is slow. Server limit: <code>max_connections</code> (151 by default).</td></tr>
+              <tr><td>Connection pool</td><td>reuse a small pool of open connections (e.g. 5–20 per app server). Opening a new connection for each request is slow. Server limit: <code>max_connections</code> (151 by default).</td></tr>
               <tr><td>Charset</td><td><code>utf8mb4</code> in the connection options (lesson 4)</td></tr>
-              <tr><td>Time zone</td><td>store UTC; set the session time zone to <code>'+00:00'</code> and convert for display in the app</td></tr>
-              <tr><td>TLS</td><td>required for any connection that leaves the machine</td></tr>
-              <tr><td>Credentials</td><td>from environment variables or a secrets manager, never in the repository</td></tr>
+              <tr><td>Time zone</td><td>store UTC; set the session time zone to <code>'+00:00'</code>, and convert the time for display in the app</td></tr>
+              <tr><td>TLS</td><td>needed for every connection that goes outside the machine</td></tr>
+              <tr><td>Credentials</td><td>keep them in environment variables or a secrets manager, never in the repository</td></tr>
             </tbody>
           </table>
         </div>
@@ -2104,32 +2104,32 @@ module MysqlContent
         <div class="lc-card">
           <h3>The N+1 Query Problem</h3>
         <div class="lc-code"># 1 query for the orders, then 1 more query PER order = N+1 round trips<br>orders = query("SELECT id, customer_id FROM orders LIMIT 50")<br>for o in orders:<br>&nbsp;&nbsp;&nbsp;&nbsp;o.customer = query("SELECT name FROM customers WHERE id = %s", (o.customer_id,))<br><br># Better: one JOIN (or one WHERE id IN (...) query)<br>query("""SELECT o.id, c.name FROM orders o<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JOIN customers c ON c.id = o.customer_id LIMIT 50""")</div>
-          <p>ORMs (Django ORM, SQLAlchemy, Sequelize, Eloquent, Hibernate) make N+1 easy to write by accident; use their eager-loading options (<code>select_related</code>, <code>joinedload</code>, <code>include</code>, <code>with</code>).</p>
+          <p>ORMs (Django ORM, SQLAlchemy, Sequelize, Eloquent, Hibernate) make it easy to write N+1 by mistake. Use their eager-loading options, which load related rows in one go (<code>select_related</code>, <code>joinedload</code>, <code>include</code>, <code>with</code>).</p>
         </div>
 
         <div class="lc-card">
           <h3>Pagination</h3>
         <div class="lc-code">SELECT id, title FROM posts ORDER BY id DESC LIMIT 20 OFFSET 40;&nbsp;&nbsp;&nbsp;-- page 3<br>SELECT id, title FROM posts ORDER BY id DESC LIMIT 40, 20;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- same, MySQL form<br>SELECT id, title FROM posts WHERE id &lt; 1234 ORDER BY id DESC LIMIT 20;&nbsp;&nbsp;-- keyset: after id 1234</div>
-          <p>OFFSET must read and throw away all earlier rows, so page 5,000 is slow. Keyset pagination stays fast with an index on the sort column.</p>
+          <p>OFFSET must read and throw away all earlier rows, so page 5,000 is slow. Keyset pagination (starting after the last id you saw) stays fast with an index on the sort column.</p>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>String-building SQL with user input, even "just for an internal tool".</li>
+            <li>Building SQL strings with user input, even "just for an internal tool".</li>
             <li>Connecting as <code>root</code> from the app.</li>
-            <li>A new connection for every query, or a pool bigger than the server can handle.</li>
-            <li>No retry for deadlock errors (1213) in transactional code.</li>
+            <li>Opening a new connection for every query, or using a pool bigger than the server can handle.</li>
+            <li>Not retrying after deadlock errors (1213) in code that uses transactions.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>In the starter, set <code>@email</code> to another attack string such as <code>x' OR 1=1 -- </code> and confirm the parameterised query still returns no rows. Then fetch page 2 of the posts with keyset pagination.</p>
+          <p>In the starter, set <code>@email</code> to another attack string such as <code>x' OR 1=1 -- </code> and check that the parameterised query still returns no rows. Then get page 2 of the posts with keyset pagination.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Log slow queries <em>from the app side</em> too (query text + parameters + time). When a page is slow, you can see immediately whether it ran one heavy query or 200 small ones.
+          <strong>Tip:</strong> Log slow queries <em>from the app side</em> too (query text + parameters + time). When a page is slow, you can see at once if it ran one heavy query or 200 small ones.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -2175,7 +2175,7 @@ module MysqlContent
           <div class="lc-badge le-badge le-badge-mysql">MySQL</div>
           <h1 class="lc-title">Capstone: A MySQL Shop Database</h1>
         </div>
-        <p class="lc-lead">Build the database for <em>Desi Bazaar</em>, a small online shop, using the MySQL features from this course: correct types and charset, InnoDB constraints, JSON attributes with an indexed generated column, a transaction that places an order, an upsert, an audit trigger, and a window-function report. Then write the production checklist a real team would review.</p>
+        <p class="lc-lead">Build the database for <em>Desi Bazaar</em>, a small online shop. Use the MySQL features from this course: correct types and charset, InnoDB constraints, JSON attributes with an indexed generated column, a transaction that places an order, an upsert (insert or update), an audit trigger, and a window-function report. Then write the production checklist that a real team would review.</p>
 
         <div class="lc-card">
           <h3>Requirements</h3>
@@ -2186,9 +2186,9 @@ module MysqlContent
               <tr><td>Exact prices, no negative stock</td><td><code>DECIMAL(10,2)</code>, <code>UNSIGNED</code>, <code>CHECK</code></td><td>2, 6</td></tr>
               <tr><td>Orders belong to real customers</td><td>InnoDB foreign keys</td><td>6</td></tr>
               <tr><td>Different attributes per product type</td><td><code>JSON</code> + generated column + index</td><td>11, 12</td></tr>
-              <tr><td>Placing an order is all-or-nothing</td><td><code>START TRANSACTION</code>, <code>LAST_INSERT_ID()</code></td><td>5, 13</td></tr>
-              <tr><td>Restocking adds to existing rows</td><td><code>ON DUPLICATE KEY UPDATE</code></td><td>7</td></tr>
-              <tr><td>Every stock change is audited</td><td><code>AFTER UPDATE</code> trigger</td><td>16</td></tr>
+              <tr><td>Placing an order fully succeeds or fully fails</td><td><code>START TRANSACTION</code>, <code>LAST_INSERT_ID()</code></td><td>5, 13</td></tr>
+              <tr><td>Adding new stock updates existing rows</td><td><code>ON DUPLICATE KEY UPDATE</code></td><td>7</td></tr>
+              <tr><td>Every stock change is recorded</td><td><code>AFTER UPDATE</code> trigger</td><td>16</td></tr>
               <tr><td>Monthly revenue with running total</td><td>CTE + <code>SUM() OVER</code></td><td>10</td></tr>
             </tbody>
           </table>
@@ -2197,7 +2197,7 @@ module MysqlContent
         <div class="lc-card">
           <h3>Placing an Order Safely</h3>
         <div class="lc-code">START TRANSACTION;<br>UPDATE products SET stock = stock - 2 WHERE id = 1 AND stock &gt;= 2;&nbsp;&nbsp;&nbsp;-- 0 rows? -&gt; ROLLBACK<br>INSERT INTO orders (customer_id, ordered_at) VALUES (1, '2026-09-25 10:00:00');<br>SET @order_id = LAST_INSERT_ID();<br>INSERT INTO order_items (order_id, product_id, qty, unit_price)<br>SELECT @order_id, id, 2, price FROM products WHERE id = 1;<br>COMMIT;</div>
-          <p>The conditional UPDATE both checks and reserves the stock in one atomic statement; the order line copies the <em>current</em> price so old bills never change.</p>
+          <p>The conditional UPDATE checks the stock and reserves it in one atomic statement. The order line copies the <em>current</em> price, so old bills never change.</p>
         </div>
 
         <div class="lc-card">
@@ -2208,35 +2208,35 @@ module MysqlContent
         <div class="lc-card">
           <h3>Going to Production: Checklist</h3>
           <ul class="lc-list">
-            <li><strong>Accounts (lesson 17):</strong> <code>shop_app</code> with only SELECT/INSERT/UPDATE/DELETE on <code>shop.*</code>; a separate migration account; nobody uses root.</li>
-            <li><strong>Indexes (lesson 14):</strong> run <code>EXPLAIN</code> on the five most frequent queries; foreign keys and <code>brand</code> are indexed.</li>
-            <li><strong>Backups (lesson 18):</strong> nightly <code>mysqldump --single-transaction --routines --events</code> (or MySQL Shell dump), binary logs kept, a tested restore.</li>
+            <li><strong>Accounts (lesson 17):</strong> <code>shop_app</code> with only SELECT/INSERT/UPDATE/DELETE on <code>shop.*</code>. Use a separate migration account. Nobody uses root.</li>
+            <li><strong>Indexes (lesson 14):</strong> run <code>EXPLAIN</code> on the five most common queries. Make sure foreign keys and <code>brand</code> have indexes.</li>
+            <li><strong>Backups (lesson 18):</strong> nightly <code>mysqldump --single-transaction --routines --events</code> (or a MySQL Shell dump). Keep the binary logs, and test a restore.</li>
             <li><strong>Server:</strong> MySQL 8.4 or 9.7 LTS, strict <code>sql_mode</code> left on, TLS for remote connections.</li>
-            <li><strong>Application (lesson 19):</strong> parameterised queries, a connection pool, retry on deadlock.</li>
+            <li><strong>Application (lesson 19):</strong> parameterised queries, a connection pool, and a retry after a deadlock.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Common Mistakes to Check</h3>
           <ul class="lc-list">
-            <li>Revenue computed from <code>products.price</code> instead of <code>order_items.unit_price</code>.</li>
+            <li>Calculating revenue from <code>products.price</code> instead of <code>order_items.unit_price</code>.</li>
             <li>Placing an order without checking that the stock UPDATE changed a row.</li>
-            <li>Using <code>REPLACE</code> for restocking and wiping the product's other columns.</li>
+            <li>Using <code>REPLACE</code> to add stock. This wipes the product's other columns.</li>
           </ul>
         </div>
 
         <div class="lc-card">
-          <h3>Try It — Extend the Project</h3>
+          <h3>Try It: Extend the Project</h3>
           <ol class="lc-list">
-            <li>Add a <code>reviews</code> table (1–5 stars with CHECK, text in utf8mb4) and show the average rating per product.</li>
-            <li>Place a second order for Anika inside a transaction and check that the stock audit trigger logged it.</li>
+            <li>Add a <code>reviews</code> table (1–5 stars with CHECK, text in utf8mb4). Show the average rating for each product.</li>
+            <li>Place a second order for Anika inside a transaction. Check that the stock audit trigger recorded it.</li>
             <li>Rank customers by total spend with <code>DENSE_RANK()</code>.</li>
-            <li>On a real server: create the <code>shop_app</code> account and role, take a mysqldump, and restore it into a new database.</li>
+            <li>On a real server: create the <code>shop_app</code> account and role. Take a mysqldump and restore it into a new database.</li>
           </ol>
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Save the final script as <code>schema.sql</code> and <code>seed.sql</code> in a Git repository with a short README. A clean, commented MySQL schema with a working order transaction is a strong portfolio piece for backend interviews.
+          <strong>Tip:</strong> Save the final script as <code>schema.sql</code> and <code>seed.sql</code> in a Git repository with a short README. A clean MySQL schema with comments and a working order transaction is a strong project to show in backend job interviews.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -2265,7 +2265,7 @@ module MysqlContent
         CREATE TRIGGER trg_stock_audit AFTER UPDATE ON products FOR EACH ROW
         INSERT INTO stock_log VALUES (NEW.id, OLD.stock, NEW.stock);
 
-        INSERT INTO customers (name, city) VALUES ('Anika', 'Pune'), ('Bhuvan', 'Kochi');
+        INSERT INTO customers (name, city) VALUES ('Anika', 'London'), ('Bhuvan', 'Boston');
         INSERT INTO products (sku, name, price, stock, attrs) VALUES
             ('SAREE-01', 'Silk Saree',  2499.00, 5, '{"brand": "Kanchi", "fabric": "silk"}'),
             ('KETTLE-1', 'Kettle 1.5L',  599.00, 8, '{"brand": "Prestige", "watts": 1500}');

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="730" viewBox="0 0 1200 730">
+<rect width="1200" height="100%" fill="#ffffff"/>
+<rect x="10" y="10" width="1180" height="710" rx="14" fill="#111827"/>
+<path d="M10 24 a14 14 0 0 1 14 -14 h1152 a14 14 0 0 1 14 14 v26 h-1180 z" fill="#1f2937"/>
+<circle cx="40" cy="30" r="8" fill="#ef4444"/>
+<circle cx="66" cy="30" r="8" fill="#f59e0b"/>
+<circle cx="92" cy="30" r="8" fill="#22c55e"/>
+<text x="600" y="37" text-anchor="middle" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="20" fill="#9ca3af">Terminal: ~/photobook</text>
+<text x="34" y="92" font-family="Menlo, Consolas, monospace" font-size="20" xml:space="preserve"><tspan fill="#4ade80">$ </tspan><tspan fill="#f9fafb">eb create photobook-env --single --instance_profile photobook-ec2-role</tspan></text>
+<text x="34" y="122" font-family="Menlo, Consolas, monospace" font-size="20" fill="#d1d5db" xml:space="preserve">Creating application version archive &quot;app-260927_153012&quot;.</text>
+<text x="34" y="152" font-family="Menlo, Consolas, monospace" font-size="20" fill="#d1d5db" xml:space="preserve">Uploading photobook/app-260927_153012.zip to S3. This may take a while.</text>
+<text x="34" y="182" font-family="Menlo, Consolas, monospace" font-size="20" fill="#d1d5db" xml:space="preserve">Upload Complete.</text>
+<text x="34" y="212" font-family="Menlo, Consolas, monospace" font-size="20" fill="#d1d5db" xml:space="preserve">Environment details for: photobook-env</text>
+<text x="34" y="242" font-family="Menlo, Consolas, monospace" font-size="20" fill="#d1d5db" xml:space="preserve">  Application name: photobook</text>
+<text x="34" y="272" font-family="Menlo, Consolas, monospace" font-size="20" fill="#d1d5db" xml:space="preserve">  Region: eu-west-2</text>
+<text x="34" y="302" font-family="Menlo, Consolas, monospace" font-size="20" fill="#d1d5db" xml:space="preserve">  Platform: ...Python 3.13 running on 64bit Amazon Linux 2023/4.13.9</text>
+<text x="34" y="332" font-family="Menlo, Consolas, monospace" font-size="20" fill="#d1d5db" xml:space="preserve">  Tier: WebServer-Standard-1.0</text>
+<text x="34" y="362" font-family="Menlo, Consolas, monospace" font-size="20" fill="#d1d5db" xml:space="preserve">Printing Status:</text>
+<text x="34" y="392" font-family="Menlo, Consolas, monospace" font-size="20" fill="#93c5fd" xml:space="preserve">2026-09-27 10:00:32    INFO    createEnvironment is starting.</text>
+<text x="34" y="422" font-family="Menlo, Consolas, monospace" font-size="20" fill="#93c5fd" xml:space="preserve">2026-09-27 10:00:34    INFO    Using elasticbeanstalk-eu-west-2-123456789012 as</text>
+<text x="34" y="452" font-family="Menlo, Consolas, monospace" font-size="20" fill="#93c5fd" xml:space="preserve">                               Amazon S3 storage bucket for environment data.</text>
+<text x="34" y="482" font-family="Menlo, Consolas, monospace" font-size="20" fill="#93c5fd" xml:space="preserve">2026-09-27 10:01:02    INFO    Created security group named: sg-0a1b2c3d4e5f67890</text>
+<text x="34" y="512" font-family="Menlo, Consolas, monospace" font-size="20" fill="#93c5fd" xml:space="preserve">2026-09-27 10:01:18    INFO    Created EIP: 203.0.113.10</text>
+<text x="34" y="542" font-family="Menlo, Consolas, monospace" font-size="20" fill="#93c5fd" xml:space="preserve">2026-09-27 10:01:40    INFO    Waiting for EC2 instances to launch. This may take</text>
+<text x="34" y="572" font-family="Menlo, Consolas, monospace" font-size="20" fill="#93c5fd" xml:space="preserve">                               a few minutes.</text>
+<text x="34" y="602" font-family="Menlo, Consolas, monospace" font-size="20" fill="#93c5fd" xml:space="preserve">2026-09-27 10:03:55    INFO    Instance deployment completed successfully.</text>
+<text x="34" y="632" font-family="Menlo, Consolas, monospace" font-size="20" fill="#4ade80" xml:space="preserve">2026-09-27 10:04:31    INFO    Application available at</text>
+<text x="34" y="662" font-family="Menlo, Consolas, monospace" font-size="20" fill="#4ade80" xml:space="preserve">                    photobook-env.eba-abcd1234.eu-west-2.elasticbeanstalk.com.</text>
+<text x="34" y="692" font-family="Menlo, Consolas, monospace" font-size="20" fill="#4ade80" xml:space="preserve">2026-09-27 10:04:32    INFO    Successfully launched environment: photobook-env</text>
+</svg>

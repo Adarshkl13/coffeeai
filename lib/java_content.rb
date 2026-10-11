@@ -6,14 +6,14 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Introduction to Java</h1>
         </div>
-        <p class="lc-lead">Java is a general-purpose, <strong>strongly typed, object-oriented</strong> language created by James Gosling at Sun Microsystems in 1995 (now owned by Oracle). Its promise is <em>"Write Once, Run Anywhere"</em>: you compile once, and the same program runs on Windows, macOS, Linux or a server in the cloud.</p>
+        <p class="lc-lead">Java is a general-purpose programming language. It is <strong>strongly typed, object-oriented</strong>: every value has a fixed type, and code is built from objects. James Gosling created it at Sun Microsystems in 1995. Oracle owns it now. Its motto is <em>"Write Once, Run Anywhere"</em>. You compile (translate) your code once. Then the same program runs on Windows, macOS, Linux or a cloud server.</p>
         <div class="lc-card">
           <h3>Where Java Is Used</h3>
           <ul class="lc-list">
-            <li><strong>Backend services</strong> — banking, insurance, e-commerce and payment systems, very often built with the Spring Boot framework.</li>
-            <li><strong>Android apps</strong> — Android's own libraries are written in Java; new apps are often written in Kotlin, which also runs on the JVM.</li>
-            <li><strong>Big data and messaging</strong> — tools such as Apache Kafka, Hadoop and Elasticsearch run on the JVM.</li>
-            <li><strong>Campus placements</strong> — Java is one of the most common languages in coding rounds and in fresher training at IT services companies.</li>
+            <li><strong>Backend services</strong>: banking, insurance, e-commerce and payment systems. These are often built with the Spring Boot framework.</li>
+            <li><strong>Android apps</strong>: Android's own libraries are written in Java. Many new apps use Kotlin, which also runs on the JVM.</li>
+            <li><strong>Big data and messaging</strong>: tools such as Apache Kafka, Hadoop and Elasticsearch run on the JVM.</li>
+            <li><strong>Campus placements</strong>: Java is very common in coding rounds. IT services companies also use it to train freshers.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -28,27 +28,27 @@ module JavaContent
           <table class="lc-table">
             <thead><tr><th>Term</th><th>What it is</th></tr></thead>
             <tbody>
-              <tr><td><strong>JDK</strong> (Java Development Kit)</td><td>Everything a developer needs: the compiler <code>javac</code>, the <code>java</code> launcher, the standard library and tools. Install this.</td></tr>
-              <tr><td><strong>JVM</strong> (Java Virtual Machine)</td><td>The program that loads bytecode and runs it. It uses a JIT (just-in-time) compiler to turn hot code into fast machine code.</td></tr>
+              <tr><td><strong>JDK</strong> (Java Development Kit)</td><td>Everything you need to build Java programs: the compiler <code>javac</code>, the <code>java</code> launcher, the standard library and tools. Install this.</td></tr>
+              <tr><td><strong>JVM</strong> (Java Virtual Machine)</td><td>The program that loads bytecode and runs it. It has a JIT (just-in-time) compiler. The JIT turns code that runs often into fast machine code.</td></tr>
               <tr><td><strong>Bytecode</strong></td><td>The portable instructions inside a <code>.class</code> file. The same file runs on every JVM.</td></tr>
             </tbody>
           </table>
         </div>
         <div class="lc-card">
           <h3>Java Versions in 2026</h3>
-          <p>A new Java version comes out every six months (March and September). Every two years one of them is an <strong>LTS</strong> (long-term support) release, which companies use in production.</p>
+          <p>A new Java version comes out every six months, in March and September. Every two years, one of them is an <strong>LTS</strong> (long-term support) release. Companies use LTS releases for their live systems.</p>
           <table class="lc-table">
             <thead><tr><th>Version</th><th>Released</th><th>Notes</th></tr></thead>
             <tbody>
-              <tr><td>Java 8</td><td>2014</td><td>Old LTS: added lambdas and streams. Still found in legacy projects.</td></tr>
-              <tr><td>Java 11</td><td>2018</td><td>LTS: the <code>HttpClient</code> API, new <code>String</code> methods such as <code>isBlank()</code>, <code>strip()</code> and <code>repeat()</code>, and running a single file directly with <code>java Main.java</code>. Still common in older company projects.</td></tr>
+              <tr><td>Java 8</td><td>2014</td><td>Old LTS: added lambdas and streams. You still see it in old projects.</td></tr>
+              <tr><td>Java 11</td><td>2018</td><td>LTS: added the <code>HttpClient</code> API and new <code>String</code> methods such as <code>isBlank()</code>, <code>strip()</code> and <code>repeat()</code>. You can also run a single file directly with <code>java Main.java</code>. Still common in older company projects.</td></tr>
               <tr><td>Java 17</td><td>2021</td><td>LTS: records, sealed classes, text blocks, switch expressions. <strong>The editor in this course runs Java 17.</strong></td></tr>
               <tr><td>Java 21</td><td>2023</td><td>LTS: virtual threads, record patterns, pattern matching in <code>switch</code>.</td></tr>
               <tr><td>Java 25</td><td>September 2025</td><td>Current LTS: compact source files and instance <code>main</code> methods for beginners.</td></tr>
               <tr><td>Java 27</td><td>September 2026</td><td>Newest release (not LTS).</td></tr>
             </tbody>
           </table>
-          <p>Everything you learn here works unchanged on Java 21 and 25. Features that need a newer version are clearly marked <strong>Java 21+</strong>.</p>
+          <p>Everything you learn here also works on Java 21 and 25 with no changes. Features that need a newer version are marked <strong>Java 21+</strong>.</p>
         </div>
         <div class="lc-card">
           <h3>Your First Program</h3>
@@ -65,9 +65,9 @@ module JavaContent
         Same line
         Java is 31 years old</code></pre></div>
           <ul class="lc-list">
-            <li><code>public class Main</code> — all Java code lives inside a class. A <code>public</code> class must be in a file with the same name: <code>Main.java</code>.</li>
-            <li><code>public static void main(String[] args)</code> — the entry point. The JVM starts here.</li>
-            <li><code>System.out.println</code> prints and moves to a new line; <code>print</code> does not; <code>printf</code> formats (<code>%s</code> text, <code>%d</code> whole number, <code>%n</code> new line).</li>
+            <li><code>public class Main</code>: all Java code lives inside a class. A <code>public</code> class must be in a file with the same name: <code>Main.java</code>.</li>
+            <li><code>public static void main(String[] args)</code>: the entry point (where the program starts). The JVM starts here.</li>
+            <li><code>System.out.println</code> prints and then moves to a new line. <code>print</code> does not move to a new line. <code>printf</code> formats values (<code>%s</code> text, <code>%d</code> whole number, <code>%n</code> new line).</li>
             <li>Every statement ends with a semicolon <code>;</code>. Comments start with <code>//</code> (one line) or sit between <code>/* ... */</code>.</li>
           </ul>
         </div>
@@ -81,17 +81,17 @@ module JavaContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>File name does not match the public class</strong> — <code>public class Main</code> inside <code>main.java</code> fails to compile. Names are case-sensitive.</li>
-            <li><strong>Wrong capitalisation</strong> — <code>system.out.println</code> or <code>String[] Args</code> in the wrong place. <code>System</code> and <code>String</code> start with capitals.</li>
-            <li><strong>Missing semicolon or brace</strong> — read the first compiler error: it gives the file and line number.</li>
-            <li><strong>Mixing up JDK and JVM</strong> — you need the JDK to compile; the JVM only runs code.</li>
+            <li><strong>File name does not match the public class</strong>: <code>public class Main</code> inside <code>main.java</code> does not compile. Names are case-sensitive (capital and small letters are different).</li>
+            <li><strong>Wrong capitalisation</strong>: for example <code>system.out.println</code>, or <code>String[] Args</code> in the wrong place. <code>System</code> and <code>String</code> start with capitals.</li>
+            <li><strong>Missing semicolon or brace</strong>: read the first compiler error. It shows the file and line number.</li>
+            <li><strong>Mixing up JDK and JVM</strong>: you need the JDK to compile. The JVM only runs code.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>In the editor, add three lines that print your name, your city and your favourite subject, each on its own line. Then use <code>printf</code> to print <code>I have 2 exams this week</code> using <code>%d</code> for the number.</p>
+          <p>In the editor, add three lines. Print your name, your city and your favourite subject, each on its own line. Then use <code>printf</code> to print <code>I have 2 exams this week</code>. Use <code>%d</code> for the number.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>In Java 25+ a beginner can write just <code>void main() { IO.println("Hi"); }</code> in a file (a "compact source file"). That does <strong>not</strong> compile on Java 17, so this course always uses the full <code>public class Main</code> form, which works on every version.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>In Java 25+, a beginner can write just <code>void main() { IO.println("Hi"); }</code> in a file. This is called a "compact source file". It does <strong>not</strong> compile on Java 17. So this course always uses the full <code>public class Main</code> form. That form works on every version.</p></div>
       HTML
       starter_code: <<~'JAVA'
         public class Main {
@@ -131,10 +131,10 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Variables and Data Types</h1>
         </div>
-        <p class="lc-lead">Java is <strong>statically typed</strong>: every variable has a type that the compiler knows before the program runs. This catches many bugs early — you cannot accidentally store text in a number variable.</p>
+        <p class="lc-lead">Java is <strong>statically typed</strong>. This means every variable has a type, and the compiler knows it before the program runs. This finds many bugs early. For example, you cannot store text in a number variable by mistake.</p>
         <div class="lc-card">
           <h3>The Eight Primitive Types</h3>
-          <p>Primitives hold simple values directly. Everything else (like <code>String</code>) is a <strong>reference type</strong>.</p>
+          <p>Primitives (basic types) hold simple values directly. Everything else (like <code>String</code>) is a <strong>reference type</strong>. A reference type points to an object stored in memory.</p>
           <table class="lc-table">
             <thead><tr><th>Type</th><th>Size</th><th>Range / meaning</th><th>Example</th></tr></thead>
             <tbody>
@@ -148,13 +148,13 @@ module JavaContent
               <tr><td><code>boolean</code></td><td>not fixed by the spec</td><td>only <code>true</code> or <code>false</code></td><td><code>boolean passed = true;</code></td></tr>
             </tbody>
           </table>
-          <p>The Java specification does not define a size for <code>boolean</code>. In practice JVMs use at least a byte for it — it is never a single bit in memory. You never need its size; just use <code>true</code> and <code>false</code>.</p>
+          <p>The Java specification does not set a size for <code>boolean</code>. In practice, JVMs use at least one byte for it. It is never a single bit in memory. You never need its size. Just use <code>true</code> and <code>false</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Declaring Variables, <code>final</code> and <code>var</code></h3>
           <div class="lc-code-block"><pre><code>int age = 20;                  // type name = value;
         double cgpa = 8.6;
-        String city = "Pune";          // String is a class, not a primitive
+        String city = "London";        // String is a class, not a primitive
         long fee = 1_25_000L;          // underscores make big numbers readable
         final double GST_RATE = 0.18;  // final = cannot be reassigned (a constant)
 
@@ -162,8 +162,8 @@ module JavaContent
         var name = "Asha";             // compiler infers String
         // count = "ten";              // ERROR: count is still an int</code></pre></div>
           <ul class="lc-list">
-            <li><code>var</code> works only for <strong>local variables with a starting value</strong>. It is not dynamic typing: the type is fixed at compile time.</li>
-            <li>Use <code>var</code> when the type is obvious from the right-hand side (<code>var list = new ArrayList&lt;String&gt;();</code>). Write the type when it helps the reader.</li>
+            <li><code>var</code> works only for <strong>local variables with a starting value</strong>. It is not dynamic typing. The type is still fixed when the code compiles.</li>
+            <li>Use <code>var</code> when the type is clear from the right-hand side (<code>var list = new ArrayList&lt;String&gt;();</code>). Write the type when it helps the reader.</li>
             <li>Name variables in <code>camelCase</code>; name constants in <code>UPPER_SNAKE_CASE</code>.</li>
           </ul>
         </div>
@@ -200,23 +200,23 @@ module JavaContent
           <div class="lc-code-block"><pre><code>Java Basics fee: 4999
         GST: 899.8199999999999
         Total (rounded): 5899</code></pre></div>
-          <p>Notice the tiny error in <code>899.8199999999999</code>: <code>double</code> is approximate. The next lesson shows how to handle money exactly.</p>
+          <p>Look at the tiny error in <code>899.8199999999999</code>. A <code>double</code> is not exact. The next lesson shows how to handle money exactly.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Forgetting <code>L</code> on big numbers</strong> — <code>long x = 3000000000;</code> fails because the literal is read as an <code>int</code>. Write <code>3000000000L</code>.</li>
-            <li><strong>Forgetting <code>f</code> on floats</strong> — <code>float r = 0.5;</code> fails; <code>0.5</code> is a <code>double</code>.</li>
-            <li><strong>Expecting <code>(int)</code> to round</strong> — <code>(int) 3.99</code> is <code>3</code>. Use <code>Math.round</code> to round.</li>
-            <li><strong>Using a variable before giving it a value</strong> — local variables have no default; the compiler stops you.</li>
-            <li><strong><code>var</code> without a value</strong> — <code>var x;</code> and <code>var y = null;</code> do not compile.</li>
+            <li><strong>Forgetting <code>L</code> on big numbers</strong>: <code>long x = 3000000000;</code> fails. The literal (the number you typed) is read as an <code>int</code>. Write <code>3000000000L</code>.</li>
+            <li><strong>Forgetting <code>f</code> on floats</strong>: <code>float r = 0.5;</code> fails, because <code>0.5</code> is a <code>double</code>.</li>
+            <li><strong>Expecting <code>(int)</code> to round</strong>: <code>(int) 3.99</code> is <code>3</code>. Use <code>Math.round</code> to round.</li>
+            <li><strong>Using a variable before giving it a value</strong>: local variables have no default value. The compiler stops you.</li>
+            <li><strong><code>var</code> without a value</strong>: <code>var x;</code> and <code>var y = null;</code> do not compile.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Declare a <code>final int SEATS = 60;</code> and an <code>int</code> for students enrolled (say 75). Print how many students are over the limit. Then try <code>short s = 40000;</code> and read the compiler error — why does it fail?</p>
+          <p>Declare a <code>final int SEATS = 60;</code>. Add an <code>int</code> for students enrolled (say 75). Print how many students are over the limit. Then try <code>short s = 40000;</code> and read the compiler error. Why does it fail?</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Default choices: <code>int</code> for whole numbers, <code>long</code> for very large counts or milliseconds, <code>double</code> for measurements, <code>boolean</code> for yes/no. Use <code>byte</code>, <code>short</code> and <code>float</code> only when you have a specific reason, such as large arrays or file formats.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Good default choices: <code>int</code> for whole numbers, <code>long</code> for very large counts or milliseconds, <code>double</code> for measurements, <code>boolean</code> for yes/no. Use <code>byte</code>, <code>short</code> and <code>float</code> only for a clear reason, such as large arrays or file formats.</p></div>
       HTML
       starter_code: <<~'JAVA'
         public class Main {
@@ -241,7 +241,7 @@ module JavaContent
                 System.out.println("boolean: " + passed);
 
                 // var: the compiler infers the type (Java 10+)
-                var city = "Chennai";   // String
+                var city = "Los Angeles";   // String
                 var seats = 60;         // int
                 final double GST_RATE = 0.18;
                 System.out.println(city + " has " + seats + " seats; GST " + GST_RATE);
@@ -264,18 +264,18 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Operators and Math</h1>
         </div>
-        <p class="lc-lead">Operators do calculations and comparisons. Java's rules are strict and sometimes surprising: dividing two <code>int</code>s throws away the decimal part, and <code>double</code> cannot store 0.1 exactly. Knowing these rules prevents real bugs in bills and marks.</p>
+        <p class="lc-lead">Operators (symbols such as plus and greater-than) do calculations and comparisons. Java's rules are strict, and some may surprise you. Dividing two <code>int</code>s drops the decimal part. A <code>double</code> cannot store 0.1 exactly. Knowing these rules stops real bugs in bills and marks.</p>
         <div class="lc-card">
           <h3>Arithmetic Operators</h3>
           <table class="lc-table">
             <thead><tr><th>Expression</th><th>Result</th><th>Why</th></tr></thead>
             <tbody>
               <tr><td><code>7 / 2</code></td><td><code>3</code></td><td>int ÷ int = int (decimal part dropped)</td></tr>
-              <tr><td><code>7 / 2.0</code></td><td><code>3.5</code></td><td>one double makes the result double</td></tr>
+              <tr><td><code>7 / 2.0</code></td><td><code>3.5</code></td><td>one double makes the result a double</td></tr>
               <tr><td><code>7 % 2</code></td><td><code>1</code></td><td>remainder</td></tr>
-              <tr><td><code>-7 / 2</code></td><td><code>-3</code></td><td>truncates toward zero</td></tr>
+              <tr><td><code>-7 / 2</code></td><td><code>-3</code></td><td>cuts off toward zero</td></tr>
               <tr><td><code>-7 % 2</code></td><td><code>-1</code></td><td>remainder takes the sign of the left side</td></tr>
-              <tr><td><code>Math.floorMod(-7, 2)</code></td><td><code>1</code></td><td>always non-negative for a positive divisor</td></tr>
+              <tr><td><code>Math.floorMod(-7, 2)</code></td><td><code>1</code></td><td>never negative when the divisor is positive</td></tr>
             </tbody>
           </table>
         </div>
@@ -290,7 +290,7 @@ module JavaContent
         boolean ok = (x &gt; 18) &amp;&amp; (x &lt;= 60);   // AND
         boolean off = (x == 0) || (x &gt; 100);   // OR
         boolean not = !ok;                     // NOT</code></pre></div>
-          <p><code>&amp;&amp;</code> and <code>||</code> <strong>short-circuit</strong>: if the left side already decides the answer, the right side is not evaluated. So <code>s != null &amp;&amp; s.length() &gt; 0</code> is safe.</p>
+          <p><code>&amp;&amp;</code> and <code>||</code> <strong>short-circuit</strong>. If the left side already decides the answer, Java skips the right side. So <code>s != null &amp;&amp; s.length() &gt; 0</code> is safe.</p>
         </div>
         <div class="lc-card">
           <h3>The Math Class</h3>
@@ -301,9 +301,9 @@ module JavaContent
               <tr><td><code>Math.sqrt(144)</code></td><td><code>12.0</code></td><td></td></tr>
               <tr><td><code>Math.abs(-8)</code></td><td><code>8</code></td><td></td></tr>
               <tr><td><code>Math.max(4, 9)</code></td><td><code>9</code></td><td>also <code>Math.min</code></td></tr>
-              <tr><td><code>Math.round(2.5)</code> / <code>Math.round(-2.5)</code></td><td><code>3</code> / <code>-2</code></td><td>.5 rounds toward positive infinity; returns long for a double</td></tr>
+              <tr><td><code>Math.round(2.5)</code> / <code>Math.round(-2.5)</code></td><td><code>3</code> / <code>-2</code></td><td>.5 rounds up toward positive infinity. Returns a long for a double.</td></tr>
               <tr><td><code>Math.floor(3.7)</code> / <code>Math.ceil(3.2)</code></td><td><code>3.0</code> / <code>4.0</code></td><td></td></tr>
-              <tr><td><code>Math.addExact(a, b)</code></td><td>sum, or an exception</td><td>throws instead of silently overflowing</td></tr>
+              <tr><td><code>Math.addExact(a, b)</code></td><td>sum, or an exception</td><td>throws an error instead of quietly overflowing</td></tr>
             </tbody>
           </table>
         </div>
@@ -317,7 +317,7 @@ module JavaContent
         BigDecimal gst = price.multiply(new BigDecimal("0.18"))
                               .setScale(2, RoundingMode.HALF_UP);
         System.out.println(gst);                   // 90.00</code></pre></div>
-          <p><code>double</code> stores numbers in binary, so most decimals are approximations. For money, use <code>BigDecimal</code> built from a <strong>String</strong>, or store amounts as a <code>long</code> number of paise.</p>
+          <p>A <code>double</code> stores numbers in binary. So most decimals are only close, not exact. For money, use <code>BigDecimal</code> made from a <strong>String</strong>. Or store amounts as a <code>long</code> number of paise.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Splitting a Bill</h3>
@@ -335,17 +335,17 @@ module JavaContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Integer division in averages</strong> — <code>(80 + 75) / 2</code> is <code>77</code>, not <code>77.5</code>. Use <code>/ 2.0</code>.</li>
-            <li><strong>Using <code>^</code> for power</strong> — <code>2 ^ 3</code> is bitwise XOR (<code>1</code>). Use <code>Math.pow(2, 3)</code>.</li>
-            <li><strong>Comparing doubles with <code>==</code></strong> — <code>0.1 + 0.2 == 0.3</code> is <code>false</code>. Compare with a small tolerance: <code>Math.abs(a - b) &lt; 1e-9</code>.</li>
-            <li><strong><code>new BigDecimal(0.1)</code></strong> — passing a double copies its error. Use <code>new BigDecimal("0.1")</code>.</li>
+            <li><strong>Integer division in averages</strong>: <code>(80 + 75) / 2</code> is <code>77</code>, not <code>77.5</code>. Use <code>/ 2.0</code>.</li>
+            <li><strong>Using <code>^</code> for power</strong>: <code>2 ^ 3</code> is bitwise XOR, which gives <code>1</code>. Use <code>Math.pow(2, 3)</code>.</li>
+            <li><strong>Comparing doubles with <code>==</code></strong>: <code>0.1 + 0.2 == 0.3</code> is <code>false</code>. Instead, check that the difference is very small: <code>Math.abs(a - b) &lt; 1e-9</code>.</li>
+            <li><strong><code>new BigDecimal(0.1)</code></strong>: passing a double copies its error. Use <code>new BigDecimal("0.1")</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>A student scored 78, 91 and 84. Print the average to two decimal places with <code>printf("%.2f")</code>. Then print whether the average is at least 80 <strong>and</strong> every mark is at least 35, as a single <code>boolean</code>.</p>
+          <p>A student scored 78, 91 and 84. Print the average to two decimal places with <code>printf("%.2f")</code>. Then check if the average is at least 80 <strong>and</strong> every mark is at least 35. Print the answer as a single <code>boolean</code>.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>When in doubt about evaluation order, add brackets. <code>a + b * c</code> and <code>(a + b) * c</code> are different, and brackets make your intent obvious to the next reader.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>If you are not sure which part runs first, add brackets. <code>a + b * c</code> and <code>(a + b) * c</code> are different. Brackets make your meaning clear to the next reader.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.math.BigDecimal;
@@ -401,19 +401,19 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Strings and Text Blocks</h1>
         </div>
-        <p class="lc-lead"><code>String</code> is Java's most used class. Strings are <strong>immutable</strong>: methods like <code>toUpperCase()</code> never change the original — they return a new String. Modern Java also gives you <strong>text blocks</strong> for multi-line text.</p>
+        <p class="lc-lead"><code>String</code> is the most used class in Java. Strings are <strong>immutable</strong>, which means they cannot change. Methods like <code>toUpperCase()</code> never change the original. They return a new String. Modern Java also gives you <strong>text blocks</strong> for text with many lines.</p>
         <div class="lc-card">
           <h3>Essential String Methods</h3>
           <table class="lc-table">
             <thead><tr><th>Method</th><th>Example</th><th>Result</th></tr></thead>
             <tbody>
-              <tr><td><code>length()</code></td><td><code>"Mumbai".length()</code></td><td><code>6</code></td></tr>
-              <tr><td><code>charAt(i)</code></td><td><code>"Mumbai".charAt(0)</code></td><td><code>'M'</code></td></tr>
-              <tr><td><code>substring(a, b)</code></td><td><code>"Mumbai".substring(1, 4)</code></td><td><code>"umb"</code> (b is excluded)</td></tr>
-              <tr><td><code>indexOf(s)</code></td><td><code>"Mumbai".indexOf("bai")</code></td><td><code>3</code> (or -1 if absent)</td></tr>
+              <tr><td><code>length()</code></td><td><code>"New York".length()</code></td><td><code>8</code></td></tr>
+              <tr><td><code>charAt(i)</code></td><td><code>"New York".charAt(0)</code></td><td><code>'N'</code></td></tr>
+              <tr><td><code>substring(a, b)</code></td><td><code>"New York".substring(0, 3)</code></td><td><code>"New"</code> (b is excluded)</td></tr>
+              <tr><td><code>indexOf(s)</code></td><td><code>"New York".indexOf("York")</code></td><td><code>4</code> (or -1 if not found)</td></tr>
               <tr><td><code>contains(s)</code></td><td><code>"a@b.com".contains("@")</code></td><td><code>true</code></td></tr>
               <tr><td><code>replace(a, b)</code></td><td><code>"2025".replace("5", "6")</code></td><td><code>"2026"</code></td></tr>
-              <tr><td><code>strip()</code></td><td><code>"  hi  ".strip()</code></td><td><code>"hi"</code> (Unicode-aware <code>trim</code>, Java 11)</td></tr>
+              <tr><td><code>strip()</code></td><td><code>"  hi  ".strip()</code></td><td><code>"hi"</code> (a <code>trim</code> that knows Unicode, Java 11)</td></tr>
               <tr><td><code>isBlank()</code></td><td><code>"   ".isBlank()</code></td><td><code>true</code> (Java 11)</td></tr>
               <tr><td><code>repeat(n)</code></td><td><code>"=".repeat(5)</code></td><td><code>"====="</code> (Java 11)</td></tr>
               <tr><td><code>split(regex)</code></td><td><code>"a,b,c".split(",")</code></td><td>array <code>[a, b, c]</code></td></tr>
@@ -429,7 +429,7 @@ module JavaContent
         System.out.println(a.equals(b));            // true: same characters
         System.out.println("JAVA".equalsIgnoreCase(a)); // true
         System.out.println("apple".compareTo("banana")); // negative: "apple" comes first</code></pre></div>
-          <p><code>==</code> checks whether two variables point to the <strong>same object</strong>. <code>equals</code> checks whether they contain the <strong>same text</strong>. Always use <code>equals</code> for content.</p>
+          <p><code>==</code> checks if two variables point to the <strong>same object</strong>. <code>equals</code> checks if they contain the <strong>same text</strong>. Always use <code>equals</code> to compare text.</p>
         </div>
         <div class="lc-card">
           <h3>Building Strings: <code>StringBuilder</code> and Formatting</h3>
@@ -443,11 +443,11 @@ module JavaContent
         String line = String.format("%-8s|%6.2f|%05d", "Ravi", 91.456, 42);
         System.out.println(line);                    // Ravi    | 91.46|00042
         System.out.println("%s scored %d".formatted("Meera", 95)); // Java 15+</code></pre></div>
-          <p>Joining with <code>+</code> inside a big loop creates a new String every time. <code>StringBuilder</code> is a mutable buffer made for that job.</p>
+          <p>Joining with <code>+</code> inside a big loop makes a new String every time. <code>StringBuilder</code> is a mutable (changeable) buffer made for this job.</p>
         </div>
         <div class="lc-card">
           <h3>Text Blocks (Java 15+)</h3>
-          <p>A text block starts with <code>"""</code> followed by a new line and ends with <code>"""</code>. Common indentation is removed automatically, and you do not need <code>\n</code> or escaped quotes.</p>
+          <p>A text block starts with <code>"""</code> and a new line. It ends with <code>"""</code>. Java removes the shared indentation for you. You do not need <code>\n</code> or escaped quotes.</p>
           <div class="lc-code-block"><pre><code>String json = """
             {
               "name": "Asha",
@@ -463,7 +463,7 @@ module JavaContent
         </div>
         <div class="lc-card">
           <h3>Reading Input with <code>Scanner</code></h3>
-          <p><code>java.util.Scanner</code> splits text into <strong>tokens</strong> (words separated by spaces or new lines) and converts them. On your own computer you read the keyboard with <code>new Scanner(System.in)</code>. The editor on this site has no keyboard input, so here we give the Scanner a String — the methods are exactly the same.</p>
+          <p><code>java.util.Scanner</code> splits text into <strong>tokens</strong> (words separated by spaces or new lines). It can also convert them to numbers. On your own computer, you read the keyboard with <code>new Scanner(System.in)</code>. The editor on this site has no keyboard input. So here we give the Scanner a String. The methods are exactly the same.</p>
           <div class="lc-code-block"><pre><code>Scanner sc = new Scanner("Asha 21 88.5\nRavi 22 91.0");   // or new Scanner(System.in)
         while (sc.hasNext()) {
             String name  = sc.next();         // one word
@@ -478,28 +478,28 @@ module JavaContent
             <thead><tr><th>Method</th><th>Reads</th></tr></thead>
             <tbody>
               <tr><td><code>next()</code></td><td>the next word</td></tr>
-              <tr><td><code>nextInt()</code>, <code>nextDouble()</code></td><td>the next word, converted to a number (throws <code>InputMismatchException</code> if it is not one)</td></tr>
+              <tr><td><code>nextInt()</code>, <code>nextDouble()</code></td><td>the next word, converted to a number (throws <code>InputMismatchException</code> if it is not a number)</td></tr>
               <tr><td><code>nextLine()</code></td><td>everything up to the end of the current line</td></tr>
-              <tr><td><code>hasNext()</code>, <code>hasNextInt()</code>, <code>hasNextLine()</code></td><td>checks whether more input (of that kind) is waiting</td></tr>
+              <tr><td><code>hasNext()</code>, <code>hasNextInt()</code>, <code>hasNextLine()</code></td><td>checks if more input (of that kind) is waiting</td></tr>
             </tbody>
           </table>
-          <p>Classic trap: after <code>nextInt()</code> the line break is still waiting, so the next <code>nextLine()</code> returns <code>""</code>. Call an extra <code>nextLine()</code> first, or read every line with <code>nextLine()</code> and convert it with <code>Integer.parseInt(line.strip())</code>.</p>
+          <p>A common trap: after <code>nextInt()</code>, the line break is still waiting. So the next <code>nextLine()</code> returns <code>""</code>. Call an extra <code>nextLine()</code> first. Or read every line with <code>nextLine()</code> and convert it with <code>Integer.parseInt(line.strip())</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Ignoring the return value</strong> — <code>name.toUpperCase();</code> alone does nothing useful. Write <code>name = name.toUpperCase();</code></li>
-            <li><strong>Using <code>==</code> for text</strong> — it may appear to work for literals and then fail for user input.</li>
-            <li><strong>Off-by-one in <code>substring</code></strong> — the end index is <em>excluded</em>.</li>
-            <li><strong>Calling a method on <code>null</code></strong> — <code>s.length()</code> throws <code>NullPointerException</code> if <code>s</code> is <code>null</code>. <code>"yes".equals(s)</code> is null-safe.</li>
-            <li><strong><code>split(".")</code></strong> — the argument is a regular expression, and <code>.</code> means "any character". Use <code>split("\\.")</code>.</li>
+            <li><strong>Ignoring the return value</strong>: <code>name.toUpperCase();</code> alone does nothing useful. Write <code>name = name.toUpperCase();</code></li>
+            <li><strong>Using <code>==</code> for text</strong>: it may seem to work for literals (text typed in the code). Then it fails for user input.</li>
+            <li><strong>Off-by-one in <code>substring</code></strong>: the end index is <em>excluded</em>.</li>
+            <li><strong>Calling a method on <code>null</code></strong>: <code>s.length()</code> throws <code>NullPointerException</code> if <code>s</code> is <code>null</code>. <code>"yes".equals(s)</code> is safe even when the variable is null.</li>
+            <li><strong><code>split(".")</code></strong>: the argument is a regular expression (a text pattern). In it, <code>.</code> means "any character". Use <code>split("\\.")</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Given <code>String email = "  Priya.Sharma@College.edu  ";</code>, print the cleaned lower-case email, the part before <code>@</code>, and whether it ends with <code>.edu</code>. Then check whether <code>"malayalam"</code> is a palindrome using <code>StringBuilder.reverse()</code>.</p>
+          <p>Start with <code>String email = "  Priya.Sharma@College.edu  ";</code>. Print the cleaned lower-case email. Print the part before <code>@</code>. Print if it ends with <code>.edu</code>. Then check if <code>"malayalam"</code> is a palindrome (reads the same backwards). Use <code>StringBuilder.reverse()</code>.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Prefer <code>strip()</code> and <code>isBlank()</code> (Java 11) over the older <code>trim()</code> and <code>isEmpty()</code> checks for user input: they understand all Unicode whitespace, and <code>isBlank()</code> treats <code>"   "</code> as empty.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>For user input, use <code>strip()</code> and <code>isBlank()</code> (Java 11) instead of the older <code>trim()</code> and <code>isEmpty()</code>. They understand all Unicode whitespace. Also, <code>isBlank()</code> treats <code>"   "</code> as empty.</p></div>
       HTML
       starter_code: <<~'JAVA'
         public class Main {
@@ -555,7 +555,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Conditionals and Switch Expressions</h1>
         </div>
-        <p class="lc-lead">Programs make decisions with <code>if</code>/<code>else</code> and <code>switch</code>. Modern Java (14+) adds <strong>switch expressions</strong> with arrows <code>-&gt;</code>: they return a value, never fall through, and are much safer than the old <code>switch</code> statement.</p>
+        <p class="lc-lead">Programs make decisions with <code>if</code>/<code>else</code> and <code>switch</code>. Modern Java (14+) adds <strong>switch expressions</strong> that use arrows <code>-&gt;</code>. They return a value. They never fall through (run into the next case). They are much safer than the old <code>switch</code> statement.</p>
         <div class="lc-card">
           <h3><code>if</code>, <code>else if</code>, <code>else</code> and the Ternary Operator</h3>
           <div class="lc-code-block"><pre><code>int marks = 72;
@@ -573,7 +573,7 @@ module JavaContent
 
         String result = marks &gt;= 35 ? "Pass" : "Fail";          // condition ? ifTrue : ifFalse
         System.out.println(result);                              // Pass</code></pre></div>
-          <p>Java checks the conditions from top to bottom and runs only the <strong>first</strong> branch that is true, so order matters.</p>
+          <p>Java checks the conditions from top to bottom. It runs only the <strong>first</strong> branch that is true. So the order matters.</p>
         </div>
         <div class="lc-card">
           <h3>Enums: a Fixed Set of Values</h3>
@@ -582,7 +582,7 @@ module JavaContent
         Signal s = Signal.YELLOW;
         System.out.println(s);            // YELLOW
         System.out.println(s.ordinal());  // 1 (position, starting at 0)</code></pre></div>
-          <p>Use an <code>enum</code> instead of magic strings like <code>"red"</code>: the compiler rejects typos, and <code>switch</code> can check that you handled every value. Enums can also hold fields and methods, for example <code>Genre.SCIENCE.loanDays()</code> — you will build one in Lesson 10.</p>
+          <p>An <code>enum</code> is a type with a fixed list of named values. Use it instead of loose strings like <code>"red"</code>. The compiler catches typos. A <code>switch</code> can check that you handled every value. Enums can also hold fields and methods, for example <code>Genre.SCIENCE.loanDays()</code>. You will build one in Lesson 10.</p>
         </div>
         <div class="lc-card">
           <h3>Old <code>switch</code> vs Switch Expression</h3>
@@ -615,29 +615,29 @@ module JavaContent
           <table class="lc-table">
             <thead><tr><th></th><th>if / else</th><th>Old switch statement</th><th>Switch expression</th></tr></thead>
             <tbody>
-              <tr><td>Best for</td><td>ranges and complex conditions</td><td>legacy code</td><td>one value matched against constants</td></tr>
+              <tr><td>Best for</td><td>ranges and complex conditions</td><td>old code</td><td>one value matched against constants</td></tr>
               <tr><td>Returns a value</td><td>No</td><td>No</td><td>Yes</td></tr>
               <tr><td>Fall-through</td><td>—</td><td>Yes, unless you <code>break</code></td><td>Never</td></tr>
-              <tr><td>Must cover all cases</td><td>No</td><td>No</td><td>Yes (compiler checks)</td></tr>
+              <tr><td>Must cover all cases</td><td>No</td><td>No</td><td>Yes (the compiler checks)</td></tr>
             </tbody>
           </table>
-          <p>Switch works on <code>int</code>, <code>char</code>, <code>String</code> and enums (plus <code>byte</code>, <code>short</code> and their wrappers).</p>
+          <p>Switch works on <code>int</code>, <code>char</code>, <code>String</code> and enums. It also works on <code>byte</code>, <code>short</code> and their wrapper classes.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Wrong order of conditions</strong> — checking <code>marks &gt;= 35</code> before <code>marks &gt;= 90</code> gives everyone a C.</li>
-            <li><strong>Comparing Strings with <code>==</code></strong> in an <code>if</code> — use <code>equals</code>.</li>
-            <li><strong>Missing <code>break</code></strong> in an old-style switch — prefer the arrow form, which never falls through.</li>
-            <li><strong>Skipping braces</strong> — <code>if (x) a(); b();</code> runs <code>b()</code> every time. Always use <code>{ }</code>.</li>
-            <li><strong>Mixing <code>:</code> and <code>-&gt;</code></strong> in one switch — a switch must use one style.</li>
+            <li><strong>Wrong order of conditions</strong>: checking <code>marks &gt;= 35</code> before <code>marks &gt;= 90</code> gives everyone a C.</li>
+            <li><strong>Comparing Strings with <code>==</code></strong> in an <code>if</code>: use <code>equals</code>.</li>
+            <li><strong>Missing <code>break</code></strong> in an old-style switch: use the arrow form instead. It never falls through.</li>
+            <li><strong>Skipping braces</strong>: <code>if (x) a(); b();</code> runs <code>b()</code> every time. Always use <code>{ }</code>.</li>
+            <li><strong>Mixing <code>:</code> and <code>-&gt;</code></strong> in one switch: a switch must use only one style.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Write a switch expression that turns a month number (1–12) into its season in India: 3–5 <code>"Summer"</code>, 6–9 <code>"Monsoon"</code>, 10–11 <code>"Post-monsoon"</code>, 12, 1, 2 <code>"Winter"</code>. Throw an exception for anything else.</p>
+          <p>Write a switch expression that turns a month number (1–12) into its season in India. Use 3–5 <code>"Summer"</code>, 6–9 <code>"Monsoon"</code>, 10–11 <code>"Post-monsoon"</code>, and 12, 1, 2 <code>"Winter"</code>. Throw an exception (an error) for any other number.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>If a switch expression covers every constant of an enum, leave out <code>default</code>. Then, if someone adds a new constant later, the compiler points to every switch that must be updated.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>If a switch expression covers every value of an enum, leave out <code>default</code>. Later, someone may add a new value. Then the compiler shows every switch that you must update.</p></div>
       HTML
       starter_code: <<~'JAVA'
         enum Signal { RED, YELLOW, GREEN }
@@ -698,7 +698,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Loops</h1>
         </div>
-        <p class="lc-lead">Loops repeat a block of code. Java has four: <code>for</code>, <code>while</code>, <code>do-while</code> and the <strong>enhanced for</strong> (for-each). Choosing the right one makes code shorter and avoids off-by-one bugs.</p>
+        <p class="lc-lead">Loops repeat a block of code. Java has four loops: <code>for</code>, <code>while</code>, <code>do-while</code> and the <strong>enhanced for</strong> (for-each). The right loop makes code shorter. It also helps you avoid off-by-one bugs (going one step too far or too short).</p>
         <div class="lc-card">
           <h3>The Four Loops</h3>
           <div class="lc-code-block"><pre><code>// 1. for: you know how many times
@@ -720,7 +720,7 @@ module JavaContent
         } while (tries &lt; 3);                    // tries = 3
 
         // 4. enhanced for: visit every element
-        String[] cities = {"Delhi", "Kochi", "Jaipur"};
+        String[] cities = {"Chicago", "Boston", "Manchester"};
         for (String city : cities) {
             System.out.println(city);
         }</code></pre></div>
@@ -749,7 +749,7 @@ module JavaContent
                 System.out.print(r * c + " "); // 1 2 3 2
             }
         }</code></pre></div>
-          <p>A plain <code>break</code> leaves only the innermost loop. A labelled <code>break outer</code> leaves the loop with that label.</p>
+          <p>A plain <code>break</code> leaves only the inner loop. A labelled <code>break outer</code> leaves the loop that has that label.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Nested Loops</h3>
@@ -765,17 +765,17 @@ module JavaContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Off-by-one</strong> — <code>i &lt;= arr.length</code> goes one step too far. Use <code>i &lt; arr.length</code>.</li>
-            <li><strong>Infinite loop</strong> — forgetting to change the variable in a <code>while</code> loop (<code>n = n / 10</code> above).</li>
-            <li><strong>Semicolon after the header</strong> — <code>for (int i = 0; i &lt; 5; i++);</code> has an empty body, so the block below runs once.</li>
-            <li><strong>Changing a collection inside for-each</strong> — adding or removing items while looping throws <code>ConcurrentModificationException</code> (see the Collections lesson).</li>
+            <li><strong>Off-by-one</strong>: <code>i &lt;= arr.length</code> goes one step too far. Use <code>i &lt; arr.length</code>.</li>
+            <li><strong>Infinite loop</strong> (a loop that never stops): you forget to change the variable in a <code>while</code> loop (<code>n = n / 10</code> above).</li>
+            <li><strong>Semicolon after the header</strong>: <code>for (int i = 0; i &lt; 5; i++);</code> has an empty body. So the block below runs only once.</li>
+            <li><strong>Changing a collection inside for-each</strong>: if you add or remove items while looping, Java throws <code>ConcurrentModificationException</code>. See the Collections lesson.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
           <p>Print the multiplication table of 7 from <code>7 x 1 = 7</code> to <code>7 x 10 = 70</code>. Then use a <code>while</code> loop to find the sum of the digits of <code>98765</code> (answer: 35).</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use the enhanced <code>for</code> whenever you do not need the index. It cannot go out of bounds, and it works the same way for arrays and for every collection such as <code>List</code> and <code>Set</code>.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use the enhanced <code>for</code> when you do not need the index. It cannot go out of bounds. It works the same way for arrays and for every collection, such as <code>List</code> and <code>Set</code>.</p></div>
       HTML
       starter_code: <<~'JAVA'
         public class Main {
@@ -836,7 +836,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Arrays</h1>
         </div>
-        <p class="lc-lead">An array stores a <strong>fixed number</strong> of values of the <strong>same type</strong>, side by side. Indexes start at 0. Arrays are fast and simple, and they are the foundation that <code>ArrayList</code> is built on.</p>
+        <p class="lc-lead">An array stores a <strong>fixed number</strong> of values of the <strong>same type</strong>, side by side. Each value has an index (its position number). Indexes start at 0. Arrays are fast and simple. <code>ArrayList</code> is built on top of them.</p>
         <div class="lc-card">
           <h3>Creating and Using Arrays</h3>
           <div class="lc-code-block"><pre><code>int[] marks = {78, 92, 65, 88};     // size 4, values given
@@ -877,7 +877,7 @@ module JavaContent
         int[] alias = original;     // NOT a copy: both names point to one array
         alias[0] = 99;
         System.out.println(original[0]);   // 99</code></pre></div>
-          <p>The variable holds a <strong>reference</strong> (an address) to the array object. Use <code>Arrays.copyOf</code> or <code>clone()</code> when you need a separate copy.</p>
+          <p>The variable holds a <strong>reference</strong> (an address) to the array object. When you need a separate copy, use <code>Arrays.copyOf</code> or <code>clone()</code>.</p>
         </div>
         <div class="lc-card">
           <h3>2D Arrays</h3>
@@ -889,7 +889,7 @@ module JavaContent
         System.out.println(seats[0].length);   // 3 columns
         System.out.println(seats[1][2]);       // 1
         System.out.println(Arrays.deepToString(seats)); // [[1, 0, 1], [0, 0, 1]]</code></pre></div>
-          <p>A 2D array is an "array of arrays". Rows can even have different lengths (a <em>jagged</em> array).</p>
+          <p>A 2D array is an "array of arrays". Rows can even have different lengths. This is called a <em>jagged</em> array.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Above-Average Marks</h3>
@@ -910,17 +910,17 @@ module JavaContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong><code>length()</code> vs <code>length</code></strong> — arrays use the field <code>arr.length</code>; Strings use the method <code>s.length()</code>; lists use <code>list.size()</code>.</li>
-            <li><strong>Printing an array directly</strong> — gives something like <code>[I@1b6d3586</code>. Use <code>Arrays.toString</code>.</li>
-            <li><strong>Comparing arrays with <code>==</code> or <code>equals</code></strong> — both compare references. Use <code>Arrays.equals</code>.</li>
-            <li><strong>Expecting arrays to grow</strong> — the size is fixed. If you need to add and remove, use <code>ArrayList</code>.</li>
+            <li><strong><code>length()</code> vs <code>length</code></strong>: arrays use the field <code>arr.length</code>. Strings use the method <code>s.length()</code>. Lists use <code>list.size()</code>.</li>
+            <li><strong>Printing an array directly</strong>: this gives something like <code>[I@1b6d3586</code>. Use <code>Arrays.toString</code>.</li>
+            <li><strong>Comparing arrays with <code>==</code> or <code>equals</code></strong>: both compare references, not contents. Use <code>Arrays.equals</code>.</li>
+            <li><strong>Expecting arrays to grow</strong>: the size is fixed. If you need to add and remove items, use <code>ArrayList</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Store the daily step counts for a week in an <code>int[]</code>. Print the total, the average (as a <code>double</code>), the best day number (1–7) and the sorted steps — without changing the original array.</p>
+          <p>Store the daily step counts for a week in an <code>int[]</code>. Print the total, the average (as a <code>double</code>), the best day number (1–7) and the sorted steps. Do not change the original array.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>In real projects you will use <code>List</code> far more than raw arrays. Arrays still matter: <code>main(String[] args)</code> receives one, many APIs return them, and they are the fastest choice for fixed-size numeric data.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>In real projects, you will use <code>List</code> much more than plain arrays. But arrays still matter. <code>main(String[] args)</code> receives one. Many APIs return them. They are the fastest choice for numbers of a fixed size.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.util.Arrays;
@@ -978,7 +978,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Methods</h1>
         </div>
-        <p class="lc-lead">A method is a named, reusable block of code. Good methods do <strong>one job</strong>, take inputs as parameters and give back a result with <code>return</code>. Breaking a program into small methods makes it easier to read, test and fix.</p>
+        <p class="lc-lead">A method is a named block of code that you can use again and again. A good method does <strong>one job</strong>. It takes inputs as parameters and gives back a result with <code>return</code>. Small methods make a program easier to read, test and fix.</p>
         <div class="lc-card">
           <h3>Anatomy of a Method</h3>
           <div class="lc-code-block"><pre><code>//  modifiers   return type  name      parameters
@@ -992,7 +992,7 @@ module JavaContent
 
         double avg = average(80, 91);      // 85.5
         greet("Kiran");                    // Hello, Kiran</code></pre></div>
-          <p>For now our methods are <code>static</code>, which means you call them without creating an object. In the next lessons you will write <strong>instance methods</strong> that belong to objects.</p>
+          <p>For now, our methods are <code>static</code>. This means you call them without creating an object. In the next lessons, you will write <strong>instance methods</strong> that belong to objects.</p>
         </div>
         <div class="lc-card">
           <h3>Overloading and Varargs</h3>
@@ -1007,7 +1007,7 @@ module JavaContent
         }
         sum();          // 0
         sum(1, 2, 3);   // 6</code></pre></div>
-          <p>Overloaded methods share a name but have <strong>different parameter lists</strong>. The compiler picks the version from the arguments. A different return type alone is <em>not</em> enough.</p>
+          <p>Overloaded methods have the same name but <strong>different parameter lists</strong>. The compiler picks the right version from the arguments. A different return type alone is <em>not</em> enough.</p>
         </div>
         <div class="lc-card">
           <h3>Java Is Always Pass-by-Value</h3>
@@ -1022,7 +1022,7 @@ module JavaContent
             <thead><tr><th>Argument</th><th>What is copied</th><th>Can the method change the caller's data?</th></tr></thead>
             <tbody>
               <tr><td>primitive (<code>int</code>, <code>double</code> …)</td><td>the value</td><td>No</td></tr>
-              <tr><td>object or array</td><td>the reference</td><td>It can change the object's contents, but cannot make the caller's variable point to a new object</td></tr>
+              <tr><td>object or array</td><td>the reference</td><td>It can change what is inside the object. It cannot make the caller's variable point to a new object.</td></tr>
             </tbody>
           </table>
         </div>
@@ -1033,7 +1033,7 @@ module JavaContent
             return n * factorial(n - 1);   // smaller problem
         }
         factorial(5);   // 120</code></pre></div>
-          <p>A recursive method calls itself on a smaller problem. Without a base case it never stops and ends with a <code>StackOverflowError</code>.</p>
+          <p>A recursive method calls itself on a smaller problem. It needs a base case (a point where it stops). Without one, it never stops and ends with a <code>StackOverflowError</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Small Methods Working Together</h3>
@@ -1055,22 +1055,22 @@ module JavaContent
           <div class="lc-code-block"><pre><code>Asha    82.4%  Distinction
         Ravi    61.0%  First class
         John    30.0%  Fail</code></pre></div>
-          <p>Each method has one job, so each can be tested and reused on its own.</p>
+          <p>Each method has one job. So you can test and reuse each one on its own.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Missing <code>return</code> on some path</strong> — if a method returns <code>int</code>, every path must return a value.</li>
-            <li><strong>Ignoring the result</strong> — <code>average(80, 91);</code> on its own throws the answer away.</li>
-            <li><strong>Overloading only by return type</strong> — <code>int f(int x)</code> and <code>double f(int x)</code> cannot both exist.</li>
-            <li><strong>Doing too much</strong> — a 100-line method that reads, calculates and prints. Split it into small methods with clear names.</li>
+            <li><strong>Missing <code>return</code> on some path</strong>: if a method returns <code>int</code>, every path through it must return a value.</li>
+            <li><strong>Ignoring the result</strong>: <code>average(80, 91);</code> on its own throws the answer away.</li>
+            <li><strong>Overloading only by return type</strong>: <code>int f(int x)</code> and <code>double f(int x)</code> cannot both exist.</li>
+            <li><strong>Doing too much</strong>: for example, one 100-line method that reads, calculates and prints. Split it into small methods with clear names.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Write <code>static boolean isPrime(int n)</code> and use it to print all primes up to 30. Then write an overloaded <code>max(int a, int b)</code> and <code>max(int a, int b, int c)</code>, where the second one calls the first.</p>
+          <p>Write <code>static boolean isPrime(int n)</code>. Use it to print all primes up to 30. Then write two overloaded methods: <code>max(int a, int b)</code> and <code>max(int a, int b, int c)</code>. The second one should call the first.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Name methods with a verb in <code>camelCase</code>: <code>calculateTotal</code>, <code>isValid</code>, <code>printReport</code>. Methods that return <code>boolean</code> usually start with <code>is</code>, <code>has</code> or <code>can</code>.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Start method names with a verb, in <code>camelCase</code>: <code>calculateTotal</code>, <code>isValid</code>, <code>printReport</code>. Methods that return <code>boolean</code> usually start with <code>is</code>, <code>has</code> or <code>can</code>.</p></div>
       HTML
       starter_code: <<~'JAVA'
         public class Main {
@@ -1132,7 +1132,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Classes and Objects</h1>
         </div>
-        <p class="lc-lead">A <strong>class</strong> is a blueprint; an <strong>object</strong> is one thing built from it. A <code>Student</code> class describes what every student has (fields) and can do (methods); each <code>new Student(...)</code> creates one real student in memory.</p>
+        <p class="lc-lead">A <strong>class</strong> is a blueprint (a plan). An <strong>object</strong> is one thing built from that plan. A <code>Student</code> class describes what every student has (fields) and can do (methods). Each <code>new Student(...)</code> creates one real student in memory.</p>
         <div class="lc-card">
           <h3>Fields, Constructors, Methods and <code>this</code></h3>
           <div class="lc-code-block"><pre><code>class Student {
@@ -1163,8 +1163,8 @@ module JavaContent
         System.out.println(s1 + " passed? " + s1.hasPassed());   // Anu (82) passed? true
         System.out.println(s2);                                  // Vikram (0)</code></pre></div>
           <ul class="lc-list">
-            <li>If you write <strong>no</strong> constructor, Java gives you an empty no-argument one. Once you write any constructor, that free one disappears.</li>
-            <li>Fields get default values (<code>0</code>, <code>false</code>, <code>null</code>); local variables do not.</li>
+            <li>A constructor is special code that sets up a new object. If you write <strong>no</strong> constructor, Java gives you an empty one with no arguments. Once you write any constructor, that free one is gone.</li>
+            <li>Fields get default values (<code>0</code>, <code>false</code>, <code>null</code>). Local variables do not.</li>
             <li>In one file, only one class can be <code>public</code> (here, <code>Main</code>). Other classes are written without <code>public</code>.</li>
           </ul>
         </div>
@@ -1185,7 +1185,7 @@ module JavaContent
               <tr><td><code>c</code></td><td>→</td><td><code>null</code> (no object)</td></tr>
             </tbody>
           </table>
-          <p>Objects you no longer reference are cleaned up automatically by the <strong>garbage collector</strong>.</p>
+          <p>When no variable points to an object any more, the <strong>garbage collector</strong> removes it for you.</p>
         </div>
         <div class="lc-card">
           <h3>Instance vs <code>static</code> Members</h3>
@@ -1201,22 +1201,22 @@ module JavaContent
         }
         new Student("A"); new Student("B");
         System.out.println(Student.getCount());    // 2</code></pre></div>
-          <p>A <code>static</code> method has no <code>this</code>, so it cannot read instance fields directly. <code>Math.sqrt</code> and <code>Integer.parseInt</code> are static methods.</p>
+          <p>A <code>static</code> method has no <code>this</code>. So it cannot read instance fields directly. <code>Math.sqrt</code> and <code>Integer.parseInt</code> are static methods.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Forgetting <code>this</code></strong> — <code>name = name;</code> assigns the parameter to itself; the field stays <code>null</code>.</li>
-            <li><strong>Writing a return type on a constructor</strong> — <code>void Student(...)</code> is a normal method, not a constructor.</li>
-            <li><strong>Using an object before <code>new</code></strong> — a declared but unassigned field is <code>null</code>, which causes <code>NullPointerException</code>.</li>
-            <li><strong>Thinking <code>b = a</code> copies the object</strong> — it copies the reference.</li>
+            <li><strong>Forgetting <code>this</code></strong>: <code>name = name;</code> sets the parameter to itself. The field stays <code>null</code>.</li>
+            <li><strong>Writing a return type on a constructor</strong>: <code>void Student(...)</code> is a normal method, not a constructor.</li>
+            <li><strong>Using an object before <code>new</code></strong>: a field that was declared but never given an object is <code>null</code>. Using it causes <code>NullPointerException</code>.</li>
+            <li><strong>Thinking <code>b = a</code> copies the object</strong>: it only copies the reference.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Create a <code>Book</code> class with <code>title</code>, <code>author</code> and <code>pages</code>, two constructors (one without pages, defaulting to 100 using <code>this(...)</code>), a <code>isLong()</code> method (over 300 pages) and a <code>toString()</code>. Create three books and print them.</p>
+          <p>Create a <code>Book</code> class with <code>title</code>, <code>author</code> and <code>pages</code>. Give it two constructors. The one without pages should set pages to 100 using <code>this(...)</code>. Add a <code>isLong()</code> method (true for over 300 pages) and a <code>toString()</code>. Create three books and print them.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always add <code>@Override</code> when you write <code>toString()</code>, <code>equals()</code> or <code>hashCode()</code>. If you misspell the method name, the compiler will tell you instead of silently creating a new method.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Always add <code>@Override</code> when you write <code>toString()</code>, <code>equals()</code> or <code>hashCode()</code>. If you misspell the method name, the compiler tells you. Without it, Java quietly creates a new method.</p></div>
       HTML
       starter_code: <<~'JAVA'
         class Student {
@@ -1277,7 +1277,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Encapsulation, Records and Enums</h1>
         </div>
-        <p class="lc-lead"><strong>Encapsulation</strong> means hiding an object's data and allowing changes only through methods that keep it valid. <strong>Immutable</strong> objects go one step further: they never change at all. Java 16+ <strong>records</strong> make immutable data classes a one-liner, and <strong>enums</strong> can carry their own fields and methods.</p>
+        <p class="lc-lead"><strong>Encapsulation</strong> means hiding an object's data. Changes happen only through methods that keep the data valid. <strong>Immutable</strong> objects go one step further: they never change at all. With Java 16+ <strong>records</strong>, you can write an immutable data class in one line. <strong>Enums</strong> can hold their own fields and methods.</p>
         <div class="lc-card">
           <h3>Access Modifiers</h3>
           <table class="lc-table">
@@ -1289,7 +1289,7 @@ module JavaContent
               <tr><td><code>public</code></td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
             </tbody>
           </table>
-          <p>Rule of thumb: make fields <code>private</code>, and make methods only as visible as they need to be.</p>
+          <p>A simple rule: make fields <code>private</code>. Make methods only as visible as they need to be.</p>
         </div>
         <div class="lc-card">
           <h3>Encapsulation: Guard Your Data</h3>
@@ -1309,15 +1309,15 @@ module JavaContent
             }
         }
         // account.balance = -500;   // compile error: balance is private</code></pre></div>
-          <p>There is deliberately no <code>setBalance</code>. The only way to change the balance is <code>deposit</code>, which checks the rule. Do not add a getter and setter for every field automatically — add only what callers truly need.</p>
+          <p>There is no <code>setBalance</code>, and this is on purpose. The only way to change the balance is <code>deposit</code>, which checks the rule. Do not add a getter and setter for every field by habit. Add only what other code really needs.</p>
         </div>
         <div class="lc-card">
           <h3>Immutable Objects</h3>
           <ul class="lc-list">
-            <li>All fields <code>private final</code>, no setters, class is <code>final</code> (cannot be subclassed).</li>
-            <li>"Changing" returns a <strong>new</strong> object: <code>price.withDiscount(10)</code>.</li>
-            <li>If a field is a mutable object such as a <code>List</code>, store a copy: <code>this.items = List.copyOf(items);</code></li>
-            <li>Benefits: safe to share, safe across threads, and they make good <code>Map</code> keys. <code>String</code>, <code>Integer</code> and <code>LocalDate</code> are all immutable.</li>
+            <li>All fields are <code>private final</code>. There are no setters. The class is <code>final</code> (no other class can extend it).</li>
+            <li>To "change" it, you get back a <strong>new</strong> object: <code>price.withDiscount(10)</code>.</li>
+            <li>If a field is a mutable (changeable) object such as a <code>List</code>, store a copy: <code>this.items = List.copyOf(items);</code></li>
+            <li>Benefits: they are safe to share and safe across threads. They also make good <code>Map</code> keys. <code>String</code>, <code>Integer</code> and <code>LocalDate</code> are all immutable.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1337,20 +1337,20 @@ module JavaContent
             }
             boolean passed() { return score &gt;= 35; }    // records can have methods
         }</code></pre></div>
-          <p>One line gives you private final fields, a constructor, accessors, <code>equals</code>, <code>hashCode</code> and <code>toString</code>.</p>
+          <p>One line gives you private final fields, a constructor, accessors (methods that read the fields), <code>equals</code>, <code>hashCode</code> and <code>toString</code>.</p>
           <table class="lc-table">
             <thead><tr><th></th><th>Normal class</th><th>Record</th></tr></thead>
             <tbody>
-              <tr><td>Purpose</td><td>objects with behaviour and changing state</td><td>plain, immutable data carriers</td></tr>
+              <tr><td>Purpose</td><td>objects with behaviour and data that changes</td><td>simple objects that only hold data that never changes</td></tr>
               <tr><td>Fields</td><td>anything you declare</td><td>only the components in the header (all final)</td></tr>
               <tr><td><code>equals</code>/<code>hashCode</code>/<code>toString</code></td><td>write them yourself</td><td>generated</td></tr>
-              <tr><td>Inheritance</td><td>can extend a class</td><td>cannot extend; can implement interfaces</td></tr>
+              <tr><td>Inheritance</td><td>can extend a class</td><td>cannot extend a class, but can implement interfaces</td></tr>
             </tbody>
           </table>
         </div>
         <div class="lc-card">
           <h3>Enums with Fields, Constructors and Methods</h3>
-          <p>In Lesson 5 an enum was just a list of names. An enum is really a class with a fixed set of objects, so each constant can hold data. The constants call a constructor, which is always private.</p>
+          <p>In Lesson 5, an enum was just a list of names. But an enum is really a class with a fixed set of objects. So each constant can hold data. The constants call a constructor, which is always private.</p>
           <div class="lc-code-block"><pre><code>enum Genre {
             FICTION(14, 2), SCIENCE(21, 5), HISTORY(7, 2);   // must come first, then a semicolon
 
@@ -1369,30 +1369,30 @@ module JavaContent
         System.out.println(Genre.SCIENCE.fineFor(3));         // 15
         System.out.println(Genre.valueOf("HISTORY"));         // HISTORY
         System.out.println(Genre.HISTORY.ordinal());          // 2 (position, starting at 0)</code></pre></div>
-          <p>Now the rule "science books are lent for 21 days" lives in one place instead of in <code>if</code> statements all over the program. Enum fields should be <code>final</code>: enum constants are shared by the whole program, so they should be immutable.</p>
+          <p>Now the rule "science books are lent for 21 days" is kept in one place. It is not spread over <code>if</code> statements all over the program. Enum fields should be <code>final</code>. The whole program shares enum constants, so they should be immutable.</p>
           <h3>EnumMap: a Map with Enum Keys</h3>
-          <p>When the keys of a map are enum constants, use <code>EnumMap</code>. It is faster and smaller than a <code>HashMap</code> (inside it is just an array indexed by <code>ordinal()</code>) and it always keeps the keys in <strong>declaration order</strong>.</p>
+          <p>When the keys of a map are enum constants, use <code>EnumMap</code>. It is faster and smaller than a <code>HashMap</code>. Inside, it is just an array indexed by <code>ordinal()</code>. It always keeps the keys in <strong>declaration order</strong> (the order you wrote them in the enum).</p>
           <div class="lc-code-block"><pre><code>Map&lt;Genre, Integer&gt; onLoan = new EnumMap&lt;&gt;(Genre.class);
         onLoan.put(Genre.SCIENCE, 2);
         onLoan.put(Genre.FICTION, 5);
         System.out.println(onLoan);   // {FICTION=5, SCIENCE=2}   declaration order, not insertion order</code></pre></div>
-          <p>You will meet <code>Map</code> fully in Lesson 15, and the capstone uses an <code>EnumMap</code> to count books per genre.</p>
+          <p>You will learn <code>Map</code> fully in Lesson 15. The capstone project uses an <code>EnumMap</code> to count books per genre.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Public fields</strong> — anyone can put invalid data in them.</li>
-            <li><strong>Returning an internal list</strong> — callers can modify it. Return <code>List.copyOf(items)</code> or an unmodifiable view.</li>
-            <li><strong>Calling <code>getX()</code> on a record</strong> — record accessors are named after the component: <code>x()</code>.</li>
-            <li><strong>Comparing enums with <code>equals</code> or strings</strong> — use <code>==</code> (<code>g == Genre.SCIENCE</code>); there is only ever one object per constant. Avoid storing <code>ordinal()</code> in files or databases: it changes if someone reorders the constants.</li>
-            <li><strong>Thinking records are deeply immutable</strong> — a record holding an <code>ArrayList</code> can still have that list changed. Copy it in the compact constructor.</li>
+            <li><strong>Public fields</strong>: any code can put invalid data in them.</li>
+            <li><strong>Returning an internal list</strong>: other code can change it. Return <code>List.copyOf(items)</code> or an unmodifiable view (a read-only wrapper).</li>
+            <li><strong>Calling <code>getX()</code> on a record</strong>: record accessors have the same name as the component: <code>x()</code>.</li>
+            <li><strong>Comparing enums with <code>equals</code> or strings</strong>: use <code>==</code> (<code>g == Genre.SCIENCE</code>). There is only ever one object for each constant. Do not store <code>ordinal()</code> in files or databases. It changes if someone reorders the constants.</li>
+            <li><strong>Thinking records are fully immutable</strong>: if a record holds an <code>ArrayList</code>, that list can still change. Copy it in the compact constructor.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Create <code>record Product(String name, double price)</code> with a compact constructor that rejects negative prices, and a method <code>Product withPrice(double p)</code> that returns a new record. Show that the original is unchanged. Then add a fourth constant <code>REFERENCE(0, 0)</code> to <code>Genre</code> (reference books cannot be borrowed) and a method <code>boolean canBorrow()</code> that returns <code>loanDays &gt; 0</code>.</p>
+          <p>Create <code>record Product(String name, double price)</code>. Give it a compact constructor that rejects negative prices. Add a method <code>Product withPrice(double p)</code> that returns a new record. Show that the original has not changed. Then add a fourth constant <code>REFERENCE(0, 0)</code> to <code>Genre</code>, because reference books cannot be borrowed. Add a method <code>boolean canBorrow()</code> that returns <code>loanDays &gt; 0</code>.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Make things immutable by default and mutable only when you must. Immutable objects have fewer bugs because nothing can change them behind your back.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Make things immutable by default. Make them mutable only when you must. Immutable objects have fewer bugs, because no other code can change them without you knowing.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.util.ArrayList;
@@ -1461,7 +1461,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Inheritance and Polymorphism</h1>
         </div>
-        <p class="lc-lead"><strong>Inheritance</strong> lets a new class <strong>reuse and extend</strong> an existing one: a <code>Manager</code> <em>is an</em> <code>Employee</code>, so <code>class Manager extends Employee</code> gets Employee's fields and methods and can change some of them. <strong>Polymorphism</strong> ("many forms") is the payoff: one variable type can refer to many kinds of objects, and each object runs <em>its own</em> version of a method. An <strong>abstract class</strong> is a parent that says what every child must do without being usable on its own.</p>
+        <p class="lc-lead"><strong>Inheritance</strong> lets a new class <strong>reuse and extend</strong> an existing class. A <code>Manager</code> <em>is an</em> <code>Employee</code>. So <code>class Manager extends Employee</code> gets the fields and methods of Employee. It can also change some of them. <strong>Polymorphism</strong> ("many forms") is the reward. One variable type can refer to many kinds of objects. Each object runs <em>its own</em> version of a method. An <strong>abstract class</strong> is a parent class that you cannot use on its own. It says what every child class must do.</p>
         <div class="lc-card">
           <h3><code>extends</code>, <code>super</code> and <code>@Override</code></h3>
           <div class="lc-code-block"><pre><code>class Employee {
@@ -1492,10 +1492,10 @@ module JavaContent
         Manager m = new Manager("Divya", 90000, 150000);
         System.out.println(m.role() + ": " + m.annualPay());   // Manager: 1230000.0</code></pre></div>
           <ul class="lc-list">
-            <li><code>super(...)</code> calls the parent constructor; <code>super.method()</code> calls the parent's version of a method.</li>
-            <li>In Java 17 to 24, <code>super(...)</code> must be the <strong>first statement</strong> in the constructor. Java 25 relaxes this a little: simple code such as argument checks may come before it, but it still cannot read fields or call methods on <code>this</code>.</li>
+            <li><code>super(...)</code> calls the parent constructor. <code>super.method()</code> calls the parent's version of a method.</li>
+            <li>In Java 17 to 24, <code>super(...)</code> must be the <strong>first statement</strong> in the constructor. Java 25 makes this rule a little softer. Simple code, such as argument checks, may come before it. But that code still cannot read fields or call methods on <code>this</code>.</li>
             <li><code>@Override</code> asks the compiler to check that you really are overriding a parent method.</li>
-            <li>An overriding method must keep the same name and parameters, and cannot be <em>less</em> visible than the parent's.</li>
+            <li>An overriding method must keep the same name and parameters. It cannot be <em>less</em> visible than the parent's method.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1503,18 +1503,18 @@ module JavaContent
           <table class="lc-table">
             <thead><tr><th>Rule</th><th>Meaning</th></tr></thead>
             <tbody>
-              <tr><td>Single inheritance</td><td>A class can extend only <strong>one</strong> class (but can implement many interfaces).</td></tr>
-              <tr><td><code>Object</code> is the root</td><td>Every class ultimately extends <code>java.lang.Object</code>, which provides <code>toString</code>, <code>equals</code> and <code>hashCode</code>.</td></tr>
+              <tr><td>Single inheritance</td><td>A class can extend only <strong>one</strong> class. It can implement many interfaces.</td></tr>
+              <tr><td><code>Object</code> is the root</td><td>In the end, every class extends <code>java.lang.Object</code>. It gives every class <code>toString</code>, <code>equals</code> and <code>hashCode</code>.</td></tr>
               <tr><td>Constructors are not inherited</td><td>Each subclass writes its own and calls <code>super(...)</code>.</td></tr>
-              <tr><td>Parent is built first</td><td>The parent constructor always runs before the child constructor's body. If you do not call <code>super(...)</code> yourself, Java inserts a call to the parent's no-argument constructor, so the chain always runs from the top down.</td></tr>
-              <tr><td><code>final</code> stops it</td><td>A <code>final</code> class cannot be extended (<code>String</code> is final); a <code>final</code> method cannot be overridden.</td></tr>
+              <tr><td>Parent is built first</td><td>The parent constructor always runs before the body of the child constructor. If you do not call <code>super(...)</code> yourself, Java adds a call to the parent's no-argument constructor. So the chain always runs from the top down.</td></tr>
+              <tr><td><code>final</code> stops it</td><td>A <code>final</code> class cannot be extended (<code>String</code> is final). A <code>final</code> method cannot be overridden.</td></tr>
               <tr><td><code>private</code> is hidden</td><td>Subclasses cannot access private fields of the parent directly.</td></tr>
             </tbody>
           </table>
         </div>
         <div class="lc-card">
           <h3>Overriding <code>equals</code>, <code>hashCode</code> and <code>toString</code></h3>
-          <p>The versions inherited from <code>Object</code> are rarely what you want: <code>toString()</code> prints something like <code>Student@1b6d3586</code>, and <code>equals</code> is the same as <code>==</code> (same object in memory). For a normal class you override all three yourself.</p>
+          <p>The versions you get from <code>Object</code> are rarely what you want. <code>toString()</code> prints something like <code>Student@1b6d3586</code>. <code>equals</code> works the same as <code>==</code> (same object in memory). For a normal class, you override all three yourself.</p>
           <div class="lc-code-block"><pre><code>class Student {
             private final String roll;
             private final String name;
@@ -1540,7 +1540,7 @@ module JavaContent
         false
         true
         true</code></pre></div>
-          <p><strong>The contract:</strong> if <code>a.equals(b)</code> is true, then <code>a.hashCode() == b.hashCode()</code> must also be true. <code>HashSet</code> and <code>HashMap</code> look in the bucket chosen by <code>hashCode</code> first, so if you override <code>equals</code> but forget <code>hashCode</code>, <code>contains(b)</code> will usually return <code>false</code>. Use the same fields in both methods (<code>Objects.hash</code> is in <code>java.util</code>). Records (Lesson 10) generate all three for you.</p>
+          <p><strong>The contract (the rule):</strong> if <code>a.equals(b)</code> is true, then <code>a.hashCode() == b.hashCode()</code> must also be true. <code>HashSet</code> and <code>HashMap</code> first look in the bucket that <code>hashCode</code> picks. So if you override <code>equals</code> but forget <code>hashCode</code>, <code>contains(b)</code> usually returns <code>false</code>. Use the same fields in both methods (<code>Objects.hash</code> is in <code>java.util</code>). Records (Lesson 10) create all three for you.</p>
         </div>
         <div class="lc-card">
           <h3>Abstract Classes</h3>
@@ -1572,11 +1572,11 @@ module JavaContent
           <p>Output:</p>
           <div class="lc-code-block"><pre><code>Circle with area 3.14
         Rectangle with area 6.00</code></pre></div>
-          <p>The variable's type (<code>Shape</code>) decides <strong>which methods you may call</strong> — checked at compile time. The object's actual class (<code>Circle</code>) decides <strong>which version runs</strong> — chosen at runtime.</p>
+          <p>The variable's type (<code>Shape</code>) decides <strong>which methods you may call</strong>. The compiler checks this. The object's real class (<code>Circle</code>) decides <strong>which version runs</strong>. Java picks this while the program runs.</p>
           <table class="lc-table">
             <thead><tr><th></th><th>Overloading</th><th>Overriding</th></tr></thead>
             <tbody>
-              <tr><td>Where</td><td>same class, same name</td><td>subclass redefines a parent method</td></tr>
+              <tr><td>Where</td><td>same class, same name</td><td>a subclass rewrites a parent method</td></tr>
               <tr><td>Parameters</td><td>must differ</td><td>must be the same</td></tr>
               <tr><td>Chosen</td><td>at compile time</td><td>at runtime (dynamic dispatch)</td></tr>
               <tr><td>Kind of polymorphism</td><td>static</td><td>dynamic</td></tr>
@@ -1598,7 +1598,7 @@ module JavaContent
 
         // The variable is also usable in the rest of an &amp;&amp; condition
         if (s instanceof Circle c &amp;&amp; c.radius() &gt; 5) { ... }</code></pre></div>
-          <p>A wrong manual cast such as <code>(Circle) rectangle</code> throws <code>ClassCastException</code>. Pattern matching only binds the variable when the test succeeds, so it cannot fail that way.</p>
+          <p>A wrong manual cast such as <code>(Circle) rectangle</code> throws <code>ClassCastException</code>. Pattern matching only creates the variable when the test passes. So it cannot fail that way.</p>
         </div>
         <div class="lc-card">
           <h3>Upcasting and Downcasting</h3>
@@ -1606,7 +1606,7 @@ module JavaContent
         Circle c = (Circle) s;          // downcast: works, because s really is a Circle
         Shape r = new Rectangle(1, 2);
         Circle bad = (Circle) r;        // compiles, but throws ClassCastException at runtime</code></pre></div>
-          <p>Upcasting loses nothing — the object is unchanged — but through a <code>Shape</code> variable you can only call <code>Shape</code> methods. Downcast only after checking the type, which is exactly what pattern matching does for you.</p>
+          <p>Upcasting (treating a child as its parent type) loses nothing. The object does not change. But through a <code>Shape</code> variable, you can only call <code>Shape</code> methods. Downcast (treat it as the child type again) only after you check the type. Pattern matching does exactly this for you.</p>
         </div>
         <div class="lc-card">
           <h3>Inheritance vs Composition</h3>
@@ -1617,24 +1617,24 @@ module JavaContent
         class Car {
             private final Engine engine = new Engine();
         }</code></pre></div>
-          <p>Use inheritance only for a true <em>is-a</em> relationship. For reusing code, <strong>prefer composition</strong>: it keeps classes loosely connected, and you can change the part without breaking a family of subclasses.</p>
+          <p>Use inheritance only for a true <em>is-a</em> relationship. To reuse code, <strong>prefer composition</strong> (one object holds another as a field). It keeps classes loosely connected. You can change the part without breaking a whole family of subclasses.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Forgetting <code>super(...)</code></strong> — if the parent has no no-argument constructor, the child will not compile.</li>
-            <li><strong>Accidental overloading</strong> — writing <code>double annualPay(int x)</code> in the child creates a new method instead of overriding. <code>@Override</code> catches this.</li>
-            <li><strong>Calling a child-only method through a parent variable</strong> — <code>Shape s = new Circle(1); s.radius();</code> does not compile.</li>
-            <li><strong>Long <code>instanceof</code> chains instead of polymorphism</strong> — if every subclass needs different behaviour, put an overridden method in each class.</li>
-            <li><strong>Thinking static methods are polymorphic</strong> — static methods are not overridden; they are chosen by the variable's type.</li>
-            <li><strong>Deep hierarchies, or inheriting just to reuse one method</strong> — keep hierarchies shallow and prefer composition.</li>
+            <li><strong>Forgetting <code>super(...)</code></strong>: if the parent has no constructor without arguments, the child does not compile.</li>
+            <li><strong>Overloading by mistake</strong>: writing <code>double annualPay(int x)</code> in the child creates a new method. It does not override. <code>@Override</code> catches this.</li>
+            <li><strong>Calling a child-only method through a parent variable</strong>: <code>Shape s = new Circle(1); s.radius();</code> does not compile.</li>
+            <li><strong>Long <code>instanceof</code> chains instead of polymorphism</strong>: if each subclass needs different behaviour, put an overridden method in each class.</li>
+            <li><strong>Thinking static methods are polymorphic</strong>: static methods are not overridden. Java picks them by the variable's type.</li>
+            <li><strong>Deep hierarchies, or inheriting just to reuse one method</strong>: keep hierarchies (chains of parent and child classes) short. Prefer composition.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Add a <code>Triangle(base, height)</code> subclass of <code>Shape</code> to the starter code and put one in the array. Without changing either loop in <code>main</code>, it should appear with the correct area — new types, no changes to existing code. Then run it and check the constructor messages: which constructor prints first for the <code>Square</code>, and why?</p>
+          <p>Add a <code>Triangle(base, height)</code> subclass of <code>Shape</code> to the starter code. Put one in the array. Do not change either loop in <code>main</code>. It should still appear with the correct area. You add new types without changing existing code. Then run it and check the constructor messages. Which constructor prints first for the <code>Square</code>, and why?</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Ask "Can I say <em>X is a Y</em> in every situation?" A square is a shape — yes. A stack is an <code>ArrayList</code> — no, because a stack must not allow inserting in the middle. If the answer is not always yes, use composition. And write code against the most general type you need (<code>Shape s</code>, <code>List&lt;String&gt; names</code>) so you can swap implementations later.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Ask: "Can I say <em>X is a Y</em> in every situation?" A square is a shape: yes. A stack is an <code>ArrayList</code>: no, because a stack must not allow adding items in the middle. If the answer is not always yes, use composition. Also, use the most general type you need for your variables (<code>Shape s</code>, <code>List&lt;String&gt; names</code>). Then you can switch to another implementation later.</p></div>
       HTML
       starter_code: <<~'JAVA'
         abstract class Shape {
@@ -1702,7 +1702,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Interfaces and Sealed Types</h1>
         </div>
-        <p class="lc-lead">An <strong>interface</strong> is a contract: "any class that implements me promises to have these methods". A class can implement many interfaces. Java 17 adds <strong>sealed</strong> types, which let you list exactly which classes are allowed to implement an interface.</p>
+        <p class="lc-lead">An <strong>interface</strong> is a contract (a list of promises). It says: "any class that implements me promises to have these methods". A class can implement many interfaces. Java 17 adds <strong>sealed</strong> types. With a sealed type, you list exactly which classes may implement an interface.</p>
         <div class="lc-card">
           <h3>Declaring and Implementing an Interface</h3>
           <div class="lc-code-block"><pre><code>interface Payable {
@@ -1726,7 +1726,7 @@ module JavaContent
                 return Double.compare(total, other.total);   // natural order: by total
             }
         }</code></pre></div>
-          <p>Abstract and default methods in an interface are <code>public</code> automatically, so the implementing methods must be <code>public</code> too.</p>
+          <p>Abstract and default methods in an interface are <code>public</code> automatically. So the methods that implement them must be <code>public</code> too.</p>
         </div>
         <div class="lc-card">
           <h3>Abstract Class vs Interface</h3>
@@ -1737,10 +1737,10 @@ module JavaContent
               <tr><td>Instance fields (state)</td><td>Yes</td><td>No (only constants)</td></tr>
               <tr><td>Constructors</td><td>Yes</td><td>No</td></tr>
               <tr><td>Methods with a body</td><td>Yes</td><td>Yes: <code>default</code>, <code>static</code>, <code>private</code></td></tr>
-              <tr><td>Use for</td><td>closely related classes sharing code and state</td><td>a capability many unrelated classes can have</td></tr>
+              <tr><td>Use for</td><td>closely related classes that share code and state</td><td>an ability that many unrelated classes can have</td></tr>
             </tbody>
           </table>
-          <p>Well-known interfaces: <code>Comparable</code> (natural ordering), <code>Comparator</code>, <code>Runnable</code>, <code>AutoCloseable</code>, <code>Iterable</code>, and <code>List</code>/<code>Map</code> themselves.</p>
+          <p>Well-known interfaces: <code>Comparable</code> (the normal sort order), <code>Comparator</code>, <code>Runnable</code>, <code>AutoCloseable</code>, <code>Iterable</code>, and <code>List</code>/<code>Map</code> themselves.</p>
         </div>
         <div class="lc-card">
           <h3>Sealed Interfaces (Java 17)</h3>
@@ -1752,9 +1752,9 @@ module JavaContent
 
         // class Crypto implements Payment { }   // ERROR: not in the permits list</code></pre></div>
           <ul class="lc-list">
-            <li>Every permitted subtype must be <code>final</code>, <code>sealed</code> or <code>non-sealed</code>. Records are automatically final.</li>
+            <li>Every allowed subtype (a class that implements it) must be <code>final</code>, <code>sealed</code> or <code>non-sealed</code>. Records are final automatically.</li>
             <li>If all the types are in the same file, you may leave out the <code>permits</code> clause.</li>
-            <li>Sealed types model a <strong>closed set of choices</strong>: a payment is UPI, card or cash — nothing else. With records, this is how Java models data like "one of these shapes".</li>
+            <li>Sealed types show a <strong>closed set of choices</strong>. A payment is UPI, card or cash, and nothing else. Java uses sealed types with records to describe data like "one of these shapes".</li>
           </ul>
           <div class="lc-code-block"><pre><code>// Java 17: handle each case with instanceof patterns
         static double fee(Payment p) {
@@ -1766,7 +1766,7 @@ module JavaContent
         </div>
         <div class="lc-card">
           <h3>Java 21+: Pattern Matching in <code>switch</code> and Record Patterns</h3>
-          <p><strong>Java 21+ only — this does not compile in the Java 17 editor.</strong> Java 21 finalised <code>switch</code> patterns and record patterns. With a sealed interface, the compiler knows every case, so no <code>default</code> is needed:</p>
+          <p><strong>Java 21+ only. This does not compile in the Java 17 editor.</strong> Java 21 finalised <code>switch</code> patterns and record patterns. With a sealed interface, the compiler knows every case. So you do not need a <code>default</code>:</p>
           <div class="lc-code-block"><pre><code>static double fee(Payment p) {
             return switch (p) {
                 case Card(String last4, double amount) -&gt; amount * 0.02;   // record pattern
@@ -1777,7 +1777,7 @@ module JavaContent
         </div>
         <div class="lc-card">
           <h3>Nested, Inner and Anonymous Classes</h3>
-          <p>A class can be declared inside another class when it only makes sense as a helper of that class.</p>
+          <p>You can declare a class inside another class. Do this when it is only useful as a helper for that class.</p>
           <div class="lc-code-block"><pre><code>class Library {
             private final List&lt;String&gt; titles = new ArrayList&lt;&gt;();
             void add(String t) { titles.add(t); }
@@ -1810,12 +1810,12 @@ module JavaContent
           <table class="lc-table">
             <thead><tr><th>Kind</th><th>Can use the outer object's fields?</th><th>Use it for</th></tr></thead>
             <tbody>
-              <tr><td><code>static</code> nested class</td><td>No</td><td>a helper type grouped with its owner (the usual choice)</td></tr>
+              <tr><td><code>static</code> nested class</td><td>No</td><td>a helper type kept together with its owner (the usual choice)</td></tr>
               <tr><td>Inner class (no <code>static</code>)</td><td>Yes</td><td>objects that need their outer object, such as an iterator over it</td></tr>
-              <tr><td>Anonymous class</td><td>Yes</td><td>a one-off implementation; prefer a lambda when the interface has one method</td></tr>
+              <tr><td>Anonymous class</td><td>Yes</td><td>an implementation you use only once; use a lambda instead when the interface has one method</td></tr>
             </tbody>
           </table>
-          <p>Make a nested class <code>static</code> unless it really needs the outer object. Records, enums and interfaces declared inside a class are always static.</p>
+          <p>Make a nested class <code>static</code> unless it really needs the outer object. Records, enums and interfaces inside a class are always static.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Sorting with <code>Comparable</code></h3>
@@ -1832,17 +1832,17 @@ module JavaContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Reducing visibility</strong> — implementing <code>double amount()</code> without <code>public</code> does not compile.</li>
-            <li><strong>Writing <code>extends</code> for an interface</strong> — classes <code>implement</code> interfaces; interfaces <code>extend</code> other interfaces.</li>
-            <li><strong>Subtracting in <code>compareTo</code></strong> — <code>return a - b;</code> can overflow. Use <code>Integer.compare(a, b)</code> or <code>Double.compare</code>.</li>
+            <li><strong>Reducing visibility</strong>: if you implement <code>double amount()</code> without <code>public</code>, it does not compile.</li>
+            <li><strong>Writing <code>extends</code> for an interface</strong>: classes <code>implement</code> interfaces. Interfaces <code>extend</code> other interfaces.</li>
+            <li><strong>Subtracting in <code>compareTo</code></strong>: <code>return a - b;</code> can overflow (go past the largest number). Use <code>Integer.compare(a, b)</code> or <code>Double.compare</code>.</li>
             <li><strong>Forgetting <code>final</code>/<code>sealed</code>/<code>non-sealed</code></strong> on a class that implements a sealed interface.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Add a fourth payment type, <code>record Wallet(String provider, double amount)</code>, to the starter code with a 1% fee. Notice that you must add it to the <code>permits</code> list and to the <code>fee</code> method.</p>
+          <p>Add a fourth payment type, <code>record Wallet(String provider, double amount)</code>, to the starter code. Give it a 1% fee. Notice that you must add it to the <code>permits</code> list and to the <code>fee</code> method.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Name interfaces after a capability or a role: <code>Payable</code>, <code>Comparable</code>, <code>Repository</code>. Then code that uses them reads naturally: <code>List&lt;Payable&gt; bills</code>.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Name interfaces after an ability or a role: <code>Payable</code>, <code>Comparable</code>, <code>Repository</code>. Then the code that uses them is easy to read: <code>List&lt;Payable&gt; bills</code>.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.util.ArrayList;
@@ -1899,7 +1899,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Exceptions and Error Handling</h1>
         </div>
-        <p class="lc-lead">An <strong>exception</strong> is an object that signals something went wrong — bad input, a missing file, dividing by zero. Java makes you think about errors: some exceptions <em>must</em> be handled or declared, and <strong>try-with-resources</strong> guarantees cleanup.</p>
+        <p class="lc-lead">An <strong>exception</strong> is an object that tells you something went wrong. Examples are bad input, a missing file, or dividing by zero. Java makes you think about errors. You <em>must</em> handle or declare some exceptions. <strong>try-with-resources</strong> makes sure things are always closed and cleaned up.</p>
         <div class="lc-card">
           <h3>The Exception Hierarchy</h3>
           <div class="lc-code-block"><pre><code>Throwable
@@ -1912,7 +1912,7 @@ module JavaContent
             <tbody>
               <tr><td>Extends</td><td><code>Exception</code> (not RuntimeException)</td><td><code>RuntimeException</code></td></tr>
               <tr><td>Compiler forces handling?</td><td>Yes: catch it or declare <code>throws</code></td><td>No</td></tr>
-              <tr><td>Usually means</td><td>an outside problem the caller can recover from (file, network)</td><td>a programming bug or invalid argument</td></tr>
+              <tr><td>Usually means</td><td>an outside problem the caller can recover from (file, network)</td><td>a bug in the code or a wrong argument</td></tr>
               <tr><td>Example</td><td><code>IOException</code></td><td><code>NullPointerException</code></td></tr>
             </tbody>
           </table>
@@ -1932,7 +1932,7 @@ module JavaContent
           <p>Output:</p>
           <div class="lc-code-block"><pre><code>Bad number: For input string: "12a"
         finally always runs</code></pre></div>
-          <p>Only the first matching <code>catch</code> runs. Put specific exceptions before general ones — the compiler rejects a <code>catch</code> that can never be reached.</p>
+          <p>Only the first matching <code>catch</code> runs. Put specific exceptions before general ones. The compiler rejects a <code>catch</code> that can never be reached.</p>
         </div>
         <div class="lc-card">
           <h3>Throwing and Custom Exceptions</h3>
@@ -1945,7 +1945,7 @@ module JavaContent
             if (amount &gt; balance) throw new InsufficientFundsException("Balance is only " + balance);
             balance -= amount;
         }</code></pre></div>
-          <p>When you catch one exception and throw another, pass the original as the <strong>cause</strong>: <code>throw new ReportException("Could not build report", e);</code> — the stack trace then shows both.</p>
+          <p>Sometimes you catch one exception and throw another. Then pass the original as the <strong>cause</strong>: <code>throw new ReportException("Could not build report", e);</code>. The stack trace then shows both.</p>
         </div>
         <div class="lc-card">
           <h3>try-with-resources (Java 7+)</h3>
@@ -1954,7 +1954,7 @@ module JavaContent
         } catch (IOException e) {
             System.out.println("Could not read: " + e.getMessage());
         }   // in.close() is called automatically, even if an exception happened</code></pre></div>
-          <p>Any class that implements <code>AutoCloseable</code> can be used this way. Several resources are closed in <strong>reverse</strong> order of opening. This replaces the old pattern of closing things by hand in <code>finally</code>.</p>
+          <p>You can use any class that implements <code>AutoCloseable</code> this way. If you open several resources (things like files that must be closed), Java closes them in <strong>reverse</strong> order. This replaces the old way of closing things by hand in <code>finally</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: How Exceptions Travel</h3>
@@ -1968,23 +1968,23 @@ module JavaContent
         }</code></pre></div>
           <p>Output:</p>
           <div class="lc-code-block"><pre><code>Caught in main: For input string: "x"</code></pre></div>
-          <p>The exception is thrown inside <code>parseInt</code>, passes up through <code>parse</code> and <code>total</code>, and is caught in <code>main</code>. If nobody catches it, the program stops and prints a <strong>stack trace</strong> listing every method on the way — read it from the top to find where the problem started.</p>
+          <p>The exception is thrown inside <code>parseInt</code>. It passes up through <code>parse</code> and <code>total</code>. Then it is caught in <code>main</code>. If nobody catches it, the program stops. It prints a <strong>stack trace</strong> (a list of every method on the way). Read it from the top to find where the problem started.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Swallowing exceptions</strong> — an empty <code>catch (Exception e) { }</code> hides bugs. At least log the problem, or let it propagate.</li>
-            <li><strong>Catching <code>Exception</code> first</strong> — later, more specific catch blocks become unreachable, which is a compile error.</li>
-            <li><strong>Using exceptions for normal flow</strong> — check <code>if (list.isEmpty())</code> instead of catching an exception.</li>
-            <li><strong>Losing the cause</strong> — <code>throw new RuntimeException("failed")</code> inside a catch discards the original error. Pass <code>e</code>.</li>
-            <li><strong>Catching <code>Error</code></strong> — errors like <code>OutOfMemoryError</code> are not meant to be handled by normal code.</li>
+            <li><strong>Swallowing exceptions</strong>: an empty <code>catch (Exception e) { }</code> hides bugs. At least log the problem, or let it pass up to the caller.</li>
+            <li><strong>Catching <code>Exception</code> first</strong>: the later, more specific catch blocks can never be reached. This is a compile error.</li>
+            <li><strong>Using exceptions for normal flow</strong>: check <code>if (list.isEmpty())</code> instead of catching an exception.</li>
+            <li><strong>Losing the cause</strong>: <code>throw new RuntimeException("failed")</code> inside a catch throws away the original error. Pass <code>e</code>.</li>
+            <li><strong>Catching <code>Error</code></strong>: normal code should not handle errors like <code>OutOfMemoryError</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>In the starter code, add a method <code>static int parseAge(String s)</code> that throws <code>IllegalArgumentException</code> if the age is below 0 or above 150, and lets <code>NumberFormatException</code> through for non-numbers. Test it with <code>"25"</code>, <code>"-3"</code> and <code>"abc"</code>.</p>
+          <p>In the starter code, add a method <code>static int parseAge(String s)</code>. It throws <code>IllegalArgumentException</code> if the age is below 0 or above 150. It lets <code>NumberFormatException</code> pass through for text that is not a number. Test it with <code>"25"</code>, <code>"-3"</code> and <code>"abc"</code>.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Fail fast: check arguments at the start of a method and throw <code>IllegalArgumentException</code> with a clear message. A precise error at the right place is far easier to debug than a <code>NullPointerException</code> twenty lines later.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Fail fast: check arguments at the start of a method. Throw <code>IllegalArgumentException</code> with a clear message. A clear error in the right place is much easier to debug than a <code>NullPointerException</code> twenty lines later.</p></div>
       HTML
       starter_code: <<~'JAVA'
         class InsufficientFundsException extends Exception {   // checked
@@ -2046,7 +2046,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Generics</h1>
         </div>
-        <p class="lc-lead"><strong>Generics</strong> let you write a class or method once and use it safely with many types. <code>List&lt;String&gt;</code> means "a list that holds only Strings" — the compiler checks every <code>add</code>, and you never need a cast when you read.</p>
+        <p class="lc-lead"><strong>Generics</strong> let you write a class or method once. You can then use it safely with many types. <code>List&lt;String&gt;</code> means "a list that holds only Strings". The compiler checks every <code>add</code>. You never need a cast (a type conversion) when you read.</p>
         <div class="lc-card">
           <h3>Why Generics? The Old Way vs Now</h3>
           <div class="lc-code-block"><pre><code>// Old way (raw type, before Java 5) — don't use
@@ -2078,7 +2078,7 @@ module JavaContent
         Box&lt;Integer&gt; b = new Box&lt;&gt;(7);
         Pair&lt;String, Integer&gt; p = new Pair&lt;&gt;("Maths", 91);
         String last = lastOf(List.of("a", "b", "c"));   // "c"</code></pre></div>
-          <p>Conventional names: <code>T</code> type, <code>E</code> element, <code>K</code> key, <code>V</code> value, <code>R</code> result.</p>
+          <p>Usual names: <code>T</code> type, <code>E</code> element, <code>K</code> key, <code>V</code> value, <code>R</code> result.</p>
         </div>
         <div class="lc-card">
           <h3>Bounded Types and Wildcards</h3>
@@ -2104,11 +2104,11 @@ module JavaContent
             <thead><tr><th>Syntax</th><th>Meaning</th><th>You can</th></tr></thead>
             <tbody>
               <tr><td><code>List&lt;Number&gt;</code></td><td>exactly Number</td><td>read and write Numbers</td></tr>
-              <tr><td><code>List&lt;? extends Number&gt;</code></td><td>Number or any subtype</td><td>read as Number (a <em>producer</em>)</td></tr>
-              <tr><td><code>List&lt;? super Integer&gt;</code></td><td>Integer or any supertype</td><td>add Integers (a <em>consumer</em>)</td></tr>
+              <tr><td><code>List&lt;? extends Number&gt;</code></td><td>Number or any subtype (child type)</td><td>read as Number (a <em>producer</em>)</td></tr>
+              <tr><td><code>List&lt;? super Integer&gt;</code></td><td>Integer or any supertype (parent type)</td><td>add Integers (a <em>consumer</em>)</td></tr>
             </tbody>
           </table>
-          <p>Memory aid, <strong>PECS</strong>: Producer <code>extends</code>, Consumer <code>super</code>. Note that a <code>List&lt;Integer&gt;</code> is <em>not</em> a <code>List&lt;Number&gt;</code>, even though an Integer is a Number.</p>
+          <p>An easy way to remember, <strong>PECS</strong>: Producer <code>extends</code>, Consumer <code>super</code>. Note that a <code>List&lt;Integer&gt;</code> is <em>not</em> a <code>List&lt;Number&gt;</code>, even though an Integer is a Number.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: One Method, Many Types</h3>
@@ -2128,28 +2128,28 @@ module JavaContent
         6.0
         4.0
         [1, 2, 3, 0.5]</code></pre></div>
-          <p><code>max</code> works for both types because Integer and String each implement <code>Comparable</code> (strings compare alphabetically, so "papaya" is largest). <code>sum</code> returns a <code>double</code>, which is why <code>6.0</code> has a decimal point.</p>
+          <p><code>max</code> works for both types because Integer and String each implement <code>Comparable</code>. Strings compare in alphabetical order, so "papaya" is the largest. <code>sum</code> returns a <code>double</code>. That is why <code>6.0</code> has a decimal point.</p>
         </div>
         <div class="lc-card">
           <h3>Limits: Type Erasure and Primitives</h3>
           <ul class="lc-list">
-            <li>Generic types work only with objects: write <code>List&lt;Integer&gt;</code>, not <code>List&lt;int&gt;</code>. Java converts between <code>int</code> and <code>Integer</code> automatically (<strong>autoboxing</strong>).</li>
-            <li>The type arguments are checked at compile time and then <strong>erased</strong>. At runtime a <code>List&lt;String&gt;</code> is just a <code>List</code>, so you cannot write <code>new T()</code> or <code>x instanceof List&lt;String&gt;</code>.</li>
+            <li>Generic types work only with objects. Write <code>List&lt;Integer&gt;</code>, not <code>List&lt;int&gt;</code>. Java converts between <code>int</code> and <code>Integer</code> automatically (<strong>autoboxing</strong>).</li>
+            <li>The compiler checks the type arguments and then <strong>erases</strong> (removes) them. When the program runs, a <code>List&lt;String&gt;</code> is just a <code>List</code>. So you cannot write <code>new T()</code> or <code>x instanceof List&lt;String&gt;</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Raw types</strong> — <code>List list = new ArrayList();</code> turns off type checking. Always give the type argument.</li>
-            <li><strong>Expecting <code>List&lt;Integer&gt;</code> to be accepted where <code>List&lt;Number&gt;</code> is required</strong> — use <code>List&lt;? extends Number&gt;</code> in the method.</li>
-            <li><strong>Comparing boxed numbers with <code>==</code></strong> — <code>Integer</code> objects should be compared with <code>equals</code>; <code>==</code> may work for small values and fail for large ones.</li>
+            <li><strong>Raw types</strong>: <code>List list = new ArrayList();</code> turns off type checking. Always give the type argument.</li>
+            <li><strong>Expecting <code>List&lt;Integer&gt;</code> to be accepted where <code>List&lt;Number&gt;</code> is required</strong>: use <code>List&lt;? extends Number&gt;</code> in the method.</li>
+            <li><strong>Comparing boxed numbers with <code>==</code></strong>: compare <code>Integer</code> objects with <code>equals</code>. <code>==</code> may work for small values and fail for large ones.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Write a generic method <code>static &lt;T&gt; List&lt;T&gt; repeat(T item, int times)</code> that returns a list containing <code>item</code> <code>times</code> times. Call it with a String and with an Integer.</p>
+          <p>Write a generic method <code>static &lt;T&gt; List&lt;T&gt; repeat(T item, int times)</code>. It returns a list that contains <code>item</code> <code>times</code> times. Call it with a String and with an Integer.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>You will <em>use</em> generics every day (<code>List&lt;String&gt;</code>, <code>Map&lt;String, Integer&gt;</code>, <code>Optional&lt;User&gt;</code>) long before you need to <em>write</em> your own. Start by reading generic signatures fluently.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>You will <em>use</em> generics every day (<code>List&lt;String&gt;</code>, <code>Map&lt;String, Integer&gt;</code>, <code>Optional&lt;User&gt;</code>) long before you need to <em>write</em> your own. Start by learning to read generic method signatures easily.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.util.ArrayList;
@@ -2211,7 +2211,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Collections: List, Set and Map</h1>
         </div>
-        <p class="lc-lead">The <strong>Collections Framework</strong> in <code>java.util</code> gives you ready-made, growable data structures. Three interfaces cover most needs: <code>List</code> (ordered), <code>Set</code> (unique) and <code>Map</code> (key → value). Choosing the right one is a core Java skill.</p>
+        <p class="lc-lead">The <strong>Collections Framework</strong> in <code>java.util</code> gives you ready-made data structures that can grow. Three interfaces cover most needs: <code>List</code> (ordered), <code>Set</code> (unique) and <code>Map</code> (key → value). Choosing the right one is a key Java skill.</p>
         <div class="lc-card">
           <h3>The Big Picture</h3>
           <div class="lc-code-block"><pre><code>Collection&lt;E&gt;
@@ -2220,7 +2220,7 @@ module JavaContent
         └── Queue&lt;E&gt;   process in order                            → ArrayDeque, PriorityQueue
 
         Map&lt;K, V&gt;      unique keys → values (not a Collection)      → HashMap, LinkedHashMap, TreeMap</code></pre></div>
-          <p>Declare variables with the interface type and create with a class: <code>List&lt;String&gt; names = new ArrayList&lt;&gt;();</code>. Then you can switch the class later without changing other code.</p>
+          <p>Declare variables with the interface type. Create the object with a class: <code>List&lt;String&gt; names = new ArrayList&lt;&gt;();</code>. Then you can change the class later without changing other code.</p>
         </div>
         <div class="lc-card">
           <h3>List, Set and Map in Action</h3>
@@ -2245,7 +2245,7 @@ module JavaContent
         <div class="lc-card">
           <h3>Which Collection Should I Use?</h3>
           <table class="lc-table">
-            <thead><tr><th>You need…</th><th>Use</th><th>Speed of the key operation</th></tr></thead>
+            <thead><tr><th>You need…</th><th>Use</th><th>Speed of the main operation</th></tr></thead>
             <tbody>
               <tr><td>an ordered list, access by position</td><td><code>ArrayList</code></td><td><code>get(i)</code> O(1); <code>contains</code> O(n)</td></tr>
               <tr><td>fast "have I seen this?" checks</td><td><code>HashSet</code></td><td><code>contains</code> O(1) on average</td></tr>
@@ -2256,19 +2256,19 @@ module JavaContent
               <tr><td>a queue (FIFO) or a stack (LIFO)</td><td><code>ArrayDeque</code></td><td>O(1) at both ends</td></tr>
             </tbody>
           </table>
-          <p><code>HashMap</code> and <code>HashSet</code> make <strong>no promise about order</strong>. Old classes <code>Vector</code>, <code>Hashtable</code> and <code>Stack</code> are legacy — don't use them in new code.</p>
+          <p><code>HashMap</code> and <code>HashSet</code> make <strong>no promise about order</strong>. The old classes <code>Vector</code>, <code>Hashtable</code> and <code>Stack</code> are legacy (old and replaced). Don't use them in new code.</p>
         </div>
         <div class="lc-card">
           <h3>Immutable Collections and Keys</h3>
           <div class="lc-code-block"><pre><code>List&lt;String&gt; days = List.of("Mon", "Tue");       // Java 9+: unmodifiable
         // days.add("Wed");                             // UnsupportedOperationException
-        Map&lt;String, Integer&gt; pins = Map.of("Delhi", 110001, "Mumbai", 400001);
+        Map&lt;String, Integer&gt; zips = Map.of("Chicago", 60601, "New York", 10001);
         List&lt;String&gt; copy = new ArrayList&lt;&gt;(days);     // a modifiable copy</code></pre></div>
-          <p>Objects used as <code>HashMap</code> keys or in a <code>HashSet</code> must implement <code>equals</code> and <code>hashCode</code> consistently. Records do this for you — that is one reason they make great keys.</p>
+          <p>Some objects are used as <code>HashMap</code> keys or in a <code>HashSet</code>. They must implement <code>equals</code> and <code>hashCode</code> so that both agree. Records do this for you. That is one reason they make great keys.</p>
         </div>
         <div class="lc-card">
           <h3>Wrapper Classes and Autoboxing</h3>
-          <p>Collections hold objects, not primitives. Each primitive has a <strong>wrapper class</strong>: <code>int</code> → <code>Integer</code>, <code>double</code> → <code>Double</code>, <code>boolean</code> → <code>Boolean</code>, <code>char</code> → <code>Character</code>, <code>long</code> → <code>Long</code>. Java converts automatically: <strong>autoboxing</strong> (<code>int</code> → <code>Integer</code>) and <strong>unboxing</strong> (<code>Integer</code> → <code>int</code>).</p>
+          <p>Collections hold objects, not primitives (basic types such as numbers and true/false values). Each primitive has a <strong>wrapper class</strong>: <code>int</code> → <code>Integer</code>, <code>double</code> → <code>Double</code>, <code>boolean</code> → <code>Boolean</code>, <code>char</code> → <code>Character</code>, <code>long</code> → <code>Long</code>. Java converts automatically: <strong>autoboxing</strong> (<code>int</code> → <code>Integer</code>) and <strong>unboxing</strong> (<code>Integer</code> → <code>int</code>).</p>
           <div class="lc-code-block"><pre><code>int n = Integer.parseInt("42");                  // text -&gt; number
         System.out.println(n + 1);
         System.out.println(Integer.MAX_VALUE + " " + Double.parseDouble("2.5"));
@@ -2301,7 +2301,7 @@ module JavaContent
               <tr><td>Compare with</td><td><code>==</code></td><td><code>equals</code> (or unbox first)</td></tr>
             </tbody>
           </table>
-          <p><code>==</code> on two <code>Integer</code>s happens to be true for small values (-128 to 127 are cached) and is usually false for bigger ones — never rely on it. The message says exactly what went wrong: Java tried to unbox a <code>null</code>.</p>
+          <p><code>==</code> on two <code>Integer</code>s is true for small values, because -128 to 127 are cached (saved and reused). It is usually false for bigger ones. Never rely on it. The error message says exactly what went wrong: Java tried to unbox a <code>null</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Word Frequency</h3>
@@ -2319,18 +2319,18 @@ module JavaContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Removing inside for-each</strong> — throws <code>ConcurrentModificationException</code>. Use <code>list.removeIf(x -&gt; ...)</code>.</li>
-            <li><strong><code>remove(1)</code> on a <code>List&lt;Integer&gt;</code></strong> — removes the item at <em>index</em> 1. To remove the value 1, use <code>remove(Integer.valueOf(1))</code>.</li>
-            <li><strong>Relying on HashMap order</strong> — it can change as the map grows. Use <code>LinkedHashMap</code> or <code>TreeMap</code> when order matters.</li>
-            <li><strong>Using a mutable object as a key and then changing it</strong> — the map can no longer find it.</li>
-            <li><strong><code>get</code> returning <code>null</code></strong> — <code>int n = map.get("x");</code> throws <code>NullPointerException</code> if the key is missing. Use <code>getOrDefault</code>.</li>
+            <li><strong>Removing inside for-each</strong>: this throws <code>ConcurrentModificationException</code>. Use <code>list.removeIf(x -&gt; ...)</code>.</li>
+            <li><strong><code>remove(1)</code> on a <code>List&lt;Integer&gt;</code></strong>: this removes the item at <em>index</em> 1. To remove the value 1, use <code>remove(Integer.valueOf(1))</code>.</li>
+            <li><strong>Relying on HashMap order</strong>: the order can change as the map grows. Use <code>LinkedHashMap</code> or <code>TreeMap</code> when order matters.</li>
+            <li><strong>Using a mutable (changeable) object as a key and then changing it</strong>: the map can no longer find it.</li>
+            <li><strong><code>get</code> returning <code>null</code></strong>: <code>int n = map.get("x");</code> throws <code>NullPointerException</code> if the key is missing. Use <code>getOrDefault</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Given a sentence, count how often each word appears (ignore case) with a <code>TreeMap&lt;String, Integer&gt;</code>. Then print the set of words that appear more than once, and use an <code>ArrayDeque</code> as a stack to print the words in reverse order.</p>
+          <p>Take a sentence. Count how often each word appears (ignore case) with a <code>TreeMap&lt;String, Integer&gt;</code>. Then print the set of words that appear more than once. Finally, use an <code>ArrayDeque</code> as a stack to print the words in reverse order.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>When unsure, start with <code>ArrayList</code> and <code>HashMap</code> — they are the right default in most programs. Switch only when you need uniqueness, sorting, or a specific order.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>When you are not sure, start with <code>ArrayList</code> and <code>HashMap</code>. They are the right default in most programs. Change only when you need unique values, sorting, or a specific order.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.util.*;
@@ -2392,10 +2392,10 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Lambdas and Streams</h1>
         </div>
-        <p class="lc-lead">A <strong>lambda</strong> is a short, unnamed function you can pass around: <code>x -&gt; x * 2</code>. <strong>Streams</strong> use lambdas to process collections as a pipeline — filter, transform, sort and summarise — in a few readable lines.</p>
+        <p class="lc-lead">A <strong>lambda</strong> is a short function with no name that you can pass around: <code>x -&gt; x * 2</code>. <strong>Streams</strong> use lambdas to process collections as a pipeline (a chain of steps). You can filter, transform, sort and summarise in a few easy-to-read lines.</p>
         <div class="lc-card">
           <h3>Lambdas and Functional Interfaces</h3>
-          <p>A lambda can be used wherever Java expects a <strong>functional interface</strong> — an interface with exactly one abstract method.</p>
+          <p>You can use a lambda wherever Java expects a <strong>functional interface</strong>. This is an interface with exactly one abstract method.</p>
           <table class="lc-table">
             <thead><tr><th>Interface (<code>java.util.function</code>)</th><th>Method</th><th>Example</th></tr></thead>
             <tbody>
@@ -2411,11 +2411,11 @@ module JavaContent
         System.out.println(isEven.test(4) + " " + length.apply("Java"));   // true 4
 
         names.sort(Comparator.comparing(String::length).thenComparing(Comparator.naturalOrder()));</code></pre></div>
-          <p>A lambda can use local variables from outside only if they are <strong>effectively final</strong> (never reassigned).</p>
+          <p>A lambda can use local variables from outside only if they are <strong>effectively final</strong> (never given a new value).</p>
         </div>
         <div class="lc-card">
           <h3>Sorting with <code>Comparator</code></h3>
-          <p><code>Comparable</code> (Lesson 12) gives a class one natural order. A <code>Comparator&lt;T&gt;</code> is a separate object — usually a lambda — that describes <em>any</em> order you need, without changing the class.</p>
+          <p><code>Comparable</code> (Lesson 12) gives a class one natural (default) order. A <code>Comparator&lt;T&gt;</code> is a separate object, usually a lambda. It describes <em>any</em> order you need, without changing the class.</p>
           <div class="lc-code-block"><pre><code>record Book(String title, int year, double price) { }
         List&lt;Book&gt; books = new ArrayList&lt;&gt;(List.of(
                 new Book("Godan", 1936, 250), new Book("Train to Pakistan", 1956, 199),
@@ -2441,7 +2441,7 @@ module JavaContent
               <tr><td><code>Comparator.naturalOrder()</code>, <code>String.CASE_INSENSITIVE_ORDER</code></td><td>ready-made orders</td></tr>
             </tbody>
           </table>
-          <p>A comparator returns a negative number, zero or a positive number. Use <code>Integer.compare(a, b)</code>, not <code>a - b</code>, which can overflow for large values.</p>
+          <p>A comparator returns a negative number, zero or a positive number. Use <code>Integer.compare(a, b)</code>, not <code>a - b</code>. That form can overflow (go past the largest number) for large values.</p>
         </div>
         <div class="lc-card">
           <h3>A Stream Pipeline</h3>
@@ -2465,14 +2465,14 @@ module JavaContent
 
         Map&lt;String, Long&gt; perCity = orders.stream()
                 .collect(Collectors.groupingBy(Order::city, TreeMap::new, Collectors.counting()));</code></pre></div>
-          <p>Nothing happens until the terminal operation runs. A stream can be used <strong>only once</strong>; create a new one for each pipeline.</p>
+          <p>Nothing happens until the terminal (last) operation runs. You can use a stream <strong>only once</strong>. Create a new one for each pipeline.</p>
         </div>
         <div class="lc-card">
           <h3>Loop vs Stream</h3>
           <table class="lc-table">
             <thead><tr><th>Task</th><th>Loop</th><th>Stream</th></tr></thead>
             <tbody>
-              <tr><td>Filter + transform + collect</td><td>5–8 lines with a temporary list</td><td>one readable pipeline</td></tr>
+              <tr><td>Filter + transform + collect</td><td>5–8 lines with a temporary list</td><td>one easy-to-read pipeline</td></tr>
               <tr><td>Group and count</td><td>manual map updates</td><td><code>groupingBy(..., counting())</code></td></tr>
               <tr><td>Early exit with complex state</td><td>clear and simple</td><td>awkward</td></tr>
               <tr><td>Changing variables outside</td><td>fine</td><td>not allowed / bad practice</td></tr>
@@ -2497,17 +2497,17 @@ module JavaContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Forgetting the terminal operation</strong> — <code>list.stream().filter(...)</code> alone does nothing.</li>
-            <li><strong>Side effects inside streams</strong> — adding to an outside list in <code>map</code> or <code>forEach</code>. Collect the result instead.</li>
-            <li><strong>Modifying the result of <code>toList()</code></strong> — it is unmodifiable. Use <code>collect(Collectors.toCollection(ArrayList::new))</code> if you need to change it.</li>
-            <li><strong>Calling <code>.getAsDouble()</code> on an empty average</strong> — <code>average()</code> returns an <code>OptionalDouble</code>; use <code>orElse(0)</code>.</li>
+            <li><strong>Forgetting the terminal operation</strong>: <code>list.stream().filter(...)</code> alone does nothing.</li>
+            <li><strong>Side effects inside streams</strong>: for example, adding to an outside list in <code>map</code> or <code>forEach</code>. Collect the result instead.</li>
+            <li><strong>Modifying the result of <code>toList()</code></strong>: it is unmodifiable (cannot be changed). Use <code>collect(Collectors.toCollection(ArrayList::new))</code> if you need to change it.</li>
+            <li><strong>Calling <code>.getAsDouble()</code> on an empty average</strong>: <code>average()</code> returns an <code>OptionalDouble</code>. Use <code>orElse(0)</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>In the starter code, add a pipeline that prints the <strong>total amount per city</strong> using <code>Collectors.groupingBy(Order::city, TreeMap::new, Collectors.summingDouble(Order::amount))</code>. Then find the customer with the single largest order using <code>max(Comparator.comparing(Order::amount))</code>.</p>
+          <p>In the starter code, add a pipeline that prints the <strong>total amount per city</strong>. Use <code>Collectors.groupingBy(Order::city, TreeMap::new, Collectors.summingDouble(Order::amount))</code>. Then find the customer with the single largest order using <code>max(Comparator.comparing(Order::amount))</code>.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Read a stream pipeline aloud, one line per step: "from orders, keep those over 500, take the customer, remove duplicates, sort, make a list". Put each operation on its own line so it reads that way.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Read a stream pipeline aloud, one line per step: "from orders, keep those over 500, take the customer, remove duplicates, sort, make a list". Put each operation on its own line, so it reads that way.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.util.*;
@@ -2519,9 +2519,9 @@ module JavaContent
         public class Main {
             public static void main(String[] args) {
                 List<Order> orders = List.of(
-                        new Order("Asha", "Pune", 850), new Order("Ravi", "Delhi", 120),
-                        new Order("Meera", "Pune", 430), new Order("Asha", "Pune", 999),
-                        new Order("John", "Kochi", 640), new Order("Ravi", "Delhi", 75));
+                        new Order("Asha", "London", 850), new Order("Ravi", "Chicago", 120),
+                        new Order("Meera", "London", 430), new Order("Asha", "London", 999),
+                        new Order("John", "Boston", 640), new Order("Ravi", "Chicago", 75));
 
                 // Lambdas stored in functional interfaces
                 Predicate<Order> isBig = o -> o.amount() > 500;
@@ -2564,7 +2564,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Optional and the java.time API</h1>
         </div>
-        <p class="lc-lead">Two parts of the modern standard library that every Java developer uses: <strong><code>Optional</code></strong> makes "there might be no value" explicit instead of returning <code>null</code>, and <strong><code>java.time</code></strong> (Java 8+) is the correct way to work with dates and times.</p>
+        <p class="lc-lead">This lesson covers two parts of the modern standard library that every Java developer uses. <strong><code>Optional</code></strong> clearly shows "there might be no value", instead of returning <code>null</code>. <strong><code>java.time</code></strong> (Java 8+) is the correct way to work with dates and times.</p>
         <div class="lc-card">
           <h3><code>Optional</code>: A Box That May Be Empty</h3>
           <div class="lc-code-block"><pre><code>static Optional&lt;String&gt; findEmail(String user) {
@@ -2582,12 +2582,12 @@ module JavaContent
             <tbody>
               <tr><td><code>Optional.of(x)</code> / <code>ofNullable(x)</code> / <code>empty()</code></td><td>create (<code>of(null)</code> throws)</td></tr>
               <tr><td><code>isPresent()</code> / <code>isEmpty()</code></td><td>check (<code>isEmpty</code> is Java 11+)</td></tr>
-              <tr><td><code>orElse(v)</code> / <code>orElseGet(() -&gt; v)</code></td><td>default value (<code>orElseGet</code> computes it only when needed)</td></tr>
+              <tr><td><code>orElse(v)</code> / <code>orElseGet(() -&gt; v)</code></td><td>default value (<code>orElseGet</code> works it out only when needed)</td></tr>
               <tr><td><code>orElseThrow(...)</code></td><td>value, or throw an exception you choose</td></tr>
-              <tr><td><code>map</code> / <code>filter</code> / <code>ifPresent</code></td><td>work with the value without unwrapping it</td></tr>
+              <tr><td><code>map</code> / <code>filter</code> / <code>ifPresent</code></td><td>work with the value without taking it out of the box</td></tr>
             </tbody>
           </table>
-          <p>Use <code>Optional</code> mainly as a <strong>return type</strong> for "find" methods. Do not use it for fields or method parameters, and never return <code>null</code> from a method that returns <code>Optional</code>.</p>
+          <p>Use <code>Optional</code> mainly as a <strong>return type</strong> for "find" methods. Do not use it for fields or method parameters. Never return <code>null</code> from a method that returns <code>Optional</code>.</p>
         </div>
         <div class="lc-card">
           <h3>The java.time Classes</h3>
@@ -2597,7 +2597,7 @@ module JavaContent
               <tr><td><code>LocalDate</code></td><td>a date, no time or zone</td><td>2026-09-25 (birthday, due date)</td></tr>
               <tr><td><code>LocalTime</code></td><td>a time of day</td><td>09:30</td></tr>
               <tr><td><code>LocalDateTime</code></td><td>date + time, no zone</td><td>2026-09-25T09:30</td></tr>
-              <tr><td><code>ZonedDateTime</code></td><td>date + time + zone</td><td>a meeting in <code>Asia/Kolkata</code></td></tr>
+              <tr><td><code>ZonedDateTime</code></td><td>date + time + zone</td><td>a meeting in <code>Europe/London</code></td></tr>
               <tr><td><code>Instant</code></td><td>an exact moment (UTC)</td><td>timestamps in logs and databases</td></tr>
               <tr><td><code>Period</code> / <code>Duration</code></td><td>an amount of days-months-years / hours-minutes-seconds</td><td>age; length of a lecture</td></tr>
             </tbody>
@@ -2608,9 +2608,9 @@ module JavaContent
         long late = ChronoUnit.DAYS.between(due, LocalDate.parse("2026-10-15"));   // 6
         String text = due.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));        // 09-10-2026
         Period age = Period.between(LocalDate.of(2005, 8, 15), issued);            // 21 years 1 month 10 days
-        ZonedDateTime ist = ZonedDateTime.of(2026, 9, 25, 9, 30, 0, 0, ZoneId.of("Asia/Kolkata"));
+        ZonedDateTime meeting = ZonedDateTime.of(2026, 9, 25, 9, 30, 0, 0, ZoneId.of("Europe/London"));
         Duration lecture = Duration.ofMinutes(90);</code></pre></div>
-          <p>All java.time objects are <strong>immutable</strong>: <code>plusDays</code> returns a new date and leaves the original unchanged. For "now", use <code>LocalDate.now()</code> — but pass fixed dates in tests so results do not change from day to day.</p>
+          <p>All java.time objects are <strong>immutable</strong> (they cannot change). <code>plusDays</code> returns a new date and leaves the original unchanged. For "now", use <code>LocalDate.now()</code>. But use fixed dates in tests, so results do not change from day to day.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: The Next Exam</h3>
@@ -2624,23 +2624,23 @@ module JavaContent
                 () -&gt; System.out.println("No exams left!"));</code></pre></div>
           <p>Output:</p>
           <div class="lc-code-block"><pre><code>Next exam 2026-10-05 in 10 days</code></pre></div>
-          <p><code>findFirst()</code> returns an <code>Optional</code> because the stream might be empty — Optional and streams are designed to work together.</p>
+          <p><code>findFirst()</code> returns an <code>Optional</code> because the stream might be empty. Optional and streams are designed to work together.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Using the old API</strong> — <code>java.util.Date</code>, <code>Calendar</code> and <code>SimpleDateFormat</code> are old way — don't use them in new code. They are mutable, not thread-safe, and <code>Calendar</code> months start at 0.</li>
-            <li><strong>Ignoring the return value</strong> — <code>date.plusDays(1);</code> alone changes nothing.</li>
-            <li><strong><code>MM</code> vs <code>mm</code></strong> in patterns — <code>MM</code> is month, <code>mm</code> is minutes.</li>
-            <li><strong>Calling <code>optional.get()</code> without checking</strong> — it throws on an empty Optional. Prefer <code>orElse</code>, <code>orElseThrow</code> or <code>map</code>.</li>
-            <li><strong><code>orElse(expensiveCall())</code></strong> — the call runs even when a value is present. Use <code>orElseGet(() -&gt; expensiveCall())</code>.</li>
+            <li><strong>Using the old API</strong>: <code>java.util.Date</code>, <code>Calendar</code> and <code>SimpleDateFormat</code> are the old way. Don't use them in new code. They are mutable (can change), not thread-safe, and <code>Calendar</code> months start at 0.</li>
+            <li><strong>Ignoring the return value</strong>: <code>date.plusDays(1);</code> alone changes nothing.</li>
+            <li><strong><code>MM</code> vs <code>mm</code></strong> in patterns: <code>MM</code> is month, <code>mm</code> is minutes.</li>
+            <li><strong>Calling <code>optional.get()</code> without checking</strong>: it throws on an empty Optional. Use <code>orElse</code>, <code>orElseThrow</code> or <code>map</code>.</li>
+            <li><strong><code>orElse(expensiveCall())</code></strong>: the call runs even when a value is present. Use <code>orElseGet(() -&gt; expensiveCall())</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Make a <code>Map&lt;String, LocalDate&gt;</code> of three friends' birthdays. Write <code>Optional&lt;String&gt; firstBornIn(Month month)</code> that returns a friend born in that month. Print their age on 2026-09-25 using <code>Period.between</code>, or <code>"Nobody"</code> if the Optional is empty.</p>
+          <p>Make a <code>Map&lt;String, LocalDate&gt;</code> of three friends' birthdays. Write <code>Optional&lt;String&gt; firstBornIn(Month month)</code>. It returns a friend born in that month. Print their age on 2026-09-25 using <code>Period.between</code>, or <code>"Nobody"</code> if the Optional is empty.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Store moments as <code>Instant</code> (UTC) and convert to a user's zone like <code>Asia/Kolkata</code> only when you display them. Use <code>LocalDate</code> for things that are just dates, like birthdays and due dates.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Store moments as <code>Instant</code> (UTC). Convert to a user's zone like <code>Europe/London</code> only when you show them. Use <code>LocalDate</code> for things that are just dates, like birthdays and due dates.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.time.*;
@@ -2697,17 +2697,17 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Files and Basic Concurrency</h1>
         </div>
-        <p class="lc-lead">Real programs save data to <strong>files</strong> and do several things <strong>at the same time</strong>. Modern Java reads and writes files in one line with <code>java.nio.file.Files</code> and <code>Path</code>, and runs tasks in parallel with an <code>ExecutorService</code> (a pool of threads) and <code>CompletableFuture</code> (a pipeline of steps that run in the background).</p>
+        <p class="lc-lead">Real programs save data to <strong>files</strong> and do several things <strong>at the same time</strong>. Modern Java reads and writes files in one line with <code>java.nio.file.Files</code> and <code>Path</code>. It runs tasks in parallel with an <code>ExecutorService</code> (a pool of threads) and <code>CompletableFuture</code> (a chain of steps that run in the background).</p>
         <div class="lc-card">
           <h3>Path and Files</h3>
-          <p>A <code>Path</code> is the location of a file; the static methods of <code>Files</code> do the work. The whole-file methods below open and close the file for you.</p>
+          <p>A <code>Path</code> is the location of a file. The static methods of <code>Files</code> do the work. The whole-file methods below open and close the file for you.</p>
           <table class="lc-table">
             <thead><tr><th>Task</th><th>Code</th></tr></thead>
             <tbody>
               <tr><td>Make a path</td><td><code>Path p = Path.of("data", "marks.csv");</code> (Java 11+; old way: <code>Paths.get</code>)</td></tr>
               <tr><td>Write text / lines</td><td><code>Files.writeString(p, text)</code>, <code>Files.write(p, List.of("a", "b"))</code></td></tr>
               <tr><td>Read everything</td><td><code>Files.readString(p)</code>, <code>Files.readAllLines(p)</code></td></tr>
-              <tr><td>Read lazily (big files)</td><td><code>try (Stream&lt;String&gt; s = Files.lines(p)) { ... }</code></td></tr>
+              <tr><td>Read lazily, a bit at a time (big files)</td><td><code>try (Stream&lt;String&gt; s = Files.lines(p)) { ... }</code></td></tr>
               <tr><td>Check and inspect</td><td><code>Files.exists(p)</code>, <code>Files.size(p)</code>, <code>Files.isDirectory(p)</code></td></tr>
               <tr><td>Create / delete</td><td><code>Files.createDirectories(p)</code>, <code>Files.createTempFile("pre", ".txt")</code>, <code>Files.delete(p)</code>, <code>Files.deleteIfExists(p)</code></td></tr>
             </tbody>
@@ -2723,20 +2723,20 @@ module JavaContent
         }
         Files.delete(file);
         System.out.println(Files.exists(file));               // false</code></pre></div>
-          <p>All text methods use <strong>UTF-8</strong> by default, so ₹ and Hindi text are safe. File methods throw the checked <code>IOException</code> (Lesson 13): catch it, or add <code>throws IOException</code> to the method. A missing file gives its subclass <code>NoSuchFileException</code>.</p>
+          <p>All text methods use <strong>UTF-8</strong> by default, so ₹ and Hindi text are safe. File methods throw the checked <code>IOException</code> (Lesson 13). Catch it, or add <code>throws IOException</code> to the method. A missing file gives its subclass <code>NoSuchFileException</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Appending and Open Options</h3>
-          <p><code>writeString</code> and <code>write</code> normally <strong>replace</strong> the whole file. Pass <code>StandardOpenOption</code> values to change that:</p>
+          <p><code>writeString</code> and <code>write</code> normally <strong>replace</strong> the whole file. To change that, pass <code>StandardOpenOption</code> values:</p>
           <div class="lc-code-block"><pre><code>Files.writeString(log, "started\n");                                   // create or replace
         Files.writeString(log, "saved\n", StandardOpenOption.APPEND);          // add to the end
         System.out.print(Files.readString(log));                               // started / saved
         Files.writeString(log, "x", StandardOpenOption.CREATE_NEW);            // FileAlreadyExistsException</code></pre></div>
-          <p><strong>Note for this course's editor:</strong> the in-browser Java runtime has its own small file system that does not handle <code>APPEND</code> and <code>CREATE_NEW</code> correctly (it writes from the start of the file instead). Everything else in this lesson works there exactly as in real Java, so the starter code writes the complete list of lines instead of appending. Try <code>APPEND</code> on your own computer with a JDK.</p>
+          <p><strong>Note for this course's editor:</strong> the in-browser Java runtime has its own small file system. It does not handle <code>APPEND</code> and <code>CREATE_NEW</code> correctly. It writes from the start of the file instead. Everything else in this lesson works there exactly as in real Java. So the starter code writes the full list of lines instead of appending. Try <code>APPEND</code> on your own computer with a JDK.</p>
         </div>
         <div class="lc-card">
           <h3>Threads and Why We Use a Pool</h3>
-          <p>A <strong>thread</strong> is a separate path of execution inside your program. You can start one by hand, but creating a thread per task is slow and hard to control, so real code hands tasks to an <strong>ExecutorService</strong>: a fixed group of worker threads that take tasks from a queue.</p>
+          <p>A <strong>thread</strong> is a separate line of work that runs inside your program. You can start one by hand. But making a new thread for each task is slow and hard to control. So real code gives tasks to an <strong>ExecutorService</strong>. This is a fixed group of worker threads that take tasks from a queue.</p>
           <div class="lc-code-block"><pre><code>Thread worker = new Thread(() -&gt; System.out.println("hello from " + Thread.currentThread().getName()), "worker-1");
         worker.start();   // runs the lambda on the new thread (calling run() would NOT start a thread)
         worker.join();    // wait for it to finish
@@ -2769,14 +2769,14 @@ module JavaContent
         }
         pool.awaitTermination(5, TimeUnit.SECONDS);</code></pre></div>
           <ul class="lc-list">
-            <li>A <code>Future</code> is a "receipt" for a result that may not exist yet. <code>get()</code> blocks until it does; <code>get(1, TimeUnit.SECONDS)</code> gives up with a <code>TimeoutException</code>.</li>
-            <li>If the task threw an exception, <code>get()</code> throws <code>ExecutionException</code>; the original error is <code>e.getCause()</code>.</li>
+            <li>A <code>Future</code> is a "receipt" for a result that may not exist yet. <code>get()</code> blocks (waits) until the result is ready. <code>get(1, TimeUnit.SECONDS)</code> stops waiting and throws a <code>TimeoutException</code>.</li>
+            <li>If the task threw an exception, <code>get()</code> throws <code>ExecutionException</code>. The original error is <code>e.getCause()</code>.</li>
             <li>Submit <strong>all</strong> tasks first, then collect the results. Calling <code>get()</code> straight after each <code>submit</code> makes the tasks run one by one.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Shared Data Needs Care</h3>
-          <p><code>count++</code> is really three steps (read, add, write). Two threads doing it at the same time can overwrite each other's update — a <strong>race condition</strong>. On a multi-core computer the plain counter below may print less than 200000, and a different number each run. Use thread-safe tools instead:</p>
+          <p><code>count++</code> is really three steps (read, add, write). Two threads doing it at the same time can overwrite each other's update. This is a <strong>race condition</strong>. On a multi-core computer, the plain counter below may print less than 200000. It may print a different number each run. Use thread-safe tools instead:</p>
           <div class="lc-code-block"><pre><code>int[] plain = {0};                       // NOT thread-safe
         AtomicInteger safe = new AtomicInteger(); // thread-safe counter
         Runnable job = () -&gt; {
@@ -2784,7 +2784,7 @@ module JavaContent
         };
         // ...run job on two threads, then join both...
         System.out.println(safe.get());          // always 200000</code></pre></div>
-          <p>For shared maps use <code>ConcurrentHashMap</code> (<code>map.merge(word, 1, Integer::sum)</code> is safe). The simplest fix of all is to share nothing: let each task <strong>return</strong> its result, as <code>countWords</code> does above.</p>
+          <p>For shared maps, use <code>ConcurrentHashMap</code> (<code>map.merge(word, 1, Integer::sum)</code> is safe). The simplest fix is to share nothing. Let each task <strong>return</strong> its result, as <code>countWords</code> does above.</p>
         </div>
         <div class="lc-card">
           <h3>CompletableFuture: Chain Steps Without Blocking</h3>
@@ -2807,23 +2807,23 @@ module JavaContent
               <tr><td>Errors</td><td><code>ExecutionException</code></td><td><code>exceptionally</code>, <code>handle</code></td></tr>
             </tbody>
           </table>
-          <p>Without an executor argument, <code>supplyAsync</code> uses Java's shared common pool. Pass your own pool as a second argument for slow I/O work: <code>supplyAsync(task, pool)</code>. The editor's Java runtime runs threads on one CPU core, so you see the same results as real Java but no speed-up; Java 21 adds cheap <strong>virtual threads</strong> (see Lesson 21).</p>
+          <p>Without an executor argument, <code>supplyAsync</code> uses Java's shared common pool. For slow I/O (input/output) work, pass your own pool as a second argument: <code>supplyAsync(task, pool)</code>. The editor's Java runtime runs threads on one CPU core. So you see the same results as real Java, but it is not faster. Java 21 adds cheap <strong>virtual threads</strong> (see Lesson 21).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Forgetting <code>shutdown()</code></strong> — the pool's threads keep the JVM alive, so the program never ends. Shut down in a <code>finally</code> block.</li>
-            <li><strong>Calling <code>thread.run()</code> instead of <code>start()</code></strong> — <code>run()</code> just runs the code on the current thread.</li>
+            <li><strong>Forgetting <code>shutdown()</code></strong>: the pool's threads keep the JVM running, so the program never ends. Shut down in a <code>finally</code> block.</li>
+            <li><strong>Calling <code>thread.run()</code> instead of <code>start()</code></strong>: <code>run()</code> just runs the code on the current thread.</li>
             <li><strong>Updating a shared variable from many threads</strong> with <code>++</code> or a plain <code>HashMap</code>. Use <code>AtomicInteger</code>, <code>ConcurrentHashMap</code>, or return results instead.</li>
-            <li><strong>Not closing <code>Files.lines</code></strong> — it keeps the file open. Always use try-with-resources.</li>
-            <li><strong>Ignoring the cause</strong> — print <code>e.getCause()</code> of an <code>ExecutionException</code>, not just the wrapper.</li>
+            <li><strong>Not closing <code>Files.lines</code></strong>: it keeps the file open. Always use try-with-resources.</li>
+            <li><strong>Ignoring the cause</strong>: print <code>e.getCause()</code> of an <code>ExecutionException</code>, not just the wrapper.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>In the starter, add a fourth sentence to <code>texts</code> and check the new word total. Then write the three word counts (one per line) to a new temp file with <code>Files.write</code>, read it back with <code>Files.readAllLines</code>, and print the largest count. Finally, add a <code>CompletableFuture</code> step with <code>thenApply</code> that applies a 10% discount before GST.</p>
+          <p>In the starter, add a fourth sentence to <code>texts</code> and check the new word total. Then write the three word counts (one per line) to a new temp file with <code>Files.write</code>. Read it back with <code>Files.readAllLines</code>, and print the largest count. Finally, add a <code>CompletableFuture</code> step with <code>thenApply</code>. It should apply a 10% discount before GST.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Reach for concurrency only when tasks are slow and independent (downloads, file processing, calls to other services). Keep each task self-contained: take input, return a result, touch no shared state. That one habit prevents most threading bugs.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Use concurrency (running tasks at the same time) only when tasks are slow and independent. Examples are downloads, file processing, and calls to other services. Keep each task separate: take input, return a result, and touch no shared data. That one habit prevents most threading bugs.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.io.IOException;
@@ -2892,10 +2892,10 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Packages, Modules and Build Tools</h1>
         </div>
-        <p class="lc-lead">So far every program has been one file. Real Java projects have hundreds of classes, so they are organised into <strong>packages</strong> (folders of related classes), optionally grouped into <strong>modules</strong>, and built with a <strong>build tool</strong> such as Maven or Gradle that compiles, tests and packages the code and downloads libraries for you.</p>
+        <p class="lc-lead">So far every program has been one file. Real Java projects have hundreds of classes. So they are organised into <strong>packages</strong> (folders of related classes). Packages can also be grouped into <strong>modules</strong>. Projects are built with a <strong>build tool</strong> such as Maven or Gradle. It compiles, tests and packages the code, and downloads libraries for you.</p>
         <div class="lc-card">
           <h3>Packages: Folders with Names</h3>
-          <p>A package is a named group of classes. The <code>package</code> line must be the <strong>first statement</strong> in the file, and the folder path must match the package name.</p>
+          <p>A package is a named group of classes. The <code>package</code> line must be the <strong>first statement</strong> in the file. The folder path must match the package name.</p>
           <div class="lc-code-block"><pre><code>// File: src/in/academy/library/model/Book.java
         package in.academy.library.model;
 
@@ -2904,10 +2904,10 @@ module JavaContent
             static String secret() { return "package-private"; }   // no modifier
         }</code></pre></div>
           <ul class="lc-list">
-            <li>Names are lower case and usually start with a reversed domain you own: <code>com.infosys.billing</code>, <code>in.academy.library</code>. This keeps your <code>Book</code> apart from everyone else's <code>Book</code>.</li>
+            <li>Names are lower case. They usually start with a domain name you own, written backwards: <code>com.infosys.billing</code>, <code>in.academy.library</code>. This keeps your <code>Book</code> apart from everyone else's <code>Book</code>.</li>
             <li>The full name of the class is now <code>in.academy.library.model.Book</code>.</li>
             <li>A file with no <code>package</code> line is in the <strong>unnamed package</strong>. That is fine for the single-file programs in this editor, but never for a real project.</li>
-            <li>Package-private members (no modifier, Lesson 10) are visible only inside the same package, so packages are also a way to hide helpers.</li>
+            <li>Package-private members (no modifier, Lesson 10) are visible only inside the same package. So packages are also a way to hide helpers.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2930,10 +2930,10 @@ module JavaContent
           <table class="lc-table">
             <thead><tr><th>Form</th><th>Example</th><th>Notes</th></tr></thead>
             <tbody>
-              <tr><td>Single-type import</td><td><code>import java.util.List;</code></td><td>the clearest; what IDEs write for you</td></tr>
+              <tr><td>Single-type import</td><td><code>import java.util.List;</code></td><td>the clearest; this is what IDEs write for you</td></tr>
               <tr><td>Wildcard import</td><td><code>import java.util.*;</code></td><td>all types of one package (not its sub-packages)</td></tr>
               <tr><td>Static import</td><td><code>import static java.lang.Math.max;</code></td><td>use a static method or constant without the class name</td></tr>
-              <tr><td>Fully qualified name</td><td><code>java.util.Date d = new java.util.Date();</code></td><td>no import; useful when two packages have a class with the same name</td></tr>
+              <tr><td>Fully qualified name</td><td><code>java.util.Date d = new java.util.Date();</code></td><td>no import needed; useful when two packages have a class with the same name</td></tr>
               <tr><td>Automatic</td><td><code>String</code>, <code>Math</code>, <code>Integer</code></td><td><code>java.lang</code> and your own package are always imported</td></tr>
             </tbody>
           </table>
@@ -2949,33 +2949,33 @@ module JavaContent
         Nirmala (1927)
         Newest year: 1936
         Package: in.academy.library.app</code></pre></div>
-          <p><code>-d out</code> puts the <code>.class</code> files in <code>out/in/academy/library/...</code>, mirroring the packages. <code>-cp out</code> (the <strong>classpath</strong>) tells the JVM where to look for classes, and you start the program by its <em>full</em> class name. If <code>Main</code> calls <code>Book.secret()</code>, compilation fails:</p>
+          <p><code>-d out</code> puts the <code>.class</code> files in <code>out/in/academy/library/...</code>, in the same shape as the packages. <code>-cp out</code> (the <strong>classpath</strong>) tells the JVM where to look for classes. You start the program by its <em>full</em> class name. If <code>Main</code> calls <code>Book.secret()</code>, compilation fails:</p>
           <div class="lc-code-block"><pre><code>error: secret() is not public in Book; cannot be accessed from outside package</code></pre></div>
-          <p>To ship the program as one file, pack it into a <strong>JAR</strong> (a zip of class files) and run it:</p>
+          <p>To share the program as one file, pack it into a <strong>JAR</strong> (a zip of class files). Then run it:</p>
           <div class="lc-code-block"><pre><code>jar --create --file library.jar --main-class in.academy.library.app.Main -C out .
         java -jar library.jar</code></pre></div>
         </div>
         <div class="lc-card">
           <h3>Modules (Java 9+)</h3>
-          <p>A <strong>module</strong> is a group of packages with a <code>module-info.java</code> file at the root of the source folder. It says which packages other code may use (<code>exports</code>) and which modules this one needs (<code>requires</code>). Packages that are not exported stay hidden, even their <code>public</code> classes.</p>
+          <p>A <strong>module</strong> is a group of packages with a <code>module-info.java</code> file at the root of the source folder. This file says which packages other code may use (<code>exports</code>). It also says which modules this one needs (<code>requires</code>). Packages that are not exported stay hidden, even their <code>public</code> classes.</p>
           <div class="lc-code-block"><pre><code>// File: src/module-info.java
         module in.academy.library {
             exports in.academy.library.model;   // Book is usable by other modules
             // in.academy.library.app is not exported: it stays internal
             // requires java.net.http;          // add a line like this for each JDK module you use beyond java.base
         }</code></pre></div>
-          <p>The JDK itself is split into modules: <code>String</code>, <code>List</code> and <code>LocalDate</code> live in <code>java.base</code>, which every module gets automatically. Modules are optional — most applications and frameworks still run on the classpath, as in the worked example — but you will see <code>module-info.java</code> in libraries and in the JDK.</p>
+          <p>The JDK itself is split into modules. <code>String</code>, <code>List</code> and <code>LocalDate</code> live in <code>java.base</code>, which every module gets automatically. Modules are optional. Most applications and frameworks still run on the classpath, as in the worked example. But you will see <code>module-info.java</code> in libraries and in the JDK.</p>
         </div>
         <div class="lc-card">
           <h3>Build Tools: Maven and Gradle</h3>
-          <p>Nobody types <code>javac</code> commands for a real project. A build tool reads one configuration file, downloads the libraries (<strong>dependencies</strong>) you list from <strong>Maven Central</strong>, then compiles, runs the tests and builds the JAR. Both tools use the same folder layout:</p>
+          <p>Nobody types <code>javac</code> commands for a real project. A build tool reads one configuration file. It downloads the libraries (<strong>dependencies</strong>) you list from <strong>Maven Central</strong>. Then it compiles, runs the tests and builds the JAR. Both tools use the same folder layout:</p>
           <div class="lc-code-block"><pre><code>library/
           pom.xml                  (Maven)   or   build.gradle.kts (Gradle)
           src/main/java/in/academy/library/model/Book.java
           src/main/java/in/academy/library/app/Main.java
           src/test/java/...        tests (next lesson)
           target/ or build/        generated output: never edit or commit</code></pre></div>
-          <p>The heart of a Maven <code>pom.xml</code>:</p>
+          <p>The main part of a Maven <code>pom.xml</code>:</p>
           <div class="lc-code-block"><pre><code>&lt;groupId&gt;in.academy&lt;/groupId&gt;         &lt;!-- who: usually your package prefix --&gt;
         &lt;artifactId&gt;library&lt;/artifactId&gt;      &lt;!-- what: the project name --&gt;
         &lt;version&gt;1.0.0&lt;/version&gt;
@@ -2989,27 +2989,27 @@ module JavaContent
               <tr><td>Compile + test + package</td><td><code>mvn package</code></td><td><code>./gradlew build</code></td></tr>
               <tr><td>Run tests only</td><td><code>mvn test</code></td><td><code>./gradlew test</code></td></tr>
               <tr><td>Output</td><td><code>target/library-1.0.0.jar</code></td><td><code>build/libs/library-1.0.0.jar</code></td></tr>
-              <tr><td>Current line (Sept 2026)</td><td>Maven 3.9 (Maven 4 is still a release candidate)</td><td>Gradle 9</td></tr>
+              <tr><td>Current version (Sept 2026)</td><td>Maven 3.9 (Maven 4 is still a release candidate)</td><td>Gradle 9</td></tr>
               <tr><td>Common in</td><td>enterprise and Spring Boot projects</td><td>Android and many newer projects</td></tr>
             </tbody>
           </table>
-          <p>Projects usually include a <strong>wrapper</strong> (<code>./mvnw</code> or <code>./gradlew</code>) that downloads the exact tool version the project needs, so everyone on the team builds the same way. IntelliJ IDEA, VS Code and Eclipse open these projects directly.</p>
+          <p>Projects usually include a <strong>wrapper</strong> (<code>./mvnw</code> or <code>./gradlew</code>). It downloads the exact tool version the project needs, so everyone on the team builds the same way. IntelliJ IDEA, VS Code and Eclipse open these projects directly.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Folder does not match the package</strong> — <code>package in.academy.library.model;</code> in <code>src/Book.java</code> confuses tools and the classpath. Keep folders and packages identical.</li>
-            <li><strong>Running a packaged class by its short name</strong> — <code>java -cp out Main</code> fails with "Could not find or load main class". Use the full name <code>in.academy.library.app.Main</code>.</li>
-            <li><strong>Expecting <code>import java.util.*</code> to import sub-packages</strong> — it does not include <code>java.util.function</code> or <code>java.util.stream</code>; import those separately.</li>
-            <li><strong>Committing <code>target/</code>, <code>build/</code> or <code>.class</code> files</strong> — they are generated. Add them to <code>.gitignore</code>.</li>
-            <li><strong>Copying JAR files into the project by hand</strong> — declare the dependency in <code>pom.xml</code> or <code>build.gradle.kts</code> instead, so the version is recorded and everyone gets the same one.</li>
+            <li><strong>Folder does not match the package</strong>: <code>package in.academy.library.model;</code> in <code>src/Book.java</code> confuses tools and the classpath. Keep folders and packages the same.</li>
+            <li><strong>Running a packaged class by its short name</strong>: <code>java -cp out Main</code> fails with "Could not find or load main class". Use the full name <code>in.academy.library.app.Main</code>.</li>
+            <li><strong>Expecting <code>import java.util.*</code> to import sub-packages</strong>: it does not include <code>java.util.function</code> or <code>java.util.stream</code>. Import those separately.</li>
+            <li><strong>Committing <code>target/</code>, <code>build/</code> or <code>.class</code> files</strong>: they are generated by the tools. Add them to <code>.gitignore</code>.</li>
+            <li><strong>Copying JAR files into the project by hand</strong>: declare the dependency in <code>pom.xml</code> or <code>build.gradle.kts</code> instead. Then the version is recorded and everyone gets the same one.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
           <p>In the starter code, add <code>import static java.lang.Math.sqrt;</code> and print <code>sqrt(144)</code> without writing <code>Math.</code>. Then print the package and module of <code>java.util.stream.Collectors</code> using <code>getPackageName()</code> and <code>getModule().getName()</code>. Predict the answers first: which module do you expect?</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Organise packages by <em>feature</em> (<code>...library.loans</code>, <code>...library.members</code>) rather than by layer only (<code>...controllers</code>, <code>...models</code>) once a project grows. Classes that change together then live together, and package-private can hide the details of each feature.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>When a project grows, organise packages by <em>feature</em> (<code>...library.loans</code>, <code>...library.members</code>). Do not organise only by layer (<code>...controllers</code>, <code>...models</code>). Then classes that change together stay together. Package-private can hide the details of each feature.</p></div>
       HTML
       starter_code: <<~'JAVA'
         // Lesson 19: packages, imports and modules, seen from inside one file.
@@ -3064,15 +3064,15 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Unit Testing with JUnit</h1>
         </div>
-        <p class="lc-lead">Professional Java code comes with <strong>automated tests</strong>: small methods that call your code and check the result. <strong>JUnit</strong> is the standard testing framework. Tests catch bugs before users do and let you change code without fear.</p>
+        <p class="lc-lead">Professional Java code comes with <strong>automated tests</strong>. These are small methods that call your code and check the result. <strong>JUnit</strong> is the standard testing framework. Tests find bugs before users do. They let you change code without fear.</p>
         <div class="lc-card">
           <h3>JUnit Today</h3>
           <ul class="lc-list">
-            <li><strong>JUnit 6</strong> (released September 2025) is the current version and needs Java 17+. Many existing projects still use <strong>JUnit 5</strong>. Both use the same "Jupiter" API in the package <code>org.junit.jupiter.api</code>, so the code below works in either.</li>
-            <li>JUnit 4 (<code>org.junit.Test</code>, <code>@Before</code>) is the old way — don't use it in new projects.</li>
-            <li>Tests live in <code>src/test/java</code>, next to your code in <code>src/main/java</code> (the project layout from Lesson 19), and run with <code>mvn test</code> or <code>./gradlew test</code>. IDEs such as IntelliJ IDEA show a green or red result for each test.</li>
+            <li><strong>JUnit 6</strong> (released September 2025) is the current version and needs Java 17+. Many existing projects still use <strong>JUnit 5</strong>. Both use the same "Jupiter" API in the package <code>org.junit.jupiter.api</code>. So the code below works in both.</li>
+            <li>JUnit 4 (<code>org.junit.Test</code>, <code>@Before</code>) is the old way. Don't use it in new projects.</li>
+            <li>Tests live in <code>src/test/java</code>, next to your code in <code>src/main/java</code> (the project layout from Lesson 19). They run with <code>mvn test</code> or <code>./gradlew test</code>. IDEs such as IntelliJ IDEA show a green or red result for each test.</li>
           </ul>
-          <p>Add JUnit to a Maven project. <code>6.1.3</code> is the newest release as of September 2026; if Maven Central shows a newer 6.x.y, use that:</p>
+          <p>Add JUnit to a Maven project. <code>6.1.3</code> is the newest release as of September 2026. If Maven Central shows a newer 6.x.y, use that:</p>
           <div class="lc-code-block"><pre><code>&lt;dependency&gt;
           &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
           &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
@@ -3120,7 +3120,7 @@ module JavaContent
         }</code></pre></div>
           <p>Running <code>mvn test</code> prints a summary such as:</p>
           <div class="lc-code-block"><pre><code>Tests run: 5, Failures: 0, Errors: 0, Skipped: 0</code></pre></div>
-          <p>The parameterised test counts once per row, so 2 + 3 = 5 tests.</p>
+          <p>The parameterised test (one test run with many inputs) counts once per row. So 2 + 3 = 5 tests.</p>
         </div>
         <div class="lc-card">
           <h3>Most Used Annotations and Assertions</h3>
@@ -3128,12 +3128,12 @@ module JavaContent
             <thead><tr><th>Name</th><th>Purpose</th></tr></thead>
             <tbody>
               <tr><td><code>@Test</code></td><td>marks a test method (no need for <code>public</code>)</td></tr>
-              <tr><td><code>@BeforeEach</code> / <code>@AfterEach</code></td><td>run before / after every test — e.g. create a fresh object</td></tr>
-              <tr><td><code>@DisplayName</code></td><td>a readable name in the report</td></tr>
+              <tr><td><code>@BeforeEach</code> / <code>@AfterEach</code></td><td>run before / after every test, for example to create a fresh object</td></tr>
+              <tr><td><code>@DisplayName</code></td><td>an easy-to-read name in the report</td></tr>
               <tr><td><code>@ParameterizedTest</code> + <code>@CsvSource</code></td><td>run the same test with many inputs</td></tr>
-              <tr><td><code>assertEquals(expected, actual)</code></td><td>values are equal (for doubles, pass a tolerance)</td></tr>
-              <tr><td><code>assertTrue</code> / <code>assertFalse</code></td><td>a condition holds</td></tr>
-              <tr><td><code>assertThrows(Type.class, () -&gt; ...)</code></td><td>the code throws that exception; returns it</td></tr>
+              <tr><td><code>assertEquals(expected, actual)</code></td><td>values are equal (for doubles, pass a tolerance: the allowed small difference)</td></tr>
+              <tr><td><code>assertTrue</code> / <code>assertFalse</code></td><td>a condition is true / false</td></tr>
+              <tr><td><code>assertThrows(Type.class, () -&gt; ...)</code></td><td>the code throws that exception; it returns the exception</td></tr>
               <tr><td><code>assertAll(...)</code></td><td>check several things and report all failures together</td></tr>
             </tbody>
           </table>
@@ -3141,26 +3141,26 @@ module JavaContent
         <div class="lc-card">
           <h3>Writing Good Tests</h3>
           <ul class="lc-list">
-            <li><strong>Arrange, Act, Assert</strong> — set up the data, call one method, check the result.</li>
-            <li><strong>Test three kinds of input</strong> — normal cases, edge cases (0, empty list, maximum value) and error cases (invalid input should throw).</li>
+            <li><strong>Arrange, Act, Assert</strong>: set up the data, call one method, check the result.</li>
+            <li><strong>Test three kinds of input</strong>: normal cases, edge cases (0, empty list, maximum value) and error cases (wrong input should throw).</li>
             <li><strong>One behaviour per test</strong>, with a name that says what should happen: <code>rejectsNegativePrice</code>.</li>
-            <li><strong>Tests must be deterministic</strong> — no real clock, randomness or network. Pass fixed dates like <code>LocalDate.of(2026, 9, 25)</code>. Libraries such as Mockito help replace slow or external parts with fakes.</li>
+            <li><strong>Tests must be deterministic</strong> (give the same result every time): no real clock, randomness or network. Pass fixed dates like <code>LocalDate.of(2026, 9, 25)</code>. Libraries such as Mockito help you replace slow or outside parts with fakes.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Swapping expected and actual</strong> — <code>assertEquals(result, 118.0)</code> still passes or fails correctly, but the failure message reads backwards.</li>
-            <li><strong>Comparing doubles without a tolerance</strong> — use <code>assertEquals(0.3, 0.1 + 0.2, 1e-9)</code>.</li>
-            <li><strong>Tests that depend on each other</strong> — JUnit does not promise an order. Each test must set up its own data.</li>
-            <li><strong>A test with no assertion</strong> — it passes even when the code is wrong.</li>
+            <li><strong>Swapping expected and actual</strong>: <code>assertEquals(result, 118.0)</code> still passes or fails correctly. But the failure message reads backwards.</li>
+            <li><strong>Comparing doubles without a tolerance</strong>: use <code>assertEquals(0.3, 0.1 + 0.2, 1e-9)</code>.</li>
+            <li><strong>Tests that depend on each other</strong>: JUnit does not promise an order. Each test must set up its own data.</li>
+            <li><strong>A test with no assertion</strong>: it passes even when the code is wrong.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>JUnit is not available in this browser editor, so the starter code includes a tiny home-made <code>assertEquals</code> and <code>assertThrows</code> that work the same way. Add a test for <code>discount(200, 50)</code>, then deliberately break <code>discount</code> (for example use <code>+</code> instead of <code>-</code>) and watch the test fail.</p>
+          <p>JUnit is not available in this browser editor. So the starter code includes a tiny home-made <code>assertEquals</code> and <code>assertThrows</code> that work the same way. Add a test for <code>discount(200, 50)</code>. Then break <code>discount</code> on purpose (for example use <code>+</code> instead of <code>-</code>) and watch the test fail.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>When you find a bug, first write a test that fails because of it, then fix the code until the test passes. The bug can never come back unnoticed.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>When you find a bug, first write a test that fails because of it. Then fix the code until the test passes. Now the bug can never come back without you noticing.</p></div>
       HTML
       starter_code: <<~'JAVA'
         class PriceCalculator {
@@ -3221,7 +3221,7 @@ module JavaContent
           <div class="lc-badge le-badge le-badge-java">Java</div>
           <h1 class="lc-title">Capstone Project: Library Management System</h1>
         </div>
-        <p class="lc-lead">Time to combine everything. You will build the core of a college <strong>library system</strong>: books, members borrowing and returning them, due dates and late fines, and a summary report. The starter code is a working version for you to read, run and extend.</p>
+        <p class="lc-lead">Now you will use everything together. You will build the main part of a college <strong>library system</strong>. It has books, members who borrow and return them, due dates, late fines, and a summary report. The starter code is a working version. Read it, run it and add to it.</p>
         <div class="lc-card">
           <h3>Requirements</h3>
           <ul class="lc-list">
@@ -3238,8 +3238,8 @@ module JavaContent
             <thead><tr><th>Part</th><th>Java feature</th><th>Lesson</th></tr></thead>
             <tbody>
               <tr><td><code>Genre</code></td><td>enum</td><td>5, 10</td></tr>
-              <tr><td><code>Book</code>, <code>Loan</code></td><td>immutable records with methods</td><td>10</td></tr>
-              <tr><td><code>Library</code></td><td>encapsulated class with private collections</td><td>9, 10</td></tr>
+              <tr><td><code>Book</code>, <code>Loan</code></td><td>immutable (unchangeable) records with methods</td><td>10</td></tr>
+              <tr><td><code>Library</code></td><td>encapsulated class (its data is hidden) with private collections</td><td>9, 10</td></tr>
               <tr><td>books by ISBN, loans by ISBN</td><td><code>LinkedHashMap</code> (keeps insertion order)</td><td>15</td></tr>
               <tr><td><code>find</code></td><td><code>Optional&lt;Book&gt;</code></td><td>17</td></tr>
               <tr><td>due dates and fines</td><td><code>LocalDate</code>, <code>ChronoUnit.DAYS.between</code></td><td>17</td></tr>
@@ -3267,7 +3267,7 @@ module JavaContent
         long giveBack(String isbn, LocalDate returned) {    // returns the fine (0 if not on loan)
             return Optional.ofNullable(loans.remove(isbn)).map(l -&gt; l.fine(returned)).orElse(0L);
         }</code></pre></div>
-          <p>Notice that <code>borrow</code> takes <code>today</code> as a parameter instead of calling <code>LocalDate.now()</code>. That makes the program deterministic and easy to test.</p>
+          <p>Notice that <code>borrow</code> takes <code>today</code> as a parameter instead of calling <code>LocalDate.now()</code>. So the program gives the same result every time (it is deterministic) and is easy to test.</p>
           <p>Expected output of the starter code:</p>
           <div class="lc-code-block"><pre><code>Asha borrowed Wings of Fire, due 2026-10-09
         Ravi borrowed Discovery of India, due 2026-10-09
@@ -3282,22 +3282,22 @@ module JavaContent
           <h3>Extend It (Choose Two or More)</h3>
           <ul class="lc-list">
             <li>Give <code>Genre</code> a <code>loanDays</code> field (Lesson 10), for example <code>SCIENCE(21)</code>, and use it instead of the fixed 14 days.</li>
-            <li>Save the loans to a file with <code>Files.write</code> and load them back at start-up (Lesson 18).</li>
-            <li>Limit each member to <strong>2 books</strong> at a time; throw an exception on the third.</li>
-            <li>Add a <code>sealed interface Member permits Student, Faculty</code> where faculty get 30 days and pay no fines.</li>
-            <li>Add <code>search(String word)</code> that returns all titles containing a word, ignoring case, using a stream.</li>
+            <li>Save the loans to a file with <code>Files.write</code>. Load them back when the program starts (Lesson 18).</li>
+            <li>Limit each member to <strong>2 books</strong> at a time. Throw an exception on the third.</li>
+            <li>Add a <code>sealed interface Member permits Student, Faculty</code>. Faculty get 30 days and pay no fines.</li>
+            <li>Add <code>search(String word)</code>. It returns all titles that contain a word, ignoring case. Use a stream.</li>
             <li>Keep a history of returned loans and print the total fines collected per member.</li>
-            <li>Move the code into a Maven or Gradle project with packages <code>...library.model</code> and <code>...library.app</code> (Lesson 19), and write JUnit tests (Lesson 20) for <code>fine</code>: on time, one day late, and returned early.</li>
+            <li>Move the code into a Maven or Gradle project with packages <code>...library.model</code> and <code>...library.app</code> (Lesson 19). Then write JUnit tests (Lesson 20) for <code>fine</code>: on time, one day late, and returned early.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Where Next: Java 21 and 25</h3>
-          <p><strong>Java 21+ only — these do not compile in the Java 17 editor.</strong> Once you move to a newer JDK, look at:</p>
+          <p><strong>Java 21+ only. These do not compile in the Java 17 editor.</strong> When you move to a newer JDK, look at:</p>
           <table class="lc-table">
             <thead><tr><th>Feature</th><th>Version</th><th>What it gives you</th></tr></thead>
             <tbody>
-              <tr><td>Virtual threads</td><td>Java 21</td><td>very cheap threads, so a server can handle thousands of blocking tasks at once</td></tr>
-              <tr><td>Pattern matching in <code>switch</code>, record patterns</td><td>Java 21</td><td><code>case Card(String n, double amt) -&gt; ...</code> over sealed types, checked for completeness</td></tr>
+              <tr><td>Virtual threads</td><td>Java 21</td><td>very cheap threads, so a server can handle thousands of blocking (waiting) tasks at once</td></tr>
+              <tr><td>Pattern matching in <code>switch</code>, record patterns</td><td>Java 21</td><td><code>case Card(String n, double amt) -&gt; ...</code> over sealed types; the compiler checks that every case is covered</td></tr>
               <tr><td>Sequenced collections</td><td>Java 21</td><td><code>list.getFirst()</code>, <code>getLast()</code>, <code>reversed()</code> on lists, deques and linked sets/maps</td></tr>
               <tr><td>Unnamed variables <code>_</code></td><td>Java 22</td><td><code>catch (Exception _)</code> for values you do not need</td></tr>
               <tr><td>Compact source files, instance <code>main</code></td><td>Java 25</td><td><code>void main() { IO.println("Hi"); }</code> with no class declaration</td></tr>
@@ -3312,22 +3312,22 @@ module JavaContent
                 });
             }
         }   // close() waits for all tasks to finish</code></pre></div>
-          <p>After this course, good next steps are a real Maven or Gradle project on your own computer (Lesson 19), the Spring Boot framework for web APIs, and JDBC or JPA for databases.</p>
+          <p>After this course, here are good next steps. Build a real Maven or Gradle project on your own computer (Lesson 19). Learn the Spring Boot framework for web APIs. Learn JDBC or JPA for databases.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes in Projects</h3>
           <ul class="lc-list">
-            <li><strong>One giant class</strong> — split data (records), rules (the <code>Library</code> class) and output (<code>main</code>).</li>
-            <li><strong>Returning internal collections</strong> — callers could change your loans map. Return copies or read-only views.</li>
-            <li><strong>Calling <code>LocalDate.now()</code> deep inside logic</strong> — pass the date in, so results are testable.</li>
-            <li><strong>Using <code>null</code> for "not found"</strong> — return an <code>Optional</code> instead.</li>
+            <li><strong>One giant class</strong>: split data (records), rules (the <code>Library</code> class) and output (<code>main</code>).</li>
+            <li><strong>Returning internal collections</strong>: callers could change your loans map. Return copies or read-only views.</li>
+            <li><strong>Calling <code>LocalDate.now()</code> deep inside logic</strong>: pass the date in, so you can test the results.</li>
+            <li><strong>Using <code>null</code> for "not found"</strong>: return an <code>Optional</code> instead.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>Run the starter code and check it against the expected output above. Then implement the "2 books per member" rule and add a line in <code>main</code> that proves it works.</p>
+          <p>Run the starter code and check it against the expected output above. Then add the "2 books per member" rule. Add a line in <code>main</code> that shows it works.</p>
         </div>
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Put this project on GitHub with a short README explaining the design choices (why records, why Optional, why a checked exception). Interviewers care as much about <em>why</em> you chose a feature as about the code itself.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Put this project on GitHub with a short README. Explain your design choices in it: why records, why Optional, why a checked exception. Interviewers care about <em>why</em> you chose a feature as much as about the code itself.</p></div>
       HTML
       starter_code: <<~'JAVA'
         import java.time.LocalDate;

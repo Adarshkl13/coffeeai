@@ -1,0 +1,51 @@
+<%# Home page "AI for your profession": one card per job area, with its first courses and a link to the
+    Courses page opened on that category (/courses?category=…, read by course_filter_controller.js).
+    An optional 6th item picks the 3 courses to show (otherwise the category's first 3). Local: courses. Styles: design.css "Home professions". %>
+<%
+  by_slug = courses.index_by(&:slug)
+  jobs = [
+    ["AI & Data", "🛠️", "Become an AI engineer", "Build real AI apps step by step: machine learning, AI agents and chatbots that use your own documents.", "#8b5cf6",
+     %w[machine-learning building-ai-agents building-rag-applications]],
+    ["Healthcare", "🩺", "Doctors and healthcare teams", "Write clear notes, explain conditions in plain words and use AI safely with patient data.", "#e11d48"],
+    ["Law", "⚖️", "Lawyers and legal teams", "Research faster, draft and review documents, and check every source AI gives you.", "#4f46e5"],
+    ["Digital Marketing", "📣", "Marketers", "Plan campaigns, write ads and emails, improve SEO and read your results.", "#f97316"],
+    ["Software Testing", "🧪", "Software testers", "Write test cases, automate checks, test APIs and test AI features.", "#0d9488"],
+    ["Content Creation", "🎬", "Content creators", "Plan videos, write scripts, make thumbnails and grow your channel.", "#ef4444"],
+    ["HR & Recruitment", "🤝", "HR and recruiters", "Hire fairly, onboard new staff and write clear HR policies.", "#7c3aed"],
+    ["Finance", "💹", "Finance and accounts", "Speed up bookkeeping, analyse reports and spot fraud.", "#16a34a"]
+  ]
+%>
+<section class="h-section h-section-alt hj" id="for-you">
+  <div class="wrap">
+    <div class="section-head hj-head">
+      <div>
+        <span class="hj-badge">For every career</span>
+        <h2>AI skills for your profession</h2>
+        <p>Engineers learn to build AI. Everyone else learns to use it at work, safely and with confidence. Most courses need no coding.</p>
+      </div>
+    </div>
+
+    <div class="hj-grid">
+      <% jobs.each do |cat, icon, who, line, color, picks| %>
+        <% list = Course::CATEGORIES.to_h.fetch(cat, []).filter_map { |s| by_slug[s] } %>
+        <% top = picks ? picks.filter_map { |s| by_slug[s] } : list.first(3) %>
+        <% next if list.empty? %>
+        <article class="hj-card" style="--c: <%= color %>">
+          <div class="hj-top">
+            <span class="hj-icon" aria-hidden="true"><%= icon %></span>
+            <h3><%= who %></h3>
+          </div>
+          <p class="hj-line"><%= line %></p>
+          <ul class="hj-courses">
+            <% top.each do |c| %>
+              <li><%= link_to c.title, course_path(c.slug) %></li>
+            <% end %>
+          </ul>
+          <%# The course list also shows the Beginner AI with Python card (shared/_original_course_card) under AI & Data %>
+          <% total = list.size + (cat == "AI & Data" ? 1 : 0) %>
+          <%= link_to "See all #{total} courses →", courses_path(category: cat), class: "hj-more" %>
+        </article>
+      <% end %>
+    </div>
+  </div>
+</section>

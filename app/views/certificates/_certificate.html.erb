@@ -1,0 +1,36 @@
+<%# The certificate itself. Every size is in container units (cqw), so the same markup works as a small card
+    and as a full-size certificate. Local: certificate. Styles: certificates.css. %>
+<% c = certificate %>
+<div class="crt" role="img" aria-label="Certificate of Completion: <%= c.holder_name %> completed <%= c.course_title %> on <%= c.issued_at.strftime('%-d %B %Y') %>">
+  <div class="crt-inner">
+    <div class="crt-frame" aria-hidden="true"></div>
+    <div class="crt-brand">
+      <span class="crt-logo"><%= render "shared/logo_mark", size: 24 %></span>
+      <span>CoffeeBean <b>AI</b></span>
+    </div>
+
+    <p class="crt-kicker">Certificate of Completion</p>
+    <p class="crt-small">This certifies that</p>
+    <p class="crt-name"><%= c.holder_name %></p>
+    <p class="crt-small">has successfully completed the course</p>
+    <p class="crt-course"><%= c.course_title %></p>
+    <p class="crt-meta"><%= pluralize(c.lesson_count, "lesson") %> · Completed on <%= c.issued_at.strftime("%-d %B %Y") %></p>
+
+    <div class="crt-foot">
+      <div class="crt-sign">
+        <span class="crt-sign-name">CoffeeBean AI</span>
+        <span class="crt-line"></span>
+        <span>Learning Team</span>
+      </div>
+      <div class="crt-seal" aria-hidden="true">
+        <span><%= render "shared/logo_mark", size: 30 %></span>
+      </div>
+      <div class="crt-id">
+        <span>Certificate ID</span>
+        <b><%= c.code %></b>
+        <span><%= COMPANY[:website] %>/certificates/<%= c.code %></span>
+      </div>
+    </div>
+    <p class="crt-legal">Operated by <%= COMPANY[:legal_name] %></p>
+  </div>
+</div>

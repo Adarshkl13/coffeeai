@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="640" fill="#ffffff"/>
+  <text x="600" y="46" text-anchor="middle" font-size="28" font-weight="700" fill="#1f2937">Why a private bucket with presigned URLs?</text>
+
+  <!-- Left panel: public -->
+  <rect x="30" y="80" width="555" height="530" rx="18" fill="#fef2f2" stroke="#dc2626" stroke-width="3"/>
+  <text x="307" y="126" text-anchor="middle" font-size="24" font-weight="700" fill="#dc2626">Public bucket (avoid)</text>
+
+  <!-- open lock icon -->
+  <g transform="translate(262 150)" fill="none" stroke="#dc2626" stroke-width="5" stroke-linecap="round">
+    <rect x="0" y="40" width="90" height="66" rx="10" fill="#ffffff"/>
+    <path d="M20 40 V22 a25 25 0 0 1 50 -6"/>
+    <circle cx="45" cy="72" r="7" fill="#dc2626" stroke="none"/>
+  </g>
+
+  <g font-size="21" fill="#1f2937">
+    <circle cx="70" cy="310" r="15" fill="#dc2626"/><text x="70" y="317" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">✕</text>
+    <text x="100" y="317">Anyone who finds a link can open it.</text>
+    <circle cx="70" cy="370" r="15" fill="#dc2626"/><text x="70" y="377" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">✕</text>
+    <text x="100" y="377">Links never expire.</text>
+    <circle cx="70" cy="430" r="15" fill="#dc2626"/><text x="70" y="437" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">✕</text>
+    <text x="100" y="437">Bots can copy photos and share links.</text>
+    <circle cx="70" cy="490" r="15" fill="#dc2626"/><text x="70" y="497" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">✕</text>
+    <text x="100" y="497">You pay for every download,</text>
+    <text x="100" y="525">even from strangers.</text>
+  </g>
+
+  <!-- Right panel: private -->
+  <rect x="615" y="80" width="555" height="530" rx="18" fill="#f0fdf4" stroke="#16a34a" stroke-width="3"/>
+  <text x="892" y="126" text-anchor="middle" font-size="24" font-weight="700" fill="#16a34a">Private bucket + presigned URLs</text>
+
+  <!-- closed lock icon -->
+  <g transform="translate(847 150)" fill="none" stroke="#16a34a" stroke-width="5" stroke-linecap="round">
+    <rect x="0" y="40" width="90" height="66" rx="10" fill="#ffffff"/>
+    <path d="M20 40 V22 a25 25 0 0 1 50 0 V40"/>
+    <circle cx="45" cy="72" r="7" fill="#16a34a" stroke="none"/>
+  </g>
+
+  <g font-size="21" fill="#1f2937">
+    <circle cx="655" cy="310" r="15" fill="#16a34a"/><text x="655" y="317" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">✓</text>
+    <text x="685" y="317">Block Public Access is on.</text>
+    <circle cx="655" cy="370" r="15" fill="#16a34a"/><text x="655" y="377" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">✓</text>
+    <text x="685" y="377">Only your app's role can read and write.</text>
+    <circle cx="655" cy="430" r="15" fill="#16a34a"/><text x="655" y="437" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">✓</text>
+    <text x="685" y="437">Each link opens one photo only.</text>
+    <circle cx="655" cy="490" r="15" fill="#16a34a"/><text x="655" y="497" text-anchor="middle" font-size="20" font-weight="700" fill="#ffffff">✓</text>
+    <text x="685" y="497">Links expire (after 1 hour in PhotoBook).</text>
+    <text x="685" y="525" fill="#6b7280">Old shared links stop working.</text>
+  </g>
+</svg>

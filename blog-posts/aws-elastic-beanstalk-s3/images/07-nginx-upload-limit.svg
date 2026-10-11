@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f2937"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="620" fill="#ffffff"/>
+  <text x="600" y="46" text-anchor="middle" font-size="28" font-weight="700" fill="#1f2937">Two size limits: nginx first, then Flask</text>
+
+  <!-- Column headers -->
+  <g font-size="20" font-weight="700" fill="#6b7280" text-anchor="middle">
+    <text x="150" y="100">Photo</text>
+    <text x="455" y="100">nginx</text>
+    <text x="760" y="100">Flask</text>
+    <text x="1040" y="100">Result</text>
+  </g>
+
+  <!-- Row 1: default nginx, 3 MB -->
+  <rect x="20" y="120" width="1160" height="140" rx="14" fill="#fef2f2" stroke="#fecaca" stroke-width="2"/>
+  <text x="40" y="150" font-size="20" font-weight="700" fill="#dc2626">Default nginx (1 MB limit)</text>
+  <rect x="70" y="168" width="160" height="66" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="150" y="209" text-anchor="middle" font-size="22" fill="#1f2937">3 MB photo</text>
+  <line x1="230" y1="201" x2="366" y2="201" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <rect x="370" y="168" width="170" height="66" rx="10" fill="#ffffff" stroke="#dc2626" stroke-width="3"/>
+  <text x="455" y="209" text-anchor="middle" font-size="22" font-weight="700" fill="#dc2626">✕ stops it</text>
+  <text x="760" y="209" text-anchor="middle" font-size="20" fill="#6b7280">never sees it</text>
+  <text x="1040" y="199" text-anchor="middle" font-size="21" font-weight="700" fill="#dc2626">413 Request Entity</text>
+  <text x="1040" y="226" text-anchor="middle" font-size="21" font-weight="700" fill="#dc2626">Too Large</text>
+
+  <!-- Row 2: 10M nginx, 3 MB -->
+  <rect x="20" y="280" width="1160" height="140" rx="14" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="2"/>
+  <text x="40" y="310" font-size="20" font-weight="700" fill="#16a34a">With client_max_body_size 10M</text>
+  <rect x="70" y="328" width="160" height="66" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="150" y="369" text-anchor="middle" font-size="22" fill="#1f2937">3 MB photo</text>
+  <line x1="230" y1="361" x2="366" y2="361" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <rect x="370" y="328" width="170" height="66" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="3"/>
+  <text x="455" y="369" text-anchor="middle" font-size="22" font-weight="700" fill="#16a34a">✓ passes</text>
+  <line x1="540" y1="361" x2="671" y2="361" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <rect x="675" y="328" width="170" height="66" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="3"/>
+  <text x="760" y="369" text-anchor="middle" font-size="22" font-weight="700" fill="#16a34a">✓ saves</text>
+  <line x1="845" y1="361" x2="941" y2="361" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <text x="1060" y="369" text-anchor="middle" font-size="21" font-weight="700" fill="#16a34a">Photo in S3</text>
+
+  <!-- Row 3: 10M nginx, 7 MB -->
+  <rect x="20" y="440" width="1160" height="140" rx="14" fill="#fffbeb" stroke="#fde68a" stroke-width="2"/>
+  <text x="40" y="470" font-size="20" font-weight="700" fill="#b45309">With client_max_body_size 10M</text>
+  <rect x="70" y="488" width="160" height="66" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="150" y="529" text-anchor="middle" font-size="22" fill="#1f2937">7 MB photo</text>
+  <line x1="230" y1="521" x2="366" y2="521" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <rect x="370" y="488" width="170" height="66" rx="10" fill="#ffffff" stroke="#16a34a" stroke-width="3"/>
+  <text x="455" y="529" text-anchor="middle" font-size="22" font-weight="700" fill="#16a34a">✓ passes</text>
+  <line x1="540" y1="521" x2="671" y2="521" stroke="#1f2937" stroke-width="3" marker-end="url(#a)"/>
+  <rect x="675" y="488" width="170" height="66" rx="10" fill="#ffffff" stroke="#dc2626" stroke-width="3"/>
+  <text x="760" y="529" text-anchor="middle" font-size="22" font-weight="700" fill="#dc2626">✕ rejects</text>
+  <text x="1040" y="519" text-anchor="middle" font-size="21" font-weight="700" fill="#b45309">Friendly message:</text>
+  <text x="1040" y="546" text-anchor="middle" font-size="20" fill="#1f2937">"The limit is 5 MB."</text>
+</svg>

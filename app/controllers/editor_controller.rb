@@ -2,9 +2,12 @@ require "fileutils"
 require "securerandom"
 
 class EditorController < ApplicationController
-  ALLOWED_EXTENSIONS = %w[.png .jpg .jpeg .gif .svg].freeze
-  ALLOWED_CONTENT_TYPES = %w[image/png image/jpeg image/gif image/svg+xml].freeze
+  # No SVG: an SVG file can carry JavaScript, and uploads are served from our own site.
+  ALLOWED_EXTENSIONS = %w[.png .jpg .jpeg .gif .webp].freeze
+  ALLOWED_CONTENT_TYPES = %w[image/png image/jpeg image/gif image/webp].freeze
   MAX_UPLOAD_SIZE = 5.megabytes
+
+  # Anyone can use the Editor. Publishing pages and saving images need an account (checked in each action), not a plan.
 
   def show
     @editor_images = user_signed_in? ? current_user.editor_images.recent : EditorImage.none
@@ -53,7 +56,7 @@ class EditorController < ApplicationController
 
     extension = File.extname(image.original_filename.to_s).downcase
     unless ALLOWED_EXTENSIONS.include?(extension) && allowed_content_type?(image.content_type)
-      return render json: { error: "Only PNG, JPG, JPEG, GIF, and SVG images are allowed." }, status: :unprocessable_entity
+      return render json: { error: "Only PNG, JPG, JPEG, GIF and WebP images are allowed." }, status: :unprocessable_entity
     end
 
     if image.size > MAX_UPLOAD_SIZE
@@ -106,7 +109,7 @@ class EditorController < ApplicationController
 
   def normalized_page_attributes
     permitted = page_params
-    title = permitted[:title].to_s.strip.presence || "Untitled AI Academy Page"
+    title = permitted[:title].to_s.strip.presence || "Untitled CoffeeBean AI Page"
     html = permitted[:html_content].to_s
 
     {

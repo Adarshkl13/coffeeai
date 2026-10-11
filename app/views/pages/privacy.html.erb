@@ -1,0 +1,60 @@
+<%= render layout: "pages/page", locals: { title: "Privacy Policy", subtitle: "Last updated: 4 October 2026" } do %>
+  <p>This page explains what information CoffeeBean AI stores, why, and how long we keep it. CoffeeBean AI (<%= COMPANY[:website] %>) is owned and operated by <strong><%= COMPANY[:legal_name] %></strong> ("we", "us"). We keep this list short on purpose: we only store what the site needs to work. We do not sell your personal data.</p>
+
+  <h2>What we store</h2>
+  <ul>
+    <li><strong>Your account:</strong> your email address and a securely hashed password. We never see or store your password in plain text.</li>
+    <li><strong>Your progress:</strong> which lessons you finished or skipped, and your exercise answers, so you can continue where you stopped.</li>
+    <li><strong>Things you create:</strong> pages you publish from the Editor and images you upload there. Published pages can be seen by anyone who has the link.</li>
+    <li><strong>Lab data:</strong> text and documents you add in the hands-on labs (Vector Lab and RAG Lab). They are stored in your own lab space and deleted automatically when a lab is not used for 30 days. You can delete them sooner with the lab's Reset button.</li>
+    <li><strong>Ask AI chats:</strong> your questions and the answers in Ask CoffeeBean AI, so you can open old chats from the sidebar. Files you attach are sent to the AI but not stored by us. You can delete a chat at any time from its menu.</li>
+    <li><strong>Payments:</strong> if you buy a plan, we store the order number, amount, date, status, your plan dates and the mobile number you gave for the receipt. Card, UPI and bank details are entered on Cashfree's secure page. We never see or store them.</li>
+    <li><strong>Usage counters:</strong> how many lab actions you used today, so we can apply fair daily limits.</li>
+  </ul>
+
+  <h2>What happens in your browser</h2>
+  <ul>
+    <li>Code in the "Try it" editors runs in your own browser. It is not sent to our servers.</li>
+    <li>Some widgets save small things, such as your best activity score, in your browser's local storage. This stays on your device.</li>
+    <li>We use a cookie to keep you signed in. We do not use advertising or tracking cookies.</li>
+  </ul>
+
+  <h2>Services we use</h2>
+  <ul>
+    <li><strong>AI answers in the labs:</strong> when you ask the RAG Lab a question or run an agent in the Agent Lab, your question, prompt and the related text are sent to Anthropic's Claude API to create the answer. Do not put personal or private information into the labs.</li>
+    <li><strong>Ask AI:</strong> your questions, earlier messages in the same chat and any file you attach are sent to Google's Gemini API to create the answer. If you turn on "Web", Google Search is used to find sources. Do not share personal or private information in Ask AI.</li>
+    <li><strong>Payments:</strong> payments are processed by Cashfree Payments India Pvt. Ltd. We share your order number, amount, email address and mobile number with Cashfree so it can take the payment and send a receipt. Cashfree has its own privacy policy.</li>
+    <li><strong>Code and model files:</strong> the in-browser Python runtime and AI models are downloaded from public content delivery networks (CDNs).</li>
+  </ul>
+
+  <h2>Why we use your data</h2>
+  <ul>
+    <li>To run your account, save your progress and give you the features of your plan.</li>
+    <li>To answer your questions in Ask AI and the labs.</li>
+    <li>To take payments and keep payment records, as the law requires.</li>
+    <li>To keep the site safe, fix problems and apply fair daily limits.</li>
+    <li>To send you important messages about your account or your plan. We do not send marketing emails unless you ask for them.</li>
+  </ul>
+
+  <h2>How long we keep it</h2>
+  <ul>
+    <li>Account, progress and chats: while your account is open. When you delete your account, we delete them.</li>
+    <li>Payment records: for as long as tax and accounting laws require, even after you delete your account.</li>
+  </ul>
+
+  <h2>Your rights and choices</h2>
+  <ul>
+    <li>You can ask for a copy of the personal data we hold about you.</li>
+    <li>You can ask us to correct or delete your data, or delete your account.</li>
+    <li>You can reset any lab and delete any Ask AI chat at any time.</li>
+    <li>To ask for any of these, write to <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a> from your account email address. We reply within 30 days.</li>
+  </ul>
+
+  <h2>Security</h2>
+  <p>We protect your data with secure connections (HTTPS), hashed passwords and limited access. No system is 100% secure, so please use a strong password and do not share private information in the AI tools.</p>
+
+  <h2>Children</h2>
+  <p>CoffeeBean AI is for learners aged 13 and over. If you are under 18, please use the site with the permission of a parent or guardian, and ask them before you make a payment.</p>
+
+  <p>We will update this page if we change what we store. The date at the top shows the last change.</p>
+<% end %>

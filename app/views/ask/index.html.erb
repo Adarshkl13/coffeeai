@@ -1,0 +1,163 @@
+<% content_for :title, @chat ? "#{@chat.title} — Ask CoffeeBean AI" : "Ask CoffeeBean AI — Study Assistant" %>
+<% content_for :body_class, "page-scrollable ask-body" %>
+<%
+  chips = [
+    ["Explain a topic", "Explain this topic in simple words, with an example: ", "book"],
+    ["Help with coding", "Help me with this code. Explain what is wrong and how to fix it:\n\n", "code"],
+    ["Summarize notes", "Summarize these notes into short key points:\n\n", "note"]
+  ]
+  topic_prompts = {
+    "Explain machine learning" => ["Explain machine learning in simple words, with an everyday example.", true],
+    "Help me with a coding problem" => ["I have a coding problem. Here is my code and what I want it to do:\n\n", false],
+    "Solve a math word problem" => ["Help me solve this math word problem step by step. Teach me the method, not only the answer:\n\n", false],
+    "Improve my English writing" => ["Improve my English writing. Correct the mistakes and explain each change simply:\n\n", false],
+    "Summarize this article" => ["Summarize this article in simple English, with the 5 most important points:\n\n", false]
+  }
+%>
+
+<div class="ask-page<%= ' has-thread' if @messages.any? %>" data-controller="ask"
+     data-ask-signed-in-value="<%= user_signed_in? %>"
+     data-ask-chat-id-value="<%= @chat&.id %>"
+     data-ask-url-value="<%= ask_messages_path %>"
+     data-ask-base-value="<%= ask_path %>"
+     data-ask-login-value="<%= new_user_session_path %>"
+     data-ask-signup-value="<%= new_user_registration_path %>">
+  <%= render "shared/navbar" %>
+
+  <div class="ask-layout">
+    <%# ── Left: chats ─────────────────────────────────────────── %>
+    <aside class="ask-side" data-ask-target="side" aria-label="Your chats">
+      <button type="button" class="ask-new" data-action="ask#newChat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        New chat
+      </button>
+      <h2 class="ask-side-title">Recent chats</h2>
+      <% if user_signed_in? %>
+        <ul class="ask-chats" data-ask-target="chatList">
+          <% @chats.each do |c| %>
+            <li class="ask-chat<%= ' is-active' if c == @chat %>" data-chat-id="<%= c.id %>">
+              <%= link_to ask_chat_path(c), class: "ask-chat-link" do %>
+                <svg class="ask-chat-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 1 3.3 6.5L4 19.5l1-3.4A7.9 7.9 0 0 1 4 12z"/></svg>
+                <span class="ask-chat-text">
+                  <span class="ask-chat-title"><%= c.title %></span>
+                  <span class="ask-chat-time"><%= c.updated_at > 1.minute.ago ? "Just now" : "#{time_ago_in_words(c.updated_at)} ago" %></span>
+                </span>
+              <% end %>
+              <button type="button" class="ask-chat-more" aria-label="Options for this chat" aria-haspopup="true" data-action="ask#toggleMenu">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
+              </button>
+              <div class="ask-chat-menu" hidden>
+                <button type="button" data-action="ask#rename">Rename</button>
+                <button type="button" class="is-danger" data-action="ask#remove">Delete</button>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+        <p class="ask-side-empty" data-ask-target="emptyList"<%= " hidden" if @chats.any? %>>Your chats will appear here.</p>
+      <% else %>
+        <p class="ask-side-empty"><%= link_to "Log in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to save your chats.</p>
+      <% end %>
+    </aside>
+    <div class="ask-scrim" data-action="click->ask#closeSide"></div>
+
+    <%# ── Middle: chat ────────────────────────────────────────── %>
+    <main class="ask-main">
+      <div class="ask-mobilebar">
+        <button type="button" class="btn btn-ghost btn-sm" data-action="ask#openSide">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          Chats
+        </button>
+        <button type="button" class="btn btn-ghost btn-sm" data-action="ask#newChat">+ New chat</button>
+      </div>
+
+      <div class="ask-hero">
+        <h1 class="ask-title"><span class="grad-text">CoffeeBean AI</span></h1>
+      </div>
+
+      <div class="ask-thread" data-ask-target="thread" aria-live="polite">
+        <% @messages.each do |m| %>
+          <% if m.role == "user" %>
+            <div class="ask-msg ask-msg-user">
+              <div class="ask-bubble">
+                <% if m.attachment_name %><span class="ask-file-tag">📎 <%= m.attachment_name %></span><% end %>
+                <%= simple_format(h(m.content), {}, sanitize: false) %>
+              </div>
+            </div>
+          <% else %>
+            <div class="ask-msg ask-msg-ai">
+              <div class="ask-avatar"><%= render "shared/logo_mark", size: 16 %></div>
+              <div class="ask-answer">
+                <div class="ask-md" data-md="<%= m.content %>"></div>
+                <% if m.sources.present? %>
+                  <div class="ask-sources" data-sources="<%= m.sources.to_json %>"></div>
+                <% end %>
+                <% if m.search_suggestions.present? %>
+                  <div class="ask-suggest" data-html="<%= m.search_suggestions %>"></div>
+                <% end %>
+                <div class="ask-actions"><button type="button" class="ask-copy" data-action="ask#copyAnswer">Copy</button></div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="ask-dock">
+        <form class="ask-composer" data-ask-target="form" data-action="submit->ask#send">
+          <div class="ask-file-chip" data-ask-target="fileChip" hidden></div>
+          <label class="sr-only" for="ask-input">Your question</label>
+          <textarea id="ask-input" rows="1" maxlength="8000" placeholder="Ask anything you want to learn..."
+                    data-ask-target="input" data-action="keydown->ask#keydown input->ask#autosize"></textarea>
+          <div class="ask-tools">
+            <label class="ask-tool" title="Attach an image, PDF or text file (up to 7 MB)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5 12.5 20a5.5 5.5 0 0 1-7.8-7.8l8.6-8.6a3.7 3.7 0 0 1 5.2 5.2l-8.6 8.6a1.8 1.8 0 0 1-2.6-2.6l7.9-7.9"/></svg>
+              <span class="sr-only">Attach a file</span>
+              <input type="file" class="sr-only" accept=".png,.jpg,.jpeg,.webp,.pdf,.txt,.md,.csv" data-ask-target="file" data-action="change->ask#pickFile">
+            </label>
+            <span class="ask-divider" aria-hidden="true"></span>
+            <label class="ask-web" title="Let the AI search the web with Google for up-to-date facts">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
+              <span>Web (optional)</span>
+              <input type="checkbox" class="ask-switch" data-ask-target="web">
+            </label>
+            <button type="submit" class="ask-send" data-ask-target="send" aria-label="Send">
+              <svg class="ask-send-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10l12.6 2-12.6 2z"/></svg>
+              <svg class="ask-stop-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+            </button>
+          </div>
+        </form>
+        <% unless user_signed_in? %>
+        <p class="ask-note">
+          <span class="ask-guest" data-ask-target="guest"><% if @guest_left.positive? %>You can ask <%= pluralize(@guest_left, "question") %> without an account. <%= link_to "Log in", new_user_session_path %> to keep asking and save your chats.<% else %><%= link_to "Log in", new_user_session_path %> or <%= link_to "sign up", new_user_registration_path %> to ask your next question. It does not need a plan.<% end %></span>
+        </p>
+        <% end %>
+      </div>
+
+      <div class="ask-chips">
+        <% chips.each do |label, prompt, icon| %>
+          <button type="button" class="ask-chip ask-chip-<%= icon %>" data-action="ask#prefill" data-prompt="<%= prompt %>">
+            <% case icon when "book" %>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 5.5C4.6 4.2 7.6 4 11 5.4V20c-3.4-1.4-6.4-1.2-9 0zM13 5.4c3.4-1.4 6.4-1.2 9 .1V20c-2.6-1.2-5.6-1.4-9 0z"/></svg>
+            <% when "code" %>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>
+            <% else %>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 2h8l6 6v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm7 1.5V9h5.5zM8 13h8v1.6H8zm0 3.6h8v1.6H8z"/></svg>
+            <% end %>
+            <%= label %>
+          </button>
+        <% end %>
+      </div>
+    </main>
+
+    <%# ── Right: topics ───────────────────────────────────────── %>
+    <aside class="ask-topics" aria-label="Popular topics">
+      <h2>Popular topics to try</h2>
+      <% AskController::TOPICS.each do |t| %>
+        <% prompt, send_now = topic_prompts.fetch(t) %>
+        <button type="button" class="ask-topic" data-action="ask#topic" data-prompt="<%= prompt %>" data-send="<%= send_now %>">
+          <span><%= t %></span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      <% end %>
+    </aside>
+  </div>
+</div>

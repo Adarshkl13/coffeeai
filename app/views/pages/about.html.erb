@@ -1,0 +1,29 @@
+<%= render layout: "pages/page", locals: { title: "About CoffeeBean AI", subtitle: "Learn AI, one coffee break at a time. Short, simple lessons in plain English." } do %>
+  <p>CoffeeBean AI is a place to learn programming and AI by doing. Each lesson is short enough to finish in a coffee break. Every lesson explains one idea in plain words, shows a diagram, and gives you code you can run and change right in your browser.</p>
+
+  <h2>What you can learn</h2>
+  <ul>
+    <li><strong>Web development:</strong> HTML &amp; CSS, JavaScript, TypeScript, React, Bootstrap and Node.js.</li>
+    <li><strong>Backend and databases:</strong> Python, Django, Ruby, PHP, Java, SQL, MySQL and PostgreSQL.</li>
+    <li><strong>AI and data:</strong> machine learning, deep learning, data science, pandas, NumPy, RAG, vector databases and AI agents.</li>
+    <li><strong>Developer tools:</strong> Git and GitHub.</li>
+    <li><strong>AI for work:</strong> no-code courses on using AI in marketing, finance, sales, HR, customer support, e-commerce, small business, healthcare, law, content creation, software testing and management.</li>
+  </ul>
+
+  <h2>How the courses work</h2>
+  <ul>
+    <li>Short lessons, each with a diagram and a hands-on activity.</li>
+    <li>A "Try it" editor in every lesson. Python runs in your browser, so you do not need to install anything.</li>
+    <li>Your progress is saved, so you can stop and continue at any time.</li>
+    <li>Hands-on labs let you try real tools, such as a vector database, a document chatbot and an AI agent.</li>
+    <li>Ask CoffeeBean AI, our study assistant, explains any topic in simple English when you get stuck.</li>
+  </ul>
+
+  <h2>Our mission</h2>
+  <p>We want to make learning about AI and technology easy, practical and affordable for everyone. Our lessons are short, clear and hands-on, so you can learn a little every day, even on a busy day.</p>
+
+  <h2>Who we are</h2>
+  <p>CoffeeBean AI is owned and operated by <strong><%= COMPANY[:legal_name] %></strong>. We are a small team of educators and technology people who love teaching. For questions, feedback or support, write to <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a> or visit our <%= link_to "Contact", contact_path %> page.</p>
+
+  <p>Ready to start? Open <%= link_to "all courses", user_signed_in? ? courses_path : new_user_registration_path %>, see our <%= link_to "pricing", pricing_path %>, or read the <%= link_to "blog", blogs_path %>.</p>
+<% end %>

@@ -3,15 +3,11 @@
     <div class="footer-brand">
       <div class="footer-logo">
         <div class="footer-logo-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2a10 10 0 1 0 10 10" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke-linecap="round"/>
-          </svg>
+          <%= render "shared/logo_mark", size: 16 %>
         </div>
-        <span>AI <strong>Academy</strong></span>
+        <span>CoffeeBean <strong>AI</strong></span>
       </div>
-      <p class="footer-tagline">Build your future with AI skills.</p>
+      <p class="footer-tagline">Learn AI, one coffee break at a time.</p>
     </div>
 
     <div class="footer-cols">
@@ -31,7 +27,10 @@
         <p class="footer-col-title">Platform</p>
         <ul>
           <li><%= link_to "Dashboard", dashboard_path %></li>
-          <li><%= link_to "AI Academy Course", lesson_path(1) %></li>
+          <% if user_signed_in? %><li><%= link_to "Account settings", edit_user_registration_path %></li><% end %>
+          <li><%= link_to "Ask AI", ask_path %></li>
+          <li><%= link_to "Blog", blogs_path %></li>
+          <li><%= link_to "CoffeeBean AI Course", lesson_path(1) %></li>
           <li><%= link_to "Sign Up", new_user_registration_path %></li>
           <li><%= link_to "Log In", new_user_session_path %></li>
         </ul>
@@ -40,16 +39,19 @@
       <div class="footer-col">
         <p class="footer-col-title">Company</p>
         <ul>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
+          <li><%= link_to "About", about_path %></li>
+          <li><%= link_to "Contact", contact_path %></li>
+          <li><%= link_to "Pricing", pricing_path %></li>
+          <li><%= link_to "Privacy Policy", privacy_path %></li>
+          <li><%= link_to "Terms of Service", terms_path %></li>
+          <li><%= link_to "Refund Policy", refund_policy_path %></li>
+          <li><%= link_to "Delivery Policy", delivery_policy_path %></li>
         </ul>
       </div>
     </div>
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; <%= Time.current.year %> AI Academy. All rights reserved.</p>
+    <p>&copy; <%= Time.current.year %> CoffeeBean AI, operated by <%= COMPANY[:legal_name] %>. All rights reserved.</p>
   </div>
 </footer>

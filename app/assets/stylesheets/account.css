@@ -1,0 +1,25 @@
+/* Account settings page (app/views/devise/registrations/edit.html.erb). Uses the design.css tokens, so it follows both themes. */
+.dash-body.acct-body { max-width: 860px; }
+.acct-head { display: flex; align-items: center; gap: 16px; margin: 8px 0 24px; }
+.acct-head h1 { margin: 0; font-size: clamp(26px, 3vw, 34px); font-weight: 800; letter-spacing: -.02em; color: var(--txt); }
+.acct-head p { margin: 4px 0 0; color: var(--txt2); font-size: 14.5px; overflow-wrap: anywhere; }
+.acct-avatar { flex-shrink: 0; width: 56px; height: 56px; display: grid; place-items: center; border-radius: 50%;
+  background: var(--grad-brand); color: #fff; font-size: 22px; font-weight: 800; box-shadow: 0 0 0 3px rgba(139,92,246,.3); }
+.acct-card { margin-bottom: 18px; padding: 22px 22px 20px; border-radius: 18px; background: var(--bg1); border: 1px solid var(--border); }
+.acct-card h2 { margin: 0 0 10px; font-size: 18px; font-weight: 700; color: var(--txt); }
+.acct-card h3 { margin: 20px 0 8px; font-size: 14px; font-weight: 700; color: var(--txt2); text-transform: uppercase; letter-spacing: .06em; }
+.acct-muted { margin: 0 0 14px; color: var(--txt2); font-size: 14px; line-height: 1.6; }
+.acct-muted a, .acct-link { color: var(--brand); font-weight: 600; }
+.acct-link { display: inline-block; margin-top: 10px; font-size: 14px; }
+.acct-status { margin: 0 0 10px; font-size: 15px; color: var(--txt); line-height: 1.6; }
+.acct-status-off { color: var(--txt2); }
+.acct-payments { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.acct-payments li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px;
+  background: var(--bg2); font-size: 14px; color: var(--txt); }
+.acct-form { gap: 14px; }
+.acct-form .field-input { font-size: 15px; }
+.acct-form .btn { align-self: flex-start; }
+.acct-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.acct-danger { border-color: rgba(248,113,113,.35); }
+@media (max-width: 640px) { .acct-row { grid-template-columns: 1fr; } .acct-payments li { flex-direction: column; align-items: flex-start; } }
+.nav-avatar:hover { box-shadow: 0 0 0 3px rgba(139,92,246,.6); }

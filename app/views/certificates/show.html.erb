@@ -1,0 +1,22 @@
+<% c = @certificate %>
+<% content_for :title, "#{c.holder_name}: #{c.course_title} certificate — CoffeeBean AI" %>
+<% content_for :body_class, "page-scrollable crt-page-body" %>
+
+<div class="dash-page" data-controller="print" data-print-auto-value="<%= @print %>">
+  <%= render "shared/navbar" %>
+  <div class="dash-body crt-page">
+    <p class="crt-verified">✅ Verified certificate: <b><%= c.holder_name %></b> completed <b><%= c.course_title %></b> on CoffeeBean AI on <%= c.issued_at.strftime("%-d %B %Y") %>.</p>
+    <div class="crt-print-area">
+      <%= render "certificates/certificate", certificate: c %>
+    </div>
+    <div class="crt-actions crt-page-actions">
+      <button type="button" class="btn btn-primary btn-sm" data-action="print#print">Print / Save as PDF</button>
+      <% if user_signed_in? && c.user == current_user %>
+        <%= link_to "Back to dashboard", dashboard_path, class: "btn btn-ghost btn-sm" %>
+      <% else %>
+        <%= link_to "Explore CoffeeBean AI courses", root_path(anchor: "courses"), class: "btn btn-ghost btn-sm" %>
+      <% end %>
+    </div>
+    <p class="crt-page-note">Certificate ID <b><%= c.code %></b>. This page is the official record of this certificate.</p>
+  </div>
+</div>

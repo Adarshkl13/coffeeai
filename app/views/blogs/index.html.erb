@@ -1,0 +1,18 @@
+<% content_for :title, "Blog — CoffeeBean AI" %>
+<% content_for :body_class, "page-scrollable" %>
+
+<div class="dash-page">
+  <%= render "shared/navbar" %>
+
+  <div class="dash-body">
+    <div class="blog-index-head">
+      <h1 class="dash-greeting">CoffeeBean AI <span>Blog</span></h1>
+      <p class="dash-sub">Practical, step-by-step guides with diagrams and working code.</p>
+    </div>
+    <div class="blog-grid">
+      <%= render partial: "blogs/card", collection: @posts, as: :post %>
+    </div>
+  </div>
+
+  <%= render "shared/footer" %>
+</div>

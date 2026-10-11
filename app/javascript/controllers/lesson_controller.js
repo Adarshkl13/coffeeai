@@ -78,7 +78,7 @@ export default class extends Controller {
     }
   }
 
-  // ── Check answer (AI Academy static course) ──────────────────
+  // ── Check answer (CoffeeBean AI static course) ──────────────────
   checkAnswer(event) {
     const btn     = event.currentTarget
     const correct = this._unescape(btn.dataset.correct || "")

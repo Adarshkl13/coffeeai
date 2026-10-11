@@ -1,0 +1,113 @@
+<% content_for :title, "Pricing — CoffeeBean AI" %>
+<% content_for :body_class, "page-scrollable" %>
+<% content_for :head do %>
+  <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+<% end %>
+<%
+  member = user_signed_in? && current_user.member?
+  features = ["All courses and lessons", "AI tools inside lessons", "New courses added during your plan",
+              "Your progress saved across all courses"]
+%>
+
+<div class="dash-page">
+  <%= render "shared/navbar" %>
+
+  <div class="dash-body price-body" data-controller="checkout"
+       data-checkout-url-value="<%= payments_path %>" data-checkout-mode-value="<%= Cashfree.mode %>">
+    <header class="price-head">
+      <span class="eyebrow">Pricing</span>
+      <h1>Choose your plan. <span class="grad-text">Learn everything.</span></h1>
+      <p>Every plan opens all courses and lessons. Pay once. No automatic renewal.</p>
+      <p class="price-extra">Ask CoffeeBean AI and the code Editor do not need a plan. <%= link_to "Ask AI", ask_path %> · <%= link_to "Editor", editor_path %></p>
+    </header>
+
+    <% if member %>
+      <div class="price-active">
+        ✅ Your plan is active until <strong><%= current_user.access_until.strftime("%-d %B %Y") %></strong>.
+        You can add more time at any time. It is added to the end of your current plan.
+      </div>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <div class="price-phone-row">
+        <label for="pay-phone">Your mobile number (for the payment receipt)</label>
+        <div class="price-phone">
+          <span>+91</span>
+          <input id="pay-phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10"
+                 placeholder="10-digit mobile number" data-checkout-target="phone">
+        </div>
+        <p class="price-error" data-checkout-target="error" hidden></p>
+      </div>
+    <% end %>
+
+    <div class="price-grid">
+      <% @plans.each do |plan| %>
+        <section class="price-card<%= ' price-card-main' if plan.badge == 'Popular' %>">
+          <% if plan.badge %><span class="price-tag"><%= plan.badge %></span><% end %>
+          <h2><%= plan.name %></h2>
+          <p class="price-amount"><span>₹<%= number_with_delimiter(plan.price) %></span></p>
+          <p class="price-note">Full access for <%= plan.name.downcase %>. One payment.</p>
+          <ul class="price-list">
+            <% features.each do |f| %><li><%= f %></li><% end %>
+          </ul>
+          <% if user_signed_in? %>
+            <button type="button" class="btn <%= plan.badge == 'Popular' ? 'btn-primary' : 'btn-ghost' %> btn-lg price-btn"
+                    data-action="checkout#pay" data-plan="<%= plan.key %>" data-checkout-target="button">
+              <%= member ? "Add #{plan.name.downcase}" : "Choose #{plan.name.downcase}" %>
+            </button>
+          <% else %>
+            <%= link_to "Sign up to choose", new_user_registration_path, class: "btn #{plan.badge == 'Popular' ? 'btn-primary' : 'btn-ghost'} btn-lg price-btn" %>
+          <% end %>
+        </section>
+      <% end %>
+    </div>
+
+    <p class="price-small price-terms">
+      <% unless user_signed_in? %>Already have an account? <%= link_to "Log in", new_user_session_path %>. <% end %>
+      Prices are in Indian rupees (INR). Payments are processed securely by Cashfree Payments.
+      By paying, you agree to our <%= link_to "Terms", terms_path %> and <%= link_to "Refund Policy", refund_policy_path %>.
+    </p>
+
+    <section class="price-faq">
+      <h2>Questions</h2>
+      <details><summary>What do I get?</summary>
+        <p>Every plan opens every course and lesson on CoffeeBean AI, with the AI tools inside them, from the day you pay until the plan ends. The plans differ only in how long they last.</p></details>
+      <details><summary>Do I need a plan for Ask CoffeeBean AI or the Editor?</summary>
+        <p>No. Anyone can use the Editor and ask CoffeeBean AI a few questions. To keep asking, save your chats or publish pages from the Editor, log in to your account. You do not need a plan for these.</p></details>
+      <details><summary>Will I be charged again automatically?</summary>
+        <p>No. Each plan is a one-time payment. When it ends, you can buy a new plan if you want to continue. Your progress is kept.</p></details>
+      <details><summary>I already have a plan. Can I buy more time?</summary>
+        <p>Yes. The new plan is added to the end of your current plan, so you do not lose any days.</p></details>
+      <details><summary>How do I pay?</summary>
+        <p>You can pay with UPI, debit or credit card, net banking or a wallet, using Cashfree's secure checkout. The options you see depend on Cashfree and your bank.</p></details>
+      <details><summary>When does my access start?</summary>
+        <p>Straight after the payment is confirmed, usually within a few seconds. If it takes longer, refresh the page or write to <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a>.</p></details>
+      <details><summary>Can I get a refund?</summary>
+        <p>All sales are final. Please read the plan details carefully before you pay. Read the full <%= link_to "Refund Policy", refund_policy_path %>.</p></details>
+    </section>
+
+    <% if @payments.any? %>
+      <section class="price-history" id="payments">
+        <h2>Your payments</h2>
+        <div class="price-table-wrap">
+          <table class="price-table">
+            <thead><tr><th>Date</th><th>Order</th><th>Plan</th><th>Amount</th><th>Status</th><th>Access until</th></tr></thead>
+            <tbody>
+              <% @payments.each do |p| %>
+                <tr>
+                  <td><%= p.created_at.strftime("%-d %b %Y") %></td>
+                  <td><code><%= p.order_id %></code></td>
+                  <td><%= p.plan_info&.name %></td>
+                  <td>₹<%= number_with_delimiter(p.amount) %></td>
+                  <td><span class="price-status price-status-<%= p.status.downcase %>"><%= { "PAID" => "Paid", "PENDING" => "Not finished", "FAILED" => "Failed" }[p.status] %></span></td>
+                  <td><%= p.access_until&.strftime("%-d %b %Y") || "—" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    <% end %>
+  </div>
+  <%= render "shared/footer" %>
+</div>

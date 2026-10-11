@@ -1,0 +1,20 @@
+<%= render layout: "pages/page", locals: { title: "Contact Us", subtitle: "Questions, feedback, a payment problem or a problem with a lesson? We would like to hear from you." } do %>
+  <p>Email us at <a href="mailto:<%= @contact_email %>"><%= @contact_email %></a>. We usually reply within two working days.</p>
+
+  <h2>Our details</h2>
+  <ul>
+    <li><strong>Business:</strong> CoffeeBean AI, owned and operated by <%= COMPANY[:legal_name] %></li>
+    <li><strong>Website:</strong> <%= COMPANY[:website] %></li>
+    <li><strong>Email:</strong> <a href="mailto:<%= @contact_email %>"><%= @contact_email %></a></li>
+    <li><strong>Support hours:</strong> <%= COMPANY[:hours] %></li>
+  </ul>
+
+  <h2>When you write to us</h2>
+  <ul>
+    <li>Tell us the <strong>course and lesson name</strong> if your question is about a lesson.</li>
+    <li>For a payment, give the <strong>order number</strong>, date and amount. You can find the order number on the <%= link_to "Pricing", pricing_path %> page under "Your payments".</li>
+    <li>For an error, copy the <strong>exact error message</strong> and say what you clicked before it happened.</li>
+    <li>Use the email address of your CoffeeBean AI account, so we can find your progress.</li>
+    <li>Never send your password or card details. We will never ask for them.</li>
+  </ul>
+<% end %>

@@ -1,0 +1,27 @@
+<%# A small certificate that opens full size in a dialog (certificate_controller.js).
+    Locals: certificate; optional caption (default true). %>
+<% c = certificate; url = certificate_url(c) %>
+<div class="crt-thumb-wrap" data-controller="certificate" data-certificate-url-value="<%= url %>">
+  <button type="button" class="crt-thumb" data-action="certificate#open" aria-label="Open your certificate for <%= c.course_title %>">
+    <%= render "certificates/certificate", certificate: c %>
+    <span class="crt-thumb-hint" aria-hidden="true">Click to open</span>
+  </button>
+  <% if local_assigns.fetch(:caption, true) %>
+    <p class="crt-thumb-cap"><b><%= c.course_title %></b><span>Completed <%= c.issued_at.strftime("%-d %b %Y") %></span></p>
+  <% end %>
+
+  <dialog class="crt-dialog" data-certificate-target="dialog" data-action="click->certificate#backdrop" aria-label="Certificate">
+    <div class="crt-dialog-inner">
+      <%= render "certificates/certificate", certificate: c %>
+      <div class="crt-actions">
+        <%= link_to "Print / Save as PDF", certificate_path(c, print: 1), class: "btn btn-primary btn-sm", target: "_blank", rel: "noopener" %>
+        <button type="button" class="btn btn-ghost btn-sm" data-action="certificate#copy" data-certificate-target="copy">Copy link</button>
+        <%= link_to "Open page", certificate_path(c), class: "btn btn-ghost btn-sm", target: "_blank", rel: "noopener" %>
+        <button type="button" class="btn btn-ghost btn-sm crt-close" data-action="certificate#close">Close</button>
+      </div>
+      <% if c.user == current_user && current_user.name.blank? %>
+        <p class="crt-tip">Want your full name on it? Add it in <%= link_to "Account settings", edit_user_registration_path %>.</p>
+      <% end %>
+    </div>
+  </dialog>
+</div>

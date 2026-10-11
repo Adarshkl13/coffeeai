@@ -62,3 +62,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "anthropic", "~> 1.73"
+
+# Renders the Markdown blog posts in blog-posts/
+gem "commonmarker", "~> 2.0"
+gem "json", "~> 2.19", ">= 2.19.9"   # json 3.x does not work with Rails 8.0 yet

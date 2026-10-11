@@ -1,0 +1,25 @@
+<% content_for :title, "All Courses — CoffeeBean AI" %>
+<% content_for :body_class, "page-scrollable" %>
+
+<div class="dash-page">
+  <%= render "shared/navbar" %>
+
+  <div class="dash-body" data-controller="course-filter">
+    <div class="d-hello">
+      <div>
+        <span class="eyebrow">Courses</span>
+        <h1>All courses</h1>
+        <p>Pick a course to start. Your progress is saved as you go.</p>
+      </div>
+    </div>
+    <%= render "shared/course_filter", categories: @categories, total: @courses.size %>
+    <div class="c-grid">
+      <%= render "shared/original_course_card" %>
+      <% @courses.each do |course| %>
+        <%= render "shared/course_card", course: course, lessons: @progress[course.id][:total], progress: @progress[course.id] %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render "shared/footer" %>
+</div>

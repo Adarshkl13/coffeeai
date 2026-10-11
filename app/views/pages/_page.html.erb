@@ -1,0 +1,17 @@
+<%# Wraps a footer information page. Locals: title, subtitle; the page body is yielded. %>
+<% content_for :title, "#{title} — CoffeeBean AI" %>
+<% content_for :body_class, "page-scrollable" %>
+
+<div class="dash-page">
+  <%= render "shared/navbar" %>
+  <div class="dash-body">
+    <article class="blog-article">
+      <header class="blog-article-head">
+        <h1 class="blog-article-title"><%= title %></h1>
+        <% if local_assigns[:subtitle] %><p class="blog-article-sub"><%= subtitle %></p><% end %>
+      </header>
+      <div class="blog-prose"><%= yield %></div>
+    </article>
+  </div>
+  <%= render "shared/footer" %>
+</div>
