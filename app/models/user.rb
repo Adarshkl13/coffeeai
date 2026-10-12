@@ -22,6 +22,11 @@ class User < ApplicationRecord
     admin
   end
 
+  # Blocked by an admin (Admin › Users). Devise then refuses sign-in and signs the user out on their next request.
+  def blocked? = blocked_at.present?
+  def active_for_authentication? = super && !blocked?
+  def inactive_message = blocked? ? :blocked : super
+
   # The name on certificates: the full name if set, otherwise a tidy version of the email name.
   def display_name
     name.presence || email.split("@").first.tr("._-", " ").split.map(&:capitalize).join(" ")

@@ -113,8 +113,9 @@
               <span class="sr-only">Attach a file</span>
               <input type="file" class="sr-only" accept=".png,.jpg,.jpeg,.webp,.pdf,.txt,.md,.csv" data-ask-target="file" data-action="change->ask#pickFile">
             </label>
-            <span class="ask-divider" aria-hidden="true"></span>
-            <label class="ask-web" title="Let the AI search the web with Google for up-to-date facts">
+            <%# Web search only works with Google Gemini (Admin › AI provider); the server ignores it otherwise %>
+            <span class="ask-divider" aria-hidden="true"<%= " hidden" unless AiProvider.web_search? %>></span>
+            <label class="ask-web" title="Let the AI search the web with Google for up-to-date facts"<%= " hidden" unless AiProvider.web_search? %>>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
               <span>Web (optional)</span>
               <input type="checkbox" class="ask-switch" data-ask-target="web">

@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_10_06_120000) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_13_120001) do
+  create_table "app_settings", force: :cascade do |t|
+    t.string "key", null: false
+    t.text "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["key"], name: "index_app_settings_on_key", unique: true
+  end
+
   create_table "certificates", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "course_id"
@@ -211,6 +219,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_06_120000) do
     t.boolean "admin", default: false, null: false
     t.datetime "access_until"
     t.string "name"
+    t.datetime "blocked_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

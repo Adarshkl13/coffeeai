@@ -215,3 +215,4 @@ html[data-theme="light"] .ask-dots span { background: #7c3aed; }
 @media (min-width: 761px) { .ask-scrim { display: none; } }
 .ask-guest { display: block; margin-top: 4px; }
 .ask-guest a { color: var(--brand); font-weight: 600; }
+.ask-web[hidden], .ask-divider[hidden] { display: none; }

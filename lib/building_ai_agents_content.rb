@@ -2639,9 +2639,9 @@ module BuildingAiAgentsContent
           <div class="lc-badge le-badge le-badge-agt">Building AI Agents</div>
           <h1 class="lc-title">Capstone Lab: Build and Test an Agent</h1>
         </div>
-        <p class="lc-lead">Now you will build a real agent. In the <strong>Agent Lab</strong>, you write the system prompt and choose tools from a fixed, safe list. Then you give the agent a task. You can watch every step of the run: its thinking, each tool call and result, and the final answer. When AI runs are turned on for this site, the agent runs on Claude. Either way, you can call every tool by hand and step through a recorded run.</p>
+        <p class="lc-lead">Now you will build a real agent. In the <strong>Agent Lab</strong>, you write the system prompt and choose tools from a fixed, safe list. Then you give the agent a task. You can watch every step of the run: its thinking, each tool call and result, and the final answer. When AI runs are turned on for this site, the agent runs on Gemini. Either way, you can call every tool by hand and step through a recorded run.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 240" role="img" aria-label="How the Agent Lab works. The browser sends the system prompt, the chosen tools and the task. The server checks daily limits. It runs the agent loop with Claude and the safe tool list on demo data. Then it sends back the timeline.">
+          <svg viewBox="0 0 760 240" role="img" aria-label="How the Agent Lab works. The browser sends the system prompt, the chosen tools and the task. The server checks daily limits. It runs the agent loop with Gemini and the safe tool list on demo data. Then it sends back the timeline.">
             <defs><marker id="a30a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12" fill="#e2e0f0" text-anchor="middle">
               <rect x="10" y="30" width="200" height="180" rx="12" fill="#1f1f44" stroke="#3b82f6"/>
@@ -2651,7 +2651,7 @@ module BuildingAiAgentsContent
               <rect x="280" y="30" width="200" height="180" rx="12" fill="#1f1f44" stroke="#9d5cf6"/>
               <text x="380" y="55" font-weight="700" fill="#c4b5fd">Academy server</text>
               <text x="380" y="85">daily limits (runs,</text><text x="380" y="103">model calls)</text><text x="380" y="130">agent loop, ≤ 8 steps</text><text x="380" y="157">allow-list check</text><text x="380" y="184">validated tool calls</text>
-              <rect x="550" y="20" width="200" height="80" rx="12" fill="#1f1f44" stroke="#f59e0b"/><text x="650" y="52" font-weight="700" fill="#fcd34d">Claude</text><text x="650" y="74" font-size="11" fill="#9b99b8">decides the next step</text>
+              <rect x="550" y="20" width="200" height="80" rx="12" fill="#1f1f44" stroke="#f59e0b"/><text x="650" y="52" font-weight="700" fill="#fcd34d">Gemini</text><text x="650" y="74" font-size="11" fill="#9b99b8">decides the next step</text>
               <rect x="550" y="140" width="200" height="80" rx="12" fill="#1f1f44" stroke="#10b981"/><text x="650" y="168" font-weight="700" fill="#6ee7b7">7 safe tools</text><text x="650" y="190" font-size="11" fill="#9b99b8">pure functions, demo data</text>
             </g>
           </svg>

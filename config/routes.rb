@@ -90,7 +90,13 @@ Rails.application.routes.draw do
   # ── Admin ────────────────────────────────────────────────────────
   namespace :admin do
     root "dashboard#index"
-    resources :users, only: %i[index show]
+    resources :users, only: %i[index show] do
+      member do
+        patch :block
+        patch :unblock
+      end
+    end
+    resource :ai_provider, only: %i[show update], controller: "ai_provider"
     resources :courses, only: %i[index show]
   end
 

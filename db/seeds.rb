@@ -1,11 +1,21 @@
 # Idempotent seeds — safe to run multiple times
 
 # ── Admin user ───────────────────────────────────────────────────
-admin = User.find_or_create_by!(email: "admin@aiacademy.com") do |u|
-  u.password = "admin1234"
-  u.admin    = true
+# Set ADMIN_EMAIL and ADMIN_PASSWORD (12+ characters) on the server. Production never falls back to a
+# built-in password; development keeps the local test admin.
+admin_email = ENV["ADMIN_EMAIL"].presence || (Rails.env.production? ? nil : "admin@aiacademy.com")
+admin_password = ENV["ADMIN_PASSWORD"].presence || (Rails.env.production? ? nil : "admin1234")
+if admin_email && admin_password
+  abort "ADMIN_PASSWORD must be at least 12 characters." if Rails.env.production? && admin_password.length < 12
+  admin = User.find_or_create_by!(email: admin_email) do |u|
+    u.password = admin_password
+    u.admin    = true
+  end
+  admin.update!(admin: true) unless admin.admin?
+  puts "Admin: #{admin.email}"
+else
+  puts "Admin: skipped (set ADMIN_EMAIL and ADMIN_PASSWORD to create one)"
 end
-puts "Admin: #{admin.email}"
 
 # ── Course seed data ─────────────────────────────────────────────
 COURSE_SEED = [

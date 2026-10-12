@@ -19,9 +19,6 @@ module Admin
           in_progress: CourseProgress.where(course_lesson_id: lesson_ids, status: :in_progress).count
         }
       end
-
-      @recent_attempts = ExerciseAttempt.includes(:user, exercise: { course_lesson: :course })
-                                        .order(created_at: :desc).limit(30)
     end
   end
 end

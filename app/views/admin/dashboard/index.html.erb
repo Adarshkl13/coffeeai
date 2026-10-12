@@ -92,32 +92,4 @@
       </table>
     </div>
   </div>
-
-  <%# Recent attempts %>
-  <div class="admin-card" style="margin-top:24px">
-    <h2 class="admin-card-title">Recent Exercise Attempts</h2>
-    <table class="admin-table">
-      <thead>
-        <tr><th>User</th><th>Course</th><th>Lesson</th><th>Answer</th><th>Result</th><th>When</th></tr>
-      </thead>
-      <tbody>
-        <% @recent_attempts.each do |a| %>
-          <tr>
-            <td style="font-size:12px"><%= a.user.email %></td>
-            <td style="font-size:12px"><%= a.exercise.course_lesson.course.title rescue "—" %></td>
-            <td style="font-size:12px"><%= a.exercise.course_lesson.title rescue "—" %></td>
-            <td style="font-family:monospace;font-size:12px"><%= a.answer %></td>
-            <td>
-              <% if a.correct %>
-                <span class="badge-green">✓ Correct</span>
-              <% else %>
-                <span class="badge-red">✗ Wrong</span>
-              <% end %>
-            </td>
-            <td style="color:var(--txt3);font-size:12px"><%= a.created_at.strftime("%b %d %H:%M") %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
 </div>

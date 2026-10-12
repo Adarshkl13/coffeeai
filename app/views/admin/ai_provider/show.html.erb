@@ -1,0 +1,42 @@
+<div class="admin-page">
+  <h1 class="admin-page-title">AI provider</h1>
+  <p class="admin-muted">Choose which AI runs the whole app: Ask AI, the RAG Lab, the Prompt Lab and the Agent Lab. The change is live straight away.</p>
+
+  <%= form_with url: admin_ai_provider_path, method: :patch, class: "aip-form" do %>
+    <div class="aip-grid">
+      <% AiProvider::PROVIDERS.each do |key, info| %>
+        <% configured = AiProvider.configured?(key) %>
+        <label class="aip-card<%= " is-on" if key == @current %>">
+          <span class="aip-top">
+            <%= radio_button_tag :provider, key, key == @current %>
+            <b><%= info[:label] %></b>
+            <% if key == @current %><span class="aip-badge aip-badge-on">In use</span><% end %>
+          </span>
+          <span class="aip-key <%= configured ? "ok" : "missing" %>">
+            <%= configured ? "✓ API key is set" : "✗ API key missing: add #{info[:env]}" %>
+          </span>
+          <span class="aip-field">
+            Model
+            <%= text_field_tag "models[#{key}]", AiProvider.model(key), placeholder: info[:default_model], spellcheck: false, autocomplete: "off" %>
+          </span>
+          <span class="aip-note">
+            Default: <code><%= info[:default_model] %></code>.
+            <%= info[:web] ? "Supports the Web switch in Ask AI." : "The Web switch in Ask AI is hidden with this provider." %>
+          </span>
+        </label>
+      <% end %>
+    </div>
+    <%= submit_tag "Save", class: "aip-save" %>
+  <% end %>
+
+  <div class="admin-card aip-help">
+    <h2>How API keys are set</h2>
+    <p>For safety, keys are never stored in the database or shown here. Add them on the server as config vars:</p>
+    <ul>
+      <li><code>GEMINI_API_KEY</code> for Google Gemini</li>
+      <li><code>ANTHROPIC_API_KEY</code> for Anthropic Claude</li>
+      <li><code>OPENAI_API_KEY</code> for OpenAI</li>
+    </ul>
+    <p>Check each company's model list for current model names. A wrong name shows "model not found" to learners, so test Ask AI after you change it.</p>
+  </div>
+</div>

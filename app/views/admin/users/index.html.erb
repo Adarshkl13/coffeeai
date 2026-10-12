@@ -1,21 +1,48 @@
 <div class="admin-page">
-  <h1 class="admin-page-title">All Users (<%= @users.count %>)</h1>
+  <h1 class="admin-page-title">All users (<%= @total %>)</h1>
+
+  <%= form_with url: admin_users_path, method: :get, class: "admin-search" do %>
+    <%= search_field_tag :q, params[:q], placeholder: "Search by email or name", class: "admin-search-input" %>
+    <%= select_tag :status, options_for_select([["All users", ""], ["With a plan", "plan"], ["No plan", "free"], ["Blocked", "blocked"], ["Admins", "admin"]], params[:status]), class: "admin-search-select" %>
+    <%= submit_tag "Filter", class: "admin-search-btn", name: nil %>
+  <% end %>
+
   <div class="admin-card">
     <table class="admin-table">
       <thead>
-        <tr><th>Email</th><th>Admin</th><th>Correct Answers</th><th>Total Attempts</th><th>Joined</th><th></th></tr>
+        <tr><th>User</th><th>Plan</th><th>Status</th><th>Joined</th><th></th><th></th></tr>
       </thead>
       <tbody>
         <% @users.each do |user| %>
-          <tr>
-            <td><%= user.email %></td>
-            <td><% if user.admin? %><span class="badge-purple">Admin</span><% end %></td>
-            <td><span class="badge-green"><%= user.exercise_attempts.where(correct: true).count %></span></td>
-            <td><span class="badge-blue"><%= user.exercise_attempts.count %></span></td>
-            <td style="color:var(--txt3);font-size:12px"><%= user.created_at.strftime("%b %d, %Y") %></td>
+          <tr class="<%= "is-blocked" if user.blocked? %>">
+            <td>
+              <b><%= user.email %></b>
+              <% if user.name.present? %><br><span class="admin-muted"><%= user.name %></span><% end %>
+            </td>
+            <td>
+              <% if user.admin? %><span class="badge-purple">Admin</span>
+              <% elsif user.member? %><span class="badge-green">Until <%= user.access_until.strftime("%-d %b %Y") %></span>
+              <% else %><span class="admin-muted">No plan</span><% end %>
+            </td>
+            <td>
+              <% if user.blocked? %><span class="badge-red">Blocked <%= user.blocked_at.strftime("%-d %b") %></span>
+              <% else %><span class="badge-blue">Active</span><% end %>
+            </td>
+            <td class="admin-muted"><%= user.created_at.strftime("%-d %b %Y") %></td>
             <td><%= link_to "View", admin_user_path(user), class: "admin-link" %></td>
+            <td>
+              <% if user.admin? || user == current_user %>
+                <span class="admin-muted">—</span>
+              <% elsif user.blocked? %>
+                <%= button_to "Unblock", unblock_admin_user_path(user, q: params[:q], status: params[:status]), method: :patch, class: "admin-btn admin-btn-ok" %>
+              <% else %>
+                <%= button_to "Block", block_admin_user_path(user, q: params[:q], status: params[:status]), method: :patch, class: "admin-btn admin-btn-danger",
+                      data: { turbo_confirm: "Block #{user.email}? They will be signed out and cannot sign in until you unblock them." } %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
+        <% if @users.empty? %><tr><td colspan="6" class="admin-muted">No users match.</td></tr><% end %>
       </tbody>
     </table>
   </div>

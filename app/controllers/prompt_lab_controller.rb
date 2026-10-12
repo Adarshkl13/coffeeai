@@ -1,6 +1,6 @@
 # JSON API behind the Prompt Lab widget (app/javascript/controllers/prompt_lab_controller.js).
 # Learners write a system prompt and a template with {{input}}, add test cases with checks, and run
-# them all through Claude. Each answer is graded by PromptGrader (plain Ruby). Runs and model calls
+# them all through the AI model (Gemini by default). Each answer is graded by PromptGrader (plain Ruby). Runs and model calls
 # are capped per learner per day (LabUsage).
 class PromptLabController < ApplicationController
   before_action :authenticate_user!
@@ -24,7 +24,7 @@ class PromptLabController < ApplicationController
 
   def show
     render json: {
-      generation: { enabled: PromptRunner.enabled?, model: PromptRunner::MODEL },
+      generation: { enabled: PromptRunner.enabled?, model: PromptRunner.model },
       checks: PromptGrader::CHECKS,
       usage: usage,
       limits: { cases: MAX_CASES, prompt: MAX_PROMPT, input: MAX_INPUT }
@@ -82,7 +82,7 @@ class PromptLabController < ApplicationController
     end
 
     render json: { results: results, passed: results.count { |r| r[:pass] }, total: results.size,
-                   model: model || PromptRunner::MODEL, tokens: tokens, usage: usage }
+                   model: model || PromptRunner.model, tokens: tokens, usage: usage }
   end
 
   # One free-form prompt from a lesson's "Try it with AI" box (ai_try_controller.js). One model call.

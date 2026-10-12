@@ -1,6 +1,6 @@
 # JSON API behind the RAG Lab widget (app/javascript/controllers/rag_lab_controller.js).
 # The browser chunks and embeds documents; this controller stores chunks in the learner's own
-# Qdrant collection, retrieves them for a question, and asks Claude for a cited answer.
+# Qdrant collection, retrieves them for a question, and asks the AI model (Gemini by default) for a cited answer.
 class RagLabController < ApplicationController
   before_action :authenticate_user!
   before_action :require_plan_json, only: %i[ask]
@@ -154,7 +154,7 @@ class RagLabController < ApplicationController
     end
     {
       documents: col ? col.documents.order(:created_at).map { |d| d.slice(:id, :name, :chars, :chunks_count, :chunk_size, :chunk_overlap) } : [],
-      generation: { enabled: RagAnswerer.enabled?, model: RagAnswerer::MODEL },
+      generation: { enabled: RagAnswerer.enabled?, model: RagAnswerer.model },
       usage: usage,
       limits: { documents: RagLabCollection::MAX_DOCUMENTS, chunks_per_document: RagLabCollection::MAX_CHUNKS_PER_DOCUMENT,
                 chunk_chars: RagLabCollection::MAX_CHUNK_CHARS, stale_days: RagLabCollection::STALE_AFTER.in_days.to_i }

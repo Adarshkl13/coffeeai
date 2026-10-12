@@ -18,7 +18,7 @@ class AgentLabController < ApplicationController
   def show
     render json: {
       tools: AgentTools::LIST.map(&:summary),
-      generation: { enabled: AgentRunner.enabled?, model: AgentRunner::MODEL },
+      generation: { enabled: AgentRunner.enabled?, model: AgentRunner.model },
       usage: usage,
       limits: { max_steps: AgentRunner::MAX_STEPS, max_tool_calls: AgentRunner::MAX_TOOL_CALLS,
                 system_prompt: MAX_SYSTEM_PROMPT, task: MAX_TASK }

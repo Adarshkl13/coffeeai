@@ -2460,9 +2460,9 @@ module BuildingRagApplicationsContent
           <div class="lc-badge le-badge le-badge-rag">Building RAG Applications</div>
           <h1 class="lc-title">Capstone Lab: Chat with Your Documents</h1>
         </div>
-        <p class="lc-lead">Build a real RAG chatbot that answers from documents you choose. The <strong>RAG Lab</strong> splits your documents into chunks and embeds them in your browser. It stores the chunks in your own Qdrant collection. For each question, it retrieves the best chunks. When AI answers are switched on for the site, it also asks Claude for an answer with citations. You can see every step: the chunks, their scores and the exact prompt.</p>
+        <p class="lc-lead">Build a real RAG chatbot that answers from documents you choose. The <strong>RAG Lab</strong> splits your documents into chunks and embeds them in your browser. It stores the chunks in your own Qdrant collection. For each question, it retrieves the best chunks. When AI answers are switched on for the site, it also asks Gemini for an answer with citations. You can see every step: the chunks, their scores and the exact prompt.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 230" role="img" aria-label="How the RAG Lab works: the browser chunks and embeds documents and questions. The server stores chunks in Qdrant, retrieves them and calls Claude with a grounded prompt. The answer comes back with citations and the retrieved chunks.">
+          <svg viewBox="0 0 760 230" role="img" aria-label="How the RAG Lab works: the browser chunks and embeds documents and questions. The server stores chunks in Qdrant, retrieves them and calls Gemini with a grounded prompt. The answer comes back with citations and the retrieved chunks.">
             <defs><marker id="r25a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12" fill="#e2e0f0" text-anchor="middle">
               <rect x="10" y="30" width="210" height="170" rx="12" fill="#1f1f44" stroke="#3b82f6"/>
@@ -2473,7 +2473,7 @@ module BuildingRagApplicationsContent
               <text x="382" y="55" font-weight="700" fill="#c4b5fd">Academy server</text>
               <text x="382" y="85">checks limits</text><text x="382" y="108">retrieve top-k</text><text x="382" y="131">threshold gate</text><text x="382" y="154">grounded prompt</text><text x="382" y="177">citations</text>
               <rect x="540" y="20" width="210" height="80" rx="12" fill="#1f1f44" stroke="#ec4899"/><text x="645" y="52" font-weight="700" fill="#f9a8d4">Qdrant</text><text x="645" y="74" fill="#9b99b8" font-size="11">rag_u&lt;your id&gt;: your chunks</text>
-              <rect x="540" y="130" width="210" height="80" rx="12" fill="#1f1f44" stroke="#10b981"/><text x="645" y="162" font-weight="700" fill="#6ee7b7">Claude</text><text x="645" y="184" fill="#9b99b8" font-size="11">answers only from the sources</text>
+              <rect x="540" y="130" width="210" height="80" rx="12" fill="#1f1f44" stroke="#10b981"/><text x="645" y="162" font-weight="700" fill="#6ee7b7">Gemini</text><text x="645" y="184" fill="#9b99b8" font-size="11">answers only from the sources</text>
             </g>
           </svg>
           <figcaption>Everything you built in this course, in one working system.</figcaption>

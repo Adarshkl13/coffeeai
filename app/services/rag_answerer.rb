@@ -1,9 +1,8 @@
 require "anthropic"
 
-# Generates a grounded answer for the RAG Lab from retrieved chunks, using Claude.
-# Configure with ANTHROPIC_API_KEY; the model can be changed with RAG_LAB_MODEL.
+# Generates a grounded answer for the RAG Lab from retrieved chunks, with the AI provider chosen on
+# Admin › AI provider (Gemini, Claude or OpenAI; see AiProvider).
 class RagAnswerer
-  MODEL = ENV.fetch("RAG_LAB_MODEL", "claude-opus-5")
   MAX_TOKENS = 2_048   # answers are a few paragraphs at most; also caps per-learner cost
 
   SYSTEM_PROMPT = <<~PROMPT.freeze
@@ -16,7 +15,9 @@ class RagAnswerer
 
   Result = Struct.new(:answer, :model, :stop_reason, :input_tokens, :output_tokens, :error, keyword_init: true)
 
-  def self.enabled? = ENV["ANTHROPIC_API_KEY"].present?
+  # The provider and model are chosen on Admin › AI provider (AiProvider).
+  def self.enabled? = AiProvider.configured?
+  def self.model = AiProvider.model
 
   # The user message sent to the model; also shown to learners so they can see the prompt.
   def self.build_prompt(question, chunks)
@@ -26,13 +27,26 @@ class RagAnswerer
     "<sources>\n#{sources.join("\n")}\n</sources>\n\nQuestion: #{question}"
   end
 
-  def initialize(client: nil)
+  # Tests pass a fake: client (Anthropic), gemini (GeminiApi) or openai (OpenaiApi).
+  def initialize(client: nil, gemini: nil, openai: nil)
     @client = client
+    @gemini = gemini
+    @openai = openai
+  end
+
+  def provider
+    return :anthropic if @client
+    return :gemini if @gemini
+    return :openai if @openai
+    AiProvider.current
   end
 
   def answer(question, chunks)
+    return answer_with_gemini(question, chunks) if provider == :gemini
+    return answer_with_openai(question, chunks) if provider == :openai
+
     message = client.beta.messages.create(
-      model: MODEL,
+      model: AiProvider.model(:anthropic),
       max_tokens: MAX_TOKENS,
       system_: SYSTEM_PROMPT,
       output_config: { effort: "low" },   # short, grounded Q&A doesn't need deep reasoning
@@ -61,7 +75,35 @@ class RagAnswerer
 
   private
 
+  def answer_with_gemini(question, chunks)
+    gemini = @gemini || GeminiApi.new
+    res = gemini.generate(system: SYSTEM_PROMPT, max_tokens: MAX_TOKENS, temperature: 0.2, thinking: "low",
+                          contents: [{ role: "user", parts: [{ text: self.class.build_prompt(question, chunks) }] }])
+    return Result.new(error: "The model declined to answer this question.", model: GeminiApi.model, stop_reason: "refusal") if GeminiApi.blocked?(res)
+    input, output = GeminiApi.usage(res)
+    text = GeminiApi.text(res)
+    return Result.new(error: "The AI didn't send an answer. Please try again.", model: GeminiApi.model) if text.blank?
+    Result.new(answer: text, model: res["modelVersion"].presence || GeminiApi.model, stop_reason: GeminiApi.finish_reason(res).downcase,
+               input_tokens: input, output_tokens: output)
+  rescue GeminiApi::Error => e
+    Result.new(error: e.message)
+  end
+
+  def answer_with_openai(question, chunks)
+    api = @openai || OpenaiApi.new
+    res = api.generate(system: SYSTEM_PROMPT, max_tokens: MAX_TOKENS,
+                       input: [{ role: "user", content: self.class.build_prompt(question, chunks) }])
+    text = OpenaiApi.text(res)
+    return Result.new(error: "The model declined to answer this question.", model: OpenaiApi.model, stop_reason: "refusal") if text.blank? && OpenaiApi.refused?(res)
+    return Result.new(error: "The AI didn't send an answer. Please try again.", model: OpenaiApi.model) if text.blank?
+    input, output = OpenaiApi.usage(res)
+    Result.new(answer: text, model: res["model"].presence || OpenaiApi.model, stop_reason: res["status"].to_s,
+               input_tokens: input, output_tokens: output)
+  rescue OpenaiApi::Error => e
+    Result.new(error: e.message)
+  end
+
   def client
-    @client ||= Anthropic::Client.new(max_retries: 2, timeout: 60)
+    @client ||= Anthropic::Client.new(api_key: AiProvider.api_key(:anthropic), max_retries: 2, timeout: 60)
   end
 end

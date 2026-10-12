@@ -1,4 +1,5 @@
 require "test_helper"
+require Rails.root.join("lib/beginner_ai_python_content").to_s   # content files are not autoloaded (config/application.rb)
 
 # The original "Beginner AI with Python" course: each lesson is built on its existing image (no new pictures),
 # with an explanation, an activity and a Python editor.

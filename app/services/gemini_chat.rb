@@ -4,15 +4,15 @@ require "base64"
 
 # Streams answers from Google's Gemini API for the "Ask CoffeeBean AI" study assistant (AskMessagesController).
 # Configure the key with GEMINI_API_KEY (or `gemini: { api_key: ... }` in Rails credentials).
-# The model can be changed with GEMINI_MODEL, for example gemini-3.5-flash-lite for higher free-tier limits.
+# The model is chosen on Admin › AI provider (for example gemini-3.5-flash-lite for higher free-tier limits).
 class GeminiChat
-  MODEL = ENV.fetch("GEMINI_MODEL", "gemini-3.5-flash")
+  def self.model = AiProvider.model(:gemini)
   API_BASE = ENV.fetch("GEMINI_API_BASE", "https://generativelanguage.googleapis.com")   # change only for a proxy or a local test server
   ENDPOINT = "#{API_BASE}/v1beta/models/%s:streamGenerateContent?alt=sse"
   MAX_OUTPUT_TOKENS = 300   # short answers; Gemini counts thinking tokens inside this limit too
   TEMPERATURE = 0.4
   # Gemini 3 models take thinkingLevel ("minimal" uses no thinking tokens); Gemini 2.5 models take thinkingBudget instead.
-  THINKING = MODEL.match?(/gemini-2\./) ? { thinkingBudget: 0 } : { thinkingLevel: "minimal" }
+  def self.thinking = model.match?(/gemini-2\./) ? { thinkingBudget: 0 } : { thinkingLevel: "minimal" }
 
   SYSTEM_PROMPT = <<~TEXT.freeze
     You are a helpful AI study assistant.
@@ -46,11 +46,11 @@ class GeminiChat
     Formatting: use short paragraphs, **bold** for key words, "-" bullet lists, numbered steps, and fenced ``` code blocks for code.
   TEXT
 
-  class Error < StandardError; end
+  class Error < AiProvider::Error; end
   Result = Struct.new(:text, :sources, :suggestions, :finish_reason, keyword_init: true)
 
-  def self.api_key = ENV["GEMINI_API_KEY"].presence || Rails.application.credentials.dig(:gemini, :api_key).presence
-  def self.enabled? = api_key.present?
+  def self.api_key = AiProvider.api_key(:gemini)
+  def self.enabled? = AiProvider.configured?(:gemini)
 
   # history: [{ role: "user" | "model", text: "..." }, ...], ending with the new question.
   # attachment: { mime_type:, data: (raw bytes) } sent with the new question, or nil.
@@ -101,14 +101,14 @@ class GeminiChat
     b = {
       system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
       contents: contents,
-      generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS, temperature: TEMPERATURE, thinkingConfig: THINKING }
+      generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS, temperature: TEMPERATURE, thinkingConfig: self.class.thinking }
     }
     b[:tools] = [{ google_search: {} }] if web
     b
   end
 
   def request_stream(payload)
-    uri = URI(format(ENDPOINT, MODEL))
+    uri = URI(format(ENDPOINT, self.class.model))
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.scheme == "https"
     http.open_timeout = 10
@@ -139,7 +139,7 @@ class GeminiChat
     when 400
       detail.match?(/api key/i) ? "The AI isn't set up correctly (check GEMINI_API_KEY)." : "The AI couldn't read that request. If you attached a file, try a smaller or different file."
     when 401, 403 then "The AI isn't set up correctly (check GEMINI_API_KEY)."
-    when 404 then "The AI model #{MODEL} wasn't found (check GEMINI_MODEL)."
+    when 404 then "The AI model #{self.class.model} wasn't found. Check the model name on Admin › AI provider."
     else "The AI service returned an error (#{res.code}). Please try again."
     end
   end

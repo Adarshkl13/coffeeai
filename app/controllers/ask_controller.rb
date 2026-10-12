@@ -1,4 +1,4 @@
-# The "Ask CoffeeBean AI" study assistant page: a chat with Gemini (GeminiChat).
+# The "Ask CoffeeBean AI" study assistant page: a chat with the AI chosen on Admin › AI provider (AiProvider).
 # Anyone can see the page; signed-in learners can chat, and their chats are saved in the sidebar.
 # Answers are streamed by AskMessagesController.
 class AskController < ApplicationController

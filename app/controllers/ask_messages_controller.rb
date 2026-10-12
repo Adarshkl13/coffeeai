@@ -6,7 +6,7 @@
 #   error  { message }
 # Signed-in users (no plan needed): questions and answers are saved in StudyChat / StudyMessage.
 # Guests can ask GUEST_QUESTIONS questions; nothing is saved and the page sends the earlier messages itself.
-# Files are sent to Gemini but never kept.
+# Files are sent to the AI provider chosen on Admin › AI provider (AiProvider) but never kept.
 class AskMessagesController < ApplicationController
   include ActionController::Live
 
@@ -36,9 +36,11 @@ class AskMessagesController < ApplicationController
       attachment = { mime_type: mime, data: file.read, name: File.basename(file.original_filename.to_s).truncate(80) }
       text = "Please help me understand this file." if text.empty?
     end
-    unless GeminiChat.enabled?
-      return render json: { error: "The AI assistant isn't switched on yet. The site owner needs to add GEMINI_API_KEY." }, status: :service_unavailable
+    unless AiProvider.chat_class.enabled?
+      key = AiProvider::PROVIDERS.dig(AiProvider.current, :env)
+      return render json: { error: "The AI assistant isn't switched on yet. The site owner needs to add #{key}." }, status: :service_unavailable
     end
+    web &&= AiProvider.web_search?   # web search is only available with Google Gemini
 
     return guest_answer(text, attachment, web) unless user_signed_in?
 
@@ -98,9 +100,9 @@ class AskMessagesController < ApplicationController
 
   # Streams a guest answer (nothing is saved).
   def stream_reply(history, attachment, web)
-    result = GeminiChat.new.stream(history, attachment: attachment, web: web) { |piece| send_event("delta", text: piece) }
+    result = AiProvider.chat_class.new.stream(history, attachment: attachment, web: web) { |piece| send_event("delta", text: piece) }
     send_event("done", sources: result.sources, suggestions: result.suggestions, cut_off: result.finish_reason == "MAX_TOKENS")
-  rescue GeminiChat::Error => e
+  rescue AiProvider::Error => e
     send_event("error", message: e.message)
   rescue ActionController::Live::ClientDisconnected, IOError
     nil
@@ -113,7 +115,7 @@ class AskMessagesController < ApplicationController
     send_event("chat", id: chat.id, title: chat.title, url: ask_chat_path(chat))
     answer = +""
     begin
-      result = GeminiChat.new.stream(history, attachment: attachment, web: web) do |piece|
+      result = AiProvider.chat_class.new.stream(history, attachment: attachment, web: web) do |piece|
         answer << piece
         send_event("delta", text: piece)
       end
@@ -121,7 +123,7 @@ class AskMessagesController < ApplicationController
                             search_suggestions: result.suggestions)
       send_event("done", sources: result.sources, suggestions: result.suggestions,
                          cut_off: result.finish_reason == "MAX_TOKENS")
-    rescue GeminiChat::Error => e
+    rescue AiProvider::Error => e
       chat.messages.create!(role: "model", content: answer) if answer.present?
       send_event("error", message: e.message)
     end
