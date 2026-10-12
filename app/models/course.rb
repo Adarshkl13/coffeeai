@@ -30,9 +30,9 @@ class Course < ApplicationRecord
     ["AI & Data",       %w[machine-learning artificial-intelligence data-science pandas numpy deep-learning
                            ai-assisted-development vector-databases building-rag-applications building-ai-agents
                            prompt-engineering how-llms-work building-mcp-servers evaluating-ai-apps computer-vision
-                           fine-tuning-llms ai-safety]],
+                           fine-tuning-llms ai-safety neural-networks training-deep-models how-transformers-work build-llm-from-scratch]],
     ["Generative AI",   %w[generative-ai-fundamentals generative-ai-tools-applications generative-ai-professionals
-                           build-with-generative-ai master-generative-ai]],
+                           build-with-generative-ai master-generative-ai text-to-image-generation text-to-video-generation]],
     ["Developer Tools", %w[git github]],
     ["Digital Marketing", %w[ai-for-seo ai-social-media-marketing ai-for-paid-ads ai-email-marketing
                              ai-content-marketing marketing-analytics-ai ai-influencer-marketing]],
@@ -131,7 +131,13 @@ class Course < ApplicationRecord
     "build-with-generative-ai" => {1 => "Unit 1 · First Steps with Model APIs", 5 => "Unit 2 · Building Features", 10 => "Unit 3 · From Prototype to Product", 15 => "Capstone"},
     "master-generative-ai" => {1 => "Unit 1 · Under the Hood", 5 => "Unit 2 · Adapting Models", 10 => "Unit 3 · Production at Scale", 15 => "Capstone"},
     "generative-ai-tools-applications" => {1 => "Unit 1 · The Tool Landscape", 5 => "Unit 2 · Creating with AI", 10 => "Unit 3 · AI in Everyday Work", 15 => "Capstone"},
-    "generative-ai-professionals" => {1 => "Unit 1 · Generative AI at Work", 5 => "Unit 2 · Core Work Skills", 10 => "Unit 3 · Working Smarter & Safer", 15 => "Capstone"}
+    "generative-ai-professionals" => {1 => "Unit 1 · Generative AI at Work", 5 => "Unit 2 · Core Work Skills", 10 => "Unit 3 · Working Smarter & Safer", 15 => "Capstone"},
+    "neural-networks" => {1 => "Unit 1 · Neurons and Layers", 7 => "Unit 2 · How Networks Learn", 14 => "Unit 3 · Building Networks", 18 => "Capstone"},
+    "training-deep-models" => {1 => "Unit 1 · Setup and Data", 7 => "Unit 2 · The Training Recipe", 12 => "Unit 3 · Model Types and Speed", 18 => "Unit 4 · Monitoring and Debugging", 20 => "Capstone"},
+    "how-transformers-work" => {1 => "Unit 1 · Before Attention", 6 => "Unit 2 · Attention", 12 => "Unit 3 · Building the Model", 17 => "Unit 4 · Beyond Text", 19 => "Capstone"},
+    "text-to-image-generation" => {1 => "Unit 1 · Images and Early Models", 6 => "Unit 2 · Diffusion Models", 11 => "Unit 3 · Stable Diffusion", 15 => "Unit 4 · Control and Customisation", 18 => "Capstone"},
+    "text-to-video-generation" => {1 => "Unit 1 · Video Basics", 5 => "Unit 2 · How Video Models Work", 10 => "Unit 3 · Control and Editing", 15 => "Unit 4 · Tools and Responsibility", 17 => "Capstone"},
+    "build-llm-from-scratch" => {1 => "Unit 1 · Data and Tokens", 7 => "Unit 2 · Building the Model", 11 => "Unit 3 · Training and Generating", 16 => "Unit 4 · Scaling Up", 18 => "Unit 5 · Tuning, Testing and Running", 22 => "Capstone"}
   }.freeze
 
   # Category names in display order, with how many of the given courses are in each.

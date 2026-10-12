@@ -117,5 +117,11 @@ namespace :content do
     generative_ai_tools_applications
     build_with_generative_ai
     master_generative_ai
+    neural_networks
+    training_deep_models
+    how_transformers_work
+    text_to_image_generation
+    text_to_video_generation
+    build_llm_from_scratch
   ]
 end

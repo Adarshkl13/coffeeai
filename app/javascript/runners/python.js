@@ -34,7 +34,10 @@ function loadScriptOnce() {
 
 async function newInterpreter() {
   await loadScriptOnce()
-  return window.loadPyodide({ indexURL: PYODIDE_URL })
+  const py = await window.loadPyodide({ indexURL: PYODIDE_URL })
+  // Pyodide's own deprecation notice from inside scikit-learn's helper (threadpoolctl) is not the learner's error
+  py.runPython('import warnings\nwarnings.filterwarnings("ignore", message=r"JsProxy\\.as_object_map")')
+  return py
 }
 
 function sharedInterpreter() {

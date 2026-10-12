@@ -15,6 +15,10 @@ module AiAcademy
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
+    # Course content (lib/*_content.rb, about 25 MB) is only needed by the content:* rake tasks and is
+    # loaded there with require_relative. Keeping it out of autoload/eager load saves memory in every
+    # server process, and some file names do not match their module names (JavaScriptContent).
+    Rails.autoloaders.main.ignore(Rails.root.join("lib/*_content.rb"))
 
     # Configuration for the application, engines, and railties goes here.
     #

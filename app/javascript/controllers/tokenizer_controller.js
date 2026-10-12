@@ -10,6 +10,9 @@ const MODEL_ID = "Xenova/gpt2"
 const SAMPLES = ["Tokenization splits text into pieces.", "unbelievably", "My name is Alex", "def add(a, b):\n    return a + b", "I ❤️ AI 🤖"]
 let tokenizerPromise = null
 
+// Short button label: the first line, cut at a word with "…" when it is long
+const label = s => { const line = s.split("\n")[0]; return line.length <= 22 ? line : line.slice(0, 22).replace(/\s+\S*$/, "") + "…" }
+
 function loadTokenizer() {
   tokenizerPromise ||= import(TRANSFORMERS_URL)
     .then(({ AutoTokenizer }) => AutoTokenizer.from_pretrained(MODEL_ID))
@@ -27,7 +30,7 @@ export default class extends Controller {
       <p class="lcw-prompt">Type anything. Each coloured box is one token.</p>
       <textarea class="lcw-input tk-input" rows="3" spellcheck="false" aria-label="Text to tokenize"></textarea>
       <div class="lcw-toolbar tk-samples"><span class="lcw-lab-hint">Try:</span>
-        ${SAMPLES.map((s, i) => `<button type="button" class="lcw-chip" data-i="${i}">${esc(s.split("\n")[0].slice(0, 22))}</button>`).join("")}
+        ${SAMPLES.map((s, i) => `<button type="button" class="lcw-chip" data-i="${i}">${esc(label(s))}</button>`).join("")}
       </div>
       <div class="tk-stats" aria-live="polite"></div>
       <div class="tk-tokens"></div>

@@ -9,7 +9,10 @@ class GeminiChat
   MODEL = ENV.fetch("GEMINI_MODEL", "gemini-3.5-flash")
   API_BASE = ENV.fetch("GEMINI_API_BASE", "https://generativelanguage.googleapis.com")   # change only for a proxy or a local test server
   ENDPOINT = "#{API_BASE}/v1beta/models/%s:streamGenerateContent?alt=sse"
-  MAX_OUTPUT_TOKENS = 8_192   # Gemini counts its thinking inside this limit, so keep room for a full answer
+  MAX_OUTPUT_TOKENS = 300   # short answers; Gemini counts thinking tokens inside this limit too
+  TEMPERATURE = 0.4
+  # Gemini 3 models take thinkingLevel ("minimal" uses no thinking tokens); Gemini 2.5 models take thinkingBudget instead.
+  THINKING = MODEL.match?(/gemini-2\./) ? { thinkingBudget: 0 } : { thinkingLevel: "minimal" }
 
   SYSTEM_PROMPT = <<~TEXT.freeze
     You are a helpful AI study assistant.
@@ -24,6 +27,12 @@ class GeminiChat
     - Creating quizzes and practice questions
     - Helping users understand documents, images, notes, and lessons
     - Giving examples and step-by-step explanations
+    Answer length and style:
+    - Answer in 2 to 4 short sentences, or up to 5 bullet points.
+    - Use simple words.
+    - Start with the answer. No introduction, and do not repeat the question.
+    - Do not add a summary at the end.
+    - If the learner asks for more detail, then explain further.
     Rules:
     - Answer clearly and in simple language.
     - Prefer teaching and explaining instead of only giving the final answer.
@@ -92,7 +101,7 @@ class GeminiChat
     b = {
       system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
       contents: contents,
-      generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS }
+      generationConfig: { maxOutputTokens: MAX_OUTPUT_TOKENS, temperature: TEMPERATURE, thinkingConfig: THINKING }
     }
     b[:tools] = [{ google_search: {} }] if web
     b

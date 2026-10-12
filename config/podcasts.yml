@@ -503,6 +503,12 @@ courses:
       ml:
         key: courses/beginner-ai-python/module-4-ml.m4a
         seconds: 273
+  build-llm-from-scratch:
+  - title: How Large Language Models Are Built
+    languages:
+      en:
+        key: courses/build-llm-from-scratch/episode-1-en.m4a
+        seconds: 1645
   build-with-generative-ai:
   - title: Building Generative AI Applications
     languages:
@@ -647,6 +653,12 @@ courses:
       en:
         key: courses/how-llms-work/episode-1-en.m4a
         seconds: 1287
+  how-transformers-work:
+  - title: How AI Transformers Work Under the Hood
+    languages:
+      en:
+        key: courses/how-transformers-work/episode-1-en.m4a
+        seconds: 1441
   html-css:
   - title: HTML and CSS Fundamentals
     languages:
@@ -710,6 +722,12 @@ courses:
       en:
         key: courses/master-generative-ai/episode-1-en.m4a
         seconds: 1560
+  neural-networks:
+  - title: How Neural Networks Actually Learn
+    languages:
+      en:
+        key: courses/neural-networks/episode-1-en.m4a
+        seconds: 1738
   prompt-engineering:
   - title: Mastering Prompt Engineering for Developers
     languages:
@@ -749,6 +767,24 @@ courses:
       en:
         key: courses/testing-ai-apps/episode-1-en.m4a
         seconds: 1379
+  text-to-image-generation:
+  - title: How AI Generates Images From Noise
+    languages:
+      en:
+        key: courses/text-to-image-generation/episode-1-en.m4a
+        seconds: 1374
+  text-to-video-generation:
+  - title: How AI Video Generation Actually Works
+    languages:
+      en:
+        key: courses/text-to-video-generation/episode-1-en.m4a
+        seconds: 1597
+  training-deep-models:
+  - title: Building an Image Classifier with PyTorch
+    languages:
+      en:
+        key: courses/training-deep-models/episode-1-en.m4a
+        seconds: 1409
   vector-databases:
   - title: Vector Databases Architecture and Search
     languages:

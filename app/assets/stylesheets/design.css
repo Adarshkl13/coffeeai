@@ -820,3 +820,72 @@ html:not([data-theme="light"]) .hj-more { color: color-mix(in srgb, var(--c) 60%
   .hr-tabs::-webkit-scrollbar { display: none; }
   .hr-tab { flex: none; scroll-snap-align: start; padding: 9px 15px; font-size: 14px; }
 }
+
+/* Example/preset buttons in activities (tokenizer "Try:", vector plot presets, next-token prompts, filters):
+   clearly clickable buttons, not plain tags. Only <button>s, so draggable sorter chips keep their own look. */
+.lesson-rich-body button.lcw-chip,
+.lesson-rich-body .lcw-toolbar button.lcw-btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 10px; cursor: pointer;
+  font: 600 13px/1.2 var(--font); color: #5b21b6;
+  background: linear-gradient(180deg, #ffffff, #f3efff); border: 1px solid rgba(124,58,237,.38);
+  box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 2px 0 rgba(124,58,237,.18), 0 3px 8px -4px rgba(76,29,149,.35);
+  transition: transform .12s ease, box-shadow .12s ease, background .15s ease, border-color .15s ease;
+}
+.lesson-rich-body button.lcw-chip:hover,
+.lesson-rich-body .lcw-toolbar button.lcw-btn-ghost:hover {
+  border-color: #7c3aed; background: linear-gradient(180deg, #ffffff, #ebe3ff); transform: translateY(-1px);
+  box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 3px 0 rgba(124,58,237,.22), 0 6px 14px -6px rgba(76,29,149,.45);
+}
+.lesson-rich-body button.lcw-chip:active,
+.lesson-rich-body .lcw-toolbar button.lcw-btn-ghost:active {
+  transform: translateY(1px); box-shadow: 0 0 0 rgba(124,58,237,.2), 0 1px 3px -1px rgba(76,29,149,.35);
+}
+html:not([data-theme="light"]) .lesson-rich-body button.lcw-chip,
+html:not([data-theme="light"]) .lesson-rich-body .lcw-toolbar button.lcw-btn-ghost {
+  color: #e9e3ff; background: linear-gradient(180deg, #2c2463, #221c4f); border-color: rgba(167,139,250,.45);
+  box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 2px 0 rgba(0,0,0,.35), 0 4px 10px -4px rgba(0,0,0,.6);
+}
+html:not([data-theme="light"]) .lesson-rich-body button.lcw-chip:hover,
+html:not([data-theme="light"]) .lesson-rich-body .lcw-toolbar button.lcw-btn-ghost:hover {
+  border-color: #a78bfa; background: linear-gradient(180deg, #372d7a, #2a225f);
+}
+.lesson-rich-body button.lcw-chip.is-on, .lesson-rich-body button.lcw-chip.lcw-selected {
+  color: #fff; border-color: transparent; background: linear-gradient(135deg, #8b5cf6, #6366f1);
+}
+/* Example/preset buttons: indigo fill (user's choice), white text, both themes */
+.lesson-rich-body button.lcw-chip,
+.lesson-rich-body .lcw-toolbar button.lcw-btn-ghost,
+html:not([data-theme="light"]) .lesson-rich-body button.lcw-chip,
+html:not([data-theme="light"]) .lesson-rich-body .lcw-toolbar button.lcw-btn-ghost {
+  color: #fff; background: rgba(99, 102, 241, .75); border-color: rgba(99, 102, 241, .9);
+  box-shadow: 0 2px 0 rgba(67, 56, 202, .55), 0 4px 10px -4px rgba(67, 56, 202, .6);
+}
+.lesson-rich-body button.lcw-chip:hover,
+.lesson-rich-body .lcw-toolbar button.lcw-btn-ghost:hover,
+html:not([data-theme="light"]) .lesson-rich-body button.lcw-chip:hover,
+html:not([data-theme="light"]) .lesson-rich-body .lcw-toolbar button.lcw-btn-ghost:hover {
+  color: #fff; background: rgba(99, 102, 241, .9); border-color: rgb(99, 102, 241);
+}
+/* Example/preset buttons: indigo border (user's choice), both themes */
+.lesson-rich-body button.lcw-chip,
+.lesson-rich-body .lcw-toolbar button.lcw-btn-ghost,
+html:not([data-theme="light"]) .lesson-rich-body button.lcw-chip,
+html:not([data-theme="light"]) .lesson-rich-body .lcw-toolbar button.lcw-btn-ghost { border-color: rgba(99, 102, 241, .75); }
+
+.le-badge-nn { background: rgba(139,92,246,.16); color: #8b5cf6; }
+html[data-theme="light"] .le-badge-nn { background: rgba(139,92,246,.12); filter: brightness(.75); }
+
+.le-badge-tdm { background: rgba(245,158,11,.16); color: #f59e0b; }
+html[data-theme="light"] .le-badge-tdm { background: rgba(245,158,11,.12); filter: brightness(.75); }
+
+.le-badge-tf { background: rgba(34,211,238,.16); color: #22d3ee; }
+html[data-theme="light"] .le-badge-tf { background: rgba(34,211,238,.12); filter: brightness(.75); }
+
+.le-badge-t2i { background: rgba(236,72,153,.16); color: #ec4899; }
+html[data-theme="light"] .le-badge-t2i { background: rgba(236,72,153,.12); filter: brightness(.75); }
+
+.le-badge-t2v { background: rgba(239,68,68,.16); color: #ef4444; }
+html[data-theme="light"] .le-badge-t2v { background: rgba(239,68,68,.12); filter: brightness(.75); }
+
+.le-badge-scratch { background: rgba(16,185,129,.16); color: #10b981; }
+html[data-theme="light"] .le-badge-scratch { background: rgba(16,185,129,.12); filter: brightness(.75); }

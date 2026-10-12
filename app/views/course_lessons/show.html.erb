@@ -1,5 +1,5 @@
 <% content_for :title, "#{@lesson.lesson_number} #{@lesson.title} — #{@course.title}" %>
-<% editor_slugs = %w[html-css javascript python ruby java php sql mysql postgresql django bootstrap react pandas numpy typescript practical-ai deep-learning nodejs machine-learning artificial-intelligence data-science ai-assisted-development vector-databases building-rag-applications building-ai-agents prompt-engineering how-llms-work building-mcp-servers evaluating-ai-apps computer-vision fine-tuning-llms ai-safety] %>
+<% editor_slugs = %w[html-css javascript python ruby java php sql mysql postgresql django bootstrap react pandas numpy typescript practical-ai deep-learning nodejs machine-learning artificial-intelligence data-science ai-assisted-development vector-databases building-rag-applications building-ai-agents prompt-engineering how-llms-work building-mcp-servers evaluating-ai-apps computer-vision fine-tuning-llms ai-safety neural-networks training-deep-models how-transformers-work text-to-image-generation text-to-video-generation build-llm-from-scratch] %>
 <% has_editor   = editor_slugs.include?(@course.slug) && @lesson.starter_code.present? %>
 <% editor_mode  = case @course.slug
                   when "javascript"  then "javascript"
@@ -18,7 +18,9 @@
                   when "practical-ai" then "python"
                   when "deep-learning" then "python"
                   when "machine-learning", "artificial-intelligence", "data-science" then "python"
-                  when "ai-assisted-development", "vector-databases", "building-rag-applications", "building-ai-agents", "prompt-engineering", "how-llms-work", "building-mcp-servers", "evaluating-ai-apps", "computer-vision", "fine-tuning-llms", "ai-safety" then "python"
+                  when "ai-assisted-development", "vector-databases", "building-rag-applications", "building-ai-agents", "prompt-engineering", "how-llms-work", "building-mcp-servers", "evaluating-ai-apps", "computer-vision", "fine-tuning-llms", "ai-safety",
+                       "neural-networks", "training-deep-models", "how-transformers-work", "text-to-image-generation",
+                       "text-to-video-generation", "build-llm-from-scratch" then "python"
                   when "nodejs"      then "javascript"
                   else "html"
                   end %>
