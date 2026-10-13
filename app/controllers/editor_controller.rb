@@ -63,25 +63,21 @@ class EditorController < ApplicationController
       return render json: { error: "Image must be smaller than 5 MB." }, status: :unprocessable_entity
     end
 
-    upload_dir = Rails.root.join("public", "uploads", "editor")
-    FileUtils.mkdir_p(upload_dir)
-
     filename = "#{SecureRandom.hex(16)}#{extension}"
-    url = "/uploads/editor/#{filename}"
-    path = upload_dir.join(filename)
-    File.binwrite(path, image.read)
+    content_type = image.content_type.to_s.split(";").first.presence || "application/octet-stream"
+    url = UploadStore.store(filename, image.read, content_type)   # Cloudflare R2 in production, disk locally
 
     editor_image = current_user.editor_images.create!(
       original_filename: image.original_filename,
       stored_filename: filename,
-      content_type: image.content_type.to_s.split(";").first.presence || "application/octet-stream",
+      content_type: content_type,
       byte_size: image.size,
       url: url
     )
 
     render json: editor_image_payload(editor_image)
   rescue ActiveRecord::RecordInvalid => error
-    File.delete(path) if defined?(path) && path.present? && File.exist?(path)
+    UploadStore.delete(filename) if defined?(filename) && filename.present?
     render json: { error: error.record.errors.full_messages.to_sentence }, status: :unprocessable_entity
   end
 
@@ -91,10 +87,8 @@ class EditorController < ApplicationController
     end
 
     editor_image = current_user.editor_images.find(params[:id])
-    file_path = Rails.root.join("public", editor_image.url.delete_prefix("/"))
-
     editor_image.destroy!
-    File.delete(file_path) if File.exist?(file_path)
+    UploadStore.delete(editor_image.stored_filename)
 
     render json: { id: editor_image.id, message: "Image deleted." }
   rescue ActiveRecord::RecordNotFound
@@ -137,7 +131,8 @@ class EditorController < ApplicationController
   end
 
   def extract_image_references(html)
-    html.to_s.scan(%r{(?:src=["'])(/uploads/editor/[^"']+)}).flatten.uniq
+    # Local (/uploads/editor/…) and R2 (https://…/uploads/editor/…) upload URLs
+    html.to_s.scan(%r{(?:src=["'])((?:https?://[^"'/]+)?/uploads/editor/[^"']+)}).flatten.uniq
   end
 
   def allowed_content_type?(content_type)
