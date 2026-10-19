@@ -1,6 +1,6 @@
 # Learner cards for the home page (config/testimonials.yml): real stories, or clearly labelled examples. Read once per boot.
 class Testimonial
-  Story = Struct.new(:name, :role, :course, :quote, :photo, :sample, :example, keyword_init: true) do
+  Story = Struct.new(:name, :role, :course, :quote, :photo, :focus, :sample, :example, keyword_init: true) do
     def initials = name.to_s.split.map { |w| w[0] }.first(2).join.upcase
   end
 
@@ -17,7 +17,7 @@ class Testimonial
   def self.data = @data ||= YAML.load_file(Rails.root.join("config/testimonials.yml"))
 
   def self.load(key, **flags)
-    Array(data[key]).map { |h| Story.new(**h.symbolize_keys.slice(:name, :role, :course, :quote, :photo), sample: false, example: false, **flags) }
+    Array(data[key]).map { |h| Story.new(**h.symbolize_keys.slice(:name, :role, :course, :quote, :photo, :focus), sample: false, example: false, **flags) }
   end
 
   def self.all = @all ||= load("stories")

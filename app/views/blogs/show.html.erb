@@ -1,4 +1,6 @@
 <% content_for :title, "#{@post.title} — CoffeeBean AI Blog" %>
+<% content_for :description, @post.subtitle %>
+<% content_for :og_type, "article" %>
 <% content_for :body_class, "page-scrollable" %>
 
 <div class="dash-page">

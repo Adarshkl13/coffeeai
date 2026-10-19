@@ -42,8 +42,7 @@
             <% end %>
           </ul>
           <%# The course list also shows the Beginner AI with Python card (shared/_original_course_card) under AI & Data %>
-          <% total = list.size + (cat == "AI & Data" ? 1 : 0) %>
-          <%= link_to "See all #{total} courses →", courses_path(category: cat), class: "hj-more" %>
+          <%= link_to "See all courses →", courses_path(category: cat), class: "hj-more" %>
         </article>
       <% end %>
     </div>

@@ -1,7 +1,8 @@
-<%# CoffeeBean AI logo mark: a coffee bean drawn in the current text colour. Pass size (px). %>
-<svg width="<%= local_assigns.fetch(:size, 18) %>" height="<%= local_assigns.fetch(:size, 18) %>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-  <g transform="rotate(35 12 12)">
-    <ellipse cx="12" cy="12" rx="6.5" ry="9.5"/>
-    <path d="M12 2.8c-2.6 3.6 2.6 10.8 0 18.4"/>
-  </g>
+<%# CoffeeBean AI logo mark: a coffee cup with a bean above it, filled with the current text colour. Pass size (px). %>
+<% mask_id = "cbm-#{SecureRandom.hex(4)}" %>
+<svg width="<%= local_assigns.fetch(:size, 18) %>" height="<%= local_assigns.fetch(:size, 18) %>" viewBox="72 48 392 392" fill="currentColor" aria-hidden="true">
+  <mask id="<%= mask_id %>"><rect x="72" y="48" width="392" height="392" fill="#fff"/><path transform="rotate(28 243 121)" d="M268 54C214 92 278 148 220 190" fill="none" stroke="#000" stroke-width="14"/></mask>
+  <ellipse cx="243" cy="121" rx="51" ry="68" transform="rotate(28 243 121)" mask="url(#<%= mask_id %>)"/>
+  <path d="M124 237H349V335A112.5 100 0 0 1 124 335Z"/>
+  <path fill-rule="evenodd" d="M351 251a61 61 0 1 1 0 122a61 61 0 1 1 0-122zM351 284a28 28 0 1 0 0 56a28 28 0 1 0 0-56z"/>
 </svg>

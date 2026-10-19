@@ -24,6 +24,8 @@ class CertificatesTest < ActionDispatch::IntegrationTest
     assert_equal 0, @user.certificates.count
     get course_lesson_path(course_slug: @course.slug, id: @lessons.last.id)
     assert_select ".certificate-card .cert-desc", /1 of 2 done/
+    get course_lesson_path(course_slug: @course.slug, id: @lessons.first.id)
+    assert_select ".certificate-card", 0   # the note shows on the last lesson only
   end
 
   test "finishing the course gives one certificate, shown small and full size" do

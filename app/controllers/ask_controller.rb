@@ -5,12 +5,21 @@ class AskController < ApplicationController
   before_action :authenticate_user!, except: :index
   before_action :set_chat, only: %i[update destroy]
 
+  # Popular questions on the right of the Ask AI page. Clicking one sends it straight away.
   TOPICS = [
-    "Explain machine learning",
-    "Help me with a coding problem",
-    "Solve a math word problem",
-    "Improve my English writing",
-    "Summarize this article"
+    "How long does it take to learn AI?",
+    "What is the difference between AI, Machine Learning, and Deep Learning?",
+    "What are the types of AI?",
+    "How can AI help doctors?",
+    "What is RAG?",
+    "What is a vector database?",
+    "How can AI help software testers?",
+    "How do I build an AI agent?",
+    "How can AI help lawyers?",
+    "What is an LLM and how does it work?",
+    "How do I make AI images?",
+    "How can AI help digital marketers?",
+    "How can AI help HR managers?"
   ].freeze
 
   def index

@@ -47,7 +47,7 @@ class AskTest < ActionDispatch::IntegrationTest
     get ask_path
     assert_response :success
     assert_select "h1", "CoffeeBean AI"
-    assert_select ".ask-topic", 5
+    assert_select ".ask-topic", AskController::TOPICS.size
     assert_select ".site-nav a[href=?]", ask_path, text: "Ask AI"
     assert_select ".ask-side-empty a", "Log in"
   end

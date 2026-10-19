@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   # ── Public ───────────────────────────────────────────────────────
   root "home#index"
+  get "/sitemap.xml", to: "sitemaps#show", defaults: { format: :xml }, as: :sitemap
   get  "/editor",         to: "editor#show",   as: :editor
   post "/editor/pages",   to: "editor#publish", as: :editor_pages
   patch "/editor/pages/:id", to: "editor#update_page", as: :editor_page

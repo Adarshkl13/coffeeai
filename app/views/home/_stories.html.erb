@@ -1,5 +1,5 @@
 <%# Home page learner cards (config/testimonials.yml, Testimonial).
-    Real stories → "Real stories from real learners". Otherwise the examples → "Made for people like you", each labelled "Example".
+    Real stories → "Real stories from real learners". Otherwise the examples → "Made for people like you"; the subtitle says they are examples (keep it).
     With neither, sample cards show in development only. %>
 <% stories = Testimonial.for_home %>
 <% if stories.any? %>
@@ -25,12 +25,11 @@
           <figure class="hs-card<%= " hs-sample" if s.sample %>">
             <div class="hs-photo">
               <% if s.photo.present? %>
-                <%= image_tag s.photo, alt: s.name, loading: "lazy" %>
+                <%= image_tag s.photo, alt: s.name, loading: "lazy", decoding: "async", style: ("object-position: #{s.focus}" if s.focus.to_s.match?(/\A[\d.% a-z]+\z/)) %>
               <% else %>
                 <span class="hs-initials" aria-hidden="true"><%= s.sample ? "?" : s.initials %></span>
               <% end %>
               <% if s.course.present? %><span class="hs-course"><%= s.course %></span><% end %>
-              <% if s.example %><span class="hs-example">Example</span><% end %>
             </div>
             <span class="hs-mark" aria-hidden="true">“</span>
             <blockquote class="hs-quote"><p><%= s.quote %></p></blockquote>

@@ -13,12 +13,12 @@ class StoriesTest < ActionDispatch::IntegrationTest
     assert_select ".hs", 0
   end
 
-  test "examples are labelled and never called real stories" do
+  test "examples are introduced as examples and never called real stories" do
     Testimonial.instance_variable_set(:@all, [])
     get root_path
     assert_select ".hs h2", "Made for people like you"
     assert_select ".hs-card", Testimonial.examples.size
-    assert_select ".hs-example", Testimonial.examples.size
+    assert_select ".hs-head p", /Examples of how/
     assert_no_match(/Real stories from real learners/, response.body)
   end
 

@@ -1,5 +1,6 @@
 <%# Wraps a footer information page. Locals: title, subtitle; the page body is yielded. %>
 <% content_for :title, "#{title} — CoffeeBean AI" %>
+<% content_for :description, subtitle if local_assigns[:subtitle].present? %>
 <% content_for :body_class, "page-scrollable" %>
 
 <div class="dash-page">

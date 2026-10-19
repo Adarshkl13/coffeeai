@@ -1,4 +1,15 @@
-<% content_for :title, "CoffeeBean AI — Learn AI, One Coffee Break at a Time" %>
+<% content_for :title, "CoffeeBean AI: Learn AI with Hands-On Lessons and Podcasts" %>
+<% content_for :head do %>
+  <%# Tells Google the site name and logo to show in search results. %>
+  <script type="application/ld+json"><%= raw({
+    "@context" => "https://schema.org",
+    "@graph" => [
+      { "@type" => "WebSite", "@id" => "#{site_url}/#website", "name" => "CoffeeBean AI", "alternateName" => "CoffeeBeanAI", "url" => "#{site_url}/" },
+      { "@type" => "Organization", "@id" => "#{site_url}/#org", "name" => "CoffeeBean AI", "url" => "#{site_url}/",
+        "logo" => "#{site_url}/icon-1024.png", "description" => ApplicationHelper::DEFAULT_DESCRIPTION }
+    ]
+  }.to_json.gsub("</", "<\\/")) %></script>
+<% end %>
 <% content_for :body_class, "page-scrollable" %>
 
 
@@ -11,7 +22,7 @@
       <div>
         <span class="h-badge"><b>New</b> AI courses for HR, software testers and managers</span>
         <h1 class="h-title">Learn AI, one <span class="grad-text">coffee break</span> at a time</h1>
-        <p class="h-sub">Short, hands-on lessons in simple English. Learn to code, build with AI and use AI at work, from your first web page to your own AI agent.</p>
+        <p class="h-sub">Learn how AI works and how to use it well, from your first lesson to your own AI app.</p>
         <div class="h-cta">
           <%= link_to new_user_registration_path, class: "btn btn-primary btn-lg" do %>Get started <span aria-hidden="true">→</span><% end %>
           <%= link_to "Explore courses", "#courses", class: "btn btn-ghost btn-lg" %>

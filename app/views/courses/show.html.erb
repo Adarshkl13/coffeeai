@@ -1,4 +1,5 @@
 <% content_for :title, "#{@course.title} — CoffeeBean AI" %>
+<% content_for :description, @course.description.to_s.truncate(160) if @course.description.present? %>
 <% content_for :body_class, "page-scrollable" %>
 <%
   course_category = @course.category_name

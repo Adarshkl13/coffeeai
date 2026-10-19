@@ -1,18 +1,13 @@
 <% content_for :title, @chat ? "#{@chat.title} — Ask CoffeeBean AI" : "Ask CoffeeBean AI — Study Assistant" %>
 <% content_for :body_class, "page-scrollable ask-body" %>
+<% content_for :description, "Ask CoffeeBean AI: a free AI study assistant. Ask questions about AI, coding and using AI at work, and get short, simple answers." %>
+<% content_for :noindex, "1" if @chat %>
 <%
   chips = [
     ["Explain a topic", "Explain this topic in simple words, with an example: ", "book"],
     ["Help with coding", "Help me with this code. Explain what is wrong and how to fix it:\n\n", "code"],
     ["Summarize notes", "Summarize these notes into short key points:\n\n", "note"]
   ]
-  topic_prompts = {
-    "Explain machine learning" => ["Explain machine learning in simple words, with an everyday example.", true],
-    "Help me with a coding problem" => ["I have a coding problem. Here is my code and what I want it to do:\n\n", false],
-    "Solve a math word problem" => ["Help me solve this math word problem step by step. Teach me the method, not only the answer:\n\n", false],
-    "Improve my English writing" => ["Improve my English writing. Correct the mistakes and explain each change simply:\n\n", false],
-    "Summarize this article" => ["Summarize this article in simple English, with the 5 most important points:\n\n", false]
-  }
 %>
 
 <div class="ask-page<%= ' has-thread' if @messages.any? %>" data-controller="ask"
@@ -153,8 +148,7 @@
     <aside class="ask-topics" aria-label="Popular topics">
       <h2>Popular topics to try</h2>
       <% AskController::TOPICS.each do |t| %>
-        <% prompt, send_now = topic_prompts.fetch(t) %>
-        <button type="button" class="ask-topic" data-action="ask#topic" data-prompt="<%= prompt %>" data-send="<%= send_now %>">
+        <button type="button" class="ask-topic" data-action="ask#topic" data-prompt="<%= t %>" data-send="true">
           <span><%= t %></span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </button>

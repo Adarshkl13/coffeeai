@@ -1,4 +1,5 @@
 <% content_for :title, "#{@lesson.lesson_number} #{@lesson.title} — #{@course.title}" %>
+<% content_for :noindex, "1" %>
 <% editor_slugs = %w[html-css javascript python ruby java php sql mysql postgresql django bootstrap react pandas numpy typescript practical-ai deep-learning nodejs machine-learning artificial-intelligence data-science ai-assisted-development vector-databases building-rag-applications building-ai-agents prompt-engineering how-llms-work building-mcp-servers evaluating-ai-apps computer-vision fine-tuning-llms ai-safety neural-networks training-deep-models how-transformers-work text-to-image-generation text-to-video-generation build-llm-from-scratch] %>
 <% has_editor   = editor_slugs.include?(@course.slug) && @lesson.starter_code.present? %>
 <% editor_mode  = case @course.slug
@@ -146,7 +147,7 @@
           <p class="crt-side-label">🏆 Your certificate</p>
           <%= render "certificates/thumb", certificate: @certificate, caption: false %>
         </div>
-      <% else %>
+      <% elsif @lessons_with_status.last&.dig(:lesson) == @lesson %><%# the "how to earn it" note shows on the last lesson only %>
         <div class="certificate-card">
           <span class="cert-icon">🏆</span>
           <div>

@@ -11,6 +11,7 @@
 #     course: Course title (as it appears in the app)
 #     quote: 2 to 4 sentences
 #     photo: stories/<file>.jpg   (optional; put the file in app/assets/images/stories/. Without it, initials show)
+#     focus: "50% 30%"           (optional; which part of the photo stays in view: left-right, top-bottom)
 stories: []
 
 examples:
@@ -18,15 +19,23 @@ examples:
     role: Software Engineer
     course: Generative AI Fundamentals
     quote: The course helped me understand how generative AI really works under the hood. Now I use it every day to write, test and review code faster.
+    photo: stories/arjun-reddy.jpg
+    focus: "50% 35%"
   - name: Lukas Becker
     role: AI Engineer
     course: Building RAG Applications
     quote: The step-by-step lessons helped me build my first RAG app with a vector database and ship it at work within a month.
+    photo: stories/lukas-becker.jpg
+    focus: "62% 30%"
   - name: Priya Nair
     role: Doctor, General Medicine
     course: AI for Doctors in Clinical Practice
     quote: The course showed me how to use AI to double-check my clinical notes and find recent research faster, without losing my own judgement.
+    photo: stories/priya-nair.jpg
+    focus: "50% 30%"
   - name: Rahul Verma
     role: Corporate Lawyer
     course: AI for Contract Review
     quote: I now review contracts with AI as a first pass and spend my time on the clauses that actually need a lawyer's attention.
+    photo: stories/rahul-verma.jpg
+    focus: "50% 22%"

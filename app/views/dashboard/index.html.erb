@@ -1,4 +1,5 @@
 <% content_for :title, "Dashboard — CoffeeBean AI" %>
+<% content_for :noindex, "1" %>
 <% content_for :body_class, "page-scrollable" %>
 <% name = current_user.email.split("@").first.tr("._-", " ").split.first.to_s.capitalize %>
 

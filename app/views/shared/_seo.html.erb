@@ -1,0 +1,18 @@
+<%# Search engine and share-preview tags. Pages set content_for :title / :description; private pages set :noindex. %>
+<% title = content_for(:title) || ApplicationHelper::SITE_NAME %>
+<meta name="description" content="<%= page_description %>">
+<% if content_for?(:noindex) %>
+  <meta name="robots" content="noindex, nofollow">
+<% else %>
+  <link rel="canonical" href="<%= canonical_url %>">
+<% end %>
+<meta property="og:site_name" content="<%= ApplicationHelper::SITE_NAME %>">
+<meta property="og:type" content="<%= content_for(:og_type) || "website" %>">
+<meta property="og:title" content="<%= title %>">
+<meta property="og:description" content="<%= page_description %>">
+<meta property="og:url" content="<%= canonical_url %>">
+<meta property="og:image" content="<%= site_url %>/icon-1024.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="<%= title %>">
+<meta name="twitter:description" content="<%= page_description %>">
+<meta name="twitter:image" content="<%= site_url %>/icon-1024.png">

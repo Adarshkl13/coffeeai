@@ -1,12 +1,9 @@
-<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#8b5cf6"/><stop offset=".5" stop-color="#6366f1"/><stop offset="1" stop-color="#3b82f6"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="112" fill="url(#g)"/>
-  <g transform="translate(64 64) scale(16) rotate(35 12 12)" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round">
-    <ellipse cx="12" cy="12" rx="6.5" ry="9.5"/>
-    <path d="M12 2.8c-2.6 3.6 2.6 10.8 0 18.4"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <mask id="m"><rect width="512" height="512" fill="#fff"/><path transform="rotate(28 243 121)" d="M268 54C214 92 278 148 220 190" fill="none" stroke="#000" stroke-width="14"/></mask>
+  <rect width="512" height="512" rx="112" fill="#fff"/>
+  <g fill="#5b4bdb">
+    <ellipse cx="243" cy="121" rx="51" ry="68" transform="rotate(28 243 121)" mask="url(#m)"/>
+    <path d="M124 237H349V335A112.5 100 0 0 1 124 335Z"/>
+    <path fill-rule="evenodd" d="M351 251a61 61 0 1 1 0 122a61 61 0 1 1 0-122zM351 284a28 28 0 1 0 0 56a28 28 0 1 0 0-56z"/>
   </g>
 </svg>

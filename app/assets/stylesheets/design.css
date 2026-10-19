@@ -533,6 +533,16 @@ a.lr-unlock:hover { color: var(--brand); border-color: var(--brand); }
 .hd-link:hover { text-decoration: underline; }
 html[data-theme="light"] .hd-tag { color: #6d28d9; background: rgba(124,58,237,.08); border-color: rgba(124,58,237,.35); }
 @media (max-width: 980px) { .hd-grid { grid-template-columns: 1fr; } }
+/* Home demos: small example buttons in one row (the checkbox sits on its own line above); on narrow
+   screens the row scrolls sideways instead of wrapping */
+.lesson-rich-body.hd-widget .lcw-toolbar { flex-wrap: nowrap; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+.lesson-rich-body.hd-widget .lcw-toolbar::-webkit-scrollbar { display: none; }
+.lesson-rich-body.hd-widget .lcw-toolbar:has(.lcw-check) { display: grid; grid-auto-flow: column; grid-auto-columns: max-content; }
+.lesson-rich-body.hd-widget .lcw-toolbar > .lcw-check { grid-row: 1; grid-column: 1 / span 4; position: sticky; left: 0; }
+.lesson-rich-body.hd-widget .lcw-toolbar:has(.lcw-check) > button { grid-row: 2; }
+.lesson-rich-body.hd-widget .lcw-toolbar > .lcw-lab-hint { flex: none; margin: 0; }
+.lesson-rich-body.hd-widget .lcw-toolbar > button.lcw-chip,
+.lesson-rich-body.hd-widget .lcw-toolbar > button.lcw-btn-ghost { flex: none; padding: 4px 8px; border-radius: 7px; font-size: 11.5px; white-space: nowrap; }
 @media (max-width: 560px) {
   .hd-card { padding: 18px 16px; }
   .lesson-rich-body.hd-widget .lcw-vp { grid-template-columns: 1fr; }
@@ -707,7 +717,11 @@ html[data-theme="light"] .hd-tag { color: #6d28d9; background: rgba(124,58,237,.
 .hs-card:hover { transform: translateY(-4px); border-color: rgba(167,139,250,.7); }
 .hs-photo { position: relative; aspect-ratio: 1 / 1; max-height: 300px; width: 100%; display: grid; place-items: center;
   background: linear-gradient(135deg, #4c1d95, #312e81 55%, #0e7490); }
-.hs-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hs-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+/* soft shade at the top and bottom so the course and Example labels stay readable on any photo */
+.hs-photo:has(img)::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(11,10,29,.45), transparent 28%, transparent 70%, rgba(18,16,50,.75)); }
+.hs-photo .hs-course, .hs-photo .hs-example { z-index: 1; }
 .hs-initials { font-size: 64px; font-weight: 800; color: rgba(255,255,255,.85); letter-spacing: .02em; }
 .hs-course { position: absolute; left: 12px; top: 12px; padding: 5px 10px; border-radius: 99px; font-size: 12px; font-weight: 700;
   color: #fff; background: rgba(11,10,29,.72); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,.18); }
@@ -720,7 +734,7 @@ html[data-theme="light"] .hd-tag { color: #6d28d9; background: rgba(124,58,237,.
 .hs-who span { font-size: 13px; color: #a9a4cf; }
 .hs-sample { border-style: dashed; }
 .hs-sample .hs-quote p { color: #c9c5e6; font-style: italic; }
-@media (max-width: 560px) { .hs-photo { max-height: 220px; } }
+@media (max-width: 560px) { .hs-photo { max-height: 260px; } }
 
 /* ── Home professions: "AI skills for your profession" (home/_professions) ── */
 .hj-badge { display: inline-flex; margin-bottom: 10px; padding: 5px 12px; border-radius: 99px; font-size: 12.5px; font-weight: 700;
