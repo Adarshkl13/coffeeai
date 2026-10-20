@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="How AI image generators work: a text prompt, then noise, then less noise, then a clear image of a cat in a hat">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6366f1"/></marker>
+  </defs>
+  <rect width="1200" height="630" fill="#f7f5ff"/>
+  <text x="600" y="88" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="700" fill="#2e2a6b">How AI Image Generators Work</text>
+  <text x="600" y="138" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="30" fill="#5b4bdb">Diffusion explained simply</text>
+  <rect x="60" y="230" width="260" height="180" rx="20" fill="#5b4bdb"/>
+  <rect x="380" y="220" width="200" height="200" rx="20" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+  <rect x="640" y="220" width="200" height="200" rx="20" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+  <rect x="900" y="220" width="200" height="200" rx="20" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+  <g fill="#6366f1">
+    <rect x="402" y="244" width="16" height="16"/><rect x="452" y="262" width="16" height="16" fill="#f59e0b"/><rect x="520" y="246" width="16" height="16"/>
+    <rect x="420" y="300" width="16" height="16" fill="#5b4bdb"/><rect x="486" y="318" width="16" height="16"/><rect x="544" y="296" width="16" height="16" fill="#f59e0b"/>
+    <rect x="398" y="370" width="16" height="16" fill="#f59e0b"/><rect x="462" y="384" width="16" height="16" fill="#5b4bdb"/><rect x="530" y="364" width="16" height="16"/>
+    <rect x="660" y="246" width="12" height="12"/><rect x="806" y="260" width="12" height="12" fill="#f59e0b"/><rect x="664" y="390" width="12" height="12" fill="#5b4bdb"/><rect x="810" y="384" width="12" height="12"/>
+  </g>
+  <g opacity="0.4">
+    <circle cx="740" cy="345" r="48" fill="#5b4bdb"/>
+    <rect x="690" y="284" width="100" height="12" rx="4" fill="#f59e0b"/>
+    <rect x="708" y="236" width="64" height="52" rx="6" fill="#f59e0b"/>
+  </g>
+  <polygon points="958,322 962,282 990,304" fill="#5b4bdb"/>
+  <polygon points="1042,322 1038,282 1010,304" fill="#5b4bdb"/>
+  <circle cx="1000" cy="345" r="50" fill="#5b4bdb"/>
+  <circle cx="982" cy="338" r="6" fill="#ffffff"/><circle cx="1018" cy="338" r="6" fill="#ffffff"/>
+  <rect x="950" y="282" width="100" height="12" rx="4" fill="#f59e0b"/>
+  <rect x="968" y="234" width="64" height="52" rx="6" fill="#f59e0b"/>
+  <g stroke="#6366f1" stroke-width="4" fill="none" marker-end="url(#a)">
+    <path d="M324 320H374"/><path d="M584 320H634"/><path d="M844 320H894"/>
+  </g>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <text x="190" y="312" font-size="36" font-weight="700" fill="#ffffff">a cat</text>
+    <text x="190" y="362" font-size="36" font-weight="700" fill="#ffffff">in a hat</text>
+    <text x="190" y="472" font-size="28" fill="#2e2a6b">Text prompt</text>
+    <text x="480" y="472" font-size="28" fill="#2e2a6b">Noise</text>
+    <text x="740" y="472" font-size="28" fill="#2e2a6b">Less noise</text>
+    <text x="1000" y="472" font-size="28" fill="#2e2a6b">Clear image</text>
+    <text x="600" y="560" font-size="30" fill="#5b4bdb">Remove noise step by step, guided by the text</text>
+  </g>
+</svg>

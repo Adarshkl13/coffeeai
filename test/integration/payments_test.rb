@@ -63,14 +63,19 @@ class PaymentsTest < ActionDispatch::IntegrationTest
     assert_select "button[data-plan]", 3
   end
 
-  test "without a plan only the first lesson opens; the Editor needs no plan" do
+  test "without a plan only the first lesson (Module 1 in Beginner AI) opens; the Editor needs no plan" do
     sign_in @user
     unlock_second_lesson
     get course_lesson_path(course_slug: @course.slug, id: @first.id)   # lesson 1 is free
     assert_response :success
     get lesson_path(1)
     assert_response :success
-    get lesson_path(2)
+    # Beginner AI with Python: all of Module 1 (lessons 1 to 5) is free, Module 2 needs a plan
+    (1..5).each { |id| LessonProgress.find_or_initialize_by(user: @user, lesson_id: id).update!(status: :completed, completed_at: Time.current) }
+    get lesson_path(5)
+    assert_response :success
+    assert_select ".lesson-link.locked", LessonsController::LESSONS.count { |l| l[:module_id] > 1 }
+    get lesson_path(6)
     assert_redirected_to pricing_path
     get editor_path                     # the Editor does not need a plan
     assert_response :success

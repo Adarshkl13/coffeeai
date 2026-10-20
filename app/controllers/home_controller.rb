@@ -6,6 +6,6 @@ class HomeController < ApplicationController
     featured = Course::FEATURED_SLUGS.filter_map { |s| courses.find { |c| c.slug == s } }
     @courses = featured + (courses - featured)   # featured first, in the chosen order
     @categories = Course.category_counts(@courses)
-    @blog_posts = BlogPost.all
+    @blog_posts = BlogPost.all.first(4)   # newest four; the rest are on /blog
   end
 end

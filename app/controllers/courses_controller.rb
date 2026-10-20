@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
-  before_action :authenticate_user!
+  # The course list and course pages are public (Google can read them). Lessons still need a login and a plan.
+  before_action :authenticate_user!, except: %i[index show]
 
   def index
     @courses = Course.published.ordered.includes(:course_lessons)
@@ -10,9 +11,12 @@ class CoursesController < ApplicationController
   def show
     @course  = Course.published.find_by!(slug: params[:slug])
     @lessons = @course.course_lessons.ordered
-    all_progresses = current_user.course_progresses
-                                 .where(course_lesson_id: @lessons.pluck(:id))
-                                 .index_by(&:course_lesson_id)
+    all_progresses = if user_signed_in?
+                       current_user.course_progresses.where(course_lesson_id: @lessons.pluck(:id)).index_by(&:course_lesson_id)
+                     else
+                       store_location_for(:user, request.fullpath)   # back to this course after signing up or in
+                       {}
+                     end
 
     open = CourseLesson.open_states(@lessons.to_a, all_progresses)
     @lessons_with_status = @lessons.map do |lesson|
@@ -24,7 +28,7 @@ class CoursesController < ApplicationController
 
     @completion_pct = @course.completion_percentage(current_user)
     @done_count     = @course.completed_lessons_count(current_user)
-    @certificate    = Certificate.award(current_user, @course) if @completion_pct == 100
+    @certificate    = Certificate.award(current_user, @course) if user_signed_in? && @completion_pct == 100
     @podcast        = CoursePodcast.for(@course)
     @completed_only = @course.fully_completed_count(current_user)
 

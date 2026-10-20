@@ -149,7 +149,7 @@ class Course < ApplicationRecord
   # { course_id => { total:, done:, pct:, next_lesson: } } for one learner, using one progress query.
   # Courses should be loaded with .includes(:course_lessons).
   def self.progress_for(user, courses)
-    rows = user.course_progresses
+    rows = user.nil? ? [] : user.course_progresses
                .where(status: [CourseProgress.statuses[:completed], CourseProgress.statuses[:skipped]])
                .pluck(:course_lesson_id, :status)
     done_ids = rows.map(&:first).to_set
@@ -196,6 +196,7 @@ class Course < ApplicationRecord
   end
 
   def completion_percentage(user)
+    return 0 if user.nil?
     total = course_lessons.count
     return 0 if total.zero?
     done = user.course_progresses
@@ -207,10 +208,12 @@ class Course < ApplicationRecord
 
   # Lessons the learner really completed (skipped ones do not count). Used for certificates.
   def fully_completed_count(user)
+    return 0 if user.nil?
     user.course_progresses.where(course_lesson_id: course_lessons.select(:id)).where(status: CourseProgress.statuses[:completed]).count
   end
 
   def completed_lessons_count(user)
+    return 0 if user.nil?
     user.course_progresses
         .where(course_lesson_id: course_lessons.pluck(:id))
         .where(status: [ CourseProgress.statuses[:completed], CourseProgress.statuses[:skipped] ])

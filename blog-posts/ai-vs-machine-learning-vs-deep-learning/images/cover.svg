@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="Inter, Arial, sans-serif">
+  <rect width="1200" height="630" fill="#f7f5ff"/>
+  <text x="600" y="82" text-anchor="middle" font-size="44" font-weight="700" fill="#1f1a4d">AI vs Machine Learning vs Deep Learning</text>
+  <rect x="150" y="130" width="900" height="470" rx="40" fill="#ffffff" stroke="#5b4bdb" stroke-width="4"/>
+  <text x="185" y="186" font-size="36" font-weight="700" fill="#5b4bdb">Artificial Intelligence</text>
+  <text x="1015" y="186" text-anchor="end" font-size="28" fill="#5b4bdb">acts smart</text>
+  <rect x="230" y="210" width="740" height="370" rx="34" fill="#eef0ff" stroke="#6366f1" stroke-width="4"/>
+  <text x="262" y="264" font-size="34" font-weight="700" fill="#4338ca">Machine Learning</text>
+  <text x="940" y="264" text-anchor="end" font-size="28" fill="#4338ca">learns from data</text>
+  <rect x="310" y="290" width="580" height="270" rx="28" fill="#dcfce7" stroke="#22c55e" stroke-width="4"/>
+  <text x="342" y="344" font-size="34" font-weight="700" fill="#166534">Deep Learning</text>
+  <text x="860" y="344" text-anchor="end" font-size="28" fill="#166534">neural networks</text>
+  <rect x="420" y="400" width="360" height="90" rx="45" fill="#5b4bdb"/>
+  <text x="600" y="456" text-anchor="middle" font-size="32" font-weight="700" fill="#ffffff">Generative AI</text>
+  <text x="600" y="532" text-anchor="middle" font-size="28" fill="#166534">chatbots, image tools</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="AI in software testing: requirement to AI to test cases, automation script and API test, reviewed by a tester">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#6366f1"/></marker>
+  </defs>
+  <rect width="1200" height="630" fill="#f7f5ff"/>
+  <text x="600" y="88" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="46" font-weight="700" fill="#2e2a6b">How to Use AI in Software Testing</text>
+  <text x="600" y="138" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="30" fill="#5b4bdb">Test cases, automation and APIs</text>
+  <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <rect x="40" y="300" width="230" height="100" rx="18" fill="#ffffff" stroke="#5b4bdb" stroke-width="4"/>
+    <text x="155" y="361" font-size="30" fill="#2e2a6b">Requirement</text>
+    <rect x="330" y="290" width="150" height="120" rx="24" fill="#5b4bdb"/>
+    <text x="405" y="368" font-size="52" font-weight="700" fill="#ffffff">AI</text>
+    <rect x="540" y="190" width="300" height="80" rx="16" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+    <text x="690" y="240" font-size="28" fill="#2e2a6b">Test cases</text>
+    <rect x="540" y="310" width="300" height="80" rx="16" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+    <text x="690" y="360" font-size="28" fill="#2e2a6b">Automation script</text>
+    <rect x="540" y="430" width="300" height="80" rx="16" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+    <text x="690" y="480" font-size="28" fill="#2e2a6b">API test</text>
+    <rect x="900" y="300" width="260" height="100" rx="18" fill="#22c55e"/>
+    <text x="1030" y="361" font-size="30" font-weight="700" fill="#ffffff">Tester reviews</text>
+  </g>
+  <g stroke="#6366f1" stroke-width="4" fill="none" marker-end="url(#a)">
+    <path d="M272 350H324"/>
+    <path d="M482 330L534 236"/>
+    <path d="M482 350H534"/>
+    <path d="M482 370L534 464"/>
+    <path d="M842 236L894 330"/>
+    <path d="M842 350H894"/>
+    <path d="M842 464L894 370"/>
+  </g>
+  <text x="600" y="580" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#5b4bdb">coffeebeanai.com</text>
+</svg>

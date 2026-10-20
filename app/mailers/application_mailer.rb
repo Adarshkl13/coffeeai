@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: %("CoffeeBean AI" <#{ENV.fetch("MAIL_FROM", COMPANY[:email])}>)
   layout "mailer"
 end

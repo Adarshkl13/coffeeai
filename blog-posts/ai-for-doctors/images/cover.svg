@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-label="How Doctors Can Use AI Safely">
+<rect width="1200" height="630" fill="#f7f5ff"/>
+<text x="600" y="110" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="700" fill="#2e2470">How Doctors Can Use AI Safely</text>
+<text x="600" y="165" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="30" fill="#5b4bdb">Notes, Research and Patient Chats</text>
+<rect x="50" y="240" width="245" height="170" rx="22" fill="#ffffff" stroke="#5b4bdb" stroke-width="4"/>
+<text x="172" y="315" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#2e2470">Consultation</text>
+<text x="172" y="360" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#5b4bdb">with consent</text>
+<line x1="303" y1="325" x2="313" y2="325" stroke="#6366f1" stroke-width="6" stroke-linecap="round"/>
+<polygon points="327,325 309,313 309,337" fill="#6366f1"/>
+<rect x="335" y="240" width="245" height="170" rx="22" fill="#6366f1" stroke="#6366f1" stroke-width="4"/>
+<text x="458" y="315" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#ffffff">AI draft note</text>
+<text x="458" y="360" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#e0e7ff">SOAP draft</text>
+<line x1="588" y1="325" x2="598" y2="325" stroke="#6366f1" stroke-width="6" stroke-linecap="round"/>
+<polygon points="612,325 594,313 594,337" fill="#6366f1"/>
+<rect x="620" y="240" width="245" height="170" rx="22" fill="#dcfce7" stroke="#22c55e" stroke-width="4"/>
+<text x="742" y="315" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#1f2937">Doctor checks</text>
+<text x="742" y="360" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#374151">and signs</text>
+<line x1="873" y1="325" x2="883" y2="325" stroke="#6366f1" stroke-width="6" stroke-linecap="round"/>
+<polygon points="897,325 879,313 879,337" fill="#6366f1"/>
+<rect x="905" y="240" width="245" height="170" rx="22" fill="#5b4bdb" stroke="#5b4bdb" stroke-width="4"/>
+<text x="1028" y="315" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#ffffff">Record</text>
+<text x="1028" y="360" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#ede9fe">signed note</text>
+<rect x="130" y="470" width="940" height="90" rx="22" fill="#ffffff" stroke="#22c55e" stroke-width="4"/>
+<path d="M194 488 L218 498 V516 C218 532 206 540 194 544 C182 540 170 532 170 516 V498 Z" fill="#22c55e"/>
+<path d="M184 517 L192 525 L205 509" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="245" y="526" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="600" fill="#1f2937">Privacy shield: approved tools, no identifiers</text>
+</svg>

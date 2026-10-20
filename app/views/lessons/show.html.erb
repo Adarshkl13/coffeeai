@@ -156,7 +156,7 @@
     <div class="lesson-scroll">
       <%# Module podcast (Cloudflare R2), on the first lesson of each module %>
       <% if @lesson[:number].end_with?(".1") && (ep = CoursePodcast.episodes("beginner-ai-python").find { |e| e.module == @lesson[:module_id] }) %>
-        <%= render "courses/podcast", episodes: [ep], locked: !full_access?, heading: "Listen to this module",
+        <%= render "courses/podcast", episodes: [ep], locked: !full_access? && !free_lesson?(@lesson), heading: "Listen to this module",
                    intro: "A short podcast about this module, in six languages. Listen before you start, or while you travel." %>
       <% end %>
 

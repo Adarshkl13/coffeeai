@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5b4bdb"/></marker>
+  </defs>
+  <rect width="1200" height="630" fill="#f7f5ff"/>
+  <text x="600" y="100" text-anchor="middle" font-size="56" font-weight="700" fill="#1f1a4d">What Is RAG?</text>
+  <text x="600" y="150" text-anchor="middle" font-size="30" fill="#5b4bdb">A Simple Guide to Retrieval-Augmented Generation</text>
+  <g font-weight="700" font-size="32" text-anchor="middle">
+    <rect x="55" y="240" width="220" height="160" rx="22" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+    <text x="165" y="310" fill="#1f1a4d">Question</text>
+    <rect x="345" y="240" width="220" height="160" rx="22" fill="#6366f1"/>
+    <text x="455" y="310" fill="#ffffff">Search docs</text>
+    <rect x="635" y="240" width="220" height="160" rx="22" fill="#5b4bdb"/>
+    <text x="745" y="310" fill="#ffffff">LLM</text>
+    <rect x="925" y="240" width="220" height="160" rx="22" fill="#ffffff" stroke="#22c55e" stroke-width="4"/>
+    <text x="1035" y="310" fill="#15803d">Answer</text>
+  </g>
+  <g font-size="28" text-anchor="middle">
+    <text x="165" y="355" fill="#4b5563">your query</text>
+    <text x="455" y="355" fill="#e0e7ff">find chunks</text>
+    <text x="745" y="355" fill="#e0e7ff">reads chunks</text>
+    <text x="1035" y="355" fill="#4b5563">with sources</text>
+  </g>
+  <g stroke="#5b4bdb" stroke-width="5" marker-end="url(#a)">
+    <line x1="280" y1="320" x2="338" y2="320"/>
+    <line x1="570" y1="320" x2="628" y2="320"/>
+    <line x1="860" y1="320" x2="918" y2="320"/>
+    <line x1="455" y1="468" x2="455" y2="410"/>
+  </g>
+  <rect x="290" y="472" width="330" height="90" rx="20" fill="#ffffff" stroke="#6366f1" stroke-width="3" stroke-dasharray="10 8"/>
+  <text x="455" y="528" text-anchor="middle" font-size="30" font-weight="600" fill="#1f1a4d">Your documents</text>
+  <text x="890" y="500" text-anchor="middle" font-size="28" font-weight="600" fill="#5b4bdb">Retrieve, Augment, Generate</text>
+  <text x="890" y="545" text-anchor="middle" font-size="28" fill="#4b5563">coffeebeanai.com</text>
+</svg>

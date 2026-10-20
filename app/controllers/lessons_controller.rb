@@ -3,7 +3,9 @@ require_relative "../../lib/beginner_ai_python_content"
 class LessonsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_lesson
-  before_action :require_plan, only: %i[show complete skip], unless: -> { @lesson[:id] == 1 }
+  # Without a plan, all of Module 1 (Introduction to AI) and its podcast are free; Modules 2 to 5 need a plan.
+  FREE_MODULE_ID = 1
+  before_action :require_plan, only: %i[show complete skip], unless: -> { free_lesson?(@lesson) }
   before_action :ensure_accessible, only: %i[show]
 
   # ── Static course data ───────────────────────────────────────────
@@ -294,6 +296,9 @@ class LessonsController < ApplicationController
     @prev_lesson = LESSONS.find { |l| l[:id] == @lesson[:id] - 1 }
   end
 
+  def free_lesson?(lesson) = lesson[:module_id] == FREE_MODULE_ID
+  helper_method :free_lesson?
+
   def ensure_accessible
     return if accessible?(@lesson)
 
@@ -320,7 +325,7 @@ class LessonsController < ApplicationController
       completed = lessons.count { |l| all_progresses[l[:id]]&.done? }
       lessons_with_status = lessons.map do |l|
         prog  = all_progresses[l[:id]]
-        pro    = !full_access? && l[:id] > 1
+        pro    = !full_access? && !free_lesson?(l)
         locked = pro || !accessible?(l)
         l.merge(
           progress_status: prog&.status || "not_started",

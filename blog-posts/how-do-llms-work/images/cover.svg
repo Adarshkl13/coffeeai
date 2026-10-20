@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5b4bdb"/></marker>
+  </defs>
+  <rect width="1200" height="630" fill="#f7f5ff"/>
+  <text x="600" y="96" text-anchor="middle" font-size="56" font-weight="700" fill="#1f1a4d">How Do LLMs Work?</text>
+  <text x="600" y="150" text-anchor="middle" font-size="28" fill="#5b4bdb">A beginner's guide to large language models</text>
+  <g stroke-width="3">
+    <rect x="20" y="230" width="200" height="150" rx="22" fill="#ffffff" stroke="#6366f1"/>
+    <rect x="260" y="230" width="200" height="150" rx="22" fill="#ffffff" stroke="#6366f1"/>
+    <rect x="500" y="230" width="200" height="150" rx="22" fill="#ffffff" stroke="#6366f1"/>
+    <rect x="740" y="230" width="200" height="150" rx="22" fill="#5b4bdb" stroke="#5b4bdb"/>
+    <rect x="980" y="230" width="200" height="150" rx="22" fill="#ffffff" stroke="#f59e0b"/>
+  </g>
+  <g text-anchor="middle" font-weight="700" font-size="28">
+    <text x="120" y="292" fill="#1f1a4d">Text</text>
+    <text x="360" y="292" fill="#1f1a4d">Tokens</text>
+    <text x="600" y="292" fill="#1f1a4d">Embeddings</text>
+    <text x="840" y="292" fill="#ffffff">Transformer</text>
+    <text x="1080" y="292" fill="#1f1a4d">Next token</text>
+  </g>
+  <g text-anchor="middle" font-size="28">
+    <text x="120" y="340" fill="#4b4778">coffee is</text>
+    <text x="360" y="340" fill="#4b4778">coffee | is</text>
+    <text x="600" y="340" fill="#4b4778">[0.2, 0.7]</text>
+    <text x="840" y="340" fill="#e7e4ff">attention</text>
+    <text x="1080" y="340" font-weight="700" fill="#d97706">hot</text>
+  </g>
+  <g stroke="#5b4bdb" stroke-width="4" fill="none">
+    <path d="M223 305H252" marker-end="url(#a)"/>
+    <path d="M463 305H492" marker-end="url(#a)"/>
+    <path d="M703 305H732" marker-end="url(#a)"/>
+    <path d="M943 305H972" marker-end="url(#a)"/>
+    <path d="M1080 384V460H360V392" marker-end="url(#a)"/>
+  </g>
+  <text x="720" y="510" text-anchor="middle" font-size="28" fill="#4b4778">add the new token, predict again</text>
+  <rect x="320" y="545" width="560" height="56" rx="28" fill="#6366f1"/>
+  <text x="600" y="583" text-anchor="middle" font-size="28" font-weight="700" fill="#ffffff">Trained first, then fine-tuned</text>
+</svg>

@@ -1,6 +1,17 @@
 <% content_for :title, "#{@course.title} — CoffeeBean AI" %>
 <% content_for :description, @course.description.to_s.truncate(160) if @course.description.present? %>
 <% content_for :body_class, "page-scrollable" %>
+<% content_for :head do %>
+  <%# Course details for Google (schema.org Course). %>
+  <script type="application/ld+json"><%= raw({
+    "@context" => "https://schema.org", "@type" => "Course",
+    "name" => @course.title, "description" => @course.description.to_s.squish.presence || @course.title,
+    "url" => "#{site_url}#{course_path(@course)}", "inLanguage" => "en",
+    "provider" => { "@type" => "Organization", "name" => "CoffeeBean AI", "url" => "#{site_url}/" },
+    "numberOfLessons" => @lessons.size,
+    "hasCourseInstance" => { "@type" => "CourseInstance", "courseMode" => "online", "courseWorkload" => "PT#{[@lessons.size * 15, 15].max}M" }
+  }.to_json.gsub("</", "<\\/")) %></script>
+<% end %>
 <%
   course_category = @course.category_name
   lesson_sections =
@@ -67,7 +78,9 @@
           </svg>
           <span class="ring-label"><%= @completion_pct %>%</span>
         </div>
-        <% if @continue_lesson %>
+        <% if !user_signed_in? %>
+          <%= link_to "Start the free lesson →", new_user_registration_path, class: "course-start-btn", style: "background: #{@course.ui_color}" %>
+        <% elsif @continue_lesson %>
           <%= link_to course_lesson_path(course_slug: @course.slug, id: @continue_lesson.id),
                 class: "course-start-btn", style: "background: #{@course.ui_color}" do %>
             <%= @done_count > 0 ? "Continue Learning" : "Start Course" %> →

@@ -24,7 +24,7 @@ class BlogTest < ActionDispatch::IntegrationTest
 
     get srcs.first
     assert_response :success
-    assert_equal "image/png", response.media_type
+    assert_includes %w[image/png image/svg+xml], response.media_type
   end
 
   test "the blog index is public" do

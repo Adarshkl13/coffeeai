@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="Inter, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5b4bdb"/></marker>
+  </defs>
+  <rect width="1200" height="630" fill="#f7f5ff"/>
+  <text x="600" y="95" text-anchor="middle" font-size="52" font-weight="700" fill="#1f1a4d">What Is a Vector Database?</text>
+  <text x="600" y="145" text-anchor="middle" font-size="30" fill="#5b4bdb">Explained with Simple Examples</text>
+  <g text-anchor="middle" font-size="30" font-weight="600">
+    <rect x="80" y="200" width="440" height="90" rx="20" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+    <text x="300" y="256" fill="#1f1a4d">Text: padded coat</text>
+    <rect x="80" y="330" width="440" height="90" rx="20" fill="#6366f1"/>
+    <text x="300" y="386" fill="#ffffff">Embedding model</text>
+    <rect x="80" y="460" width="440" height="90" rx="20" fill="#5b4bdb"/>
+    <text x="300" y="516" fill="#ffffff">[0.21, -0.53, 0.88, ...]</text>
+  </g>
+  <g stroke="#5b4bdb" stroke-width="5" marker-end="url(#a)">
+    <line x1="300" y1="292" x2="300" y2="324"/>
+    <line x1="300" y1="422" x2="300" y2="454"/>
+    <line x1="524" y1="505" x2="594" y2="505"/>
+  </g>
+  <rect x="600" y="190" width="545" height="390" rx="24" fill="#ffffff" stroke="#6366f1" stroke-width="4"/>
+  <text x="872" y="236" text-anchor="middle" font-size="30" font-weight="700" fill="#1f1a4d">Vector database</text>
+  <circle cx="795" cy="390" r="125" fill="#22c55e" fill-opacity="0.08" stroke="#22c55e" stroke-width="3" stroke-dasharray="10 8"/>
+  <g fill="#6366f1">
+    <circle cx="720" cy="330" r="11"/>
+    <circle cx="870" cy="380" r="11"/>
+    <circle cx="1060" cy="300" r="11"/>
+  </g>
+  <circle cx="790" cy="410" r="14" fill="#22c55e"/>
+  <g font-size="28" fill="#1f1a4d">
+    <text x="736" y="340">coat</text>
+    <text x="886" y="390">parka</text>
+    <text x="1060" y="345" text-anchor="middle">sandals</text>
+    <text x="790" y="458" text-anchor="middle" font-weight="700" fill="#15803d">query</text>
+  </g>
+  <text x="872" y="560" text-anchor="middle" font-size="28" font-weight="600" fill="#5b4bdb">Nearest = most similar</text>
+</svg>
