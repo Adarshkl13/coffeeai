@@ -52,7 +52,7 @@ namespace :content do
 
     exercises = {
       1 => { type: "multiple_choice", q: "Northbridge will need 165 drivers at the end of 2027, but only about 107 will remain without hiring. What is this difference called?", opts: ["A) Supply", "B) The gap", "C) Demand"], ans: "B" },
-      2 => { type: "true_false", q: "If an AI tool says \"you will lose exactly 79.47 people next year\", you can share that number with leaders as a fact.", opts: ["True", "False"], ans: "False" },
+      2 => { type: "true_false", q: "If an AI tool says \"you will lose exactly 79.51 people next year\", you can share that number with leaders as a fact.", opts: ["True", "False"], ans: "False" },
       3 => { type: "multiple_choice", q: "Which is the safest way to give retirement risk data to an AI tool for planning?", opts: ["A) Upload the HRIS export with names and dates of birth", "B) Paste each person's age and job title", "C) Share totals by role and age band, combining very small groups"], ans: "C" },
       4 => { type: "multiple_choice", q: "Northbridge had 78 leavers and an average headcount of 412 over 12 months. What is its attrition rate?", opts: ["A) 18.9%", "B) 18.6%", "C) 15.5%"], ans: "A" },
       5 => { type: "multiple_choice", q: "Customer service has 20 people and 6 leavers (30%). What should Priya do first?", opts: ["A) Call it the biggest problem in the company", "B) Treat it with care, because one leaver moves the rate by 5 points", "C) Ignore it, because small groups never matter"], ans: "B" },

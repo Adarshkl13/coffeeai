@@ -15,7 +15,7 @@ module JavaScriptContent
             <li><strong>Talks to servers</strong>: it can load cricket scores or weather data in the background.</li>
             <li><strong>Runs outside the browser too</strong>: Node.js runs JavaScript on servers and laptops. Many backends (the server side of apps) and tools are built this way.</li>
           </ul>
-          <p>The official name of the language is <strong>ECMAScript</strong>. A new edition comes out every June: ES2015, ES2016 … ES2025. The newest is <strong>ES2026</strong>, approved on 30 June 2026. It adds things like <code>Map.prototype.getOrInsert</code>, <code>Math.sumPrecise</code> and <code>Error.isError</code>. In this course, "Modern JavaScript" means ES2015 and later. Every current browser supports it. Brand-new features reach browsers at different times. So check a feature's "Baseline" status on MDN before you use it.</p>
+          <p>The official name of the language is <strong>ECMAScript</strong>. A new edition comes out every June: ES2015, ES2016 … ES2025. At the time of writing, the newest is <strong>ES2026</strong>. Recent additions include <code>Math.sumPrecise</code> and <code>Error.isError</code>. In this course, "Modern JavaScript" means ES2015 and later. Every current browser supports it. Brand-new features reach browsers at different times. So check a feature's "Baseline" status on MDN before you use it.</p>
         </div>
         <div class="lc-card">
           <h3>HTML vs CSS vs JavaScript</h3>
@@ -87,7 +87,7 @@ module JavaScriptContent
           <h3>Try It</h3>
           <ol class="lc-list">
             <li>Run the starter code and read each line of output.</li>
-            <li>Add a line that prints your name and your city, for example <code>console.log("Name:", "Priya", "| City:", "London");</code></li>
+            <li>Add a line that prints your name and your state, for example <code>console.log("Name:", "Priya", "| State:", "Kerala");</code></li>
             <li>Print how many minutes are in a week (<code>7 * 24 * 60</code>) with a clear label.</li>
             <li>Break something on purpose (remove a quote). Then read the error message.</li>
           </ol>
@@ -165,21 +165,21 @@ module JavaScriptContent
           <table class="lc-table">
             <thead><tr><th>Type</th><th>Example</th><th><code>typeof</code> result</th></tr></thead>
             <tbody>
-              <tr><td>string</td><td><code>"New York"</code>, <code>'hi'</code></td><td><code>"string"</code></td></tr>
+              <tr><td>string</td><td><code>"Kerala"</code>, <code>'hi'</code></td><td><code>"string"</code></td></tr>
               <tr><td>number</td><td><code>42</code>, <code>3.14</code>, <code>-7</code></td><td><code>"number"</code></td></tr>
               <tr><td>boolean</td><td><code>true</code>, <code>false</code></td><td><code>"boolean"</code></td></tr>
               <tr><td>undefined</td><td>a declared variable with no value yet</td><td><code>"undefined"</code></td></tr>
               <tr><td>null</td><td>"empty on purpose"</td><td><code>"object"</code> (a famous old bug)</td></tr>
               <tr><td>bigint</td><td><code>12345678901234567890n</code></td><td><code>"bigint"</code></td></tr>
               <tr><td>symbol</td><td><code>Symbol("id")</code>: unique keys (advanced)</td><td><code>"symbol"</code></td></tr>
-              <tr><td>object</td><td><code>{ city: "London" }</code>, <code>[1, 2]</code></td><td><code>"object"</code> (functions give <code>"function"</code>)</td></tr>
+              <tr><td>object</td><td><code>{ state: "Kerala" }</code>, <code>[1, 2]</code></td><td><code>"object"</code> (functions give <code>"function"</code>)</td></tr>
             </tbody>
           </table>
           <p>JavaScript is <strong>dynamically typed</strong>. This means the variable has no fixed type. Only the value has a type. So <code>let x = 5; x = "five";</code> is allowed. (TypeScript adds type checking on top. It is a later course.)</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: typeof</h3>
-          <div class="lc-code">let city;<br>console.log(typeof "Los Angeles"); // string<br>console.log(typeof 99.5);        // number<br>console.log(typeof false);       // boolean<br>console.log(typeof city);        // undefined<br>console.log(typeof null);        // object   ← quirk!<br>console.log(typeof [1, 2, 3]);   // object<br>console.log(Array.isArray([1, 2, 3]));  // true</div>
+          <div class="lc-code">let state;<br>console.log(typeof "Maharashtra"); // string<br>console.log(typeof 99.5);        // number<br>console.log(typeof false);       // boolean<br>console.log(typeof state);       // undefined<br>console.log(typeof null);        // object   ← quirk!<br>console.log(typeof [1, 2, 3]);   // object<br>console.log(Array.isArray([1, 2, 3]));  // true</div>
           <p><code>typeof null</code> gives <code>"object"</code>. So check for null with <code>value === null</code>. Check for arrays with <code>Array.isArray()</code>.</p>
         </div>
         <div class="lc-card">
@@ -231,7 +231,7 @@ module JavaScriptContent
         console.log("Items in cart:", cartItems);
 
         // One variable of each primitive type
-        const city = "San Francisco";          // string
+        const state = "Maharashtra";           // string
         const price = 499.5;                   // number
         const inStock = true;                  // boolean
         let coupon;                            // undefined
@@ -239,7 +239,7 @@ module JavaScriptContent
         const population = 13600000000000n;    // bigint
         const id = Symbol("id");               // symbol
 
-        console.log("city:", typeof city);
+        console.log("state:", typeof state);
         console.log("price:", typeof price);
         console.log("inStock:", typeof inStock);
         console.log("coupon:", typeof coupon);
@@ -417,14 +417,14 @@ module JavaScriptContent
         <div class="lc-card">
           <h3>Length, Characters and Indexes</h3>
           <p>Each character has an <strong>index</strong> (position number). It starts at 0.</p>
-          <div class="lc-code">const city = "Philadelphia";<br>console.log(city.length);   // 12<br>console.log(city[0]);       // "P"<br>console.log(city.at(-1));   // "a"  (at() accepts negative indexes)<br>console.log(city[20]);      // undefined — no error</div>
+          <div class="lc-code">const state = "Maharashtra";<br>console.log(state.length);  // 11<br>console.log(state[0]);      // "M"<br>console.log(state.at(-1));  // "a"  (at() accepts negative indexes)<br>console.log(state[20]);     // undefined — no error</div>
         </div>
         <div class="lc-card">
           <h3>Essential String Methods</h3>
           <table class="lc-table">
             <thead><tr><th>Method</th><th>Example</th><th>Result</th></tr></thead>
             <tbody>
-              <tr><td><code>toUpperCase()</code> / <code>toLowerCase()</code></td><td><code>"Chicago".toUpperCase()</code></td><td><code>"CHICAGO"</code></td></tr>
+              <tr><td><code>toUpperCase()</code> / <code>toLowerCase()</code></td><td><code>"Kerala".toUpperCase()</code></td><td><code>"KERALA"</code></td></tr>
               <tr><td><code>trim()</code></td><td><code>"  hi  ".trim()</code></td><td><code>"hi"</code></td></tr>
               <tr><td><code>includes()</code></td><td><code>"javascript".includes("script")</code></td><td><code>true</code></td></tr>
               <tr><td><code>startsWith()</code> / <code>endsWith()</code></td><td><code>"+91 98765".startsWith("+91")</code></td><td><code>true</code></td></tr>
@@ -517,8 +517,8 @@ module JavaScriptContent
       HTML
       starter_code: <<~'JS'
         // Lesson 4: strings and template literals
-        const city = "Philadelphia";
-        console.log("Length:", city.length, "| first:", city[0], "| last:", city.at(-1));
+        const state = "Maharashtra";
+        console.log("Length:", state.length, "| first:", state[0], "| last:", state.at(-1));
 
         // Common methods (each returns a NEW string)
         const raw = "   Learning JavaScript is FUN   ";
@@ -556,7 +556,7 @@ module JavaScriptContent
 
         // Multi-line template literal
         const ticket = `--- Bus Ticket ---
-        Route: London -> New York
+        Route: Goa -> Karnataka
         Fare:  ₹${450 + 50}`;
         console.log(ticket);
       JS
@@ -896,7 +896,7 @@ module JavaScriptContent
           <h3>The Scope Chain (Lexical Scope)</h3>
           <p>When JavaScript finds a name, it looks in the current scope first. Then it looks in the <strong>outer</strong> scope, and so on up to global. Inner code can see outer variables. Outer code can never see inner ones. The chain depends on <em>where the code is written</em>. This is called <strong>lexical scope</strong>.</p>
           <p>If an inner scope declares the same name, it <strong>shadows</strong> (hides) the outer one:</p>
-          <div class="lc-code">const city = "Chicago";<br>function show() {<br>&nbsp;&nbsp;const city = "Miami"; // shadows the global city<br>&nbsp;&nbsp;console.log(city);    // Miami<br>}<br>show();<br>console.log(city);      // Chicago</div>
+          <div class="lc-code">const state = "Kerala";<br>function show() {<br>&nbsp;&nbsp;const state = "Goa"; // shadows the global state<br>&nbsp;&nbsp;console.log(state);   // Goa<br>}<br>show();<br>console.log(state);     // Kerala</div>
         </div>
         <div class="lc-card">
           <h3>Hoisting</h3>
@@ -1027,7 +1027,7 @@ module JavaScriptContent
         <p class="lc-lead">An <strong>array</strong> is an ordered list of values, like a playlist, a shopping cart or a list of marks. Arrays are the most used data structure (a way to organise data) in JavaScript. You will use their basic operations in every program.</p>
         <div class="lc-card">
           <h3>Creating and Reading Arrays</h3>
-          <div class="lc-code">const cities = ["Chicago", "New York", "Los Angeles", "Philadelphia"];<br><br>console.log(cities.length);   // 4<br>console.log(cities[0]);       // "Chicago" — indexes start at 0<br>console.log(cities[3]);       // "Philadelphia" — last index is length - 1<br>console.log(cities.at(-1));   // "Philadelphia" — negative index counts from the end<br>console.log(cities[10]);      // undefined — no error<br><br>cities[1] = "London";         // replace an item<br>console.log(cities);          // ["Chicago", "London", "Los Angeles", "Philadelphia"]</div>
+          <div class="lc-code">const states = ["Kerala", "Goa", "Punjab", "Maharashtra"];<br><br>console.log(states.length);   // 4<br>console.log(states[0]);       // "Kerala" — indexes start at 0<br>console.log(states[3]);       // "Maharashtra" — last index is length - 1<br>console.log(states.at(-1));   // "Maharashtra" — negative index counts from the end<br>console.log(states[10]);      // undefined — no error<br><br>states[1] = "Assam";          // replace an item<br>console.log(states);          // ["Kerala", "Assam", "Punjab", "Maharashtra"]</div>
           <p>An array can hold any mix of types, even other arrays (<code>[[1, 2], [3, 4]]</code>). But in practice, keep one kind of item per array.</p>
         </div>
         <div class="lc-card">
@@ -1107,7 +1107,7 @@ module JavaScriptContent
           <ol class="lc-list">
             <li>Add two songs to the starter's playlist: one at the start, one at the end.</li>
             <li>Use <code>toSpliced</code> to make a copy of the playlist without its second song.</li>
-            <li>Destructure the first two cities from <code>cities</code> into <code>home</code> and <code>work</code>.</li>
+            <li>Destructure the first two states from <code>states</code> into <code>home</code> and <code>work</code>.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -1116,10 +1116,10 @@ module JavaScriptContent
       HTML
       starter_code: <<~'JS'
         // Lesson 8: arrays
-        const cities = ["Chicago", "New York", "Los Angeles", "Philadelphia"];
-        console.log("Count:", cities.length);
-        console.log("First:", cities[0], "| Last:", cities.at(-1));
-        console.log("Has Los Angeles?", cities.includes("Los Angeles"), "| index:", cities.indexOf("Los Angeles"));
+        const states = ["Kerala", "Goa", "Punjab", "Maharashtra"];
+        console.log("Count:", states.length);
+        console.log("First:", states[0], "| Last:", states.at(-1));
+        console.log("Has Punjab?", states.includes("Punjab"), "| index:", states.indexOf("Punjab"));
         console.log("");
 
         // Adding and removing
@@ -1169,7 +1169,7 @@ module JavaScriptContent
         <p class="lc-lead">Array methods such as <code>map</code>, <code>filter</code> and <code>reduce</code> take a <strong>callback function</strong> (a function you pass in) and do the looping for you. They make data work shorter and easier to read than loops you write by hand. They also cause fewer mistakes.</p>
         <div class="lc-card">
           <h3>The Data We'll Use</h3>
-          <div class="lc-code">const orders = [<br>&nbsp;&nbsp;{ id: 1, item: "Biryani",  price: 280, city: "Seattle" },<br>&nbsp;&nbsp;{ id: 2, item: "Dosa",     price: 90,  city: "Los Angeles" },<br>&nbsp;&nbsp;{ id: 3, item: "Vada Pav", price: 30,  city: "New York" },<br>&nbsp;&nbsp;{ id: 4, item: "Haleem",   price: 220, city: "Seattle" },<br>];</div>
+          <div class="lc-code">const orders = [<br>&nbsp;&nbsp;{ id: 1, item: "Biryani",  price: 280, state: "Kerala" },<br>&nbsp;&nbsp;{ id: 2, item: "Dosa",     price: 90,  state: "Punjab" },<br>&nbsp;&nbsp;{ id: 3, item: "Vada Pav", price: 30,  state: "Goa" },<br>&nbsp;&nbsp;{ id: 4, item: "Haleem",   price: 220, state: "Kerala" },<br>];</div>
           <p>Every callback gets <code>(item, index, array)</code>. Usually you only need <code>item</code>.</p>
         </div>
         <div class="lc-card">
@@ -1185,7 +1185,7 @@ module JavaScriptContent
         <div class="lc-card">
           <h3>filter: Keep Only Matching Items</h3>
           <p><code>filter</code> returns a new array. It keeps only the items where the callback returns a truthy value. It may be shorter than the original, or even empty.</p>
-          <div class="lc-code">const sea = orders.filter((o) =&gt; o.city === "Seattle");<br>console.log(sea.length);   // 2<br><br>const cheap = orders.filter((o) =&gt; o.price &lt; 100).map((o) =&gt; o.item);<br>console.log(cheap);        // ["Dosa", "Vada Pav"]</div>
+          <div class="lc-code">const kerala = orders.filter((o) =&gt; o.state === "Kerala");<br>console.log(kerala.length);   // 2<br><br>const cheap = orders.filter((o) =&gt; o.price &lt; 100).map((o) =&gt; o.item);<br>console.log(cheap);           // ["Dosa", "Vada Pav"]</div>
         </div>
         <div class="lc-card">
           <h3>reduce: Combine Everything Into One Value</h3>
@@ -1199,7 +1199,7 @@ module JavaScriptContent
             <thead><tr><th>Method</th><th>Returns</th><th>Example → result</th></tr></thead>
             <tbody>
               <tr><td><code>find(fn)</code></td><td>first matching item or <code>undefined</code></td><td><code>orders.find(o =&gt; o.price &gt; 200).item</code> → <code>"Biryani"</code></td></tr>
-              <tr><td><code>findIndex(fn)</code></td><td>its index or <code>-1</code></td><td><code>orders.findIndex(o =&gt; o.city === "New York")</code> → <code>2</code></td></tr>
+              <tr><td><code>findIndex(fn)</code></td><td>its index or <code>-1</code></td><td><code>orders.findIndex(o =&gt; o.state === "Goa")</code> → <code>2</code></td></tr>
               <tr><td><code>findLast(fn)</code></td><td>last matching item</td><td><code>orders.findLast(o =&gt; o.price &gt; 200).item</code> → <code>"Haleem"</code></td></tr>
               <tr><td><code>some(fn)</code></td><td><code>true</code> if at least one matches</td><td><code>orders.some(o =&gt; o.price &lt; 50)</code> → <code>true</code></td></tr>
               <tr><td><code>every(fn)</code></td><td><code>true</code> if all match</td><td><code>orders.every(o =&gt; o.price &lt; 250)</code> → <code>false</code></td></tr>
@@ -1214,13 +1214,13 @@ module JavaScriptContent
         </div>
         <div class="lc-card">
           <h3>Grouping and Flattening</h3>
-          <div class="lc-code">const byCity = Object.groupBy(orders, (o) =&gt; o.city);<br>console.log(Object.keys(byCity));        // ["Seattle", "Los Angeles", "New York"]<br>console.log(byCity.Seattle.length);      // 2<br><br>console.log([[1, 2], [3], [4, 5]].flat());                  // [1, 2, 3, 4, 5]<br>console.log(["a b", "c"].flatMap((s) =&gt; s.split(" ")));   // ["a", "b", "c"]</div>
-          <p><code>Object.groupBy</code> (Baseline 2024) returns an object. Its keys are the group names. It is a <em>null-prototype</em> object (it has no built-in methods). So methods like <code>byCity.hasOwnProperty</code> don't exist on it. Use <code>Object.keys</code> or <code>Object.hasOwn</code>.</p>
+          <div class="lc-code">const byState = Object.groupBy(orders, (o) =&gt; o.state);<br>console.log(Object.keys(byState));       // ["Kerala", "Punjab", "Goa"]<br>console.log(byState.Kerala.length);      // 2<br><br>console.log([[1, 2], [3], [4, 5]].flat());                  // [1, 2, 3, 4, 5]<br>console.log(["a b", "c"].flatMap((s) =&gt; s.split(" ")));   // ["a", "b", "c"]</div>
+          <p><code>Object.groupBy</code> (Baseline 2024) returns an object. Its keys are the group names. It is a <em>null-prototype</em> object (it has no built-in methods). So methods like <code>byState.hasOwnProperty</code> don't exist on it. Use <code>Object.keys</code> or <code>Object.hasOwn</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Chaining</h3>
           <p><code>map</code> and <code>filter</code> return arrays. So you can chain them into a series of steps that is easy to read:</p>
-          <div class="lc-code">const seaTotal = orders<br>&nbsp;&nbsp;.filter((o) =&gt; o.city === "Seattle")<br>&nbsp;&nbsp;.map((o) =&gt; o.price)<br>&nbsp;&nbsp;.reduce((sum, p) =&gt; sum + p, 0);<br>console.log(seaTotal);   // 500</div>
+          <div class="lc-code">const keralaTotal = orders<br>&nbsp;&nbsp;.filter((o) =&gt; o.state === "Kerala")<br>&nbsp;&nbsp;.map((o) =&gt; o.price)<br>&nbsp;&nbsp;.reduce((sum, p) =&gt; sum + p, 0);<br>console.log(keralaTotal);   // 500</div>
         </div>
         <div class="lc-card">
           <h3>Which Method When?</h3>
@@ -1256,7 +1256,7 @@ module JavaScriptContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Read a chain from top to bottom like a sentence: "take the orders, <em>keep</em> Seattle ones, <em>turn</em> them into prices, <em>add</em> them up". If a chain is longer than about four steps, store the middle results in named variables.
+          <strong>Tip:</strong> Read a chain from top to bottom like a sentence: "take the orders, <em>keep</em> Kerala ones, <em>turn</em> them into prices, <em>add</em> them up". If a chain is longer than about four steps, store the middle results in named variables.
         </div>
       HTML
       starter_code: <<~'JS'
@@ -1317,7 +1317,7 @@ module JavaScriptContent
         <p class="lc-lead">An <strong>object</strong> groups related data under named keys, like a user, a product or an order. Modern JavaScript adds useful syntax on top. <strong>Destructuring</strong> unpacks values. <strong>Spread</strong> copies and merges. <strong>Optional chaining</strong> reads deep data safely.</p>
         <div class="lc-card">
           <h3>Creating and Using Objects</h3>
-          <div class="lc-code">const user = {<br>&nbsp;&nbsp;name: "Priya",<br>&nbsp;&nbsp;age: 24,<br>&nbsp;&nbsp;"home city": "Manchester",      // keys with spaces need quotes<br>&nbsp;&nbsp;greet() {                        // method shorthand<br>&nbsp;&nbsp;&nbsp;&nbsp;return "Hi, I am " + this.name;<br>&nbsp;&nbsp;},<br>};<br><br>console.log(user.name);            // "Priya"  — dot notation<br>console.log(user["home city"]);    // "Manchester" — bracket notation<br>console.log(user.greet());         // "Hi, I am Priya"<br><br>user.email = "priya@example.in";   // add<br>user.age = 25;                     // update<br>delete user["home city"];          // remove<br>console.log(user.phone);           // undefined — missing keys don't throw</div>
+          <div class="lc-code">const user = {<br>&nbsp;&nbsp;name: "Priya",<br>&nbsp;&nbsp;age: 24,<br>&nbsp;&nbsp;"home state": "Gujarat",        // keys with spaces need quotes<br>&nbsp;&nbsp;greet() {                        // method shorthand<br>&nbsp;&nbsp;&nbsp;&nbsp;return "Hi, I am " + this.name;<br>&nbsp;&nbsp;},<br>};<br><br>console.log(user.name);            // "Priya"  — dot notation<br>console.log(user["home state"]);   // "Gujarat" — bracket notation<br>console.log(user.greet());         // "Hi, I am Priya"<br><br>user.email = "priya@example.in";   // add<br>user.age = 25;                     // update<br>delete user["home state"];          // remove<br>console.log(user.phone);           // undefined — missing keys don't throw</div>
         </div>
         <div class="lc-card">
           <h3>Dot vs Bracket Notation</h3>
@@ -1325,7 +1325,7 @@ module JavaScriptContent
             <thead><tr><th>Use</th><th>When</th><th>Example</th></tr></thead>
             <tbody>
               <tr><td>Dot</td><td>The key is a fixed, valid name</td><td><code>user.name</code></td></tr>
-              <tr><td>Bracket</td><td>The key is in a variable, or has spaces or dashes</td><td><code>user[field]</code>, <code>user["home city"]</code></td></tr>
+              <tr><td>Bracket</td><td>The key is in a variable, or has spaces or dashes</td><td><code>user[field]</code>, <code>user["home state"]</code></td></tr>
             </tbody>
           </table>
           <div class="lc-code">const field = "age";<br>console.log(user[field]);   // 25<br>console.log(user.field);    // undefined — looks for a key literally called "field"</div>
@@ -1346,7 +1346,7 @@ module JavaScriptContent
             <li>A missing key gives <code>undefined</code>, unless you add a default with <code>=</code>.</li>
             <li>You can destructure nested objects (objects inside objects). Use <code>...rest</code> to collect the remaining keys.</li>
           </ul>
-          <div class="lc-code">const order = { id: 101, total: 750, customer: { name: "Arjun", city: "Birmingham" } };<br><br>const { id, total } = order;                         // by key name<br>const { total: amount } = order;                     // rename → amount<br>const { coupon = "NONE" } = order;                   // default if missing<br>const { customer: { city } } = order;                // nested<br>console.log(id, amount, coupon, city);               // 101 750 NONE Birmingham<br><br>// Very common in function parameters:<br>function label({ id, total }) {<br>&nbsp;&nbsp;return "#" + id + " — ₹" + total;<br>}<br>console.log(label(order));                           // #101 — ₹750</div>
+          <div class="lc-code">const order = { id: 101, total: 750, customer: { name: "Arjun", state: "Karnataka" } };<br><br>const { id, total } = order;                         // by key name<br>const { total: amount } = order;                     // rename → amount<br>const { coupon = "NONE" } = order;                   // default if missing<br>const { customer: { state } } = order;               // nested<br>console.log(id, amount, coupon, state);              // 101 750 NONE Karnataka<br><br>// Very common in function parameters:<br>function label({ id, total }) {<br>&nbsp;&nbsp;return "#" + id + " — ₹" + total;<br>}<br>console.log(label(order));                           // #101 — ₹750</div>
         </div>
         <div class="lc-card">
           <h3>Spread: Copy and Merge</h3>
@@ -1358,13 +1358,13 @@ module JavaScriptContent
         <div class="lc-card">
           <h3>Worked Example: Updating Without Changing the Original</h3>
           <p>Apps often keep the old version of data (for undo, or so the screen can compare). Spread lets you build an updated copy, one level at a time:</p>
-          <div class="lc-code">const cart = { user: "Asha", address: { city: "London", pin: "EC1A 1BB" }, items: 2 };<br><br>const moved = {<br>&nbsp;&nbsp;...cart,<br>&nbsp;&nbsp;address: { ...cart.address, city: "Denver" },<br>};<br><br>console.log(cart.address.city);    // London — original untouched<br>console.log(moved.address.city);   // Denver<br>console.log(moved.address.pin);    // EC1A 1BB — other keys copied</div>
+          <div class="lc-code">const cart = { user: "Asha", address: { state: "Kerala", pin: "682001" }, items: 2 };<br><br>const moved = {<br>&nbsp;&nbsp;...cart,<br>&nbsp;&nbsp;address: { ...cart.address, state: "Goa" },<br>};<br><br>console.log(cart.address.state);   // Kerala — original untouched<br>console.log(moved.address.state);  // Goa<br>console.log(moved.address.pin);    // 682001 — other keys copied</div>
           <p>Each level you change needs its own spread. The levels you don't touch are shared. This is safe because no code changes them.</p>
         </div>
         <div class="lc-card">
           <h3>Optional Chaining ?.</h3>
           <p>Reading a property of <code>undefined</code> crashes your code: <code>TypeError: Cannot read properties of undefined</code>. Optional chaining avoids this. It stops and returns <code>undefined</code> as soon as something is <code>null</code> or <code>undefined</code>.</p>
-          <div class="lc-code">const apiUser = { name: "Dev", address: null, orders: [] };<br><br>console.log(apiUser.address?.city);            // undefined (no crash)<br>console.log(apiUser.orders?.[0]?.total);        // undefined — works with [ ] too<br>console.log(apiUser.sayHi?.());                 // undefined — call only if it exists<br>console.log(apiUser.address?.city ?? "Unknown");  // "Unknown" — combine with ??</div>
+          <div class="lc-code">const apiUser = { name: "Dev", address: null, orders: [] };<br><br>console.log(apiUser.address?.state);           // undefined (no crash)<br>console.log(apiUser.orders?.[0]?.total);        // undefined — works with [ ] too<br>console.log(apiUser.sayHi?.());                 // undefined — call only if it exists<br>console.log(apiUser.address?.state ?? "Unknown"); // "Unknown" — combine with ??</div>
           <p>Use <code>?.</code> where a value is <em>allowed</em> to be missing. Don't use it everywhere. If data must exist, a crash tells you about a real bug.</p>
         </div>
         <div class="lc-card">
@@ -1408,7 +1408,7 @@ module JavaScriptContent
         const profile = {
           name: "Priya",
           age: 24,
-          address: { city: "Manchester", pincode: "M1 1AE" },
+          address: { state: "Gujarat", pincode: "380001" },
           skills: ["HTML", "CSS", "JS"],
           greet() { return "Hi, I am " + this.name; },
         };
@@ -1424,8 +1424,8 @@ module JavaScriptContent
         console.log("Has sugar key?", Object.hasOwn(stock, "sugar"));
 
         // Destructuring with rename, default and nesting
-        const { name, age: years, email = "none", address: { city } } = profile;
-        console.log(name, years, email, city);
+        const { name, age: years, email = "none", address: { state } } = profile;
+        console.log(name, years, email, state);
 
         // Spread merges (later wins) - but it is shallow
         const settings = { ...{ theme: "light", fontSize: 14 }, ...{ fontSize: 18 } };
@@ -1438,7 +1438,7 @@ module JavaScriptContent
 
         // Optional chaining and ??
         const apiUser = { name: "Dev", address: null, orders: [] };
-        console.log("City:", apiUser.address?.city ?? "Unknown");
+        console.log("State:", apiUser.address?.state ?? "Unknown");
         console.log("First order total:", apiUser.orders[0]?.total ?? 0);
         console.log("sayHi():", apiUser.sayHi?.());
 
@@ -1676,7 +1676,7 @@ module JavaScriptContent
             <li><code>keys()</code>, <code>values()</code> and <code>entries()</code> return <strong>iterators</strong>. Spread them or use <code>for...of</code>.</li>
             <li>Convert an object to a Map and back: <code>new Map(Object.entries(obj))</code> and <code>Object.fromEntries(map)</code>.</li>
             <li><code>Map.groupBy(items, fn)</code> puts items into groups inside a Map (like <code>Object.groupBy</code> from Lesson 9).</li>
-            <li>New in ES2026: <code>map.getOrInsert(key, defaultValue)</code> returns the value. If the key is missing, it first adds the default. It is Baseline 2026, so check your users' browsers.</li>
+            <li>Coming to JavaScript: <code>map.getOrInsert(key, defaultValue)</code> returns the value. If the key is missing, it first adds the default. It is very new, so check its "Baseline" status on MDN and your users' browsers before you use it.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1937,7 +1937,7 @@ module JavaScriptContent
           <p>Good places for <code>try/catch</code>:</p>
           <ul class="lc-list">
             <li>Parsing data you don't control (<code>JSON.parse</code>, user input).</li>
-            <li>Calls to servers and browser storage ( 19 and 0).</li>
+            <li>Calls to servers and browser storage (Lessons 19 and 20).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1981,7 +1981,7 @@ module JavaScriptContent
           <p>Sometimes you catch a low-level error and throw a clearer one. Then keep the original error as the <code>cause</code>:</p>
           <div class="lc-code">function loadSettings(text) {<br>&nbsp;&nbsp;try {<br>&nbsp;&nbsp;&nbsp;&nbsp;return JSON.parse(text);<br>&nbsp;&nbsp;} catch (err) {<br>&nbsp;&nbsp;&nbsp;&nbsp;throw new Error("Settings file is corrupted", { cause: err });<br>&nbsp;&nbsp;}<br>}</div>
           <p>The code that catches the new error sees a clear message. <code>error.cause</code> still holds the original <code>SyntaxError</code> to help you debug.</p>
-          <p>Errors in asynchronous code (code that finishes later, like timers and <code>fetch</code>) need more care. A <code>try</code> around <code>setTimeout</code> does <em>not</em> catch an error thrown later inside the timer callback.  18 and 0 show the right tools.</p>
+          <p>Errors in asynchronous code (code that finishes later, like timers and <code>fetch</code>) need more care. A <code>try</code> around <code>setTimeout</code> does <em>not</em> catch an error thrown later inside the timer callback. Lessons 18 and 19 show the right tools.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -2249,7 +2249,7 @@ module JavaScriptContent
               <tr><td>Use for</td><td>almost everything</td><td>trusted HTML you wrote yourself</td></tr>
             </tbody>
           </table>
-          <p>If a user types <code>&lt;img src=x onerror="stealCookies()"&gt;</code> as their name. If you put it in <code>innerHTML</code>, the browser runs that code. With <code>textContent</code>, it is shown as harmless text.</p>
+          <p>Suppose a user types <code>&lt;img src=x onerror="stealCookies()"&gt;</code> as their name. If you put it in <code>innerHTML</code>, the browser runs that code. With <code>textContent</code>, it is shown as harmless text.</p>
         </div>
         <div class="lc-card">
           <h3>Creating, Adding and Removing Elements</h3>
@@ -2402,7 +2402,7 @@ module JavaScriptContent
           <div class="lc-code">form.addEventListener("submit", (event) =&gt; {<br>&nbsp;&nbsp;event.preventDefault();                  // no page reload<br>&nbsp;&nbsp;const email = form.elements.email.value.trim();<br>&nbsp;&nbsp;if (!email.includes("@")) {<br>&nbsp;&nbsp;&nbsp;&nbsp;message.textContent = "Please enter a valid email";<br>&nbsp;&nbsp;&nbsp;&nbsp;return;<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;message.textContent = "Subscribed: " + email;<br>});</div>
           <p>Listen for <code>submit</code> on the <strong>form</strong>, not <code>click</code> on the button. Then pressing Enter works too.</p>
           <p>For forms with many fields, read them all at once with <strong>FormData</strong>. It uses each input's <code>name</code> attribute. Every value comes as a <strong>string</strong>:</p>
-          <div class="lc-code">&lt;form id="signup"&gt;&lt;input name="city" value="London"&gt;&lt;input name="age" type="number" value="21"&gt;&lt;/form&gt;<br><br>const signup = document.querySelector("#signup");<br>const data = Object.fromEntries(new FormData(signup));<br>console.log(data);                   // { city: "London", age: "21" }  — age is a string!<br>console.log(Number(data.age) + 1);   // 22</div>
+          <div class="lc-code">&lt;form id="signup"&gt;&lt;input name="state" value="Kerala"&gt;&lt;input name="age" type="number" value="21"&gt;&lt;/form&gt;<br><br>const signup = document.querySelector("#signup");<br>const data = Object.fromEntries(new FormData(signup));<br>console.log(data);                   // { state: "Kerala", age: "21" }  — age is a string!<br>console.log(Number(data.age) + 1);   // 22</div>
           <p>Let the browser do simple checks with HTML attributes (<code>required</code>, <code>type="email"</code>, <code>minlength</code>, <code>pattern</code>). The browser blocks the <code>submit</code> event and shows a message until the fields are valid. Still check the data again in JavaScript and on the server. HTML checks make things easier, but they do not give security.</p>
         </div>
         <div class="lc-card">
@@ -2553,7 +2553,7 @@ module JavaScriptContent
           <table class="lc-table">
             <thead><tr><th>State</th><th>Meaning</th><th>Handled by</th></tr></thead>
             <tbody>
-              <tr><td>pending</td><td>still working</td><td>—</td></tr>
+              <tr><td>pending</td><td>still working</td><td>nothing yet</td></tr>
               <tr><td>fulfilled</td><td>finished with a value</td><td><code>.then(value =&gt; …)</code></td></tr>
               <tr><td>rejected</td><td>failed with an error</td><td><code>.catch(error =&gt; …)</code></td></tr>
             </tbody>
@@ -2737,7 +2737,7 @@ module JavaScriptContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>In the starter, ask for user id 3 and print their city.</li>
+            <li>In the starter, ask for user id 3 and print their state.</li>
             <li>Add a third item to the parallel load. Check that the total time almost does not change.</li>
             <li>Copy <code>getJson</code> into your own HTML page. Call the real URL from the lesson.</li>
           </ol>
@@ -2749,7 +2749,7 @@ module JavaScriptContent
       starter_code: <<~'JS'
         // Lesson 19: async/await and fetch
         // The editor has no internet, so fakeFetch imitates a server with real Response objects.
-        const db = { 1: { name: "Asha", city: "London" }, 2: { name: "Ravi", city: "Boston" } };
+        const db = { 1: { name: "Asha", state: "Kerala" }, 2: { name: "Ravi", state: "Tamil Nadu" } };
         const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
         async function fakeFetch(url) {
@@ -2769,7 +2769,7 @@ module JavaScriptContent
 
         async function main() {
           const user = await getJson("/api/users/1");
-          console.log("User 1:", user.name, "from", user.city);
+          console.log("User 1:", user.name, "from", user.state);
 
           try {
             await getJson("/api/users/99");
@@ -2804,7 +2804,7 @@ module JavaScriptContent
         <p class="lc-lead"><strong>JSON</strong> is the text format the web uses to send and save data. <strong>localStorage</strong> lets a page keep small amounts of data in the browser. Then a user's settings or cart are still there after a page reload.</p>
         <div class="lc-card">
           <h3>What JSON Looks Like</h3>
-          <div class="lc-code">{<br>&nbsp;&nbsp;"name": "Asha",<br>&nbsp;&nbsp;"age": 21,<br>&nbsp;&nbsp;"isStudent": true,<br>&nbsp;&nbsp;"skills": ["HTML", "CSS"],<br>&nbsp;&nbsp;"address": { "city": "London" },<br>&nbsp;&nbsp;"phone": null<br>}</div>
+          <div class="lc-code">{<br>&nbsp;&nbsp;"name": "Asha",<br>&nbsp;&nbsp;"age": 21,<br>&nbsp;&nbsp;"isStudent": true,<br>&nbsp;&nbsp;"skills": ["HTML", "CSS"],<br>&nbsp;&nbsp;"address": { "state": "Kerala" },<br>&nbsp;&nbsp;"phone": null<br>}</div>
           <p>JSON looks like a JavaScript object, but the rules are stricter:</p>
           <ul class="lc-list">
             <li>Keys <strong>must</strong> be in double quotes. Strings must use double quotes too.</li>
@@ -2887,7 +2887,7 @@ module JavaScriptContent
           <ol class="lc-list">
             <li>In the starter, add a <code>language</code> setting. Save it and load it again.</li>
             <li>Add a <code>Date</code> to the saved object. Check what type it has after loading.</li>
-            <li>Store a counter that goes up by one every time you press Run. First remove the clean-up line at the end.</li>
+            <li>In your own HTML page (not this editor, where storage is blocked and the stand-in forgets everything after each run), store a counter that goes up by one every time you reload the page.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -2925,11 +2925,11 @@ module JavaScriptContent
           }
         }
         const store = getStorage();
-        const KEY = "lesson18.cart";
+        const KEY = "shop.cart";
 
-        store.setItem("lesson18.count", 5);
-        console.log("A stored number comes back as a", typeof store.getItem("lesson18.count"));
-        console.log("Missing key gives:", store.getItem("lesson18.nothing"));
+        store.setItem("shop.count", 5);
+        console.log("A stored number comes back as a", typeof store.getItem("shop.count"));
+        console.log("Missing key gives:", store.getItem("shop.nothing"));
 
         const saveCart = (cart) => store.setItem(KEY, JSON.stringify(cart));
         function loadCart() {
@@ -2943,7 +2943,7 @@ module JavaScriptContent
         store.setItem(KEY, "{broken");
         console.log("Corrupted data falls back to:", JSON.stringify(loadCart()));
         store.removeItem(KEY); // clean up only our own keys
-        store.removeItem("lesson18.count");
+        store.removeItem("shop.count");
       JS
     },
 

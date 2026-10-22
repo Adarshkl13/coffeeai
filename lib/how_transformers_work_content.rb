@@ -431,7 +431,7 @@ module HowTransformersWorkContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-tf">How Transformers Work</div>
-          <h1 class="lc-title">Tokens and Tokenization</h1>
+          <h1 class="lc-title">Tokens and Tokenisation</h1>
         </div>
         <p class="lc-lead">A transformer cannot read letters. It only works with numbers. So the first job is to cut text into small pieces called <strong>tokens</strong> and give each piece a number. In this lesson, you will compare three ways to cut text. You will learn BPE, the method most models use. You will also see how token IDs and vocabulary size work.</p>
         <figure class="lc-diagram">
@@ -476,17 +476,17 @@ module HowTransformersWorkContent
               <text x="380" y="204" font-size="12" fill="#9b99b8">11 tokens, toy vocabulary of 10. "the" is ID 0 both times. The model only sees the IDs.</text>
             </g>
           </svg>
-          <figcaption>The running sentence is split into 11 tokens, and each token gets an ID. This toy tokenizer uses whole words and a vocabulary of 10 tokens. Real tokenizers use subwords and much bigger vocabularies.</figcaption>
+          <figcaption>The running sentence is split into 11 tokens, and each token gets an ID. This toy tokeniser uses whole words and a vocabulary of 10 tokens. Real tokenisers use subwords and much bigger vocabularies.</figcaption>
         </figure>
         <div class="lc-card">
           <h3>Tokens, IDs and the vocabulary</h3>
           <ul class="lc-list">
             <li>A <strong>token</strong> is one piece of text. It can be a word, part of a word, a letter or a punctuation mark.</li>
-            <li>A <strong>tokenizer</strong> is the program that cuts text into tokens.</li>
-            <li>The <strong>vocabulary</strong> is the fixed list of every token the tokenizer knows.</li>
+            <li>A <strong>tokeniser</strong> is the program that cuts text into tokens.</li>
+            <li>The <strong>vocabulary</strong> is the fixed list of every token the tokeniser knows.</li>
             <li>Each token in the vocabulary has a number called its <strong>token ID</strong>. The transformer only ever sees these IDs.</li>
           </ul>
-          <p>The toy tokenizer from the diagram gives each new word the next free ID. Part 2 in the code editor below does this in Python.</p>
+          <p>The toy tokeniser from the diagram gives each new word the next free ID. Part 2 in the code editor below does this in Python.</p>
           <p>For the running sentence, this gives the IDs 0, 1, 2, 3, 0, 4, 5, 6, 7, 8, 9 and a vocabulary of 10 tokens.</p>
           <p>The word "the" appears twice, so the ID 0 appears twice. The same token always gets the same ID.</p>
         </div>
@@ -561,8 +561,8 @@ module HowTransformersWorkContent
             </svg>
             <figcaption>BPE trained on the starter code's small corpus. The most frequent pair is merged first, so "at" comes before "cat". The counts come from that corpus.</figcaption>
           </figure>
-          <p>The tokenizer saves its list of merges. To cut new text, it splits the text into characters. Then it applies the saved merges, in the same order.</p>
-          <p>Real tokenizers usually start from <strong>bytes</strong> instead of characters. Any text, in any language, is made of bytes, so nothing is ever unknown. GPT-2's tokenizer starts with 256 byte tokens and learns 50,000 merges. With one special end-of-text token, that gives 50,257 tokens.</p>
+          <p>The tokeniser saves its list of merges. To cut new text, it splits the text into characters. Then it applies the saved merges, in the same order.</p>
+          <p>Real tokenisers usually start from <strong>bytes</strong> instead of characters. Any text, in any language, is made of bytes, so nothing is ever unknown. GPT-2's tokeniser starts with 256 byte tokens and learns 50,000 merges. With one special end-of-text token, that gives 50,257 tokens.</p>
         </div>
         <div class="lc-card">
           <h3>How big should the vocabulary be?</h3>
@@ -573,15 +573,15 @@ module HowTransformersWorkContent
               <tr><td>Large (for example, over 100,000)</td><td>Fewer tokens per sentence</td><td>A bigger table. Rare tokens are seen too few times to learn well.</td></tr>
             </tbody>
           </table>
-          <p>GPT-2 uses 50,257 tokens. Many newer models use more than 100,000, which helps with code and with languages other than English. Each model has its own tokenizer, so always use the tokenizer that matches your model.</p>
+          <p>GPT-2 uses 50,257 tokens. Many newer models use more than 100,000, which helps with code and with languages other than English. Each model has its own tokeniser, so always use the tokeniser that matches your model.</p>
           <p>Vocabularies also have <strong>special tokens</strong>. These are not normal text. One example is an end-of-text token that tells the model a document has ended.</p>
         </div>
         <div class="lc-card">
-          <h3>Activity: tokenize a new word with BPE</h3>
-          <p>The starter code learned six merges. Follow how it tokenizes "that cat", a phrase that has "that" in it. Step through.</p>
+          <h3>Activity: tokenise a new word with BPE</h3>
+          <p>The starter code learned six merges. Follow how it tokenises "that cat", a phrase that has "that" in it. Step through.</p>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="user" data-label="Text to tokenize">that cat</li>
+              <li data-kind="user" data-label="Text to tokenise">that cat</li>
               <li data-kind="thought" data-label="Start">Split each word into characters: t h a t | c a t</li>
               <li data-kind="tool" data-label="Merge 1: a + t">Every "a t" pair joins: t h at | c at</li>
               <li data-kind="tool" data-label="Merge 2: t + h">"t h" joins: th at | c at</li>
@@ -594,23 +594,23 @@ module HowTransformersWorkContent
           </div>
         </div>
         <div class="lc-card">
-          <h3>Activity: see a real tokenizer</h3>
-          <p>This box runs the real GPT-2 tokenizer in your browser. Each word of the running sentence is one common token. Now type a rare word, such as "unwarmable", and see it split into pieces.</p>
+          <h3>Activity: see a real tokeniser</h3>
+          <p>This box runs the real GPT-2 tokeniser in your browser. Each word of the running sentence is one common token. Now type a rare word, such as "unwarmable", and see it split into pieces.</p>
           <div class="lcw" data-controller="tokenizer" data-tokenizer-text-value="The cat sat on the mat because it was warm."></div>
         </div>
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Part 1 of the code trains a tiny BPE tokenizer on three short sentences. It prints each merge, then tokenizes two phrases. Part 2 runs the toy word tokenizer from the diagram.</p>
+          <p>Part 1 of the code trains a tiny BPE tokeniser on three short sentences. It prints each merge, then tokenises two phrases. Part 2 runs the toy word tokeniser from the diagram.</p>
           <ol class="lc-list">
             <li>Run it. Check the merges in Part 1 against the diagram above.</li>
             <li>In Part 1, set <code>NUM_MERGES = 0</code>. Every token is now a single letter. Then try <code>12</code>. How does the token count change?</li>
             <li>Look at the "?" in the second phrase. The letter "i" never appears in the corpus, so it has no ID. Add "it is warm" to the corpus in Part 1 and run again.</li>
-            <li>Tokenize a new word, such as <code>"chat"</code>, by adding it to the list of phrases at the end of Part 1.</li>
+            <li>Tokenise a new word, such as <code>"chat"</code>, by adding it to the list of phrases at the end of Part 1.</li>
             <li>In Part 2, add "The dog sat." to the sentence. Which words get new IDs?</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Key Insight:</strong> A tokenizer turns text into a list of token IDs, and the transformer only sees those numbers. BPE builds subword tokens by merging the most frequent pairs. Common words stay whole, and rare words split into known pieces.
+          <strong>Key Insight:</strong> A tokeniser turns text into a list of token IDs, and the transformer only sees those numbers. BPE builds subword tokens by merging the most frequent pairs. Common words stay whole, and rare words split into known pieces.
         </div>
       HTML
       starter_code: <<~'PYTHON',
@@ -866,7 +866,7 @@ module HowTransformersWorkContent
             </div>
             <ul data-sorter-target="pool">
               <li data-bucket="learned" data-why="The rows start random. Training changes them a little at every step.">The numbers in the row for "cat"</li>
-              <li data-bucket="fixed" data-why="The tokenizer decides the IDs. The model cannot change them.">The token ID of "cat"</li>
+              <li data-bucket="fixed" data-why="The tokeniser decides the IDs. The model cannot change them.">The token ID of "cat"</li>
               <li data-bucket="fixed" data-why="The designer picks d_model when building the model.">The length of each vector (d_model)</li>
               <li data-bucket="learned" data-why="Words used in similar places get similar updates, so they move close together.">"cat" and "kitten" having a high cosine similarity</li>
               <li data-bucket="fixed" data-why="There is one row per token, so the vocabulary size sets the number of rows.">The number of rows in the table</li>
@@ -1862,7 +1862,7 @@ module HowTransformersWorkContent
             <li>In Part 1, change <code>n_heads = 2</code> to <code>n_heads = 1</code>. Now there is one head with d_k = 4. Check the printed shapes.</li>
             <li>In Part 1, set <code>n_heads = 4</code>. Each head now has only 1 column. You get 4 weight tables.</li>
             <li>In Part 1, change the seed in <code>np.random.seed(42)</code>. The patterns change, because the weights are random. In a real model, training makes each head's pattern useful.</li>
-            <li>Look at Part 2. Check that head 1 holds columns 0 and 1 of Q, and head 2 holds columns 2 and 3.</li>
+            <li>Look at Part 2. Check that head 1 holds columns 1 and 2 of Q, and head 2 holds columns 3 and 4. Python counts from 0, so in code these are indexes 0 and 1, then 2 and 3.</li>
             <li>On your own computer, run Part 3 with <code>num_heads=1</code>. The parameter count is still 80.</li>
           </ol>
         </div>
@@ -1918,8 +1918,8 @@ module HowTransformersWorkContent
         Q = np.arange(16).reshape(4, 4)        # 4 tokens, d_model = 4
         heads = Q.reshape(4, 2, 2).transpose(1, 0, 2)
         print(heads.shape)                     # (heads, tokens, d_k)
-        print(heads[0])                        # head 1: columns 0 and 1
-        print(heads[1])                        # head 2: columns 2 and 3
+        print(heads[0])                        # head 1: columns 1 and 2 (Python indexes 0 and 1)
+        print(heads[1])                        # head 2: columns 3 and 4 (Python indexes 2 and 3)
 
         # ── Part 3: nn.MultiheadAttention in PyTorch (run this part on your own computer) ──
         print("\n== Part 3: multi-head attention in PyTorch ==")
@@ -3473,7 +3473,7 @@ module HowTransformersWorkContent
       HTML
       starter_code: <<~'PYTHON'
         # A Vision Transformer's first steps.
-        # Part 1 runs in NumPy here. Part 2 shows the same steps in PyTorch.
+        # Part 1 runs in NumPy here. Part 2 counts tokens for a real image. Part 3 shows the patch step in PyTorch.
         import numpy as np
 
         # ── Part 1: turn a tiny image into patch tokens (NumPy) ──
@@ -3547,7 +3547,7 @@ module HowTransformersWorkContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-tf">How Transformers Work</div>
-          <h1 class="lc-title">Visualizing Attention</h1>
+          <h1 class="lc-title">Visualising Attention</h1>
         </div>
         <p class="lc-lead">Every attention head makes a table of weights, and you can draw it as an <strong>attention heatmap</strong>. Heatmaps show where each token looks, so they help you find heads with clear jobs. In this lesson you will read heatmaps and learn why they can also fool you.</p>
         <figure class="lc-diagram">

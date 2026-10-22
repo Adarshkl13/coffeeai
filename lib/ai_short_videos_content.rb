@@ -364,7 +364,7 @@ module AiShortVideosContent
             <li><strong>Use the app's own music library.</strong> Instagram and YouTube have licences for songs inside their apps. Add music there, not in an outside editor.</li>
             <li><strong>Business accounts may see fewer songs.</strong> On Instagram, business accounts usually get a smaller library of music cleared for commercial use. Sweet Crumbs is a business, so Diya uses that library or original audio.</li>
             <li><strong>Shorts have song limits.</strong> In a Short of up to 3 minutes, most library songs can play for up to 90 seconds. Some tracks have shorter limits. Check YouTube's current help pages.</li>
-            <li><strong>Copyright claims.</strong> On YouTube, Content ID (the system that finds copyrighted audio) can block a Short or send its earnings to the owner. Until 24 September 2026, YouTube blocked every Short over 1 minute with a claim. Newer Shorts like this may now stay playable.</li>
+            <li><strong>Copyright claims.</strong> On YouTube, Content ID (the system that finds copyrighted audio) can block a Short or send its earnings to the owner. YouTube has changed its rules for claims on longer Shorts over time, so check the current YouTube Help pages before you use music you do not own.</li>
             <li><strong>The safest sound is your own.</strong> A voiceover, kitchen sounds or royalty-free music with a clear licence (for example, from the YouTube Audio Library).</li>
           </ul>
         </div>
@@ -394,7 +394,7 @@ module AiShortVideosContent
         </div>
         <div class="lc-card">
           <h3>4. Faces, voices and deepfakes</h3>
-          <p>A <strong>deepfake</strong> is an AI-made video or voice that makes a real person seem to say or do something they did not. Indian courts, such as the Delhi High Court, have protected celebrities' names, faces and voices from misuse. These are called personality rights.</p>
+          <p>A <strong>deepfake</strong> is an AI-made video or voice that makes a real person seem to say or do something they did not. Indian courts, including High Courts, have protected celebrities' names, faces and voices from misuse. These are called personality rights.</p>
           <ul class="lc-list">
             <li>Never use a film star's face, voice or name to sell your product without a written deal.</li>
             <li>Ask customers before you film them. Ask a parent before you film a child.</li>

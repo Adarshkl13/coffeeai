@@ -26,17 +26,17 @@ module MysqlContent
             <tbody>
               <tr><td>MySQL 9.7</td><td>LTS (long-term support)</td><td>Released April 2026. The newest LTS. A good choice for new projects.</td></tr>
               <tr><td>MySQL 8.4</td><td>LTS</td><td>Supported (premier support until 2029). Very common in production.</td></tr>
-              <tr><td>MySQL 26.7</td><td>Innovation</td><td>Released 28 July 2026 (26.7.0). New features come about every three months. Each one is supported only until the next one (26.10 is due in October 2026).</td></tr>
+              <tr><td>Innovation releases</td><td>Innovation</td><td>New features come out every few months. Each one is supported only until the next one. Check the official MySQL release notes for the newest number.</td></tr>
               <tr><td>MySQL 8.0</td><td>Old</td><td>End of life (April 2026). You should upgrade.</td></tr>
             </tbody>
           </table>
-          <p><strong>New version numbers:</strong> after 9.7 LTS, innovation releases use calendar versions: <code>YY.M.P</code>. For example, 26.7.0 means 2026, July, patch 0. There is no 9.8. The LTS lines 8.4 and 9.7 keep their names.</p>
+          <p><strong>Version numbers:</strong> the way innovation releases are numbered can change after 9.7 LTS. Check the official MySQL release notes for the newest version. The LTS lines 8.4 and 9.7 keep their names.</p>
           <p>Everything in this course works on MySQL 8.4 and 9.7. MariaDB is a separate fork (a copy that grew into its own project) of MySQL. Much is the same, but some features are different, such as JSON and authentication.</p>
         </div>
 
         <div class="lc-card">
           <h3>A First Session in the mysql Client</h3>
-        <div class="lc-code">$ mysql -u root -p<br>mysql&gt; CREATE DATABASE school CHARACTER SET utf8mb4;<br>mysql&gt; USE school;<br>mysql&gt; CREATE TABLE `students` (<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;&nbsp;&nbsp;`id`&nbsp;&nbsp;&nbsp;INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;&nbsp;&nbsp;`name` VARCHAR(100) NOT NULL,<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;&nbsp;&nbsp;`city` VARCHAR(50)<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt; ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;<br>mysql&gt; SHOW TABLES;<br>+------------------+<br>| Tables_in_school |<br>+------------------+<br>| students&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>+------------------+<br>mysql&gt; DESCRIBE students;<br>+-------+--------------+------+-----+---------+----------------+<br>| Field | Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Null | Key | Default | Extra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>+-------+--------------+------+-----+---------+----------------+<br>| id&nbsp;&nbsp;&nbsp;&nbsp;| int unsigned | NO&nbsp;&nbsp;&nbsp;| PRI | NULL&nbsp;&nbsp;&nbsp;&nbsp;| auto_increment |<br>| name&nbsp;&nbsp;| varchar(100) | NO&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| NULL&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>| city&nbsp;&nbsp;| varchar(50)&nbsp;&nbsp;| YES&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| NULL&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>+-------+--------------+------+-----+---------+----------------+</div>
+        <div class="lc-code">$ mysql -u root -p<br>mysql&gt; CREATE DATABASE school CHARACTER SET utf8mb4;<br>mysql&gt; USE school;<br>mysql&gt; CREATE TABLE `students` (<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;&nbsp;&nbsp;`id`&nbsp;&nbsp;&nbsp;INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;&nbsp;&nbsp;`name` VARCHAR(100) NOT NULL,<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt;&nbsp;&nbsp;&nbsp;`state` VARCHAR(50)<br>&nbsp;&nbsp;&nbsp;&nbsp;-&gt; ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;<br>mysql&gt; SHOW TABLES;<br>+------------------+<br>| Tables_in_school |<br>+------------------+<br>| students&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>+------------------+<br>mysql&gt; DESCRIBE students;<br>+-------+--------------+------+-----+---------+----------------+<br>| Field | Type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Null | Key | Default | Extra&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>+-------+--------------+------+-----+---------+----------------+<br>| id&nbsp;&nbsp;&nbsp;&nbsp;| int unsigned | NO&nbsp;&nbsp;&nbsp;| PRI | NULL&nbsp;&nbsp;&nbsp;&nbsp;| auto_increment |<br>| name&nbsp;&nbsp;| varchar(100) | NO&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| NULL&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>| state&nbsp;| varchar(50)&nbsp;&nbsp;| YES&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| NULL&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br>+-------+--------------+------+-----+---------+----------------+</div>
           <ul class="lc-list">
             <li>In MySQL, <strong>backticks</strong> <code>`name`</code> quote identifiers (names of tables and columns). Standard SQL uses double quotes. You only need them when a name is also a keyword or has spaces.</li>
             <li><code>ENGINE=InnoDB</code> picks the storage engine (the part that stores the data). InnoDB is the default. It is the right choice for almost everything (lesson 13).</li>
@@ -87,16 +87,16 @@ module MysqlContent
         CREATE TABLE `students` (
             `id`   INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             `name` VARCHAR(100) NOT NULL,
-            `city` VARCHAR(50),
+            `state` VARCHAR(50),
             `marks` INT
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
         -- id is generated automatically
-        INSERT INTO `students` (`name`, `city`, `marks`) VALUES
-            ('Asha',   'Leeds',      88),
-            ('Bharat', 'Denver',     72),
-            ('Chitra', 'Leeds',      95),
-            ('Deepak', 'Canterbury', 64);
+        INSERT INTO `students` (`name`, `state`, `marks`) VALUES
+            ('Asha',   'Kerala', 88),
+            ('Bharat', 'Punjab', 72),
+            ('Chitra', 'Kerala', 95),
+            ('Deepak', 'Assam',  64);
 
         -- Explore the database
         SHOW TABLES;
@@ -105,14 +105,14 @@ module MysqlContent
         -- Quick SQL review: filter, sort, limit
         SELECT id, name, marks
         FROM students
-        WHERE city = 'Leeds'
+        WHERE state = 'Kerala'
         ORDER BY marks DESC;
 
         -- MySQL-style LIMIT offset, count: skip 1 row, return 2
         SELECT name, marks FROM students ORDER BY marks DESC LIMIT 1, 2;
 
         -- CONCAT joins strings in MySQL
-        SELECT CONCAT(name, ' from ', city) AS intro FROM students ORDER BY id;
+        SELECT CONCAT(name, ' from ', state) AS intro FROM students ORDER BY id;
       SQL
     },
 
@@ -272,7 +272,7 @@ module MysqlContent
 
         <div class="lc-card">
           <h3>ONLY_FULL_GROUP_BY</h3>
-        <div class="lc-code">SELECT city, name, COUNT(*) FROM customers GROUP BY city;<br>-- ERROR 1055: Expression #2 of SELECT list is not in GROUP BY clause and contains<br>-- nonaggregated column 'shop.customers.name' ...<br><br>SELECT city, COUNT(*), ANY_VALUE(name) AS example_name<br>FROM customers GROUP BY city;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- OK: you say "any name is fine"</div>
+        <div class="lc-code">SELECT state, name, COUNT(*) FROM customers GROUP BY state;<br>-- ERROR 1055: Expression #2 of SELECT list is not in GROUP BY clause and contains<br>-- nonaggregated column 'shop.customers.name' ...<br><br>SELECT state, COUNT(*), ANY_VALUE(name) AS example_name<br>FROM customers GROUP BY state;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- OK: you say "any name is fine"</div>
           <p>Fix the query. Do not switch the mode off. You have three choices. Group by the column. Or aggregate it (<code>MIN(name)</code>, <code>GROUP_CONCAT(name)</code>). Or use <code>ANY_VALUE()</code> when any value really is fine. MySQL also allows a column that is <em>functionally dependent</em> on the grouped primary key. This means the key decides the column's value.</p>
         </div>
 
@@ -800,7 +800,7 @@ module MysqlContent
               <tr><td><code>CONCAT(a, b, ...)</code></td><td><code>CONCAT('Ram', ' ', 'Kumar')</code></td><td><code>'Ram Kumar'</code> (NULL if any argument is NULL)</td></tr>
               <tr><td><code>CONCAT_WS(sep, ...)</code></td><td><code>CONCAT_WS(' ', 'Ram', NULL, 'Kumar')</code></td><td><code>'Ram Kumar'</code> (skips NULLs)</td></tr>
               <tr><td><code>SUBSTRING_INDEX(s, delim, n)</code></td><td><code>SUBSTRING_INDEX('priya@gmail.com', '@', -1)</code></td><td><code>'gmail.com'</code></td></tr>
-              <tr><td><code>LEFT</code> / <code>RIGHT</code></td><td><code>LEFT('Seattle', 3)</code></td><td><code>'Sea'</code></td></tr>
+              <tr><td><code>LEFT</code> / <code>RIGHT</code></td><td><code>LEFT('Kerala', 3)</code></td><td><code>'Ker'</code></td></tr>
               <tr><td><code>LPAD(s, n, pad)</code></td><td><code>LPAD('42', 5, '0')</code></td><td><code>'00042'</code></td></tr>
               <tr><td><code>LOCATE(sub, s)</code></td><td><code>LOCATE('@', 'a@b.com')</code></td><td><code>2</code></td></tr>
               <tr><td><code>FORMAT(n, d)</code></td><td><code>FORMAT(1234567.891, 2)</code></td><td><code>'1,234,567.89'</code> (a string, for display only)</td></tr>
@@ -1002,7 +1002,7 @@ module MysqlContent
         WHERE c.id IS NULL;
 
         -- Preview, then apply a 10% discount to Robotics members
-        -- (MySQL can also write: UPDATE students s JOIN clubs c ... SET ... — see lesson)
+        -- (MySQL can also write: UPDATE students s JOIN clubs c ... SET ... - see lesson)
         SELECT s.name, s.fee FROM students s JOIN clubs c ON c.id = s.club_id
         WHERE c.title = 'Robotics';
         UPDATE students
@@ -1037,13 +1037,13 @@ module MysqlContent
 
         <div class="lc-card">
           <h3>WITH ROLLUP: Subtotals the MySQL Way</h3>
-        <div class="lc-code">SELECT IFNULL(city, 'ALL CITIES') AS city, SUM(amount) AS revenue<br>FROM payments<br>GROUP BY city WITH ROLLUP;</div>
-        <div class="lc-code">+------------+---------+<br>| city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| revenue |<br>+------------+---------+<br>| Birmingham |&nbsp;&nbsp;&nbsp;&nbsp;9000 |<br>| Manchester |&nbsp;&nbsp;&nbsp;12000 |<br>| ALL CITIES |&nbsp;&nbsp;&nbsp;21000 |<br>+------------+---------+</div>
-          <p><code>WITH ROLLUP</code> adds a total row (a super-aggregate row). In that row, the grouped column is NULL. <code>GROUPING(city)</code> (8.0+) returns 1 on those rows. This is safer than IFNULL when the data itself can have NULL cities.</p>
+        <div class="lc-code">SELECT IFNULL(state, 'ALL STATES') AS state, SUM(amount) AS revenue<br>FROM payments<br>GROUP BY state WITH ROLLUP;</div>
+        <div class="lc-code">+------------+---------+<br>| state&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| revenue |<br>+------------+---------+<br>| Gujarat&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;9000 |<br>| Kerala&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;12000 |<br>| ALL STATES |&nbsp;&nbsp;&nbsp;21000 |<br>+------------+---------+</div>
+          <p><code>WITH ROLLUP</code> adds a total row (a super-aggregate row). In that row, the grouped column is NULL. <code>GROUPING(state)</code> (8.0+) returns 1 on those rows. This is safer than IFNULL when the data itself can have NULL states.</p>
         </div>
 
         <div class="lc-card">
-          <h3>Old Way (MySQL 5.7) — Don't Use</h3>
+          <h3>Old Way (MySQL 5.7): Don't Use</h3>
         <div class="lc-code">-- Ranking with user variables, common in old answers online:<br>SELECT name, score, @r := @r + 1 AS rnk<br>FROM players, (SELECT @r := 0) init<br>ORDER BY score DESC;</div>
           <p>Setting user variables inside expressions is <strong>deprecated</strong>. Also, the order of evaluation was never guaranteed. Replace it with <code>ROW_NUMBER() OVER (ORDER BY score DESC)</code>.</p>
         </div>
@@ -1071,14 +1071,14 @@ module MysqlContent
         -- CTEs and Window Functions in MySQL
         CREATE TABLE payments (
             id      INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            city    VARCHAR(20) NOT NULL,
+            state    VARCHAR(20) NOT NULL,
             amount  INT UNSIGNED NOT NULL,
             paid_on DATE NOT NULL
         ) ENGINE=InnoDB;
-        INSERT INTO payments (city, amount, paid_on) VALUES
-            ('Manchester', 5000, '2026-07-10'), ('Birmingham', 3000, '2026-07-22'),
-            ('Manchester', 4000, '2026-08-05'), ('Birmingham', 6000, '2026-08-18'),
-            ('Manchester', 3000, '2026-09-02');
+        INSERT INTO payments (state, amount, paid_on) VALUES
+            ('Kerala', 5000, '2026-07-10'), ('Gujarat', 3000, '2026-07-22'),
+            ('Kerala', 4000, '2026-08-05'), ('Gujarat', 6000, '2026-08-18'),
+            ('Kerala', 3000, '2026-09-02');
 
         -- CTE + running total + month-over-month change
         WITH monthly AS (
@@ -1090,16 +1090,16 @@ module MysqlContent
                revenue - LAG(revenue) OVER (ORDER BY month) AS change_vs_last
         FROM monthly ORDER BY month;
 
-        -- Rank payments inside each city, and each city's share of all revenue
-        SELECT city, paid_on, amount,
-               RANK() OVER (PARTITION BY city ORDER BY amount DESC) AS rank_in_city,
+        -- Rank payments inside each state, and each state's share of all revenue
+        SELECT state, paid_on, amount,
+               RANK() OVER (PARTITION BY state ORDER BY amount DESC) AS rank_in_state,
                ROUND(100 * amount / SUM(amount) OVER (), 1) AS pct_of_total
-        FROM payments ORDER BY city, rank_in_city;
+        FROM payments ORDER BY state, rank_in_state;
 
-        -- WITH ROLLUP adds a grand-total row; its city is NULL
-        -- (on a real server, wrap it: IFNULL(city, 'ALL CITIES') or use GROUPING(city))
-        SELECT city, SUM(amount) AS revenue
-        FROM payments GROUP BY city WITH ROLLUP;
+        -- WITH ROLLUP adds a grand-total row; its state is NULL
+        -- (on a real server, wrap it: IFNULL(state, 'ALL STATES') or use GROUPING(state))
+        SELECT state, SUM(amount) AS revenue
+        FROM payments GROUP BY state WITH ROLLUP;
 
         -- Recursive CTE: a calendar of the first 7 days of September
         WITH RECURSIVE days (d) AS (
@@ -1598,7 +1598,7 @@ module MysqlContent
 
         <div class="lc-card">
           <h3>Views in MySQL</h3>
-        <div class="lc-code">CREATE OR REPLACE VIEW v_active_customers AS<br>SELECT id, name, city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- phone and email deliberately left out<br>FROM customers<br>WHERE is_active = 1<br>WITH CHECK OPTION;</div>
+        <div class="lc-code">CREATE OR REPLACE VIEW v_active_customers AS<br>SELECT id, name, state&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- phone and email deliberately left out<br>FROM customers<br>WHERE is_active = 1<br>WITH CHECK OPTION;</div>
           <ul class="lc-list">
             <li><code>CREATE OR REPLACE VIEW</code> changes a view in one step. You can also use <code>ALTER VIEW</code>.</li>
             <li>Simple views (one table, no GROUP BY / DISTINCT / aggregates) are <strong>updatable</strong>. An UPDATE on the view changes the base table (the real table under it).</li>
@@ -1666,7 +1666,7 @@ module MysqlContent
             id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             name        VARCHAR(50)  NOT NULL,
             phone       VARCHAR(15)  NOT NULL,
-            city        VARCHAR(30)  NOT NULL,
+            state        VARCHAR(30)  NOT NULL,
             is_active   BOOLEAN      NOT NULL DEFAULT TRUE,
             total_spent DECIMAL(10,2) NOT NULL DEFAULT 0
         ) ENGINE=InnoDB;
@@ -1675,13 +1675,13 @@ module MysqlContent
             customer_id INT UNSIGNED NOT NULL,
             amount      DECIMAL(10,2) NOT NULL
         ) ENGINE=InnoDB;
-        INSERT INTO customers (name, phone, city, is_active) VALUES
-            ('Esha', '9800011111', 'Dallas', TRUE), ('Faisal', '9800022222', 'Oxford', TRUE),
-            ('Gita', '9800033333', 'Dallas', FALSE);
+        INSERT INTO customers (name, phone, state, is_active) VALUES
+            ('Esha', '9800011111', 'Gujarat', TRUE), ('Faisal', '9800022222', 'Goa', TRUE),
+            ('Gita', '9800033333', 'Gujarat', FALSE);
 
         -- A view that hides phone numbers and inactive customers
         CREATE VIEW v_active_customers AS
-        SELECT id, name, city, total_spent FROM customers WHERE is_active = 1;
+        SELECT id, name, state, total_spent FROM customers WHERE is_active = 1;
 
         -- What CALL place_order(1, 499.00, @new_id) does inside, step by step:
         SET @customer = 1;
@@ -1694,13 +1694,13 @@ module MysqlContent
         SELECT @new_id AS new_order_id;
 
         -- A reporting view built on a join
-        CREATE VIEW v_city_sales AS
-        SELECT c.city, COUNT(o.id) AS orders, IFNULL(SUM(o.amount), 0) AS revenue
+        CREATE VIEW v_state_sales AS
+        SELECT c.state, COUNT(o.id) AS orders, IFNULL(SUM(o.amount), 0) AS revenue
         FROM customers c LEFT JOIN orders o ON o.customer_id = c.id
-        GROUP BY c.city;
+        GROUP BY c.state;
 
         SELECT * FROM v_active_customers;
-        SELECT * FROM v_city_sales ORDER BY city;
+        SELECT * FROM v_state_sales ORDER BY state;
       SQL
     },
 
@@ -1732,9 +1732,9 @@ module MysqlContent
           <table class="lc-table">
             <thead><tr><th>Event</th><th><code>OLD</code></th><th><code>NEW</code></th></tr></thead>
             <tbody>
-              <tr><td>INSERT</td><td>—</td><td>the new row (changeable in BEFORE)</td></tr>
+              <tr><td>INSERT</td><td>n/a</td><td>the new row (changeable in BEFORE)</td></tr>
               <tr><td>UPDATE</td><td>row before</td><td>row after (changeable in BEFORE)</td></tr>
-              <tr><td>DELETE</td><td>the deleted row</td><td>—</td></tr>
+              <tr><td>DELETE</td><td>the deleted row</td><td>n/a</td></tr>
             </tbody>
           </table>
           <p>A trigger with one statement needs no <code>BEGIN ... END</code> or DELIMITER. MySQL triggers are always <code>FOR EACH ROW</code> (there are no statement-level triggers). You can have several triggers for the same event. Set their order with <code>FOLLOWS</code> / <code>PRECEDES</code>.</p>
@@ -1840,7 +1840,7 @@ module MysqlContent
 
         <div class="lc-card">
           <h3>Granting Privileges</h3>
-        <div class="lc-code">GRANT SELECT, INSERT, UPDATE, DELETE ON shop.* TO 'shop_app'@'10.0.1.%';&nbsp;&nbsp;&nbsp;-- one database<br>GRANT SELECT ON shop.orders TO 'report'@'localhost';&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- one table<br>GRANT SELECT (id, name, city) ON shop.customers TO 'report'@'localhost';&nbsp;&nbsp;&nbsp;-- some columns<br>GRANT EXECUTE ON PROCEDURE shop.place_order TO 'shop_app'@'10.0.1.%';<br><br>SHOW GRANTS FOR 'report'@'localhost';<br>REVOKE DELETE ON shop.* FROM 'shop_app'@'10.0.1.%';</div>
+        <div class="lc-code">GRANT SELECT, INSERT, UPDATE, DELETE ON shop.* TO 'shop_app'@'10.0.1.%';&nbsp;&nbsp;&nbsp;-- one database<br>GRANT SELECT ON shop.orders TO 'report'@'localhost';&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- one table<br>GRANT SELECT (id, name, state) ON shop.customers TO 'report'@'localhost';&nbsp;&nbsp;&nbsp;-- some columns<br>GRANT EXECUTE ON PROCEDURE shop.place_order TO 'shop_app'@'10.0.1.%';<br><br>SHOW GRANTS FOR 'report'@'localhost';<br>REVOKE DELETE ON shop.* FROM 'shop_app'@'10.0.1.%';</div>
           <table class="lc-table">
             <thead><tr><th>Level</th><th>Syntax</th><th>Typical user</th></tr></thead>
             <tbody>
@@ -2034,11 +2034,11 @@ module MysqlContent
         CREATE TABLE `customers` (
           `id` int unsigned NOT NULL AUTO_INCREMENT,
           `name` varchar(50) NOT NULL,
-          `city` varchar(30) NOT NULL,
+          `state` varchar(30) NOT NULL,
           PRIMARY KEY (`id`)
         ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-        INSERT INTO `customers` VALUES (1,'Kavya','Glasgow'),(2,'Laksh','Nottingham'),(3,'Manav','Glasgow');
+        INSERT INTO `customers` VALUES (1,'Kavya','Kerala'),(2,'Laksh','Punjab'),(3,'Manav','Kerala');
 
         DROP TABLE IF EXISTS `orders`;
         CREATE TABLE `orders` (
@@ -2242,7 +2242,7 @@ module MysqlContent
       starter_code: <<~'SQL'
         -- Capstone: Desi Bazaar shop database
         CREATE TABLE customers (
-            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(60) NOT NULL, city VARCHAR(40) NOT NULL
+            id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(60) NOT NULL, state VARCHAR(40) NOT NULL
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
         CREATE TABLE products (
             id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, sku VARCHAR(20) NOT NULL UNIQUE,
@@ -2265,7 +2265,7 @@ module MysqlContent
         CREATE TRIGGER trg_stock_audit AFTER UPDATE ON products FOR EACH ROW
         INSERT INTO stock_log VALUES (NEW.id, OLD.stock, NEW.stock);
 
-        INSERT INTO customers (name, city) VALUES ('Anika', 'London'), ('Bhuvan', 'Boston');
+        INSERT INTO customers (name, state) VALUES ('Anika', 'Kerala'), ('Bhuvan', 'Goa');
         INSERT INTO products (sku, name, price, stock, attrs) VALUES
             ('SAREE-01', 'Silk Saree',  2499.00, 5, '{"brand": "Kanchi", "fabric": "silk"}'),
             ('KETTLE-1', 'Kettle 1.5L',  599.00, 8, '{"brand": "Prestige", "watts": 1500}');

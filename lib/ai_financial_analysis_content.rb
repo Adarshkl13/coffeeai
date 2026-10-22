@@ -62,7 +62,7 @@ module AiFinancialAnalysisContent
         </div>
         <div class="lc-card">
           <h3>The three financial statements</h3>
-          <p>Our main example is <strong>Sahyadri Foods Ltd</strong>. It is a made-up listed company in London that makes snacks and ready-to-cook mixes. All its numbers are in ₹ crore (1 crore = 1,00,00,000 rupees). "FY26" means the financial year from 1 April 2025 to 31 March 2026.</p>
+          <p>Our main example is <strong>Sahyadri Foods Ltd</strong>. It is a made-up listed company in Maharashtra that makes snacks and ready-to-cook mixes. All its numbers are in ₹ crore (1 crore = 1,00,00,000 rupees). "FY26" means the financial year from 1 April 2025 to 31 March 2026. You will also meet two small made-up businesses: <strong>Sweet Crumbs</strong>, a home bakery in Maharashtra, and <strong>Rangrez Crafts</strong>, a handicrafts brand in Rajasthan.</p>
           <table class="lc-table">
             <thead><tr><th>Statement</th><th>What it shows</th><th>Sahyadri example (FY26)</th></tr></thead>
             <tbody>
@@ -111,7 +111,7 @@ module AiFinancialAnalysisContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient finance teacher for beginners in India. This is education only, not investment advice.
 
-        Explain the three financial statements (Profit and Loss, Balance Sheet, Cash Flow Statement) using this made-up company: [Sahyadri Foods Ltd, a London snacks maker]. Amounts are in ₹ crore for [FY26].
+        Explain the three financial statements (Profit and Loss, Balance Sheet, Cash Flow Statement) using this made-up company: [Sahyadri Foods Ltd, a Maharashtra snacks maker]. Amounts are in ₹ crore for [FY26].
         - Revenue 920, net profit 66, dividends paid 18
         - Reserves: 205 at the start of the year, 253 at the end
         - Total assets 526, total equity 303
@@ -377,7 +377,7 @@ module AiFinancialAnalysisContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient finance teacher for small business owners in India. This is education only, not tax advice.
 
-        Here is a made-up yearly P&amp;L for [Sweet Crumbs, a small bakery in London]:
+        Here is a made-up yearly P&amp;L for [Sweet Crumbs, a small home bakery in Maharashtra]:
         - Sales: [₹48,00,000]
         - Ingredients and packaging: [₹19,20,000]
         - Staff salaries: [₹12,00,000]
@@ -522,7 +522,7 @@ module AiFinancialAnalysisContent
             <ul data-sorter-target="pool">
               <li data-bucket="op" data-why="Selling snacks is the normal business.">Cash received from distributors for snacks sold</li>
               <li data-bucket="op" data-why="Buying raw materials is part of the normal business.">Paying suppliers for edible oil and flour</li>
-              <li data-bucket="inv" data-why="Buying a long-term asset is investing.">Paying ₹60 cr for a new snacks line at the Exeter plant</li>
+              <li data-bucket="inv" data-why="Buying a long-term asset is investing.">Paying ₹60 cr for a new snacks line at its main plant</li>
               <li data-bucket="inv" data-why="Selling a long-term asset is also investing.">Selling an old delivery truck</li>
               <li data-bucket="fin" data-why="Borrowing money is financing.">Taking a new ₹20 cr loan from Navkar Bank</li>
               <li data-bucket="fin" data-why="Paying shareholders is financing.">Paying ₹18 cr of dividends to shareholders</li>
@@ -652,7 +652,7 @@ module AiFinancialAnalysisContent
           <h3>Activity: check an AI summary</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="user" data-label="Prompt">Ananya, a 28-year-old software tester in London, has a job interview at Sahyadri Foods Ltd. She uploads Sahyadri Foods Ltd's made-up FY26 annual report and uses the prompt above.</li>
+              <li data-kind="user" data-label="Prompt">Ananya, a 28-year-old software tester in Karnataka, has a job interview at Sahyadri Foods Ltd. She uploads Sahyadri Foods Ltd's made-up FY26 annual report and uses the prompt above.</li>
               <li data-kind="answer" data-label="AI summary">"Revenue ₹920 cr (p. 88). Net profit ₹66 cr (p. 88). EBITDA margin improved to 14.2% (p. 34). Operating cash flow ₹66 cr (p. 92)."</li>
               <li data-kind="tool" data-label="Open the PDF">Ananya opens pages 88, 34 and 92 and compares each figure.</li>
               <li data-kind="result" data-label="What she finds">Pages 88 and 92 match. Page 34 has no EBITDA margin. The P&amp;L gives EBITDA of ₹125 cr on revenue of ₹920 cr.</li>
@@ -668,7 +668,7 @@ module AiFinancialAnalysisContent
             <pre class="ai-try-prompt">You are a careful financial analyst. This is education only, not investment advice.
 
         Summarise this made-up annual report extract for [Sahyadri Foods Ltd] (₹ crore, standalone):
-        "[FY26 was a year of strong growth. Revenue rose 15% to 920 (FY25: 800). Net profit was 66 (FY25: 60). Gross margin was under pressure because edible oil and packaging costs rose; we raised prices twice in the second half. We spent 60 on a new snacks line at our Exeter plant. Borrowings rose from 110 to 135. Operating cash flow was 66 (FY25: 72). We expect margins to recover in FY27. Note 34: a disputed tax demand of 8 is shown as a contingent liability.]"
+        "[FY26 was a year of strong growth. Revenue rose 15% to 920 (FY25: 800). Net profit was 66 (FY25: 60). Gross margin was under pressure because edible oil and packaging costs rose; we raised prices twice in the second half. We spent 60 on a new snacks line at our main plant. Borrowings rose from 110 to 135. Operating cash flow was 66 (FY25: 72). We expect margins to recover in FY27. Note 34: a disputed tax demand of 8 is shown as a contingent liability.]"
 
         Tasks:
         1. A table of key numbers: this year, last year, change in %. Show the working.
@@ -762,7 +762,7 @@ module AiFinancialAnalysisContent
           </table>
           <p><strong>Average equity</strong> is (opening + closing) ÷ 2. For FY25 that is (210 + 255) ÷ 2 = 232.5. For FY26 it is (255 + 303) ÷ 2 = 279. Many analysts prefer the average, because profit is earned across the whole year.</p>
           <p><strong>Formulas differ.</strong> Some people add short-term borrowings to capital employed. Then FY26 capital employed is 303 + 135 = 438, and ROCE is 101 ÷ 438 = 23.1%. Neither is wrong. Always write down which formula you used. Use the same formula for every year and every company you compare.</p>
-          <p>Both returns fell in FY26. Profit grew 10%, but equity grew 19% (255 to 303) and capital employed grew about 20% (345 to 413). The new Exeter snacks line is not earning much yet. You would ask: when will it start earning?</p>
+          <p>Both returns fell in FY26. Profit grew 10%, but equity grew 19% (255 to 303) and capital employed grew about 20% (345 to 413). The new snacks line is not earning much yet. You would ask: when will it start earning?</p>
         </div>
         <div class="lc-card">
           <h3>Using AI: a weak prompt and a better prompt</h3>
@@ -785,7 +785,7 @@ module AiFinancialAnalysisContent
           <h3>Activity: catch the ratio mistake</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="user" data-label="Prompt">Ananya, a software tester in London, is preparing for a finance job interview. She gives the AI Sahyadri's made-up FY26 numbers and asks for ROE and ROCE.</li>
+              <li data-kind="user" data-label="Prompt">Ananya, a software tester in Karnataka, is preparing for a finance job interview. She gives the AI Sahyadri's made-up FY26 numbers and asks for ROE and ROCE.</li>
               <li data-kind="answer" data-label="AI answer">"ROE = 66 ÷ 526 = 12.5%. ROCE = 101 ÷ 413 = 24.5%. ROE is much lower than ROCE, so shareholders earn a poor return."</li>
               <li data-kind="thought" data-label="Ananya thinks">An ROE of 12.5% looks far too low next to a ROCE of 24.5%. Sahyadri does not have much debt. Where does 526 come from?</li>
               <li data-kind="tool" data-label="Spreadsheet">She opens her sheet. 526 is total assets. Equity is 303. She types <code>=66/303</code>.</li>
@@ -801,7 +801,7 @@ module AiFinancialAnalysisContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient finance teacher. This is education only, not investment advice.
 
-        Here are made-up numbers for [LedgerLite Pvt Ltd, a San Francisco software company], in ₹ lakh:
+        Here are made-up numbers for [LedgerLite Pvt Ltd, an accounting software company in Karnataka], in ₹ lakh:
         - Last year: revenue [500], gross profit [300], operating profit (EBIT) [80], net profit [55], equity [250], long-term borrowings [50]
         - This year: revenue [600], gross profit [348], operating profit (EBIT) [90], net profit [60], equity [300], long-term borrowings [60]
 
@@ -1066,7 +1066,7 @@ module AiFinancialAnalysisContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly finance coach for small businesses in India. This is education only, not financial advice.
 
-        Here are made-up yearly numbers for [Rangrez Crafts, a Manchester handicrafts store], in ₹ lakh:
+        Here are made-up yearly numbers for [Rangrez Crafts, a handicrafts brand in Rajasthan], in ₹ lakh:
         - Sales (revenue) [120]
         - Cost of goods sold [72]
         - Closing stock [24]
@@ -1220,7 +1220,7 @@ module AiFinancialAnalysisContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a financial analyst teaching a beginner. This is education only, not investment advice.
 
-        Here are made-up P&amp;L numbers for [Sweet Crumbs, a small London bakery], in ₹ lakh:
+        Here are made-up P&amp;L numbers for [Sweet Crumbs, a small home bakery in Maharashtra], in ₹ lakh:
         - Year 1: sales [40], ingredients and packing [16], staff [9], rent and power [7], other costs [3], net profit [5]
         - Year 2: sales [50], ingredients and packing [21], staff [10], rent and power [8], other costs [4], net profit [7]
 
@@ -1250,7 +1250,7 @@ module AiFinancialAnalysisContent
           <div class="lc-badge le-badge le-badge-fin">Finance</div>
           <h1 class="lc-title">Costs, Margins and Break-Even</h1>
         </div>
-        <p class="lc-lead">"How many do we need to sell to cover our costs?" Every business owner asks this. The answer is the <strong>break-even point</strong>. In this lesson, you will split costs into fixed and variable, work out the contribution from each sale and find the break-even point. You will use a made-up London bakery, Sweet Crumbs, and then look at the made-up Sahyadri Foods Ltd. You will also use AI to test "what if" questions, such as a price discount. This is education only, not financial or investment advice.</p>
+        <p class="lc-lead">"How many do we need to sell to cover our costs?" Every business owner asks this. The answer is the <strong>break-even point</strong>. In this lesson, you will split costs into fixed and variable, work out the contribution from each sale and find the break-even point. You will use a made-up home bakery in Maharashtra, Sweet Crumbs, and then look at the made-up Sahyadri Foods Ltd. You will also use AI to test "what if" questions, such as a price discount. This is education only, not financial or investment advice.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 330" role="img" aria-label="A break-even chart for the made-up bakery Sweet Crumbs. The x axis shows cakes sold per month from 0 to 1,000. The y axis shows rupees from 0 to 6 lakh. Fixed costs are a flat line at 1.5 lakh. Total cost starts at 1.5 lakh and rises by 360 rupees per cake. Sales start at zero and rise by 600 rupees per cake. The lines cross at 625 cakes and 3.75 lakh rupees, the break-even point. A side panel lists price 600, variable cost 360, contribution 240, fixed costs 1,50,000 and break-even 625 cakes.">
             <g font-family="inherit" font-size="13" fill="#e2e0f0">
@@ -1369,7 +1369,7 @@ module AiFinancialAnalysisContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a small-business finance coach in India. This is education only, not financial advice.
 
-        Here are made-up monthly numbers for [Rangrez Crafts, a Manchester handicrafts store], selling [block-printed cushion covers]:
+        Here are made-up monthly numbers for [Rangrez Crafts, a handicrafts brand in Rajasthan], selling [block-printed cushion covers]:
         - Selling price per unit: ₹[800]
         - Variable cost per unit (fabric, printing, packing, payment charges): ₹[500]
         - Fixed costs per month (rent, salaries, basic bills): ₹[1,20,000]
@@ -1445,7 +1445,7 @@ module AiFinancialAnalysisContent
         </figure>
         <div class="lc-card">
           <h3>Building a simple budget</h3>
-          <p>Sweet Crumbs is a small made-up bakery in London. The owner builds a monthly budget in three steps.</p>
+          <p>Sweet Crumbs is a small made-up home bakery in Maharashtra. The owner builds a monthly budget in three steps.</p>
           <ol class="lc-list">
             <li><strong>Start with sales.</strong> Use last year's sales and any known changes. For August: 8,000 orders × ₹50 average order = ₹4,00,000.</li>
             <li><strong>Add variable costs.</strong> These move with sales. Ingredients are about 35% of sales, so ₹1,40,000.</li>
@@ -1516,7 +1516,7 @@ module AiFinancialAnalysisContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a careful management accountant helping a small business owner in India. This is education only, not financial advice.
 
-        Business: [Sweet Crumbs, a small bakery in London]. Month: [September]. Made-up numbers in ₹:
+        Business: [Sweet Crumbs, a small home bakery in Maharashtra]. Month: [September]. Made-up numbers in ₹:
         - Sales: budget 4,20,000, actual 3,90,000
         - Ingredients (planned at 35% of sales): budget 1,47,000, actual 1,44,300
         - Staff salaries: budget 90,000, actual 92,000
@@ -1672,7 +1672,7 @@ module AiFinancialAnalysisContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly finance tutor for small business owners in India. This is education only, not financial advice.
 
-        Business: [Sweet Crumbs, a small bakery in London]. Made-up monthly sales in ₹ thousand:
+        Business: [Sweet Crumbs, a small home bakery in Maharashtra]. Made-up monthly sales in ₹ thousand:
         [Apr 380, May 400, Jun 350, Jul 370, Aug 360, Sep 390]
         Last year: October was [420] and the average month was [350].
         Costs: ingredients are [35]% of sales. Fixed costs are [175] thousand a month.
@@ -1781,7 +1781,7 @@ module AiFinancialAnalysisContent
         </div>
         <div class="lc-card">
           <h3>Worked example: Rangrez Crafts before the festival season</h3>
-          <p>Rangrez Crafts is a made-up handicrafts store in Manchester. It has ₹3,00,000 in the bank. It wants to keep at least ₹1,00,000 as a buffer. Amounts are in ₹ thousand.</p>
+          <p>Rangrez Crafts is a made-up handicrafts brand in Rajasthan. It has ₹3,00,000 in the bank. It wants to keep at least ₹1,00,000 as a buffer. Amounts are in ₹ thousand.</p>
           <table class="lc-table">
             <thead><tr><th>Week</th><th>Cash in</th><th>Cash out</th><th>Net</th><th>Closing</th></tr></thead>
             <tbody>
@@ -1842,7 +1842,7 @@ module AiFinancialAnalysisContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a practical cash flow adviser for small shops in India. This is education only, not financial advice.
 
-        Business: [Rangrez Crafts, a handicrafts store in Manchester]. Opening cash: [300] thousand rupees. Buffer: keep at least [100] thousand.
+        Business: [Rangrez Crafts, a handicrafts brand in Rajasthan]. Opening cash: [300] thousand rupees. Buffer: keep at least [100] thousand.
         Made-up weekly numbers in ₹ thousand (cash in / cash out):
         W1 150/140, W2 150/160, W3 150/260, W4 160/280, W5 170/260, W6 220/150, W7 300/160, W8 360/170, W9 380/180, W10 300/200, W11 200/150, W12 160/180, W13 150/140
 
@@ -1956,7 +1956,7 @@ module AiFinancialAnalysisContent
         WHY
         - Edible oil and packaging costs rose, so gross margin fell 1 point.
         - Inventory days rose from 56.2 to 60.1, which locked up cash.
-        - Capex rose to 60 for the new Exeter snacks line.
+        - Capex rose to 60 for the new snacks line.
 
         RECOMMENDATIONS
         1. Bring inventory days back to about 56. This could free about 7 crore.

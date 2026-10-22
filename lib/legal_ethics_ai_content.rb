@@ -296,7 +296,7 @@ module LegalEthicsAiContent
               <tr><td><strong>To colleagues:</strong> rule 36 bans advertising or soliciting work, directly or indirectly. A limited proviso allows basic website information.</td><td>AI-written social media posts that promote the firm or its wins can break rule 36.</td><td>A junior wanted an AI-written LinkedIn post about "our big win". Kavita said no.</td></tr>
             </tbody>
           </table>
-          <p>In July 2026 the Bar Council of India issued a circular on social media conduct. It repeats that advertising and solicitation are not allowed online. It also warns against AI deepfakes of judges, courts, advocates or clients. Check the circular's current text before you rely on it.</p>
+          <p>The Bar Council of India's rules already ban advertising and solicitation, and that includes online posts. The Bar Council has also warned advocates about conduct on social media, and AI deepfakes of judges, courts, advocates or clients are a clear risk. Check the Bar Council's latest circulars before you rely on them.</p>
         </div>
         <div class="lc-card">
           <h3>Privilege and in-house lawyers: a 2025 ruling</h3>
@@ -760,7 +760,7 @@ module LegalEthicsAiContent
         </figure>
         <div class="lc-card">
           <h3>Near miss 2, step by step (made up)</h3>
-          <p>In April 2026, Adv. Sameer Rao was preparing written submissions for LedgerLite Pvt Ltd in a made-up Bombay High Court suit against "Orbit Retail Solutions Pvt Ltd". LedgerLite was claiming about ₹1.8 crore in unpaid licence fees, plus interest. Late at night, Sameer asked a general AI chat tool to "add three or four Supreme Court judgments supporting interest on delayed commercial payments, with citations".</p>
+          <p>In April 2026, Adv. Sameer Rao was preparing written submissions for LedgerLite Pvt Ltd in a made-up High Court suit against "Orbit Retail Solutions Pvt Ltd". LedgerLite was claiming about ₹1.8 crore in unpaid licence fees, plus interest. Late at night, Sameer asked a general AI chat tool to "add three or four Supreme Court judgments supporting interest on delayed commercial payments, with citations".</p>
           <ul class="lc-list">
             <li><strong>What the tool gave:</strong> four authorities, each with SCC-style citations and a neat one-line holding.</li>
             <li><strong>Why it looked real:</strong> the names followed Indian patterns, for example "Pranav Traders v. Union of India (2019)" [MADE-UP: this case does not exist].</li>
@@ -906,7 +906,7 @@ module LegalEthicsAiContent
             <li>If a tool is secret, the person cannot fully challenge it.</li>
             <li>A score is about groups. A court decides about one person, on the facts.</li>
           </ul>
-          <p>In India, the Supreme Court released draft Regulations for Use of Artificial Intelligence in Courts in June 2026, for public comment. As reported, the draft would bar AI for risk scoring and profiling of people. It was still a draft when this course was written. Check its current status before you rely on it.</p>
+          <p>In India, courts are working on rules for the use of AI in courts. Watch for any rule that limits AI for risk scoring or profiling of people. Check the current rules of the Supreme Court and your High Court before you rely on them.</p>
         </div>
         <div class="lc-card">
           <h3>Fairness to clients</h3>
@@ -1035,7 +1035,7 @@ module LegalEthicsAiContent
           <table class="lc-table">
             <thead><tr><th>Where</th><th>What is known (in general words)</th></tr></thead>
             <tbody>
-              <tr><td>Supreme Court of India, draft of June 2026</td><td>Draft Regulations for Use of Artificial Intelligence in Courts, 2026 were released for public comment. As reported, lawyers would have to declare AI use when filing pleadings, documents or evidence. It was a draft when this course was written. Check whether it is now in force, and from when, for your court.</td></tr>
+              <tr><td>Supreme Court of India and High Courts</td><td>Courts in India are working on rules for AI use in courts. Some may ask lawyers to declare AI use when filing pleadings, documents or evidence. Check whether any such rule is in force, and from when, for your court.</td></tr>
               <tr><td>Kerala High Court, July 2025</td><td>A policy for the district judiciary, not for lawyers. Judges and staff must keep a record of AI use and check every AI output.</td></tr>
               <tr><td>Bombay High Court, January 2026</td><td>In <em>Deepak s/o Shivkumar Bahry v. Heart &amp; Soul Entertainment Ltd</em>, the court said AI for research is welcome. But advocates must cross-check that references are genuine.</td></tr>
               <tr><td>United States, individual judges</td><td>Some judges have standing orders on AI. In 2023, Judge Brantley Starr in Texas made lawyers certify one of two things. Either no generative AI was used, or a human checked any AI-drafted text.</td></tr>
@@ -1799,7 +1799,7 @@ module LegalEthicsAiContent
               <tr><td>Machine translation of client documents</td><td>Free online translation for Marathi and Hindi papers</td><td>Medium</td><td>Approved tool only. A fluent person checks every translation.</td></tr>
               <tr><td>Client files sent by WhatsApp and then copied into AI</td><td>Clients send documents by WhatsApp</td><td>Medium</td><td>Save to OneDrive first. Same never-paste rules apply.</td></tr>
               <tr><td>Unfair billing for AI work</td><td>Time spent fixing the fake citations</td><td>Medium</td><td>Bill actual time only. Never bill for fixing AI errors or learning a tool.</td></tr>
-              <tr><td>AI deepfakes or promotional posts</td><td>BCI circular on social media, July 2026</td><td>Low</td><td>Red use in the policy. No client information online.</td></tr>
+              <tr><td>AI deepfakes or promotional posts</td><td>Bar Council of India rules on advertising and online conduct</td><td>Low</td><td>Red use in the policy. No client information online.</td></tr>
             </tbody>
           </table>
           <p>The level is the firm's judgement, not a fact. Partners should agree on it together.</p>

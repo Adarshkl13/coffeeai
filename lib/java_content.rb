@@ -154,7 +154,7 @@ module JavaContent
           <h3>Declaring Variables, <code>final</code> and <code>var</code></h3>
           <div class="lc-code-block"><pre><code>int age = 20;                  // type name = value;
         double cgpa = 8.6;
-        String city = "London";        // String is a class, not a primitive
+        String state = "Kerala";       // String is a class, not a primitive
         long fee = 1_25_000L;          // underscores make big numbers readable
         final double GST_RATE = 0.18;  // final = cannot be reassigned (a constant)
 
@@ -241,10 +241,10 @@ module JavaContent
                 System.out.println("boolean: " + passed);
 
                 // var: the compiler infers the type (Java 10+)
-                var city = "Los Angeles";   // String
+                var state = "Kerala";       // String
                 var seats = 60;         // int
                 final double GST_RATE = 0.18;
-                System.out.println(city + " has " + seats + " seats; GST " + GST_RATE);
+                System.out.println(state + " has " + seats + " seats; GST " + GST_RATE);
 
                 // Casting
                 System.out.println("(int) 9.99      = " + (int) 9.99);
@@ -407,10 +407,10 @@ module JavaContent
           <table class="lc-table">
             <thead><tr><th>Method</th><th>Example</th><th>Result</th></tr></thead>
             <tbody>
-              <tr><td><code>length()</code></td><td><code>"New York".length()</code></td><td><code>8</code></td></tr>
-              <tr><td><code>charAt(i)</code></td><td><code>"New York".charAt(0)</code></td><td><code>'N'</code></td></tr>
-              <tr><td><code>substring(a, b)</code></td><td><code>"New York".substring(0, 3)</code></td><td><code>"New"</code> (b is excluded)</td></tr>
-              <tr><td><code>indexOf(s)</code></td><td><code>"New York".indexOf("York")</code></td><td><code>4</code> (or -1 if not found)</td></tr>
+              <tr><td><code>length()</code></td><td><code>"Tamil Nadu".length()</code></td><td><code>10</code></td></tr>
+              <tr><td><code>charAt(i)</code></td><td><code>"Tamil Nadu".charAt(0)</code></td><td><code>'T'</code></td></tr>
+              <tr><td><code>substring(a, b)</code></td><td><code>"Tamil Nadu".substring(0, 3)</code></td><td><code>"Tam"</code> (b is excluded)</td></tr>
+              <tr><td><code>indexOf(s)</code></td><td><code>"Tamil Nadu".indexOf("Nadu")</code></td><td><code>6</code> (or -1 if not found)</td></tr>
               <tr><td><code>contains(s)</code></td><td><code>"a@b.com".contains("@")</code></td><td><code>true</code></td></tr>
               <tr><td><code>replace(a, b)</code></td><td><code>"2025".replace("5", "6")</code></td><td><code>"2026"</code></td></tr>
               <tr><td><code>strip()</code></td><td><code>"  hi  ".strip()</code></td><td><code>"hi"</code> (a <code>trim</code> that knows Unicode, Java 11)</td></tr>
@@ -617,7 +617,7 @@ module JavaContent
             <tbody>
               <tr><td>Best for</td><td>ranges and complex conditions</td><td>old code</td><td>one value matched against constants</td></tr>
               <tr><td>Returns a value</td><td>No</td><td>No</td><td>Yes</td></tr>
-              <tr><td>Fall-through</td><td>—</td><td>Yes, unless you <code>break</code></td><td>Never</td></tr>
+              <tr><td>Fall-through</td><td>n/a</td><td>Yes, unless you <code>break</code></td><td>Never</td></tr>
               <tr><td>Must cover all cases</td><td>No</td><td>No</td><td>Yes (the compiler checks)</td></tr>
             </tbody>
           </table>
@@ -720,9 +720,9 @@ module JavaContent
         } while (tries &lt; 3);                    // tries = 3
 
         // 4. enhanced for: visit every element
-        String[] cities = {"Chicago", "Boston", "Manchester"};
-        for (String city : cities) {
-            System.out.println(city);
+        String[] states = {"Kerala", "Goa", "Punjab"};
+        for (String state : states) {
+            System.out.println(state);
         }</code></pre></div>
           <table class="lc-table">
             <thead><tr><th>Loop</th><th>Use when</th><th>Checks condition</th></tr></thead>
@@ -730,7 +730,7 @@ module JavaContent
               <tr><td><code>for</code></td><td>you know the count or need the index</td><td>before each pass</td></tr>
               <tr><td><code>while</code></td><td>you repeat until something changes</td><td>before each pass (may run 0 times)</td></tr>
               <tr><td><code>do-while</code></td><td>the body must run at least once (menus, retries)</td><td>after each pass</td></tr>
-              <tr><td>enhanced <code>for</code></td><td>you only need each element, not its index</td><td>—</td></tr>
+              <tr><td>enhanced <code>for</code></td><td>you only need each element, not its index</td><td>n/a</td></tr>
             </tbody>
           </table>
         </div>
@@ -2262,7 +2262,7 @@ module JavaContent
           <h3>Immutable Collections and Keys</h3>
           <div class="lc-code-block"><pre><code>List&lt;String&gt; days = List.of("Mon", "Tue");       // Java 9+: unmodifiable
         // days.add("Wed");                             // UnsupportedOperationException
-        Map&lt;String, Integer&gt; zips = Map.of("Chicago", 60601, "New York", 10001);
+        Map&lt;String, Integer&gt; marks = Map.of("Asha", 91, "Ravi", 84);
         List&lt;String&gt; copy = new ArrayList&lt;&gt;(days);     // a modifiable copy</code></pre></div>
           <p>Some objects are used as <code>HashMap</code> keys or in a <code>HashSet</code>. They must implement <code>equals</code> and <code>hashCode</code> so that both agree. Records do this for you. That is one reason they make great keys.</p>
         </div>
@@ -2452,7 +2452,7 @@ module JavaContent
             <div class="lc-flow-arrow">→</div>
             <div class="lc-flow-step">Terminal (runs it)<br><code>toList</code>, <code>count</code>, <code>sum</code>, <code>collect</code>, <code>forEach</code></div>
           </div>
-          <div class="lc-code-block"><pre><code>record Order(String customer, String city, double amount) { }
+          <div class="lc-code-block"><pre><code>record Order(String customer, String state, double amount) { }
 
         List&lt;String&gt; bigSpenders = orders.stream()
                 .filter(o -&gt; o.amount() &gt; 500)          // keep some
@@ -2463,8 +2463,8 @@ module JavaContent
 
         double revenue = orders.stream().mapToDouble(Order::amount).sum();
 
-        Map&lt;String, Long&gt; perCity = orders.stream()
-                .collect(Collectors.groupingBy(Order::city, TreeMap::new, Collectors.counting()));</code></pre></div>
+        Map&lt;String, Long&gt; perState = orders.stream()
+                .collect(Collectors.groupingBy(Order::state, TreeMap::new, Collectors.counting()));</code></pre></div>
           <p>Nothing happens until the terminal (last) operation runs. You can use a stream <strong>only once</strong>. Create a new one for each pipeline.</p>
         </div>
         <div class="lc-card">
@@ -2505,7 +2505,7 @@ module JavaContent
         </div>
         <div class="lc-card">
           <h3>Try it</h3>
-          <p>In the starter code, add a pipeline that prints the <strong>total amount per city</strong>. Use <code>Collectors.groupingBy(Order::city, TreeMap::new, Collectors.summingDouble(Order::amount))</code>. Then find the customer with the single largest order using <code>max(Comparator.comparing(Order::amount))</code>.</p>
+          <p>In the starter code, add a pipeline that prints the <strong>total amount per state</strong>. Use <code>Collectors.groupingBy(Order::state, TreeMap::new, Collectors.summingDouble(Order::amount))</code>. Then find the customer with the single largest order using <code>max(Comparator.comparing(Order::amount))</code>.</p>
         </div>
         <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Read a stream pipeline aloud, one line per step: "from orders, keep those over 500, take the customer, remove duplicates, sort, make a list". Put each operation on its own line, so it reads that way.</p></div>
       HTML
@@ -2514,14 +2514,14 @@ module JavaContent
         import java.util.function.*;
         import java.util.stream.*;
 
-        record Order(String customer, String city, double amount) { }
+        record Order(String customer, String state, double amount) { }
 
         public class Main {
             public static void main(String[] args) {
                 List<Order> orders = List.of(
-                        new Order("Asha", "London", 850), new Order("Ravi", "Chicago", 120),
-                        new Order("Meera", "London", 430), new Order("Asha", "London", 999),
-                        new Order("John", "Boston", 640), new Order("Ravi", "Chicago", 75));
+                        new Order("Asha", "Kerala", 850), new Order("Ravi", "Punjab", 120),
+                        new Order("Meera", "Kerala", 430), new Order("Asha", "Kerala", 999),
+                        new Order("John", "Goa", 640), new Order("Ravi", "Punjab", 75));
 
                 // Lambdas stored in functional interfaces
                 Predicate<Order> isBig = o -> o.amount() > 500;
@@ -2540,9 +2540,9 @@ module JavaContent
                 OptionalDouble avg = orders.stream().mapToDouble(Order::amount).average();
                 System.out.printf("Revenue: %.0f, average: %.2f%n", revenue, avg.orElse(0));
 
-                Map<String, Long> perCity = orders.stream()
-                        .collect(Collectors.groupingBy(Order::city, TreeMap::new, Collectors.counting()));
-                System.out.println("Orders per city: " + perCity);
+                Map<String, Long> perState = orders.stream()
+                        .collect(Collectors.groupingBy(Order::state, TreeMap::new, Collectors.counting()));
+                System.out.println("Orders per state: " + perState);
 
                 String top3 = orders.stream()
                         .sorted(Comparator.comparing(Order::amount).reversed())
@@ -2989,7 +2989,7 @@ module JavaContent
               <tr><td>Compile + test + package</td><td><code>mvn package</code></td><td><code>./gradlew build</code></td></tr>
               <tr><td>Run tests only</td><td><code>mvn test</code></td><td><code>./gradlew test</code></td></tr>
               <tr><td>Output</td><td><code>target/library-1.0.0.jar</code></td><td><code>build/libs/library-1.0.0.jar</code></td></tr>
-              <tr><td>Current version (Sept 2026)</td><td>Maven 3.9 (Maven 4 is still a release candidate)</td><td>Gradle 9</td></tr>
+              <tr><td>Main version (at the time of writing)</td><td>Maven 3.9 (Maven 4 is on the way; check maven.apache.org)</td><td>Gradle 9</td></tr>
               <tr><td>Common in</td><td>enterprise and Spring Boot projects</td><td>Android and many newer projects</td></tr>
             </tbody>
           </table>
@@ -3072,11 +3072,11 @@ module JavaContent
             <li>JUnit 4 (<code>org.junit.Test</code>, <code>@Before</code>) is the old way. Don't use it in new projects.</li>
             <li>Tests live in <code>src/test/java</code>, next to your code in <code>src/main/java</code> (the project layout from Lesson 19). They run with <code>mvn test</code> or <code>./gradlew test</code>. IDEs such as IntelliJ IDEA show a green or red result for each test.</li>
           </ul>
-          <p>Add JUnit to a Maven project. <code>6.1.3</code> is the newest release as of September 2026. If Maven Central shows a newer 6.x.y, use that:</p>
+          <p>Add JUnit to a Maven project. The example uses <code>6.0.0</code>, the first JUnit 6 release. Check Maven Central for the newest 6.x.y release and use that:</p>
           <div class="lc-code-block"><pre><code>&lt;dependency&gt;
           &lt;groupId&gt;org.junit.jupiter&lt;/groupId&gt;
           &lt;artifactId&gt;junit-jupiter&lt;/artifactId&gt;
-          &lt;version&gt;6.1.3&lt;/version&gt;
+          &lt;version&gt;6.0.0&lt;/version&gt;
           &lt;scope&gt;test&lt;/scope&gt;
         &lt;/dependency&gt;</code></pre></div>
         </div>

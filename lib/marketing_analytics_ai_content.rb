@@ -59,7 +59,7 @@ module MarketingAnalyticsAiContent
         <div class="lc-card">
           <h3>Vanity metrics vs useful metrics</h3>
           <p>A <strong>vanity metric</strong> is a number that looks good but does not tell you what to do. Views, likes and followers are common examples. A <strong>useful metric</strong> is linked to a business result, such as orders, revenue or the cost of each sale.</p>
-          <p><strong>Worked example:</strong> Sweet Crumbs is a made-up bakery in London. Its average order is ₹900. It posted two Instagram reels last month.</p>
+          <p><strong>Worked example:</strong> Sweet Crumbs is a made-up home bakery in Maharashtra. Its average order is ₹900. It posted two Instagram reels last month.</p>
           <table class="lc-table">
             <thead><tr><th>Reel</th><th>Views</th><th>Link clicks</th><th>Orders</th><th>Orders per click</th><th>Revenue</th></tr></thead>
             <tbody>
@@ -77,7 +77,7 @@ module MarketingAnalyticsAiContent
         Is my Instagram doing well?
 
         Better prompt:
-        I run a bakery in London. My goal is more online cake orders.
+        I run a home bakery in Maharashtra. My goal is more online cake orders.
         Here are two reels: views, link clicks and orders (table below).
         Which reel helped my goal more? Show your maths step by step.
         Which of these numbers are vanity metrics for my goal?</code></pre>
@@ -86,7 +86,7 @@ module MarketingAnalyticsAiContent
         <div class="lc-card">
           <h3>Activity: vanity or useful?</h3>
           <div class="lcw" data-controller="sorter">
-            <p class="lcw-prompt">Rangrez Crafts is a made-up handicrafts shop in Manchester. Its goal is more online sales. Sort each number.</p>
+            <p class="lcw-prompt">Rangrez Crafts is a made-up handicrafts shop in Rajasthan. Its goal is more online sales. Sort each number.</p>
             <div class="lcw-buckets">
               <div data-sorter-target="bucket" data-bucket="vanity" data-label="Vanity metric"></div>
               <div data-sorter-target="bucket" data-bucket="useful" data-label="Useful metric"></div>
@@ -107,7 +107,7 @@ module MarketingAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly marketing analytics coach for small business owners.
 
-        My business: [Sweet Crumbs, a home bakery in London that sells cakes online].
+        My business: [Sweet Crumbs, a home bakery in Maharashtra that sells cakes online].
         My main goal this quarter: [more online cake orders].
         The numbers I look at now: [Instagram followers, reel views, likes, website visits, link clicks, online orders, ad spend, revenue].
 
@@ -183,18 +183,18 @@ module MarketingAnalyticsAiContent
             <tbody>
               <tr><td><strong>Explain a report</strong></td><td>"What does 'engagement rate' mean in this Google Analytics table?"</td><td>You learn the terms in plain words.</td></tr>
               <tr><td><strong>Find patterns</strong></td><td>"Which months had the highest sales, and what do they have in common?"</td><td>AI gives you ideas to test. You still confirm them.</td></tr>
-              <tr><td><strong>Write formulas</strong></td><td>"Write a Google Sheets formula to add up sales for Manchester only."</td><td>You save time searching for the right formula.</td></tr>
+              <tr><td><strong>Write formulas</strong></td><td>"Write a Google Sheets formula to add up sales for Gujarat only."</td><td>You save time searching for the right formula.</td></tr>
               <tr><td><strong>Draft summaries</strong></td><td>"Turn this table into 5 bullet points for my manager."</td><td>You get a first draft in seconds.</td></tr>
             </tbody>
           </table>
           <p>For the formula example, the AI might suggest this. <code>SUMIFS</code> adds up the numbers in one column when other columns match your rules.</p>
-          <pre><code>=SUMIFS(C2:C200, B2:B200, "Manchester")</code></pre>
-          <p>Here column C holds sales and column B holds the city. Always test a formula on a few rows you can check by hand.</p>
+          <pre><code>=SUMIFS(C2:C200, B2:B200, "Gujarat")</code></pre>
+          <p>Here column C holds sales and column B holds the state. Always test a formula on a few rows you can check by hand.</p>
         </div>
         <div class="lc-card">
           <h3>Where AI goes wrong with numbers</h3>
           <p>An AI chat assistant predicts text. It does not always calculate like a calculator. Some tools can run real calculations, but you cannot always tell if they did. So treat every number in an AI answer as a draft.</p>
-          <p><strong>Worked example:</strong> Rangrez Crafts, a made-up Manchester handicrafts store, pasted its sales for three months into an AI chat.</p>
+          <p><strong>Worked example:</strong> Rangrez Crafts, a made-up handicrafts store in Rajasthan, pasted its sales for three months into an AI chat.</p>
           <table class="lc-table">
             <thead><tr><th>Month</th><th>Sales</th><th>AI said</th><th>Correct answer</th></tr></thead>
             <tbody>
@@ -245,7 +245,7 @@ module MarketingAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a careful marketing data assistant. Accuracy matters more than speed.
 
-        Here are the monthly online sales for [Rangrez Crafts, a handicrafts store in Manchester]:
+        Here are the monthly online sales for [Rangrez Crafts, a handicrafts store in Rajasthan]:
         [January: 124500
         February: 98200
         March: 141300]
@@ -311,7 +311,7 @@ module MarketingAnalyticsAiContent
         <div class="lc-card">
           <h3>From business goal to KPI</h3>
           <p>Start with a business goal. Then turn it into a marketing goal you can measure. A common method is <strong>SMART</strong>: specific, measurable, achievable, relevant and time-bound (with a deadline).</p>
-          <p><strong>Worked example:</strong> Backwater Trails is a made-up travel agency in Boston. It gets about 72 tour bookings a month from its website.</p>
+          <p><strong>Worked example:</strong> Backwater Trails is a made-up travel agency in Kerala. It gets about 72 tour bookings a month from its website.</p>
           <table class="lc-table">
             <thead><tr><th>Level</th><th>Example</th></tr></thead>
             <tbody>
@@ -345,7 +345,7 @@ module MarketingAnalyticsAiContent
         Give me KPIs for my travel business.
 
         Better prompt:
-        I run a travel agency in Boston. Website bookings are 72 a month.
+        I run a travel agency in Kerala. Website bookings are 72 a month.
         My goal is 90 a month by 31 December 2026.
         Funnel last month: 20,000 visitors, 6,000 tour views,
         480 enquiries, 72 bookings.
@@ -374,7 +374,7 @@ module MarketingAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a marketing analytics coach for small businesses. Use simple English.
 
-        My business: [Backwater Trails, a travel agency in Boston that sells houseboat tours].
+        My business: [Backwater Trails, a travel agency in Kerala that sells houseboat tours].
         Business goal: [grow income from tours].
         Current numbers for last month: [20,000 website visitors, 6,000 tour page views, 480 enquiries, 72 bookings].
         My target: [90 bookings a month by 31 December 2026].
@@ -449,7 +449,7 @@ module MarketingAnalyticsAiContent
         <div class="lc-card">
           <h3>Conversion rate and ROAS</h3>
           <p><strong>Conversion rate</strong> is the share of visitors who take the action you want, such as an order. <strong>ROAS</strong> (return on ad spend) is the revenue your ads brought, divided by what the ads cost.</p>
-          <p><strong>Worked example:</strong> Sweet Crumbs, a made-up London bakery, had this month:</p>
+          <p><strong>Worked example:</strong> Sweet Crumbs, a made-up home bakery in Maharashtra, had this month:</p>
           <table class="lc-table">
             <thead><tr><th>Metric</th><th>Data</th><th>Calculation</th><th>Result</th></tr></thead>
             <tbody>
@@ -467,7 +467,7 @@ module MarketingAnalyticsAiContent
             <li><strong>Churn rate</strong>: the share of customers who leave in a period, such as a month.</li>
             <li><strong>CLV</strong> (customer lifetime value, also called LTV): the money one customer brings you while they stay.</li>
           </ul>
-          <p><strong>Worked example:</strong> LedgerLite is a made-up accounting software startup in San Francisco. A plan costs ₹500 a month.</p>
+          <p><strong>Worked example:</strong> LedgerLite is a made-up accounting software startup in Karnataka. A plan costs ₹500 a month.</p>
           <table class="lc-table">
             <thead><tr><th>Metric</th><th>Data</th><th>Calculation</th><th>Result</th></tr></thead>
             <tbody>
@@ -521,7 +521,7 @@ module MarketingAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a marketing analyst who explains things simply. Show all your working.
 
-        My business: [LedgerLite, an accounting software startup in San Francisco, ₹500 per month plan].
+        My business: [LedgerLite, an accounting software startup in Karnataka, ₹500 per month plan].
         Data for last month:
         - Marketing spend: [₹3,00,000]
         - New paying customers: [150]
@@ -606,7 +606,7 @@ module MarketingAnalyticsAiContent
         </div>
         <div class="lc-card">
           <h3>Reading a traffic report</h3>
-          <p>Rangrez Crafts, a made-up Manchester handicrafts store, exported last month's traffic acquisition report (a report of visits by channel). Its key event is <code>purchase</code>. To keep the maths simple, assume one purchase per session.</p>
+          <p>Rangrez Crafts, a made-up handicrafts store in Rajasthan, exported last month's traffic acquisition report (a report of visits by channel). Its key event is <code>purchase</code>. To keep the maths simple, assume one purchase per session.</p>
           <table class="lc-table">
             <thead><tr><th>Channel</th><th>Sessions</th><th>Engaged sessions</th><th>Engagement rate</th><th>Key events</th><th>Key events ÷ sessions</th></tr></thead>
             <tbody>
@@ -662,7 +662,7 @@ module MarketingAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient Google Analytics 4 teacher for a small business owner who is new to GA4.
 
-        My business: [Rangrez Crafts, an online handicrafts store in Manchester].
+        My business: [Rangrez Crafts, an online handicrafts store in Rajasthan].
         My key event: [purchase].
         Last month's traffic acquisition report by channel:
         [Channel | Sessions | Engaged sessions | Key events
@@ -766,7 +766,7 @@ module MarketingAnalyticsAiContent
             <li>Never tag links between pages of your own website. The tag can replace the visit's real source with your own label.</li>
           </ul>
           <p>Why a fixed medium list? GA4 uses the source and medium to put visits into channels, such as Email or Organic Social. For example, the medium <code>email</code> goes into Email. An unusual medium, such as <code>whatsapp-group-oct</code>, may put visits in the wrong channel or in "Unassigned". Check GA4's current "default channel group" rules.</p>
-          <p>Here is a builder table for Sweet Crumbs, a made-up bakery in London. Column A holds the page address, <code>https://example.com/diwali</code>. Columns B to E hold the tags.</p>
+          <p>Here is a builder table for Sweet Crumbs, a made-up home bakery in Maharashtra. Column A holds the page address, <code>https://example.com/diwali</code>. Columns B to E hold the tags.</p>
           <table class="lc-table">
             <thead><tr><th>Channel</th><th>B: source</th><th>C: medium</th><th>D: campaign</th><th>E: content</th></tr></thead>
             <tbody>
@@ -824,7 +824,7 @@ module MarketingAnalyticsAiContent
           <p>Ask the AI to plan the tracking links for one campaign, with your naming rules. Change the brackets to your own business, or leave them to see an example.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a digital marketing analyst. Help me build tracking links with UTM tags.
-        Business: [Sweet Crumbs, a bakery in London]
+        Business: [Sweet Crumbs, a home bakery in Maharashtra]
         Campaign: [Diwali gift boxes 2026]
         Landing page: [https://example.com/diwali]
         Channels: [Instagram post, Instagram paid ad, Facebook paid ad, WhatsApp broadcast, email newsletter]
@@ -860,9 +860,9 @@ module MarketingAnalyticsAiContent
           <div class="lc-badge le-badge le-badge-mkt">Digital Marketing</div>
           <h1 class="lc-title">Cleaning Data in Spreadsheets</h1>
         </div>
-        <p class="lc-lead">Data from shops, ad tools and forms is often messy. The same order appears twice. City names have extra spaces. Dates come in three styles. Amounts are stored as text. If you add up messy data, your totals are wrong. In this lesson, you will clean an export step by step. You will use AI to write the formulas, and you will check that nothing was lost.</p>
+        <p class="lc-lead">Data from shops, ad tools and forms is often messy. The same order appears twice. State names have extra spaces. Dates come in three styles. Amounts are stored as text. If you add up messy data, your totals are wrong. In this lesson, you will clean an export step by step. You will use AI to write the formulas, and you will check that nothing was lost.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 290" role="img" aria-label="Before and after. A messy export has a duplicate order, city names in mixed case, three date styles and amounts with rupee signs stored as text. The clean table has one row per order, the same city spelling, real dates and real numbers.">
+          <svg viewBox="0 0 760 290" role="img" aria-label="Before and after. A messy export has a duplicate order, state names in mixed case, three date styles and amounts with rupee signs stored as text. The clean table has one row per order, the same city spelling, real dates and real numbers.">
             <defs><marker id="ma7a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <text x="185" y="28" font-weight="700" fill="#fca5a5">Messy export</text>
@@ -871,42 +871,42 @@ module MarketingAnalyticsAiContent
               <rect x="410" y="40" width="330" height="180" rx="10" fill="#1f1f44" stroke="#10b981"/>
               <line x1="356" y1="130" x2="404" y2="130" stroke="#9b99b8" stroke-width="1.5" marker-end="url(#ma7a)"/>
               <g font-size="12" text-anchor="start">
-                <text x="32" y="62" fill="#9b99b8">ID</text><text x="100" y="62" fill="#9b99b8">City</text><text x="185" y="62" fill="#9b99b8">Date</text><text x="270" y="62" fill="#9b99b8">Amount</text>
-                <text x="32" y="88">ORD-101</text><text x="100" y="88">manchester</text><text x="185" y="88">05/10/2026</text><text x="270" y="88">₹1,200</text>
-                <g fill="#fca5a5"><text x="32" y="116">ORD-101</text><text x="100" y="116">Manchester</text><text x="185" y="116">05/10/2026</text><text x="270" y="116">₹1,200</text></g>
-                <text x="32" y="144">ORD-102</text><text x="100" y="144">MANCHESTER</text><text x="185" y="144">2026-10-06</text><text x="270" y="144">850</text>
-                <text x="32" y="172">ORD-103</text><text x="100" y="172">Chicago</text><text x="185" y="172">7 Oct 2026</text><text x="270" y="172">₹2,400</text>
-                <text x="32" y="200">ORD-104</text><text x="100" y="200">chicago</text><text x="185" y="200">08/10/2026</text><text x="270" y="200">₹1,050</text>
-                <text x="422" y="62" fill="#9b99b8">ID</text><text x="490" y="62" fill="#9b99b8">City</text><text x="575" y="62" fill="#9b99b8">Date</text><text x="670" y="62" fill="#9b99b8">Amount</text>
-                <text x="422" y="88">ORD-101</text><text x="490" y="88">Manchester</text><text x="575" y="88">05 Oct 2026</text><text x="670" y="88">1200</text>
-                <text x="422" y="116">ORD-102</text><text x="490" y="116">Manchester</text><text x="575" y="116">06 Oct 2026</text><text x="670" y="116">850</text>
-                <text x="422" y="144">ORD-103</text><text x="490" y="144">Chicago</text><text x="575" y="144">07 Oct 2026</text><text x="670" y="144">2400</text>
-                <text x="422" y="172">ORD-104</text><text x="490" y="172">Chicago</text><text x="575" y="172">08 Oct 2026</text><text x="670" y="172">1050</text>
+                <text x="32" y="62" fill="#9b99b8">ID</text><text x="100" y="62" fill="#9b99b8">State</text><text x="185" y="62" fill="#9b99b8">Date</text><text x="270" y="62" fill="#9b99b8">Amount</text>
+                <text x="32" y="88">ORD-101</text><text x="100" y="88">gujarat</text><text x="185" y="88">05/10/2026</text><text x="270" y="88">₹1,200</text>
+                <g fill="#fca5a5"><text x="32" y="116">ORD-101</text><text x="100" y="116">Gujarat</text><text x="185" y="116">05/10/2026</text><text x="270" y="116">₹1,200</text></g>
+                <text x="32" y="144">ORD-102</text><text x="100" y="144">GUJARAT</text><text x="185" y="144">2026-10-06</text><text x="270" y="144">850</text>
+                <text x="32" y="172">ORD-103</text><text x="100" y="172">Kerala</text><text x="185" y="172">7 Oct 2026</text><text x="270" y="172">₹2,400</text>
+                <text x="32" y="200">ORD-104</text><text x="100" y="200">kerala</text><text x="185" y="200">08/10/2026</text><text x="270" y="200">₹1,050</text>
+                <text x="422" y="62" fill="#9b99b8">ID</text><text x="490" y="62" fill="#9b99b8">State</text><text x="575" y="62" fill="#9b99b8">Date</text><text x="670" y="62" fill="#9b99b8">Amount</text>
+                <text x="422" y="88">ORD-101</text><text x="490" y="88">Gujarat</text><text x="575" y="88">05 Oct 2026</text><text x="670" y="88">1200</text>
+                <text x="422" y="116">ORD-102</text><text x="490" y="116">Gujarat</text><text x="575" y="116">06 Oct 2026</text><text x="670" y="116">850</text>
+                <text x="422" y="144">ORD-103</text><text x="490" y="144">Kerala</text><text x="575" y="144">07 Oct 2026</text><text x="670" y="144">2400</text>
+                <text x="422" y="172">ORD-104</text><text x="490" y="172">Kerala</text><text x="575" y="172">08 Oct 2026</text><text x="670" y="172">1050</text>
               </g>
               <text x="185" y="244" font-size="11" fill="#fcd34d">duplicate · mixed case · 3 date styles · ₹ as text</text>
               <text x="575" y="244" font-size="11" fill="#6ee7b7">one row per order · real dates · real numbers</text>
               <text x="380" y="276" font-size="12" fill="#9b99b8">Keep the raw export. Clean in a copy or in new columns.</text>
             </g>
           </svg>
-          <figcaption>A made-up order export from Rangrez Crafts, a Manchester handicrafts store, before and after cleaning.</figcaption>
+          <figcaption>A made-up order export from Rangrez Crafts, a handicrafts store in Rajasthan, before and after cleaning.</figcaption>
         </figure>
         <div class="lc-card">
           <h3>The common problems</h3>
           <p>Rangrez Crafts downloads its October orders from its online shop. Here are the first 6 rows. All data is made up.</p>
           <table class="lc-table">
-            <thead><tr><th>A: Order ID</th><th>B: City</th><th>C: Order date</th><th>D: Amount</th></tr></thead>
+            <thead><tr><th>A: Order ID</th><th>B: State</th><th>C: Order date</th><th>D: Amount</th></tr></thead>
             <tbody>
-              <tr><td>ORD-101</td><td>" manchester"</td><td>05/10/2026</td><td>₹1,200</td></tr>
-              <tr><td>ORD-101</td><td>Manchester</td><td>05/10/2026</td><td>₹1,200</td></tr>
-              <tr><td>ORD-102</td><td>MANCHESTER</td><td>2026-10-06</td><td>850</td></tr>
-              <tr><td>ORD-103</td><td>"Chicago "</td><td>7 Oct 2026</td><td>₹2,400</td></tr>
-              <tr><td>ORD-104</td><td>chicago</td><td>08/10/2026</td><td>₹1,050</td></tr>
-              <tr><td>ORD-105</td><td>New York</td><td>08/10/2026</td><td>₹3,500</td></tr>
+              <tr><td>ORD-101</td><td>" gujarat"</td><td>05/10/2026</td><td>₹1,200</td></tr>
+              <tr><td>ORD-101</td><td>Gujarat</td><td>05/10/2026</td><td>₹1,200</td></tr>
+              <tr><td>ORD-102</td><td>GUJARAT</td><td>2026-10-06</td><td>850</td></tr>
+              <tr><td>ORD-103</td><td>"Kerala "</td><td>7 Oct 2026</td><td>₹2,400</td></tr>
+              <tr><td>ORD-104</td><td>kerala</td><td>08/10/2026</td><td>₹1,050</td></tr>
+              <tr><td>ORD-105</td><td>Punjab</td><td>08/10/2026</td><td>₹3,500</td></tr>
             </tbody>
           </table>
           <ul class="lc-list">
             <li><strong>Duplicates:</strong> ORD-101 appears twice. The export repeated it.</li>
-            <li><strong>Spaces and case:</strong> " manchester", "Manchester" and "MANCHESTER" are the same city. A pivot table may count them as two or three different cities.</li>
+            <li><strong>Spaces and case:</strong> " gujarat", "Gujarat" and "GUJARAT" are the same state. A pivot table may count them as two or three different states.</li>
             <li><strong>Dates:</strong> in India, 05/10/2026 means 5 October. A spreadsheet set to US style reads it as 10 May.</li>
             <li><strong>Text numbers:</strong> "₹1,200" is text, not a number. <code>SUM</code> skips text, so your total is too low.</li>
           </ul>
@@ -918,14 +918,14 @@ module MarketingAnalyticsAiContent
           <table class="lc-table">
             <thead><tr><th>Fix</th><th>Formula</th><th>Row 2 result</th></tr></thead>
             <tbody>
-              <tr><td>Remove extra spaces, fix capital letters</td><td><code>=PROPER(TRIM(B2))</code></td><td>Manchester</td></tr>
+              <tr><td>Remove extra spaces, fix capital letters</td><td><code>=PROPER(TRIM(B2))</code></td><td>Gujarat</td></tr>
               <tr><td>Turn "₹1,200" into a number</td><td><code>=VALUE(SUBSTITUTE(SUBSTITUTE(D2,"₹",""),",",""))</code></td><td>1200</td></tr>
               <tr><td>Turn day-first text "05/10/2026" into a date</td><td><code>=DATE(RIGHT(C2,4),MID(C2,4,2),LEFT(C2,2))</code></td><td>5 Oct 2026</td></tr>
               <tr><td>Flag repeats of the same Order ID</td><td><code>=COUNTIF($A$2:A2,A2)&gt;1</code></td><td>FALSE (TRUE on row 3)</td></tr>
             </tbody>
           </table>
           <p>The date formula only works on text in the dd/mm/yyyy style. If the sheet has already turned the text into a wrong date, import the file again with the right locale. Other styles, such as "7 Oct 2026", need a different fix. You can also set the sheet's locale to India, so it reads dates day first. In Google Sheets, this is under File &gt; Settings. In Excel, it depends on your computer's region settings.</p>
-          <p>After the duplicate flag, filter for TRUE and delete those rows. Both tools also have a "Remove duplicates" command. It compares whole rows by default. So clean the text first, because " manchester" and "Manchester" look different to a spreadsheet.</p>
+          <p>After the duplicate flag, filter for TRUE and delete those rows. Both tools also have a "Remove duplicates" command. It compares whole rows by default. So clean the text first, because " gujarat" and "Gujarat" look different to a spreadsheet.</p>
           <p>A weak prompt: <code>Clean my data.</code> The AI cannot see your sheet, so it will guess. A better prompt names the columns, shows 3 to 5 sample rows, lists the problems and asks for one formula per fix. The Try It box below has a full example.</p>
         </div>
         <div class="lc-card">
@@ -938,7 +938,7 @@ module MarketingAnalyticsAiContent
             <li><strong>Types:</strong> <code>=ISNUMBER(E2)</code> must say TRUE for every clean amount and date cell (change E2 to that cell). Dates are stored as numbers.</li>
             <li><strong>Spot check:</strong> compare 3 random rows with the original export by eye.</li>
           </ul>
-          <p>Also write a short change log: "Removed 1 duplicate (ORD-101). Fixed city names. Converted dates and amounts." Your manager can then trust the numbers.</p>
+          <p>Also write a short change log: "Removed 1 duplicate (ORD-101). Fixed state names. Converted dates and amounts." Your manager can then trust the numbers.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: put the cleaning steps in order</h3>
@@ -960,14 +960,14 @@ module MarketingAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly spreadsheet helper. I use [Google Sheets].
         My sheet [Orders] has headers in row 1. Columns:
-        A = Order ID, B = City, C = Order date, D = Amount.
+        A = Order ID, B = State, C = Order date, D = Amount.
         Sample rows (made-up data):
-        [ORD-101 |  manchester | 05/10/2026 | ₹1,200
-        ORD-101 | Manchester | 05/10/2026 | ₹1,200
-        ORD-102 | MANCHESTER | 2026-10-06 | 850
-        ORD-103 | Chicago  | 7 Oct 2026 | ₹2,400]
+        [ORD-101 |  gujarat | 05/10/2026 | ₹1,200
+        ORD-101 | Gujarat | 05/10/2026 | ₹1,200
+        ORD-102 | GUJARAT | 2026-10-06 | 850
+        ORD-103 | Kerala  | 7 Oct 2026 | ₹2,400]
 
-        Problems: extra spaces and mixed case in City. Dates in different styles (dd/mm/yyyy is day first, Indian style). Amounts are text with ₹ and commas. Some orders appear twice.
+        Problems: extra spaces and mixed case in State. Dates in different styles (dd/mm/yyyy is day first, Indian style). Amounts are text with ₹ and commas. Some orders appear twice.
 
         Tasks:
         1. Give one formula per fix, for new helper columns E to H, starting in row 2. Explain each in one simple sentence.
@@ -1035,7 +1035,7 @@ module MarketingAnalyticsAiContent
         </figure>
         <div class="lc-card">
           <h3>The sample data</h3>
-          <p>Backwater Trails is a made-up travel agency in Boston. Its sheet has bookings by month and channel for July to September 2026. Row 1 has headers. Rows 2 to 10 have the data.</p>
+          <p>Backwater Trails is a made-up travel agency in Kerala. Its sheet has bookings by month and channel for July to September 2026. Row 1 has headers. Rows 2 to 10 have the data.</p>
           <table class="lc-table">
             <thead><tr><th>A: Month</th><th>B: Channel</th><th>C: Bookings</th><th>D: Revenue (₹)</th></tr></thead>
             <tbody>
@@ -1202,7 +1202,7 @@ module MarketingAnalyticsAiContent
             <li><strong>F, Frequency:</strong> how many orders they made. More is better.</li>
             <li><strong>M, Monetary:</strong> how much money they spent in total. More is better.</li>
           </ul>
-          <p>You give each part a score, for example from 1 (low) to 3 (high). Sweet Crumbs, a made-up London bakery, uses these simple rules. You should choose rules that fit your own business. A bakery sees customers more often than a travel agency.</p>
+          <p>You give each part a score, for example from 1 (low) to 3 (high). Sweet Crumbs, a made-up home bakery in Maharashtra, uses these simple rules. You should choose rules that fit your own business. A bakery sees customers more often than a travel agency.</p>
           <table class="lc-table">
             <thead><tr><th>Score</th><th>R: days since last order</th><th>F: orders</th><th>M: total spend</th></tr></thead>
             <tbody>
@@ -1271,7 +1271,7 @@ module MarketingAnalyticsAiContent
           <h3>Try It</h3>
           <p>Give the AI a small, made-up customer table and ask for RFM segments and actions. For real data, use customer IDs only.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a marketing analyst for [Sweet Crumbs, a bakery in London]. Analysis date: [30 Sep 2026].
+            <pre class="ai-try-prompt">You are a marketing analyst for [Sweet Crumbs, a home bakery in Maharashtra]. Analysis date: [30 Sep 2026].
         Here is a customer summary. It uses IDs only, with made-up data:
         [C01 | last order 25 Sep 2026 | 12 orders | ₹9,600
         C02 | last order 28 Sep 2026 | 1 order | ₹450
@@ -1351,7 +1351,7 @@ module MarketingAnalyticsAiContent
         </figure>
         <div class="lc-card">
           <h3>The main attribution models</h3>
-          <p>LedgerLite is a made-up accounting software startup in San Francisco. One customer bought its ₹12,000 yearly plan after the four steps in the diagram.</p>
+          <p>LedgerLite is a made-up accounting software startup in Karnataka. One customer bought its ₹12,000 yearly plan after the four steps in the diagram.</p>
           <table class="lc-table">
             <thead><tr><th>Model</th><th>Rule</th><th>Who gets the ₹12,000</th></tr></thead>
             <tbody>
@@ -1405,7 +1405,7 @@ module MarketingAnalyticsAiContent
           <p>Give the AI your numbers from different tools and ask it to explain the gaps. The sample numbers in the prompt are made up.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a marketing analytics coach. Explain things in simple English.
-        Business: [LedgerLite, an accounting software startup in San Francisco]
+        Business: [LedgerLite, an accounting software startup in Karnataka]
         Period: [September 2026]
         Numbers:
         - Billing system: [40] new paying customers
@@ -1486,7 +1486,7 @@ module MarketingAnalyticsAiContent
             <thead><tr><th>Trap</th><th>Example</th><th>Fair fix</th></tr></thead>
             <tbody>
               <tr><td>Different number of days</td><td>August has 31 days. September has 30.</td><td>Compare per day. 230 orders in 31 days is 7.4 a day. 200 in 30 days is 6.7 a day.</td></tr>
-              <tr><td>Seasons and festivals</td><td>Diwali falls in a different month each year.</td><td>Also compare with the same period last year (year-over-year).</td></tr>
+              <tr><td>Seasons and festivals</td><td>Diwali falls on a different date each year (October or November).</td><td>Also compare with the same period last year (year-over-year).</td></tr>
               <tr><td>Small numbers</td><td>Orders from a new city went from 2 to 4.</td><td>That is "+100%", but it is only 2 orders. Ignore tiny counts.</td></tr>
               <tr><td>Tracking changes</td><td>A tag broke on 10 September.</td><td>Check for sudden jumps to zero. Ask your team what changed.</td></tr>
             </tbody>
@@ -1496,7 +1496,7 @@ module MarketingAnalyticsAiContent
         </div>
         <div class="lc-card">
           <h3>Worked example: Rangrez Crafts</h3>
-          <p>Rangrez Crafts (a made-up Manchester handicrafts store) saw orders fall from 230 in August to 200 in September. Here is its channel data. All numbers are sample numbers.</p>
+          <p>Rangrez Crafts (a made-up handicrafts store in Rajasthan) saw orders fall from 230 in August to 200 in September. Here is its channel data. All numbers are sample numbers.</p>
           <table class="lc-table">
             <thead><tr><th>Channel</th><th>Sessions Aug</th><th>Sessions Sep</th><th>Orders Aug</th><th>Orders Sep</th><th>Conv. rate Aug</th><th>Conv. rate Sep</th></tr></thead>
             <tbody>
@@ -1533,7 +1533,7 @@ module MarketingAnalyticsAiContent
           <p>Paste your own two-period numbers, or run the prompt as it is with the sample data. The AI will compare the periods, flag big changes and suggest causes to check.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a marketing analyst for a small business. Explain things in simple English.
-        Business: [Rangrez Crafts, an online handicrafts store in Manchester]
+        Business: [Rangrez Crafts, an online handicrafts store in Rajasthan]
         Question: [Orders fell this month. Which channel caused most of the drop?]
 
         Data (last month vs this month):
@@ -1582,7 +1582,7 @@ module MarketingAnalyticsAiContent
               <rect x="25" y="42" width="170" height="62" rx="8" fill="#27274e" stroke="#3b82f6"/><text x="110" y="62" font-size="11" fill="#9b99b8">Visitors</text><text x="110" y="82" font-weight="700">12,400</text><text x="110" y="98" font-size="11" fill="#6ee7b7">+5.1%</text>
               <rect x="205" y="42" width="170" height="62" rx="8" fill="#27274e" stroke="#8b5cf6"/><text x="290" y="62" font-size="11" fill="#9b99b8">Free trials</text><text x="290" y="82" font-weight="700">310</text><text x="290" y="98" font-size="11" fill="#6ee7b7">+10.7%</text>
               <rect x="385" y="42" width="170" height="62" rx="8" fill="#27274e" stroke="#10b981"/><text x="470" y="62" font-size="11" fill="#9b99b8">New paying customers</text><text x="470" y="82" font-weight="700">56</text><text x="470" y="98" font-size="11" fill="#fca5a5">-5.1%</text>
-              <rect x="565" y="42" width="170" height="62" rx="8" fill="#27274e" stroke="#f59e0b"/><text x="650" y="62" font-size="11" fill="#9b99b8">Ad cost per customer</text><text x="650" y="82" font-weight="700">&#8377;2,143</text><text x="650" y="98" font-size="11" fill="#fca5a5">+14.9%</text>
+              <rect x="565" y="42" width="170" height="62" rx="8" fill="#27274e" stroke="#f59e0b"/><text x="650" y="62" font-size="11" fill="#9b99b8">Ad cost per customer</text><text x="650" y="82" font-weight="700">₹2,143</text><text x="650" y="98" font-size="11" fill="#fca5a5">+14.9%</text>
               <rect x="25" y="114" width="350" height="110" rx="8" fill="#27274e"/>
               <text x="200" y="132" font-size="11" fill="#9b99b8">Line chart: trials per week</text>
               <polyline points="50,205 110,195 170,200 230,180 290,172 350,150" fill="none" stroke="#8b5cf6" stroke-width="2.5"/>
@@ -1625,15 +1625,15 @@ module MarketingAnalyticsAiContent
         </div>
         <div class="lc-card">
           <h3>Worked example: a weekly report for LedgerLite</h3>
-          <p>LedgerLite (a made-up San Francisco accounting software startup) sends a weekly report to its founders. Here are this week's sample numbers.</p>
+          <p>LedgerLite (a made-up accounting software startup in Karnataka) sends a weekly report to its founders. Here are this week's sample numbers.</p>
           <table class="lc-table">
             <thead><tr><th>Metric</th><th>Last week</th><th>This week</th><th>Change</th></tr></thead>
             <tbody>
               <tr><td>Website visitors</td><td>11,800</td><td>12,400</td><td>+5.1%</td></tr>
               <tr><td>Free trials started</td><td>280</td><td>310</td><td>+10.7%</td></tr>
               <tr><td>New paying customers</td><td>59</td><td>56</td><td>-5.1%</td></tr>
-              <tr><td>Ad spend</td><td>&#8377;1,10,000</td><td>&#8377;1,20,000</td><td>+9.1%</td></tr>
-              <tr><td>Ad cost per customer</td><td>&#8377;1,864</td><td>&#8377;2,143</td><td>+14.9%</td></tr>
+              <tr><td>Ad spend</td><td>₹1,10,000</td><td>₹1,20,000</td><td>+9.1%</td></tr>
+              <tr><td>Ad cost per customer</td><td>₹1,864</td><td>₹2,143</td><td>+14.9%</td></tr>
             </tbody>
           </table>
           <p>Check the last row yourself: ₹1,20,000 ÷ 56 = ₹2,143. ₹1,10,000 ÷ 59 = ₹1,864. The change is 2,143 ÷ 1,864 - 1 = about +14.9%.</p>
@@ -1663,7 +1663,7 @@ module MarketingAnalyticsAiContent
               <li data-bucket="tile" data-why="One key number with its change fits a tile at the top of the dashboard.">This week's conversion rate compared with last week</li>
               <li data-bucket="table" data-why="Many exact values for many items are easier to read in a table.">Exact spend, clicks and cost per click for 12 campaigns</li>
               <li data-bucket="line" data-why="Twelve months in order is a trend over time.">Monthly revenue for the last 12 months</li>
-              <li data-bucket="bar" data-why="Cities are separate groups, so bars compare them well.">Leads from London, New York and Liverpool</li>
+              <li data-bucket="bar" data-why="States are separate groups, so bars compare them well.">Leads from Gujarat, Kerala and Punjab</li>
             </ul>
           </div>
         </div>
@@ -1672,7 +1672,7 @@ module MarketingAnalyticsAiContent
           <p>Paste your own weekly numbers, or use the sample. The AI will check the maths, write a short report and suggest a dashboard layout.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a marketing analyst. Write for a busy business owner in simple English.
-        Business: [LedgerLite, an accounting software startup in San Francisco]
+        Business: [LedgerLite, an accounting software startup in Karnataka]
         Reader: [the two founders]
 
         This week vs last week:
@@ -1749,7 +1749,7 @@ module MarketingAnalyticsAiContent
         </div>
         <div class="lc-card">
           <h3>Worked example: Backwater Trails</h3>
-          <p>Backwater Trails (a made-up Boston travel agency) tested two buttons on its houseboat trip page. The numbers are sample numbers.</p>
+          <p>Backwater Trails (a made-up travel agency in Kerala) tested two buttons on its houseboat trip page. The numbers are sample numbers.</p>
           <table class="lc-table">
             <thead><tr><th>Version</th><th>Visitors</th><th>Enquiries</th><th>Enquiry rate</th></tr></thead>
             <tbody>
@@ -1782,7 +1782,7 @@ module MarketingAnalyticsAiContent
           <p>Describe a test you want to run, or keep the sample. The AI will write a test plan and explain the sample result in plain words.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a careful marketing analyst who explains A/B tests in simple English.
-        Business: [Backwater Trails, a travel agency in Boston]
+        Business: [Backwater Trails, a travel agency in Kerala]
         What I want to test: [the button on my houseboat trip page: "Enquire now" vs "Get a free trip plan"]
         Current numbers: [about 600 visitors a day, about 3% of them send an enquiry]
 
@@ -1815,13 +1815,13 @@ module MarketingAnalyticsAiContent
         </div>
         <p class="lc-lead">Marketing data is often about real people. Their names, phone numbers, emails and buying habits are <strong>personal data</strong>: any information that can identify a person. In this lesson, you will learn the basics of consent, cookies and personal data. You will learn how to prepare data before you use AI with it. Most important, you will learn why you must not paste customer data into public AI tools. This lesson is general education only. It is not legal advice.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 290" role="img" aria-label="Before and after. On the left, a raw customer table with name, phone, email, age and trip amount. An arrow labelled remove, replace and group points to a safer table on the right with customer ID, age band, city and trip amount.">
+          <svg viewBox="0 0 760 290" role="img" aria-label="Before and after. On the left, a raw customer table with name, phone, email, age and trip amount. An arrow labelled remove, replace and group points to a safer table on the right with customer ID, age band, state and trip amount.">
             <defs><marker id="ma14a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12" fill="#e2e0f0" text-anchor="middle">
               <rect x="10" y="15" width="320" height="200" rx="12" fill="#1f1f44" stroke="#ec4899"/>
               <text x="170" y="38" font-weight="700" font-size="13" fill="#f9a8d4">Raw export: do not paste</text>
               <g text-anchor="start">
-                <text x="25" y="64" fill="#9b99b8">Name</text><text x="105" y="64" fill="#9b99b8">Phone</text><text x="190" y="64" fill="#9b99b8">Age</text><text x="235" y="64" fill="#9b99b8">Trip (&#8377;)</text>
+                <text x="25" y="64" fill="#9b99b8">Name</text><text x="105" y="64" fill="#9b99b8">Phone</text><text x="190" y="64" fill="#9b99b8">Age</text><text x="235" y="64" fill="#9b99b8">Trip (₹)</text>
                 <text x="25" y="90">Anita R.</text><text x="105" y="90">98xxxxxx12</text><text x="190" y="90">34</text><text x="235" y="90">24,000</text>
                 <text x="25" y="114">Joseph K.</text><text x="105" y="114">97xxxxxx45</text><text x="190" y="114">52</text><text x="235" y="114">38,500</text>
                 <text x="25" y="138">Meera S.</text><text x="105" y="138">99xxxxxx08</text><text x="190" y="138">29</text><text x="235" y="138">18,000</text>
@@ -1835,10 +1835,10 @@ module MarketingAnalyticsAiContent
               <rect x="425" y="15" width="325" height="200" rx="12" fill="#1f1f44" stroke="#10b981"/>
               <text x="587" y="38" font-weight="700" font-size="13" fill="#6ee7b7">Safer data for analysis</text>
               <g text-anchor="start">
-                <text x="440" y="64" fill="#9b99b8">ID</text><text x="505" y="64" fill="#9b99b8">Age band</text><text x="590" y="64" fill="#9b99b8">City</text><text x="680" y="64" fill="#9b99b8">Trip (&#8377;)</text>
-                <text x="440" y="90">C-001</text><text x="505" y="90">25-34</text><text x="590" y="90">Boston</text><text x="680" y="90">24,000</text>
-                <text x="440" y="114">C-002</text><text x="505" y="114">45-54</text><text x="590" y="114">London</text><text x="680" y="114">38,500</text>
-                <text x="440" y="138">C-003</text><text x="505" y="138">25-34</text><text x="590" y="138">Los Angeles</text><text x="680" y="138">18,000</text>
+                <text x="440" y="64" fill="#9b99b8">ID</text><text x="505" y="64" fill="#9b99b8">Age band</text><text x="590" y="64" fill="#9b99b8">State</text><text x="680" y="64" fill="#9b99b8">Trip (₹)</text>
+                <text x="440" y="90">C-001</text><text x="505" y="90">25-34</text><text x="590" y="90">Kerala</text><text x="680" y="90">24,000</text>
+                <text x="440" y="114">C-002</text><text x="505" y="114">45-54</text><text x="590" y="114">Gujarat</text><text x="680" y="114">38,500</text>
+                <text x="440" y="138">C-003</text><text x="505" y="138">25-34</text><text x="590" y="138">Punjab</text><text x="680" y="138">18,000</text>
               </g>
               <text x="587" y="178" fill="#9b99b8" font-size="11">no names, phones or emails</text>
               <rect x="10" y="232" width="740" height="46" rx="10" fill="#27274e" stroke="#f59e0b"/>
@@ -1881,7 +1881,7 @@ module MarketingAnalyticsAiContent
         </div>
         <div class="lc-card">
           <h3>Worked example: Backwater Trails</h3>
-          <p>Backwater Trails (a made-up Boston travel agency) wants to know which customers book repeat trips. The marketer has an export with 1,200 rows of sample data. It includes names, phones, emails, ages and notes like "anniversary trip".</p>
+          <p>Backwater Trails (a made-up travel agency in Kerala) wants to know which customers book repeat trips. The marketer has an export with 1,200 rows of sample data. It includes names, phones, emails, ages and notes like "anniversary trip".</p>
           <table class="lc-table">
             <thead><tr><th>Column</th><th>Decision</th><th>Why</th></tr></thead>
             <tbody>
@@ -1919,7 +1919,7 @@ module MarketingAnalyticsAiContent
           <p>List only the column names of your data export, never the data itself. The AI will suggest how to make it safer, and draft a clear consent message.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a privacy-aware marketing analyst. Give general guidance in simple English. This is not legal advice.
-        Business: [Backwater Trails, a travel agency in Boston]
+        Business: [Backwater Trails, a travel agency in Kerala]
         My question for the data: [Which types of customers book repeat trips?]
         Column names in my export (no real data): [Customer number, Full name, Phone, Email, Age, Home address, City, Package, Trip amount, Trip date, Notes]
 
@@ -1949,7 +1949,7 @@ module MarketingAnalyticsAiContent
           <div class="lc-badge le-badge le-badge-mkt">Digital Marketing</div>
           <h1 class="lc-title">Capstone: A Marketing Performance Report</h1>
         </div>
-        <p class="lc-lead">In this capstone, you will make a full monthly marketing report with AI's help. You will clean a data set and compute the key numbers. You will find three insights and write clear recommendations. You will use the made-up bakery Sweet Crumbs in London as the example. You can then repeat the same steps with your own data. This is the kind of report a manager, client or interviewer wants to see.</p>
+        <p class="lc-lead">In this capstone, you will make a full monthly marketing report with AI's help. You will clean a data set and compute the key numbers. You will find three insights and write clear recommendations. You will use the made-up bakery Sweet Crumbs in Maharashtra as the example. You can then repeat the same steps with your own data. This is the kind of report a manager, client or interviewer wants to see.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 250" role="img" aria-label="Four steps from left to right: clean the data, compute KPIs, find 3 insights, write recommendations. Under each step is a short example. A check-by-a-person bar runs under all four steps.">
             <defs><marker id="ma15a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -2051,7 +2051,7 @@ module MarketingAnalyticsAiContent
           <p>Use your own channel summary, or run the prompt with the sample data. The AI will compute the KPIs and draft a one-page report for you to check.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a marketing analyst writing a monthly performance report in simple English.
-        Business: [Sweet Crumbs, a bakery in London that takes orders online]
+        Business: [Sweet Crumbs, a home bakery in Maharashtra that takes orders online]
         Month: [September]
         Reader: [the owner, who is busy and not a data expert]
 

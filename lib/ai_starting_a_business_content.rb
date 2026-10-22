@@ -1057,7 +1057,7 @@ module AiStartingABusinessContent
               <tr><td>Kadak chai (about 90 ml)</td><td>15</td><td>5.50</td><td>9.50</td><td>63.3%</td></tr>
               <tr><td>Masala chai (about 150 ml)</td><td>25</td><td>8.50</td><td>16.50</td><td>66.0%</td></tr>
               <tr><td>Cold coffee</td><td>60</td><td>22.00</td><td>38.00</td><td>63.3%</td></tr>
-              <tr><td>Indori poha</td><td>30</td><td>11.00</td><td>19.00</td><td>63.3%</td></tr>
+              <tr><td>Poha</td><td>30</td><td>11.00</td><td>19.00</td><td>63.3%</td></tr>
               <tr><td>Samosa (bought in)</td><td>20</td><td>11.00</td><td>9.00</td><td>45.0%</td></tr>
               <tr><td>Bun maska</td><td>30</td><td>12.00</td><td>18.00</td><td>60.0%</td></tr>
             </tbody>
@@ -1421,7 +1421,7 @@ module AiStartingABusinessContent
           <table class="lc-table">
             <thead><tr><th>Registration</th><th>What it is</th><th>Where to check</th><th>Aman's note</th></tr></thead>
             <tbody>
-              <tr><td><strong>FSSAI</strong> (Food Safety and Standards Authority of India)</td><td>Every food business needs FSSAI registration or a licence. Small businesses need basic registration. Larger ones need a state or central licence, based on turnover and type.</td><td>The FSSAI FoSCoS portal</td><td>FSSAI changed its turnover limits in 2026. Aman checks the current limits on the portal before he applies.</td></tr>
+              <tr><td><strong>FSSAI</strong> (Food Safety and Standards Authority of India)</td><td>Every food business needs FSSAI registration or a licence. Small businesses need basic registration. Larger ones need a state or central licence, based on turnover and type.</td><td>The FSSAI FoSCoS portal</td><td>FSSAI updates its turnover limits from time to time. Aman checks the current limits on the portal before he applies.</td></tr>
               <tr><td><strong>Shops and Establishments</strong></td><td>A state law on working hours, holidays and staff in shops. Many states need shops to register.</td><td>The state labour department website</td><td>Rules differ by state. Some states exempt very small shops. Aman checks Madhya Pradesh's rules, since he will have 2 helpers.</td></tr>
               <tr><td><strong>Udyam registration</strong></td><td>Registration as an MSME (micro, small or medium enterprise). It is free and online, and uses Aadhaar.</td><td>The official Udyam registration website</td><td>Optional, but it can help with some government schemes and bank loans. Aman avoids websites that charge a fee for it.</td></tr>
               <tr><td><strong>GST</strong> (Goods and Services Tax)</td><td>Tax registration. It is needed when yearly turnover crosses a threshold, and in some other cases.</td><td>The official GST portal, and a CA</td><td>The threshold is usually lower for services than for goods. Selling cooked food is usually treated as a service. His base case (about ₹32 lakh a year) is likely above the limit, so he asks a CA before opening.</td></tr>
@@ -1453,7 +1453,7 @@ module AiStartingABusinessContent
               <li data-kind="answer" data-label="AI replies">Basic FSSAI registration is only for turnover up to ₹12 lakh. With ₹32 lakh, you need a State Licence.</li>
               <li data-kind="thought" data-label="Aman thinks">The answer sounds sure, but it has no date and no source. Food rules are updated from time to time.</li>
               <li data-kind="tool" data-label="FoSCoS portal">Aman opens the official FSSAI portal and reads the latest orders on registration and licensing.</li>
-              <li data-kind="result" data-label="Portal shows">An FSSAI order changed the turnover limits from 1 April 2026. The limit for basic registration is now much higher.</li>
+              <li data-kind="result" data-label="Portal shows">A newer FSSAI order has changed the turnover limits. The ₹12 lakh figure the AI gave is out of date.</li>
               <li data-kind="warn" data-label="Mistake caught">The AI gave the old rule. Aman nearly applied for the wrong licence, and could have paid higher fees for no reason.</li>
               <li data-kind="check" data-label="Aman checks">He confirms the right category with his CA. He saves the order link and the date in his source list.</li>
             </ol>
@@ -1754,7 +1754,7 @@ module AiStartingABusinessContent
               <tr><td>12. The ask</td><td>We ask for a ₹2,00,000 loan for the kiosk build</td><td>Amount, what it pays for, how it is repaid, what happens without it</td></tr>
             </tbody>
           </table>
-          <p><strong>About the ask:</strong> Aman can open with his own ₹8,00,000. But he wants to keep his family's ₹2,00,000 safe as a reserve. So he will ask his bank about a small business loan of ₹2,00,000 (a made-up example). His plan still works if the bank says no. A deck for an angel investor would ask for something different. For example, money for a second outlet in return for a share of the business.</p>
+          <p><strong>About the ask:</strong> Aman has ₹8,00,000 of his own, and opening costs about ₹4,75,000, so he can open without a loan. But ₹2,00,000 of his savings is family money that he wants to keep safe as a reserve. So he will ask his bank about a small business loan of ₹2,00,000 (a made-up example). His plan still works if the bank says no. A deck for an angel investor would ask for something different. For example, money for a second outlet in return for a share of the business.</p>
         </div>
         <div class="lc-card">
           <h3>Honest traction</h3>

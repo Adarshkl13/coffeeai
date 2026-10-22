@@ -32,7 +32,7 @@
         <div class="nav-links-auth">
           <% if user_signed_in? %>
             <%= link_to "Account settings", edit_user_registration_path, class: "nav-link" %>
-            <%= link_to "Sign out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
+            <%= link_to "Log out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
           <% else %>
             <%= link_to "Log in", new_user_session_path, class: "nav-link" %>
             <%= link_to "Sign up", new_user_registration_path, class: "btn btn-primary btn-sm" %>
@@ -45,7 +45,7 @@
       <% if user_signed_in? %>
         <div class="nav-user">
           <%= link_to edit_user_registration_path, class: "nav-avatar", title: "Account settings (#{current_user.email})", aria: { label: "Account settings" } do %><%= current_user.email[0].upcase %><% end %>
-          <%= link_to "Sign out", destroy_user_session_path, class: "nav-signout", data: { turbo_method: :delete } %>
+          <%= link_to "Log out", destroy_user_session_path, class: "nav-signout", data: { turbo_method: :delete } %>
         </div>
       <% else %>
         <%= link_to "Log in", new_user_session_path, class: "nav-login" %>

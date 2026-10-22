@@ -180,7 +180,7 @@ module AiWorkforcePlanningContent
         </div>
         <p class="lc-lead">AI assistants can save you hours in workforce planning. They can find patterns in tables, draft scenarios, explain spreadsheet formulas and write a first summary. But they can also give numbers that look exact and are not. They can repeat unfair patterns from old data. And they can put private employee data at risk. In this lesson you will learn where AI helps, the four big risks, and a safe way to work.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 330" role="img" aria-label="Two columns. Where AI helps: spot patterns in totals and anonymised tables, draft best, base and worst case scenarios, explain formulas such as COUNTIFS and rates, and draft the write-up and questions for managers. Watch for: false precision, such as 79.47 leavers, which is a guess and not a fact; biased history, where past patterns repeat unfairness; private data, so no names or ages in public tools; made-up facts, where laws, benchmarks and sums can be wrong. Bottom bar: AI drafts and flags. People check the numbers and decide.">
+          <svg viewBox="0 0 760 330" role="img" aria-label="Two columns. Where AI helps: spot patterns in totals and anonymised tables, draft best, base and worst case scenarios, explain formulas such as COUNTIFS and rates, and draft the write-up and questions for managers. Watch for: false precision, such as 79.51 leavers, which is a guess and not a fact; biased history, where past patterns repeat unfairness; private data, so no names or ages in public tools; made-up facts, where laws, benchmarks and sums can be wrong. Bottom bar: AI drafts and flags. People check the numbers and decide.">
             <g font-family="inherit" font-size="13" fill="#e2e0f0">
               <text x="200" y="26" font-weight="700" fill="#6ee7b7" text-anchor="middle">Where AI helps</text>
               <text x="560" y="26" font-weight="700" fill="#f9a8d4" text-anchor="middle">Watch for</text>
@@ -198,7 +198,7 @@ module AiWorkforcePlanningContent
               <text x="46" y="245" font-size="11" fill="#9b99b8">summaries and questions for managers</text>
               <rect x="390" y="40" width="340" height="46" rx="8" fill="#1f1f44" stroke="#ec4899"/>
               <text x="406" y="60" font-weight="700">False precision</text>
-              <text x="406" y="77" font-size="11" fill="#9b99b8">"79.47 leavers" is a guess, not a fact</text>
+              <text x="406" y="77" font-size="11" fill="#9b99b8">"79.51 leavers" is a guess, not a fact</text>
               <rect x="390" y="96" width="340" height="46" rx="8" fill="#1f1f44" stroke="#ec4899"/>
               <text x="406" y="116" font-weight="700">Biased history</text>
               <text x="406" y="133" font-size="11" fill="#9b99b8">past patterns can repeat unfairness</text>
@@ -230,7 +230,7 @@ module AiWorkforcePlanningContent
         </div>
         <div class="lc-card">
           <h3>The four big risks</h3>
-          <p><strong>1. False precision.</strong> AI may say "Northbridge will lose 79.47 people in 2027." That looks exact, but it is an estimate. Next year will not copy last year. Ask for a range instead, for example "about 70 to 90 leavers", and list the assumptions.</p>
+          <p><strong>1. False precision.</strong> AI may say "Northbridge will lose 79.51 people in 2027." That looks exact, but it is an estimate. Next year will not copy last year. Ask for a range instead, for example "about 70 to 90 leavers", and list the assumptions.</p>
           <p><strong>2. Biased history.</strong> AI learns from the data you give it. Suppose most past team leaders came from one shift or one group of people. An AI list of "likely future leaders" may copy that pattern. It can look like a fact, but it may be unfair. Check results by group, and let people make the decisions.</p>
           <p><strong>3. Private data.</strong> Employee data is personal data. In the UK, the UK GDPR and the Data Protection Act 2018 set rules for how you use it. Do not paste names, ages, pay or health details into a public AI tool. Use totals by site and role, or made-up data. Use only tools your company has approved.</p>
           <p><strong>4. Made-up facts.</strong> AI can state a law, a benchmark or a sum wrongly, and sound sure. Check legal points with an HR adviser or employment lawyer. Check sums in a spreadsheet.</p>
@@ -267,8 +267,8 @@ module AiWorkforcePlanningContent
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Priya asks">Priya pastes the leaver totals by site and role. There are no names. She asks the AI to find the hotspots and forecast 2027 leavers.</li>
-              <li data-kind="answer" data-label="AI replies">The AI says London drivers have the highest rate at 24.4%. It also says: "Northbridge will lose exactly 79.47 employees in 2027."</li>
-              <li data-kind="warn" data-label="False precision">79.47 is last year's rate (18.9%) times 420 people. It is a guess, not a fact. Priya asks for a range and the assumptions behind it.</li>
+              <li data-kind="answer" data-label="AI replies">The AI says London drivers have the highest rate at 24.4%. It also says: "Northbridge will lose exactly 79.51 employees in 2027."</li>
+              <li data-kind="warn" data-label="False precision">79.51 is last year's rate (78 / 412, about 18.9%) times 420 people. It is a guess, not a fact. Priya asks for a range and the assumptions behind it.</li>
               <li data-kind="tool" data-label="Spreadsheet">Priya types <code>=19/78</code> into Google Sheets to check the London driver rate.</li>
               <li data-kind="result" data-label="Sheet shows">0.2436, which is 24.4%. The AI's rate is correct this time.</li>
               <li data-kind="warn" data-label="Privacy risk">Tom suggests pasting the full HRIS export (the HR system's employee list) into a free chatbot to "get more detail". Priya says no. It has names, ages and pay.</li>
@@ -284,18 +284,18 @@ module AiWorkforcePlanningContent
             <pre class="ai-try-prompt">You are a careful workforce planning reviewer. Use simple English.
 
         Here is a made-up estimate from [Northbridge Logistics, a UK delivery company with 420 employees]:
-        "Last year 78 people left, from an average headcount of 412. So in 2027 we will lose exactly 79.47 people. We will hire 80 people and the problem is solved. Our past team leaders mostly came from the London day shift, so we will promote from there again."
+        "Last year 78 people left, from an average headcount of 412. So in 2027 we will lose exactly 79.51 people. We will hire 80 people and the problem is solved. Our past team leaders mostly came from the London day shift, so we will promote from there again."
 
         Please review it:
         1. Check the sum. Show the working.
-        2. Explain why "exactly 79.47" is false precision. Suggest a sensible range and the assumptions behind it.
+        2. Explain why "exactly 79.51" is false precision. Suggest a sensible range and the assumptions behind it.
         3. Point out what is missing (for example a new site, retirements, the time it takes to hire).
         4. Explain how the team leader idea could repeat an unfair pattern, and how to check it.
         5. List 3 questions a person must answer before this goes to leaders.
 
         Do not invent statistics or laws. If you mention a law, describe it in general words and say it needs checking by an HR adviser.</pre>
             <ul class="ai-try-checks">
-              <li>It shows 78 / 412 = 18.9%, and 18.9% of 420 is about 79.5.</li>
+              <li>It shows 78 / 412 = 18.9%, and 78 / 412 &times; 420 is about 79.5.</li>
               <li>It gives a range, not one exact number, and lists assumptions.</li>
               <li>It spots the bias risk in promoting from one shift only.</li>
               <li>It leaves the final decisions to people.</li>
@@ -765,7 +765,7 @@ module AiWorkforcePlanningContent
           <table class="lc-table">
             <thead><tr><th>Forecast for 2027</th><th>Working (base)</th><th>Base</th><th>Sensible range</th></tr></thead>
             <tbody>
-              <tr><td>All leavers</td><td>18.9% &times; 420 = 79.5</td><td>About 80</td><td>70 to 90</td></tr>
+              <tr><td>All leavers</td><td>78 / 412 &times; 420 = 79.5</td><td>About 80</td><td>70 to 90</td></tr>
               <tr><td>London driver leavers</td><td>24.4% &times; 80 = 19.5</td><td>About 20</td><td>13 to 20 (Manchester rate to current rate)</td></tr>
               <tr><td>Retirements</td><td>4 of about 30 aged 60+ retired last year (13.3%). 13.3% &times; 32 = 4.3</td><td>About 4</td><td>2 to 6</td></tr>
             </tbody>
@@ -1784,7 +1784,7 @@ module AiWorkforcePlanningContent
           <p><strong>The Manchester conveyor.</strong> The new sorter will remove about 7 warehouse roles in Manchester from April 2027. Daniel wants to move people, not make them redundant. Manchester warehouse loses about 14 people a year, so about 1.2 a month. Priya's plan:</p>
           <ul class="lc-list">
             <li>4 Manchester operatives join the Driver Academy and are not replaced in the warehouse.</li>
-            <li>3 leaver vacancies from January to March 2027 are not refilled (1.2 a month &times; 3 months = about 3.5).</li>
+            <li>3 leaver vacancies from January to March 2027 are not refilled (14 leavers a year &divide; 12 &times; 3 months = 3.5).</li>
             <li>4 + 3 = 7 roles. No redundancies are needed if the numbers hold. Priya checks every month.</li>
             <li>Some operatives also retrain to run the new sorter, and anyone who wants a Leeds job can apply for one.</li>
           </ul>
@@ -1944,7 +1944,7 @@ module AiWorkforcePlanningContent
         </figure>
         <div class="lc-card">
           <h3>From the gap to the number of hires</h3>
-          <p>Start with the people you need, then take away the people you can find inside. Five things add to the number. Two things reduce it.</p>
+          <p>Start with the people you need, then take away the people you can find inside. Four things add to the number. Two things reduce it.</p>
           <ul class="lc-list">
             <li><strong>Replacements</strong>: people who will leave. Priya uses last year's leavers by job (78 in total).</li>
             <li><strong>Growth</strong>: volume grows 6%. Drivers: 135 &times; 0.06 = 8.1, so 8. Warehouse: 190 &times; 0.06 = 11.4, so 11. The demand forecast also adds 1 team leader and 1 customer service adviser.</li>

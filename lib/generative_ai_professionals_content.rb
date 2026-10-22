@@ -243,7 +243,7 @@ module GenerativeAiProfessionalsContent
         <div class="lc-card">
           <h3>Client confidentiality and when to ask</h3>
           <p>Client information belongs to the client. Your contract with them may say what you can do with it. Harbourview's made-up engagement letter (the contract for the project) has a clause about AI. It allows Crestline's approved tools on Confidential project data. It bans tenant and staff personal data in any AI tool. It also says Crestline must note AI use in deliverables.</p>
-          <p>Laws apply too. In the UK, UK GDPR covers personal data. In the EU, the EU AI Act sets duties for AI providers and users. Most of its transparency rules, such as telling people when they deal with AI, apply from 2 August 2026. In regulated professions, such as law, accounting or medicine, follow your professional body's guidance as well. This is general education, not legal advice. Check with your compliance team or a qualified adviser.</p>
+          <p>Laws apply too. In the UK, UK GDPR covers personal data. In the EU, the EU AI Act sets duties for AI providers and users. Its transparency rules, such as telling people when they deal with AI, are being phased in. The EU has proposed delaying some dates, so check the official EU AI Act timeline. In regulated professions, such as law, accounting or medicine, follow your professional body's guidance as well. This is general education, not legal advice. Check with your compliance team or a qualified adviser.</p>
           <p><strong>Ask before you act</strong> when:</p>
           <ul class="lc-list">
             <li>You are not sure of the data class.</li>
@@ -1115,7 +1115,7 @@ module GenerativeAiProfessionalsContent
             <ul data-sorter-target="pool">
               <li data-bucket="fact" data-why="It comes straight from the repairs table: 12,740 of 18,200 routine jobs.">"70.0% of routine repairs were completed within the target time."</li>
               <li data-bucket="guess" data-why="The data shows late jobs, not why they were late. This is a cause to test.">"Routine repairs are late because repair operatives give them low priority."</li>
-              <li data-bucket="check" data-why="It sounds right, but you must open the GOV.UK guidance and read the exact rule.">"Awaab's Law adds more hazard types from 30 November 2026."</li>
+              <li data-bucket="check" data-why="It sounds right, but you must open the GOV.UK guidance and read the exact rule.">"Awaab's Law adds more hazard types in a later phase."</li>
               <li data-bucket="fact" data-why="It comes from the complaints data: 1,140 against 860 is up 280, or 32.6%.">"Repairs complaints rose from 860 to 1,140 in a year."</li>
               <li data-bucket="guess" data-why="No source supports it. AI often invents numbers that sound like benchmarks.">"Most landlords complete about 90% of repairs on time."</li>
               <li data-bucket="check" data-why="It came from focus group notes. Confirm it reflects more than one or two people.">"Tenants said missed appointments made them take extra time off work."</li>
@@ -1825,7 +1825,7 @@ module GenerativeAiProfessionalsContent
             <li>Add the agreed AI note to deliverables. Do not hide it in small print.</li>
             <li>Answer questions about AI use truthfully. If you do not know a detail, say you will find out.</li>
             <li>Never claim work is fully hand-written when AI drafted parts of it.</li>
-            <li>If you put an AI chat assistant in front of customers, tell them it is AI. In the EU, the EU AI Act requires this for many AI systems that talk to people, from 2 August 2026. This is not legal advice; check with a qualified adviser.</li>
+            <li>If you put an AI chat assistant in front of customers, tell them it is AI. In the EU, the EU AI Act requires this for many AI systems that talk to people; check the official EU AI Act timeline for when each rule applies. This is not legal advice; check with a qualified adviser.</li>
             <li>If a client says "no AI on our work", follow it, and tell your team.</li>
           </ul>
         </div>
@@ -2122,7 +2122,7 @@ module GenerativeAiProfessionalsContent
         </div>
         <div class="lc-card">
           <h3>Projects and custom assistants</h3>
-          <p>Many assistants let you create a <strong>project</strong>: a workspace with its own instructions, files and chats. Some tools also let you build a simple <strong>custom assistant</strong> for one repeated job. Google calls these Gems. Names and features change often. For example, OpenAI announced in September 2026 that it is retiring custom GPTs in ChatGPT and moving users to plugins. Check the tool's current help pages.</p>
+          <p>Many assistants let you create a <strong>project</strong>: a workspace with its own instructions, files and chats. Some tools also let you build a simple <strong>custom assistant</strong> for one repeated job. Google calls these Gems. Names and features change often. OpenAI has custom GPTs in ChatGPT, but tools rename, merge or retire features like these. Check the tool's current help pages.</p>
           <p>Olivia sets up a "Harbourview repairs review" project in Crestline Assist. The engagement letter allows Confidential project data in approved tools, but no personal data about tenants or staff.</p>
           <table class="lc-table">
             <thead><tr><th>Put in the project</th><th>Keep out of the project</th></tr></thead>

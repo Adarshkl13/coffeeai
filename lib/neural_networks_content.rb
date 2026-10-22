@@ -2403,7 +2403,7 @@ module NeuralNetworksContent
         </div>
         <div class="lc-card">
           <h3>How to choose a learning rate</h3>
-          <p>There is no single correct value. It depends on the data, the network and the optimizer. These simple rules help:</p>
+          <p>There is no single correct value. It depends on the data, the network and the optimiser. These simple rules help:</p>
           <ol class="lc-list">
             <li>Try values that are 10 times apart, such as 0.1, 0.01 and 0.001. Train each one for a short time.</li>
             <li>Look at the loss curve. Pick the largest value whose loss goes down smoothly.</li>
@@ -2411,7 +2411,7 @@ module NeuralNetworksContent
             <li>If the loss falls very slowly, make it bigger.</li>
           </ol>
           <p>Many projects also change the learning rate during training. This is called a <strong>learning rate schedule</strong>. A common plan is to start larger and make it smaller later. Big early steps move fast. Small late steps settle gently near the best weights.</p>
-          <p>Some optimizers, such as <strong>Adam</strong>, adjust the step size for each weight on their own. They still need a starting learning rate. In PyTorch, Adam uses 0.001 by default. Check the current docs of your library for its defaults.</p>
+          <p>Some optimisers, such as <strong>Adam</strong>, adjust the step size for each weight on their own. They still need a starting learning rate. In PyTorch, Adam uses 0.001 by default. Check the current docs of your library for its defaults.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: read the loss curve</h3>
@@ -2767,7 +2767,7 @@ module NeuralNetworksContent
               <tr><td><code>nn.Module</code></td><td>The base class for every network. It keeps track of all the weights inside.</td></tr>
               <tr><td><code>nn.Linear(2, 16)</code></td><td>A fully connected layer. It holds a weight and a bias, with random starting values.</td></tr>
               <tr><td><code>nn.BCEWithLogitsLoss()</code></td><td>Sigmoid and binary cross-entropy in one step. It is more stable than doing them apart.</td></tr>
-              <tr><td><code>torch.optim.SGD</code></td><td>The optimizer. It applies <code>w -= lr * grad</code> to every parameter.</td></tr>
+              <tr><td><code>torch.optim.SGD</code></td><td>The optimiser. It applies <code>w -= lr * grad</code> to every parameter.</td></tr>
               <tr><td><code>optimizer.zero_grad()</code></td><td>Clears old gradients. PyTorch adds new gradients to old ones, so you must clear them each step.</td></tr>
               <tr><td><code>torch.no_grad()</code></td><td>Turns off autograd. Use it for testing, because you do not need gradients there.</td></tr>
             </tbody>
@@ -2783,7 +2783,7 @@ module NeuralNetworksContent
               <li data-kind="tool" data-label="loss = loss_fn(logits, y_train)">The loss function applies sigmoid and binary cross-entropy. The result is one number.</li>
               <li data-kind="tool" data-label="optimizer.zero_grad()">Clear the gradients left from the last epoch. Without this, they would add up.</li>
               <li data-kind="result" data-label="loss.backward()">Autograd walks back through the recorded steps. It fills <code>.grad</code> for all 65 parameters, with the same shapes as the weights.</li>
-              <li data-kind="tool" data-label="optimizer.step()">The optimizer updates every weight: w -= 0.5 * grad.</li>
+              <li data-kind="tool" data-label="optimizer.step()">The optimiser updates every weight: w -= 0.5 * grad.</li>
               <li data-kind="warn" data-label="A common bug">If you forget <code>zero_grad()</code>, gradients keep growing. The steps get too big and the loss can explode.</li>
               <li data-kind="answer" data-label="Result">Repeat 2,001 times. The loss falls from 0.66 to 0.06, and test accuracy reaches 94%.</li>
             </ol>
@@ -2794,14 +2794,14 @@ module NeuralNetworksContent
           <p>PyTorch does not run in the browser. So Part 1 of the code editor below builds the same 2-16-1 network with scikit-learn's <code>MLPClassifier</code>. Like PyTorch, it does forward, loss, backward and update for you. Parts 2 and 3 are the PyTorch code, for your own computer.</p>
           <ol class="lc-list">
             <li>Run it. In Part 1, check that W1 has shape (2, 16) and W2 has shape (16, 1), just like our network. Note the test accuracy.</li>
-            <li>In Part 1, change <code>solver="sgd"</code> to <code>solver="adam"</code> and <code>learning_rate_init</code> to <code>0.01</code>. Adam is a popular optimizer that adapts the step size.</li>
+            <li>In Part 1, change <code>solver="sgd"</code> to <code>solver="adam"</code> and <code>learning_rate_init</code> to <code>0.01</code>. Adam is a popular optimiser that adapts the step size.</li>
             <li>In Part 1, change <code>hidden_layer_sizes=(16,)</code> to <code>(16, 16)</code>. This adds a second hidden layer. Look at the shapes again.</li>
             <li>In Part 1, change <code>activation="tanh"</code> to <code>activation="relu"</code> and compare the loss chart.</li>
             <li>If you have PyTorch on your computer, run Parts 2 and 3 there. In Part 3, try <code>torch.optim.Adam(model.parameters(), lr=0.01)</code>.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Key Insight:</strong> PyTorch runs the same five steps as your NumPy network. You write the layers and the forward pass, and autograd and the optimizer handle backpropagation and the update.
+          <strong>Key Insight:</strong> PyTorch runs the same five steps as your NumPy network. You write the layers and the forward pass, and autograd and the optimiser handle backpropagation and the update.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -3155,7 +3155,7 @@ module NeuralNetworksContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-nn">Neural Networks</div>
-          <h1 class="lc-title">Overfitting, Underfitting and Regularization</h1>
+          <h1 class="lc-title">Overfitting, Underfitting and Regularisation</h1>
         </div>
         <p class="lc-lead">A network can score perfectly on its training data and still fail on new data. This is called <strong>overfitting</strong>. The opposite problem is <strong>underfitting</strong>: the network does badly even on the training data. In this lesson you will spot both with loss curves. Then you will fix overfitting with L2 weight decay, dropout, early stopping and more data.</p>
         <figure class="lc-diagram">
@@ -3229,12 +3229,12 @@ module NeuralNetworksContent
         </div>
         <div class="lc-card">
           <h3>Fix 1: L2 weight decay</h3>
-          <p><strong>Regularization</strong> means any trick that stops a network from overfitting. The most common one is <strong>L2 regularization</strong>, also called <strong>weight decay</strong>.</p>
+          <p><strong>Regularisation</strong> means any trick that stops a network from overfitting. The most common one is <strong>L2 regularisation</strong>, also called <strong>weight decay</strong>.</p>
           <p>It adds a penalty to the loss: a small number λ (lambda) times the sum of all the squared weights. Big weights now cost extra. So the network keeps its weights small, and its decision boundary stays smooth.</p>
           <p>Example: the weights are 3.0, -2.0 and 0.5. The squares add up to 9 + 4 + 0.25 = 13.25. With λ = 0.01, the penalty is 0.01 × 13.25 = 0.1325. This is added to the normal loss.</p>
           <ul class="lc-list">
             <li>In scikit-learn, λ is the <code>alpha</code> setting of <code>MLPClassifier</code>.</li>
-            <li>In PyTorch, you pass <code>weight_decay</code> to the optimizer.</li>
+            <li>In PyTorch, you pass <code>weight_decay</code> to the optimiser.</li>
           </ul>
           <p>In the second run of Part 1, <code>alpha=1.0</code> keeps the two losses close (0.283 and 0.374 at epoch 150). Validation accuracy stays at 0.84 instead of falling to 0.76.</p>
         </div>
@@ -3242,7 +3242,7 @@ module NeuralNetworksContent
           <h3>Fix 2: dropout</h3>
           <p><strong>Dropout</strong> switches off some hidden units at random during training. With <code>p=0.5</code>, each unit's output is set to 0 half of the time. A new random set is dropped at every step.</p>
           <p>Now the network cannot rely on one special unit. It has to spread what it learns over many units. At evaluation time, dropout is off and every unit is used. PyTorch also scales the kept units during training, so the average size stays the same.</p>
-          <p>Part 3 in the code editor below builds a PyTorch network with <code>nn.Dropout(p=0.5)</code> and adds L2 with <code>weight_decay</code> in the optimizer. It runs on your own computer.</p>
+          <p>Part 3 in the code editor below builds a PyTorch network with <code>nn.Dropout(p=0.5)</code> and adds L2 with <code>weight_decay</code> in the optimiser. It runs on your own computer.</p>
           <p>In training mode, the same input gives a different output each time, because different units are dropped. In evaluation mode, the output is the same every time. Always call <code>model.eval()</code> before you test a network.</p>
           <p>PyTorch does not run in the browser, and scikit-learn's <code>MLPClassifier</code> has no dropout. So Part 2 in the editor also shows dropout with a NumPy mask, which does run in the browser. Its two training passes give different outputs.</p>
         </div>
@@ -3409,7 +3409,7 @@ module NeuralNetworksContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-nn">Neural Networks</div>
-          <h1 class="lc-title">Project: Handwritten Digit Recognizer</h1>
+          <h1 class="lc-title">Project: Handwritten Digit Recogniser</h1>
         </div>
         <p class="lc-lead">In this project you build a network that reads handwritten digits. You use the ideas from this whole course: layers, ReLU, softmax, cross-entropy, training and checking for overfitting. The data is scikit-learn's built-in digits set, so it runs in your browser with no download. At the end you see the same project in PyTorch on the bigger MNIST data set.</p>
         <figure class="lc-diagram">

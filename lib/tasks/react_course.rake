@@ -50,7 +50,7 @@ namespace :content do
       16 => "Learn why components re-render. See when memo, useMemo, useCallback and the React Compiler help.",
       17 => "Handle forms with React 19 Actions using useActionState, useFormStatus and useOptimistic.",
       18 => "Set up loading and error UI with Suspense, the use() API, lazy() code splitting and error boundaries.",
-      19 => "Connect URLs to screens with React Router v8. Then meet frameworks: Next.js App Router, Server and Client Components, and \"use client\".",
+      19 => "Connect URLs to screens with React Router. Then meet frameworks: Next.js App Router, Server and Client Components, and \"use client\".",
       20 => "Test components the way users use them, with Vitest and React Testing Library. See how act() works.",
       21 => "Combine reducers, context, custom hooks, lists and form actions into a full task manager app."
     }

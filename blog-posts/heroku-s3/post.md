@@ -80,9 +80,7 @@ A bucket is a container for files in S3. Each file in a bucket is called an **ob
 7. Keep the default encryption (SSE-S3).
 8. Choose **Create bucket**.
 
-<!-- SCREENSHOT: replace images/03-screenshot-s3-create-bucket.png with a screenshot of S3 → Create bucket, showing region eu-west-1, the bucket name and "Block all public access" turned on -->
-![Screenshot placeholder: S3 Create bucket page with Block all public access turned on](images/03-screenshot-s3-create-bucket.png)
-*Keep "Block all public access" turned on. The app uses presigned URLs, not public links.*
+Keep "Block all public access" turned on. The app uses presigned URLs, not public links.
 
 If you like the command line, you can do the same with the AWS CLI:
 
@@ -162,9 +160,7 @@ A presigned URL uses the permissions of the keys that signed it. So the browser 
 6. For the use case, choose **Application running outside AWS** (or **Other**). Choose **Next**, then **Create access key**.
 7. Choose **Download .csv file**. This is the only time AWS shows the secret.
 
-<!-- SCREENSHOT: replace images/05-screenshot-iam-access-key.png with a screenshot of IAM → Users → photobook-app → Security credentials → Create access key → Retrieve access keys page (blur the secret) -->
-![Screenshot placeholder: IAM Retrieve access keys page for the photobook-app user](images/05-screenshot-iam-access-key.png)
-*Save the .csv file somewhere safe. Never commit it to Git.*
+Save the .csv file somewhere safe. Never commit it to Git.
 
 Your keys look like this (these are fake example values):
 
@@ -194,9 +190,7 @@ Your page runs on one origin (for example `http://localhost:8000`). The bucket i
 ]
 ```
 
-<!-- SCREENSHOT: replace images/06-screenshot-s3-cors.png with a screenshot of S3 → your bucket → Permissions → Cross-origin resource sharing (CORS) → Edit, with the JSON pasted -->
-![Screenshot placeholder: S3 CORS configuration editor with the JSON rule](images/06-screenshot-s3-cors.png)
-*The CORS editor in the S3 console only accepts JSON.*
+The CORS editor in the S3 console only accepts JSON.
 
 This rule allows only `PUT` requests with a `Content-Type` header, and only from your local computer for now. You will add your Heroku address in Step 8.
 
@@ -558,9 +552,7 @@ heroku config:set S3_BUCKET=photobook-uploads-yourname AWS_REGION=eu-west-1 \
 
 Commands are saved in your shell history. If you do not want the secret there, use the dashboard: **your app → Settings → Reveal Config Vars**. Every config var change restarts the app.
 
-<!-- SCREENSHOT: replace images/09-screenshot-heroku-config-vars.png with a screenshot of Heroku Dashboard → your app → Settings → Reveal Config Vars, showing the four vars (secret blurred) -->
-![Screenshot placeholder: Heroku dashboard Settings page with the four config vars](images/09-screenshot-heroku-config-vars.png)
-*The four config vars in the Heroku dashboard.*
+The four config vars in the Heroku dashboard.
 
 Check them any time with:
 
@@ -607,9 +599,7 @@ heroku open
 
 The browser opens your app. Upload two or three photos. Each photo should appear in the grid after the page reloads.
 
-<!-- SCREENSHOT: replace images/11-screenshot-photobook-running.png with a screenshot of PhotoBook at your herokuapp.com address with two or three uploaded photos -->
-![Screenshot placeholder: PhotoBook running on Heroku with uploaded photos](images/11-screenshot-photobook-running.png)
-*PhotoBook running on Heroku. The photos come from the private bucket.*
+PhotoBook running on Heroku. The photos come from the private bucket.
 
 Two quick checks:
 

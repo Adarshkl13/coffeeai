@@ -11,11 +11,12 @@ namespace :content do
       c.position    = 13
       c.published   = true
     end
+    course.update!(description: "Bootstrap is the most popular CSS framework in the world. Learn the 12-column grid, utility classes and responsive components like buttons, cards, navbars, modals and forms. Build clean pages in minutes.")   # keep the description in sync on every run
     puts "Course: #{course.title}"
 
     titles = {
       1  => "Introduction to Bootstrap",          2  => "The Grid System",
-      3  => "Typography and Text Utilities",       4  => "Colors and Backgrounds",
+      3  => "Typography and Text Utilities",       4  => "Colours and Backgrounds",
       5  => "Spacing Utilities",                   6  => "Flexbox Utilities",
       7  => "Display, Sizing, and Borders",        8  => "Buttons and Icons",
       9  => "Cards",                               10 => "Navigation and Navbar",
@@ -23,7 +24,7 @@ namespace :content do
       13 => "Tables",                              14 => "Alerts, Badges, and Progress",
       15 => "Modals",                              16 => "Dropdowns, Collapse, and Accordion",
       17 => "List Groups, Images, and Carousel",    18 => "Tooltips, Popovers, and Toasts",
-      19 => "Color Modes and Customization",       20 => "Capstone: Landing Page"
+      19 => "Colour Modes and Customisation",       20 => "Capstone: Landing Page"
     }
 
     descriptions = {

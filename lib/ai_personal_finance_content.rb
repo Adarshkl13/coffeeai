@@ -49,7 +49,7 @@ module AiPersonalFinanceContent
         </figure>
         <div class="lc-card">
           <h3>Four words you need</h3>
-          <p>Meet Ananya. She is a made-up 28-year-old software tester in London. She gets a salary every month. Here are the four basics, using her sample numbers.</p>
+          <p>Meet Ananya. She is a made-up 28-year-old software tester in Karnataka. She gets a salary every month. Here are the four basics, using her sample numbers.</p>
           <table class="lc-table">
             <thead><tr><th>Word</th><th>What it means</th><th>Ananya's example</th></tr></thead>
             <tbody>
@@ -116,7 +116,7 @@ module AiPersonalFinanceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient money teacher for beginners in India. This is education only, not financial advice.
 
-        Here is a made-up month for [Ananya, a 28-year-old salaried software tester in London]:
+        Here is a made-up month for [Ananya, a 28-year-old salaried software tester in Karnataka]:
         - Take-home pay: [₹65,000]
         - Expenses: [rent ₹16,000, groceries ₹7,500, bills ₹3,000, transport ₹3,500, money to parents ₹5,000, eating out ₹6,000, shopping ₹4,000, other ₹3,000]
         - Assets: [bank ₹1,20,000, fixed deposit ₹1,50,000, mutual funds ₹85,000]
@@ -336,7 +336,7 @@ module AiPersonalFinanceContent
         </div>
         <div class="lc-card">
           <h3>Worked example: Ravi and Meena's sheet</h3>
-          <p>Ravi and Meena are a made-up married couple in Los Angeles with one child. Here is their monthly sheet. Column A has labels. Column B has amounts in ₹.</p>
+          <p>Ravi and Meena are a made-up married couple in Tamil Nadu with one child. Here is their monthly sheet. Column A has labels. Column B has amounts in ₹.</p>
           <pre><code>   A                              B
         1  Item                           Amount (₹)
         2  Ravi take-home pay             72000
@@ -399,7 +399,7 @@ module AiPersonalFinanceContent
           <p>Ask the AI to build a snapshot sheet with formulas. Then type it into Excel or Google Sheets and check that the totals match.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly spreadsheet coach. This is education only, not financial advice.
-        Build a money snapshot for [Ravi and Meena, a couple in Los Angeles with one child]. All numbers are made-up and monthly unless stated.
+        Build a money snapshot for [Ravi and Meena, a couple in Tamil Nadu with one child]. All numbers are made-up and monthly unless stated.
 
         Income: [Ravi ₹72,000, Meena ₹38,000]
         Fixed: [rent ₹22,000, school fees ₹72,000 a year, car EMI ₹9,500, insurance ₹36,000 a year, phone and internet ₹1,800, domestic help ₹3,500]
@@ -622,12 +622,12 @@ module AiPersonalFinanceContent
           <h3>Adapting it to an Indian household</h3>
           <p>The 50/30/20 split is only a starting point. Many Indian families have costs that push "needs" higher:</p>
           <ul class="lc-list">
-            <li>High rent in big cities like New York, San Francisco or London</li>
+            <li>High rent in big cities</li>
             <li>School fees, tuition and coaching classes</li>
             <li>Money sent to parents or other family members</li>
             <li>Yearly costs like festivals, weddings and insurance premiums</li>
           </ul>
-          <p>Take Ravi and Meena in Los Angeles. Their take-home pay is ₹1,10,000. Their needs are ₹69,000 (about 63%). Their wants are ₹12,500 (about 11%). They have ₹28,500 left to save (about 26%). Needs are above 50%, but they still save more than 20%. That is fine. The split should fit your life.</p>
+          <p>Take Ravi and Meena in Tamil Nadu. Their take-home pay is ₹1,10,000. Their needs are ₹69,000 (about 63%). Their wants are ₹12,500 (about 11%). They have ₹28,500 left to save (about 26%). Needs are above 50%, but they still save more than 20%. That is fine. The split should fit your life.</p>
           <p><strong>Yearly costs:</strong> turn them into a monthly amount. If they spend about ₹18,000 on Pongal and Diwali gifts each year, they set aside ₹18,000 ÷ 12 = ₹1,500 every month.</p>
         </div>
         <div class="lc-card">
@@ -673,7 +673,7 @@ module AiPersonalFinanceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly budget coach for people in India. This is education only, not financial advice.
 
-        Made-up month for [Ananya, 28, salaried, lives alone in London]:
+        Made-up month for [Ananya, 28, salaried, lives alone in Karnataka]:
         Take-home pay: [₹65,000]
         Spending: [rent ₹16,000, groceries ₹7,500, bills ₹3,000, transport ₹3,500, money to parents ₹5,000, eating out ₹6,000, shopping ₹4,000, other ₹3,000]
         Goals: [build an emergency fund, save for a trip]
@@ -770,7 +770,7 @@ module AiPersonalFinanceContent
             <li>Replace people's names with a label, such as "Friend" or "Landlord".</li>
             <li>Keep only three columns: date, description and amount.</li>
           </ul>
-          <p>Even safer: do the sorting in your own spreadsheet, and only ask AI for help with category names and formulas. In this lesson, we use a made-up statement for Ananya, a 28-year-old software tester in London.</p>
+          <p>Even safer: do the sorting in your own spreadsheet, and only ask AI for help with category names and formulas. In this lesson, we use a made-up statement for Ananya, a 28-year-old software tester in Karnataka.</p>
           <table class="lc-table">
             <thead><tr><th>Date</th><th>Description (cleaned)</th><th>Amount (₹)</th><th>Category</th></tr></thead>
             <tbody>
@@ -844,7 +844,7 @@ module AiPersonalFinanceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly money helper. This is education only, not financial advice.
 
-        Here is a made-up UPI statement for [Ananya, a salaried tester in London] for [September]:
+        Here is a made-up UPI statement for [Ananya, a salaried tester in Karnataka] for [September]:
         01 Sep | Rent to landlord | 16000
         03 Sep | QuickBite food order | 420
         05 Sep | FreshCart groceries | 2800
@@ -883,7 +883,7 @@ module AiPersonalFinanceContent
         </div>
         <p class="lc-lead">Cutting costs does not have to mean giving up everything you enjoy. The easiest savings come from things you do not use, bills you never compare, and small habits that repeat. In this lesson, you will use AI to find these savings in a sample family budget. You will also learn to check every AI suggestion, because AI does not know your real prices, plans or needs.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 300" role="img" aria-label="A before and after bar chart of monthly costs for Ravi and Meena, a made-up family in Los Angeles. Subscriptions fall from 3,546 to 1,747 rupees, phone and internet from 1,800 to 1,300, groceries from 14,000 to 13,300 and eating out from 6,000 to 4,500. The total falls from 25,346 to 20,847 rupees a month.">
+          <svg viewBox="0 0 760 300" role="img" aria-label="A before and after bar chart of monthly costs for Ravi and Meena, a made-up family in Tamil Nadu. Subscriptions fall from 3,546 to 1,747 rupees, phone and internet from 1,800 to 1,300, groceries from 14,000 to 13,300 and eating out from 6,000 to 4,500. The total falls from 25,346 to 20,847 rupees a month.">
             <g font-family="inherit" font-size="12" fill="#e2e0f0">
               <text x="380" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#86efac">Ravi and Meena: monthly costs before and after (made-up)</text>
               <rect x="250" y="38" width="14" height="10" fill="#9b99b8"/><text x="270" y="47">Before</text>
@@ -927,7 +927,7 @@ module AiPersonalFinanceContent
         </div>
         <div class="lc-card">
           <h3>Worked example: Ravi and Meena's subscriptions</h3>
-          <p>Ravi and Meena live in Los Angeles with their young son. Here are their monthly subscriptions (made-up names and prices):</p>
+          <p>Ravi and Meena live in Tamil Nadu with their young son. Here are their monthly subscriptions (made-up names and prices):</p>
           <table class="lc-table">
             <thead><tr><th>Subscription</th><th>Per month (₹)</th><th>How often used</th><th>Decision</th></tr></thead>
             <tbody>
@@ -947,7 +947,7 @@ module AiPersonalFinanceContent
           <h3>Weak prompt, better prompt</h3>
           <pre><code>How can I save money?</code></pre>
           <p>This gives a general list, such as "make coffee at home". A better prompt gives your real (cleaned) numbers and asks for checks:</p>
-          <pre><code>Here are our monthly costs in ₹ (a family of 3 in Los Angeles):
+          <pre><code>Here are our monthly costs in ₹ (a family of 3 in Tamil Nadu):
         [list of costs]
         Suggest 5 ways to cut costs that will not hurt our quality of life.
         For each: the likely saving per month and per year,
@@ -975,7 +975,7 @@ module AiPersonalFinanceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a practical money coach. This is education only, not financial advice.
 
-        Household: [Ravi and Meena, a couple in Los Angeles with one child].
+        Household: [Ravi and Meena, a couple in Tamil Nadu with one child].
         Monthly costs in ₹ (made-up):
         [Rent 22,000; Groceries 14,000; Eating out and delivery 6,000; Mobile and internet 1,800; Electricity 2,200; Video apps 798; Gym 1,500 (used twice in 3 months); Child's learning app 999; Cabs 2,500]
 
@@ -1111,7 +1111,7 @@ module AiPersonalFinanceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient money coach. This is education only, not financial advice.
 
-        About me: [a 28-year-old salaried tester in London].
+        About me: [a 28-year-old salaried tester in Karnataka].
         Essential monthly costs: [₹35,000]. Money I can save each month: [₹20,000].
         My goals (made-up):
         [Emergency fund: target 6 months of essential costs, saved ₹60,000, 20 months
@@ -1459,7 +1459,7 @@ module AiPersonalFinanceContent
         <div class="lc-card">
           <h3>Check your report and let AI help you read it</h3>
           <p>RBI rules say each bureau must give you one free full credit report every calendar year. Get it only from the bureau's official website. Fake "free score" sites may steal your details. Rules can change, so check the RBI website for the current rules.</p>
-          <p>Here is a made-up summary of Ananya's report. She is a 28-year-old software tester in London.</p>
+          <p>Here is a made-up summary of Ananya's report. She is a 28-year-old software tester in Karnataka.</p>
           <table class="lc-table">
             <thead><tr><th>Account</th><th>Report says</th><th>What Ananya knows</th></tr></thead>
             <tbody>
@@ -1514,7 +1514,7 @@ module AiPersonalFinanceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient teacher who explains credit reports in India in simple English. This is for learning only, not financial advice.
 
-        Here is a made-up credit report summary for [Ananya, a salaried person in London]. Personal details are removed.
+        Here is a made-up credit report summary for [Ananya, a salaried person in Karnataka]. Personal details are removed.
         - Card A (Navkar Bank): limit Rs 1,00,000, balance Rs 72,000, all payments on time
         - Loan B (Navkar Bank personal loan): status Active, Rs 18,000 due. I closed it on [15 January] and have a closure letter.
         - Enquiry: "QuickCash Finance", [March]. I never applied.
@@ -1635,7 +1635,7 @@ module AiPersonalFinanceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly teacher of personal finance basics in India. This is education only, not investment advice.
 
-        My made-up situation: I am [28], I earn a salary in [London], and I have an emergency fund. I want to save for [a goal] in [5] years. I can put aside about [Rs 10,000] a month.
+        My made-up situation: I am [28], I earn a salary in [Karnataka], and I have an emergency fund. I want to save for [a goal] in [5] years. I can put aside about [Rs 10,000] a month.
 
         Please:
         1. Explain in simple English how an FD, a debt fund and an equity index fund work.
@@ -1704,7 +1704,7 @@ module AiPersonalFinanceContent
               <tr><td><strong>Tax regime</strong></td><td>A set of tax rules. India has an old and a new regime. Which one gives lower tax depends on your situation.</td></tr>
             </tbody>
           </table>
-          <p>A new law, the Income-tax Act, 2025, applies from 1 April 2026. Some names, section numbers and form numbers have changed. For example, under the new rules Form 16 becomes Form 130, and Form 26AS becomes Form 168. Papers for earlier years keep the old names. Rates, slabs and limits can change in every Budget. So always check the Income Tax Department's website (incometax.gov.in) or ask a CA. Do not trust a number from AI or an old article.</p>
+          <p>A new law, the Income-tax Act, 2025, applies from 1 April 2026. Some names, section numbers and form numbers have changed. For example, familiar forms such as Form 16 and Form 26AS get new form numbers under the new rules. Papers for earlier years keep the old names. Rates, slabs and limits can change in every Budget. So always check the Income Tax Department's website (incometax.gov.in) or ask a CA. Do not trust a number from AI or an old article.</p>
         </div>
         <div class="lc-card">
           <h3>Keep your documents in one place</h3>
@@ -1757,7 +1757,7 @@ module AiPersonalFinanceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a helpful teacher who explains Indian income tax basics in simple English. This is general education, not tax advice.
 
-        My made-up situation: I am a [salaried software tester in London]. This tax year I had [salary, savings account interest, FD interest] and [I sold some mutual fund units].
+        My made-up situation: I am a [salaried software tester in Karnataka]. This tax year I had [salary, savings account interest, FD interest] and [I sold some mutual fund units].
 
         Please:
         1. Explain these words in one or two sentences each: PAN, tax year, ITR, TDS, Form 16, AIS, Form 26AS, deduction, tax regime.
@@ -1911,7 +1911,7 @@ module AiPersonalFinanceContent
           <div class="lc-badge le-badge le-badge-fin">Finance</div>
           <h1 class="lc-title">Capstone: Your Personal Money Plan</h1>
         </div>
-        <p class="lc-lead">In this capstone, you will put everything together into one simple money plan. It has five parts: a money snapshot, a budget, a spending review, goals and a monthly check-in. You will see a worked example for Ravi and Meena, a couple in Los Angeles with one child. Then you will use AI to build a plan from sample data. The plan is for learning and planning only, not financial advice.</p>
+        <p class="lc-lead">In this capstone, you will put everything together into one simple money plan. It has five parts: a money snapshot, a budget, a spending review, goals and a monthly check-in. You will see a worked example for Ravi and Meena, a couple in Tamil Nadu with one child. Then you will use AI to build a plan from sample data. The plan is for learning and planning only, not financial advice.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 220" role="img" aria-label="Five steps in a row: snapshot, budget, spending review, goals and monthly check-in. An arrow from check-in goes back to snapshot, labelled repeat each month.">
             <defs><marker id="pf15a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -1960,7 +1960,7 @@ module AiPersonalFinanceContent
           <p>Formula for the monthly saving in a sheet (Target in B2, Saved in C2, Months in D2):</p>
           <pre><code>=ROUNDUP((B2-C2)/D2, -2)</code></pre>
           <p>For the emergency fund: (4,20,000 − 60,000) ÷ 36 = ₹10,000. This ignores interest, so it is a simple, safe estimate. How many months of costs to keep is a personal choice. Six months is only an example.</p>
-          <p>Their spending review found ₹2,400 a month on three streaming apps they rarely use. Cancelling two of them frees money for the trip goal.</p>
+          <p>Their spending review in Lesson 7 found two subscriptions they rarely used: a video app and the gym. Cancelling them saves ₹1,799 a month, which helps pay for the trip goal.</p>
         </div>
         <div class="lc-card">
           <h3>Your monthly check-in routine (about 30 minutes)</h3>
@@ -1995,7 +1995,7 @@ module AiPersonalFinanceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly money coach who teaches budgeting in simple English. This is for learning and planning, not financial advice.
 
-        Made-up household: [a couple in Los Angeles with one child].
+        Made-up household: [a couple in Tamil Nadu with one child].
         - Take-home pay: [Rs 1,10,000] a month
         - Essential costs: [Rs 70,000] a month (rent, food, school, bills, car EMI of Rs 9,500)
         - Other spending last month: [eating out Rs 8,000, shopping Rs 12,000, streaming apps Rs 2,400]

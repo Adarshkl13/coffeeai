@@ -64,7 +64,7 @@ module TrainingDeepModelsContent
         </div>
         <div class="lc-card">
           <h3>Learned features</h3>
-          <p>A <strong>feature</strong> is a number that describes the input, such as "how red is this photo?". Our running project is a fruit classifier for a greengrocer in Manchester. It must tell apart photos of apples, bananas and oranges.</p>
+          <p>A <strong>feature</strong> is a number that describes the input, such as "how red is this photo?". Our running project is a fruit classifier for a greengrocer. It must tell apart photos of apples, bananas and oranges.</p>
           <p>With a shallow model, you would write code to measure colour, size and roundness. Then the model learns from those few numbers. If you forget an important feature, the model can never use it.</p>
           <p>With deep learning, you give the network the raw pixels. The first layers learn to spot edges and colours. Later layers combine them into shapes and fruit parts. This is called <strong>representation learning</strong>: the model learns how to describe the data.</p>
           <p>A small network for 8×8 pictures has two hidden layers: 64 pixels go in, then 32 neurons, then 16, then 10 scores (one per digit 0-9). Part 5 in the code editor below builds it in PyTorch. Run that part on your own computer.</p>
@@ -593,7 +593,7 @@ module TrainingDeepModelsContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-tdm">Training Deep Models</div>
-          <h1 class="lc-title">Data Preprocessing and Normalization</h1>
+          <h1 class="lc-title">Data Preprocessing and Normalisation</h1>
         </div>
         <p class="lc-lead">Neural networks learn best when their inputs are small numbers on a similar scale. <strong>Preprocessing</strong> means changing the data into that form before training. In this lesson you will learn standardisation, min-max scaling, image scaling and one-hot labels. You will also learn the most important rule: work out the scaling numbers from the training set only.</p>
         <figure class="lc-diagram">
@@ -1451,7 +1451,7 @@ module TrainingDeepModelsContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-tdm">Training Deep Models</div>
-          <h1 class="lc-title">Optimizers: SGD, Momentum, Adam</h1>
+          <h1 class="lc-title">Optimisers: SGD, Momentum, Adam</h1>
         </div>
         <p class="lc-lead">After each batch, the gradient tells you which way to change the weights. The <strong>optimiser</strong> decides how big a step to take, and in which exact direction. In this lesson, you will compare three optimisers on the same simple function: plain SGD, SGD with momentum, and Adam. You will also learn AdamW and weight decay, and the default values most people start with.</p>
         <figure class="lc-diagram">
@@ -1905,7 +1905,7 @@ module TrainingDeepModelsContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-tdm">Training Deep Models</div>
-          <h1 class="lc-title">Weight Initialization</h1>
+          <h1 class="lc-title">Weight Initialisation</h1>
         </div>
         <p class="lc-lead">Before training starts, every weight needs a first value. This is called <strong>weight initialisation</strong>. Bad starting values can make a deep network fail before it learns anything. In this lesson, you will see why zeros do not work and why the size of random weights matters. Then you will learn Xavier and He initialisation.</p>
         <figure class="lc-diagram">
@@ -2128,7 +2128,7 @@ module TrainingDeepModelsContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-tdm">Training Deep Models</div>
-          <h1 class="lc-title">Batch Normalization and Dropout</h1>
+          <h1 class="lc-title">Batch Normalisation and Dropout</h1>
         </div>
         <p class="lc-lead">Two layers appear in many deep networks. <strong>Batch normalisation</strong> keeps the values inside the network at a steady size, so training is faster and more stable. <strong>Dropout</strong> switches off random neurons during training, so the model overfits less. Both act differently during training and testing. In this lesson, you will learn what each one does and why <code>model.eval()</code> matters.</p>
         <figure class="lc-diagram">
@@ -4292,7 +4292,7 @@ module TrainingDeepModelsContent
         </figure>
         <div class="lc-card">
           <h3>Step 1: plan before you code</h3>
-          <p>The greengrocer in Manchester wants a till camera that names the fruit: apple, banana or orange. Write down a short plan first:</p>
+          <p>The greengrocer wants a till camera that names the fruit: apple, banana or orange. Write down a short plan first:</p>
           <table class="lc-table">
             <thead><tr><th>Question</th><th>Answer for the fruit project</th></tr></thead>
             <tbody>
@@ -4328,7 +4328,7 @@ module TrainingDeepModelsContent
         <div class="lc-card">
           <h3>Another option: export to ONNX</h3>
           <p><strong>ONNX</strong> (Open Neural Network Exchange) is a standard file format for trained models. An ONNX file can run with <strong>ONNX Runtime</strong>, which does not need PyTorch at all. This makes the server smaller, and the same file can run from other languages, such as C# or JavaScript.</p>
-          <p>Part 4 in the code editor does the export. It calls <code>torch.onnx.export</code> with the model, one example input of the right shape, such as <code>torch.zeros(1, 1, 8, 8)</code>, and a file name. Then, as on a server, ONNX Runtime (<code>pip install onnxruntime</code>) loads the file with <code>InferenceSession</code>. Its <code>run</code> method returns one row of 10 class scores for each image, so the shape is (1, 10). Recent PyTorch versions have a newer exporter (<code>dynamo=True</code>), and it is becoming the default. It may need the extra <code>onnxscript</code> package. Check the PyTorch ONNX docs for your version.</p>
+          <p>Part 4 in the code editor does the export. It calls <code>torch.onnx.export</code> with the model, one example input of the right shape, such as <code>torch.zeros(1, 1, 8, 8)</code>, and a file name. Then, as on a server, ONNX Runtime (<code>pip install onnxruntime</code>) loads the file with <code>InferenceSession</code>. Its <code>run</code> method returns one row of 10 class scores for each image, so the shape is (1, 10). Recent PyTorch versions use a newer exporter (<code>dynamo=True</code>) by default. It needs the extra <code>onnxscript</code> package, so install it too: <code>pip install onnx onnxscript onnxruntime</code>. Check the PyTorch ONNX docs for your version.</p>
           <table class="lc-table">
             <thead><tr><th>Option</th><th>Good for</th><th>Needs</th></tr></thead>
             <tbody>
@@ -4537,7 +4537,7 @@ module TrainingDeepModelsContent
             print("10 pixels   ->", reply.status_code, reply.json())
 
         # ── Part 4: export to ONNX and run it with ONNX Runtime (run this part on your own computer) ──
-        # pip install onnx onnxruntime     (newer exporters may also need: pip install onnxscript)
+        # pip install onnx onnxscript onnxruntime     (recent PyTorch versions need onnxscript for export)
         print("\n== Part 4: export to ONNX ==")
         if torch is None:
             print("Part 4 uses PyTorch and ONNX Runtime, which do not run in the browser. Copy this part to your computer to run it.")

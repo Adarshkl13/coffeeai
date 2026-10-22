@@ -304,7 +304,7 @@ module RubyContent
             <tbody>
               <tr><td><code>upcase</code> / <code>downcase</code> / <code>capitalize</code></td><td><code>"asha".capitalize</code></td><td><code>"Asha"</code></td></tr>
               <tr><td><code>strip</code></td><td><code>"  hi  ".strip</code></td><td><code>"hi"</code></td></tr>
-              <tr><td><code>length</code></td><td><code>"London".length</code></td><td><code>6</code></td></tr>
+              <tr><td><code>length</code></td><td><code>"Kerala".length</code></td><td><code>6</code></td></tr>
               <tr><td><code>include?</code> / <code>start_with?</code></td><td><code>"a@b.in".include?("@")</code></td><td><code>true</code></td></tr>
               <tr><td><code>sub</code> / <code>gsub</code></td><td><code>"a-b-c".gsub("-", "+")</code></td><td><code>"a+b+c"</code> (<code>sub</code> changes only the first one)</td></tr>
               <tr><td><code>split</code> / <code>join</code></td><td><code>"a,b".split(",")</code></td><td><code>["a", "b"]</code></td></tr>
@@ -323,7 +323,7 @@ module RubyContent
         </div>
         <div class="lc-section">
           <h2>Worked Example</h2>
-          <div class="lc-code-block"><pre><code>city = String.new("london")
+          <div class="lc-code-block"><pre><code>city = String.new("kerala")
         puts "I live in #{city.capitalize}."
         puts 'Single: #{city}'
         loud = city.upcase
@@ -348,11 +348,11 @@ module RubyContent
         end
         puts format("Total: %.2f", 1234.5)</code></pre></div>
           <p>Output:</p>
-          <div class="lc-code-block lc-output"><pre><code>I live in London.
+          <div class="lc-code-block lc-output"><pre><code>I live in Kerala.
         Single: #{city}
-        london
-        LONDON
-        LONDON
+        kerala
+        KERALA
+        KERALA
         Hi there
         Hi there
         Hi there!
@@ -418,7 +418,7 @@ module RubyContent
         puts "-" * 20
 
         puts "=== Frozen strings ==="
-        city = "New York".freeze
+        city = "Assam".freeze
         puts city.frozen?
         begin
           city << "!"
@@ -715,7 +715,7 @@ module RubyContent
         puts "Lift-off!"
 
         puts "=== each and each_with_index ==="
-        cities = ["Chicago", "New York", "Los Angeles", "Philadelphia"]
+        cities = ["Gujarat", "Assam", "Punjab", "Odisha"]
         cities.each_with_index do |city, i|
           puts "#{i + 1}. #{city}"
         end
@@ -924,7 +924,7 @@ module RubyContent
         </div>
         <div class="lc-section">
           <h2>Creating and Reading Hashes</h2>
-          <div class="lc-code-block"><pre><code>student = { name: "Asha", age: 20, city: "London" }   # symbol keys
+          <div class="lc-code-block"><pre><code>student = { name: "Asha", age: 20, city: "Kerala" }   # symbol keys
         prices  = { "chai" =&gt; 20, "dosa" =&gt; 60 }            # string keys use =&gt;
 
         student[:name]              # "Asha"
@@ -966,7 +966,7 @@ module RubyContent
         %w[red blue red green red].each { |c| votes[c] += 1 }
         p votes
 
-        order = { id: 7, customer: { name: "Ravi", address: { city: "Boston" } } }
+        order = { id: 7, customer: { name: "Ravi", address: { city: "Goa" } } }
         p order.dig(:customer, :address, :city)
         p order.dig(:customer, :phone, :mobile)
         p :done.equal?(:done)</code></pre></div>
@@ -978,7 +978,7 @@ module RubyContent
         {apple: 80, mango: 0, banana: 50}
         [:apple, 40]
         {"red" =&gt; 3, "blue" =&gt; 1, "green" =&gt; 1}
-        "Boston"
+        "Goa"
         nil
         true</code></pre></div>
         </div>
@@ -1007,7 +1007,7 @@ module RubyContent
         p({ name: "A" }["name"])         # string key != symbol key
 
         puts "=== A student record ==="
-        student = { name: "Asha", age: 20, city: "London" }
+        student = { name: "Asha", age: 20, city: "Kerala" }
         student[:course] = "BCA"
         student[:age] += 1
         p student
@@ -1035,7 +1035,7 @@ module RubyContent
         p text.split.tally == counts
 
         puts "=== Nested data with dig ==="
-        order = { id: 7, customer: { name: "Ravi", address: { city: "Boston" } } }
+        order = { id: 7, customer: { name: "Ravi", address: { city: "Goa" } } }
         p order.dig(:customer, :address, :city)
         p order.dig(:customer, :phone, :mobile)
 
@@ -1428,10 +1428,10 @@ module RubyContent
         <div class="lc-section">
           <h2>Worked Example</h2>
           <div class="lc-code-block"><pre><code>students = [
-          { name: "Asha",  city: "London",  marks: 91 },
-          { name: "Ravi",  city: "Chicago", marks: 67 },
-          { name: "Meena", city: "London",  marks: 78 },
-          { name: "Dev",   city: "Chicago", marks: 38 }
+          { name: "Asha",  city: "Kerala",  marks: 91 },
+          { name: "Ravi",  city: "Gujarat", marks: 67 },
+          { name: "Meena", city: "Kerala",  marks: 78 },
+          { name: "Dev",   city: "Gujarat", marks: 38 }
         ]
 
         p students.map { |s| s[:name] }
@@ -1451,10 +1451,10 @@ module RubyContent
         "Asha"
         274
         3 passed, 1 failed
-        {"London" =&gt; ["Asha", "Meena"], "Chicago" =&gt; ["Ravi", "Dev"]}
+        {"Kerala" =&gt; ["Asha", "Meena"], "Gujarat" =&gt; ["Ravi", "Dev"]}
         ["Asha", "Meena"]
         [5, -6, 7]
-        {"London" =&gt; 169, "Chicago" =&gt; 105}</code></pre></div>
+        {"Kerala" =&gt; 169, "Gujarat" =&gt; 105}</code></pre></div>
         </div>
         <div class="lc-section lc-card">
           <h2>Common mistakes</h2>
@@ -1649,7 +1649,7 @@ module RubyContent
         puts "=== =~ and scan ==="
         p "Room B-204" =~ /\d/                       # index of the first digit
         p "no digits" =~ /\d/
-        tweet = "Learning #ruby and #regex at #IITB"
+        tweet = "Learning #ruby and #regex at #college"
         p tweet.scan(/#(\w+)/).flatten
         p "Rs 120 + Rs 45 + Rs 300".scan(/\d+/).sum(&:to_i)
 
@@ -2472,7 +2472,7 @@ module RubyContent
             define_method("#{level}?") { marks.to_i >= limit }
           end
 
-          private def roll_no = "IIT-042"
+          private def roll_no = "STU-042"
         end
 
         puts "=== define_method and class macros ==="
@@ -2797,7 +2797,7 @@ module RubyContent
         </div>
         <div class="lc-section lc-card">
           <h2>Try it</h2>
-          <p>In the editor, define <code>Coordinate = Data.define(:lat, :lng)</code> with a method <code>to_s</code> that prints <code>"37.77N, 122.42W"</code>. Create coordinates for San Francisco and Los Angeles. Check that two equal coordinates are <code>==</code>. Use them as keys in a hash of city names.</p>
+          <p>In the editor, define <code>Coordinate = Data.define(:lat, :lng)</code> with a method <code>to_s</code> that prints <code>"10.85N, 76.27E"</code>. Create coordinates for two places, such as the middle of Kerala and the middle of Punjab. Check that two equal coordinates are <code>==</code>. Use them as keys in a hash of place names.</p>
         </div>
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> <code>Data</code> and <code>Struct</code> objects work with pattern matching with no extra setup: <code>case point in {x: 0, y:}</code>. The next lesson covers this.</p></div>
       HTML
@@ -2935,7 +2935,7 @@ module RubyContent
         expected = "admin"
         is_admin = ({ role: "admin" } in { role: ^expected })
         p is_admin
-        user = { name: "Asha", city: "London", age: 20 }
+        user = { name: "Asha", city: "Kerala", age: 20 }
         user =&gt; { name:, city: }
         puts "#{name} from #{city}"</code></pre></div>
           <p>Output:</p>
@@ -2949,7 +2949,7 @@ module RubyContent
         on the y-axis at 5
         on the diagonal
         true
-        Asha from London</code></pre></div>
+        Asha from Kerala</code></pre></div>
           <p>Notice that <code>{status: 503, retry: true}</code> matched <code>{status: 500.. =&gt; code}</code> even with the extra <code>retry</code> key. Also, the order of <code>in</code> branches matters. The empty-items case is checked first.</p>
         </div>
         <div class="lc-section lc-card">
@@ -3115,8 +3115,8 @@ module RubyContent
 
         report = &lt;&lt;~TEXT
           name,city,marks
-          "Sharma, Priya",London,91
-          Ravi,Chicago,67
+          "Sharma, Priya",Kerala,91
+          Ravi,Gujarat,67
         TEXT
         table = CSV.parse(report, headers: true, header_converters: :symbol, converters: :integer)
         students = table.map(&amp;:to_h)
@@ -3137,8 +3137,8 @@ module RubyContent
         p tags.to_a.sort
         puts Digest::SHA256.hexdigest("hello")[0, 12]</code></pre></div>
           <p>Output:</p>
-          <div class="lc-code-block lc-output"><pre><code>{name: "Sharma, Priya", city: "London", marks: 91}
-        [{"name":"Sharma, Priya","city":"London","marks":91},{"name":"Ravi","city":"Chicago","marks":67}]
+          <div class="lc-code-block lc-output"><pre><code>{name: "Sharma, Priya", city: "Kerala", marks: 91}
+        [{"name":"Sharma, Priya","city":"Kerala","marks":91},{"name":"Ravi","city":"Gujarat","marks":67}]
         158
         Monday, 26 January 2026
         333
@@ -3175,9 +3175,9 @@ module RubyContent
         # In a real program: text = File.read("students.csv")
         text = <<~DATA
           name,city,marks,joined
-          Asha,London,91,2025-07-01
-          "Iyer, Ravi",Chicago,67,2024-07-15
-          Meena,Los Angeles,78,2025-01-10
+          Asha,Kerala,91,2025-07-01
+          "Iyer, Ravi",Gujarat,67,2024-07-15
+          Meena,Punjab,78,2025-01-10
         DATA
 
         puts "=== Parse CSV text ==="
@@ -3190,7 +3190,7 @@ module RubyContent
         puts json.lines.first(7).join
         loaded = JSON.parse(json, symbolize_names: true)
         puts "Loaded #{loaded.size} records, first key: #{loaded.first.keys.first.inspect}"
-        p JSON.parse('{"city": "London"}')        # string keys by default
+        p JSON.parse('{"city": "Kerala"}')        # string keys by default
 
         puts "=== Dates ==="
         today = Date.new(2026, 9, 25)           # fixed date so output never changes
@@ -3201,7 +3201,7 @@ module RubyContent
 
         puts "=== Set, Digest, SecureRandom ==="
         cities = Set.new(students.map { |s| s[:city] })
-        cities << "London"                        # duplicates are ignored
+        cities << "Kerala"                        # duplicates are ignored
         puts "Cities: #{cities.to_a.sort.join(', ')} (#{cities.size})"
         puts "SHA-256 of 'hello': #{Digest::SHA256.hexdigest('hello')[0, 16]}..."
         token = SecureRandom.hex(8)             # random each run

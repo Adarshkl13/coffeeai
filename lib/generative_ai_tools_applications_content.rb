@@ -34,7 +34,7 @@ module GenerativeAiToolsApplicationsContent
               <text x="530" y="153" font-size="11" fill="#9b99b8">AI song and jingle makers</text>
               <rect x="15" y="176" width="230" height="58" rx="8" fill="#1f1f44" stroke="#ec4899"/>
               <text x="30" y="200" font-weight="700">Video</text>
-              <text x="30" y="221" font-size="11" fill="#9b99b8">Gemini Omni, Veo, Runway</text>
+              <text x="30" y="221" font-size="11" fill="#9b99b8">Google Veo, Runway</text>
               <rect x="265" y="176" width="230" height="58" rx="8" fill="#1f1f44" stroke="#3b82f6"/>
               <text x="280" y="200" font-weight="700">Code</text>
               <text x="280" y="221" font-size="11" fill="#9b99b8">coding assistants (for developers)</text>
@@ -74,12 +74,12 @@ module GenerativeAiToolsApplicationsContent
               <tr><td><strong>Images and design</strong></td><td>Makes or edits pictures, posters and social posts.</td><td>Canva, Adobe Firefly, Midjourney, image tools in chat assistants</td></tr>
               <tr><td><strong>Audio and voice</strong></td><td>Turns text into speech (TTS), and speech into text (transcription).</td><td>Voice tools such as ElevenLabs, transcription in meeting apps</td></tr>
               <tr><td><strong>Music</strong></td><td>Makes short songs, jingles or background music from a description.</td><td>AI music makers such as Suno</td></tr>
-              <tr><td><strong>Video</strong></td><td>Makes short clips from text or images, or a talking presenter (an "avatar").</td><td>Google's video models (Gemini Omni in the Gemini app; Gemini Omni and Veo in Flow), Runway, Synthesia</td></tr>
+              <tr><td><strong>Video</strong></td><td>Makes short clips from text or images, or a talking presenter (an "avatar").</td><td>Google's video models (such as Veo, in the Gemini app and Flow), Runway, Synthesia</td></tr>
               <tr><td><strong>Code</strong></td><td>Helps developers write and fix code. You do not need this group in this course.</td><td>Coding assistants such as GitHub Copilot</td></tr>
               <tr><td><strong>Automation</strong></td><td>Connects apps so a task runs by itself, with an AI step inside.</td><td>Zapier, Make, Microsoft Power Automate</td></tr>
             </tbody>
           </table>
-          <p>Tools appear and disappear fast. For example, OpenAI closed its Sora video app in April 2026. So learn the <em>kinds</em> of tools, not only the brand names. Check each tool's current help pages before you rely on a feature.</p>
+          <p>Tools appear, change names and close down fast. So learn the <em>kinds</em> of tools, not only the brand names. Check each tool's current help pages before you rely on a feature.</p>
         </div>
         <div class="lc-card">
           <h3>How the tools fit together: Grace's autumn menu</h3>
@@ -90,7 +90,7 @@ module GenerativeAiToolsApplicationsContent
               <tr><td>1. Plan and draft</td><td>Chat assistant</td><td>Suggests a launch plan and drafts the newsletter</td><td>Checks prices, dates and allergens. Rewrites in her own voice.</td></tr>
               <tr><td>2. Create assets</td><td>Canva with built-in AI</td><td>Makes a poster and posts in her brand colours</td><td>Swaps in real photos of her food. Checks the text on the image.</td></tr>
               <tr><td>3. Share in apps</td><td>Gmail and Google Docs with Gemini</td><td>Tidies the email and suggests a subject line</td><td>Decides what to send and when</td></tr>
-              <tr><td>4. Automate repeats</td><td>An automation tool</td><td>Drafts a post for the weekly special from a spreadsheet</td><td>Approves each draft. Priya then posts it with a real photo.</td></tr>
+              <tr><td>4. Automate repeats</td><td>An automation tool</td><td>Drafts a post for the weekly special from a spreadsheet</td><td>Approves each draft. Priya, the café manager, then posts it with a real photo.</td></tr>
             </tbody>
           </table>
           <p>Chris Wong uses the same pattern for the Ridgeback Trail Boot ($169). He drafts in a chat assistant, makes product scenes in an image tool and builds staff slides with an AI slide maker. The tools change. The pattern stays the same.</p>
@@ -838,7 +838,7 @@ module GenerativeAiToolsApplicationsContent
             <li><strong>People and faces:</strong> never make a realistic image of a real person without their clear permission. This includes staff, customers and famous people.</li>
             <li><strong>Other people's work:</strong> do not ask for "in the style of" a living artist, or for another brand's logo or characters. Check each tool's terms for commercial use (using images to sell things).</li>
             <li><strong>Copyright:</strong> the US Copyright Office said in January 2025 that prompts alone are usually not enough to make you the author. Your own creative edits and arrangement can be protected. UK law on computer-made works is under review. This is general information, not legal advice.</li>
-            <li><strong>Content credentials:</strong> these are information stored with an image file that can show it was made or edited with AI. They use an open standard called C2PA. Adobe Firefly adds them to fully generated images. OpenAI says images made in ChatGPT now carry content credentials and Google's invisible SynthID watermark. Google's own image tools add SynthID too. Do not try to remove them.</li>
+            <li><strong>Content credentials:</strong> these are information stored with an image file that can show it was made or edited with AI. They use an open standard called C2PA. Adobe Firefly adds them to fully generated images. Some other tools, such as ChatGPT, also add content credentials. Google's image tools add an invisible watermark called SynthID. Do not try to remove them.</li>
             <li><strong>Labels:</strong> social platforms have their own AI labels. For example, Instagram may show an "AI info" label, and asks you to disclose realistic AI video and audio. The EU AI Act also has transparency duties for some AI content. Check each platform's current help pages.</li>
           </ul>
         </div>
@@ -1100,7 +1100,7 @@ module GenerativeAiToolsApplicationsContent
               <tr><td><strong>AI music</strong></td><td>AI makes music or a short jingle from a description</td><td>Background music for Grace's 15-second video</td><td>The licence allows business use</td></tr>
             </tbody>
           </table>
-          <p>Tools include voice tools such as ElevenLabs, and built-in "read aloud" and dictation features. Many meeting and editing apps can transcribe. Research notebooks such as Gemini Notebook (formerly NotebookLM) can make audio summaries. AI music makers such as Suno make songs from a text description. Check each tool's current help pages for features and terms.</p>
+          <p>Tools include voice tools such as ElevenLabs, and built-in "read aloud" and dictation features. Many meeting and editing apps can transcribe. Research notebooks such as Google's NotebookLM can make audio summaries. AI music makers such as Suno make songs from a text description. Check each tool's current help pages for features and terms.</p>
         </div>
         <div class="lc-card">
           <h3>Write for the ear, not the eye</h3>
@@ -1244,12 +1244,12 @@ module GenerativeAiToolsApplicationsContent
           <table class="lc-table">
             <thead><tr><th>Kind</th><th>What it does</th><th>Examples (check current help pages)</th></tr></thead>
             <tbody>
-              <tr><td><strong>Clip generators</strong></td><td>Make a short clip, often 10 seconds or less, from a text prompt or a photo</td><td>Google's video tools: Gemini Omni in the Gemini app, and Gemini Omni or Veo 3.1 in Flow; Runway</td></tr>
+              <tr><td><strong>Clip generators</strong></td><td>Make a short clip, often 10 seconds or less, from a text prompt or a photo</td><td>Google's video tools, such as Veo in the Gemini app and Flow; Runway</td></tr>
               <tr><td><strong>Avatar video tools</strong></td><td>An <strong>avatar</strong> (a digital presenter that looks like a real person) reads your script, often in many languages</td><td>Synthesia and similar tools</td></tr>
               <tr><td><strong>AI editing features</strong></td><td>Add captions, cut pauses, remove background noise, resize a video to vertical</td><td>Many phone and desktop video editors</td></tr>
             </tbody>
           </table>
-          <p>Video tools change very fast. For example, OpenAI closed its Sora video app in April 2026. Learn what each kind of tool does, then check which tools are available on your plan today.</p>
+          <p>Video tools change very fast: some are renamed and some close down. Learn what each kind of tool does, then check which tools are available on your plan today.</p>
         </div>
         <div class="lc-card">
           <h3>From script to storyboard</h3>
@@ -1411,7 +1411,7 @@ module GenerativeAiToolsApplicationsContent
               <tr><td><strong>Answer engines</strong></td><td>Perplexity</td><td>Answers where each claim shows its source</td></tr>
               <tr><td><strong>Chat assistants with web search</strong></td><td>ChatGPT, Claude, Gemini, Microsoft Copilot</td><td>Mixing a search with drafting, for example "find and then summarise"</td></tr>
               <tr><td><strong>Deep-research features</strong></td><td>Deep research in ChatGPT, Gemini Deep Research, Research in Claude, Researcher in Microsoft 365 Copilot</td><td>Bigger questions. The AI makes a plan, reads many pages for several minutes and writes a report with citations.</td></tr>
-              <tr><td><strong>Source notebooks</strong></td><td>Gemini Notebook (formerly NotebookLM)</td><td>Answers only from the documents you upload, such as your own reports</td></tr>
+              <tr><td><strong>Source notebooks</strong></td><td>Google's NotebookLM (check its current name)</td><td>Answers only from the documents you upload, such as your own reports</td></tr>
             </tbody>
           </table>
           <p>A <strong>citation</strong> is a link or reference that shows where a claim came from. Plans and limits differ, and features change often, so check each tool's current help pages. At work, Chris uses Researcher in his company's Microsoft 365 Copilot, because it can also search his work files safely. Do not upload private or confidential documents to a public AI tool.</p>
@@ -2168,7 +2168,7 @@ module GenerativeAiToolsApplicationsContent
         Maple Pecan Cinnamon Bun: £3.60
         Toasted Hazelnut Latte: £3.90
         Cheddar &amp; Leek Soup with sourdough: £6.50
-        Autumn Pairing: any latte + a cinnamon bun, £6.80 (saves £0.70)
+        Autumn Pairing: any latte + a cinnamon bun, £6.80 (saves £0.70 with the Toasted Hazelnut Latte)
         Allergens: bun and hazelnut latte contain nuts. Loaf, bun and soup bread
         contain gluten. Soup contains milk. Oat milk available.
         Dates: tasting evening Thu 15 Oct 2026. Launch Sat 17 Oct 2026.
@@ -2206,7 +2206,7 @@ module GenerativeAiToolsApplicationsContent
               <tr><td>4 (12-15 s)</td><td>The café door with the logo</td><td>From Sat 17 October</td><td>Phone clip</td></tr>
             </tbody>
           </table>
-          <p>For shot 1, Priya tries Gemini Omni, Google's newest video model, in Google Vids, which Grace's Workspace plan includes. Check what your plan includes. Google adds an invisible SynthID watermark to these videos. The background music comes from an AI music tool whose licence allows business use. Priya edits it all together in Canva. The caption says: "Opening shot made with AI."</p>
+          <p>For shot 1, Priya tries Google's video model in Google Vids, which Grace's Workspace plan includes. Check what your plan includes. Google adds an invisible SynthID watermark to these videos. The background music comes from an AI music tool whose licence allows business use. Priya edits it all together in Canva. The caption says: "Opening shot made with AI."</p>
         </div>
         <div class="lc-card">
           <h3>Step 4: The final check</h3>

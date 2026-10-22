@@ -1,5 +1,5 @@
-<% content_for :title, "Sign In — CoffeeBean AI" %>
-<% content_for :description, "Sign in to CoffeeBean AI to continue your AI lessons, labs and podcasts." %>
+<% content_for :title, "Log in — CoffeeBean AI" %>
+<% content_for :description, "Log in to CoffeeBean AI to continue your AI lessons, labs and podcasts." %>
 
 <div class="auth-page">
   <div class="auth-card">
@@ -11,7 +11,7 @@
     </div>
 
     <h1 class="auth-title">Welcome back</h1>
-    <p class="auth-subtitle">Sign in to continue your learning journey</p>
+    <p class="auth-subtitle">Log in to continue your learning journey</p>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |f| %>
 
@@ -37,7 +37,7 @@
         </div>
       <% end %>
 
-      <%= f.submit "Sign in", class: "auth-submit-btn" %>
+      <%= f.submit "Log in", class: "auth-submit-btn" %>
     <% end %>
 
     <p class="auth-switch">

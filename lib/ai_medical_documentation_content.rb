@@ -546,7 +546,7 @@ module AiMedicalDocumentationContent
               </g>
               <rect x="340" y="15" width="405" height="52" rx="10" fill="#27274e" stroke="#3b82f6"/>
               <text x="355" y="37" font-weight="700">S · Subjective: what the patient says</text>
-              <text x="355" y="56" font-size="11" fill="#9b99b8">Home BP 140-150/90-95; misses 2 doses a week</text>
+              <text x="355" y="56" font-size="11" fill="#9b99b8">Home BP 145-150/92-95; misses 2 doses a week</text>
               <rect x="340" y="75" width="405" height="52" rx="10" fill="#27274e" stroke="#10b981"/>
               <text x="355" y="97" font-weight="700">O · Objective: what is measured or seen</text>
               <text x="355" y="116" font-size="11" fill="#9b99b8">BP 148/94, repeat 146/92; trace oedema, both ankles</text>
@@ -588,7 +588,7 @@ module AiMedicalDocumentationContent
                  a day. Less salt, walk 30 minutes. Come back in four weeks.
                  Chest pain or weakness on one side: call 108 at once.</code></pre>
           <p>The AI scribe gave this draft. It looks neat. It has three errors.</p>
-          <pre><code>S: Home BP 140-150/90-95. Ankle swelling 2 months. No chest pain.
+          <pre><code>S: Home BP 145-150/92-95. Ankle swelling 2 months. No chest pain.
         O: BP 148/94. Pulse 78 regular. Bilateral ankle oedema.
            ECG: normal sinus rhythm.
         A: Hypertension, not at target.

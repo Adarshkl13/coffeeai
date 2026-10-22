@@ -923,7 +923,7 @@ module EvaluatingAiAppsContent
             <ul data-sorter-target="pool">
               <li data-bucket="exact" data-why="There is one correct label, so an exact match works.">Classify this ticket as billing, tech or sales</li>
               <li data-bucket="exact" data-why="A single number is either right or wrong.">How many items are in order ORD-1002?</li>
-              <li data-bucket="accept" data-why="A few short wordings are all correct.">What is the capital of India? ("New Delhi" or "Delhi")</li>
+              <li data-bucket="accept" data-why="A few short wordings are all correct.">How many days are in a week? ("7" or "seven")</li>
               <li data-bucket="accept" data-why="Several short answers mean the same thing.">Do you ship to Nepal? ("Yes", "Yes, we do")</li>
               <li data-bucket="facts" data-why="A long reply can be worded in many ways. Check the facts it must contain.">Write a polite reply to a customer whose parcel is late</li>
               <li data-bucket="facts" data-why="A summary is free text. List the points it must cover.">Summarise this 2-page refund policy</li>
@@ -1604,7 +1604,7 @@ module EvaluatingAiAppsContent
              "must_include": ["30 days"]},
             {"id": "r2", "category": "returns", "input": "Can I return worn shoes?",
              "must_include": ["unworn"]},
-            {"id": "d1", "category": "delivery", "input": "How long is delivery to London?",
+            {"id": "d1", "category": "delivery", "input": "How long is delivery to Kerala?",
              "must_include": ["3", "5"], "regex": r"\d+ to \d+ working days"},
             {"id": "d2", "category": "delivery", "input": "Do you deliver on Sunday?",
              "must_include": ["no"]},
@@ -1619,7 +1619,7 @@ module EvaluatingAiAppsContent
         CANNED = {
             "r1": "Yes. You can return shoes within 30 days.",
             "r2": "Yes, you can return any shoes within 30 days.",           # wrong: must be unworn
-            "d1": "Delivery to London takes 3 to 5 working days.",
+            "d1": "Delivery to Kerala takes 3 to 5 working days.",
             "d2": "No, we do not deliver on Sundays.",
             "p1": "Yes, we accept UPI and cards.",
             "p2": "Sorry about that. We will refund the extra charge.",     # forgot to ask for the order number
@@ -2552,7 +2552,7 @@ module EvaluatingAiAppsContent
             <li>The starter code has six small documents and five test questions. The retriever is real, but very simple: it counts shared words. The answers are canned stand-ins, not a real model.</li>
             <li>Run it. Read the retrieval table first. One question is a miss, and one finds its document only at rank 3.</li>
             <li>Change <code>K</code> from 3 to 1. Watch hit rate and MRR. Then add the word "parcel" to document D5 and run it again.</li>
-            <li>Look at the faithfulness check. Find the claim that is not supported by the chunks.</li>
+            <li>Look at the faithfulness check. Find the two claims that are not supported by the chunks.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -3044,7 +3044,7 @@ module EvaluatingAiAppsContent
               - run: python run_evals.py --set smoke --min-pass 0.90
                 env:
                   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}</code></pre>
-          <p>If <code>run_evals.py</code> exits with a non-zero code, the check fails and the merge is blocked. Keep the API key in the CI secrets store, never in the code.</p>
+          <p>If <code>run_evals.py</code> exits with a non-zero code, the check fails and the merge is blocked. Keep the API key in the CI secrets store, never in the code. Action version numbers (such as <code>@v5</code>) change over time, so check each action's page for its current version.</p>
           <ul class="lc-list">
             <li><strong>Small set on every pull request.</strong> A "smoke" set of 20 to 50 cases is fast and cheap.</li>
             <li><strong>Full set nightly or before a release.</strong> This takes longer and costs more.</li>
@@ -3288,7 +3288,7 @@ module EvaluatingAiAppsContent
              "must_include": ["30 days"], "must_not": ["refund approved", "guarantee"], "critical": True},
             {"id": "refund-ok", "ticket": "I bought a bag 10 days ago. How do I return it?",
              "must_include": ["30 days", "receipt"], "must_not": ["guarantee"], "critical": False},
-            {"id": "shipping", "ticket": "When will my order to London arrive?",
+            {"id": "shipping", "ticket": "When will my order to Kerala arrive?",
              "must_include": ["3 to 5"], "must_not": ["tomorrow"], "critical": False},
             {"id": "angry", "ticket": "Your app is useless. Nothing works!",
              "must_include": ["sorry"], "must_not": ["your fault"], "critical": False},

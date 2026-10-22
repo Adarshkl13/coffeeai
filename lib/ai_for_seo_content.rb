@@ -72,7 +72,7 @@ module AiForSeoContent
             <li><strong>Organic results</strong> are the free listings. Google picks them. You cannot pay to move up here.</li>
           </ul>
           <p>Many results pages also show extra parts. For example: a map with local shops, a "People also ask" box or an AI-written summary at the top. Google calls these summaries AI Overviews. You will learn about them later in this course.</p>
-          <p><strong>Example:</strong> Sweet Crumbs is a made-up home bakery in London. It can run Google Ads for "birthday cake London" today and get clicks tomorrow. Or it can write a helpful page about its eggless birthday cakes. That page may take months to rank, but the clicks are free once it does.</p>
+          <p><strong>Example:</strong> Sweet Crumbs is a made-up home bakery in Maharashtra. It can run Google Ads for "birthday cake near me" today and get clicks tomorrow. Or it can write a helpful page about its eggless birthday cakes. That page may take months to rank, but the clicks are free once it does.</p>
         </div>
         <div class="lc-card">
           <h3>Why SEO takes time</h3>
@@ -93,7 +93,7 @@ module AiForSeoContent
               <li data-order="1">The bakery publishes the page and links to it from the home page.</li>
               <li data-order="2">Googlebot follows the link and reads the page.</li>
               <li data-order="3">Google saves the page in its index.</li>
-              <li data-order="4">A person searches "eggless cake London".</li>
+              <li data-order="4">A person searches "eggless cake near me".</li>
               <li data-order="5">Google ranks the pages it has saved for that search.</li>
               <li data-order="6">The person sees the bakery's page in the organic results and clicks it.</li>
             </ol>
@@ -105,7 +105,7 @@ module AiForSeoContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly SEO teacher for small business owners who are new to SEO.
 
-        My business: [Sweet Crumbs, a home bakery in London that sells eggless cakes and cookies].
+        My business: [Sweet Crumbs, a home bakery in Maharashtra that sells eggless cakes and cookies].
         My website: [a small site with 5 pages: home, menu, about, order form, contact].
 
         Explain in simple English, with short sentences:
@@ -258,7 +258,7 @@ module AiForSeoContent
         </div>
         <p class="lc-lead"><strong>Search intent</strong> is the reason behind a search: what the person really wants. Two searches can use similar words but want very different things. If your page does not match the intent, it will struggle to rank, even if it is well written. In this lesson, you will learn the four main types of intent and how to match each one with the right page type.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 262" role="img" aria-label="Four cards for the four intent types. Informational: learn something, example how to store cake, best page a guide. Navigational: find a site, example Sweet Crumbs London, best page home or contact. Commercial: compare options, example best bakery in London, best page a comparison. Transactional: buy now, example order cake online, best page a product or order page.">
+          <svg viewBox="0 0 760 262" role="img" aria-label="Four cards for the four intent types. Informational: learn something, example how to store cake, best page a guide. Navigational: find a site, example Sweet Crumbs bakery, best page home or contact. Commercial: compare options, example best home bakery near me, best page a comparison. Transactional: buy now, example order cake online, best page a product or order page.">
             <g font-family="inherit" font-size="12" fill="#e2e0f0" text-anchor="middle">
               <rect x="15" y="15" width="170" height="205" rx="12" fill="#1f1f44" stroke="#3b82f6"/>
               <text x="100" y="42" font-size="13" font-weight="700" fill="#93c5fd">Informational</text>
@@ -273,7 +273,7 @@ module AiForSeoContent
               <text x="286" y="72" font-size="11" fill="#9b99b8">Wants to:</text>
               <text x="286" y="90">find a certain site</text>
               <text x="286" y="122" font-size="11" fill="#9b99b8">Example search:</text>
-              <text x="286" y="140">"Sweet Crumbs London"</text>
+              <text x="286" y="140">"Sweet Crumbs bakery"</text>
               <text x="286" y="172" font-size="11" fill="#9b99b8">Best page:</text>
               <text x="286" y="190">Home or contact page</text>
               <rect x="387" y="15" width="170" height="205" rx="12" fill="#1f1f44" stroke="#f59e0b"/>
@@ -281,7 +281,7 @@ module AiForSeoContent
               <text x="472" y="72" font-size="11" fill="#9b99b8">Wants to:</text>
               <text x="472" y="90">compare options</text>
               <text x="472" y="122" font-size="11" fill="#9b99b8">Example search:</text>
-              <text x="472" y="140">"best bakery in London"</text>
+              <text x="472" y="140">"best home bakery near me"</text>
               <text x="472" y="172" font-size="11" fill="#9b99b8">Best page:</text>
               <text x="472" y="190">Comparison or review</text>
               <rect x="573" y="15" width="172" height="205" rx="12" fill="#1f1f44" stroke="#10b981"/>
@@ -319,18 +319,18 @@ module AiForSeoContent
             <li>Top results are shop pages and booking forms? The intent is transactional.</li>
             <li>You see a map with local businesses? People want a nearby place.</li>
           </ul>
-          <p><strong>Example:</strong> Sweet Crumbs wanted to rank for "chocolate truffle cake". The owner made a product page. But the top results were all recipes. People searching that phrase mostly wanted to bake, not buy. So she targeted "chocolate truffle cake delivery London" with the product page instead.</p>
+          <p><strong>Example:</strong> Sweet Crumbs wanted to rank for "chocolate truffle cake". The owner made a product page. But the top results were all recipes. People searching that phrase mostly wanted to bake, not buy. So she targeted "chocolate truffle cake delivery near me" with the product page instead.</p>
           <p>Results change by country, city and time. Search from your target area when you can.</p>
         </div>
         <div class="lc-card">
           <h3>How AI helps with intent</h3>
           <p>AI can label a long keyword list by intent in seconds. Compare these two prompts:</p>
           <pre><code>Weak: What is the intent of these keywords?</code></pre>
-          <pre><code>Better: You are an SEO specialist. My business is a home bakery in London that delivers cakes.
+          <pre><code>Better: You are an SEO specialist. My business is a home bakery in Maharashtra that delivers cakes.
         Label each keyword below as informational, navigational, commercial or transactional.
         Add one short reason and the best page type for each.
         If a keyword has mixed intent, say so. Give the answer as a table.
-        Keywords: eggless cake recipe, cake delivery London, best bakery Notting Hill, Sweet Crumbs menu</code></pre>
+        Keywords: eggless cake recipe, cake delivery near me, best bakery near me, Sweet Crumbs menu</code></pre>
           <p>The AI guesses from the words. It cannot see today's results page. For your most important keywords, always check the real results yourself.</p>
         </div>
         <div class="lc-card">
@@ -349,7 +349,7 @@ module AiForSeoContent
               <li data-bucket="comm" data-why="Best and top words show the person is comparing before buying.">best block print bedsheet brands</li>
               <li data-bucket="trans" data-why="Buy and online show the person is ready to purchase.">buy king size block print bedsheet online</li>
               <li data-bucket="comm" data-why="A versus search means the person is comparing two options.">block print vs screen print bedsheets</li>
-              <li data-bucket="info" data-why="The person wants to understand something. There is no sign they want to buy yet.">what is Sanganeri print</li>
+              <li data-bucket="info" data-why="The person wants to understand something. There is no sign they want to buy yet.">what is Ajrakh print</li>
             </ul>
           </div>
         </div>
@@ -405,9 +405,9 @@ module AiForSeoContent
               <rect x="15" y="15" width="300" height="38" rx="8" fill="#1f1f44" stroke="#8b5cf6"/>
               <text x="30" y="39"><tspan font-weight="700" fill="#c4b5fd">Role:</tspan> SEO strategist</text>
               <rect x="15" y="62" width="300" height="38" rx="8" fill="#1f1f44" stroke="#3b82f6"/>
-              <text x="30" y="86"><tspan font-weight="700" fill="#93c5fd">Context:</tspan> London home bakery</text>
+              <text x="30" y="86"><tspan font-weight="700" fill="#93c5fd">Context:</tspan> home bakery in Maharashtra</text>
               <rect x="15" y="109" width="300" height="38" rx="8" fill="#1f1f44" stroke="#22d3ee"/>
-              <text x="30" y="133"><tspan font-weight="700" fill="#67e8f9">Audience:</tspan> busy parents in London</text>
+              <text x="30" y="133"><tspan font-weight="700" fill="#67e8f9">Audience:</tspan> busy parents nearby</text>
               <rect x="15" y="156" width="300" height="38" rx="8" fill="#1f1f44" stroke="#f59e0b"/>
               <text x="30" y="180"><tspan font-weight="700" fill="#fcd34d">Task + data:</tspan> your keyword list</text>
               <rect x="15" y="203" width="300" height="38" rx="8" fill="#1f1f44" stroke="#ec4899"/>
@@ -431,7 +431,7 @@ module AiForSeoContent
             <thead><tr><th>Part</th><th>What to write</th><th>Example</th></tr></thead>
             <tbody>
               <tr><td><strong>Role</strong></td><td>Who the AI should act as</td><td>"You are an SEO strategist for small local businesses."</td></tr>
-              <tr><td><strong>Business context</strong></td><td>What you sell, where, and what makes you different</td><td>"Home bakery in London. Eggless cakes. Delivery in Islington and Camden."</td></tr>
+              <tr><td><strong>Business context</strong></td><td>What you sell, where, and what makes you different</td><td>"Home bakery in Maharashtra. Eggless cakes. Delivery within 8 km of our kitchen."</td></tr>
               <tr><td><strong>Audience</strong></td><td>Who you want to reach</td><td>"Parents ordering birthday cakes for children."</td></tr>
               <tr><td><strong>Task + data</strong></td><td>The exact job, plus your own facts or lists</td><td>"Suggest 5 blog topics. Here are my top 10 search queries."</td></tr>
               <tr><td><strong>Format</strong></td><td>How the answer should look</td><td>"A table with topic, intent, target keyword and reason."</td></tr>
@@ -444,12 +444,12 @@ module AiForSeoContent
           <pre><code>Weak: Give me blog ideas for SEO.</code></pre>
           <p>This gives 20 generic ideas, like "10 Tips for Success". They could fit any website.</p>
           <pre><code>Strong: You are an SEO strategist for small local businesses.
-        My business: Sweet Crumbs, a home bakery in London. We sell eggless cakes and
-        deliver in Islington, Camden and Hackney.
+        My business: Sweet Crumbs, a home bakery in Maharashtra. We sell eggless cakes and
+        deliver within 8 km of our kitchen.
         Audience: parents planning children's birthday parties.
         Task: suggest 5 blog post ideas that could bring these parents to our site.
         Here are search queries that already bring visitors (from Search Console):
-        eggless birthday cake, cake for 1 year old, cake delivery Camden.
+        eggless birthday cake, cake for 1 year old, cake delivery near me.
         Format: a table with columns: title idea, search intent, main keyword, why it fits.
         Rules: simple English. Do not invent search volumes or statistics.</code></pre>
           <p>The strong prompt gets ideas like "How to choose a cake for a first birthday". This topic fits both the business and the data.</p>
@@ -471,10 +471,10 @@ module AiForSeoContent
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Weak prompt">Write a meta description for my cake page.</li>
               <li data-kind="answer" data-label="AI reply">"Discover delicious cakes for every occasion. Order now for the best quality!"</li>
-              <li data-kind="warn" data-label="Problem">The reply is generic. It does not mention eggless, London or delivery. Any bakery in the world could use it.</li>
+              <li data-kind="warn" data-label="Problem">The reply is generic. It does not mention eggless, the area or delivery. Any bakery in the world could use it.</li>
               <li data-kind="thought" data-label="Plan">Add a role, the business context, the audience, the page's main keyword and a format with a length limit.</li>
-              <li data-kind="user" data-label="Strong prompt">You are an SEO copywriter. Page: eggless birthday cakes from Sweet Crumbs, a London home bakery. Delivery in Islington, Camden and Hackney. Audience: parents. Main keyword: eggless birthday cake London. Write 3 meta descriptions of about 150 characters each. Be honest. No made-up offers.</li>
-              <li data-kind="answer" data-label="AI reply">Option 1: "Eggless birthday cakes baked fresh at home in London. Custom designs for kids, with delivery in Islington, Camden and Hackney. Order today."</li>
+              <li data-kind="user" data-label="Strong prompt">You are an SEO copywriter. Page: eggless birthday cakes from Sweet Crumbs, a home bakery in Maharashtra. Delivery within 8 km of our kitchen. Audience: parents. Main keyword: eggless birthday cake near me. Write 3 meta descriptions of about 150 characters each. Be honest. No made-up offers.</li>
+              <li data-kind="answer" data-label="AI reply">Option 1: "Eggless birthday cakes baked fresh at home. Custom designs for kids, with delivery within 8 km of our kitchen. Order today."</li>
               <li data-kind="check" data-label="You check">The length looks right. Delivery areas match the real service. "Order today" is fine, because the bakery really takes online orders. You pick option 1.</li>
             </ol>
           </div>
@@ -485,13 +485,13 @@ module AiForSeoContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">Role: You are an SEO strategist who helps small businesses in India.
 
-        Business context: [Sweet Crumbs, a home bakery in London. We sell eggless cakes, cupcakes and cookies. We deliver in Islington, Camden and Hackney.]
+        Business context: [Sweet Crumbs, a home bakery in Maharashtra. We sell eggless cakes, cupcakes and cookies. We deliver within 8 km of our kitchen.]
 
         Audience: [parents planning birthday parties, and office teams ordering celebration cakes]
 
         My data (search queries that already bring visitors, from Search Console):
         [eggless birthday cake - 40 clicks
-        cake delivery Camden - 25 clicks
+        cake delivery near me - 25 clicks
         cupcakes for office party - 8 clicks
         eggless chocolate cake recipe - 5 clicks]
 
@@ -552,10 +552,10 @@ module AiForSeoContent
                 <line x1="597" y1="68" x2="611" y2="68"/>
               </g>
               <rect x="15" y="140" width="220" height="40" rx="8" fill="#27274e" stroke="#8b5cf6"/>
-              <text x="125" y="165">Seed: "cake London"</text>
+              <text x="125" y="165">Seed: "cake"</text>
               <line x1="237" y1="160" x2="271" y2="160" stroke="#9b99b8" stroke-width="1.5" marker-end="url(#seo5a)"/>
               <rect x="275" y="140" width="470" height="40" rx="8" fill="#27274e" stroke="#10b981"/>
-              <text x="510" y="165">Long-tail: "eggless chocolate cake delivery Islington"</text>
+              <text x="510" y="165">Long-tail: "eggless chocolate cake home delivery"</text>
               <rect x="15" y="196" width="730" height="40" rx="8" fill="#1f1f44" stroke="#ec4899"/>
               <text x="380" y="221" fill="#f9a8d4">AI does not know real search volumes. Check numbers in real tools.</text>
             </g>
@@ -566,7 +566,7 @@ module AiForSeoContent
           <h3>Seed keywords, long-tail keywords and questions</h3>
           <ul class="lc-list">
             <li><strong>Seed keywords</strong> are short, broad words that describe your business. Example: "cake", "birthday cake", "eggless cake".</li>
-            <li><strong>Long-tail keywords</strong> are longer, more specific phrases. Example: "eggless chocolate cake delivery Islington". Each one gets fewer searches. But the people searching know exactly what they want, and there is often less competition.</li>
+            <li><strong>Long-tail keywords</strong> are longer, more specific phrases. Example: "eggless chocolate cake home delivery". Each one gets fewer searches. But the people searching know exactly what they want, and there is often less competition.</li>
             <li><strong>Questions</strong> are what people ask. Example: "how long does an eggless cake stay fresh?" These make good guide pages and FAQ sections.</li>
           </ul>
           <p>Small businesses usually do better with long-tail keywords. Big brands already hold the top spots for short words like "cake".</p>
@@ -574,8 +574,8 @@ module AiForSeoContent
         <div class="lc-card">
           <h3>Using AI to find ideas</h3>
           <pre><code>Weak: Give me keywords for a bakery.</code></pre>
-          <pre><code>Better: You are an SEO keyword researcher. My business is a home bakery in London.
-        We sell eggless cakes and deliver in Islington, Camden and Hackney.
+          <pre><code>Better: You are an SEO keyword researcher. My business is a home bakery in Maharashtra.
+        We sell eggless cakes and deliver within 8 km of our kitchen.
         Seed keywords: eggless cake, birthday cake, cupcakes.
         List 30 long-tail keywords and 10 questions that local customers might search.
         Group them by intent. Do not guess search volumes.</code></pre>
@@ -593,7 +593,7 @@ module AiForSeoContent
             </tbody>
           </table>
           <p>Tool features change often. Check each tool's current help pages. Paid SEO tools also exist. Their numbers are estimates, so treat them as rough guides.</p>
-          <p><strong>Worked example (made-up numbers):</strong> AI suggested "photo cake London". Keyword Planner showed a medium range of monthly searches. Search Console showed Sweet Crumbs already got 300 impressions for "photo cake Camden" but only 4 clicks. The owner added it to the shortlist and planned a photo cake page.</p>
+          <p><strong>Worked example (made-up numbers):</strong> AI suggested "photo cake near me". Keyword Planner showed a medium range of monthly searches. Search Console showed Sweet Crumbs already got 300 impressions for "photo cake delivery" but only 4 clicks. The owner added it to the shortlist and planned a photo cake page.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: a keyword research session</h3>
@@ -648,7 +648,7 @@ module AiForSeoContent
         </div>
         <p class="lc-lead">A long keyword list is hard to use. You cannot write one page for every keyword. In this lesson, you will learn to group keywords into <strong>clusters</strong> (groups of keywords that one page can answer). You will then join the clusters into a <strong>topic map</strong> (a plan of pillar pages and cluster pages). AI is fast at the first grouping. You still check each group, because only real search results show which keywords belong together.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 300" role="img" aria-label="A topic map for a made-up London bakery. A pillar page called Eggless cakes guide sits in the centre. Four cluster pages link to it and it links back: eggless chocolate cake, eggless cake price London, egg substitutes in cakes and eggless cake delivery.">
+          <svg viewBox="0 0 760 300" role="img" aria-label="A topic map for a made-up home bakery. A pillar page called Eggless cakes guide sits in the centre. Four cluster pages link to it and it links back: eggless chocolate cake, eggless cake price list, egg substitutes in cakes and eggless cake delivery.">
             <defs><marker id="seo6a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <text x="380" y="40" font-weight="700" fill="#fda4af">Topic map: eggless cakes</text>
@@ -656,7 +656,7 @@ module AiForSeoContent
               <rect x="20" y="20" width="220" height="60" rx="10" fill="#27274e" stroke="#3b82f6"/>
               <text x="130" y="45">Eggless chocolate cake</text><text x="130" y="66" font-size="11" fill="#9b99b8">cluster page · recipe</text>
               <rect x="520" y="20" width="220" height="60" rx="10" fill="#27274e" stroke="#10b981"/>
-              <text x="630" y="45">Eggless cake price London</text><text x="630" y="66" font-size="11" fill="#9b99b8">cluster page · buying</text>
+              <text x="630" y="45">Eggless cake price list</text><text x="630" y="66" font-size="11" fill="#9b99b8">cluster page · buying</text>
               <rect x="270" y="120" width="220" height="64" rx="12" fill="#1f1f44" stroke="#f43f5e" stroke-width="2"/>
               <text x="380" y="146" font-weight="700">Pillar page</text><text x="380" y="168">Eggless cakes guide</text>
               <rect x="20" y="220" width="220" height="60" rx="10" fill="#27274e" stroke="#f59e0b"/>
@@ -678,7 +678,7 @@ module AiForSeoContent
         <div class="lc-card">
           <h3>Clusters, pillars and topic maps</h3>
           <table class="lc-table">
-            <thead><tr><th>Word</th><th>Plain meaning</th><th>Example (made-up London bakery)</th></tr></thead>
+            <thead><tr><th>Word</th><th>Plain meaning</th><th>Example (made-up home bakery)</th></tr></thead>
             <tbody>
               <tr><td><strong>Keyword cluster</strong></td><td>Keywords with the same meaning and the same intent. One page can answer all of them.</td><td>"eggless cake", "cake without egg", "egg free cake"</td></tr>
               <tr><td><strong>Pillar page</strong></td><td>A broad page that covers the whole topic in short sections</td><td>"Eggless Cakes: A Complete Guide"</td></tr>
@@ -694,7 +694,7 @@ module AiForSeoContent
           <p>A weak prompt gives the AI no data and no rules:</p>
           <pre><code>Make keyword clusters for a bakery.</code></pre>
           <p>The AI will invent keywords and guess the groups. A better prompt gives your real list and clear rules:</p>
-          <pre><code>You are an SEO planner for Sweet Crumbs, a home bakery in London.
+          <pre><code>You are an SEO planner for Sweet Crumbs, a home bakery in Maharashtra.
         Below are 30 keywords from my Search Console and a keyword tool.
         1. Group them into clusters. One cluster = one page.
         2. Put keywords in the same cluster only if they have the same meaning AND the same intent.
@@ -702,7 +702,7 @@ module AiForSeoContent
         4. List any keyword you are unsure about in a separate "check" group.
         Output a table. Do not add new keywords.
         [paste your keywords here]</code></pre>
-          <p>The rule "same meaning and same intent" matters. "eggless cake recipe" and "eggless cake delivery London" share words. But one person wants to bake, and the other wants to buy. They need two different pages.</p>
+          <p>The rule "same meaning and same intent" matters. "eggless cake recipe" and "eggless cake home delivery" share words. But one person wants to bake, and the other wants to buy. They need two different pages.</p>
         </div>
         <div class="lc-card">
           <h3>What you must check</h3>
@@ -726,8 +726,8 @@ module AiForSeoContent
               <li data-bucket="same" data-why="Same meaning and same intent as &quot;eggless cake&quot;. Add it to the existing page.">cake without egg</li>
               <li data-bucket="same" data-why="This is just another way to say eggless cake.">egg free cake</li>
               <li data-bucket="new" data-why="The person wants to bake at home. That is a different intent, so it needs its own page.">eggless cake recipe at home</li>
-              <li data-bucket="new" data-why="The person wants to buy and get it delivered. A focused ordering page fits best.">eggless birthday cake delivery London</li>
-              <li data-bucket="off" data-why="Job seekers are not cake buyers. This does not fit the topic map.">bakery jobs in London</li>
+              <li data-bucket="new" data-why="The person wants to buy and get it delivered. A focused ordering page fits best.">eggless birthday cake home delivery</li>
+              <li data-bucket="off" data-why="Job seekers are not cake buyers. This does not fit the topic map.">bakery jobs near me</li>
               <li data-bucket="off" data-why="An oven buying guide is a different topic. The bakery does not sell ovens.">best oven for baking</li>
             </ul>
           </div>
@@ -736,10 +736,10 @@ module AiForSeoContent
           <h3>Try It</h3>
           <p>Ask the AI to group a keyword list into clusters and a simple topic map. Paste your own keywords, or keep the sample list.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an SEO content planner for [Sweet Crumbs, a home bakery in London that sells eggless cakes and cupcakes].
+            <pre class="ai-try-prompt">You are an SEO content planner for [Sweet Crumbs, a home bakery in Maharashtra that sells eggless cakes and cupcakes].
 
         Here is my keyword list:
-        [eggless cake, cake without egg, eggless cake near me, eggless chocolate cake recipe, eggless cake delivery london, birthday cake london, egg substitute for cake, eggless cupcakes, eggless cake price, how to bake cake without oven, custom cake london, eggless red velvet cake]
+        [eggless cake, cake without egg, eggless cake near me, eggless chocolate cake recipe, eggless cake home delivery, birthday cake order online, egg substitute for cake, eggless cupcakes, eggless cake price, how to bake cake without oven, custom cake for birthday, eggless red velvet cake]
 
         Tasks:
         1. Group the keywords into clusters. One cluster = one page. Only group keywords with the same meaning and the same search intent.
@@ -1142,8 +1142,8 @@ module AiForSeoContent
             <g font-family="inherit" font-size="13" fill="#e2e0f0">
               <rect x="20" y="20" width="420" height="140" rx="12" fill="#1f1f44" stroke="#3b82f6"/>
               <text x="40" y="48" font-size="11.5" fill="#9b99b8">sweetcrumbs.in › eggless-cakes</text>
-              <text x="40" y="76" font-size="15" fill="#93c5fd">Eggless Cakes in London | Same-Day Delivery</text>
-              <text x="40" y="104" font-size="12" fill="#c7c5dc">Order fresh eggless cakes in London. 25 flavours,</text>
+              <text x="40" y="76" font-size="15" fill="#93c5fd">Eggless Cakes Near You | Same-Day Delivery</text>
+              <text x="40" y="104" font-size="12" fill="#c7c5dc">Order fresh eggless cakes near you. 25 flavours,</text>
               <text x="40" y="122" font-size="12" fill="#c7c5dc">custom birthday designs and delivery from 10 am.</text>
               <text x="40" y="146" font-size="11" fill="#9b99b8">A made-up search result</text>
               <rect x="20" y="176" width="200" height="64" rx="10" fill="#27274e" stroke="#f43f5e"/>
@@ -1154,7 +1154,7 @@ module AiForSeoContent
               <text x="340" y="222" text-anchor="middle" font-size="11" fill="#9b99b8">a clear reason to click</text>
               <rect x="460" y="20" width="280" height="220" rx="12" fill="#1f1f44" stroke="#10b981"/>
               <text x="600" y="44" text-anchor="middle" font-weight="700" fill="#6ee7b7">Headings on the page</text>
-              <text x="478" y="74" font-weight="700">H1 Eggless Cakes in London</text>
+              <text x="478" y="74" font-weight="700">H1 Eggless Cakes Near You</text>
               <text x="494" y="100" fill="#c4b5fd">H2 Popular flavours</text>
               <text x="512" y="124" font-size="12" fill="#9b99b8">H3 Chocolate truffle</text>
               <text x="512" y="148" font-size="12" fill="#9b99b8">H3 Rasmalai cake</text>
@@ -1182,8 +1182,8 @@ module AiForSeoContent
           <p>A weak prompt gives you one average title:</p>
           <pre><code>Write an SEO title for my cake page.</code></pre>
           <p>A better prompt asks for options with different angles:</p>
-          <pre><code>You are an SEO copywriter for Sweet Crumbs, a home bakery in London.
-        Page: eggless cakes, with same-day delivery in London. Main keyword: "eggless cake London".
+          <pre><code>You are an SEO copywriter for Sweet Crumbs, a home bakery in Maharashtra.
+        Page: eggless cakes, with same-day delivery nearby. Main keyword: "eggless cake near me".
         Write 8 title options and 5 meta description options.
         Use different angles: flavour, speed, occasion, trust.
         Put the main keyword near the start of each title.
@@ -1211,9 +1211,9 @@ module AiForSeoContent
               <li data-kind="answer" data-label="AI reply">The AI gives 8 titles. It says every title is "under 60 characters".</li>
               <li data-kind="tool" data-label="Spreadsheet">You paste the titles into column A and use =LEN(A2) in column B.</li>
               <li data-kind="result" data-label="Counts">Two titles are much longer than the others. The AI's count was wrong.</li>
-              <li data-kind="warn" data-label="Mistake">One title says "London's No. 1 Eggless Bakery". You cannot prove this claim.</li>
+              <li data-kind="warn" data-label="Mistake">One title says "India's No. 1 Eggless Bakery". You cannot prove this claim.</li>
               <li data-kind="check" data-label="You check">You remove the long and false titles. You compare the rest with the top search results.</li>
-              <li data-kind="thought" data-label="Your choice">You pick "Eggless Cakes in London | Same-Day Delivery". You save two others to test later.</li>
+              <li data-kind="thought" data-label="Your choice">You pick "Eggless Cakes Near You | Same-Day Delivery". You save two others to test later.</li>
             </ol>
           </div>
         </div>
@@ -1221,11 +1221,11 @@ module AiForSeoContent
           <h3>Try It</h3>
           <p>Ask the AI for title options, meta descriptions and a heading outline for one page. Then check the length and the facts yourself.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an SEO copywriter for [Sweet Crumbs, a home bakery in London].
-        Page: [eggless cakes with same-day delivery in London]
-        Main keyword: [eggless cake London]
+            <pre class="ai-try-prompt">You are an SEO copywriter for [Sweet Crumbs, a home bakery in Maharashtra].
+        Page: [eggless cakes with same-day delivery nearby]
+        Main keyword: [eggless cake near me]
         Search intent: [transactional: the reader wants to order a cake]
-        Facts you may use (use no others): [25 flavours, custom birthday designs, delivery from 10 am, prices start at Rs 550]
+        Facts you may use (use no others): [25 flavours, custom birthday designs, delivery from 10 am, prices start at ₹550]
 
         Tasks:
         1. Write 8 title options. Put the main keyword near the start. Use different angles: flavour, speed, occasion, trust.
@@ -1261,7 +1261,7 @@ module AiForSeoContent
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <rect x="20" y="15" width="320" height="272" rx="12" fill="#1f1f44" stroke="#4b4a78"/>
               <text x="180" y="38" font-weight="700" fill="#c4b5fd">Your page</text>
-              <rect x="40" y="50" width="280" height="28" rx="6" fill="#27274e" stroke="#3b82f6"/><text x="180" y="69">Title: Eggless Cakes in London</text>
+              <rect x="40" y="50" width="280" height="28" rx="6" fill="#27274e" stroke="#3b82f6"/><text x="180" y="69">Title: Eggless Cakes Near You</text>
               <rect x="40" y="86" width="280" height="28" rx="6" fill="#27274e" stroke="#8b5cf6"/><text x="180" y="105">H1: Eggless Birthday Cakes</text>
               <rect x="40" y="124" width="280" height="8" rx="3" fill="#3a3a66"/>
               <rect x="40" y="138" width="250" height="8" rx="3" fill="#3a3a66"/>
@@ -1308,7 +1308,7 @@ module AiForSeoContent
           <pre><code>Check my page for SEO.</code></pre>
           <p>A better prompt gives the keyword, the intent, the checklist and the output format.</p>
           <pre><code>You are an on-page SEO editor.
-        Keyword: eggless birthday cake London. Intent: people want to order.
+        Keyword: eggless birthday cake near me. Intent: people want to order.
         Check the page text below against my 6-point checklist.
         Give a table: Check | Pass or Fix | What to change | Suggested text.
         Do not invent prices or facts. List what you could not check.
@@ -1316,16 +1316,16 @@ module AiForSeoContent
           <p>Paste only the public page text. Do not paste customer names, orders or private notes.</p>
         </div>
         <div class="lc-card">
-          <h3>Worked example: a London bakery page</h3>
-          <p>Sweet Crumbs (a made-up home bakery in London) ran the better prompt on its "Eggless cakes" page. Here is part of the AI's answer, with the owner's notes.</p>
+          <h3>Worked example: a home bakery page</h3>
+          <p>Sweet Crumbs (a made-up home bakery in Maharashtra) ran the better prompt on its "Eggless cakes" page. Here is part of the AI's answer, with the owner's notes.</p>
           <table class="lc-table">
             <thead><tr><th>Check</th><th>AI said</th><th>Owner's decision</th></tr></thead>
             <tbody>
-              <tr><td>Title tag</td><td>Fix: "Home" is the title. Suggest "Eggless Birthday Cakes in London | Sweet Crumbs".</td><td>Accept.</td></tr>
+              <tr><td>Title tag</td><td>Fix: "Home" is the title. Suggest "Eggless Birthday Cakes | Sweet Crumbs".</td><td>Accept.</td></tr>
               <tr><td>Alt text</td><td>Fix: image "IMG_2041.jpg" has no alt text. Suggest "Two-tier eggless chocolate birthday cake".</td><td>Change. The photo shows a one-tier cake.</td></tr>
               <tr><td>Internal links</td><td>Fix: no links. Link to the cupcakes and delivery pages.</td><td>Accept. The delivery page exists. Check the link after publishing.</td></tr>
               <tr><td>Readability</td><td>Fix: first paragraph has 70 words. Split it into three short ones.</td><td>Accept.</td></tr>
-              <tr><td>Next step</td><td>Suggest "Free delivery across London".</td><td>Reject. The bakery delivers only in Islington, Camden and Hackney, and delivery is not free.</td></tr>
+              <tr><td>Next step</td><td>Suggest "Free delivery across India".</td><td>Reject. The bakery delivers only within 8 km of its kitchen, and delivery is not free.</td></tr>
             </tbody>
           </table>
           <p>The AI found real problems fast. But it also guessed about the photo and the delivery offer. You are the one who knows the facts.</p>
@@ -1353,8 +1353,8 @@ module AiForSeoContent
           <p>Paste the text of one of your pages, or leave the brackets as they are. The AI will apply a 6-point on-page checklist and suggest fixes.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an on-page SEO editor for a small business website.
-        Business: [Sweet Crumbs, a home bakery in London]
-        Target keyword: [eggless birthday cake London]
+        Business: [Sweet Crumbs, a home bakery in Maharashtra]
+        Target keyword: [eggless birthday cake near me]
         Search intent: [transactional: people want to order a cake]
 
         Check the page below against this checklist:
@@ -1782,13 +1782,13 @@ module AiForSeoContent
           </table>
         </div>
         <div class="lc-card">
-          <h3>Worked example: Sweet Crumbs, London</h3>
-          <p>Sweet Crumbs is a made-up home bakery in London. The owner has 4 hours a week for SEO. The search numbers below are made up for this example.</p>
+          <h3>Worked example: Sweet Crumbs, Maharashtra</h3>
+          <p>Sweet Crumbs is a made-up home bakery in Maharashtra. The owner has 4 hours a week for SEO. The search numbers below are made up for this example.</p>
           <table class="lc-table">
             <thead><tr><th>Cluster</th><th>Pillar page</th><th>Cluster pages (briefs)</th><th>Intent</th></tr></thead>
             <tbody>
-              <tr><td>Eggless cakes</td><td>Eggless Cakes in London</td><td>Eggless birthday cakes; eggless vs regular cake: taste and texture</td><td>Transactional, informational</td></tr>
-              <tr><td>Custom cakes</td><td>Custom Cakes in London</td><td>How to order a custom cake; theme cake ideas for kids</td><td>Commercial, informational</td></tr>
+              <tr><td>Eggless cakes</td><td>Eggless Cakes Near You</td><td>Eggless birthday cakes; eggless vs regular cake: taste and texture</td><td>Transactional, informational</td></tr>
+              <tr><td>Custom cakes</td><td>Custom Cakes Near You</td><td>How to order a custom cake; theme cake ideas for kids</td><td>Commercial, informational</td></tr>
               <tr><td>Office orders</td><td>Cakes and Cupcakes for Offices</td><td>Bulk cupcake orders for office events</td><td>Transactional</td></tr>
             </tbody>
           </table>
@@ -1811,9 +1811,9 @@ module AiForSeoContent
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Prompt">The owner gives the AI her business details, customers, current site and 4 hours a week. She asks for a 3-month SEO plan in tables.</li>
               <li data-kind="answer" data-label="AI draft">The AI returns keyword ideas, 3 clusters, 5 briefs, an on-page checklist, local tasks and a 12-week schedule.</li>
-              <li data-kind="warn" data-label="Catch the mistake">The AI lists "eggless cake London: 5,400 searches a month". It has no way to know this. The owner deletes all AI volume numbers.</li>
+              <li data-kind="warn" data-label="Catch the mistake">The AI lists "eggless cake near me: 5,400 searches a month". It has no way to know this. The owner deletes all AI volume numbers.</li>
               <li data-kind="tool" data-label="Check demand">She opens Search Console and a keyword planner. She checks which keyword ideas show real searches.</li>
-              <li data-kind="result" data-label="Result">Two AI ideas show almost no searches. "Eggless cake delivery London" already has impressions for her home page.</li>
+              <li data-kind="result" data-label="Result">Two AI ideas show almost no searches. "Eggless cake home delivery" already has impressions for her home page.</li>
               <li data-kind="check" data-label="Decide">She drops the weak ideas. She moves the eggless delivery page to the top of her 5 briefs.</li>
               <li data-kind="check" data-label="Fit the time">The schedule needs 7 hours a week. She cuts it to 2 new pages a month, so it fits 4 hours.</li>
             </ol>
@@ -1824,8 +1824,8 @@ module AiForSeoContent
           <p>Get a first draft of a full 3-month SEO plan. Change the details in brackets to your business, or keep the sample.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an SEO planner for small businesses. Make a 3-month SEO plan that I can follow without a developer.
-        Business: [Sweet Crumbs, a home bakery in London: custom cakes, eggless cakes, cupcakes; orders on WhatsApp]
-        Customers: [parents and office teams in London]
+        Business: [Sweet Crumbs, a home bakery in Maharashtra: custom cakes, eggless cakes, cupcakes; orders on WhatsApp]
+        Customers: [parents and office teams nearby]
         Current state: [website with 6 pages, Google Business Profile with 18 reviews, Search Console set up]
         Time for SEO: [4 hours a week]
 

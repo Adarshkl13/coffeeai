@@ -10,7 +10,7 @@ module AiContentMarketingContent
         </div>
         <p class="lc-lead">Content marketing means you create useful content that helps people. Over time, this help builds trust. When people are ready to buy, they remember you. In this lesson you will learn what "helpful content" means. You will learn the buyer journey: the steps a person goes through before they buy. You will also learn the main content types. You will use these ideas in every lesson of this course.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 300" role="img" aria-label="A funnel with three stages. Awareness: I have a problem, served by blog posts, guides and short videos. Consideration: what are my options, served by comparisons, case studies and FAQs. Decision: why choose you, served by reviews, offers and the order page. The examples are for Sweet Crumbs, a London bakery.">
+          <svg viewBox="0 0 760 300" role="img" aria-label="A funnel with three stages. Awareness: I have a problem, served by blog posts, guides and short videos. Consideration: what are my options, served by comparisons, case studies and FAQs. Decision: why choose you, served by reviews, offers and the order page. The examples are for Sweet Crumbs, a home bakery in Maharashtra.">
             <defs><marker id="cm1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <text x="220" y="26" font-weight="700" fill="#c4b5fd">The buyer journey</text>
@@ -32,13 +32,13 @@ module AiContentMarketingContent
               <text x="590" y="170" font-size="11" fill="#9b99b8">"Fresh cream or buttercream cake?"</text>
               <rect x="440" y="200" width="300" height="70" rx="10" fill="#27274e" stroke="#10b981"/>
               <text x="590" y="228">Reviews, offers, order page</text>
-              <text x="590" y="250" font-size="11" fill="#9b99b8">"Order a custom cake in London"</text>
+              <text x="590" y="250" font-size="11" fill="#9b99b8">"Order a custom eggless cake"</text>
               <g stroke="#9b99b8" stroke-width="1.5" fill="none" marker-end="url(#cm1a)">
                 <line x1="392" y1="75" x2="436" y2="75"/>
                 <line x1="360" y1="155" x2="436" y2="155"/>
                 <line x1="320" y1="235" x2="436" y2="235"/>
               </g>
-              <text x="380" y="292" font-size="11" fill="#9b99b8">Example: Sweet Crumbs, a made-up bakery in London</text>
+              <text x="380" y="292" font-size="11" fill="#9b99b8">Example: Sweet Crumbs, a made-up bakery in Maharashtra</text>
             </g>
           </svg>
           <figcaption>People need different content at each stage. Helpful content meets them where they are.</figcaption>
@@ -46,7 +46,7 @@ module AiContentMarketingContent
         <div class="lc-card">
           <h3>Helpful content, not ads</h3>
           <p>An ad says "Buy from us". Content marketing says "Here is how to solve your problem". The help comes first. The sale may come later.</p>
-          <p>Think of Sweet Crumbs, a made-up home bakery in London. It posts a short guide: "How to store a cake so it stays fresh". Many people read it. Most do not buy that day. But some of them order a birthday cake next month. They remember the bakery that helped them.</p>
+          <p>Think of Sweet Crumbs, a made-up home bakery in Maharashtra. It posts a short guide: "How to store a cake so it stays fresh". Many people read it. Most do not buy that day. But some of them order a birthday cake next month. They remember the bakery that helped them.</p>
           <p>Good content has three things:</p>
           <ul class="lc-list">
             <li><strong>It answers a real question</strong> that your customers ask.</li>
@@ -56,7 +56,7 @@ module AiContentMarketingContent
         </div>
         <div class="lc-card">
           <h3>The buyer journey</h3>
-          <p>The <strong>buyer journey</strong> is the path a person takes from "I have a problem" to "I will buy this". Many marketers split it into three stages. Here is an example for LedgerLite, a made-up accounting software startup in San Francisco.</p>
+          <p>The <strong>buyer journey</strong> is the path a person takes from "I have a problem" to "I will buy this". Many marketers split it into three stages. Here is an example for LedgerLite, a made-up accounting software startup in Karnataka.</p>
           <table class="lc-table">
             <thead><tr><th>Stage</th><th>What the buyer thinks</th><th>Helpful content</th></tr></thead>
             <tbody>
@@ -84,7 +84,7 @@ module AiContentMarketingContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Give me content ideas for my bakery.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>I run Sweet Crumbs, a home bakery in London. We sell eggless cakes
+          <pre><code>I run Sweet Crumbs, a home bakery in Maharashtra. We sell eggless cakes
         and cookies to families and office teams.
         Give me 3 content ideas for each stage of the buyer journey:
         awareness, consideration and decision.
@@ -116,7 +116,7 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a content marketing coach for small businesses. Use simple English.
 
-        My business: [Sweet Crumbs, a home bakery in London that sells eggless cakes and cookies].
+        My business: [Sweet Crumbs, a home bakery in Maharashtra that sells eggless cakes and cookies].
         My customers: [families and office teams who order for birthdays and festivals].
         Questions customers often ask me: [Do you make eggless cakes? How early should I order? Can you deliver to Canary Wharf?].
 
@@ -213,7 +213,7 @@ module AiContentMarketingContent
             <li><strong>Stories.</strong> "Meena ji has printed with wooden blocks for 30 years. This is her favourite design."</li>
             <li><strong>Judgement.</strong> What to publish, what to leave out, and what is true.</li>
           </ul>
-          <p>These examples are for Rangrez Crafts, a made-up handicrafts store in Manchester. Without these parts, its blog would sound like every other shop. With them, readers learn something they cannot get anywhere else.</p>
+          <p>These examples are for Rangrez Crafts, a made-up handicrafts store in Rajasthan. Without these parts, its blog would sound like every other shop. With them, readers learn something they cannot get anywhere else.</p>
           <p>Also remember: AI can be wrong. It can state made-up facts with confidence. Check every fact, number and quote. Do not paste private customer data or secret business data into public AI tools.</p>
         </div>
         <div class="lc-card">
@@ -222,7 +222,7 @@ module AiContentMarketingContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Write a blog post about block print bedsheets.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>I run Rangrez Crafts, a handicrafts store in Manchester.
+          <pre><code>I run Rangrez Crafts, a handicrafts store in Rajasthan.
         Here are my notes from a talk with our printer, Meena ji:
         [paste your notes]
         Turn these notes into a 600-word blog post for people who
@@ -239,7 +239,7 @@ module AiContentMarketingContent
               <li data-kind="answer" data-label="AI draft">A clear post with 6 care tips. It opens with: "Hand block printing has been loved by royal families for over 1,000 years."</li>
               <li data-kind="warn" data-label="Catch this">The history claim has no source. You did not give it to the AI. Remove it, or find a trusted source and check it.</li>
               <li data-kind="check" data-label="You check the tips">Four tips match your notes. Two tips are new: "use salt water on the first wash" and "iron on high heat". You are not sure they are right for your fabric, so you ask your printer.</li>
-              <li data-kind="user" data-label="Your follow-up">Remove the history line and the two tips I did not give you. Add this story: a customer in London still uses our bedsheet after 5 years of washing.</li>
+              <li data-kind="user" data-label="Your follow-up">Remove the history line and the two tips I did not give you. Add this story: a customer in Kerala still uses our bedsheet after 5 years of washing.</li>
               <li data-kind="answer" data-label="AI revision">A shorter post with your 4 tips and the customer story near the end.</li>
               <li data-kind="check" data-label="Final human check">You read it aloud. You add a photo of the fabric and one line in your own words. Now it is ready to publish.</li>
             </ol>
@@ -251,7 +251,7 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a content marketing coach. You help small teams use AI without losing their human voice. Use simple English.
 
-        My business: [Rangrez Crafts, an online handicrafts store in Manchester that sells block print bedsheets and cushion covers].
+        My business: [Rangrez Crafts, an online handicrafts store in Rajasthan that sells block print bedsheets and cushion covers].
         The content I want to make: [a blog post called "How to choose a block print bedsheet"].
         Who it is for: [first-time buyers in Indian cities].
 
@@ -283,11 +283,11 @@ module AiContentMarketingContent
         </div>
         <p class="lc-lead">A content strategy is a simple plan for your content. It says why you create content, who it is for, what you will write about, in which formats and where you will share it. Without a plan, people post random things and give up after a few weeks. In this lesson you will build a one-page strategy. You will use AI to draft it and you will check it with your own knowledge.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 270" role="img" aria-label="A one-page content strategy with five parts in order: goals, audience, topics, formats and channels. Example for LedgerLite, a San Francisco accounting software startup: 50 demo requests a month, small business owners, GST and invoice topics, how-to blogs and checklists, shared on Google search, LinkedIn and email.">
+          <svg viewBox="0 0 760 270" role="img" aria-label="A one-page content strategy with five parts in order: goals, audience, topics, formats and channels. Example for LedgerLite, a Karnataka accounting software startup: 50 demo requests a month, small business owners, GST and invoice topics, how-to blogs and checklists, shared on Google search, LinkedIn and email.">
             <defs><marker id="cm3a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <rect x="5" y="8" width="750" height="232" rx="12" fill="none" stroke="#4b4a78" stroke-dasharray="6 4"/>
-              <text x="380" y="30" font-weight="700" fill="#c4b5fd">One-page strategy: LedgerLite (made-up SaaS, San Francisco)</text>
+              <text x="380" y="30" font-weight="700" fill="#c4b5fd">One-page strategy: LedgerLite (made-up SaaS, Karnataka)</text>
               <rect x="15" y="48" width="128" height="40" rx="8" fill="#27274e" stroke="#8b5cf6"/><text x="79" y="73" font-weight="700">1. Goals</text>
               <rect x="165" y="48" width="128" height="40" rx="8" fill="#27274e" stroke="#3b82f6"/><text x="229" y="73" font-weight="700">2. Audience</text>
               <rect x="315" y="48" width="128" height="40" rx="8" fill="#27274e" stroke="#22d3ee"/><text x="379" y="73" font-weight="700">3. Topics</text>
@@ -387,7 +387,7 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a content strategist who helps small businesses. Use simple English.
 
-        My business: [LedgerLite, a San Francisco startup that sells simple accounting software to small businesses in India].
+        My business: [LedgerLite, a Karnataka startup that sells simple accounting software to small businesses in India].
         Business goal: [50 demo requests a month within 6 months].
         Main audience: [owners of businesses with 2 to 20 staff who do their own bookkeeping].
         Time and team: [1 marketer, about 6 hours a week for content].
@@ -422,7 +422,7 @@ module AiContentMarketingContent
         </div>
         <p class="lc-lead">Brand voice is how your business sounds when it writes or speaks. A style guide is a short document that describes that voice and your writing rules. Without a guide, AI writes in a general, often over-excited tone. In this lesson you will learn to describe your voice with traits, do and don't lists and example sentences. Then you will give the guide to AI, so its drafts sound like you.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 260" role="img" aria-label="A style guide for Sweet Crumbs lists its voice, a do rule, a don't rule and an example sentence. The guide goes to an AI assistant. Without the guide, the AI writes: Indulge in our exquisite world-class delicacies. With the guide, it writes: Fresh eggless cakes, baked in London every morning.">
+          <svg viewBox="0 0 760 260" role="img" aria-label="A style guide for Sweet Crumbs lists its voice, a do rule, a don't rule and an example sentence. The guide goes to an AI assistant. Without the guide, the AI writes: Indulge in our exquisite world-class delicacies. With the guide, it writes: Fresh eggless cakes, baked fresh every morning.">
             <defs>
               <marker id="cm4a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker>
               <marker id="cm4b" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker>
@@ -449,7 +449,7 @@ module AiContentMarketingContent
               <rect x="470" y="155" width="275" height="80" rx="10" fill="#1f1f44" stroke="#10b981"/>
               <text x="607" y="178" font-size="11" fill="#6ee7b7">With the guide</text>
               <text x="607" y="200" font-size="12">"Fresh eggless cakes,</text>
-              <text x="607" y="218" font-size="12">baked in London every morning."</text>
+              <text x="607" y="218" font-size="12">baked fresh every morning."</text>
               <path d="M432,118 L466,78" stroke="#9b99b8" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#cm4a)"/>
               <path d="M432,142 L466,182" stroke="#10b981" stroke-width="1.5" fill="none" marker-end="url(#cm4b)"/>
             </g>
@@ -458,14 +458,14 @@ module AiContentMarketingContent
         </figure>
         <div class="lc-card">
           <h3>Voice traits</h3>
-          <p>Describe your voice with 3 or 4 <strong>traits</strong> (words that describe how you sound). A trait alone is too vague. So add what it means and what it does not mean. Here is an example for Sweet Crumbs, a made-up bakery in London.</p>
+          <p>Describe your voice with 3 or 4 <strong>traits</strong> (words that describe how you sound). A trait alone is too vague. So add what it means and what it does not mean. Here is an example for Sweet Crumbs, a made-up bakery in Maharashtra.</p>
           <table class="lc-table">
             <thead><tr><th>Trait</th><th>This means</th><th>This does not mean</th></tr></thead>
             <tbody>
               <tr><td><strong>Warm</strong></td><td>We talk like a friendly neighbour. We use "you" and "we".</td><td>Too casual, or full of slang</td></tr>
               <tr><td><strong>Simple</strong></td><td>Short sentences. Everyday words.</td><td>Childish or boring</td></tr>
               <tr><td><strong>Honest</strong></td><td>We say what is in the cake and when it is baked.</td><td>Big claims like "the best cake in India"</td></tr>
-              <tr><td><strong>Local</strong></td><td>We mention London places, festivals and seasons.</td><td>Only for London people. Visitors should understand us too.</td></tr>
+              <tr><td><strong>Local</strong></td><td>We mention local places, festivals and seasons.</td><td>Only for people from our area. Visitors should understand us too.</td></tr>
             </tbody>
           </table>
           <p>Voice stays the same everywhere. <strong>Tone</strong> (the mood of one piece) can change. A birthday post can be playful. A message about a late delivery should be calm and sorry.</p>
@@ -507,7 +507,7 @@ module AiContentMarketingContent
               <div data-sorter-target="bucket" data-bucket="off" data-label="Off voice"></div>
             </div>
             <ul data-sorter-target="pool">
-              <li data-bucket="on" data-why="Short, warm and specific about when the cakes are baked.">Our cakes are baked fresh every morning in Islington.</li>
+              <li data-bucket="on" data-why="Short, warm and specific about when the cakes are baked.">Our cakes are baked fresh every morning in our home kitchen.</li>
               <li data-bucket="off" data-why="&quot;Best in the world&quot; is a big claim you cannot prove. It breaks the honest trait.">The best cakes in the whole world, guaranteed!!!</li>
               <li data-bucket="on" data-why="Calm and honest tone for a problem. The voice stays warm.">Sorry, your order is 30 minutes late. We will call you as soon as it leaves.</li>
               <li data-bucket="off" data-why="Long words and a formal style do not fit a simple, neighbourly voice.">We endeavour to deliver unparalleled confectionery experiences to discerning patrons.</li>
@@ -522,8 +522,8 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a brand writer who helps small businesses write a clear style guide. Use simple English.
 
-        My business: [Sweet Crumbs, a home bakery in London that sells eggless cakes and cookies].
-        My audience: [families and office teams in London].
+        My business: [Sweet Crumbs, a home bakery in Maharashtra that sells eggless cakes and cookies].
+        My audience: [families and office teams near us].
         How I want to sound: [warm, simple, honest, local].
         Words I never want to use: [world-class, best, hurry, cheap].
         Three real examples of my writing:
@@ -559,7 +559,7 @@ module AiContentMarketingContent
         </div>
         <p class="lc-lead">Good content starts with real questions. Before you write, you collect what people actually ask, find trusted sources and choose an angle. An angle is the point of view that makes your piece different. Then you build an outline: a list of headings in order. In this lesson you will use AI to speed up research and outlines. You will also learn why every fact and source from AI must be checked.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 280" role="img" aria-label="Three sources, customer questions, search tools and sales and support, feed a question bank. The question bank leads to picking an angle, first-time visitors. The angle leads to an outline for Backwater Trails, a Boston travel agency, where each heading answers a real question.">
+          <svg viewBox="0 0 760 280" role="img" aria-label="Three sources, customer questions, search tools and sales and support, feed a question bank. The question bank leads to picking an angle, first-time visitors. The angle leads to an outline for Backwater Trails, a Kerala travel agency, where each heading answers a real question.">
             <defs><marker id="cm5a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <rect x="15" y="40" width="170" height="44" rx="8" fill="#1f1f44" stroke="#8b5cf6"/><text x="100" y="67">Customer questions</text>
@@ -588,7 +588,7 @@ module AiContentMarketingContent
                 <text x="576" y="182">H2: Is it safe with kids?</text>
                 <text x="576" y="214" fill="#9b99b8">Notes: facts to check</text>
               </g>
-              <text x="380" y="266" font-size="12" fill="#6ee7b7">Each heading answers a real question. Example: Backwater Trails, Boston (made up).</text>
+              <text x="380" y="266" font-size="12" fill="#6ee7b7">Each heading answers a real question. Example: Backwater Trails, Kerala (made up).</text>
             </g>
           </svg>
           <figcaption>Collect real questions, choose an angle, then turn the questions into headings.</figcaption>
@@ -623,7 +623,7 @@ module AiContentMarketingContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Write an outline for a blog about Kerala backwaters.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>You are a travel content writer for Backwater Trails, a Boston agency.
+          <pre><code>You are a travel content writer for Backwater Trails, a Kerala agency.
         Reader: a family visiting Kerala for the first time.
         Angle: honest, practical advice from a local team.
         Here are real customer questions: [paste 10-15 questions]
@@ -653,7 +653,7 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a content researcher and writer for a small business. Use simple English.
 
-        My business: [Backwater Trails, a travel agency in Boston that sells Kerala backwater trips].
+        My business: [Backwater Trails, a travel agency in Kerala that sells backwater trips].
         The reader: [families visiting Kerala for the first time].
         Real questions from my customers:
         [Is a houseboat safe with small children? Which months are best? Is one night enough? How much does a houseboat cost? Is there AC at night? Is Vembanad Lake a good base? What food is served on board? Can we go in the monsoon?]
@@ -732,12 +732,12 @@ module AiContentMarketingContent
         </div>
         <div class="lc-card">
           <h3>A weak prompt and a better prompt</h3>
-          <p>Here is an example from <strong>Sweet Crumbs</strong>, a made-up home bakery in London. The post is "How to Choose an Eggless Birthday Cake".</p>
+          <p>Here is an example from <strong>Sweet Crumbs</strong>, a made-up home bakery in Maharashtra. The post is "How to Choose an Eggless Birthday Cake".</p>
           <pre><code>Weak:
         Write a blog post about eggless birthday cakes.</code></pre>
           <pre><code>Better:
         You are helping me write a blog post for Sweet Crumbs, a home bakery
-        in London. Readers are parents planning a child's birthday.
+        in Maharashtra. Readers are parents planning a child's birthday.
         Here is my outline: [paste outline].
         Write only section 2, "How many kilos do you need?".
         Use about 150 words, short sentences and a friendly tone.
@@ -757,7 +757,7 @@ module AiContentMarketingContent
               <tr><td><strong>Your experience</strong></td><td>"Cream cakes melt fast in May. For outdoor parties we suggest a ganache cake."</td></tr>
               <tr><td><strong>Your own data</strong></td><td>"Last Diwali, most of our orders were for 500 g gift cakes." (from your own order book)</td></tr>
               <tr><td><strong>Real customer questions</strong></td><td>"Can you write the name in Marathi?" Yes, and here is how to ask for it.</td></tr>
-              <tr><td><strong>Local details</strong></td><td>Delivery areas such as Islington and Camden, and how early to order.</td></tr>
+              <tr><td><strong>Local details</strong></td><td>Which nearby areas we deliver to, and how early to order.</td></tr>
               <tr><td><strong>Your opinion</strong></td><td>"We think fresh fruit cakes are the best choice for very young children."</td></tr>
             </tbody>
           </table>
@@ -774,9 +774,9 @@ module AiContentMarketingContent
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Your prompt">Write section 3 of my Sweet Crumbs post, "Cream or fondant?". About 150 words. Use only the facts I give you. Facts: fondant holds shape longer; many children prefer cream; we charge ₹200 extra for fondant designs.</li>
-              <li data-kind="answer" data-label="AI draft">A clear, friendly section. But it ends with: "Studies show 78% of London parents prefer cream cakes."</li>
+              <li data-kind="answer" data-label="AI draft">A clear, friendly section. But it ends with: "Studies show 78% of Indian parents prefer cream cakes."</li>
               <li data-kind="warn" data-label="Catch the mistake">You never gave AI this number. There is no such study. Remove the sentence. Made-up statistics damage trust.</li>
-              <li data-kind="user" data-label="Add your own example">Replace the last sentence with this: "Last month, one mother in Camden asked for a cream base with a small fondant crown on top. It was a good mix of both."</li>
+              <li data-kind="user" data-label="Add your own example">Replace the last sentence with this: "Last month, one mother we deliver to asked for a cream base with a small fondant crown on top. It was a good mix of both."</li>
               <li data-kind="answer" data-label="AI revises">The section now ends with your real story. It feels local and personal.</li>
               <li data-kind="check" data-label="You check">You check the ₹200 price against your price list. You read the section aloud and cut one long sentence.</li>
               <li data-kind="result" data-label="Ready">Section 3 is done. You move on to section 4 with the same steps.</li>
@@ -789,7 +789,7 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a blog writer for small businesses. Write in simple, friendly English with short sentences.
 
-        Business: [Sweet Crumbs, a home bakery in London that sells eggless cakes]
+        Business: [Sweet Crumbs, a home bakery in Maharashtra that sells eggless cakes]
         Readers: [parents planning a child's birthday party]
         Blog post title: [How to Choose an Eggless Birthday Cake]
         Section to write now: [How early should you order?]
@@ -862,7 +862,7 @@ module AiContentMarketingContent
         </figure>
         <div class="lc-card">
           <h3>Interview questions that get good stories</h3>
-          <p>Our example is <strong>LedgerLite</strong>, a made-up accounting software startup in San Francisco. Its customer is Mehta Fabrics, a made-up textile shop in Birmingham. Ask open questions. Let the customer talk. Record the call only if they agree.</p>
+          <p>Our example is <strong>LedgerLite</strong>, a made-up accounting software startup in Karnataka. Its customer is Mehta Fabrics, a made-up textile shop in Gujarat. Ask open questions. Let the customer talk. Record the call only if they agree.</p>
           <ul class="lc-list">
             <li><strong>Before:</strong> "How did you manage your accounts before? What was the hardest part?"</li>
             <li><strong>Trigger:</strong> "What made you look for a new tool at that time?"</li>
@@ -876,7 +876,7 @@ module AiContentMarketingContent
         <div class="lc-card">
           <h3>From notes to draft with AI</h3>
           <p>After the interview, give AI your notes or the transcript (the written text of the call). Remove private details first, such as phone numbers, bank details and GST numbers. Here are sample notes:</p>
-          <pre><code>Customer: Mehta Fabrics, Birmingham (12 staff)
+          <pre><code>Customer: Mehta Fabrics, Gujarat (12 staff)
         Before: invoices in a notebook, month-end took 3 days, missed payments
         Why LedgerLite: WhatsApp payment reminders, easy for staff
         After: month-end takes about 1 day (customer's own estimate)
@@ -897,7 +897,7 @@ module AiContentMarketingContent
           <ul class="lc-list">
             <li>Get <strong>written permission</strong> to use the customer's name, logo, photo and quotes.</li>
             <li>Send the final draft to the customer. Publish only after they approve it.</li>
-            <li>If they want privacy, use a general name such as "a textile shop in Birmingham". Say so honestly.</li>
+            <li>If they want privacy, use a general name such as "a textile shop in Gujarat". Say so honestly.</li>
             <li>Never change a quote so it says more than the customer said.</li>
             <li>Do not suggest that every customer will get the same result.</li>
           </ul>
@@ -918,7 +918,7 @@ module AiContentMarketingContent
               <li data-bucket="ok" data-why="It comes from the customer and is labelled as their estimate.">"Month-end now takes about 1 day, says the owner"</li>
               <li data-bucket="fix" data-why="You need permission to use a customer's logo.">The customer's logo, added without asking</li>
               <li data-bucket="fix" data-why="One story cannot promise results for everyone. This claim can mislead buyers.">"Every LedgerLite customer saves 2 days a month"</li>
-              <li data-bucket="ok" data-why="The customer asked for privacy, and the story is still true.">An anonymous story about "a textile shop in Birmingham", with permission</li>
+              <li data-bucket="ok" data-why="The customer asked for privacy, and the story is still true.">An anonymous story about "a textile shop in Gujarat", with permission</li>
             </ul>
           </div>
         </div>
@@ -928,8 +928,8 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a B2B content writer. Write a short, honest case study in simple English.
 
-        My company: [LedgerLite, an accounting software startup in San Francisco]
-        Customer: [Mehta Fabrics, a textile shop in Birmingham with 12 staff]
+        My company: [LedgerLite, an accounting software startup in Karnataka]
+        Customer: [Mehta Fabrics, a textile shop in Gujarat with 12 staff]
 
         Interview notes (use ONLY these facts):
         - Before: [invoices in a notebook; month-end took 3 days; payments were often late]
@@ -1010,14 +1010,14 @@ module AiContentMarketingContent
         </figure>
         <div class="lc-card">
           <h3>Regular newsletter formats</h3>
-          <p>A regular format means each issue follows the same pattern. This makes writing faster. It also helps readers know what they will get. Here are ideas for <strong>LedgerLite</strong>, a made-up accounting software startup in San Francisco that serves small shops.</p>
+          <p>A regular format means each issue follows the same pattern. This makes writing faster. It also helps readers know what they will get. Here are ideas for <strong>LedgerLite</strong>, a made-up accounting software startup in Karnataka that serves small shops.</p>
           <table class="lc-table">
             <thead><tr><th>Format</th><th>What it is</th><th>LedgerLite example</th></tr></thead>
             <tbody>
               <tr><td><strong>Tip of the week</strong></td><td>One practical tip, explained well</td><td>"How to follow up on a late payment politely"</td></tr>
               <tr><td><strong>Reader question</strong></td><td>Answer one real question from a subscriber</td><td>"Should I keep paper bills after I scan them?"</td></tr>
               <tr><td><strong>Monthly checklist</strong></td><td>What to do this month</td><td>"Month-end steps for a small shop"</td></tr>
-              <tr><td><strong>Customer spotlight</strong></td><td>A short, approved customer story</td><td>"How a Birmingham textile shop tracks dues"</td></tr>
+              <tr><td><strong>Customer spotlight</strong></td><td>A short, approved customer story</td><td>"How a Gujarat textile shop tracks dues"</td></tr>
               <tr><td><strong>Round-up</strong></td><td>3 to 5 useful links with one line each</td><td>New blog posts and helpful free tools</td></tr>
             </tbody>
           </table>
@@ -1058,7 +1058,7 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a newsletter editor for a small business. Use simple, warm English and short sentences.
 
-        Business: [LedgerLite, an accounting software startup in San Francisco]
+        Business: [LedgerLite, an accounting software startup in Karnataka]
         Readers: [small shop owners in India who are not finance experts]
         How often: [every 2 weeks]
         Goal of the newsletter: [build trust and get readers to try our free month-end checklist]
@@ -1131,7 +1131,7 @@ module AiContentMarketingContent
         </figure>
         <div class="lc-card">
           <h3>Scripts for short videos</h3>
-          <p>Our example is <strong>Backwater Trails</strong>, a made-up travel agency in Boston. It makes short videos about Kerala trips. A script is the written plan of what you will say and show. A simple structure for a short video is:</p>
+          <p>Our example is <strong>Backwater Trails</strong>, a made-up travel agency in Kerala. It makes short videos about Kerala trips. A script is the written plan of what you will say and show. A simple structure for a short video is:</p>
           <table class="lc-table">
             <thead><tr><th>Part</th><th>What it does</th><th>Example</th></tr></thead>
             <tbody>
@@ -1146,7 +1146,7 @@ module AiContentMarketingContent
 
         Better:
         Write a 45-second vertical video script for Backwater Trails,
-        a Boston travel agency. Audience: families from San Francisco and Los Angeles.
+        a Kerala travel agency. Audience: families from Maharashtra and Karnataka.
         Structure: hook (1 line), 3 tips, 1 CTA. Two columns: SAY and SHOW.
         Use short spoken sentences. Do not mention prices or opening times.</code></pre>
         </div>
@@ -1180,7 +1180,7 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a podcast producer for a small business. Use simple English.
 
-        Business: [Backwater Trails, a travel agency in Boston]
+        Business: [Backwater Trails, a travel agency in Kerala]
         Episode title: [Monsoon in Kerala: Is It a Good Time to Visit?]
         Guest: [a houseboat owner from Kuttanad]
 
@@ -1258,7 +1258,7 @@ module AiContentMarketingContent
         <div class="lc-card">
           <h3>Start with a pillar piece</h3>
           <p>A <strong>pillar piece</strong> is a long, detailed piece of content that other pieces come from. It could be a blog post, a guide or a podcast episode. Choose one that is already doing well, or one that answers a common customer question.</p>
-          <p>Our example is <strong>Rangrez Crafts</strong>, a made-up handicrafts store in Manchester. Its pillar post is "How Hand Block Printing Is Done: 5 Steps". It explains carving the wooden block, mixing colours, printing, drying and washing.</p>
+          <p>Our example is <strong>Rangrez Crafts</strong>, a made-up handicrafts store in Rajasthan. Its pillar post is "How Hand Block Printing Is Done: 5 Steps". It explains carving the wooden block, mixing colours, printing, drying and washing.</p>
           <p>Good repurposing is <strong>not</strong> copy and paste. Each channel has its own style:</p>
           <ul class="lc-list">
             <li>Instagram carousels work best with one short idea per slide.</li>
@@ -1316,7 +1316,7 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a content marketer who repurposes content for small businesses. Use simple English.
 
-        Business: [Rangrez Crafts, a handicrafts store in Manchester that sells hand block printed textiles]
+        Business: [Rangrez Crafts, a handicrafts store in Rajasthan that sells hand block printed textiles]
         Pillar piece: [a blog post called "How Hand Block Printing Is Done: 5 Steps"]
         Main points of the piece: [1. carve the wooden block; 2. mix natural colours; 3. print by hand; 4. dry in the sun; 5. wash and finish]
         Channels I use: [Instagram, email newsletter, LinkedIn, WhatsApp Business (opted-in customers only)]
@@ -1386,7 +1386,7 @@ module AiContentMarketingContent
             <thead><tr><th>Problem</th><th>Example in a Sweet Crumbs blog draft</th><th>How to check</th></tr></thead>
             <tbody>
               <tr><td>Wrong fact</td><td>"Sweet Crumbs opened in 2012." (It opened in 2016.)</td><td>Check your own records</td></tr>
-              <tr><td>Made-up number</td><td>"72% of London families now order cakes online."</td><td>Find the original survey, or remove it</td></tr>
+              <tr><td>Made-up number</td><td>"72% of Indian families now order cakes online."</td><td>Find the original survey, or remove it</td></tr>
               <tr><td>Invented quote</td><td>"Chef Anjali Rao says eggless cakes taste better."</td><td>Ask: did this person really say it? Where?</td></tr>
               <tr><td>Risky claim</td><td>"The healthiest cakes in India."</td><td>Remove "best", "only" and health claims you cannot prove</td></tr>
               <tr><td>Wrong tone</td><td>"Unleash a world of decadent delight!"</td><td>Compare with your brand voice guide</td></tr>
@@ -1512,7 +1512,7 @@ module AiContentMarketingContent
         </div>
         <div class="lc-card">
           <h3>One article, five messages</h3>
-          <p>LedgerLite (a San Francisco accounting app) wrote "The GST Invoice Checklist for Freelancers". Each channel needs a different message. AI is very good at this rewriting work.</p>
+          <p>LedgerLite (a Karnataka accounting app) wrote "The GST Invoice Checklist for Freelancers". Each channel needs a different message. AI is very good at this rewriting work.</p>
           <table class="lc-table">
             <thead><tr><th>Channel</th><th>Message style</th></tr></thead>
             <tbody>
@@ -1552,10 +1552,10 @@ module AiContentMarketingContent
             </div>
             <ul data-sorter-target="pool">
               <li data-bucket="owned" data-why="Sweet Crumbs controls its own email list and what it sends.">Sweet Crumbs emails its new cake guide to its subscribers</li>
-              <li data-bucket="earned" data-why="Someone else chose to share it. Sweet Crumbs did not pay.">A London food blogger links to the Sweet Crumbs cake guide</li>
+              <li data-bucket="earned" data-why="Someone else chose to share it. Sweet Crumbs did not pay.">A Maharashtra food blogger links to the Sweet Crumbs cake guide</li>
               <li data-bucket="paid" data-why="LedgerLite pays LinkedIn to show the post to more people.">LedgerLite boosts a LinkedIn post about its GST guide</li>
               <li data-bucket="owned" data-why="It is Backwater Trails' own account. It decides what to post there.">Backwater Trails posts its monsoon guide on its own Instagram page</li>
-              <li data-bucket="earned" data-why="Another newsletter chose to feature the guide.">A Manchester travel newsletter features the Rangrez Crafts block-printing guide</li>
+              <li data-bucket="earned" data-why="Another newsletter chose to feature the guide.">A Rajasthan travel newsletter features the Rangrez Crafts block-printing guide</li>
               <li data-bucket="paid" data-why="Ads are paid reach.">Rangrez Crafts runs Meta ads that send people to its gift guide</li>
             </ul>
           </div>
@@ -1566,7 +1566,7 @@ module AiContentMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a content distribution planner for a small business.
 
-        Business: [Rangrez Crafts, a Manchester handicrafts store that sells online]
+        Business: [Rangrez Crafts, a Rajasthan handicrafts store that sells online]
         Article: [How to Care for Block-Printed Cotton Bedsheets]
         Main points of the article: [wash in cold water, dry in shade, use mild soap, iron inside out]
         Audience: [home decor buyers in Indian cities, aged 25 to 45]
@@ -1638,7 +1638,7 @@ module AiContentMarketingContent
             <thead><tr><th>Article</th><th>Visits</th><th>Avg. engagement time</th><th>Email sign-ups</th><th>Sign-up rate</th></tr></thead>
             <tbody>
               <tr><td>Block-print bedsheet care guide</td><td>2,400</td><td>1m 50s</td><td>48</td><td>2.0%</td></tr>
-              <tr><td>Manchester gift ideas under ₹2,000</td><td>1,100</td><td>0m 40s</td><td>5</td><td>0.45%</td></tr>
+              <tr><td>Diwali gift ideas under ₹2,000</td><td>1,100</td><td>0m 40s</td><td>5</td><td>0.45%</td></tr>
               <tr><td>How blue pottery is made</td><td>700</td><td>3m 10s</td><td>21</td><td>3.0%</td></tr>
             </tbody>
           </table>
@@ -1674,13 +1674,13 @@ module AiContentMarketingContent
           <h3>Try It</h3>
           <p>Give the AI a small table of content numbers and ask for a short report with actions. Then check its rates in a spreadsheet.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a content marketing analyst. Write a short monthly content report for [Rangrez Crafts, a Manchester handicrafts store].
+            <pre class="ai-try-prompt">You are a content marketing analyst. Write a short monthly content report for [Rangrez Crafts, a Rajasthan handicrafts store].
         Goal of our content: [get email sign-ups from people who may buy later].
 
         Data for [August] (totals only):
         Article | Visits | Avg engagement time | Email sign-ups | Assisted sales
         [Block-print bedsheet care guide | 2400 | 1m 50s | 48 | 6]
-        [Manchester gift ideas under Rs 2000 | 1100 | 0m 40s | 5 | 1]
+        [Diwali gift ideas under Rs 2000 | 1100 | 0m 40s | 5 | 1]
         [How blue pottery is made | 700 | 3m 10s | 21 | 4]
 
         Please:
@@ -1744,7 +1744,7 @@ module AiContentMarketingContent
           <h3>Who owns AI-made content?</h3>
           <p><strong>Copyright</strong> is the legal right that stops others from copying a creative work without permission. Rules for AI content differ by country and are still changing. Here is the general picture in 2026.</p>
           <ul class="lc-list">
-            <li><strong>United States:</strong> In a January 2025 report, the US Copyright Office says copyright needs a human author. A prompt alone, even a long one, is usually not enough. The parts a person creates, selects, arranges or changes can still be protected. Courts agree. In <em>Thaler v. Perlmutter</em>, a US appeals court ruled that a work made only by AI cannot be registered. In March 2026 the US Supreme Court declined to hear the case, so that ruling stands.</li>
+            <li><strong>United States:</strong> In a January 2025 report, the US Copyright Office says copyright needs a human author. A prompt alone, even a long one, is usually not enough. The parts a person creates, selects, arranges or changes can still be protected. Courts agree. In <em>Thaler v. Perlmutter</em>, a US appeals court ruled that a work made only by AI cannot be registered. Check the current status of this case, as appeals can change things.</li>
             <li><strong>India:</strong> The Copyright Act, 1957 has a rule for "computer-generated" works. It names the person who causes the work to be created as the author. Courts have not clearly said how this applies to modern AI tools. In December 2025, a DPIIT (Department for Promotion of Industry and Internal Trade) committee published a working paper on using copyrighted works to train AI. A second paper on who owns AI output was planned. Check for the latest official guidance.</li>
             <li><strong>Your AI tool's terms:</strong> Each tool has its own terms on who may use the output and for what. Read them before you use output in paid work.</li>
           </ul>
@@ -1801,7 +1801,7 @@ module AiContentMarketingContent
             <pre class="ai-try-prompt">You are a careful content editor. You are not a lawyer, so do not give legal advice.
         Review my planned post for originality, fair use of sources, images and AI disclosure.
 
-        Business: [Backwater Trails, a Boston travel agency]
+        Business: [Backwater Trails, a Kerala travel agency]
         Post: [a blog post "7 Things to Pack for a Kerala Monsoon Trip", drafted with AI and edited by me]
         Sources used: [one fact from a tourism website, one quote from a travel magazine, no links yet]
         Images: [2 AI-generated images of houseboats, 1 photo from a free stock site, 1 photo found on social media]
@@ -1860,8 +1860,8 @@ module AiContentMarketingContent
         </figure>
         <div class="lc-card">
           <h3>Step 1: a one-page strategy</h3>
-          <p>Choose a business: your own, or Sweet Crumbs (a London bakery), Rangrez Crafts (a Manchester handicrafts store), Backwater Trails (a Boston travel agency) or LedgerLite (a San Francisco accounting app). Then fill in this template with AI help.</p>
-          <pre><code>Business:       Sweet Crumbs, home bakery in London
+          <p>Choose a business: your own, or Sweet Crumbs (a Maharashtra home bakery), Rangrez Crafts (a Rajasthan handicrafts store), Backwater Trails (a Kerala travel agency) or LedgerLite (a Karnataka accounting app). Then fill in this template with AI help.</p>
+          <pre><code>Business:       Sweet Crumbs, home bakery in Maharashtra
         Goal:           50 custom-cake enquiries from the website in 3 months
         Audience:       parents planning birthdays, office party planners
         Top questions:  How early should I order? Eggless options? Delivery areas?
@@ -1877,7 +1877,7 @@ module AiContentMarketingContent
           <table class="lc-table">
             <thead><tr><th>Week</th><th>Pillar</th><th>Main piece</th><th>Channel</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td>Party planning</td><td>Blog: How to Order a Birthday Cake in London (First Article)</td><td>Website, email</td></tr>
+              <tr><td>1</td><td>Party planning</td><td>Blog: How to Order an Eggless Birthday Cake (First Article)</td><td>Website, email</td></tr>
               <tr><td>2</td><td>Eggless baking</td><td>Reel: 3 myths about eggless cakes</td><td>Instagram</td></tr>
               <tr><td>3</td><td>Behind the scenes</td><td>Blog: A day in our kitchen</td><td>Website, Instagram</td></tr>
             </tbody>
@@ -1926,7 +1926,7 @@ module AiContentMarketingContent
             <pre class="ai-try-prompt">You are a content marketing coach for small businesses.
         Help me start a 3-month content plan.
 
-        Business: [LedgerLite, a San Francisco accounting app for freelancers and small shops]
+        Business: [LedgerLite, a Karnataka accounting app for freelancers and small shops]
         Goal: [100 free-trial sign-ups from content in 3 months]
         Audience: [freelancers and small shop owners in India who find GST and invoices confusing]
         Top customer questions: [How do I make a GST invoice? When do I need GST registration? How do I track expenses?]

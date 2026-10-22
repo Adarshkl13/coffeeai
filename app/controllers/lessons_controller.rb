@@ -27,7 +27,7 @@ class LessonsController < ApplicationController
       options: [
         "A) A robot that physically looks like a human",
         "B) A computer system that can understand, think, and respond like a human",
-        "C) A program that only does math calculations"
+        "C) A program that only does maths calculations"
       ] },
 
     { id: 2, module_id: 1, number: "1.2", title: "AI in Real Life", image: "l1.2.png",
@@ -134,7 +134,7 @@ class LessonsController < ApplicationController
       correct_answer: "True",
       options: [ "True", "False" ] },
 
-    { id: 16, module_id: 3, number: "3.6", title: "Data Visualization", image: "l3.6.png",
+    { id: 16, module_id: 3, number: "3.6", title: "Data Visualisation", image: "l3.6.png",
       description: "Data visualization turns numbers into charts, graphs, and plots that humans can understand at a glance. It helps you discover patterns, trends, and outliers in your data before building a model. Matplotlib is the most popular Python library for creating visualizations like bar charts, line graphs, and scatter plots.",
       exercise_type: "multiple_choice", exercise_id: "3.6.1",
       question: "Which Python library is most commonly used to create data visualizations?",
@@ -268,7 +268,13 @@ class LessonsController < ApplicationController
     if @next_lesson
       redirect_to lesson_path(@next_lesson[:id]), notice: "Lesson complete! Keep going 🎉"
     else
-      redirect_to lesson_path(@lesson[:id]), notice: "🎓 You've completed the entire course! Your certificate is in the sidebar."
+      done = current_user.lesson_progresses.where(status: LessonProgress.statuses[:completed]).count
+      notice = if Certificate.award_original(current_user, total: LESSONS.size)
+                 "🎓 You've completed the entire course! Your certificate is in the sidebar."
+               else
+                 "You reached the last lesson. Complete all #{LESSONS.size} lessons to get your certificate (#{done} of #{LESSONS.size} done)."
+               end
+      redirect_to lesson_path(@lesson[:id]), notice: notice
     end
   end
 

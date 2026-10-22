@@ -8,7 +8,7 @@ module AiStoreGrowthContent
           <div class="lc-badge le-badge le-badge-ecom">E-commerce</div>
           <h1 class="lc-title">How Online Stores Grow</h1>
         </div>
-        <p class="lc-lead">An online store can grow in only a few ways. More people can visit. More visitors can buy. Each order can be bigger. And happy customers can come back. In this lesson you will learn the <strong>growth equation</strong> that joins these four levers. You will use it with the numbers of Zari &amp; Co, a made-up ethnic wear brand from Birmingham. Then you will use AI to find which lever to work on first.</p>
+        <p class="lc-lead">An online store can grow in only a few ways. More people can visit. More visitors can buy. Each order can be bigger. And happy customers can come back. In this lesson you will learn the <strong>growth equation</strong> that joins these four levers. You will use it with the numbers of Zari &amp; Co, a made-up ethnic wear brand in Gujarat. Then you will use AI to find which lever to work on first.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 300" role="img" aria-label="The growth equation for Zari and Co in August: 80,000 sessions times 1.0% conversion rate times 1,800 rupees average order value equals 14,40,000 rupees revenue. Repeat purchases bring customers back to the store, which adds more sessions and orders.">
             <defs><marker id="sg1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -135,7 +135,7 @@ module AiStoreGrowthContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an e-commerce growth analyst. Explain in simple English for a small store owner.
 
-        My store: [Zari &amp; Co, an ethnic wear brand from Birmingham that sells sarees and kurta sets on its own online store].
+        My store: [Zari &amp; Co, an ethnic wear brand in Gujarat that sells sarees and kurta sets on its own online store].
         Last 3 months (made-up numbers):
         [June: 62,500 sessions, 750 orders, revenue ₹13,20,000
         July: 70,000 sessions, 770 orders, revenue ₹13,70,600
@@ -593,7 +593,7 @@ module AiStoreGrowthContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a customer insights analyst for an Indian online store. Use simple English.
 
-        My store: [Zari &amp; Co, an ethnic wear brand from Birmingham].
+        My store: [Zari &amp; Co, an ethnic wear brand in Gujarat].
         Customer segments from the last 12 months (no personal data, made-up numbers):
         [Champions: 240 customers, 3+ orders, last order within 60 days, spend ₹8,400 each
         Loyal: 600, 2+ orders, last order within 120 days, spend ₹4,180 each
@@ -1388,7 +1388,7 @@ module AiStoreGrowthContent
               <div data-sorter-target="bucket" data-bucket="winback" data-label="Win-back"></div>
             </div>
             <ul data-sorter-target="pool">
-              <li data-bucket="welcome" data-why="A new sign-up needs to learn who you are first.">A new subscriber gets a short brand story from Birmingham</li>
+              <li data-bucket="welcome" data-why="A new sign-up needs to learn who you are first.">A new subscriber gets a short brand story from Gujarat</li>
               <li data-bucket="welcome" data-why="Early help with size builds trust before the first or second order.">Day 3 after sign-up: how to choose your size, with the size chart</li>
               <li data-bucket="post" data-why="Care tips after delivery help the customer and can lower returns.">Two days after delivery: how to care for a georgette saree</li>
               <li data-bucket="post" data-why="A review request fits after the customer has used the product.">Ten days after delivery: an honest request for a review, good or bad</li>
@@ -1404,7 +1404,7 @@ module AiStoreGrowthContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an email and WhatsApp copywriter for an Indian ethnic wear brand. Use warm, simple English.
 
-        Brand: [Zari &amp; Co, Birmingham].
+        Brand: [Zari &amp; Co, Gujarat].
         News: [the Navratri collection is live: 40 new lehengas and kurta sets, sizes S to XXL].
         Real offer: [none]
         Segments (no personal data):
@@ -1659,7 +1659,7 @@ module AiStoreGrowthContent
             <thead><tr><th>Tool</th><th>What it is</th><th>Fit for Zari &amp; Co?</th><th>Honesty rule</th></tr></thead>
             <tbody>
               <tr><td><strong>Loyalty points</strong></td><td>Customers earn points on each order and use them as a discount later. Using points is called <strong>redemption</strong>.</td><td>Good. Festive buyers return each year.</td><td>Show how points are earned, what they are worth and when they expire.</td></tr>
-              <tr><td><strong>Subscriptions</strong></td><td>The customer agrees to get a product on a schedule, for example every month.</td><td>Weak. Few people buy a saree every month. Better for Sweet Crumbs gift boxes or Swift Mart groceries.</td><td>Cancelling must be as easy as signing up. Remind people before each charge.</td></tr>
+              <tr><td><strong>Subscriptions</strong></td><td>The customer agrees to get a product on a schedule, for example every month.</td><td>Weak. Few people buy a saree every month. Better for products people buy again and again, like monthly gift boxes from a home bakery or weekly groceries.</td><td>Cancelling must be as easy as signing up. Remind people before each charge.</td></tr>
               <tr><td><strong>Reviews</strong></td><td>Asking buyers what they thought, after delivery.</td><td>Good. It also shows you what to fix.</td><td>Ask everyone. Never reward only good reviews. See the reviews lesson.</td></tr>
               <tr><td><strong>Referrals</strong></td><td>A customer invites a friend. Both get a reward when the friend buys.</td><td>Good. Ethnic wear is often bought for family and friends.</td><td>State the reward and its conditions in plain words.</td></tr>
             </tbody>
@@ -1736,7 +1736,7 @@ module AiStoreGrowthContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a retention expert for Indian online stores. Use simple English.
 
-        Store: [Zari &amp; Co, an ethnic wear brand from Birmingham].
+        Store: [Zari &amp; Co, an ethnic wear brand in Gujarat].
         Numbers, last 12 months (made-up): [6,000 customers; repeat customer rate 20%; AOV ₹1,800; gross margin 50%; CAC ₹600.
         Segments: Champions 240, Loyal 600, At risk 360, New 1,180, One-time recent 1,620, One-time lapsed 2,000.
         Champions and Loyal together: 2,280 orders worth ₹45,24,000.]
@@ -2299,7 +2299,7 @@ module AiStoreGrowthContent
         New customers at ₹600 CAC =ROUND(400000/600,0)          → 667
         Returning orders needed   =968-ROUND(400000/600,0)      → 301 (August: 200)
         If CAC rises to ₹700      =968-ROUND(400000/700,0)      → 397</code></pre>
-          <p>Festive ads often cost more. So the plan must not depend on ads alone. Returning-customer orders must rise from 200 to about 300 to 400 a month. That is the job of segments, emails, the second-order flow and loyalty. The loyalty lesson's goal of 199 extra second orders over 90 days adds about 66 orders a month. The win-back message may add about 36 orders once. Early access and points for Champions and Loyal must cover the rest of the gap of about 100 orders a month.</p>
+          <p>Festive ads often cost more. So the plan must not depend on ads alone. Returning-customer orders must rise from 200 to about 300 a month, or to about 400 if CAC rises to ₹700. That is the job of segments, emails, the second-order flow and loyalty. The loyalty lesson's goal of 199 extra second orders over 90 days adds about 66 orders a month. The win-back message may add about 36 orders, but only once. 200 + 66 + 36 = about 300, so this is just enough if CAC stays at ₹600. If CAC rises to ₹700, about 100 more returning orders a month are needed. Early access and points for Champions and Loyal must find them.</p>
           <p><strong>Kept revenue:</strong> the target counts orders placed. Some will be RTO or returned. With 10% RTO and 10% returns, only 968 × 0.9 × 0.9 = about 784 orders are kept. If COD confirmation cuts COD RTO from 15% to 10%, overall RTO becomes 60% × 10% + 40% × 2.5% = 7%. Then about 810 orders are kept (<code>=968*(1-7%)*(1-10%)</code> → 810).</p>
           <p><strong>Profit, not just revenue:</strong> festive discounts lower AOV and gross profit. At a 50% gross margin, 10% off needs 25% more units to keep the same gross profit. So check gross profit every week too, and prefer bundles and early access to deep discounts.</p>
         </div>
@@ -2359,7 +2359,7 @@ module AiStoreGrowthContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a growth planner for Indian online stores. Use simple English.
 
-        Store: [Zari &amp; Co, an ethnic wear D2C brand from Birmingham].
+        Store: [Zari &amp; Co, an ethnic wear D2C brand in Gujarat].
         Last month (made-up): [80,000 sessions (80% mobile); 1.0% conversion; AOV ₹1,800; revenue ₹14,40,000; CAC ₹600; 200 returning-customer orders; RTO 10% (COD 15%, prepaid 2.5%); COD share 60%; repeat customer rate 20%].
         Target per festive month: [88,000 sessions; 1.1% conversion; AOV ₹1,980].
         Ad spend cap: [₹4,00,000 a month]. Plan dates: [1 September to 29 November].

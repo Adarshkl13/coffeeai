@@ -72,14 +72,14 @@ module PostgresqlContent
               <tr><td>JSON</td><td><code>jsonb</code> (binary, indexable)</td><td><code>JSON</code> type</td><td>JSON functions on text</td></tr>
               <tr><td>Array columns</td><td>Yes</td><td>No</td><td>No</td></tr>
               <tr><td>Roll back <code>CREATE TABLE</code></td><td>Yes (transactional DDL)</td><td>No</td><td>Yes</td></tr>
-              <tr><td>Default port</td><td>5432</td><td>3306</td><td>—</td></tr>
+              <tr><td>Default port</td><td>5432</td><td>3306</td><td>n/a</td></tr>
             </tbody>
           </table>
         </div>
 
         <div class="lc-card">
           <h3>Versions in 2026</h3>
-          <p>A new major version comes out every year, usually in September. Each version gets bug fixes for five years. <strong>PostgreSQL 18</strong> (September 2025) is the newest stable release. PostgreSQL 19 is in beta testing. This editor runs PostgreSQL 17. Everything in this course works on 17 and 18. Features that need a newer version are marked.</p>
+          <p>A new major version comes out every year, usually in September. Each version gets bug fixes for five years. <strong>PostgreSQL 18</strong> (September 2025) is the newest stable release at the time of writing. A new major version follows each year, so check postgresql.org for the latest one. This editor runs PostgreSQL 17. Everything in this course works on 17 and 18. Features that need a newer version are marked.</p>
         </div>
 
         <div class="lc-card">
@@ -1009,7 +1009,7 @@ module PostgresqlContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-postgresql">PostgreSQL</div>
-          <h1 class="lc-title">Database Design and Normalization</h1>
+          <h1 class="lc-title">Database Design and Normalisation</h1>
         </div>
         <p class="lc-lead">Before you write any query, you decide which tables exist and how they link. Good design stores every fact exactly once. Then the data can't disagree with itself. In this lesson you model one-to-many and many-to-many relationships. You split a messy "spreadsheet" table using the first three normal forms. You also choose between CHECK, ENUM and a lookup table.</p>
 
@@ -1033,8 +1033,8 @@ module PostgresqlContent
         </div>
 
         <div class="lc-card">
-          <h3>Normalization: The First Three Normal Forms</h3>
-          <p>Normalization is a list of steps for removing repeated data. Each form fixes one kind of problem:</p>
+          <h3>Normalisation: The First Three Normal Forms</h3>
+          <p>Normalisation is a list of steps for removing repeated data. Each form fixes one kind of problem:</p>
           <table class="lc-table">
             <thead><tr><th>Form</th><th>Rule in plain words</th><th>Warning sign</th><th>Fix</th></tr></thead>
             <tbody>
@@ -1083,8 +1083,8 @@ module PostgresqlContent
         </div>
 
         <div class="lc-card">
-          <h3>When to Break the Rules (Denormalize)</h3>
-          <p>Normalize first. Copy data on purpose only when you have a clear reason. For example:</p>
+          <h3>When to Break the Rules (Denormalise)</h3>
+          <p>Normalise first. Copy data on purpose only when you have a clear reason. For example:</p>
           <ul class="lc-list">
             <li><strong>History</strong>: store the <code>unit_price</code> in <code>order_items</code> at the moment of sale. The product's price will change later. So this is a different fact, not a duplicate.</li>
             <li><strong>Speed</strong>: first measure a slow report with <code>EXPLAIN ANALYZE</code> (Lesson 14). Then you can save its result in a materialized view (Lesson 18). This is better than copying columns into tables.</li>
@@ -1115,7 +1115,7 @@ module PostgresqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Lesson 8: Database design and normalization
+        -- Lesson 8: Database design and normalisation
         -- BEFORE: one spreadsheet-style table
         CREATE TABLE orders_flat (order_id integer, customer text, city text, products text);
         INSERT INTO orders_flat VALUES
@@ -1465,7 +1465,7 @@ module PostgresqlContent
             <tbody>
               <tr><td>Rows in result</td><td>One per group</td><td>All rows kept</td></tr>
               <tr><td>Can show row details next to group totals</td><td>No</td><td>Yes</td></tr>
-              <tr><td>Allowed in WHERE</td><td>—</td><td>No. Filter in an outer query</td></tr>
+              <tr><td>Allowed in WHERE</td><td>n/a</td><td>No. Filter in an outer query</td></tr>
             </tbody>
           </table>
         </div>
@@ -2200,7 +2200,7 @@ module PostgresqlContent
               <tr><td><code>tags &lt;@ ARRAY['sql','python','ml']</code></td><td>every tag is in this list</td><td>Yes</td></tr>
               <tr><td><code>tags &amp;&amp; ARRAY['frontend','ml']</code></td><td>they share at least one element</td><td>Yes</td></tr>
               <tr><td><code>'sql' = ANY (tags)</code></td><td>'sql' is one of the elements</td><td>No (use <code>@&gt;</code> for big tables)</td></tr>
-              <tr><td><code>ARRAY[1,2] || ARRAY[3]</code></td><td>(joins the arrays) → <code>{1,2,3}</code></td><td>—</td></tr>
+              <tr><td><code>ARRAY[1,2] || ARRAY[3]</code></td><td>(joins the arrays) → <code>{1,2,3}</code></td><td>n/a</td></tr>
             </tbody>
           </table>
         </div>
@@ -2820,7 +2820,7 @@ module PostgresqlContent
               <tr><td><strong>18</strong> (Sept 2025)</td><td>Asynchronous I/O (faster scans). <code>uuidv7()</code>. Virtual generated columns (now the default). <code>old</code>/<code>new</code> in <code>RETURNING</code>. B-tree skip scan. Temporal <code>WITHOUT OVERLAPS</code> constraints. OAuth login. <code>EXPLAIN ANALYZE</code> shows buffers by default. Data checksums are on by default.</td></tr>
             </tbody>
           </table>
-          <p>PostgreSQL 19 is in beta testing as of September 2026. Check the release notes on postgresql.org before you rely on a new feature.</p>
+          <p>Newer versions keep adding features. Check the release notes on postgresql.org before you rely on a new feature.</p>
         </div>
 
         <div class="lc-card">

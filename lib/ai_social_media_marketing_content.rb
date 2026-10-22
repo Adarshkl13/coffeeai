@@ -100,7 +100,7 @@ module AiSocialMediaMarketingContent
               <li data-bucket="lead" data-why="The person shares interest and contact details, but has not paid yet.">"Fill this form to get a free trip plan for the Kerala hills."</li>
               <li data-bucket="sale" data-why="It has a price, a deadline and a way to buy.">"Diwali gift box, ₹999, order by Friday using the link in bio."</li>
               <li data-bucket="engage" data-why="Saves and shares are engagement. The post gives value and invites a reaction.">A carousel of "5 tips to store cookies" that asks people to save it</li>
-              <li data-bucket="lead" data-why="A free demo request is a lead for a software company.">A LinkedIn post from a San Francisco SaaS startup: "Book a free demo"</li>
+              <li data-bucket="lead" data-why="A free demo request is a lead for a software company.">A LinkedIn post from a SaaS startup: "Book a free demo"</li>
             </ul>
           </div>
         </div>
@@ -457,7 +457,7 @@ module AiSocialMediaMarketingContent
           <table class="lc-table">
             <thead><tr><th>Post</th><th>On-brand?</th><th>Why</th></tr></thead>
             <tbody>
-              <tr><td>"Our mango cheesecake is back for the season. Made with Ratnagiri Alphonso pulp. ₹450. DM to pre-order."</td><td>Yes</td><td>Warm, simple, gives price and action</td></tr>
+              <tr><td>"Our mango cheesecake is back for the season. Made with Alphonso mango pulp. ₹450. DM to pre-order."</td><td>Yes</td><td>Warm, simple, gives price and action</td></tr>
               <tr><td>"HURRY!!! Only 3 left!!! Don't miss out!!!"</td><td>No</td><td>Pushy, ALL CAPS, too much punctuation</td></tr>
               <tr><td>"We are pleased to inform our esteemed customers that new products are available."</td><td>No</td><td>Too formal and cold for this brand</td></tr>
               <tr><td>"Rainy evening, hot chai, and our jaggery cookies. Mast combination. ₹220 a box."</td><td>Yes</td><td>Local, friendly, uses a word customers use</td></tr>
@@ -984,7 +984,7 @@ module AiSocialMediaMarketingContent
               <text x="390" y="114">3 tips, one per shot</text>
               <text x="390" y="156">Rain jacket, shoes, medicine kit</text>
               <text x="390" y="198" fill="#fcd34d">Tip 1 · Tip 2 · Tip 3</text>
-              <text x="660" y="114">"Save this for later"</text>
+              <text x="660" y="114">"DM us for the plan"</text>
               <text x="660" y="156">Bag zipped shut</text>
               <text x="660" y="198" fill="#fcd34d">DM us "HILLS"</text>
               <text x="380" y="244" font-size="11.5" fill="#9b99b8">Add captions too. Many people watch with the sound off.</text>
@@ -999,7 +999,7 @@ module AiSocialMediaMarketingContent
             <tbody>
               <tr><td><strong>Hook</strong></td><td>0 to 3 seconds</td><td>Make people stop scrolling. Show movement or a clear question right away.</td><td>"Going to the hills with just one bag?"</td></tr>
               <tr><td><strong>Value</strong></td><td>3 to 25 seconds</td><td>Give the tips, the story or the demo. One point per shot.</td><td>Rain jacket, grip shoes, a small medicine kit</td></tr>
-              <tr><td><strong>CTA</strong></td><td>25 to 30 seconds</td><td>Ask for one action.</td><td>"Save this. DM us HILLS for our 4-day plan."</td></tr>
+              <tr><td><strong>CTA</strong></td><td>25 to 30 seconds</td><td>Ask for one action.</td><td>"DM us HILLS for our 4-day plan."</td></tr>
             </tbody>
           </table>
           <p>Spoken words go fast. A 30-second video only fits about 60 to 80 spoken words. AI often writes too much. Always read the script aloud with a timer.</p>
@@ -1012,7 +1012,7 @@ module AiSocialMediaMarketingContent
         3-10 s  | "Tip 1: a light rain jacket."  | Hand folds a thin jacket   | Tip 1: rain jacket
         10-17 s | "Tip 2: shoes with grip."      | Shoes on a wet path        | Tip 2: grip shoes
         17-25 s | "Tip 3: a small medicine kit." | Kit goes into side pocket  | Tip 3: medicine kit
-        25-30 s | "Save this for your trip!"     | Bag zipped, thumbs up      | DM us "HILLS"</code></pre>
+        25-30 s | "DM us HILLS for the plan!"    | Bag zipped, thumbs up      | DM us "HILLS"</code></pre>
           <p>Check the automatic captions before you post. They often misspell names of places, dishes and people, such as "Vembanad" or "appam".</p>
         </div>
         <div class="lc-card">
@@ -1163,7 +1163,7 @@ module AiSocialMediaMarketingContent
         Logo:     small, bottom corner, every slide
         Images:   our own photos of fabric close-ups (slides 2 to 5)
         Text:     large enough to read on a phone; body text max 20 words
-        Slide 6:  "Save this. Visit our shop."</code></pre>
+        Slide 6:  "Visit our shop to see more."</code></pre>
         </div>
         <div class="lc-card">
           <h3>AI images: when to use them and how to label them</h3>

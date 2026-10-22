@@ -67,7 +67,7 @@ module AiProductListingsContent
               <tr><td><strong>Images</strong></td><td>To see the real product, its size and its details</td><td>The sheet on a real bed, a close-up of the print, the pillow covers, the box</td></tr>
               <tr><td><strong>Price</strong></td><td>To decide if it is worth the money</td><td>MRP ₹2,499, selling price ₹1,899</td></tr>
               <tr><td><strong>Bullet points</strong></td><td>To read the key facts in a few seconds</td><td>100% cotton, 144 thread count, what is in the box, care</td></tr>
-              <tr><td><strong>Description</strong></td><td>To read more detail and the story behind the product</td><td>How the Rajasthan workshop prints each sheet by hand</td></tr>
+              <tr><td><strong>Description</strong></td><td>To read more detail and the story behind the product</td><td>How the Rajasthan workroom prints each sheet by hand</td></tr>
               <tr><td><strong>Attributes</strong></td><td>To use search filters such as size, colour and material</td><td>Material: cotton. Size: double. Pieces: 3. Colour: blue.</td></tr>
               <tr><td><strong>Reviews and ratings</strong></td><td>To trust what other buyers say</td><td>Real reviews from real buyers only</td></tr>
               <tr><td><strong>Legal and seller information</strong></td><td>To know who made and sells it, and the return policy</td><td>Manufacturer address, country of origin, net quantity</td></tr>
@@ -135,7 +135,7 @@ module AiProductListingsContent
         Description: Beautiful bedsheet from Rajasthan. Buy now.
         Price: Rs 1,899 (MRP Rs 2,499)]
 
-        Facts I can prove: [100% cotton, 144 thread count, 90 x 108 inches, 1 bedsheet + 2 pillow covers, hand-block-printed in our Rajasthan workshop]
+        Facts I can prove: [100% cotton, 144 thread count, 90 x 108 inches, 1 bedsheet + 2 pillow covers, hand-block-printed in our Rajasthan workroom]
 
         For each part:
         1. Give a score from 1 to 5 and one reason.
@@ -239,7 +239,7 @@ module AiProductListingsContent
         Write 5 bullet points for our double bedsheet set.
         Use ONLY these facts: 100% cotton; 144 thread count;
         90 x 108 inches; 1 bedsheet + 2 pillow covers (17 x 27 inches);
-        hand-block-printed at our Rajasthan workshop; machine wash gentle,
+        hand-block-printed at our Rajasthan workroom; machine wash gentle,
         cold; wash separately for the first 2 washes.
         Do not add any other feature, certificate or claim.
         If a buyer would want a fact that is missing, write [NEEDS INFO].</code></pre>
@@ -264,7 +264,7 @@ module AiProductListingsContent
               <li data-kind="tool" data-label="Spreadsheet">Neha types =(2499-1899)/2499 into a cell and formats it as a percentage.</li>
               <li data-kind="result" data-label="Result">The cell shows 24%. The AI's "25%" was wrong.</li>
               <li data-kind="user" data-label="Better prompt">She pastes her fact sheet and adds: "Use only these facts. Do not add claims. Write [NEEDS INFO] for missing facts."</li>
-              <li data-kind="answer" data-label="AI reply">"• 100% cotton, 144 thread count. • Hand-block-printed at our workshop in Rajasthan. • Set of 3: 1 bedsheet (90 x 108 inches) + 2 pillow covers. • Tested on a 72 x 78 inch mattress, 6 inches thick. • Machine wash gentle, cold. Wash separately for the first 2 washes."</li>
+              <li data-kind="answer" data-label="AI reply">"• 100% cotton, 144 thread count. • Hand-block-printed at our workroom in Rajasthan. • Set of 3: 1 bedsheet (90 x 108 inches) + 2 pillow covers. • Tested on a 72 x 78 inch mattress, 6 inches thick. • Machine wash gentle, cold. Wash separately for the first 2 washes."</li>
               <li data-kind="check" data-label="Neha checks">Every bullet matches the fact sheet. She checks the style guide for her category before she publishes.</li>
             </ol>
           </div>
@@ -276,7 +276,7 @@ module AiProductListingsContent
             <pre class="ai-try-prompt">You are a careful fact-checker for product listings.
 
         My proven product facts:
-        [100% cotton. 144 thread count. Bedsheet 90 x 108 inches. 2 pillow covers, 17 x 27 inches. Hand-block-printed at our workshop in Rajasthan. Machine wash gentle, cold; wash separately for the first 2 washes. MRP Rs 2,499, selling price Rs 1,899.]
+        [100% cotton. 144 thread count. Bedsheet 90 x 108 inches. 2 pillow covers, 17 x 27 inches. Hand-block-printed at our workroom in Rajasthan. Machine wash gentle, cold; wash separately for the first 2 washes. MRP Rs 2,499, selling price Rs 1,899.]
 
         Draft listing to check:
         [Made with natural vegetable dyes, safe for babies. Organic cotton that gets softer every wash. Fits king and queen beds. Fade-proof print. Save 25% today. Hand-block-printed in Rajasthan. 144 thread count.]
@@ -364,7 +364,7 @@ module AiProductListingsContent
         Bedsheet size:  90 x 108 inches (228.6 x 274.3 cm)   Proof: measured
         Pillow covers:  17 x 27 inches (43.2 x 68.6 cm), envelope closure
         Print:          hand-block-printed with wooden blocks at our
-                        Workshop in Rajasthan   Proof: process photos, video
+                        Workroom in Rajasthan   Proof: process photos, video
         Colour:         blue print on a white base
         Fit:            tested on a 72 x 78 inch mattress, 6 inches thick
         Care:           machine wash gentle, cold; wash separately for the
@@ -401,7 +401,7 @@ module AiProductListingsContent
             <tbody>
               <tr><td>A couple setting up a new flat</td><td>Will it fit our bed? Is it easy to wash?</td><td>90 x 108 inches; mattress test; machine wash gentle</td></tr>
               <tr><td>Someone buying a housewarming gift</td><td>Does it look good in the box? Can I send it to another city?</td><td>Kraft paper box; delivery details [NEEDS INFO]</td></tr>
-              <tr><td>A buyer who loves Rajasthani prints</td><td>Is it really hand-printed? Where is it made?</td><td>Our Rajasthan workshop; process photos</td></tr>
+              <tr><td>A buyer who loves Rajasthani prints</td><td>Is it really hand-printed? Where is it made?</td><td>Our Rajasthan workroom; process photos</td></tr>
               <tr><td>A careful buyer who read bad reviews elsewhere</td><td>Will the colour run? Is it thin?</td><td>Honest care note; 144 thread count; photos in daylight</td></tr>
             </tbody>
           </table>
@@ -419,7 +419,7 @@ module AiProductListingsContent
             </div>
             <ul data-sorter-target="pool">
               <li data-bucket="proven" data-why="The mill's fabric test report proves it.">"100% cotton"</li>
-              <li data-bucket="proven" data-why="The sheets are printed in her own workshop. She has photos and video of the process.">"Hand-block-printed at our Rajasthan workshop"</li>
+              <li data-bucket="proven" data-why="The sheets are printed in her own workroom. She has photos and video of the process.">"Hand-block-printed at our Rajasthan workroom"</li>
               <li data-bucket="proven" data-why="Neha tested the fit herself on this mattress size.">"Tested on a 72 x 78 inch mattress, 6 inches thick"</li>
               <li data-bucket="check" data-why="Nobody has measured shrinkage yet. Measure before and after a wash, then decide.">"Shrinks less than 2% after washing"</li>
               <li data-bucket="check" data-why="Pillow sizes vary. Give the cover size in inches, and check it against common pillows first.">"Pillow covers fit all standard pillows"</li>
@@ -435,7 +435,7 @@ module AiProductListingsContent
             <pre class="ai-try-prompt">You are a product data assistant for a small Indian brand. Turn my messy notes into a product fact sheet.
 
         Product: [Rangrez Crafts hand-block-printed double bedsheet with 2 pillow covers]
-        My notes: [cotton 100% (mill report) / 144 TC per mill sheet / sheet 90x108 in, pillow covers 17x27 in / printed by hand in our Rajasthan workshop / blue on white / tested on 72x78 mattress 6 in thick / machine wash gentle cold, slight bleed first wash / MRP 2499, selling 1899 / my supplier says natural dyes but no papers / maybe good for gifting?]
+        My notes: [cotton 100% (mill report) / 144 TC per mill sheet / sheet 90x108 in, pillow covers 17x27 in / printed by hand in our Rajasthan workroom / blue on white / tested on 72x78 mattress 6 in thick / machine wash gentle cold, slight bleed first wash / MRP 2499, selling 1899 / my supplier says natural dyes but no papers / maybe good for gifting?]
 
         Task:
         1. Make a table: Field | Fact | Proof I mentioned | Status.
@@ -502,7 +502,7 @@ module AiProductListingsContent
           <h3>Key words about keywords</h3>
           <ul class="lc-list">
             <li><strong>Head term:</strong> a short, broad keyword, like "bedsheet". Many people search it, but they want very different things.</li>
-            <li><strong>Long-tail keyword:</strong> a longer, more specific phrase, like "jaipuri cotton double bedsheet with 2 pillow covers". Fewer people search it. But those who do are often ready to buy, and there is less competition.</li>
+            <li><strong>Long-tail keyword:</strong> a longer, more specific phrase, like "rajasthani cotton double bedsheet with 2 pillow covers". Fewer people search it. But those who do are often ready to buy, and there is less competition.</li>
             <li><strong>Autocomplete:</strong> the suggestions that appear as you type in a search bar. They are based on what people search, so they are a free source of real buyer words.</li>
             <li><strong>Keyword stuffing:</strong> repeating keywords again and again to trick search. Marketplaces may rank these listings lower or remove them, and buyers find them hard to read.</li>
           </ul>
@@ -512,7 +512,7 @@ module AiProductListingsContent
           <table class="lc-table">
             <thead><tr><th>Source</th><th>What to do</th><th>Example for Neha</th></tr></thead>
             <tbody>
-              <tr><td>Marketplace search bar</td><td>Type a seed word slowly. Write down every suggestion.</td><td>"jaipuri bedsheet" suggests "jaipuri bedsheet double bed cotton"</td></tr>
+              <tr><td>Marketplace search bar</td><td>Type a seed word slowly. Write down every suggestion.</td><td>"rajasthani bedsheet" suggests "rajasthani bedsheet double bed cotton"</td></tr>
               <tr><td>Competitor listings</td><td>Read the top titles and bullets for common words. Do not copy their text.</td><td>Many titles say "with 2 pillow covers" and give the size</td></tr>
               <tr><td>Reviews and questions</td><td>Note the words buyers use in their own language</td><td>"chadar", "thick", "colour", "fits my bed"</td></tr>
               <tr><td>Seller search reports</td><td>Some marketplaces show search term reports to sellers or brand owners. Check Seller Central help and Seller Hub help.</td><td>Which terms led buyers to her other products</td></tr>
@@ -531,7 +531,7 @@ module AiProductListingsContent
               <tr><td>cotton double bedsheet</td><td>Mid</td><td>High</td><td>Yes</td><td>Title</td></tr>
               <tr><td>hand block print bedsheet</td><td>Mid</td><td>Medium</td><td>Yes</td><td>Title</td></tr>
               <tr><td>double bedsheet with 2 pillow covers</td><td>Long-tail</td><td>Medium</td><td>Yes</td><td>Title</td></tr>
-              <tr><td>jaipuri chadar double bed</td><td>Hinglish</td><td>Medium</td><td>Yes</td><td>Hidden search terms field</td></tr>
+              <tr><td>rajasthani chadar double bed</td><td>Hinglish</td><td>Medium</td><td>Yes</td><td>Hidden search terms field</td></tr>
               <tr><td>block print bedsheet for housewarming gift</td><td>Long-tail</td><td>Low</td><td>Yes</td><td>Description</td></tr>
               <tr><td>king size bedsheet cotton</td><td>Mid</td><td>High</td><td>Check first</td><td>Only if the size matches what buyers mean</td></tr>
               <tr><td>natural dye bedsheet</td><td>Long-tail</td><td>Low</td><td>No proof</td><td>No</td></tr>
@@ -572,7 +572,7 @@ module AiProductListingsContent
             <pre class="ai-try-prompt">You are a marketplace keyword researcher for Indian online sellers.
 
         Product: [hand-block-printed double bedsheet with 2 pillow covers by Rangrez Crafts, Rajasthan]
-        Proven facts: [100% cotton, 144 thread count, 90 x 108 inches, blue floral print on white, printed by hand in our Rajasthan workshop, set of 3 pieces]
+        Proven facts: [100% cotton, 144 thread count, 90 x 108 inches, blue floral print on white, printed by hand in our Rajasthan workroom, set of 3 pieces]
         NOT true or not proven: [organic, natural dyes, handloom, king size]
         Where I sell: [Amazon, Flipkart and my Shopify store]
 
@@ -715,7 +715,7 @@ module AiProductListingsContent
             <pre class="ai-try-prompt">You are an expert marketplace listing writer in India.
 
         Proven product facts: [Brand: Rangrez Crafts. Product: double bedsheet with 2 pillow covers. Key feature: hand block print, made in Rajasthan. Material: 100% cotton. Size: 90 x 108 inches. Thread count: 144. Colour: blue.]
-        Top keywords: [cotton double bedsheet, hand block print bedsheet, jaipuri bedsheet, double bedsheet with 2 pillow covers]
+        Top keywords: [cotton double bedsheet, hand block print bedsheet, rajasthani bedsheet, double bedsheet with 2 pillow covers]
 
         Task:
         1. Write a title formula for this category.
@@ -770,7 +770,7 @@ module AiProductListingsContent
               <rect x="15" y="118" width="460" height="190" rx="12" fill="#27274e" stroke="#10b981"/>
               <text x="245" y="144" font-weight="700" fill="#6ee7b7">Neha's 5 bullets (all proven)</text>
               <g font-size="12" text-anchor="start">
-                <text x="35" y="172">1. Hand block printed in our Rajasthan workshop</text>
+                <text x="35" y="172">1. Hand block printed in our Rajasthan workroom</text>
                 <text x="35" y="198">2. 100% cotton, 144 thread count</text>
                 <text x="35" y="224">3. Set of 3: 1 bedsheet + 2 pillow covers, exact sizes</text>
                 <text x="35" y="250">4. Fit tested on a 72 x 78 inch mattress</text>
@@ -799,7 +799,7 @@ module AiProductListingsContent
               <tr><td>90 x 108 inches (228.6 x 274.3 cm)</td><td>Covers the top and sides of a 72 x 78 inch mattress, with about 3 inches to tuck in on each long side</td><td>Her own fit test</td></tr>
               <tr><td>1 bedsheet + 2 pillow covers</td><td>A full set for a double bed, ready to use or gift</td><td>Packed and counted</td></tr>
               <tr><td>Envelope closure, no zip</td><td>Easy to put on, nothing to break</td><td>Checked on the product</td></tr>
-              <tr><td>Hand printed with wooden blocks</td><td>A real craft piece with small, natural differences between sets</td><td>Workshop photos and video</td></tr>
+              <tr><td>Hand printed with wooden blocks</td><td>A real craft piece with small, natural differences between sets</td><td>Workroom photos and video</td></tr>
               <tr><td>Machine wash, gentle, cold</td><td>No dry cleaning needed</td><td>Wash test on 3 sets</td></tr>
             </tbody>
           </table>
@@ -809,7 +809,7 @@ module AiProductListingsContent
           <h3>Worked example: Neha's five bullets</h3>
           <p>Neha puts the most important facts first. She also includes size and care. Bedsheet buyers often ask about these before they buy. A wrong guess about size or colour often ends in a return. Here is her final set for Amazon and Flipkart:</p>
           <pre><code>1. Hand Block Printed in Rajasthan: Printed by hand with wooden blocks at
-           our own workshop in Rajasthan. Blue buta (small flower)
+           our own workroom in Rajasthan. Blue buta (small flower)
            print on a white base. Small differences between pieces are normal.
         2. 100% Cotton, 144 Thread Count: Cotton fabric for everyday use.
         3. Set of 3 Pieces: 1 double bedsheet, 90 x 108 inches (228.6 x
@@ -864,7 +864,7 @@ module AiProductListingsContent
               <li data-bucket="keep" data-why="Both facts are on the fact sheet, with the mill report and spec sheet as proof.">"100% Cotton, 144 Thread Count: cotton fabric for everyday use."</li>
               <li data-bucket="keep" data-why="This is the result of Neha's own fit test, with the exact mattress size.">"Tested on a 72 x 78 inch mattress, 6 inches thick."</li>
               <li data-bucket="fix" data-why="The set is real, but the pillow cover size is 17 x 27 inches, not 18 x 28. Always copy sizes from the fact sheet.">"Set of 3: 1 bedsheet and 2 pillow covers, 18 x 28 inches."</li>
-              <li data-bucket="fix" data-why="The printing is real, but it happens in Neha's Rajasthan workshop. It is not handloom: the fabric is woven in a mill.">"Handloom fabric, block printed in Rajasthan."</li>
+              <li data-bucket="fix" data-why="The printing is real, but it happens in Neha's Rajasthan workroom. It is not handloom: the fabric is woven in a mill.">"Handloom fabric, block printed in Rajasthan."</li>
               <li data-bucket="remove" data-why="Her wash test showed slight colour bleed. This claim is false.">"Colourfast print that never fades."</li>
               <li data-bucket="remove" data-why="There is no test or certificate. Health and skin claims need strong proof.">"Gentle on sensitive skin and safe for babies."</li>
               <li data-bucket="remove" data-why="There is no proof it is a bestseller. Promo words are also often banned in bullets.">"Our bestselling bedsheet, loved by thousands."</li>
@@ -878,7 +878,7 @@ module AiProductListingsContent
             <pre class="ai-try-prompt">You are a marketplace listing writer for Indian sellers. Write the bullet points (key features) for my product.
 
         Product: [Rangrez Crafts hand block print double bedsheet set, blue]
-        Proven facts: [100% cotton; 144 thread count; 1 bedsheet 90 x 108 inches + 2 pillow covers 17 x 27 inches, envelope closure; hand printed with wooden blocks at our workshop in Rajasthan; tested on a 72 x 78 inch mattress, 6 inches thick, about 3 inches to tuck in on each long side; machine wash gentle, cold; wash separately for the first 2 washes (slight colour bleed); dry in shade]
+        Proven facts: [100% cotton; 144 thread count; 1 bedsheet 90 x 108 inches + 2 pillow covers 17 x 27 inches, envelope closure; hand printed with wooden blocks at our workroom in Rajasthan; tested on a 72 x 78 inch mattress, 6 inches thick, about 3 inches to tuck in on each long side; machine wash gentle, cold; wash separately for the first 2 washes (slight colour bleed); dry in shade]
         Do NOT claim: [natural dyes, organic, handloom, colourfast, luxury, suitable for sensitive skin]
         Top buyer questions: [Will it fit my bed? Will the colour run? What is in the box?]
 
@@ -950,7 +950,7 @@ module AiProductListingsContent
           <table class="lc-table">
             <thead><tr><th>Vague or risky line</th><th>Story line built on a fact</th></tr></thead>
             <tbody>
-              <tr><td>"Crafted by master artisans using a centuries-old secret tradition."</td><td>"Printed by hand with wooden blocks at our own workshop in Rajasthan."</td></tr>
+              <tr><td>"Crafted by master artisans using a centuries-old secret tradition."</td><td>"Printed by hand with wooden blocks at our own workroom in Rajasthan."</td></tr>
               <tr><td>"A luxurious feel you will love."</td><td>"100% cotton with a 144 thread count, made for everyday use."</td></tr>
               <tr><td>"The perfect fit for every bed."</td><td>"We tested it on a 72 x 78 inch mattress, 6 inches thick. It covers the top and sides, with about 3 inches to tuck in on each long side."</td></tr>
               <tr><td>"Colours that last forever."</td><td>"Wash it separately for the first 2 washes. A little colour bleed is normal for hand block prints."</td></tr>
@@ -968,7 +968,7 @@ module AiProductListingsContent
 
         How it is made
         Our printers print every set by hand with carved wooden blocks, at
-        our own workshop in Rajasthan. Because each piece is printed
+        our own workroom in Rajasthan. Because each piece is printed
         by hand, small differences in the print are normal.
 
         Size and fit
@@ -1013,7 +1013,7 @@ module AiProductListingsContent
           <p><strong>Rich content</strong> is an extra section with images and text blocks, lower on the listing. On Amazon it is called <strong>A+ Content</strong>. It is available to brand owners enrolled in Amazon Brand Registry. Flipkart also has richer content options for some brands. Eligibility and module types change, so check Seller Central help and Seller Hub help.</p>
           <p>Neha's plan for her rich content section:</p>
           <ul class="lc-list">
-            <li><strong>Brand story:</strong> a real photo of her Rajasthan workshop, with two lines about the brand.</li>
+            <li><strong>Brand story:</strong> a real photo of her Rajasthan workroom, with two lines about the brand.</li>
             <li><strong>How it is made:</strong> four real process photos: carving, printing, drying, washing.</li>
             <li><strong>Size chart:</strong> a simple drawing with the bedsheet and pillow cover sizes in inches and cm.</li>
             <li><strong>Care chart:</strong> icons for gentle wash, cold water, dry in shade and medium iron.</li>
@@ -1043,7 +1043,7 @@ module AiProductListingsContent
         Brand: [Rangrez Crafts, Rajasthan]
         Brand voice: [warm, simple, proud of the craft, honest. Never use: luxury, premium, best, perfect, world-class]
         Product: [Buta Bagh hand block print double bedsheet set, blue buta flowers on white]
-        Proven facts: [100% cotton, 144 thread count; 1 bedsheet 90 x 108 in + 2 pillow covers 17 x 27 in, envelope closure; hand printed with wooden blocks at our Rajasthan workshop; tested on a 72 x 78 in mattress, 6 in thick, about 3 in to tuck in on each long side; machine wash gentle, cold, wash separately for 2 washes (slight colour bleed); dry in shade; packed in a kraft paper box]
+        Proven facts: [100% cotton, 144 thread count; 1 bedsheet 90 x 108 in + 2 pillow covers 17 x 27 in, envelope closure; hand printed with wooden blocks at our Rajasthan workroom; tested on a 72 x 78 in mattress, 6 in thick, about 3 in to tuck in on each long side; machine wash gentle, cold, wash separately for 2 washes (slight colour bleed); dry in shade; packed in a kraft paper box]
         Keyword to use once: [block print bedsheet for housewarming gift]
 
         Tasks:
@@ -1142,7 +1142,7 @@ module AiProductListingsContent
               <tr><td>Pattern</td><td>Floral</td><td>Buta flower motifs</td></tr>
               <tr><td>Care</td><td>Machine wash, gentle, cold</td><td>Wash test on 3 sets</td></tr>
               <tr><td>Item weight</td><td>850 g</td><td>Weighed, unpacked</td></tr>
-              <tr><td>Country of origin</td><td>India</td><td>Made in her workshop</td></tr>
+              <tr><td>Country of origin</td><td>India</td><td>Made in her workroom</td></tr>
               <tr><td>Shrinkage</td><td>(blank)</td><td>Not measured yet. Never guess.</td></tr>
             </tbody>
           </table>
@@ -1267,7 +1267,7 @@ module AiProductListingsContent
             <li>the country of origin, and the importer's details for imported goods.</li>
           </ul>
           <p>On Amazon and Flipkart, much of the seller information comes from your seller account. Keep it correct. On her own Shopify store, Neha must show these details herself.</p>
-          <p><strong>Also know:</strong> the CCPA (Central Consumer Protection Authority) issued dark pattern guidelines in 2023. They ban tricks such as false urgency, <strong>drip pricing</strong> (showing a low price and adding charges later) and <strong>basket sneaking</strong> (adding items to the cart without asking). In September 2026, the government notified amendments to the E-Commerce Rules, due to start on 1 January 2027. Reports say that when a price cut is announced, the "prior price" shown must be the lowest price of the previous 30 days. Reports also mention more seller details, such as the GSTIN. Read the final text with your lawyer.</p>
+          <p><strong>Also know:</strong> the CCPA (Central Consumer Protection Authority) issued dark pattern guidelines in 2023. They ban tricks such as false urgency, <strong>drip pricing</strong> (showing a low price and adding charges later) and <strong>basket sneaking</strong> (adding items to the cart without asking). The government has also worked on changes to the E-Commerce Rules, for example about how a "was" or "prior" price is shown and which seller details must appear. Check the latest official text of the rules, and read it with your lawyer.</p>
         </div>
         <div class="lc-card">
           <h3>The declarations for Neha's set</h3>
@@ -1443,7 +1443,7 @@ module AiProductListingsContent
               <tr><td>Title</td><td>Maximum length, capital letters, special characters, repeated words. Amazon's published title rules ban promotional phrases such as "free shipping" and subjective words such as "best seller".</td><td>She removes "Free Delivery" that a helper added to the title.</td></tr>
               <tr><td>Bullets and description</td><td>No prices, discounts, delivery promises, phone numbers, website links or other brands' names</td><td>No "24% off" and no link to her Shopify store</td></tr>
               <tr><td>Images</td><td>The main image must show the real product. There are rules on background, extra items, text and image size.</td><td>A real photo of the folded set. No text or badges on the main image.</td></tr>
-              <tr><td>Search terms field</td><td>A hidden field for extra keywords. Other brands' names, repeated words and untrue words are usually not allowed.</td><td>"jaipuri chadar double bed", but not "organic" or a competitor's brand</td></tr>
+              <tr><td>Search terms field</td><td>A hidden field for extra keywords. Other brands' names, repeated words and untrue words are usually not allowed.</td><td>"rajasthani chadar double bed", but not "organic" or a competitor's brand</td></tr>
               <tr><td>Brand</td><td>The brand name must match your approved or registered brand exactly</td><td>"Rangrez Crafts" everywhere, with the same spelling</td></tr>
               <tr><td>Variations</td><td>Only true variants, such as colour or size, can be grouped under one parent listing</td><td>Blue and Mustard Yellow can be colour variants of one set</td></tr>
               <tr><td>Claims and documents</td><td>Some claims, such as certifications, need proof. Some categories need documents or approval.</td><td>No "organic" or "GI-tagged" claims</td></tr>
@@ -1492,7 +1492,7 @@ module AiProductListingsContent
         My listing:
         Title: [Rangrez Crafts Hand Block Print 100% Cotton Double Bedsheet with 2 Pillow Covers, 90 x 108 Inches, 144 TC, Blue - FREE DELIVERY]
         Bullet 1: [BEST Rajasthani bedsheet, now 24% off!]
-        Search terms: [jaipuri chadar, [other brand name] bedsheet, organic]
+        Search terms: [rajasthani chadar, [other brand name] bedsheet, organic]
 
         Tasks:
         1. Make a table: Rule | Pass or Fail | Exact words that break it | Suggested fix.
@@ -1553,7 +1553,7 @@ module AiProductListingsContent
               <text x="420" y="81" font-size="12.5" fill="#93c5fd">Hand Block Print Cotton Double Bedsheet Set,</text>
               <text x="420" y="98" font-size="12.5" fill="#93c5fd">Blue | Rangrez Crafts</text>
               <text x="420" y="119" font-size="11">Buta Bagh double bedsheet, hand-block-printed</text>
-              <text x="420" y="135" font-size="11">in our Rajasthan workshop. 100% cotton…</text>
+              <text x="420" y="135" font-size="11">in our Rajasthan workroom. 100% cotton…</text>
               <text x="420" y="159" font-size="11" fill="#6ee7b7">₹1,899 · In stock</text>
               <text x="540" y="159" font-size="10.5" fill="#9b99b8">(extra details: not guaranteed)</text>
               <rect x="405" y="190" width="340" height="115" rx="12" fill="#1f1f44" stroke="#f59e0b"/>
@@ -1578,7 +1578,7 @@ module AiProductListingsContent
             <thead><tr><th>Field</th><th>What it does</th><th>Neha's value</th></tr></thead>
             <tbody>
               <tr><td><strong>Title</strong></td><td>The main heading on the product page</td><td>Buta Bagh Hand Block Print Cotton Double Bedsheet Set, Blue</td></tr>
-              <tr><td><strong>Description</strong></td><td>The main text on the page</td><td>Workshop story, what is in the box, size in inches and cm, fit test, care, honest notes, FAQ</td></tr>
+              <tr><td><strong>Description</strong></td><td>The main text on the page</td><td>Workroom story, what is in the box, size in inches and cm, fit test, care, honest notes, FAQ</td></tr>
               <tr><td><strong>Media</strong></td><td>Photos and videos, each with alt text</td><td>Sheet on a real bed, print close-up, pillow covers, the kraft box, a short printing video</td></tr>
               <tr><td><strong>Price and compare-at price</strong></td><td>Shopify shows the compare-at price crossed out next to the price</td><td>Price ₹1,899. Compare-at ₹2,499, because that is the real MRP.</td></tr>
               <tr><td><strong>Variants and SKU</strong></td><td>Options such as colour, each with its own SKU and stock</td><td>Colour: Blue. SKU: RC-BS-DBL-BUTA-BLU</td></tr>
@@ -1600,7 +1600,7 @@ module AiProductListingsContent
         SEO title:           Hand Block Print Cotton Double Bedsheet Set, Blue | Rangrez Crafts
                              (=LEN() gives 66 characters)
         Meta description:    Buta Bagh double bedsheet, hand-block-printed in our Rajasthan
-                             workshop. 100% cotton, 144 TC, 90 x 108 in, with 2 pillow
+                             workroom. 100% cotton, 144 TC, 90 x 108 in, with 2 pillow
                              covers. Cold machine wash.   (=LEN() gives 147 characters)
         URL handle:          buta-bagh-block-print-double-bedsheet-blue
         Full address:        rangrezcrafts.example/products/buta-bagh-block-print-double-bedsheet-blue</code></pre>
@@ -1615,7 +1615,7 @@ module AiProductListingsContent
         descriptions (what it is + one proof point + a reason to click).
         Main keyword: hand block print cotton double bedsheet.
         Facts: [paste fact sheet]. No "best", "luxury", "organic" or fake urgency.</code></pre>
-          <p>Do not copy your Amazon description word for word onto your store. When many pages share the same text, search engines may show only one of them. Your own page is also the place for the full workshop story and a short FAQ.</p>
+          <p>Do not copy your Amazon description word for word onto your store. When many pages share the same text, search engines may show only one of them. Your own page is also the place for the full workroom story and a short FAQ.</p>
         </div>
         <div class="lc-card">
           <h3>Collections: pages that match broader searches</h3>
@@ -1663,7 +1663,7 @@ module AiProductListingsContent
             </div>
             <ul data-sorter-target="pool">
               <li data-bucket="seo" data-why="It is short, starts with the main search words and ends with the brand. That is a good SEO title pattern.">"Hand Block Print Cotton Double Bedsheet Set, Blue | Rangrez Crafts"</li>
-              <li data-bucket="meta" data-why="It is a full sentence summary with true facts and a reason to click. That is the job of a meta description.">"Buta Bagh double bedsheet, hand-block-printed in our Rajasthan workshop. 100% cotton, 144 TC, with 2 pillow covers."</li>
+              <li data-bucket="meta" data-why="It is a full sentence summary with true facts and a reason to click. That is the job of a meta description.">"Buta Bagh double bedsheet, hand-block-printed in our Rajasthan workroom. 100% cotton, 144 TC, with 2 pillow covers."</li>
               <li data-bucket="meta" data-why="It summarises the product and mentions the real 7-day return policy. It is too long for a title, but fine for a meta description.">"Shop our 100% cotton Rajasthani bedsheet set: 90 x 108 inches, printed by hand in Rajasthan. Easy returns within 7 days."</li>
               <li data-bucket="alt" data-why="It plainly describes what is in one photo. That helps screen reader users and search engines.">"Close-up of blue buta flower block print on white cotton"</li>
               <li data-bucket="alt" data-why="It describes a real photo: the sheet on a bed with the pillow covers.">"Blue hand block print double bedsheet on a bed with 2 pillow covers"</li>
@@ -1678,8 +1678,8 @@ module AiProductListingsContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a Shopify SEO writer for a small Indian brand.
 
-        Product facts (use ONLY these): [Rangrez Crafts "Buta Bagh" double bedsheet set. 1 bedsheet 90 x 108 inches + 2 pillow covers 17 x 27 inches. 100% cotton, 144 thread count. Blue buta flower print on white, hand-block-printed in our workshop in Rajasthan. Machine wash gentle, cold. MRP Rs 2,499, price Rs 1,899, in stock.]
-        Main keywords: [jaipuri cotton bedsheet double bed, hand block print bedsheet, double bedsheet with 2 pillow covers]
+        Product facts (use ONLY these): [Rangrez Crafts "Buta Bagh" double bedsheet set. 1 bedsheet 90 x 108 inches + 2 pillow covers 17 x 27 inches. 100% cotton, 144 thread count. Blue buta flower print on white, hand-block-printed in our workroom in Rajasthan. Machine wash gentle, cold. MRP Rs 2,499, price Rs 1,899, in stock.]
+        Main keywords: [rajasthani cotton bedsheet double bed, hand block print bedsheet, double bedsheet with 2 pillow covers]
 
         Write:
         1. A product page title.
@@ -1764,7 +1764,7 @@ module AiProductListingsContent
           <ul class="lc-list">
             <li><strong>Marketplaces:</strong> Amazon and Flipkart let shoppers use their apps in Hindi and some other Indian languages. How your listing appears there differs. Some text may be machine-translated, and some fields may let you add your own. Check Seller Central help and Seller Hub help for your category.</li>
             <li><strong>Your Shopify store:</strong> Shopify lets you add more languages to your store. You then add translations by hand or with a translation app. Check the Shopify Help Center for the current steps.</li>
-            <li><strong>Search words:</strong> many buyers type Hindi words in English letters. This mix is called <strong>Hinglish</strong>, for example "jaipuri chadar double bed". Others type in Hindi script, for example "जयपुरी चादर". Both can go in keyword fields, if the marketplace allows them.</li>
+            <li><strong>Search words:</strong> many buyers type Hindi words in English letters. This mix is called <strong>Hinglish</strong>, for example "rajasthani chadar double bed". Others type in Hindi script, for example "राजस्थानी चादर". Both can go in keyword fields, if the marketplace allows them.</li>
             <li><strong>WhatsApp and chat replies:</strong> the same checked Hindi text helps you answer buyer questions quickly.</li>
           </ul>
           <p>Start with one language that many of your buyers use. Neha starts with Hindi, because many of her buyers are in north India. Add Tamil or Bengali only when you have a native speaker to check them.</p>
@@ -1781,7 +1781,7 @@ module AiProductListingsContent
         मुख्य बातें (Key features):
         • सेट में 3 पीस: 1 डबल बेडशीट (90 x 108 इंच) + 2 तकिया कवर (17 x 27 इंच)
         • 100% कॉटन, 144 थ्रेड काउंट
-        • जयपुर के सांगानेर में हमारी अपनी वर्कशॉप में लकड़ी के ब्लॉक से हाथ से छपाई
+        • राजस्थान में हमारी अपनी वर्कशॉप में लकड़ी के ब्लॉक से हाथ से छपाई
         • हमने इसे 72 x 78 इंच और 6 इंच मोटे गद्दे पर जाँचा है
         • मशीन में जेंटल साइकिल पर ठंडे पानी से धोएँ। पहली 2 धुलाई अलग से करें।
           छाँव में सुखाएँ।
@@ -1790,7 +1790,7 @@ module AiProductListingsContent
 
         MRP ₹2,499 (सभी करों सहित)</code></pre>
           <p>Every number matches the English fact sheet: 3 pieces, 90 x 108 inches, 17 x 27 inches, 144 thread count, 72 x 78 inch mattress, 2 washes and ₹2,499. The honest notes about colour bleed and print differences are still there.</p>
-          <p>A <strong>back-translation</strong> is a translation of the Hindi text back into English, done separately. You compare it with your English facts. For example, the third feature comes back as "Printed by hand with wooden blocks at our own workshop in Rajasthan". That matches the fact sheet.</p>
+          <p>A <strong>back-translation</strong> is a translation of the Hindi text back into English, done separately. You compare it with your English facts. For example, the third feature comes back as "Printed by hand with wooden blocks at our own workroom in Rajasthan". That matches the fact sheet.</p>
         </div>
         <div class="lc-card">
           <h3>Translation traps AI falls into</h3>
@@ -1805,7 +1805,7 @@ module AiProductListingsContent
             </tbody>
           </table>
           <p>Notice the pattern. AI does not only translate. It sometimes "improves" the text with a new claim, such as "पक्का रंग". So check the translation against the fact sheet, just like an English draft.</p>
-          <p>Neha speaks Hindi, but she wrote the English text, so she may miss mistakes. She asks Sunita, her workshop supervisor, to proofread. Sunita reads and writes Hindi every day. For any language you do not read well, always use a native speaker. Never publish an unchecked translation. The Hindi in this lesson is also example text, so a native speaker should check it before you reuse it.</p>
+          <p>Neha speaks Hindi, but she wrote the English text, so she may miss mistakes. She asks Sunita, her workroom supervisor, to proofread. Sunita reads and writes Hindi every day. For any language you do not read well, always use a native speaker. Never publish an unchecked translation. The Hindi in this lesson is also example text, so a native speaker should check it before you reuse it.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: Neha translates her listing</h3>
@@ -1831,7 +1831,7 @@ module AiProductListingsContent
         Translate my approved listing into short, simple [Hindi] that online buyers really use.
 
         Listing: [Title: Rangrez Crafts Hand Block Print 100% Cotton Double Bedsheet with 2 Pillow Covers, 90 x 108 Inches, 144 TC, Blue.
-        Bullets: 1 bedsheet (90 x 108 inches) + 2 pillow covers (17 x 27 inches). Hand-block-printed with wooden blocks at our workshop in Rajasthan. 100% cotton, 144 thread count. Machine wash gentle, cold; wash separately for the first 2 washes. Slight colour bleed is normal in the first wash.]
+        Bullets: 1 bedsheet (90 x 108 inches) + 2 pillow covers (17 x 27 inches). Hand-block-printed with wooden blocks at our workroom in Rajasthan. 100% cotton, 144 thread count. Machine wash gentle, cold; wash separately for the first 2 washes. Slight colour bleed is normal in the first wash.]
 
         Rules:
         - Keep the brand name, every number, every unit (inches) and prices exactly as written. Use digits 0-9.
@@ -2227,7 +2227,7 @@ module AiProductListingsContent
             <thead><tr><th>Search term</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Orders</th><th>Orders ÷ clicks</th></tr></thead>
             <tbody>
               <tr><td>cotton double bedsheet</td><td>20,000</td><td>200</td><td>1.0%</td><td>4</td><td>2.0%</td></tr>
-              <tr><td>jaipuri bedsheet</td><td>6,000</td><td>150</td><td>2.5%</td><td>6</td><td>4.0%</td></tr>
+              <tr><td>rajasthani bedsheet</td><td>6,000</td><td>150</td><td>2.5%</td><td>6</td><td>4.0%</td></tr>
               <tr><td>double bedsheet with 2 pillow covers</td><td>5,000</td><td>100</td><td>2.0%</td><td>5</td><td>5.0%</td></tr>
               <tr><td>king size bedsheet cotton</td><td>4,000</td><td>120</td><td>3.0%</td><td>0</td><td>0.0%</td></tr>
               <tr><td>hand block print bedsheet</td><td>3,000</td><td>90</td><td>3.0%</td><td>5</td><td>5.6%</td></tr>
@@ -2238,7 +2238,7 @@ module AiProductListingsContent
           <ul class="lc-list">
             <li><strong>"cotton double bedsheet"</strong> is shown the most, but only 1.0% click. Her small main image may not stand out. The main image and the start of the title are what buyers see in search results.</li>
             <li><strong>"king size bedsheet cotton"</strong> gets many clicks but no orders. "King size" means different bed sizes to different buyers. The listing did not show clearly how the sheet fits. Neha must not add "king size" to fix this. She must make the exact size clearer.</li>
-            <li><strong>"hand block print bedsheet"</strong> and <strong>"jaipuri bedsheet"</strong> work well. Keep these words near the start of the title.</li>
+            <li><strong>"hand block print bedsheet"</strong> and <strong>"rajasthani bedsheet"</strong> work well. Keep these words near the start of the title.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2259,7 +2259,7 @@ module AiProductListingsContent
             <tbody>
               <tr><td>"Will it fit my bed?" (questions) and "smaller than expected" (returns)</td><td>6 + 2</td><td>The size and fit test are not clear enough. They sit low in the description.</td></tr>
               <tr><td>"Colour came out in the first wash"</td><td>2 reviews + 1 return</td><td>The honest care note exists, but buyers do not see it before buying</td></tr>
-              <tr><td>"Beautiful print, looks handmade"</td><td>7 reviews</td><td>The workshop story works. Show a close-up of the print.</td></tr>
+              <tr><td>"Beautiful print, looks handmade"</td><td>7 reviews</td><td>The workroom story works. Show a close-up of the print.</td></tr>
             </tbody>
           </table>
           <p>Count the themes yourself too, because AI can miscount. Then act honestly. Answer questions with true facts. Reply to bad reviews politely, and never hide or delete them. Never buy reviews or offer gifts only for good ones. The BIS standard IS 19000:2022 and marketplace policies cover how reviews are collected and shown. Most of all, never remove the colour-bleed note to sell more. It would bring more returns and angry reviews.</p>
@@ -2313,7 +2313,7 @@ module AiProductListingsContent
 
         Proven product facts: [Rangrez Crafts double bedsheet set. 100% cotton, 144 TC. Sheet 90 x 108 in + 2 pillow covers 17 x 27 in. Hand block print. Tested on a 72 x 78 in mattress, 6 in thick. Slight colour bleed in the first wash.]
         Last 30 days on [Amazon]: [1,200 sessions, 30 orders, 3 returns (2 "smaller than expected", 1 "colour ran")]
-        Search terms: [cotton double bedsheet: 20,000 impressions, 200 clicks, 4 orders | king size bedsheet cotton: 4,000 impressions, 120 clicks, 0 orders | jaipuri bedsheet: 6,000 impressions, 150 clicks, 6 orders]
+        Search terms: [cotton double bedsheet: 20,000 impressions, 200 clicks, 4 orders | king size bedsheet cotton: 4,000 impressions, 120 clicks, 0 orders | rajasthani bedsheet: 6,000 impressions, 150 clicks, 6 orders]
         Top questions: [Will it fit my bed? (6) | Does the colour run? (4)]
 
         Task:
@@ -2395,11 +2395,11 @@ module AiProductListingsContent
             <thead><tr><th>Part</th><th>What it contains</th><th>Neha's "Buta Bagh" example</th></tr></thead>
             <tbody>
               <tr><td>Fact sheet</td><td>Every proven fact, its proof, and a "do not claim" list</td><td>100% cotton, 144 TC, 90 x 108 in, 3 pieces. Do not claim: organic, natural dyes, handloom, colourfast.</td></tr>
-              <tr><td>Legal block</td><td>MRP, net quantity, country of origin, manufacturer, consumer care, seller details</td><td>MRP ₹2,499 incl. all taxes; 3 pieces; made in India; workshop address; care email</td></tr>
+              <tr><td>Legal block</td><td>MRP, net quantity, country of origin, manufacturer, consumer care, seller details</td><td>MRP ₹2,499 incl. all taxes; 3 pieces; made in India; workroom address; care email</td></tr>
               <tr><td>Keyword map</td><td>Which keyword goes in which field on each channel</td><td>See below</td></tr>
               <tr><td>Channel listings</td><td>Amazon, Flipkart and Shopify versions</td><td>Same facts, different fields and length</td></tr>
               <tr><td>Image list</td><td>Each photo, what it shows and its alt text</td><td>On a real bed, print close-up, size guide, pillow covers, kraft box</td></tr>
-              <tr><td>Hindi version</td><td>A short translation, checked by a native speaker</td><td>Sunita, the workshop supervisor, approves it</td></tr>
+              <tr><td>Hindi version</td><td>A short translation, checked by a native speaker</td><td>Sunita, the workroom supervisor, approves it</td></tr>
               <tr><td>Checklist and review plan</td><td>Checks before launch, and what to measure after</td><td>Review on day 30: conversion rate, return reasons, questions</td></tr>
             </tbody>
           </table>
@@ -2407,9 +2407,9 @@ module AiProductListingsContent
           <pre><code>KEYWORD MAP: Buta Bagh, Blue, Double (RC-BS-DBL-BUTA-BLU)
         Title (all channels):  cotton double bedsheet · hand block print ·
                                with 2 pillow covers · 90 x 108
-        Bullets / features:    jaipuri bedsheet · blue floral · 144 TC
-        Description:           housewarming gift · Rajasthan workshop story
-        Hidden search terms:   jaipuri chadar double bed · sanganeri print
+        Bullets / features:    rajasthani bedsheet · blue floral · 144 TC
+        Description:           housewarming gift · Rajasthan workroom story
+        Hidden search terms:   rajasthani chadar double bed · block print chadar
           (Amazon, if allowed)
         Shopify SEO title:     hand block print cotton double bedsheet
         Shopify collections:   Hand Block Print Bedsheets · Double Bedsheets
@@ -2422,7 +2422,7 @@ module AiProductListingsContent
             <thead><tr><th>Part</th><th>Amazon</th><th>Flipkart</th><th>Shopify store</th></tr></thead>
             <tbody>
               <tr><td>Title</td><td>Rangrez Crafts Hand Block Print 100% Cotton Double Bedsheet with 2 Pillow Covers, 90 x 108 Inches, 144 TC, Blue</td><td>Fill brand, model name and attributes carefully. The title shown may be built from them. Check Seller Hub help.</td><td>Page title: Buta Bagh Hand Block Print Cotton Double Bedsheet Set, Blue</td></tr>
-              <tr><td>Key facts</td><td>5 bullets: pieces and size, material and TC, hand block print, fit test, care with the bleed note</td><td>Key features plus a full attribute table: bed size, material, pieces, pattern, colour, thread count</td><td>Description with the workshop story, size in inches and cm, fit test, care, FAQ</td></tr>
+              <tr><td>Key facts</td><td>5 bullets: pieces and size, material and TC, hand block print, fit test, care with the bleed note</td><td>Key features plus a full attribute table: bed size, material, pieces, pattern, colour, thread count</td><td>Description with the workroom story, size in inches and cm, fit test, care, FAQ</td></tr>
               <tr><td>Search words</td><td>Title, bullets, and the hidden search terms field</td><td>Title fields, key features and attributes</td><td>SEO title, meta description, alt text, collection pages</td></tr>
               <tr><td>Price</td><td colspan="3">MRP ₹2,499 everywhere. Selling price ₹1,899 on the store. Marketplace prices may differ. Any discount shown is worked out from the MRP: 600 ÷ 2,499 = 24%.</td></tr>
               <tr><td>Legal and policy</td><td colspan="2">Fill every compliance field: manufacturer, packer, country of origin and so on. Return rules follow the marketplace's category policy.</td><td>Show seller details, the 7-day return policy and a grievance contact on your own store</td></tr>
@@ -2495,9 +2495,9 @@ module AiProductListingsContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a senior e-commerce listing manager for an Indian brand. Create a launch pack for one product on 3 channels.
 
-        Fact sheet (use ONLY these facts): [Rangrez Crafts "Buta Bagh" double bedsheet set. 1 bedsheet 90 x 108 in + 2 pillow covers 17 x 27 in. 100% cotton, 144 TC. Blue buta print on white, hand-block-printed in our workshop in Rajasthan. Tested on a 72 x 78 in mattress, 6 in thick. Machine wash gentle, cold; slight colour bleed in the first wash. MRP Rs 2,499, our price Rs 1,899. Made in India.]
+        Fact sheet (use ONLY these facts): [Rangrez Crafts "Buta Bagh" double bedsheet set. 1 bedsheet 90 x 108 in + 2 pillow covers 17 x 27 in. 100% cotton, 144 TC. Blue buta print on white, hand-block-printed in our workroom in Rajasthan. Tested on a 72 x 78 in mattress, 6 in thick. Machine wash gentle, cold; slight colour bleed in the first wash. MRP Rs 2,499, our price Rs 1,899. Made in India.]
         Do NOT claim: [organic, natural dyes, handloom, colourfast, king size, luxury]
-        Keywords: [cotton double bedsheet, hand block print bedsheet, jaipuri bedsheet, double bedsheet with 2 pillow covers]
+        Keywords: [cotton double bedsheet, hand block print bedsheet, rajasthani bedsheet, double bedsheet with 2 pillow covers]
 
         Write:
         1. A keyword map: which keyword goes where on each channel.

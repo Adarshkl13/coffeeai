@@ -44,12 +44,12 @@ module AiSalesOutreachContent
             <thead><tr><th></th><th>Cold outreach</th><th>Warm outreach</th></tr></thead>
             <tbody>
               <tr><td><strong>Meaning</strong></td><td>The prospect has never heard of you</td><td>The prospect already knows you in some way</td></tr>
-              <tr><td><strong>Example</strong></td><td>Kavya emails the finance head of Tulsi Textiles, Birmingham, for the first time</td><td>A café owner downloaded LedgerLite's free GST invoice template, and Kavya follows up</td></tr>
+              <tr><td><strong>Example</strong></td><td>Kavya emails the finance head of Tulsi Textiles, Gujarat, for the first time</td><td>A café owner downloaded LedgerLite's free GST invoice template, and Kavya follows up</td></tr>
               <tr><td><strong>What works</strong></td><td>A short message, a clear reason for writing, and one easy question</td><td>Mention the link you share, then offer the next helpful step</td></tr>
               <tr><td><strong>Main risk</strong></td><td>Sounding like spam</td><td>Forgetting to follow up</td></tr>
             </tbody>
           </table>
-          <p>Warm leads usually reply more often, but you have fewer of them. So most teams do both. Here is a made-up month for Kavya at LedgerLite, a San Francisco accounting software startup:</p>
+          <p>Warm leads usually reply more often, but you have fewer of them. So most teams do both. Here is a made-up month for Kavya at LedgerLite, a Karnataka accounting software startup:</p>
           <table class="lc-table">
             <thead><tr><th>Group</th><th>Contacted</th><th>Replies</th><th>Reply rate</th><th>Meetings</th><th>Meeting rate</th></tr></thead>
             <tbody>
@@ -93,7 +93,7 @@ module AiSalesOutreachContent
               <li data-bucket="warm" data-why="The owner already took something from LedgerLite. There is a link to mention.">Kavya follows up with a café owner who downloaded LedgerLite's free GST invoice template</li>
               <li data-bucket="warm" data-why="A referral from a happy customer makes the prospect know of you before you write.">Rohit at Nimbus Logistics writes to a store founder that an existing customer introduced</li>
               <li data-bucket="cold" data-why="Rohit has never met this person, and they have no link to Nimbus.">Rohit sends a LinkedIn connection note to a head of operations he has never met</li>
-              <li data-bucket="warm" data-why="GreenLeaf asked for a demo. They came to you first, so this is very warm.">GreenLeaf Organics, Denver, fills in the "book a demo" form on LedgerLite's website</li>
+              <li data-bucket="warm" data-why="GreenLeaf asked for a demo. They came to you first, so this is very warm.">GreenLeaf Organics, Maharashtra, fills in the "book a demo" form on LedgerLite's website</li>
               <li data-bucket="cold" data-why="The office manager does not know Sweet Crumbs yet. A directory listing is not a relationship.">Sweet Crumbs emails an office manager whose company it found in a business directory</li>
             </ul>
           </div>
@@ -104,8 +104,8 @@ module AiSalesOutreachContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a sales coach for small businesses in India.
 
-        My business: [LedgerLite, a San Francisco startup that sells simple accounting software to small businesses].
-        Who I want to reach: [owners and finance heads of textile and food businesses in Birmingham and London].
+        My business: [LedgerLite, a Karnataka startup that sells simple accounting software to small businesses].
+        Who I want to reach: [owners and finance heads of textile and food businesses in Gujarat and Maharashtra].
         Warm leads I have: [35 people who downloaded our free GST invoice template].
         Time I have for outreach: [5 hours a week].
 
@@ -193,9 +193,9 @@ module AiSalesOutreachContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Write a personalised cold email to Meena Shah at Tulsi Textiles.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>You write short, honest B2B emails for LedgerLite, a San Francisco
+          <pre><code>You write short, honest B2B emails for LedgerLite, a Karnataka
         accounting software startup for small businesses.
-        Prospect: Meena Shah, Finance Head, Tulsi Textiles, Birmingham.
+        Prospect: Meena Shah, Finance Head, Tulsi Textiles, Gujarat.
         The ONLY facts you may use about her:
         - Her LinkedIn post (last week): month-end closing takes about 10 days.
         - Their careers page: hiring an accounts assistant.
@@ -229,12 +229,12 @@ module AiSalesOutreachContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a strict sales outreach reviewer. You care about honesty and clear writing.
 
-        Facts I have checked about the prospect: [Meena Shah is Finance Head at Tulsi Textiles, Birmingham. Her LinkedIn post last week said month-end closing takes about 10 days.]
+        Facts I have checked about the prospect: [Meena Shah is Finance Head at Tulsi Textiles, Gujarat. Her LinkedIn post last week said month-end closing takes about 10 days.]
         Facts I have checked about my product: [LedgerLite matches bank entries to invoices and sends payment reminders.]
 
         My draft:
         [Subject: URGENT: Save 70% on accounting!!!
-        Hi Meena, I loved your recent talk at the Birmingham Textile Summit. Congrats on your award! LedgerLite is the best accounting software in India and cuts work by 70%. Can we book a demo, a call and a free trial this week?]
+        Hi Meena, I loved your recent talk at the Gujarat Textile Summit. Congrats on your award! LedgerLite is the best accounting software in India and cuts work by 70%. Can we book a demo, a call and a free trial this week?]
 
         Review the draft:
         1. A table with columns: Line, Problem type (invented fact, fake personalisation, spammy wording, unclear ask, other), Why it is a problem, Fix.
@@ -309,7 +309,7 @@ module AiSalesOutreachContent
           <table class="lc-table">
             <thead><tr><th>#</th><th>Fact</th><th>Source</th><th>Checked on</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td>Tulsi Textiles, Birmingham, makes cotton sarees and started selling online across India in 2025</td><td>Company "About us" page</td><td>[date]</td></tr>
+              <tr><td>1</td><td>Tulsi Textiles, Gujarat, makes cotton sarees and started selling online across India in 2025</td><td>Company "About us" page</td><td>[date]</td></tr>
               <tr><td>2</td><td>They are hiring an accounts assistant to handle 400+ invoices a month</td><td>Their careers page</td><td>[date]</td></tr>
               <tr><td>3</td><td>Meena Shah, Finance Head, posted that month-end closing takes about 10 days</td><td>Meena's LinkedIn post</td><td>[date]</td></tr>
               <tr><td>Why now</td><td colspan="3">Online sales mean more invoices, and they are hiring to cope. A faster close could help right now.</td></tr>
@@ -320,7 +320,7 @@ module AiSalesOutreachContent
           <h3>How AI helps with research, safely</h3>
           <p>Do not ask AI "Tell me about Tulsi Textiles" and trust the answer. For small companies, AI often knows nothing and may invent details. Instead, copy the public text yourself and ask AI to pull out facts from it only.</p>
           <p><strong>Weak prompt:</strong></p>
-          <pre><code>Research Tulsi Textiles in Birmingham and tell me their revenue and problems.</code></pre>
+          <pre><code>Research Tulsi Textiles in Gujarat and tell me their revenue and problems.</code></pre>
           <p><strong>Better prompt:</strong></p>
           <pre><code>Below is text I copied from Tulsi Textiles' website and a public LinkedIn post.
         Use ONLY this text. For each fact, quote the exact sentence it came from.
@@ -339,11 +339,11 @@ module AiSalesOutreachContent
               <div data-sorter-target="bucket" data-bucket="skip" data-label="Do not use"></div>
             </div>
             <ul data-sorter-target="pool">
-              <li data-bucket="use" data-why="It is recent, public, work-related and you can open the source.">Their careers page lists an opening for an accounts assistant in Birmingham</li>
+              <li data-bucket="use" data-why="It is recent, public, work-related and you can open the source.">Their careers page lists an opening for an accounts assistant at their Gujarat office</li>
               <li data-bucket="use" data-why="Meena shared this herself, in public, about her work. It links to your product.">Meena posted on LinkedIn last week that month-end closing takes about 10 days</li>
               <li data-bucket="check" data-why="There is no source. AI may have invented it. Find a real source or leave it out.">An AI chat says Tulsi Textiles has ₹50 crore yearly revenue</li>
               <li data-bucket="check" data-why="It may be out of date. Check that it is still true before you mention it.">A news article from 2019 says they had 40 staff</li>
-              <li data-bucket="skip" data-why="It is personal, not work-related. Mentioning it feels creepy.">Meena's personal Instagram shows her family holiday in Miami</li>
+              <li data-bucket="skip" data-why="It is personal, not work-related. Mentioning it feels creepy.">Meena's personal Instagram shows her family holiday</li>
               <li data-bucket="skip" data-why="It is a rumour and it is sensitive. Never use gossip about a prospect.">A friend says the company is having cash problems</li>
             </ul>
           </div>
@@ -355,11 +355,11 @@ module AiSalesOutreachContent
             <pre class="ai-try-prompt">You are a careful sales research assistant. You never guess.
 
         I sell: [LedgerLite, accounting software that matches bank entries to invoices for small businesses].
-        Prospect: [Meena Shah, Finance Head, Tulsi Textiles, Birmingham].
+        Prospect: [Meena Shah, Finance Head, Tulsi Textiles, Gujarat].
 
         Here is public text I copied myself:
-        [About page: "Tulsi Textiles has made cotton sarees in Birmingham since 1998. In 2025 we started selling online across India."
-        Careers page: "Hiring: Accounts Assistant, Birmingham. Must handle 400+ invoices a month and bank reconciliation."
+        [About page: "Tulsi Textiles has made cotton sarees in Gujarat since 1998. In 2025 we started selling online across India."
+        Careers page: "Hiring: Accounts Assistant, Gujarat office. Must handle 400+ invoices a month and bank reconciliation."
         LinkedIn post by Meena Shah: "Month-end closing still takes us almost 10 days. Too many spreadsheets!"]
 
         Use ONLY the text above. Give me:
@@ -450,7 +450,7 @@ module AiSalesOutreachContent
               <tr><td>Unpaid invoices dashboard</td><td>One screen shows who owes what</td><td>The owner knows the cash position every day</td></tr>
             </tbody>
           </table>
-          <p>A second example from Nimbus Logistics, a New York delivery company. Feature: "next-day delivery within New York". Outcome for an online store: "fewer order cancellations from customers who want their order quickly". Rohit, the sales manager, should only claim this if he has seen it with real customers.</p>
+          <p>A second example from Nimbus Logistics, a delivery company in India. Feature: "next-day delivery within Maharashtra". Outcome for an online store: "fewer order cancellations from customers who want their order quickly". Rohit, the sales manager, should only claim this if he has seen it with real customers.</p>
         </div>
         <div class="lc-card">
           <h3>Proof: the part people skip</h3>
@@ -474,7 +474,7 @@ module AiSalesOutreachContent
           <div class="lcw" data-controller="sequence">
             <p class="lcw-prompt">Put the steps for building a value proposition in the right order.</p>
             <ol data-sequence-target="list">
-              <li data-order="1">Pick one customer group, for example small textile businesses in Birmingham</li>
+              <li data-order="1">Pick one customer group, for example small textile businesses in Gujarat</li>
               <li data-order="2">List their jobs, pains and gains, in their own words if you can</li>
               <li data-order="3">List your product's features</li>
               <li data-order="4">Match each feature to a pain it removes or a gain it creates</li>
@@ -493,7 +493,7 @@ module AiSalesOutreachContent
         My product: [LedgerLite, accounting software for small businesses in India].
         Features: [GST invoice templates; bank entry matching; automatic payment reminders by email; a dashboard of unpaid invoices].
         Proof I really have: [a free 14-day trial; one customer, Rangoli Prints, agreed we can share that they now close the month in 4 days instead of 10].
-        Customer group: [owners and finance heads of small textile businesses in Birmingham].
+        Customer group: [owners and finance heads of small textile businesses in Gujarat].
 
         Please give me:
         1. A value proposition canvas as two tables. Customer profile: jobs, pains, gains (4 each). Value map: products, pain relievers, gain creators.
@@ -569,7 +569,7 @@ module AiSalesOutreachContent
         </div>
         <div class="lc-card">
           <h3>Weak email vs strong email</h3>
-          <p><strong>Weak email (82 words, not counting the subject line):</strong></p>
+          <p><strong>Weak email (about 80 words, not counting the subject line):</strong></p>
           <pre><code>Subject: URGENT!!! Best accounting software in India
 
         Dear Sir/Madam,
@@ -585,7 +585,7 @@ module AiSalesOutreachContent
         Regards,
         Kavya</code></pre>
           <p>Problems: a spammy subject, no name, all about the sender, a list of features, an unproven "thousands" claim, and three asks.</p>
-          <p><strong>Strong email (75 words, not counting the subject line):</strong></p>
+          <p><strong>Strong email (about 75 words, not counting the subject line):</strong></p>
           <pre><code>Subject: month-end close at Tulsi Textiles
 
         Hi Meena,
@@ -594,7 +594,7 @@ module AiSalesOutreachContent
         about 10 days.
 
         LedgerLite matches bank entries to invoices, so small finance teams do
-        less manual checking. Rangoli Prints, another Birmingham business, now closes
+        less manual checking. Rangoli Prints, another Gujarat business, now closes
         in 4 days (they said we can share this).
 
         Would a 15-minute call next Tuesday or Wednesday be useful?
@@ -602,9 +602,9 @@ module AiSalesOutreachContent
         If this is not a priority, just reply "no" and I will not follow up.
 
         Kavya
-        LedgerLite, San Francisco</code></pre>
+        LedgerLite, Karnataka</code></pre>
           <p>Rangoli Prints is a made-up customer for this example. In real emails, use only proof that is true and approved.</p>
-          <p>Laws such as CAN-SPAM in the US expect commercial emails to offer a way to opt out. Rules differ by country, including India's rules on personal data. This is general information, not legal advice.</p>
+          <p>A named person's work email is personal data under India's DPDP Act 2023, so always give an easy way to opt out and honour it. If you also email people in other countries, their rules apply too, such as CAN-SPAM in the US. This is general information, not legal advice.</p>
         </div>
         <div class="lc-card">
           <h3>Using AI to write and improve cold emails</h3>
@@ -644,11 +644,11 @@ module AiSalesOutreachContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an expert B2B cold email writer. You write short, honest, human emails.
 
-        Sender: [Kavya, sales rep at LedgerLite, a San Francisco accounting software startup].
-        Prospect: [Meena Shah, Finance Head, Tulsi Textiles, Birmingham].
+        Sender: [Kavya, sales rep at LedgerLite, a Karnataka accounting software startup].
+        Prospect: [Meena Shah, Finance Head, Tulsi Textiles, Gujarat].
         Checked facts about the prospect: [Her LinkedIn post last week: month-end closing takes about 10 days. They are hiring an accounts assistant.]
         Our value: [LedgerLite matches bank entries to invoices, so finance teams close the month faster.]
-        Proof we can share: [Rangoli Prints, a Birmingham business, now closes in 4 days instead of 10.]
+        Proof we can share: [Rangoli Prints, a Gujarat business, now closes in 4 days instead of 10.]
         The ask: [a 15-minute call next week].
 
         Rules:
@@ -696,7 +696,7 @@ module AiSalesOutreachContent
               <rect x="265" y="40" width="230" height="170" rx="12" fill="#1f1f44" stroke="#10b981" stroke-width="2"/>
               <text x="380" y="66" font-weight="700" fill="#6ee7b7">Relevant (aim here)</text>
               <text x="380" y="98">"Saw Tulsi Textiles opened</text>
-              <text x="380" y="118">a second shop in Birmingham.</text>
+              <text x="380" y="118">a second shop in Gujarat.</text>
               <text x="380" y="138">Two shops can mean double</text>
               <text x="380" y="158">the billing work."</text>
               <text x="380" y="186" fill="#9b99b8" font-size="11">checkable fact + link to your offer</text>
@@ -713,7 +713,7 @@ module AiSalesOutreachContent
         </figure>
         <div class="lc-card">
           <h3>What good personalisation looks like</h3>
-          <p>Kavya sells LedgerLite, a made-up San Francisco accounting app for small businesses. She uses a simple test for every personal line. The line must pass all three checks:</p>
+          <p>Kavya sells LedgerLite, a made-up Karnataka accounting app for small businesses. She uses a simple test for every personal line. The line must pass all three checks:</p>
           <ol class="lc-list">
             <li><strong>True and checkable.</strong> It comes from a source you can open again, such as their website, a news item or their own post.</li>
             <li><strong>About their work.</strong> It is about the business, their role or something they said in public as a professional.</li>
@@ -723,9 +723,9 @@ module AiSalesOutreachContent
             <thead><tr><th>Personal line</th><th>Verdict</th><th>Why</th></tr></thead>
             <tbody>
               <tr><td>"Hi Meena, I love your brand!"</td><td>Too generic</td><td>No fact. It could go to anyone.</td></tr>
-              <tr><td>"Hi Meena, you are based in Birmingham."</td><td>Fake personal</td><td>It is a merge field pretending to be research.</td></tr>
+              <tr><td>"Hi Meena, you are based in Gujarat."</td><td>Fake personal</td><td>It is a merge field pretending to be research.</td></tr>
               <tr><td>"Hi Meena, I saw Tulsi Textiles opened a second shop on Ring Road in August."</td><td>Good</td><td>A real, recent business fact. It links to more billing work.</td></tr>
-              <tr><td>"Hi Meena, I saw you were in Miami last weekend."</td><td>Creepy</td><td>Private life. It feels like you are watching her.</td></tr>
+              <tr><td>"Hi Meena, I saw you were at a family wedding last weekend."</td><td>Creepy</td><td>Private life. It feels like you are watching her.</td></tr>
             </tbody>
           </table>
         </div>
@@ -744,7 +744,7 @@ module AiSalesOutreachContent
 
         Would a 15-minute call next Tuesday or Wednesday be useful?
 
-        Kavya, LedgerLite, San Francisco</code></pre>
+        Kavya, LedgerLite, Karnataka</code></pre>
           <p>Her research sheet has one row per prospect. Column E holds the personal line. Before sending, she checks for gaps with two formulas:</p>
           <pre><code>=COUNTBLANK(E2:E51)                         counts prospects with no personal line yet
         =IF(E2="", "RESEARCH FIRST", "Ready")         labels each row in column F</code></pre>
@@ -776,7 +776,7 @@ module AiSalesOutreachContent
               <li data-bucket="creepy" data-why="Health is private. Never use it in a sales message.">"Hope your knee surgery went well last month."</li>
               <li data-bucket="creepy" data-why="There was no earlier talk. Pretending there was is dishonest.">"As we discussed, here is the information you asked for."</li>
               <li data-bucket="good" data-why="It quotes their own public post and links it to a real problem.">"You posted that festive orders doubled your invoicing work. That is the exact problem we help with."</li>
-              <li data-bucket="generic" data-why="A city name from a merge field is not research.">"I see you are a business in Denver."</li>
+              <li data-bucket="generic" data-why="A city name from a merge field is not research.">"I see you are a business in Maharashtra."</li>
             </ul>
           </div>
         </div>
@@ -795,10 +795,10 @@ module AiSalesOutreachContent
         - If the fact is empty or about private life (family, health, home), write SKIP and say why.
 
         Prospects:
-        1. [Meena, Finance Head, Tulsi Textiles, Birmingham. Fact: opened a second shop on Ring Road in August (their Instagram post).]
-        2. [Sanjay, founder, GreenLeaf Organics, Denver. Fact: hiring an accounts assistant (job post on their website).]
-        3. [Farah, partner, Farah Interiors, Boston. Fact: none found.]
-        4. [Deepak, director, Rao Pharma Distributors, Seattle. Fact: posted photos from his son's wedding.]
+        1. [Meena, Finance Head, Tulsi Textiles, Gujarat. Fact: opened a second shop on Ring Road in August (their Instagram post).]
+        2. [Sanjay, founder, GreenLeaf Organics, Maharashtra. Fact: hiring an accounts assistant (job post on their website).]
+        3. [Farah, partner, Farah Interiors, Kerala. Fact: none found.]
+        4. [Deepak, director, Rao Pharma Distributors, Telangana. Fact: posted photos from his son's wedding.]
 
         Output a table: Prospect | Opening line | Fact used | Source to check.
         Then list any line where you were unsure.</pre>
@@ -906,7 +906,7 @@ module AiSalesOutreachContent
           <h3>Activity: Kavya writes a connection note</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="tool" data-label="Kavya opens LinkedIn">She reads Sanjay's profile at GreenLeaf Organics, Denver, and his recent posts.</li>
+              <li data-kind="tool" data-label="Kavya opens LinkedIn">She reads Sanjay's profile at GreenLeaf Organics, Maharashtra, and his recent posts.</li>
               <li data-kind="result" data-label="What she finds">A post from last week: "GreenLeaf now delivers to 12 cities. We are hiring an accounts assistant."</li>
               <li data-kind="user" data-label="Her prompt">"Write a LinkedIn connection note under 200 characters to Sanjay, founder of GreenLeaf Organics. Fact: they now deliver to 12 cities and are hiring for accounts. I sell LedgerLite billing software. No pitch, no link."</li>
               <li data-kind="answer" data-label="AI draft">"Hi Sanjay, congrats on crossing ₹5 crore revenue and delivering to 12 cities! Growth like that means more invoices. I help food brands with GST billing. Let's connect. Kavya"</li>
@@ -924,7 +924,7 @@ module AiSalesOutreachContent
             <pre class="ai-try-prompt">You help me write LinkedIn outreach. I send every message by hand.
 
         Me: [Kavya, sales at LedgerLite, billing and GST software for small businesses in India].
-        Prospect: [Sanjay, founder of GreenLeaf Organics, an online organic food store in Denver].
+        Prospect: [Sanjay, founder of GreenLeaf Organics, an online organic food store in Maharashtra].
         Public fact from his profile: [his post says GreenLeaf now delivers to 12 cities and is hiring an accounts assistant].
 
         Write:
@@ -991,7 +991,7 @@ module AiSalesOutreachContent
               <text x="380" y="252" fill="#9b99b8" font-size="12">AI helps you prepare and practise. You make the call, listen and take notes.</text>
             </g>
           </svg>
-          <figcaption>A simple cold call plan for Rohit, a sales manager at the made-up Nimbus Logistics in New York.</figcaption>
+          <figcaption>A simple cold call plan for Rohit, a sales manager at the made-up Nimbus Logistics in India.</figcaption>
         </figure>
         <div class="lc-card">
           <h3>Openers: who you are, why you called, and permission</h3>
@@ -1004,8 +1004,8 @@ module AiSalesOutreachContent
               <tr><td>"Do you have 30 minutes to talk?"</td><td>Nobody has 30 minutes for a stranger.</td></tr>
             </tbody>
           </table>
-          <p>Rohit's permission-based opener to Harsh Patel, the operations head at the made-up Tulsi Textiles, Birmingham:</p>
-          <pre><code>Hi Harsh, this is Rohit from Nimbus Logistics in New York.
+          <p>Rohit's permission-based opener to Harsh Patel, the operations head at the made-up Tulsi Textiles, Gujarat:</p>
+          <pre><code>Hi Harsh, this is Rohit from Nimbus Logistics.
         I'll be honest, this is a cold call.
         I'm calling because Tulsi Textiles sells sarees online across India,
         and we handle deliveries for online stores in Gujarat and Maharashtra.
@@ -1024,7 +1024,7 @@ module AiSalesOutreachContent
             <li>"Who else would be part of a decision like this?"</li>
           </ol>
           <p>AI is good at two jobs here. It can suggest questions for a type of buyer. It can also <strong>role-play</strong> the buyer so you can practise. Try a prompt like this:</p>
-          <pre><code>Act as Harsh, operations head at a textile brand in Birmingham.
+          <pre><code>Act as Harsh, operations head at a textile brand in Gujarat.
         You are busy and a bit doubtful. I am calling from a logistics company.
         Answer my questions in 1 or 2 short sentences. Raise one real concern.
         After 6 turns, tell me which of my questions worked and which did not.</code></pre>
@@ -1033,7 +1033,7 @@ module AiSalesOutreachContent
         <div class="lc-card">
           <h3>A voicemail script</h3>
           <p>Many calls go to voicemail or are not answered. A good voicemail is short, gives one reason and makes calling back easy.</p>
-          <pre><code>Hi Harsh, this is Rohit from Nimbus Logistics, New York.
+          <pre><code>Hi Harsh, this is Rohit from Nimbus Logistics.
         I'm calling about deliveries for Tulsi Textiles' online store,
         especially before the festive rush.
         I'll also send you a short email today.
@@ -1072,8 +1072,8 @@ module AiSalesOutreachContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a sales coach. Help me prepare a cold call.
 
-        Me: [Rohit, sales manager at Nimbus Logistics, New York. We deliver orders for online stores in Maharashtra and Gujarat.]
-        Prospect: [Harsh Patel, operations head at Tulsi Textiles, Birmingham. They sell sarees online across India.]
+        Me: [Rohit, sales manager at Nimbus Logistics. We deliver orders for online stores in Maharashtra and Gujarat.]
+        Prospect: [Harsh Patel, operations head at Tulsi Textiles, Gujarat. They sell sarees online across India.]
         Goal of the call: [book a 20-minute meeting next week].
 
         Write:
@@ -1142,14 +1142,14 @@ module AiSalesOutreachContent
         </figure>
         <div class="lc-card">
           <h3>When WhatsApp is the right channel</h3>
-          <p>Sweet Crumbs is a made-up London bakery that sells catering to offices. Here is when WhatsApp fits, and when it does not:</p>
+          <p>Sweet Crumbs is a made-up home bakery in Maharashtra that sells catering to offices. Here is when WhatsApp fits, and when it does not:</p>
           <table class="lc-table">
             <thead><tr><th>Situation</th><th>WhatsApp?</th><th>Why</th></tr></thead>
             <tbody>
               <tr><td>An office admin filled the website form and ticked "Send me menus on WhatsApp"</td><td>Yes</td><td>Clear opt-in for this business</td></tr>
               <tr><td>A regular client asked, "Message me the Diwali menu when it is ready"</td><td>Yes</td><td>They asked for this message</td></tr>
               <tr><td>An HR manager's number from a visiting card collected at an event</td><td>No, not yet</td><td>A card shares a number. It is not agreement to marketing messages. Email or call, and ask.</td></tr>
-              <tr><td>A list of 500 "HR managers in London" bought online</td><td>No</td><td>No consent. It also risks breaking data protection law.</td></tr>
+              <tr><td>A list of 500 "HR managers in Maharashtra" bought online</td><td>No</td><td>No consent. It also risks breaking data protection law.</td></tr>
               <tr><td>A company number from an online map listing</td><td>No</td><td>Public does not mean permission</td></tr>
             </tbody>
           </table>
@@ -1168,12 +1168,12 @@ module AiSalesOutreachContent
           <h3>Tone for chat messages</h3>
           <p>A chat message should feel like a message from a helpful person, not an advert. Compare these two first messages to an office admin who opted in:</p>
           <pre><code>Weak:
-        Dear Sir/Madam, Greetings from Sweet Crumbs!!! 🎉🎉 We are London's
+        Dear Sir/Madam, Greetings from Sweet Crumbs!!! 🎉🎉 We are Maharashtra's
         No.1 bakery offering cakes, cookies, snacks, breakfast boxes,
         birthday cakes, farewell cakes... [long list and 3 PDFs]
 
         Better:
-        Hi Priya, this is Neha from Sweet Crumbs, Camden. You asked for
+        Hi Priya, this is Neha from Sweet Crumbs. You asked for
         our office snack menu, so here it is: [link]. Boxes start at
         ₹[price] per person for 20+ people. Would you like a free tasting
         box for your team next week? Reply STOP and I will not message again.</code></pre>
@@ -1201,7 +1201,7 @@ module AiSalesOutreachContent
             </div>
             <ul data-sorter-target="pool">
               <li data-bucket="ok" data-why="She took an action and named this business. That is clear opt-in.">An admin who ticked an empty box saying "Send me Sweet Crumbs menus on WhatsApp"</li>
-              <li data-bucket="no" data-why="A bought list has no consent from these people.">500 numbers from a bought "London HR managers" list</li>
+              <li data-bucket="no" data-why="A bought list has no consent from these people.">500 numbers from a bought "Maharashtra HR managers" list</li>
               <li data-bucket="ok" data-why="The client asked for this exact message.">A regular client who said, "WhatsApp me the Diwali menu"</li>
               <li data-bucket="no" data-why="They opted out. You must stop, even if the new offer is good.">A client who replied STOP last month, about a new offer</li>
               <li data-bucket="no" data-why="Sharing a number on a card is not agreement to marketing messages.">A manager whose visiting card you collected at a business event</li>
@@ -1213,9 +1213,9 @@ module AiSalesOutreachContent
           <h3>Try It</h3>
           <p>Ask the AI to write short WhatsApp messages for a customer who has opted in, with an easy way to stop.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You write short WhatsApp messages for [Sweet Crumbs, a bakery in London that supplies snack boxes to offices].
+            <pre class="ai-try-prompt">You write short WhatsApp messages for [Sweet Crumbs, a home bakery in Maharashtra that supplies snack boxes to offices].
 
-        Customer: [Priya, office admin at a 60-person IT company in Canary Wharf].
+        Customer: [Priya, office admin at a 60-person IT company in Maharashtra].
         Opt-in: [she ticked "Send me menus on WhatsApp" on our website form on 12 September].
         Facts you may use: [snack boxes for 20+ people, free tasting box for new offices, orders need 2 days' notice].
 
@@ -1229,7 +1229,7 @@ module AiSalesOutreachContent
         - Each message under 60 words. Friendly, plain English. At most one emoji.
         - Messages 1 and 2 end with a simple way to opt out.
         - Use only the facts above. Write [ADD PRICE] where a price is needed.
-        - No pressure, fake urgency or claims like "London's No.1".</pre>
+        - No pressure, fake urgency or claims like "Maharashtra's No.1".</pre>
             <ul class="ai-try-checks">
               <li>Message 1 says who is writing and why, in the first line.</li>
               <li>Each message is under 60 words and has one clear question or offer.</li>
@@ -1300,7 +1300,7 @@ module AiSalesOutreachContent
             <tbody>
               <tr><td>The problem</td><td>Why you are writing</td><td>"Late deliveries often lead to refund requests for food stores."</td></tr>
               <tr><td>A useful idea</td><td>Free value, no ask</td><td>"Here is a one-page checklist for packing organic produce so it arrives fresh."</td></tr>
-              <tr><td>Proof</td><td>A real, checkable example</td><td>"We deliver for a spice store in Denver. I can share their contact if they agree."</td></tr>
+              <tr><td>Proof</td><td>A real, checkable example</td><td>"We deliver for a spice store in Gujarat. I can share their contact if they agree."</td></tr>
               <tr><td>A quick question</td><td>An easy way to reply</td><td>"Do you manage deliveries yourself, or through a courier partner?"</td></tr>
               <tr><td>Close the loop</td><td>A polite last message</td><td>"I won't follow up again. If delivery becomes a priority, just reply to this email."</td></tr>
             </tbody>
@@ -1322,7 +1322,7 @@ module AiSalesOutreachContent
           <h3>Activity: Rohit builds a sequence with AI</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="user" data-label="Rohit's prompt">"Plan a 5-touch sequence over about 3 weeks for GreenLeaf Organics, Denver. They sell organic food online. Nimbus Logistics offers next-day delivery in Maharashtra. Mix email, LinkedIn and one call. Give each touch a new angle."</li>
+              <li data-kind="user" data-label="Rohit's prompt">"Plan a 5-touch sequence over about 3 weeks for GreenLeaf Organics, Maharashtra. They sell organic food online. Nimbus Logistics offers next-day delivery in Maharashtra. Mix email, LinkedIn and one call. Give each touch a new angle."</li>
               <li data-kind="answer" data-label="AI draft">A table of 5 touches. Touch 3 says: "As we discussed on our call, here are our rates." Touch 5 says: "Last chance: our 20% discount ends Friday."</li>
               <li data-kind="warn" data-label="Invented history">There was no earlier call. "As we discussed" would mislead Sanjay. Rohit removes it.</li>
               <li data-kind="warn" data-label="Fake urgency">Nimbus has no 20% discount. Rohit replaces touch 5 with an honest "close the loop" message.</li>
@@ -1338,9 +1338,9 @@ module AiSalesOutreachContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a B2B sales coach. Plan a follow-up sequence.
 
-        Seller: [Rohit, Nimbus Logistics, New York. We deliver orders for online stores in Maharashtra and Gujarat.]
-        True facts you may use: [next-day delivery in New York, London and Denver; cash-on-delivery support; free packing checklist PDF].
-        Prospect: [Sanjay, founder of GreenLeaf Organics, an online organic food store in Denver].
+        Seller: [Rohit, Nimbus Logistics. We deliver orders for online stores in Maharashtra and Gujarat.]
+        True facts you may use: [next-day delivery in most Maharashtra and Gujarat cities; cash-on-delivery support; free packing checklist PDF].
+        Prospect: [Sanjay, founder of GreenLeaf Organics, an online organic food store in Maharashtra].
         Goal: [a 20-minute call].
 
         Make a table with 5 touches over about 3 weeks, on working days only:
@@ -1378,7 +1378,7 @@ module AiSalesOutreachContent
             <defs><marker id="so11a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <rect x="180" y="12" width="400" height="44" rx="12" fill="#27274e" stroke="#ec4899"/>
-              <text x="380" y="31" font-size="11" fill="#9b99b8">Meena Shah, Finance Head, Tulsi Textiles, Birmingham</text>
+              <text x="380" y="31" font-size="11" fill="#9b99b8">Meena Shah, Finance Head, Tulsi Textiles, Gujarat</text>
               <text x="380" y="48" fill="#f9a8d4">"Your software is too expensive for us."</text>
               <line x1="380" y1="58" x2="380" y2="80" stroke="#9b99b8" stroke-width="1.5" marker-end="url(#so11a)"/>
               <rect x="12" y="86" width="128" height="96" rx="10" fill="#1f1f44" stroke="#3b82f6"/>
@@ -1415,7 +1415,7 @@ module AiSalesOutreachContent
         </figure>
         <div class="lc-card">
           <h3>The common objections, and what they may really mean</h3>
-          <p>Most objections fall into a few groups. The words are the same in every industry. What the person means can be different. So your first job is to find out, with a question. Here are examples for <em>LedgerLite</em>, a made-up San Francisco accounting software startup. Its sales rep, Kavya, sells to small businesses. The price below is made up.</p>
+          <p>Most objections fall into a few groups. The words are the same in every industry. What the person means can be different. So your first job is to find out, with a question. Here are examples for <em>LedgerLite</em>, a made-up Karnataka accounting software startup. Its sales rep, Kavya, sells to small businesses. The price below is made up.</p>
           <table class="lc-table">
             <thead><tr><th>Objection</th><th>What it may mean</th><th>A good question</th><th>An honest answer idea</th></tr></thead>
             <tbody>
@@ -1455,7 +1455,7 @@ module AiSalesOutreachContent
           <h3>Practise with an AI role-play</h3>
           <p>A <strong>role-play</strong> is a practice conversation. The AI pretends to be the prospect. You type your answers. Then the AI steps out of the role and gives you feedback. You can make mistakes here, not on real calls. Use a chat assistant (such as Claude) for this, because it needs many messages back and forth.</p>
           <pre><code>Let us role-play. You are Meena Shah, Finance Head of Tulsi Textiles,
-        a made-up textile company in Birmingham. Month-end closing takes about
+        a made-up textile company in Gujarat. Month-end closing takes about
         10 days. You handle 400+ invoices a month and are hiring an
         accounts assistant. You are busy and a bit doubtful. Your team does everything in spreadsheets.
         I am Kavya from LedgerLite. I called you after you replied
@@ -1488,7 +1488,7 @@ module AiSalesOutreachContent
             <pre class="ai-try-prompt">You are a strict but kind sales coach for honest B2B selling in India.
 
         My product: [LedgerLite, accounting software for small businesses, ₹1,499 a month, with a free 14-day trial. Proof: customer Rangoli Prints now closes its month in 4 days, not 10].
-        Prospect: [Meena Shah, Finance Head of Tulsi Textiles, Birmingham. Month-end closing takes about 10 days. They handle 400+ invoices a month].
+        Prospect: [Meena Shah, Finance Head of Tulsi Textiles, Gujarat. Month-end closing takes about 10 days. They handle 400+ invoices a month].
         Her objection: [&quot;It is too expensive. We are already hiring an accounts assistant for the invoices.&quot;]
         My answer: [&quot;I understand. But our software is much better than Excel and it will save you a lot of time. Can we book a demo?&quot;]
 
@@ -1563,9 +1563,9 @@ module AiSalesOutreachContent
           <h3>A clear ask at the right moment</h3>
           <p>Your ask should match how warm the prospect is. In a first cold email, a small "interest ask" works better than a demand for a long meeting. After a positive reply, make booking as easy as possible.</p>
           <table class="lc-table">
-            <thead><tr><th>Type of ask</th><th>When to use it</th><th>Example (Nimbus Logistics, a made-up New York delivery company)</th></tr></thead>
+            <thead><tr><th>Type of ask</th><th>When to use it</th><th>Example (Nimbus Logistics, a made-up delivery company in India)</th></tr></thead>
             <tbody>
-              <tr><td><strong>Interest ask</strong></td><td>First cold email</td><td>"Worth a 15-minute call to see if this fits your Denver orders?"</td></tr>
+              <tr><td><strong>Interest ask</strong></td><td>First cold email</td><td>"Worth a 15-minute call to see if this fits your Maharashtra orders?"</td></tr>
               <tr><td><strong>Two-time ask</strong></td><td>After a positive reply</td><td>"Does Tuesday 11:00 or Thursday 16:00 IST suit you, for 20 minutes?"</td></tr>
               <tr><td><strong>Scheduling link</strong></td><td>After they agree, or when they ask for it</td><td>"Here is my calendar. Pick any 20-minute slot this week."</td></tr>
               <tr><td><strong>Referral ask</strong></td><td>You wrote to the wrong person</td><td>"Who looks after deliveries at GreenLeaf Organics?"</td></tr>
@@ -1576,13 +1576,13 @@ module AiSalesOutreachContent
         </div>
         <div class="lc-card">
           <h3>Confirmation, reminder and no-show messages</h3>
-          <p>Rohit is the sales manager at Nimbus Logistics. GreenLeaf Organics, a made-up organic food store in Denver, has agreed to a call. Here are three short messages AI helped him draft. He checked every detail before sending.</p>
+          <p>Rohit is the sales manager at Nimbus Logistics. GreenLeaf Organics, a made-up organic food store in Maharashtra, has agreed to a call. Here are three short messages AI helped him draft. He checked every detail before sending.</p>
           <pre><code>CONFIRMATION (send at once, with the calendar invite)
         Subject: Confirmed: Nimbus + GreenLeaf, Thu 16:00 IST
         Hi Sanjay, thank you. We are booked for Thursday, 16:00 IST,
         20 minutes, on Google Meet (link in the invite).
         Plan: 1) your current delivery set-up, 2) how we handle
-        Denver orders, 3) whether a trial makes sense.
+        Maharashtra orders, 3) whether a trial makes sense.
         If the time stops working, just reply with a better one.
 
         REMINDER (the day before)
@@ -1619,7 +1619,7 @@ module AiSalesOutreachContent
             <ul data-sorter-target="pool">
               <li data-bucket="clear" data-why="Two specific times, a time zone and a short length. The prospect only has to pick one.">"Does Tuesday 11:00 or Thursday 16:00 IST suit you, for 20 minutes?"</li>
               <li data-bucket="weak" data-why="There is no time, no length and no reason to act. It is easy to ignore.">"Let me know if you ever want to chat sometime."</li>
-              <li data-bucket="clear" data-why="A small yes-or-no question for a first email. It links the call to their situation.">"Worth a 15-minute call to see if this fits your Denver orders?"</li>
+              <li data-bucket="clear" data-why="A small yes-or-no question for a first email. It links the call to their situation.">"Worth a 15-minute call to see if this fits your Maharashtra orders?"</li>
               <li data-bucket="weak" data-why="Three asks at once. The prospect has to decide too much, so they often do nothing.">"Can we meet? Or should I send a brochure? Or would you like a trial?"</li>
               <li data-bucket="weak" data-why="An hour plus a long form is a big ask from a stranger. Start small.">"Please book a 60-minute demo with my link and fill in the 12-question form first."</li>
               <li data-bucket="clear" data-why="The prospect already agreed. Now a link saves emails back and forth.">After a "yes": "Here is my calendar. Pick any 20-minute slot this week."</li>
@@ -1633,8 +1633,8 @@ module AiSalesOutreachContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an experienced sales assistant. Write short, polite messages in simple English.
 
-        Me: [Rohit, sales manager at Nimbus Logistics, New York. We deliver orders for online stores.]
-        Prospect: [Sanjay, founder of GreenLeaf Organics, an online organic food store in Denver.]
+        Me: [Rohit, sales manager at Nimbus Logistics. We deliver orders for online stores.]
+        Prospect: [Sanjay, founder of GreenLeaf Organics, an online organic food store in Maharashtra.]
         His reply to my email: [&quot;Sounds interesting, but we are busy until the 15th. Maybe after that?&quot;]
         Meeting: [20 minutes on Google Meet]. My free times after the 15th: [Tue 17th 11:00, Thu 19th 16:00, Fri 20th 12:00 IST].
 
@@ -1765,7 +1765,7 @@ module AiSalesOutreachContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a sales analyst. Explain things in simple English for a small sales team.
 
-        We ran an A/B test on cold email subject lines for [Nimbus Logistics, a New York delivery company that works with online stores].
+        We ran an A/B test on cold email subject lines for [Nimbus Logistics, a delivery company in India that works with online stores].
         Version A subject: [&quot;Quick question about your deliveries&quot;]
         Version B subject: [&quot;Late deliveries during Diwali?&quot;]
         Version A: [210] sent, [10] bounced, [8] positive replies.
@@ -1920,7 +1920,7 @@ module AiSalesOutreachContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an email deliverability adviser. Explain things in simple English for a sales team with no technical skills. Give general guidance only, not legal advice.
 
-        Business: [LedgerLite, a San Francisco accounting software startup. We email owners of small businesses in India.]
+        Business: [LedgerLite, a Karnataka accounting software startup. We email owners of small businesses in India.]
         Set-up: [a new domain, 3 weeks old]. SPF [yes], DKIM [yes], DMARC [not sure].
         Volume: [we plan to send 150 cold emails a day from one mailbox].
         Last month: [900 delivered, 45 hard bounces, 3 spam complaints].
@@ -1955,7 +1955,7 @@ module AiSalesOutreachContent
           <div class="lc-badge le-badge le-badge-sales">Sales & CRM</div>
           <h1 class="lc-title">Capstone: A Complete Outreach Campaign</h1>
         </div>
-        <p class="lc-lead">In this capstone, you will plan a complete outreach campaign from start to finish. You will work as Rohit, sales manager at <strong>Nimbus Logistics</strong>, a made-up New York company that delivers orders for online stores. You will research 5 prospects, write a cold email, a LinkedIn note and a call script, and build a 5-touch follow-up sequence. You will use AI at every step, and check every fact yourself. At the end, you will have a campaign kit you can copy for your own product.</p>
+        <p class="lc-lead">In this capstone, you will plan a complete outreach campaign from start to finish. You will work as Rohit, sales manager at <strong>Nimbus Logistics</strong>, a made-up company in India that delivers orders for online stores. You will research 5 prospects, write a cold email, a LinkedIn note and a call script, and build a 5-touch follow-up sequence. You will use AI at every step, and check every fact yourself. At the end, you will have a campaign kit you can copy for your own product.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 250" role="img" aria-label="Six campaign steps: research, value proposition, write, sequence, send and track, improve. An arrow goes from improve back to write. Under all steps: checks for true facts, consent and DND, opt-out, and no fake urgency.">
             <defs><marker id="so15a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -2001,16 +2001,16 @@ module AiSalesOutreachContent
         </figure>
         <div class="lc-card">
           <h3>Step 1: The brief and your 5 prospects</h3>
-          <p><strong>Seller:</strong> Nimbus Logistics, New York. <strong>Offer (made up for this capstone):</strong> daily pick-up from sellers in Maharashtra and Gujarat, and next-day delivery to New York and London. COD (cash on delivery) money is paid to the store every 2 days. <strong>Buyer:</strong> the person who runs orders and deliveries at an online store.</p>
+          <p><strong>Seller:</strong> Nimbus Logistics. <strong>Offer (made up for this capstone):</strong> daily pick-up from sellers in Maharashtra and Gujarat, and next-day delivery across Maharashtra and Gujarat. COD (cash on delivery) money is paid to the store every 2 days. <strong>Buyer:</strong> the person who runs orders and deliveries at an online store.</p>
           <p>Rohit researched 5 prospects. All of these companies and facts are made up. For real prospects, only use facts you found yourself, and keep the link to each source.</p>
           <table class="lc-table">
             <thead><tr><th>Prospect</th><th>A fact you can check</th><th>Reason to write now</th><th>Source</th></tr></thead>
             <tbody>
-              <tr><td><strong>Tulsi Textiles, Birmingham</strong> (sarees, online store)</td><td>Website says orders ship in 3–5 days</td><td>Festive season orders are starting</td><td>Their website</td></tr>
-              <tr><td><strong>GreenLeaf Organics, Denver</strong> (organic food)</td><td>Launched a fresh flour range last month</td><td>Fresh products need fast delivery</td><td>Their Instagram post</td></tr>
-              <tr><td><strong>Chai Chapter, London</strong> (tea gift boxes)</td><td>Founder posted about corporate Diwali gift orders</td><td>Big gift orders, fixed delivery dates</td><td>Founder's LinkedIn post</td></tr>
-              <tr><td><strong>Kavach Covers, Jersey City</strong> (phone covers)</td><td>Opened a new warehouse in Secaucus</td><td>New warehouse, new delivery set-up</td><td>A local news article</td></tr>
-              <tr><td><strong>Mitti Pottery, Liverpool</strong> (handmade pottery)</td><td>Some public reviews mention broken items</td><td>They added a "careful packing" promise</td><td>Public reviews, website</td></tr>
+              <tr><td><strong>Tulsi Textiles, Gujarat</strong> (sarees, online store)</td><td>Website says orders ship in 3–5 days</td><td>Festive season orders are starting</td><td>Their website</td></tr>
+              <tr><td><strong>GreenLeaf Organics, Maharashtra</strong> (organic food)</td><td>Launched a fresh flour range last month</td><td>Fresh products need fast delivery</td><td>Their Instagram post</td></tr>
+              <tr><td><strong>Chai Chapter, Maharashtra</strong> (tea gift boxes)</td><td>Founder posted about corporate Diwali gift orders</td><td>Big gift orders, fixed delivery dates</td><td>Founder's LinkedIn post</td></tr>
+              <tr><td><strong>Kavach Covers, Maharashtra</strong> (phone covers)</td><td>Opened a new warehouse in Gujarat</td><td>New warehouse, new delivery set-up</td><td>A local news article</td></tr>
+              <tr><td><strong>Mitti Pottery, Gujarat</strong> (handmade pottery)</td><td>Some public reviews mention broken items</td><td>They added a "careful packing" promise</td><td>Public reviews, website</td></tr>
             </tbody>
           </table>
           <p>AI can help you turn your notes into this table. It can also suggest what to look for. But do not ask AI to "find facts" about a company. It may invent them. Never scrape LinkedIn or copy data from it with tools. LinkedIn's User Agreement does not allow that.</p>
@@ -2023,8 +2023,8 @@ module AiSalesOutreachContent
         Hi Harsh,
         Your website says saree orders ship in 3-5 days. With festive
         orders starting, that window may get tight.
-        Nimbus Logistics picks up from Birmingham every day and delivers
-        next day in New York and London. COD money reaches you every 2 days.
+        Nimbus Logistics picks up from Gujarat every day and delivers
+        next day across Maharashtra and Gujarat. COD money reaches you every 2 days.
         [One real result from a client who agreed to share it.]
         Worth a 15-minute call next week to see if this fits your plan?
         Rohit, Sales Manager, Nimbus Logistics, [business address]
@@ -2036,11 +2036,11 @@ module AiSalesOutreachContent
         Would be glad to connect. Rohit
 
         CALL OPENER (permission-based)
-        "Hi Harsh, this is Rohit from Nimbus Logistics in New York. I am
+        "Hi Harsh, this is Rohit from Nimbus Logistics. I am
         calling about delivery for your online orders. Is now a bad time
         for 30 seconds?"
         Discovery questions:
-        1. How do you ship orders to New York and London today?
+        1. How do you ship orders to customers in Maharashtra today?
         2. What happens when a delivery fails?
         3. How quickly does COD money reach you now?
 
@@ -2075,7 +2075,7 @@ module AiSalesOutreachContent
               <li data-kind="warn" data-label="An invented fact">That number was not in Rohit's notes. The AI made it up. Rohit deletes it.</li>
               <li data-kind="tool" data-label="CRM">Rohit adds Tulsi Textiles to the CRM with the contact name, the source link and the date he found it.</li>
               <li data-kind="user" data-label="Rohit asks for the kit">He asks AI for a cold email, a LinkedIn note, a call opener and a 5-touch sequence, using only his checked facts.</li>
-              <li data-kind="check" data-label="Rohit checks every claim">The draft says "same-day delivery in Birmingham". Nimbus does not offer that. Rohit changes it to "next-day delivery in New York and London".</li>
+              <li data-kind="check" data-label="Rohit checks every claim">The draft says "same-day delivery in Gujarat". Nimbus does not offer that. Rohit changes it to "next-day delivery in Maharashtra and Gujarat".</li>
               <li data-kind="result" data-label="Sequence ready">Five touches over 15 days, with stop rules and an opt-out line. Rohit repeats the steps for the other 4 prospects.</li>
             </ol>
           </div>
@@ -2086,9 +2086,9 @@ module AiSalesOutreachContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a B2B sales writer. Build an outreach kit for one prospect. Use only the facts I give. If you need anything else, write [check] or [proof you can show].
 
-        Seller: [Nimbus Logistics, New York. We deliver for online stores: daily pick-up in Birmingham, next-day delivery to New York and London, COD money paid every 2 days.]
+        Seller: [Nimbus Logistics. We deliver for online stores: daily pick-up in Gujarat, next-day delivery across Maharashtra and Gujarat, COD money paid every 2 days.]
         Me: [Rohit, sales manager].
-        Prospect: [Harsh Patel, operations head, Tulsi Textiles, Birmingham. They sell sarees online.]
+        Prospect: [Harsh Patel, operations head, Tulsi Textiles, Gujarat. They sell sarees online.]
         Facts I checked: [1. Their website says orders ship in 3-5 days. 2. They posted a job for a warehouse lead. 3. Festive season orders are starting.]
 
         Write:

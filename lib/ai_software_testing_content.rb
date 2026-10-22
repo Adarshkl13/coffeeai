@@ -746,7 +746,7 @@ module AiSoftwareTestingContent
             <ul data-sorter-target="pool">
               <li data-bucket="strong" data-why="It names exact values that anyone can check on screen.">Delivery shows Free and the total shows £60.00.</li>
               <li data-bucket="weak" data-why="'Works correctly' does not say what to look for. Two testers could disagree.">The checkout works correctly.</li>
-              <li data-bucket="strong" data-why="It gives the exact message and the exact quantity.">"You can buy up to 20 of this item" appears and the quantity stays at 20.</li>
+              <li data-bucket="strong" data-why="It gives the exact message and the exact quantity.">With 3 in the basket, typing 21 shows "You can buy up to 20 of this item" and the quantity stays at 3.</li>
               <li data-bucket="weak" data-why="Which error? Where? The exact message is part of the rule.">An error is shown.</li>
               <li data-bucket="strong" data-why="Each number comes from the rules and Basket A: £62.40 minus £5.00 is £57.40, which is under £60.00, so delivery costs £4.99.">With SAVE5 on Basket A, the subtotal shows £57.40 and delivery shows £4.99.</li>
               <li data-bucket="weak" data-why="'Looks fine' is an opinion, not a result you can check.">The slot list looks fine.</li>

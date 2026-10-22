@@ -8,7 +8,7 @@ module AiProductPhotosVideosContent
           <div class="lc-badge le-badge le-badge-ecom">E-commerce</div>
           <h1 class="lc-title">Why Product Visuals Matter</h1>
         </div>
-        <p class="lc-lead">Online, a buyer cannot touch, smell or open your product. Your photos and videos do that job for them. In this lesson, you will learn what the main image and the gallery each need to do. You will see why a small phone screen changes everything. You will also learn why every picture must show the real product. Throughout this course, you will follow Asha, who owns Sweet Crumbs, a bakery in London. She is launching a Diwali gift box online.</p>
+        <p class="lc-lead">Online, a buyer cannot touch, smell or open your product. Your photos and videos do that job for them. In this lesson, you will learn what the main image and the gallery each need to do. You will see why a small phone screen changes everything. You will also learn why every picture must show the real product. Throughout this course, you will follow Asha, who owns Sweet Crumbs, a home bakery in Maharashtra. She is launching a Diwali gift box online.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 300" role="img" aria-label="A phone shows search results with four small thumbnails. One thumbnail is Asha's gift box. An arrow leads to four steps: the main image wins the click, the gallery answers questions, the video shows the product in use, and the buyer decides.">
             <defs><marker id="ppv1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -136,7 +136,7 @@ module AiProductPhotosVideosContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an e-commerce visual consultant for small Indian online sellers.
 
-        My product: [Sweet Crumbs Diwali Mithai &amp; Cookie Gift Box from London. 12 pieces: 3 kaju katli, 3 besan ladoo, 3 nankhatai, 3 atta jaggery cookies. 450 g net. Maroon box, 20 x 20 x 6 cm. Price Rs 899. Shelf life 10 days.]
+        My product: [Sweet Crumbs Diwali Mithai &amp; Cookie Gift Box from Maharashtra. 12 pieces: 3 kaju katli, 3 besan ladoo, 3 nankhatai, 3 atta jaggery cookies. 450 g net. Maroon box, 20 x 20 x 6 cm. Price Rs 899. Shelf life 10 days.]
         Where I sell: [own Shopify store, Amazon, Flipkart]
         My current images, described in words:
         [1. Closed box on a wooden table, from the front. 2. The same box from the top. 3. A poster with "Happy Diwali" text and our logo.]
@@ -418,7 +418,7 @@ module AiProductPhotosVideosContent
             <li><strong>Use real, typical pieces.</strong> Pick neat pieces from a normal batch. Do not make special, larger pieces just for the photo.</li>
             <li><strong>Show what arrives.</strong> Photograph the greeting card that is inside. Do not show a gift bag unless it is included.</li>
           </ul>
-          <p>Clothes need a different list. Imran, the catalogue manager at Zari &amp; Co in Birmingham, plans these shots for a teal cotton silk kurta set (kurta, pants and dupatta):</p>
+          <p>Clothes need a different list. Imran, the catalogue manager at Zari &amp; Co in Gujarat, plans these shots for a teal cotton silk kurta set (kurta, trousers and dupatta):</p>
           <ul class="lc-list">
             <li>On a model: front, back and side, full length with the dupatta</li>
             <li>A close-up of the fabric and the zari border (a border woven with shiny metallic thread)</li>
@@ -465,7 +465,7 @@ module AiProductPhotosVideosContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a product photographer who plans shoots for small Indian online sellers.
 
-        Product facts: [Diwali Mithai &amp; Cookie Gift Box by Sweet Crumbs, London. 12 pieces: 3 kaju katli, 3 besan ladoo, 3 nankhatai, 3 atta jaggery cookies. 450 g net. Maroon rigid box, 20 x 20 x 6 cm, gold ribbon, greeting card inside. Contains cashew, milk, wheat. Shelf life 10 days.]
+        Product facts: [Diwali Mithai &amp; Cookie Gift Box by Sweet Crumbs, Maharashtra. 12 pieces: 3 kaju katli, 3 besan ladoo, 3 nankhatai, 3 atta jaggery cookies. 450 g net. Maroon rigid box, 20 x 20 x 6 cm, gold ribbon, greeting card inside. Contains cashew, milk, wheat. Shelf life 10 days.]
         Where I sell: [own Shopify store, Amazon, Flipkart]
         Questions customers ask: [What is inside? How big is the box? How long does it stay fresh? Does it have nuts? Is it good for gifting?]
 
@@ -608,7 +608,7 @@ module AiProductPhotosVideosContent
             <pre class="ai-try-prompt">You are a product photography coach for small Indian sellers who shoot on a phone.
 
         My product: [a maroon gift box of sweets, 20 x 20 x 6 cm, with a shiny gold foil logo and a satin ribbon]
-        My space: [a kitchen in a London flat, one big window facing east, a table 120 x 60 cm, white tube light and a yellow bulb]
+        My space: [a kitchen in a flat, one big window facing east, a table 120 x 60 cm, white tube light and a yellow bulb]
         My phone: [a recent Android phone with a main lens and an ultra-wide lens]
         My budget: [under Rs 1,500]
 
@@ -1218,7 +1218,7 @@ module AiProductPhotosVideosContent
         Write 5 short callouts (max 5 words each) for a gallery
         infographic. Use ONLY these facts: 12 pieces (3 kaju
         katli, 3 besan ladoo, 3 nankhatai, 3 atta jaggery
-        cookies), 450 g net, handmade in London, best within 10
+        cookies), 450 g net, handmade in India, best within 10
         days of manufacture, contains cashew, milk and wheat,
         vegetarian. Do not add health claims, awards, ratings
         or "bestseller". List any fact you were unsure about.</code></pre>
@@ -1226,7 +1226,7 @@ module AiProductPhotosVideosContent
           <table class="lc-table">
             <thead><tr><th>AI callout</th><th>Check</th><th>Decision</th></tr></thead>
             <tbody>
-              <tr><td>Handmade in London</td><td>True</td><td>Keep</td></tr>
+              <tr><td>Handmade in India</td><td>True</td><td>Keep</td></tr>
               <tr><td>12 pieces, 450 g</td><td>True</td><td>Keep</td></tr>
               <tr><td>Made with pure desi ghee</td><td>The recipes use ghee and butter, so "pure desi ghee" is not true</td><td>Remove</td></tr>
               <tr><td>Stays fresh for 30 days</td><td>The shelf life is 10 days</td><td>Change to "Best within 10 days"</td></tr>
@@ -1295,7 +1295,7 @@ module AiProductPhotosVideosContent
             <pre class="ai-try-prompt">You are an e-commerce designer who makes clear, honest infographics for Indian online shoppers on phones.
 
         Fact sheet (use ONLY these facts):
-        [Sweet Crumbs Diwali Mithai &amp; Cookie Gift Box. 12 pieces: 3 kaju katli, 3 besan ladoo, 3 nankhatai, 3 atta jaggery cookies. Net quantity 450 g. Box 20 x 20 x 6 cm. Handmade in London. Best within 10 days of manufacture. Contains cashew, milk, wheat. Vegetarian. Brand colours: maroon #7A1F2B, gold #C9A227, cream #F6EFE3.]
+        [Sweet Crumbs Diwali Mithai &amp; Cookie Gift Box. 12 pieces: 3 kaju katli, 3 besan ladoo, 3 nankhatai, 3 atta jaggery cookies. Net quantity 450 g. Box 20 x 20 x 6 cm. Handmade in India. Best within 10 days of manufacture. Contains cashew, milk, wheat. Vegetarian. Brand colours: maroon #7A1F2B, gold #C9A227, cream #F6EFE3.]
 
         Plan 3 gallery infographics: 1. What's inside. 2. Box size. 3. Allergens and freshness.
         For each one give: the buyer question, the photo to use, a heading (max 4 words), up to 4 callouts (max 6 words each), the text and background colours, and alt text.
@@ -1328,7 +1328,7 @@ module AiProductPhotosVideosContent
         </div>
         <p class="lc-lead">A short video can show what photos cannot: the ribbon coming off, the lid lifting, the real size in someone's hands. For most products, 15 to 30 seconds is enough. In this lesson, you will learn the main types of product video, and how to write a script and a video shot list with AI. You will also add captions (text on screen) that are readable and true. You will film the real product, so the video shows exactly what the buyer gets.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 300" role="img" aria-label="A timeline of Asha's 15-second video. 0 to 2 seconds: hook, closed box, text Sweet Crumbs. 2 to 5 seconds: ribbon untied by hand, text Handmade in London. 5 to 8 seconds: lid lifted, all 12 pieces, text 12 pieces, 4 kinds. 8 to 12 seconds: slow pan over the 4 sweets, with the name of each sweet. 12 to 15 seconds: greeting card, then the closed box, text Best within 10 days. Sound is soft licensed music or none, and everything is real video of the real box.">
+          <svg viewBox="0 0 760 300" role="img" aria-label="A timeline of Asha's 15-second video. 0 to 2 seconds: hook, closed box, text Sweet Crumbs. 2 to 5 seconds: ribbon untied by hand, text Handmade in India. 5 to 8 seconds: lid lifted, all 12 pieces, text 12 pieces, 4 kinds. 8 to 12 seconds: slow pan over the 4 sweets, with the name of each sweet. 12 to 15 seconds: greeting card, then the closed box, text Best within 10 days. Sound is soft licensed music or none, and everything is real video of the real box.">
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <text x="380" y="22" font-weight="700" fill="#9b99b8">Asha's 15-second video: what you see and what you read</text>
               <g font-size="11.5" fill="#9b99b8">
@@ -1358,7 +1358,7 @@ module AiProductPhotosVideosContent
                 <rect x="20" y="132" width="94" height="44" rx="8" fill="#27274e"/>
                 <text x="67" y="158">Sweet Crumbs</text>
                 <rect x="118" y="132" width="140" height="44" rx="8" fill="#27274e"/>
-                <text x="188" y="158">Handmade in London</text>
+                <text x="188" y="158">Handmade in India</text>
                 <rect x="262" y="132" width="140" height="44" rx="8" fill="#27274e"/>
                 <text x="332" y="158">12 pieces, 4 kinds</text>
                 <rect x="406" y="132" width="188" height="44" rx="8" fill="#27274e"/>
@@ -1408,7 +1408,7 @@ module AiProductPhotosVideosContent
             <thead><tr><th>Time</th><th>Shot</th><th>Text on screen</th><th>Sound</th></tr></thead>
             <tbody>
               <tr><td>0 to 2 s (2 s)</td><td>Closed box on cream cloth. Hands come in.</td><td>Sweet Crumbs</td><td>Soft music starts</td></tr>
-              <tr><td>2 to 5 s (3 s)</td><td>Hands untie the gold ribbon</td><td>Handmade in London</td><td>Music</td></tr>
+              <tr><td>2 to 5 s (3 s)</td><td>Hands untie the gold ribbon</td><td>Handmade in India</td><td>Music</td></tr>
               <tr><td>5 to 8 s (3 s)</td><td>Lid lifted, all 12 pieces seen from the front</td><td>12 pieces, 4 kinds</td><td>Music</td></tr>
               <tr><td>8 to 12 s (4 s)</td><td>Slow pan over each type of sweet</td><td>Kaju katli, then besan ladoo, then nankhatai, then atta jaggery cookie (1 s each)</td><td>Music</td></tr>
               <tr><td>12 to 15 s (3 s)</td><td>Greeting card lifted, then the closed box</td><td>Best within 10 days</td><td>Music ends</td></tr>
@@ -1432,7 +1432,7 @@ module AiProductPhotosVideosContent
             <thead><tr><th>Time</th><th>Shot</th><th>Text on screen</th></tr></thead>
             <tbody>
               <tr><td>0 to 4 s</td><td>Model walks towards the camera</td><td>Teal cotton silk kurta set</td></tr>
-              <tr><td>4 to 8 s</td><td>Model turns slowly: side, then back</td><td>Kurta, pants and dupatta</td></tr>
+              <tr><td>4 to 8 s</td><td>Model turns slowly: side, then back</td><td>Kurta, trousers and dupatta</td></tr>
               <tr><td>8 to 12 s</td><td>Close-up of the fabric</td><td>Cotton silk</td></tr>
               <tr><td>12 to 16 s</td><td>Close-up of the zari border on the dupatta</td><td>Zari border on dupatta</td></tr>
               <tr><td>16 to 20 s</td><td>Flat lay of all 3 pieces</td><td>Model is 5 ft 6 in, wears M</td></tr>
@@ -1692,7 +1692,7 @@ module AiProductPhotosVideosContent
           <div class="lc-badge le-badge le-badge-ecom">E-commerce</div>
           <h1 class="lc-title">Models, Try-On and People in Images</h1>
         </div>
-        <p class="lc-lead">Clothes, jewellery and bags sell better when buyers see them on a person. AI tools can now put a garment on a "model" who does not exist. Some tools also let shoppers try it on their own photo. This saves shoot costs, but it brings two big risks. The AI may change the garment, so the buyer gets something different. And a person's face or body may be used without their permission. In this lesson, you will follow Imran, the catalogue manager at Zari &amp; Co in Birmingham. You will learn when to use a real model, an AI model or virtual try-on. You will also learn how to keep the garment exact and how to handle consent.</p>
+        <p class="lc-lead">Clothes, jewellery and bags sell better when buyers see them on a person. AI tools can now put a garment on a "model" who does not exist. Some tools also let shoppers try it on their own photo. This saves shoot costs, but it brings two big risks. The AI may change the garment, so the buyer gets something different. And a person's face or body may be used without their permission. In this lesson, you will follow Imran, the catalogue manager at Zari &amp; Co in Gujarat. You will learn when to use a real model, an AI model or virtual try-on. You will also learn how to keep the garment exact and how to handle consent.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 320" role="img" aria-label="A decision tree. Question: who is in the picture? Branch one: a real person with a signed release, use within the release. Branch two: a real person with no permission, such as a celebrity, influencer, customer or staff member, stop and do not use. Branch three: an AI-generated model made from the real garment photo, use only after checks. Note: never add size or fit claims to an AI model image.">
             <defs><marker id="ppv11a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -1739,7 +1739,7 @@ module AiProductPhotosVideosContent
         </figure>
         <div class="lc-card">
           <h3>Three ways to show clothes on a person</h3>
-          <p>Imran is listing a teal cotton silk kurta set: kurta, pants and a dupatta with a gold zari border. He has three options. All details in this lesson are made up for teaching.</p>
+          <p>Imran is listing a teal cotton silk kurta set: kurta, trousers and a dupatta with a gold zari border. He has three options. All details in this lesson are made up for teaching.</p>
           <table class="lc-table">
             <thead><tr><th></th><th>Real model shoot</th><th>AI model</th><th>Virtual try-on</th></tr></thead>
             <tbody>
@@ -1834,7 +1834,7 @@ module AiProductPhotosVideosContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a catalogue manager for an Indian fashion brand. You care about honest images and people's consent.
 
-        My garment: [Zari &amp; Co teal cotton silk kurta set: kurta, pants, dupatta. Round neck, 3/4 sleeves, mid-calf kurta with side slits, gold paisley zari border on the dupatta. Sizes XS to XXL.]
+        My garment: [Zari &amp; Co teal cotton silk kurta set: kurta, trousers, dupatta. Round neck, 3/4 sleeves, mid-calf kurta with side slits, gold paisley zari border on the dupatta. Sizes XS to XXL.]
         Real photos I have: [flat lay of all 3 pieces; on-model photos of a hired model who signed a release]
         What I want: [3 extra gallery poses using an AI model]
 
@@ -2299,7 +2299,7 @@ module AiProductPhotosVideosContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an e-commerce image rights helper. You give general education, not legal advice.
 
-        My brand: [Sweet Crumbs, a London bakery. Logo not yet registered as a trademark.]
+        My brand: [Sweet Crumbs, a home bakery in Maharashtra. Logo not yet registered as a trademark.]
         My images and where they came from:
         [1. Main image: photo I took, background removed with an AI tool.
         2. Festive scene: my photo plus an AI background with diyas and marigolds.
@@ -2431,7 +2431,7 @@ module AiProductPhotosVideosContent
             <thead><tr><th>Time</th><th>Shot</th><th>On-screen text</th></tr></thead>
             <tbody>
               <tr><td>0 to 2 s</td><td>Hook: closed box on cream cloth</td><td>Sweet Crumbs</td></tr>
-              <tr><td>2 to 5 s</td><td>Hands untie the gold ribbon</td><td>Handmade in London</td></tr>
+              <tr><td>2 to 5 s</td><td>Hands untie the gold ribbon</td><td>Handmade in India</td></tr>
               <tr><td>5 to 8 s</td><td>The lid lifts to show the tray</td><td>12 pieces, 4 kinds</td></tr>
               <tr><td>8 to 12 s</td><td>Slow pan over the sweets, 1 second each</td><td>Kaju katli, besan ladoo, nankhatai, atta jaggery cookie</td></tr>
               <tr><td>12 to 15 s</td><td>The greeting card, then the closed box</td><td>Best within 10 days</td></tr>

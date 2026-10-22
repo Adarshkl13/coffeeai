@@ -214,9 +214,9 @@ module GitContent
           </table>
           <p>Here, a file has Windows line endings. The repository has a one-line <code>.gitattributes</code>:</p>
           <div class="lc-code-block"><pre><code>$ echo &quot;* text=auto&quot; &gt; .gitattributes
-        $ printf &#39;Masala chai - 20\r\nGinger chai - 25\r\n&#39; &gt; menu.txt
+        $ printf 'Masala chai - 20\r\nGinger chai - 25\r\n' &gt; menu.txt
         $ git add .gitattributes menu.txt
-        warning: in the working copy of &#39;menu.txt&#39;, CRLF will be replaced by LF the next time Git touches it
+        warning: in the working copy of 'menu.txt', CRLF will be replaced by LF the next time Git touches it
         $ git ls-files --eol
         i/lf    w/lf    attr/text=auto        	.gitattributes
         i/lf    w/crlf  attr/text=auto        	menu.txt
@@ -460,11 +460,11 @@ module GitContent
             <thead><tr><th>Code</th><th>Meaning</th></tr></thead>
             <tbody>
               <tr><td><code>??</code></td><td>Untracked: new file Git is not tracking yet</td></tr>
-              <tr><td><code>A&nbsp;</code></td><td>Added: new file staged</td></tr>
-              <tr><td><code>&nbsp;M</code></td><td>Modified in working tree, not staged</td></tr>
-              <tr><td><code>M&nbsp;</code></td><td>Modified and staged</td></tr>
+              <tr><td><code>A&nbsp;</code></td><td>Added: new file staged (letter in the left column)</td></tr>
+              <tr><td><code>&nbsp;M</code></td><td>Modified in working tree, not staged (space first, letter in the right column)</td></tr>
+              <tr><td><code>M&nbsp;</code></td><td>Modified and staged (letter in the left column, space after it)</td></tr>
               <tr><td><code>MM</code></td><td>Staged, then modified again</td></tr>
-              <tr><td><code>D&nbsp;</code> / <code>&nbsp;D</code></td><td>Deleted (staged / not staged)</td></tr>
+              <tr><td><code>D&nbsp;</code> / <code>&nbsp;D</code></td><td>Deleted: <code>D&nbsp;</code> (left column) is staged, <code>&nbsp;D</code> (right column) is not staged</td></tr>
               <tr><td><code>UU</code></td><td>Merge conflict: both sides changed it (lesson 14)</td></tr>
             </tbody>
           </table>
@@ -692,7 +692,7 @@ module GitContent
          M .gitignore
          M readings.csv
         $ git rm --cached readings.csv
-        rm &#39;readings.csv&#39;
+        rm 'readings.csv'
         $ git add .gitignore
         $ git status -s
         M  .gitignore
@@ -1027,8 +1027,8 @@ module GitContent
               <tr><td>Remove unsaved edits to a file</td><td><code>git restore file</code></td><td><code>git checkout -- file</code></td></tr>
               <tr><td>Staged the wrong file</td><td><code>git restore --staged file</code></td><td><code>git reset HEAD file</code></td></tr>
               <tr><td>Need a file as it was in an older commit</td><td><code>git restore --source=HEAD~1 file</code></td><td><code>git checkout HEAD~1 -- file</code></td></tr>
-              <tr><td>Typo in the last commit message</td><td><code>git commit --amend -m "..."</code></td><td>—</td></tr>
-              <tr><td>Forgot a file in the last commit</td><td><code>git add file</code> then <code>git commit --amend --no-edit</code></td><td>—</td></tr>
+              <tr><td>Typo in the last commit message</td><td><code>git commit --amend -m "..."</code></td><td>(none)</td></tr>
+              <tr><td>Forgot a file in the last commit</td><td><code>git add file</code> then <code>git commit --amend --no-edit</code></td><td>(none)</td></tr>
             </tbody>
           </table>
           <p>Git 2.23 added <code>git restore</code> (and <code>git switch</code>, lesson 12). They split the confusing old <code>git checkout</code> into clearer commands.</p>
@@ -1191,7 +1191,7 @@ module GitContent
         $ git tag -l &quot;v1.*&quot;
         v1.0.0
         $ git tag -d v0.1.0
-        Deleted tag &#39;v0.1.0&#39; (was 7901826)</code></pre></div>
+        Deleted tag 'v0.1.0' (was 7901826)</code></pre></div>
           <p>On the tagged commit, <code>git describe</code> prints just <code>v1.0.0</code>. After one more commit, it prints <code>v1.0.0-1-g50e38b1</code>. This means "1 commit after <code>v1.0.0</code>, at commit <code>50e38b1</code>" (the <code>g</code> stands for Git). Build tools use it to print version numbers. <code>-l</code> filters tags with a pattern. <code>-d</code> deletes a local tag.</p>
         </div>
 
@@ -1441,7 +1441,7 @@ module GitContent
           <div class="lc-code-block"><pre><code>$ git branch
         * main
         $ git switch -c feature/snacks
-        Switched to a new branch &#39;feature/snacks&#39;
+        Switched to a new branch 'feature/snacks'
         $ echo &quot;Samosa - 15&quot; &gt; snacks.txt
         $ git add snacks.txt
         $ git commit -m &quot;Add snacks list&quot;
@@ -1461,7 +1461,7 @@ module GitContent
         menu.txt
         snacks.txt
         $ git switch main
-        Switched to branch &#39;main&#39;
+        Switched to branch 'main'
         $ ls
         README.md
         menu.txt
@@ -1483,12 +1483,12 @@ module GitContent
         $ git branch -d try-cold-coffee
         Deleted branch try-cold-coffee (was 44ad7dd).
         $ git branch -d feature/snacks
-        error: the branch &#39;feature/snacks&#39; is not fully merged
-        hint: If you are sure you want to delete it, run &#39;git branch -D feature/snacks&#39;
+        error: the branch 'feature/snacks' is not fully merged
+        hint: If you are sure you want to delete it, run 'git branch -D feature/snacks'
         hint: Disable this message with &quot;git config set advice.forceDeleteBranch false&quot;</code></pre></div>
           <p><code>-d</code> will not delete a branch if its commits are not merged anywhere. This protects your work. <code>-D</code> forces the delete, and then the commits become hard to find. Git also will not switch branches if your uncommitted changes would be overwritten:</p>
           <div class="lc-code-block"><pre><code>$ git switch feature/snacks
-        Switched to branch &#39;feature/snacks&#39;
+        Switched to branch 'feature/snacks'
         $ echo &quot;Vada pav - 20&quot; &gt;&gt; snacks.txt
         $ git switch main
         error: Your local changes to the following files would be overwritten by checkout:
@@ -1504,12 +1504,12 @@ module GitContent
           <p>We are still on <code>feature/snacks</code>, with the unfinished <code>Vada pav</code> edit from above. First, throw that edit away and go back to <code>main</code>. Then look at an older commit:</p>
           <div class="lc-code-block"><pre><code>$ git restore snacks.txt
         $ git switch main
-        Switched to branch &#39;main&#39;
+        Switched to branch 'main'
         $ git switch --detach HEAD~1
         HEAD is now at 7901826 Add menu
         $ git switch -
         Previous HEAD position was 7901826 Add menu
-        Switched to branch &#39;main&#39;</code></pre></div>
+        Switched to branch 'main'</code></pre></div>
           <p><code>git switch -</code> jumps back to the previous branch. Did you make commits while detached? To keep them, run <code>git switch -c new-branch-name</code> before you leave.</p>
         </div>
 
@@ -1576,7 +1576,7 @@ module GitContent
         <div class="lc-card">
           <h3>Terminal Walkthrough: Fast-Forward</h3>
           <div class="lc-code-block"><pre><code>$ git switch -c feature/readme
-        Switched to a new branch &#39;feature/readme&#39;
+        Switched to a new branch 'feature/readme'
         $ echo &quot;# Chai Menu&quot; &gt; README.md
         $ git add README.md
         $ git commit -m &quot;Add README&quot;
@@ -1584,7 +1584,7 @@ module GitContent
          1 file changed, 1 insertion(+)
          create mode 100644 README.md
         $ git switch main
-        Switched to branch &#39;main&#39;
+        Switched to branch 'main'
         $ git merge feature/readme
         Updating 7901826..d624836
         Fast-forward
@@ -1601,7 +1601,7 @@ module GitContent
           <h3>Terminal Walkthrough: Three-Way Merge</h3>
           <p>This time, <code>main</code> also gets a new commit while you build the feature:</p>
           <div class="lc-code-block"><pre><code>$ git switch -c feature/snacks
-        Switched to a new branch &#39;feature/snacks&#39;
+        Switched to a new branch 'feature/snacks'
         $ echo &quot;Samosa - 15&quot; &gt; snacks.txt
         $ git add snacks.txt
         $ git commit -m &quot;Add snacks list&quot;
@@ -1609,18 +1609,18 @@ module GitContent
          1 file changed, 1 insertion(+)
          create mode 100644 snacks.txt
         $ git switch main
-        Switched to branch &#39;main&#39;
+        Switched to branch 'main'
         $ echo &quot;Ginger chai - 25&quot; &gt;&gt; menu.txt
         $ git commit -am &quot;Add ginger chai&quot;
         [main 217b2c6] Add ginger chai
          1 file changed, 1 insertion(+)
         $ git merge feature/snacks
-        Merge made by the &#39;ort&#39; strategy.
+        Merge made by the 'ort' strategy.
          snacks.txt | 1 +
          1 file changed, 1 insertion(+)
          create mode 100644 snacks.txt
         $ git log --oneline --graph
-        *   7fdc5b1 Merge branch &#39;feature/snacks&#39;
+        *   7fdc5b1 Merge branch 'feature/snacks'
         |\
         | * bc11e28 Add snacks list
         * | 217b2c6 Add ginger chai
@@ -1641,7 +1641,7 @@ module GitContent
         Deleted branch feature/snacks (was bc11e28).</code></pre></div>
           <p>Some teams want a merge commit even when a fast-forward is possible. Then the history shows where each feature started and ended. Use <code>--no-ff</code>:</p>
           <div class="lc-code-block"><pre><code>$ git switch -c feature/hours
-        Switched to a new branch &#39;feature/hours&#39;
+        Switched to a new branch 'feature/hours'
         $ echo &quot;Open 7am-9pm&quot; &gt; hours.txt
         $ git add hours.txt
         $ git commit -m &quot;Add opening hours&quot;
@@ -1649,18 +1649,18 @@ module GitContent
          1 file changed, 1 insertion(+)
          create mode 100644 hours.txt
         $ git switch main
-        Switched to branch &#39;main&#39;
+        Switched to branch 'main'
         $ git merge --no-ff feature/hours
-        Merge made by the &#39;ort&#39; strategy.
+        Merge made by the 'ort' strategy.
          hours.txt | 1 +
          1 file changed, 1 insertion(+)
          create mode 100644 hours.txt
         $ git log --oneline --graph -4
-        *   7e91318 Merge branch &#39;feature/hours&#39;
+        *   7e91318 Merge branch 'feature/hours'
         |\
         | * c083e73 Add opening hours
         |/
-        *   7fdc5b1 Merge branch &#39;feature/snacks&#39;
+        *   7fdc5b1 Merge branch 'feature/snacks'
         |\
         | * bc11e28 Add snacks list</code></pre></div>
           <p>The opposite option is <code>git merge --ff-only</code>. It refuses to merge unless a fast-forward is possible. This is a safe choice when you update from a shared branch.</p>
@@ -1716,13 +1716,13 @@ module GitContent
           <h3>Terminal Walkthrough: Creating a Conflict</h3>
           <p>Start with <code>menu.txt</code>. It has <code>Masala chai - 20</code> and <code>Ginger chai - 25</code>. One branch raises the price. <code>main</code> changes the same line to a large size:</p>
           <div class="lc-code-block"><pre><code>$ git switch -c price-update
-        Switched to a new branch &#39;price-update&#39;
+        Switched to a new branch 'price-update'
         $ printf &quot;Masala chai - 22\nGinger chai - 25\n&quot; &gt; menu.txt
         $ git commit -am &quot;Raise masala chai to 22&quot;
         [price-update 0ee6afe] Raise masala chai to 22
          1 file changed, 1 insertion(+), 1 deletion(-)
         $ git switch main
-        Switched to branch &#39;main&#39;
+        Switched to branch 'main'
         $ printf &quot;Masala chai (large) - 30\nGinger chai - 25\n&quot; &gt; menu.txt
         $ git commit -am &quot;Sell masala chai in large size&quot;
         [main a7e7c4d] Sell masala chai in large size
@@ -1794,9 +1794,9 @@ module GitContent
         	modified:   menu.txt
 
         $ git commit --no-edit
-        [main 56a9e35] Merge branch &#39;price-update&#39;
+        [main 56a9e35] Merge branch 'price-update'
         $ git log --oneline --graph
-        *   56a9e35 Merge branch &#39;price-update&#39;
+        *   56a9e35 Merge branch 'price-update'
         |\
         | * 0ee6afe Raise masala chai to 22
         * | a7e7c4d Sell masala chai in large size
@@ -1892,7 +1892,7 @@ module GitContent
         * 7901826 Add menu</code></pre></div>
           <p>Your two commits were <strong>replayed</strong> (applied again) on top of <code>Add README</code>. Compare the hashes: <code>4fc6e86</code> became <code>a4dab79</code>. They are new commits with the same changes. Now merging into <code>main</code> is a simple fast-forward:</p>
           <div class="lc-code-block"><pre><code>$ git switch main
-        Switched to branch &#39;main&#39;
+        Switched to branch 'main'
         $ git merge feature/snacks
         Updating 09ad44f..5accefa
         Fast-forward
@@ -1973,7 +1973,7 @@ module GitContent
         * 7bd7b39 Add snacks
         * e93823f (main) Add menu</code></pre></div>
           <div class="lc-code-block"><pre><code>$ git switch main
-        Switched to branch &#39;main&#39;
+        Switched to branch 'main'
         $ git cherry-pick -x 39b311e
         [main ae31ff1] Fix ginger chai price
          Date: Tue Sep 1 10:10:00 2026 +0530
@@ -2177,7 +2177,7 @@ module GitContent
           <div class="lc-code-block"><pre><code>$ git status -s
          M snacks.txt
         $ git worktree add -b fix/ginger-price ../chai-hotfix main
-        Preparing worktree (new branch &#39;fix/ginger-price&#39;)
+        Preparing worktree (new branch 'fix/ginger-price')
         HEAD is now at e93823f Add menu
         $ git worktree list
         /home/asha/chai-menu   7bd7b39 [feature/snacks]
@@ -2413,9 +2413,9 @@ module GitContent
         1dd4d18 Set price to 20</code></pre></div>
           <p>Tell Git one bad commit (now) and one good commit (the first one). Then Git checks out commits for you, and you test each one:</p>
           <div class="lc-code-block"><pre><code>$ git bisect start
-        status: waiting for both &#39;good&#39; and &#39;bad&#39; commits
+        status: waiting for both 'good' and 'bad' commits
         $ git bisect bad
-        status: waiting for &#39;good&#39; commit(s), &#39;bad&#39; commit known
+        status: waiting for 'good' commit(s), 'bad' commit known
         $ git bisect good HEAD~7
         Bisecting: 3 revisions left to test after this (roughly 2 steps)
         [57bc922...] Add note 3
@@ -2432,7 +2432,7 @@ module GitContent
         $ cat price.txt
         0
         $ git bisect bad
-        170d442... is the first &#39;bad&#39; commit
+        170d442... is the first 'bad' commit
         commit 170d442...
         Author: Asha Rao &lt;asha@example.com&gt;
         Date:   Tue Sep 1 10:15:00 2026 +0530
@@ -2443,7 +2443,7 @@ module GitContent
          1 file changed, 1 insertion(+), 1 deletion(-)
         $ git bisect reset
         Previous HEAD position was 170d442 Refactor pricing
-        Switched to branch &#39;main&#39;</code></pre></div>
+        Switched to branch 'main'</code></pre></div>
           <p>Each time, Git checked the middle commit. This cut the search in half. With 1,000 commits, you would need only about 10 tests. Always finish with <code>git bisect reset</code> to go back to your branch.</p>
         </div>
 
@@ -2454,14 +2454,14 @@ module GitContent
         Bisecting: 3 revisions left to test after this (roughly 2 steps)
         [57bc922...] Add note 3
         $ git bisect run grep -q 20 price.txt
-        running &#39;grep&#39; &#39;-q&#39; &#39;20&#39; &#39;price.txt&#39;
+        running 'grep' '-q' '20' 'price.txt'
         Bisecting: 1 revision left to test after this (roughly 1 step)
         [b67b16c...] Add note 4
-        running &#39;grep&#39; &#39;-q&#39; &#39;20&#39; &#39;price.txt&#39;
+        running 'grep' '-q' '20' 'price.txt'
         Bisecting: 0 revisions left to test after this (roughly 0 steps)
         [170d442...] Refactor pricing
-        running &#39;grep&#39; &#39;-q&#39; &#39;20&#39; &#39;price.txt&#39;
-        170d442... is the first &#39;bad&#39; commit
+        running 'grep' '-q' '20' 'price.txt'
+        170d442... is the first 'bad' commit
         commit 170d442...
         Author: Asha Rao &lt;asha@example.com&gt;
         Date:   Tue Sep 1 10:15:00 2026 +0530
@@ -2470,10 +2470,10 @@ module GitContent
 
          price.txt | 2 +-
          1 file changed, 1 insertion(+), 1 deletion(-)
-        bisect found first &#39;bad&#39; commit
+        bisect found first 'bad' commit
         $ git bisect reset
         Previous HEAD position was 170d442 Refactor pricing
-        Switched to branch &#39;main&#39;</code></pre></div>
+        Switched to branch 'main'</code></pre></div>
           <p>Here, <code>grep -q 20 price.txt</code> succeeds only when the correct price is there. In real projects, the command is usually your test suite, for example <code>git bisect run pytest tests/test_price.py</code>.</p>
         </div>
 
@@ -2535,10 +2535,10 @@ module GitContent
           <div class="lc-code-block"><pre><code>$ git push -u origin main
         To https://github.com/asha/chai-menu.git
          * [new branch]      main -&gt; main
-        branch &#39;main&#39; set up to track &#39;origin/main&#39;.
+        branch 'main' set up to track 'origin/main'.
         $ git status
         On branch main
-        Your branch is up to date with &#39;origin/main&#39;.
+        Your branch is up to date with 'origin/main'.
 
         nothing to commit, working tree clean
         $ git branch -vv
@@ -2554,7 +2554,7 @@ module GitContent
           <h3>Terminal Walkthrough: Clone</h3>
           <p>Ravi wants the project on his laptop:</p>
           <div class="lc-code-block"><pre><code>$ cd ~ &amp;&amp; git clone https://github.com/asha/chai-menu.git ravi-copy
-        Cloning into &#39;ravi-copy&#39;...
+        Cloning into 'ravi-copy'...
         $ cd ravi-copy &amp;&amp; git log --oneline &amp;&amp; git remote -v
         44ad7dd Add README
         7901826 Add menu
@@ -2566,7 +2566,7 @@ module GitContent
         <div class="lc-card">
           <h3>Terminal Walkthrough: Push a New Branch</h3>
           <div class="lc-code-block"><pre><code>$ git switch -c feature/snacks
-        Switched to a new branch &#39;feature/snacks&#39;
+        Switched to a new branch 'feature/snacks'
         $ echo &quot;Samosa - 15&quot; &gt; snacks.txt
         $ git add snacks.txt &amp;&amp; git commit -m &quot;Add snacks list&quot;
         [feature/snacks 3007236] Add snacks list
@@ -2575,7 +2575,7 @@ module GitContent
         $ git push -u origin feature/snacks
         To https://github.com/asha/chai-menu.git
          * [new branch]      feature/snacks -&gt; feature/snacks
-        branch &#39;feature/snacks&#39; set up to track &#39;origin/feature/snacks&#39;.
+        branch 'feature/snacks' set up to track 'origin/feature/snacks'.
         $ git branch -r
           origin/feature/snacks
           origin/main</code></pre></div>
@@ -2600,7 +2600,7 @@ module GitContent
           <h3>Terminal Walkthrough: A Repository Inside a Repository with Submodules</h3>
           <p>Sometimes a project needs code from another repository that is built separately. An example is a shared <code>tea-utils</code> library. A <strong>submodule</strong> stores a link to that repository <em>and one exact commit of it</em>:</p>
           <div class="lc-code-block"><pre><code>$ git submodule add https://github.com/asha/tea-utils.git libs/tea-utils
-        Cloning into &#39;/home/asha/chai-menu/libs/tea-utils&#39;...
+        Cloning into '/home/asha/chai-menu/libs/tea-utils'...
         $ cat .gitmodules
         [submodule &quot;libs/tea-utils&quot;]
         	path = libs/tea-utils
@@ -2617,9 +2617,9 @@ module GitContent
         $ ls chai-copy/libs/tea-utils
         $ cd chai-copy
         $ git submodule update --init
-        Submodule &#39;libs/tea-utils&#39; (https://github.com/asha/tea-utils.git) registered for path &#39;libs/tea-utils&#39;
-        Cloning into &#39;/home/asha/chai-copy/libs/tea-utils&#39;...
-        Submodule path &#39;libs/tea-utils&#39;: checked out &#39;d42af36...&#39;
+        Submodule 'libs/tea-utils' (https://github.com/asha/tea-utils.git) registered for path 'libs/tea-utils'
+        Cloning into '/home/asha/chai-copy/libs/tea-utils'...
+        Submodule path 'libs/tea-utils': checked out 'd42af36...'
         $ ls libs/tea-utils
         gst.py</code></pre></div>
           <table class="lc-table">
@@ -2680,13 +2680,13 @@ module GitContent
 
         <div class="lc-card">
           <h3>Terminal Walkthrough: Fetch, Inspect, Pull</h3>
-          <p>Ravi pushed a commit to the <code>tiffin</code> repository. On the computer of Asha:</p>
+          <p>Ravi pushed a commit to the <code>tiffin</code> repository. On Asha's computer:</p>
           <div class="lc-code-block"><pre><code>$ git fetch
         From https://github.com/asha/tiffin
            a3cdf77..ed0e54c  main       -&gt; origin/main
         $ git status
         On branch main
-        Your branch is behind &#39;origin/main&#39; by 1 commit, and can be fast-forwarded.
+        Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.
           (use &quot;git pull&quot; to update your local branch)
 
         nothing to commit, working tree clean
@@ -2711,13 +2711,13 @@ module GitContent
         $ git push
         To https://github.com/asha/tiffin.git
          ! [rejected]        main -&gt; main (fetch first)
-        error: failed to push some refs to &#39;https://github.com/asha/tiffin.git&#39;
+        error: failed to push some refs to 'https://github.com/asha/tiffin.git'
         hint: Updates were rejected because the remote contains work that you do not
         hint: have locally. This is usually caused by another repository pushing to
         hint: the same ref. If you want to integrate the remote changes, use
-        hint: &#39;git pull&#39; before pushing again.
-        hint: See the &#39;Note about fast-forwards&#39; in &#39;git push --help&#39; for details.</code></pre></div>
-          <p>Git refuses, because the push would erase the commit of Ravi. Asha must add his work first. In recent Git versions, a plain <code>pull</code> on branches that have split apart asks you to choose how:</p>
+        hint: 'git pull' before pushing again.
+        hint: See the 'Note about fast-forwards' in 'git push --help' for details.</code></pre></div>
+          <p>Git refuses, because the push would erase Ravi's commit. Asha must add his work first. In recent Git versions, a plain <code>pull</code> on branches that have split apart asks you to choose how:</p>
           <div class="lc-code-block"><pre><code>$ git pull
         From https://github.com/asha/tiffin
            ed0e54c..e244adf  main       -&gt; origin/main
@@ -2745,7 +2745,7 @@ module GitContent
         $ git push
         To https://github.com/asha/tiffin.git
            e244adf..9fd263f  main -&gt; main</code></pre></div>
-          <p>The commit of Asha was replayed on top of the commits of Ravi. Now the push works. If the same lines had changed, you would resolve a conflict, as in lessons 14–15.</p>
+          <p>Asha's commit was replayed on top of Ravi's commits. Now the push works. If the same lines had changed, you would resolve a conflict, as in lessons 14–15.</p>
         </div>
 
         <div class="lc-card">
@@ -2777,7 +2777,7 @@ module GitContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>"Fixing" a rejected push with <code>git push --force</code>. This deletes the commits of your teammate from the remote. Pull first. If you must force-push your own branch, use <code>--force-with-lease</code>.</li>
+            <li>"Fixing" a rejected push with <code>git push --force</code>. This deletes your teammate's commits from the remote. Pull first. If you must force-push your own branch, use <code>--force-with-lease</code>.</li>
             <li>Working all day without pulling, and then getting a huge conflict. Pull (or fetch) at the start of each session.</li>
             <li>Pulling with uncommitted changes. Commit or stash first.</li>
             <li>Thinking that <code>git fetch</code> changed your files. It only updates <code>origin/*</code> branches.</li>
@@ -2839,10 +2839,10 @@ module GitContent
 
         <div class="lc-card">
           <h3>Terminal Walkthrough: A pre-commit Hook That Blocks Secrets</h3>
-          <div class="lc-code-block"><pre><code>$ cat &gt; .git/hooks/pre-commit &lt;&lt;&#39;EOF&#39;
+          <div class="lc-code-block"><pre><code>$ cat &gt; .git/hooks/pre-commit &lt;&lt;'EOF'
         #!/bin/sh
         # Block commits whose staged changes add a line containing API_KEY=
-        if git diff --cached -U0 | grep -q &#39;^+.*API_KEY=&#39;; then
+        if git diff --cached -U0 | grep -q '^+.*API_KEY='; then
           echo &quot;pre-commit: staged changes contain API_KEY= . Remove the secret first.&quot;
           exit 1
         fi
@@ -2869,10 +2869,10 @@ module GitContent
 
         <div class="lc-card">
           <h3>Terminal Walkthrough: A commit-msg Hook and --no-verify</h3>
-          <div class="lc-code-block"><pre><code>$ cat &gt; .git/hooks/commit-msg &lt;&lt;&#39;EOF&#39;
+          <div class="lc-code-block"><pre><code>$ cat &gt; .git/hooks/commit-msg &lt;&lt;'EOF'
         #!/bin/sh
         # $1 is the file that holds the commit message
-        if ! head -n 1 &quot;$1&quot; | grep -Eq &#39;^(feat|fix|docs|chore|test): .{3,}&#39;; then
+        if ! head -n 1 &quot;$1&quot; | grep -Eq '^(feat|fix|docs|chore|test): .{3,}'; then
           echo &quot;commit-msg: start the message with feat:, fix:, docs:, chore: or test:&quot;
           exit 1
         fi
@@ -2896,12 +2896,12 @@ module GitContent
 
         <div class="lc-card">
           <h3>Terminal Walkthrough: Share a Hook with Your Team</h3>
-          <p>The <code>.git</code> folder is never pushed. So hooks in <code>.git/hooks</code> stay on your laptop. To share one, commit the script in the project and point Git to it. Since Git 2.54, you can define hooks in <code>git config</code>:</p>
+          <p>The <code>.git</code> folder is never pushed. So hooks in <code>.git/hooks</code> stay on your laptop. To share one, commit the script in the project and point Git to it. Very recent Git versions also let you define hooks in <code>git config</code> (check that your Git version supports <code>git hook list</code>; if not, use the older ways below):</p>
           <div class="lc-code-block"><pre><code>$ rm .git/hooks/pre-commit .git/hooks/commit-msg
         $ mkdir -p scripts
-        $ cat &gt; scripts/check-secrets.sh &lt;&lt;&#39;EOF&#39;
+        $ cat &gt; scripts/check-secrets.sh &lt;&lt;'EOF'
         #!/bin/sh
-        if git diff --cached -U0 | grep -q &#39;^+.*API_KEY=&#39;; then
+        if git diff --cached -U0 | grep -q '^+.*API_KEY='; then
           echo &quot;check-secrets: staged changes contain API_KEY= . Commit blocked.&quot;
           exit 1
         fi
@@ -3007,15 +3007,15 @@ module GitContent
         <div class="lc-card">
           <h3>Step 2: Build a Feature on a Branch</h3>
           <div class="lc-code-block"><pre><code>$ git switch -c feature/add-task
-        Switched to a new branch &#39;feature/add-task&#39;
+        Switched to a new branch 'feature/add-task'
         $ printf &quot;\ndef add_task(name):\n    tasks.append(name)\n&quot; &gt;&gt; planner.py
         $ git commit -am &quot;Add add_task function&quot;
         [feature/add-task 82105b3] Add add_task function
          1 file changed, 3 insertions(+)
         $ git switch main
-        Switched to branch &#39;main&#39;
+        Switched to branch 'main'
         $ git merge --no-ff feature/add-task -m &quot;Merge feature/add-task&quot;
-        Merge made by the &#39;ort&#39; strategy.
+        Merge made by the 'ort' strategy.
          planner.py | 3 +++
          1 file changed, 3 insertions(+)
         $ git branch -d feature/add-task
@@ -3032,7 +3032,7 @@ module GitContent
         To https://github.com/asha/study-planner.git
          * [new branch]      main -&gt; main
          * [new tag]         v0.1.0 -&gt; v0.1.0
-        branch &#39;main&#39; set up to track &#39;origin/main&#39;.
+        branch 'main' set up to track 'origin/main'.
         $ git log --oneline --graph --decorate
         *   fbc8b80 (HEAD -&gt; main, tag: v0.1.0, origin/main) Merge feature/add-task
         |\

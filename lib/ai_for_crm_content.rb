@@ -15,7 +15,7 @@ module AiForCrmContent
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <rect x="20" y="20" width="210" height="64" rx="10" fill="#1f1f44" stroke="#3b82f6"/>
               <text x="125" y="46" font-weight="700">Company</text>
-              <text x="125" y="68" font-size="11.5" fill="#9b99b8">Tulsi Textiles, Birmingham</text>
+              <text x="125" y="68" font-size="11.5" fill="#9b99b8">Tulsi Textiles, Gujarat</text>
               <rect x="20" y="118" width="210" height="82" rx="10" fill="#1f1f44" stroke="#22d3ee"/>
               <text x="125" y="142" font-weight="700">Contacts</text>
               <text x="125" y="164" font-size="11.5" fill="#9b99b8">Meena Shah, Finance Head</text>
@@ -61,12 +61,12 @@ module AiForCrmContent
         </figure>
         <div class="lc-card">
           <h3>The five building blocks</h3>
-          <p>We will follow <strong>LedgerLite</strong>, a made-up San Francisco startup. It sells accounting software to small businesses. Kavya is its sales rep, and Arjun is the founder.</p>
+          <p>We will follow <strong>LedgerLite</strong>, a made-up accounting software company in Karnataka. It sells to small businesses across India. Kavya is its sales rep, and Arjun is the founder.</p>
           <table class="lc-table">
             <thead><tr><th>Block</th><th>What it is</th><th>LedgerLite example</th></tr></thead>
             <tbody>
               <tr><td><strong>Contact</strong></td><td>A person you talk to.</td><td>Meena Shah, Finance Head</td></tr>
-              <tr><td><strong>Company</strong> (often called an <em>account</em>)</td><td>The business the person works for. One company can have many contacts.</td><td>Tulsi Textiles, Birmingham</td></tr>
+              <tr><td><strong>Company</strong> (often called an <em>account</em>)</td><td>The business the person works for. One company can have many contacts.</td><td>Tulsi Textiles, Gujarat</td></tr>
               <tr><td><strong>Deal</strong> (sometimes called an <em>opportunity</em>)</td><td>A possible sale. It has an amount, a stage, an owner and an expected close date.</td><td>LedgerLite Pro for 10 users, ₹1,20,000 a year</td></tr>
               <tr><td><strong>Activity</strong></td><td>Anything you do with the customer: a call, email, meeting, note or task.</td><td>"Call on 10 Sep: Meena asked about GST reports"</td></tr>
               <tr><td><strong>Pipeline</strong></td><td>The ordered list of stages a deal moves through, from first talk to won or lost.</td><td>Qualified → Discovery done → Demo done → Proposal sent → Negotiation → Closed won (or Closed lost)</td></tr>
@@ -110,7 +110,7 @@ module AiForCrmContent
             </div>
             <ul data-sorter-target="pool">
               <li data-bucket="contact" data-why="This is a person, with a job title and an email address.">Meena Shah, Finance Head, meena@tulsitextiles.example</li>
-              <li data-bucket="company" data-why="This describes the business, not a person or a sale.">Tulsi Textiles, Birmingham. Textile maker with about 80 staff and 3 branches.</li>
+              <li data-bucket="company" data-why="This describes the business, not a person or a sale.">Tulsi Textiles, Gujarat. Textile maker with about 80 staff and 3 branches.</li>
               <li data-bucket="deal" data-why="It is a possible sale with a product, an amount and a stage.">LedgerLite Pro for 10 users, ₹1,20,000 a year, stage: Proposal sent</li>
               <li data-bucket="activity" data-why="It is something that happened with the customer on a date.">Call on 10 Sep: Meena asked about GST reports</li>
               <li data-bucket="contact" data-why="This is a person. The note about decisions belongs on their contact record.">Imran Sheikh, owner of Tulsi Textiles, makes the final buying decision</li>
@@ -125,7 +125,7 @@ module AiForCrmContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly CRM coach for small businesses in India.
 
-        My business: [LedgerLite, a San Francisco startup that sells accounting software to small businesses]
+        My business: [LedgerLite, a Karnataka company that sells accounting software to small businesses in India]
         How we sell today: [Leads come from our website and referrals. Our sales rep calls them, gives a demo, then emails a price quote. We track everything in a spreadsheet and WhatsApp.]
 
         Help me see how this fits into a CRM.
@@ -220,7 +220,7 @@ module AiForCrmContent
         </div>
         <div class="lc-card">
           <h3>Weak prompt vs better prompt</h3>
-          <p>Kavya has just called Anil Rao at Kaveri Traders, Oxford. Here are two ways to ask AI to summarise her note.</p>
+          <p>Kavya has just called Anil Rao at Kaveri Traders, Karnataka. Here are two ways to ask AI to summarise her note.</p>
           <pre><code>Weak:
         Summarise this call.</code></pre>
           <pre><code>Better:
@@ -232,7 +232,7 @@ module AiForCrmContent
         Use only facts in the note. If a fact is missing, write
         "Not mentioned". Do not turn vague dates into exact dates.
 
-        Note: Anil Rao, accounts head, Kaveri Traders Oxford. Spice
+        Note: Anil Rao, accounts head, Kaveri Traders, Karnataka. Spice
         wholesale, 3 branches, ~40 staff. Excel + old software. GST
         filing takes him 2 days every month. Wants branch-wise reports.
         Owner Suresh decides, will join demo. Asked price for 3 users.
@@ -269,7 +269,7 @@ module AiForCrmContent
             <pre class="ai-try-prompt">You are a sales assistant who updates CRM records for [LedgerLite, an accounting software startup].
 
         Call note (made up, no phone numbers):
-        [Spoke to Meena, Finance Head at Tulsi Textiles, Birmingham. Month-end closing takes about 10 days. They handle 400+ invoices a month and are hiring an accounts assistant. Uses Excel for 3 branches. Owner Imran decides, may join a demo. Asked about the free trial. Wants GST reports. Call again early next week.]
+        [Spoke to Meena, Finance Head at Tulsi Textiles, Gujarat. Month-end closing takes about 10 days. They handle 400+ invoices a month and are hiring an accounts assistant. Uses Excel for 3 branches. Owner Imran decides, may join a demo. Asked about the free trial. Wants GST reports. Call again early next week.]
 
         Give me:
         1. Summary: 3 short bullet points.
@@ -378,10 +378,10 @@ module AiForCrmContent
           <table class="lc-table">
             <thead><tr><th>A: Deal</th><th>B: Amount (₹)</th><th>C: Stage</th><th>D: Probability</th><th>E: Weighted (₹)</th></tr></thead>
             <tbody>
-              <tr><td>Tulsi Textiles, Birmingham</td><td>1,20,000</td><td>Proposal sent</td><td>60%</td><td>72,000</td></tr>
-              <tr><td>GreenLeaf Organics, Denver</td><td>48,000</td><td>Demo done</td><td>40%</td><td>19,200</td></tr>
-              <tr><td>Kaveri Traders, Oxford</td><td>36,000</td><td>Discovery done</td><td>20%</td><td>7,200</td></tr>
-              <tr><td>Sai Pharma, Seattle</td><td>96,000</td><td>Negotiation</td><td>80%</td><td>76,800</td></tr>
+              <tr><td>Tulsi Textiles, Gujarat</td><td>1,20,000</td><td>Proposal sent</td><td>60%</td><td>72,000</td></tr>
+              <tr><td>GreenLeaf Organics, Maharashtra</td><td>48,000</td><td>Demo done</td><td>40%</td><td>19,200</td></tr>
+              <tr><td>Kaveri Traders, Karnataka</td><td>36,000</td><td>Discovery done</td><td>20%</td><td>7,200</td></tr>
+              <tr><td>Sai Pharma, Telangana</td><td>96,000</td><td>Negotiation</td><td>80%</td><td>76,800</td></tr>
               <tr><td><strong>Total</strong></td><td><strong>3,00,000</strong></td><td></td><td></td><td><strong>1,75,200</strong></td></tr>
             </tbody>
           </table>
@@ -398,8 +398,8 @@ module AiForCrmContent
           <table class="lc-table">
             <thead><tr><th>Business</th><th>How they sell</th><th>Example stages</th></tr></thead>
             <tbody>
-              <tr><td>Nimbus Logistics, New York</td><td>Monthly delivery contracts for online stores, often after a 2-week pilot</td><td>Qualified → Volumes shared → Pilot running → Contract sent → Signed</td></tr>
-              <tr><td>Sweet Crumbs, London</td><td>Office catering orders, decided in a few days</td><td>Enquiry → Quote sent → Advance paid → Delivered</td></tr>
+              <tr><td>Nimbus Logistics, India</td><td>Monthly delivery contracts for online stores, often after a 2-week pilot</td><td>Qualified → Volumes shared → Pilot running → Contract sent → Signed</td></tr>
+              <tr><td>Sweet Crumbs, Maharashtra</td><td>Office catering orders, decided in a few days</td><td>Enquiry → Quote sent → Advance paid → Delivered</td></tr>
             </tbody>
           </table>
           <p>AI can draft a pipeline in seconds. But your team must agree on it. Rohit, the sales manager at Nimbus Logistics, reads every AI-drafted exit criterion with his reps. They remove any rule they cannot check.</p>
@@ -424,7 +424,7 @@ module AiForCrmContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a sales operations adviser. Design a sales pipeline for my business.
 
-        Business: [Nimbus Logistics, New York. We sell monthly delivery contracts to online stores. Contracts are worth ₹50,000 to ₹5,00,000 a month. A 2-week pilot usually comes before the contract.]
+        Business: [Nimbus Logistics, India. We sell monthly delivery contracts to online stores. Contracts are worth ₹50,000 to ₹5,00,000 a month. A 2-week pilot usually comes before the contract.]
         Who buys: [founders or operations heads of online stores]
         Usual time to close: [1 to 3 months]
 
@@ -520,7 +520,7 @@ module AiForCrmContent
             <li><strong>Deal name:</strong> Company - Product - Month Year. Example: "Tulsi Textiles - LedgerLite Pro 10 users - Oct 2026".</li>
             <li><strong>Mobile:</strong> +91 and then 10 digits, no spaces. Example: "+919825011223".</li>
             <li><strong>Email:</strong> all small letters.</li>
-            <li><strong>City:</strong> choose from a picklist of official names, such as "Oxford" and "San Francisco".</li>
+            <li><strong>State:</strong> choose from a picklist of official state names, such as "Gujarat" and "Karnataka".</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -569,7 +569,7 @@ module AiForCrmContent
         <div class="lc-card">
           <h3>Activity: choose the field type</h3>
           <div class="lcw" data-controller="sorter">
-            <p class="lcw-prompt">Sweet Crumbs, a London bakery, is setting up fields for office catering orders. Which type fits each field best?</p>
+            <p class="lcw-prompt">Sweet Crumbs, a home bakery in Maharashtra, is setting up fields for office catering orders. Which type fits each field best?</p>
             <div class="lcw-buckets">
               <div data-sorter-target="bucket" data-bucket="pick" data-label="Picklist"></div>
               <div data-sorter-target="bucket" data-bucket="text" data-label="Free text"></div>
@@ -592,7 +592,7 @@ module AiForCrmContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a CRM admin who helps small teams keep clean data. Write a data dictionary for our CRM.
 
-        Business: [Sweet Crumbs, a London bakery that sells office catering: snack boxes, birthday cakes and festival hampers]
+        Business: [Sweet Crumbs, a home bakery in Maharashtra that sells office catering: snack boxes, birthday cakes and festival hampers]
         Objects we use: [Companies (the offices), Contacts (the person who orders), Deals (each catering order)]
 
         Make a table with these columns:
@@ -671,7 +671,7 @@ module AiForCrmContent
             <tbody>
               <tr><td><strong>Duplicates</strong> (the same person or company saved twice)</td><td>Meena Shah appears twice</td><td>Two reps call her in one week</td></tr>
               <tr><td><strong>Messy company names</strong></td><td>"tulsi textiles" and "Tulsi Textiles Pvt. Ltd."</td><td>Reports split one customer into two</td></tr>
-              <tr><td><strong>Mixed formats</strong></td><td>"+91 9825011223" and "98250 11223". "SF" and "San Francisco".</td><td>Search and filters miss records</td></tr>
+              <tr><td><strong>Mixed formats</strong></td><td>"+91 9825011223" and "98250 11223". "KA" and "Karnataka".</td><td>Search and filters miss records</td></tr>
               <tr><td><strong>Missing fields</strong></td><td>No email, no industry</td><td>You cannot follow up or group customers</td></tr>
             </tbody>
           </table>
@@ -752,7 +752,7 @@ module AiForCrmContent
               <li data-kind="tool" data-label="Export">Kavya exports all 240 contacts from the CRM. She saves an untouched copy named "contacts_backup_2026-09-28".</li>
               <li data-kind="result" data-label="Formula flags">The email count and company key formulas flag 22 rows. That is 11 possible duplicate pairs. 31 rows have no email.</li>
               <li data-kind="user" data-label="Kavya's prompt">She masks phone numbers in the 22 flagged rows. She pastes them into the approved AI tool and asks for merge suggestions with reasons and confidence levels.</li>
-              <li data-kind="answer" data-label="AI suggestions">The AI suggests 11 merges. It also proposes rules: remove "Pvt Ltd" from company names, make emails lowercase, and change "Oxford, UK" to "Oxford".</li>
+              <li data-kind="answer" data-label="AI suggestions">The AI suggests 11 merges. It also proposes rules: remove "Pvt Ltd" from company names, make emails lowercase, and change "Karnataka, India" to "Karnataka".</li>
               <li data-kind="warn" data-label="Shared inbox">One "high confidence" pair is two different people at Sai Pharma. They both use accounts@saipharma.example. Kavya keeps them apart.</li>
               <li data-kind="warn" data-label="Same company">Another pair only shares the company key "kaveri traders". The contacts are Anil Rao and Suresh, the owner. Two people at one company are not duplicates.</li>
               <li data-kind="check" data-label="Final list">11 pairs minus 2 wrong pairs leaves 9 real duplicates. She checks each one by hand, keeps the older record and keeps any "do not contact" flag.</li>
@@ -767,19 +767,19 @@ module AiForCrmContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a careful CRM data cleaner. Below is a sample from our contacts export. All data is made up.
 
-        Company | Contact | Email | Phone | City
-        Tulsi Textiles Pvt. Ltd. | Meena Shah | meena@tulsitextiles.example | 98250 11223 | Birmingham
-        tulsi textiles | Meena Shah | Meena@TulsiTextiles.example | +91 9825011223 | surat
-        GreenLeaf Organics | Dev Patil | dev@greenleaf.example | 94220 12345 | Denver
-        Green Leaf Organics Pvt Ltd | Devendra Patil | dev@greenleaf.example |  | Denver
-        Kaveri Traders | Anil Rao |  | 98450 67890 | Oxford, UK
-        Kaveri Traders | Anil Rao | anil@kaveritraders.example | 9845067890 | Oxford
+        Company | Contact | Email | Phone | State
+        Tulsi Textiles Pvt. Ltd. | Meena Shah | meena@tulsitextiles.example | 98250 11223 | Gujarat
+        tulsi textiles | Meena Shah | Meena@TulsiTextiles.example | +91 9825011223 | gujarat
+        GreenLeaf Organics | Dev Patil | dev@greenleaf.example | 94220 12345 | Maharashtra
+        Green Leaf Organics Pvt Ltd | Devendra Patil | dev@greenleaf.example |  | Maharashtra
+        Kaveri Traders | Anil Rao |  | 98450 67890 | Karnataka, India
+        Kaveri Traders | Anil Rao | anil@kaveritraders.example | 9845067890 | Karnataka
         [Replace these rows with up to 20 of your own rows, with personal details masked]
 
         Do this:
         1. List the likely duplicate pairs. For each, give the reason and your confidence (high, medium or low).
         2. For each pair, say which record to keep and which fields to copy across.
-        3. Write 5 cleaning rules for company names, emails, phones, cities and blanks.
+        3. Write 5 cleaning rules for company names, emails, phones, states and blanks.
         4. Give a Google Sheets formula for each rule where a formula can do the job.
 
         Rules: Do not merge or delete anything yourself. Do not invent missing emails or phone numbers. Mark anything unsure as "check by hand".</pre>
@@ -787,7 +787,7 @@ module AiForCrmContent
               <li>Did it find all three pairs: Meena Shah, Dev Patil and Anil Rao?</li>
               <li>Did it leave the missing phone and email blank, not invent them?</li>
               <li>Test one formula in a sheet. Does it give the result the AI says?</li>
-              <li>Does the city rule use one official name, such as "Oxford"?</li>
+              <li>Does the state rule use one official name, such as "Karnataka"?</li>
             </ul>
           </div>
         </div>
@@ -849,7 +849,7 @@ module AiForCrmContent
         </figure>
         <div class="lc-card">
           <h3>Where good data comes from</h3>
-          <p>Kavya sells LedgerLite, an accounting software for small businesses in San Francisco and beyond. A lead called Meena Shah from Tulsi Textiles, Birmingham, filled a form on the website. The record has her name, work email and company name. Kavya wants to add industry, company size and Meena's role. Here are the sources she may use.</p>
+          <p>Kavya sells LedgerLite, accounting software for small businesses across India. A lead called Meena Shah from Tulsi Textiles, Gujarat, filled a form on the website. The record has her name, work email and company name. Kavya wants to add industry, company size and Meena's role. Here are the sources she may use.</p>
           <table class="lc-table">
             <thead><tr><th>Source</th><th>Good for</th><th>Watch out for</th></tr></thead>
             <tbody>
@@ -886,7 +886,7 @@ module AiForCrmContent
         <div class="lc-card">
           <h3>Weak prompt, better prompt</h3>
           <p>This weak prompt asks the AI to guess and to find personal data:</p>
-          <pre><code>Tell me everything about Tulsi Textiles in Birmingham. Give me their revenue,
+          <pre><code>Tell me everything about Tulsi Textiles in Gujarat. Give me their revenue,
         the owner's phone number and how many staff they have.</code></pre>
           <p>The AI may invent a revenue number. It may describe a different company with a similar name. And a personal phone number should not come from an AI tool at all. A better prompt gives the AI public text and strict rules:</p>
           <pre><code>Below is the About page text from the Tulsi Textiles website.
@@ -927,11 +927,11 @@ module AiForCrmContent
           <h3>Try It</h3>
           <p>Use AI to pull business facts out of a public company page, with a quote for every value. Paste real public text, or leave the example as it is.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a careful CRM data assistant for [LedgerLite, an accounting software company in San Francisco]. I will paste public text about one prospect company, such as its website About page.
+            <pre class="ai-try-prompt">You are a careful CRM data assistant for [LedgerLite, an accounting software company in Karnataka]. I will paste public text about one prospect company, such as its website About page.
 
         Pull out only these fields:
         - Company name
-        - City
+        - State
         - Industry (choose one: Manufacturing, Retail, Wholesale, Services, Food and beverage, Other)
         - Employee size band (choose one: 1–10, 11–50, 51–200, 201+)
         - Main products or services (10 words or fewer)
@@ -946,7 +946,7 @@ module AiForCrmContent
         Then suggest 2 polite questions I could ask the contact to fill the Unknown fields.
 
         Text:
-        [Tulsi Textiles has made cotton and rayon fabrics in Birmingham since 2004. Our team of about 80 people supplies wholesalers across Gujarat and Maharashtra.]</pre>
+        [Tulsi Textiles has made cotton and rayon fabrics in Gujarat since 2004. Our team of about 80 people supplies wholesalers across Gujarat and Maharashtra.]</pre>
             <ul class="ai-try-checks">
               <li>Every value has a quote that really is in your text.</li>
               <li>The size band matches the text (about 80 people is 51–200).</li>
@@ -1012,7 +1012,7 @@ module AiForCrmContent
           <p>When everyone writes notes in the same shape, anyone can read a deal quickly. Here is a simple template for LedgerLite's sales team.</p>
           <pre><code>Type: Call / Meeting / Email / WhatsApp
         Date: 1 Sep 2026
-        With: Sanjay Patil (Owner), GreenLeaf Organics, Denver
+        With: Sanjay Patil (Owner), GreenLeaf Organics, Maharashtra
         Summary: (2 sentences at most)
         Needs: (the problems they want to solve)
         Concerns: (objections, worries, blockers)
@@ -1077,7 +1077,7 @@ module AiForCrmContent
 
         Call date: [Tuesday 1 September 2026]
         Rough notes:
-        [GreenLeaf Organics, Denver. Sanjay Patil, owner. 20 min call. 3 shops. Uses old desktop software + Excel. Filed GST return late twice this year, paid late fees. Wants a demo, his accountant must join. Thinks price may be high for 3 shops. Said call him Thursday next week, afternoon.]
+        [GreenLeaf Organics, Maharashtra. Sanjay Patil, owner. 20 min call. 3 shops. Uses old desktop software + Excel. Filed GST return late twice this year, paid late fees. Wants a demo, his accountant must join. Thinks price may be high for 3 shops. Said call him Thursday next week, afternoon.]
 
         Use these headings:
         Summary (2 sentences at most)
@@ -1156,7 +1156,7 @@ module AiForCrmContent
         </figure>
         <div class="lc-card">
           <h3>Three warning signs</h3>
-          <p>Rohit is the sales manager at Nimbus Logistics in New York. His team sells delivery contracts to online stores. Its stages are Qualified, Volumes shared, Pilot running, Contract sent and Signed. Every Monday, he looks for three warning signs.</p>
+          <p>Rohit is the sales manager at Nimbus Logistics in India. His team sells delivery contracts to online stores. Its stages are Qualified, Volumes shared, Pilot running, Contract sent and Signed. Every Monday, he looks for three warning signs.</p>
           <table class="lc-table">
             <thead><tr><th>Warning sign</th><th>What it means</th><th>How to work it out</th></tr></thead>
             <tbody>
@@ -1218,7 +1218,7 @@ module AiForCrmContent
           <h3>Try It</h3>
           <p>Ask AI to prepare a weekly pipeline review from a small table. Then check its maths against the formulas in this lesson.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a sales operations assistant for [Nimbus Logistics, a New York company that sells delivery contracts to online stores]. Prepare my weekly pipeline review.
+            <pre class="ai-try-prompt">You are a sales operations assistant for [Nimbus Logistics, a company in India that sells delivery contracts to online stores]. Prepare my weekly pipeline review.
 
         Review date: [Mon 28 Sep 2026]
         Rules: stale = more than [14] days since last activity. Long in stage = more than [21] days in the current stage. No next step = next step date is blank or before the review date.
@@ -1314,7 +1314,7 @@ module AiForCrmContent
         </div>
         <div class="lc-card">
           <h3>A simple health check</h3>
-          <p>Kavya at LedgerLite has a deal with Tulsi Textiles, Birmingham: 10 user licences for ₹1,20,000 a year. Her contact is Meena Shah, the Finance Head. On Monday 28 Sep 2026, Kavya answers six yes-or-no questions. A "Yes" is always the good answer.</p>
+          <p>Kavya at LedgerLite has a deal with Tulsi Textiles, Gujarat: 10 user licences for ₹1,20,000 a year. Her contact is Meena Shah, the Finance Head. On Monday 28 Sep 2026, Kavya answers six yes-or-no questions. A "Yes" is always the good answer.</p>
           <table class="lc-table">
             <thead><tr><th>Question</th><th>Answer</th><th>Evidence</th></tr></thead>
             <tbody>
@@ -1368,7 +1368,7 @@ module AiForCrmContent
             <pre class="ai-try-prompt">You are an honest sales coach. Help me review the health of one deal and choose a next step. The final decision is mine.
 
         Seller: [LedgerLite, accounting software for small businesses]
-        Deal: [Tulsi Textiles, Birmingham. 10 user licences, ₹1,20,000 a year. Stage: Proposal sent.]
+        Deal: [Tulsi Textiles, Gujarat. 10 user licences, ₹1,20,000 a year. Stage: Proposal sent.]
         Facts:
         [- Owner joined the demo on 9 Sep.
         - Wants to start before the new financial year (1 April).
@@ -1409,7 +1409,7 @@ module AiForCrmContent
             <defs><marker id="crm10a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <text x="102" y="40" font-weight="700" fill="#9b99b8">Sweet Crumbs</text>
-              <text x="102" y="60" font-size="11.5" fill="#9b99b8">office catering, London</text>
+              <text x="102" y="60" font-size="11.5" fill="#9b99b8">office catering, Maharashtra</text>
               <rect x="15" y="120" width="175" height="64" rx="10" fill="#1f1f44" stroke="#22d3ee"/>
               <text x="102" y="147" font-weight="700">New catering</text>
               <text x="102" y="167" font-weight="700">enquiry form</text>
@@ -1446,7 +1446,7 @@ module AiForCrmContent
             <thead><tr><th>Part</th><th>What it is</th><th>Examples</th></tr></thead>
             <tbody>
               <tr><td><strong>Trigger</strong> (When)</td><td>The event that starts the workflow</td><td>A form is submitted. A deal moves to a new stage. A date arrives.</td></tr>
-              <tr><td><strong>Condition</strong> (If)</td><td>A check on the record's fields. The workflow runs only if it is true.</td><td>Deal value is over ₹5,00,000. City is London. The consent field says "Yes".</td></tr>
+              <tr><td><strong>Condition</strong> (If)</td><td>A check on the record's fields. The workflow runs only if it is true.</td><td>Deal value is over ₹5,00,000. State is Maharashtra. The consent field says "Yes".</td></tr>
               <tr><td><strong>Action</strong> (Then)</td><td>What the CRM does</td><td>Create a task. Assign an owner. Send an email template. Update a field.</td></tr>
             </tbody>
           </table>
@@ -1458,7 +1458,7 @@ module AiForCrmContent
             <thead><tr><th>Kind</th><th>Example in plain words</th></tr></thead>
             <tbody>
               <tr><td><strong>Follow-up task</strong></td><td>Nimbus Logistics: <em>When</em> a deal moves to "Contract sent", <em>if</em> no activity is logged for 3 days, <em>then</em> create a task for the deal owner: "Follow up on the contract".</td></tr>
-              <tr><td><strong>Assignment rule</strong> (who gets a new lead)</td><td>LedgerLite: <em>When</em> a website lead arrives, <em>if</em> the city is San Francisco, <em>then</em> assign it to Kavya. Otherwise, assign it round-robin (to each of the other reps in turn).</td></tr>
+              <tr><td><strong>Assignment rule</strong> (who gets a new lead)</td><td>LedgerLite: <em>When</em> a website lead arrives, <em>if</em> the state is Karnataka, <em>then</em> assign it to Kavya. Otherwise, assign it round-robin (to each of the other reps in turn).</td></tr>
               <tr><td><strong>Reminder</strong></td><td>Sweet Crumbs: <em>When</em> an event date is 2 days away, <em>then</em> remind the deal owner to confirm the final headcount.</td></tr>
             </tbody>
           </table>
@@ -1497,7 +1497,7 @@ module AiForCrmContent
               <li data-bucket="trigger" data-why="This is an event. It starts the workflow.">A new enquiry form is submitted on the website</li>
               <li data-bucket="trigger" data-why="A stage change is an event. Many follow-up workflows start here.">A deal moves to the stage "Proposal sent"</li>
               <li data-bucket="condition" data-why="This checks a field. The workflow runs only when it is true.">The deal value is more than ₹5,00,000</li>
-              <li data-bucket="condition" data-why="This checks the city field. It decides which path the lead takes.">The lead's city is London</li>
+              <li data-bucket="condition" data-why="This checks the state field. It decides which path the lead takes.">The lead's state is Maharashtra</li>
               <li data-bucket="condition" data-why="This checks the consent field before any automatic message is sent.">The contact has agreed to get emails (consent field is "Yes")</li>
               <li data-bucket="action" data-why="This is something the CRM does after the checks pass.">Create a call task for the deal owner, due tomorrow</li>
               <li data-bucket="action" data-why="Assigning an owner is an action. A round-robin rule decides who is next.">Assign the lead to the next rep in turn</li>
@@ -1510,7 +1510,7 @@ module AiForCrmContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a CRM automation planner. I do not write code. Turn my sales process into simple CRM workflows.
 
-        My business: [Sweet Crumbs, a London bakery that sells office catering]
+        My business: [Sweet Crumbs, a home bakery in Maharashtra that sells office catering]
         My CRM: [Zoho CRM / HubSpot / Salesforce / Freshsales / not sure]
         My process, in my own words:
         [When a company fills our catering form, someone should call them the same day. Orders for 50 or more people go to Priya. If we send a quote and hear nothing for 3 days, remind the deal owner to follow up. Two days before an event, remind the team to confirm the headcount.]
@@ -1589,7 +1589,7 @@ module AiForCrmContent
         <div class="lc-card">
           <h3>Build a small template library</h3>
           <p>A <strong>template library</strong> is the set of saved emails your team shares in the CRM. A good library saves time and keeps your message the same across the team. A bad library is full of old emails that nobody trusts.</p>
-          <p>Give every template a clear name: <strong>Stage – Purpose – Version</strong>. Then anyone can find the right one fast. Here is Kavya's library at LedgerLite, a made-up San Francisco accounting software startup.</p>
+          <p>Give every template a clear name: <strong>Stage – Purpose – Version</strong>. Then anyone can find the right one fast. Here is Kavya's library at LedgerLite, a made-up accounting software company in Karnataka.</p>
           <table class="lc-table">
             <thead><tr><th>Template name</th><th>When Kavya uses it</th><th>Merge fields</th><th>Personal line?</th></tr></thead>
             <tbody>
@@ -1621,7 +1621,7 @@ module AiForCrmContent
 
         Kavya
         LedgerLite</code></pre>
-          <p>For Meena Shah, Finance Head at Tulsi Textiles, Birmingham, the personal line might say: <em>"You said month-end closing takes about 10 days. The bank matching screen we saw today is built for that job."</em> Only write what the person really said. Kavya checks her call note before she writes it.</p>
+          <p>For Meena Shah, Finance Head at Tulsi Textiles, Gujarat, the personal line might say: <em>"You said month-end closing takes about 10 days. The bank matching screen we saw today is built for that job."</em> Only write what the person really said. Kavya checks her call note before she writes it.</p>
           <table class="lc-table">
             <thead><tr><th>Mistake</th><th>What the customer sees</th><th>How to prevent it</th></tr></thead>
             <tbody>
@@ -1797,17 +1797,17 @@ module AiForCrmContent
           <table class="lc-table">
             <thead><tr><th>Row</th><th>A: Deal</th><th>B: Stage</th><th>C: Amount (₹)</th><th>D: Created</th><th>E: Closed</th><th>F: Days</th></tr></thead>
             <tbody>
-              <tr><td>2</td><td>Marigold Events, Manchester</td><td>Closed won</td><td>24,000</td><td>2026-06-01</td><td>2026-07-13</td><td>42</td></tr>
-              <tr><td>3</td><td>Deccan Hardware, Seattle</td><td>Closed won</td><td>60,000</td><td>2026-06-10</td><td>2026-08-09</td><td>60</td></tr>
-              <tr><td>4</td><td>Rangoli Caterers, London</td><td>Closed lost</td><td>24,000</td><td>2026-06-15</td><td>2026-07-20</td><td>35</td></tr>
-              <tr><td>5</td><td>Indus Auto Parts, Coventry</td><td>Closed lost</td><td>48,000</td><td>2026-06-22</td><td>2026-08-05</td><td>44</td></tr>
-              <tr><td>6</td><td>Orchid Interiors, Leeds</td><td>Closed lost</td><td>12,000</td><td>2026-07-08</td><td>2026-08-12</td><td>35</td></tr>
-              <tr><td>7</td><td>Coastal Spices, Boston</td><td>Closed won</td><td>36,000</td><td>2026-08-10</td><td>2026-09-07</td><td>28</td></tr>
-              <tr><td>8</td><td>Lotus Clinics, Los Angeles</td><td>Closed won</td><td>72,000</td><td>2026-08-17</td><td>2026-09-16</td><td>30</td></tr>
-              <tr><td>9</td><td>Sai Pharma, Seattle</td><td>Negotiation</td><td>96,000</td><td>2026-08-03</td><td></td><td></td></tr>
-              <tr><td>10</td><td>GreenLeaf Organics, Denver</td><td>Demo done</td><td>48,000</td><td>2026-09-01</td><td></td><td></td></tr>
-              <tr><td>11</td><td>Tulsi Textiles, Birmingham</td><td>Proposal sent</td><td>1,20,000</td><td>2026-09-08</td><td></td><td></td></tr>
-              <tr><td>12</td><td>Kaveri Traders, Oxford</td><td>Discovery done</td><td>36,000</td><td>2026-09-21</td><td></td><td></td></tr>
+              <tr><td>2</td><td>Marigold Events, Punjab</td><td>Closed won</td><td>24,000</td><td>2026-06-01</td><td>2026-07-13</td><td>42</td></tr>
+              <tr><td>3</td><td>Deccan Hardware, Telangana</td><td>Closed won</td><td>60,000</td><td>2026-06-10</td><td>2026-08-09</td><td>60</td></tr>
+              <tr><td>4</td><td>Rangoli Caterers, Maharashtra</td><td>Closed lost</td><td>24,000</td><td>2026-06-15</td><td>2026-07-20</td><td>35</td></tr>
+              <tr><td>5</td><td>Indus Auto Parts, Haryana</td><td>Closed lost</td><td>48,000</td><td>2026-06-22</td><td>2026-08-05</td><td>44</td></tr>
+              <tr><td>6</td><td>Orchid Interiors, West Bengal</td><td>Closed lost</td><td>12,000</td><td>2026-07-08</td><td>2026-08-12</td><td>35</td></tr>
+              <tr><td>7</td><td>Coastal Spices, Kerala</td><td>Closed won</td><td>36,000</td><td>2026-08-10</td><td>2026-09-07</td><td>28</td></tr>
+              <tr><td>8</td><td>Lotus Clinics, Tamil Nadu</td><td>Closed won</td><td>72,000</td><td>2026-08-17</td><td>2026-09-16</td><td>30</td></tr>
+              <tr><td>9</td><td>Sai Pharma, Telangana</td><td>Negotiation</td><td>96,000</td><td>2026-08-03</td><td></td><td></td></tr>
+              <tr><td>10</td><td>GreenLeaf Organics, Maharashtra</td><td>Demo done</td><td>48,000</td><td>2026-09-01</td><td></td><td></td></tr>
+              <tr><td>11</td><td>Tulsi Textiles, Gujarat</td><td>Proposal sent</td><td>1,20,000</td><td>2026-09-08</td><td></td><td></td></tr>
+              <tr><td>12</td><td>Kaveri Traders, Karnataka</td><td>Discovery done</td><td>36,000</td><td>2026-09-21</td><td></td><td></td></tr>
             </tbody>
           </table>
           <p>The formulas work in Google Sheets and Excel. Row 1 holds the headers. Amounts must be numbers and dates must be real dates, not text.</p>
@@ -1953,7 +1953,7 @@ module AiForCrmContent
         <div class="lc-card">
           <h3>Onboarding tasks start when the deal is won</h3>
           <p><strong>Onboarding</strong> means the first weeks when a new customer sets up and starts using your product. Customers who never finish setup rarely renew. So put the onboarding steps in the CRM as tasks. Many CRMs can create them automatically when a deal is marked Closed won.</p>
-          <p>Here is LedgerLite's onboarding plan for Lotus Clinics, Los Angeles, won on 16 September 2026:</p>
+          <p>Here is LedgerLite's onboarding plan for Lotus Clinics, Tamil Nadu, won on 16 September 2026:</p>
           <table class="lc-table">
             <thead><tr><th>Day</th><th>Task</th><th>Owner</th><th>Done when</th></tr></thead>
             <tbody>
@@ -1983,9 +1983,9 @@ module AiForCrmContent
           <table class="lc-table">
             <thead><tr><th>Customer</th><th>Use</th><th>Onboarding</th><th>Support</th><th>Payments</th><th>Relationship</th><th>Total</th><th>Band</th></tr></thead>
             <tbody>
-              <tr><td>Marigold Events, Manchester</td><td>25</td><td>20</td><td>20</td><td>15</td><td>10</td><td>90</td><td>Green</td></tr>
-              <tr><td>Deccan Hardware, Seattle</td><td>15</td><td>10</td><td>10</td><td>15</td><td>10</td><td>60</td><td>Amber</td></tr>
-              <tr><td>Coastal Spices, Boston</td><td>5</td><td>10</td><td>0</td><td>5</td><td>5</td><td>25</td><td>Red</td></tr>
+              <tr><td>Marigold Events, Punjab</td><td>25</td><td>20</td><td>20</td><td>15</td><td>10</td><td>90</td><td>Green</td></tr>
+              <tr><td>Deccan Hardware, Telangana</td><td>15</td><td>10</td><td>10</td><td>15</td><td>10</td><td>60</td><td>Amber</td></tr>
+              <tr><td>Coastal Spices, Kerala</td><td>5</td><td>10</td><td>0</td><td>5</td><td>5</td><td>25</td><td>Red</td></tr>
             </tbody>
           </table>
           <p>In a spreadsheet, put the five scores in columns B to F. Then use these formulas in row 2 and copy them down:</p>
@@ -2001,12 +2001,12 @@ module AiForCrmContent
         Action (E2):        =IF(D2&lt;=90,"Start renewal","OK")</code></pre>
           <p>Format C as a date and D as a number. For Marigold Events, the 90-day point is 14 April 2027. On that day, create a <strong>renewal deal</strong> in the CRM. Many teams keep renewals in a separate pipeline, so they do not mix with new sales.</p>
           <p>An <strong>upsell</strong> means selling more to an existing customer, such as more users or a bigger plan. Write upsell notes with evidence, not guesses:</p>
-          <pre><code>Customer: Deccan Hardware, Seattle        Health: Amber (60)
-        Evidence: Opened a second shop in Secunderabad (told us on the 30-day call).
+          <pre><code>Customer: Deccan Hardware, Telangana        Health: Amber (60)
+        Evidence: Opened a second shop in the same state (told us on the 30-day call).
         What they said: "Can my shop manager also make invoices?"
         Possible offer: One extra user (list price ₹1,000 a month).
         Right time: After the two open support tickets are closed.</code></pre>
-          <p>The same idea works for any business. Rohit at Nimbus Logistics, a made-up New York delivery company, notes when an online store's monthly orders grow. He suggests a bigger delivery contract only when on-time delivery for that store is good.</p>
+          <p>The same idea works for any business. Rohit at Nimbus Logistics, a made-up delivery company in India, notes when an online store's monthly orders grow. He suggests a bigger delivery contract only when on-time delivery for that store is good.</p>
           <p><strong>How AI helps:</strong> AI can summarise a month of support tickets and call notes into a short account review. It can spot risk words such as "too expensive" or "switching". It can also draft renewal emails. Remove personal details before you paste notes into a public AI tool. You decide the score, the offer and the timing.</p>
         </div>
         <div class="lc-card">
@@ -2193,7 +2193,7 @@ module AiForCrmContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a CRM administrator who cares about privacy. Give general guidance only, not legal advice. Use simple English.
 
-        Business: [LedgerLite, a 12-person accounting software startup in San Francisco]
+        Business: [LedgerLite, a 12-person accounting software company in Karnataka]
         CRM: [a common CRM such as Zoho CRM or HubSpot]
         Team: [1 founder, 3 sales reps, 2 support staff, 1 marketing person, 1 intern]
         Contacts: [small businesses in India, plus a few leads in the EU]
@@ -2276,45 +2276,45 @@ module AiForCrmContent
         </div>
         <div class="lc-card">
           <h3>Step 2: Clean the 25-row export</h3>
-          <p>Here is the export from the old spreadsheet (made-up data). In a spreadsheet, row 1 holds the headers, so the deals are in rows 2 to 26. Columns: A ID, B Company, C City, D Stage, E Amount (₹), F Owner, G Next step date. You can copy this table into a sheet.</p>
+          <p>Here is the export from the old spreadsheet (made-up data). In a spreadsheet, row 1 holds the headers, so the deals are in rows 2 to 26. Columns: A ID, B Company, C State, D Stage, E Amount (₹), F Owner, G Next step date. You can copy this table into a sheet.</p>
           <table class="lc-table">
-            <thead><tr><th>ID</th><th>Company</th><th>City</th><th>Stage</th><th>Amount</th><th>Owner</th><th>Next step</th></tr></thead>
+            <thead><tr><th>ID</th><th>Company</th><th>State</th><th>Stage</th><th>Amount</th><th>Owner</th><th>Next step</th></tr></thead>
             <tbody>
-              <tr><td>D-01</td><td>Ratna Jewellers</td><td>Birmingham</td><td>Closed won</td><td>48000</td><td>Kavya</td><td></td></tr>
-              <tr><td>D-02</td><td>RATNA JEWELLERS PVT LTD</td><td>Birmingham</td><td>Closed won</td><td>48000</td><td>Kavya</td><td></td></tr>
-              <tr><td>D-03</td><td>Vindhya Agro</td><td>Denver</td><td>Closed won</td><td>36000</td><td>Kavya</td><td></td></tr>
-              <tr><td>D-04</td><td>Rainier Motors</td><td>Seattle</td><td>Negotiation</td><td>60000</td><td>Arjun</td><td>2026-10-05</td></tr>
-              <tr><td>D-05</td><td>Cherwell Silks</td><td>Oxford, UK</td><td>Proposal sent</td><td>72000</td><td>Kavya</td><td>2026-10-02</td></tr>
-              <tr><td>D-06</td><td>Pennine Travels</td><td>Manchester</td><td>Demo given</td><td>24000</td><td>Kavya</td><td>2026-10-01</td></tr>
-              <tr><td>D-07</td><td>Malabar Fisheries</td><td>Boston</td><td>Closed lost</td><td>12000</td><td>Kavya</td><td></td></tr>
-              <tr><td>D-08</td><td>Punjab Cycle Works</td><td>Coventry</td><td>Proposal sent</td><td>60k</td><td>Arjun</td><td>2026-10-08</td></tr>
-              <tr><td>D-09</td><td>Marina Dental Care</td><td>Los Angeles</td><td>Demo done</td><td>36000</td><td></td><td>2026-10-03</td></tr>
-              <tr><td>D-10</td><td>Awadh Caterers</td><td>Edinburgh</td><td>Discovery done</td><td>24000</td><td>Kavya</td><td></td></tr>
-              <tr><td>D-11</td><td>Headrow Furnishings</td><td>Leeds</td><td>Proposal sent</td><td>36000</td><td>Kavya</td><td>2026-09-30</td></tr>
-              <tr><td>D-12</td><td>Wasatch Book Depot</td><td>Salt Lake City</td><td>Negotiation</td><td>72000</td><td>Arjun</td><td>2026-10-06</td></tr>
-              <tr><td>D-13</td><td>Thames Bakers</td><td>London</td><td>Closed lost</td><td>24000</td><td>Kavya</td><td></td></tr>
-              <tr><td>D-14</td><td>Silverline Opticals</td><td>SF</td><td>Qualified</td><td>24000</td><td>Kavya</td><td>2026-10-10</td></tr>
-              <tr><td>D-15</td><td>Ganga Dairy</td><td>Atlanta</td><td>Discovery done</td><td>36000</td><td>Kavya</td><td>2026-10-07</td></tr>
-              <tr><td>D-16</td><td>Ganga Dairy Pvt. Ltd.</td><td>Atlanta</td><td>Discovery done</td><td>36000</td><td></td><td></td></tr>
-              <tr><td>D-17</td><td>Sabarmati Chemists</td><td>Bristol</td><td>Demo done</td><td>Rs 48000</td><td>Kavya</td><td>2026-10-09</td></tr>
-              <tr><td>D-18</td><td>Ganga Sweets</td><td>NYC</td><td>Qualified</td><td>12000</td><td>Kavya</td><td>2026-10-12</td></tr>
-              <tr><td>D-19</td><td>Godavari Tiles</td><td>Liverpool</td><td>Closed won</td><td>60000</td><td>Arjun</td><td></td></tr>
-              <tr><td>D-20</td><td>Nilgiri Tea Traders</td><td>Austin</td><td>Quote sent</td><td>48000</td><td>Kavya</td><td>2026-10-04</td></tr>
-              <tr><td>D-21</td><td>Saurashtra Tools</td><td>Houston</td><td>Closed lost</td><td>36000</td><td>Arjun</td><td></td></tr>
-              <tr><td>D-22</td><td>Trent Electricals</td><td>Nottingham</td><td>Demo done</td><td>36000</td><td>Kavya</td><td>2026-09-15</td></tr>
-              <tr><td>D-23</td><td>Aravalli Fitness</td><td>Newark</td><td>Qualified</td><td>12000</td><td></td><td>2026-10-11</td></tr>
-              <tr><td>D-24</td><td>Soar Valley Packaging</td><td>Leicester</td><td>Negotiation</td><td>60000</td><td>Kavya</td><td>2026-10-05</td></tr>
-              <tr><td>D-25</td><td>Konark Handlooms</td><td>Baltimore</td><td>Discovery done</td><td>24000</td><td>Kavya</td><td>2026-10-06</td></tr>
+              <tr><td>D-01</td><td>Ratna Jewellers</td><td>Rajasthan</td><td>Closed won</td><td>48000</td><td>Kavya</td><td></td></tr>
+              <tr><td>D-02</td><td>RATNA JEWELLERS PVT LTD</td><td>Rajasthan</td><td>Closed won</td><td>48000</td><td>Kavya</td><td></td></tr>
+              <tr><td>D-03</td><td>Vindhya Agro</td><td>Madhya Pradesh</td><td>Closed won</td><td>36000</td><td>Kavya</td><td></td></tr>
+              <tr><td>D-04</td><td>Nandi Motors</td><td>Karnataka</td><td>Negotiation</td><td>60000</td><td>Arjun</td><td>2026-10-05</td></tr>
+              <tr><td>D-05</td><td>Resham Silks</td><td>Gujarat, India</td><td>Proposal sent</td><td>72000</td><td>Kavya</td><td>2026-10-02</td></tr>
+              <tr><td>D-06</td><td>Ghats Travels</td><td>Kerala</td><td>Demo given</td><td>24000</td><td>Kavya</td><td>2026-10-01</td></tr>
+              <tr><td>D-07</td><td>Malabar Fisheries</td><td>Kerala</td><td>Closed lost</td><td>12000</td><td>Kavya</td><td></td></tr>
+              <tr><td>D-08</td><td>Punjab Cycle Works</td><td>Punjab</td><td>Proposal sent</td><td>60k</td><td>Arjun</td><td>2026-10-08</td></tr>
+              <tr><td>D-09</td><td>Marina Dental Care</td><td>Tamil Nadu</td><td>Demo done</td><td>36000</td><td></td><td>2026-10-03</td></tr>
+              <tr><td>D-10</td><td>Awadh Caterers</td><td>Uttar Pradesh</td><td>Discovery done</td><td>24000</td><td>Kavya</td><td></td></tr>
+              <tr><td>D-11</td><td>Sheesham Furnishings</td><td>Haryana</td><td>Proposal sent</td><td>36000</td><td>Kavya</td><td>2026-09-30</td></tr>
+              <tr><td>D-12</td><td>Vidya Book Depot</td><td>Bihar</td><td>Negotiation</td><td>72000</td><td>Arjun</td><td>2026-10-06</td></tr>
+              <tr><td>D-13</td><td>Narmada Bakers</td><td>Madhya Pradesh</td><td>Closed lost</td><td>24000</td><td>Kavya</td><td></td></tr>
+              <tr><td>D-14</td><td>Silverline Opticals</td><td>KA</td><td>Qualified</td><td>24000</td><td>Kavya</td><td>2026-10-10</td></tr>
+              <tr><td>D-15</td><td>Ganga Dairy</td><td>Uttar Pradesh</td><td>Discovery done</td><td>36000</td><td>Kavya</td><td>2026-10-07</td></tr>
+              <tr><td>D-16</td><td>Ganga Dairy Pvt. Ltd.</td><td>Uttar Pradesh</td><td>Discovery done</td><td>36000</td><td></td><td></td></tr>
+              <tr><td>D-17</td><td>Sabarmati Chemists</td><td>Gujarat</td><td>Demo done</td><td>Rs 48000</td><td>Kavya</td><td>2026-10-09</td></tr>
+              <tr><td>D-18</td><td>Ganga Sweets</td><td>MH</td><td>Qualified</td><td>12000</td><td>Kavya</td><td>2026-10-12</td></tr>
+              <tr><td>D-19</td><td>Godavari Tiles</td><td>Andhra Pradesh</td><td>Closed won</td><td>60000</td><td>Arjun</td><td></td></tr>
+              <tr><td>D-20</td><td>Nilgiri Tea Traders</td><td>Tamil Nadu</td><td>Quote sent</td><td>48000</td><td>Kavya</td><td>2026-10-04</td></tr>
+              <tr><td>D-21</td><td>Saurashtra Tools</td><td>Gujarat</td><td>Closed lost</td><td>36000</td><td>Arjun</td><td></td></tr>
+              <tr><td>D-22</td><td>Tapti Electricals</td><td>Maharashtra</td><td>Demo done</td><td>36000</td><td>Kavya</td><td>2026-09-15</td></tr>
+              <tr><td>D-23</td><td>Aravalli Fitness</td><td>Haryana</td><td>Qualified</td><td>12000</td><td></td><td>2026-10-11</td></tr>
+              <tr><td>D-24</td><td>Konkan Packaging</td><td>Maharashtra</td><td>Negotiation</td><td>60000</td><td>Kavya</td><td>2026-10-05</td></tr>
+              <tr><td>D-25</td><td>Konark Handlooms</td><td>Odisha</td><td>Discovery done</td><td>24000</td><td>Kavya</td><td>2026-10-06</td></tr>
             </tbody>
           </table>
           <p>On 28 September 2026, Kavya finds 13 problems. She does not count blanks in D-02 and D-16, because those rows will be deleted.</p>
           <table class="lc-table">
             <thead><tr><th>Problem</th><th>Rows</th><th>Fix</th></tr></thead>
             <tbody>
-              <tr><td>Duplicate companies (same name and city)</td><td>D-02, D-16</td><td>Merge into D-01 and D-15. Delete the extra rows.</td></tr>
+              <tr><td>Duplicate companies (same name and state)</td><td>D-02, D-16</td><td>Merge into D-01 and D-15. Delete the extra rows.</td></tr>
               <tr><td>Stage not in the picklist</td><td>D-06, D-20</td><td>"Demo given" becomes Demo done. "Quote sent" becomes Proposal sent.</td></tr>
               <tr><td>Amount stored as text</td><td>D-08, D-17</td><td>60k becomes 60000. Rs 48000 becomes 48000.</td></tr>
-              <tr><td>City names not in the standard form</td><td>D-05, D-14, D-18</td><td>Oxford, San Francisco, New York</td></tr>
+              <tr><td>State names not in the standard form</td><td>D-05, D-14, D-18</td><td>Gujarat, Karnataka, Maharashtra</td></tr>
               <tr><td>Missing owner</td><td>D-09, D-23</td><td>Arjun assigns an owner</td></tr>
               <tr><td>Open deal with no next step</td><td>D-10</td><td>The owner adds a next step and date</td></tr>
               <tr><td>Next step date is overdue</td><td>D-22</td><td>The owner calls and sets a new date</td></tr>
@@ -2375,8 +2375,8 @@ module AiForCrmContent
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Prompt">Kavya pastes the 25 rows (no contact names, phones or emails) and her data rules. "List every data problem with the row IDs. Do not change anything yet."</li>
-              <li data-kind="answer" data-label="AI reply">"2 duplicate pairs, 2 stages not in the picklist, 2 text amounts and 3 city names not in the standard form. Also 2 missing owners, 1 open deal with no next step and 1 overdue date. Blanks in the two duplicate rows are not counted."</li>
-              <li data-kind="warn" data-label="Mistake to catch">The AI also suggests merging Ganga Sweets (New York) with Ganga Dairy (Atlanta), because the names are similar. They are different businesses in different cities. Kavya rejects it.</li>
+              <li data-kind="answer" data-label="AI reply">"2 duplicate pairs, 2 stages not in the picklist, 2 text amounts and 3 state names not in the standard form. Also 2 missing owners, 1 open deal with no next step and 1 overdue date. Blanks in the two duplicate rows are not counted."</li>
+              <li data-kind="warn" data-label="Mistake to catch">The AI also suggests merging Ganga Sweets (Maharashtra) with Ganga Dairy (Uttar Pradesh), because the names are similar. They are different businesses in different states. Kavya rejects it.</li>
               <li data-kind="tool" data-label="Spreadsheet">She fixes a copy of the export. Then she runs ISTEXT, COUNTIF and SUMIF checks on the cleaned sheet.</li>
               <li data-kind="result" data-label="Check results">23 rows. 0 text amounts. Every stage matches the picklist. Demo done pipeline ₹1,44,000. Win rate 50%.</li>
               <li data-kind="check" data-label="Spot check">She compares five random rows with the old spreadsheet. Then she writes the before/after log and imports the 23 clean rows into the CRM.</li>
@@ -2390,9 +2390,9 @@ module AiForCrmContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a CRM consultant helping a small startup set up and clean its CRM. Use simple English.
 
-        Business: [LedgerLite, San Francisco, accounting software for small businesses. Sales rep Kavya, founder Arjun.]
+        Business: [LedgerLite, Karnataka, accounting software for small businesses in India. Sales rep Kavya, founder Arjun.]
         Pipeline stages: [Qualified, Discovery done, Demo done, Proposal sent, Negotiation, Closed won, Closed lost]
-        Export columns: ID, Company, City, Stage, Amount (₹), Owner, Next step date
+        Export columns: ID, Company, State, Stage, Amount (₹), Owner, Next step date
         [Paste up to 25 rows here, without contact names, phones or emails. If no rows are pasted, make up a realistic 25-row sample with a few duplicates, text amounts, blank owners and odd stage names. Label it as sample data.]
 
         Do these in order:
@@ -2402,10 +2402,10 @@ module AiForCrmContent
         4. Write a call note template and 3 automations (trigger, condition, action).
         5. Plan a dashboard: win rate, average deal size, pipeline by stage, weighted pipeline, sales cycle and deals missing a next step. Give the definition, formula and needed fields for each.
 
-        Only call rows duplicates if the name and city both match. Mark every guess.</pre>
+        Only call rows duplicates if the name and state both match. Mark every guess.</pre>
             <ul class="ai-try-checks">
               <li>Win rate is won ÷ (won + lost), with open deals left out</li>
-              <li>Duplicates need the same company and the same city</li>
+              <li>Duplicates need the same company and the same state</li>
               <li>The formulas point at the right columns and rows</li>
               <li>It says sales cycle needs created and closed dates</li>
               <li>You recalculated at least two numbers yourself in a spreadsheet</li>

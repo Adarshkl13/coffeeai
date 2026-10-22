@@ -50,7 +50,7 @@ module NumpyContent
         </div>
         <div class="lc-card">
           <h3>Which Version Am I Using?</h3>
-          <p>Check with <code>np.__version__</code>. NumPy 2.0 (2024) was a big cleanup release. The newest release in 2026 is the 2.5 series. The editor in this course runs NumPy 2.2 in your browser. Everything in this course works on any NumPy 2.x.</p>
+          <p>Check with <code>np.__version__</code>. NumPy 2.0 (2024) was a big cleanup release. At the time of writing, the newest release is in the 2.5 series. The editor in this course runs NumPy 2.2 in your browser. Everything in this course works on any NumPy 2.x.</p>
           <div class="lc-code">import numpy as np<br>print(np.__version__)   # e.g. 2.2.5</div>
         </div>
         <div class="lc-card">
@@ -172,7 +172,7 @@ module NumpyContent
           <div class="lc-code">print(np.arange(0, 10, 3))<br>print(np.linspace(0, 1, 5))<br>print(np.arange(1, 1.3, 0.1))   # stop should be excluded...<br>print(np.full((2, 2), 7))</div>
           <p>Output:</p>
           <div class="lc-code">[0 3 6 9]<br>[0.   0.25 0.5  0.75 1.  ]<br>[1.  1.1 1.2 1.3]<br>[[7 7]<br> [7 7]]</div>
-          <p>The third line has 4 values, including 1.3! The computer cannot store 0.1 exactly. So the fourth step lands just below 1.3. For decimal ranges, use <code>np.linspace</code> instead.</p>
+          <p>The third line has 4 values, including 1.3! <code>arange</code> works out how many values to make from (stop − start) ÷ step. The computer cannot store 0.1 or 1.3 exactly, so this sum gives 3.0000000000000004, not 3. NumPy rounds that up to 4 values. The last value is really 1.3000000000000003, which prints as 1.3. For decimal ranges, use <code>np.linspace</code> instead.</p>
         </div>
         <div class="lc-card">
           <h3>What About Random Arrays?</h3>
@@ -880,10 +880,10 @@ module NumpyContent
         import numpy as np
 
         # Max temperature: 3 cities (rows) x 5 days (columns)
-        temps = np.array([[34, 36, 35, 38, 37],   # Chicago
-                          [31, 30, 32, 31, 33],   # New York
-                          [28, 27, 29, 30, 28]])  # San Francisco
-        cities = ["Chicago", "New York", "San Francisco"]
+        temps = np.array([[34, 36, 35, 38, 37],   # City A
+                          [31, 30, 32, 31, 33],   # City B
+                          [28, 27, 29, 30, 28]])  # City C
+        cities = ["City A", "City B", "City C"]
         print("temps shape:", temps.shape)
 
         print("\n=== Whole array ===")
@@ -908,7 +908,7 @@ module NumpyContent
         print(temps - row_means)
 
         print("\n=== cumsum, any, all ===")
-        print("running total for Chicago:", temps[0].cumsum())
+        print("running total for City A:", temps[0].cumsum())
         print("any day above 37, per city:", (temps > 37).any(axis=1))
         print("all days above 29, per city:", (temps > 29).all(axis=1))
       PYTHON
@@ -1427,7 +1427,7 @@ module NumpyContent
             <li><strong>Missing dimensions count as 1.</strong> A shape <code>(4,)</code> next to <code>(3, 4)</code> is treated as <code>(1, 4)</code>.</li>
             <li><strong>Each pair must be equal, or one of them must be 1.</strong> A size-1 dimension is stretched to match. (It is repeated, but only in NumPy's logic, not in memory.) If not, you get <code>ValueError: operands could not be broadcast together</code>.</li>
           </ol>
-          <p>The result gets the larger size in every dimension.</p>
+          <p>If all three rules pass, the result gets the larger size in every dimension.</p>
         </div>
         <div class="lc-card">
           <h3>Checking Shapes Step by Step</h3>
@@ -1564,7 +1564,7 @@ module NumpyContent
               <tr><td><code>np.argsort(a)</code></td><td>The positions that would sort <code>a</code> (use them to sort other arrays in the same order)</td></tr>
             </tbody>
           </table>
-          <p>NumPy 2.5 (2026) added <code>np.sort(a, descending=True)</code>. The editor runs 2.2. So here, use <code>[::-1]</code>. It works in every version.</p>
+          <p>Some newer NumPy versions also have a <code>descending</code> option for <code>np.sort</code>. Check the docs for your version. <code>[::-1]</code> works in every version, so we use it here.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example</h3>
@@ -1706,8 +1706,8 @@ module NumpyContent
               <tr><td><code>rng.normal(mean, std, size)</code></td><td>bell-curve values (most values near the mean)</td><td>any real number</td></tr>
               <tr><td><code>rng.standard_normal(size)</code></td><td>normal with mean 0, std 1</td><td>any real number</td></tr>
               <tr><td><code>rng.choice(a, size, replace, p)</code></td><td>random picks from <code>a</code></td><td>optional probabilities <code>p</code></td></tr>
-              <tr><td><code>rng.permutation(a)</code></td><td>shuffled <strong>copy</strong></td><td>—</td></tr>
-              <tr><td><code>rng.shuffle(a)</code></td><td>shuffles <code>a</code> <strong>in place</strong> and returns None</td><td>—</td></tr>
+              <tr><td><code>rng.permutation(a)</code></td><td>shuffled <strong>copy</strong></td><td>n/a</td></tr>
+              <tr><td><code>rng.shuffle(a)</code></td><td>shuffles <code>a</code> <strong>in place</strong> and returns None</td><td>n/a</td></tr>
             </tbody>
           </table>
           <p><code>size</code> can be a tuple for 2D results: <code>rng.random((2, 3))</code>.</p>
@@ -2094,7 +2094,7 @@ module NumpyContent
             <tbody>
               <tr><td><code>np.nan</code></td><td>"not a number": a missing or undefined value</td><td><code>0.0 / 0.0</code>, <code>np.inf - np.inf</code>, missing data</td><td><code>np.isnan</code></td></tr>
               <tr><td><code>np.inf</code>, <code>-np.inf</code></td><td>infinity</td><td><code>1.0 / 0.0</code>, overflow (a result too big to store) like <code>np.exp(1000.0)</code></td><td><code>np.isinf</code></td></tr>
-              <tr><td>normal numbers</td><td>finite (not infinite) values</td><td>—</td><td><code>np.isfinite</code> (False for nan and inf)</td></tr>
+              <tr><td>normal numbers</td><td>finite (not infinite) values</td><td>n/a</td><td><code>np.isfinite</code> (False for nan and inf)</td></tr>
             </tbody>
           </table>
           <p>Remember: the old spellings <code>np.NaN</code> and <code>np.Inf</code> were removed in NumPy 2. Write <code>np.nan</code> and <code>np.inf</code>.</p>
@@ -2226,7 +2226,7 @@ module NumpyContent
             <thead><tr><th>Function</th><th>Saves / loads</th><th>File</th></tr></thead>
             <tbody>
               <tr><td><code>np.save("X.npy", X)</code></td><td>one array, with its exact dtype and shape</td><td><code>.npy</code></td></tr>
-              <tr><td><code>np.load("X.npy")</code></td><td>loads it back</td><td>—</td></tr>
+              <tr><td><code>np.load("X.npy")</code></td><td>loads it back</td><td>n/a</td></tr>
               <tr><td><code>np.savez("data.npz", X=X, y=y)</code></td><td>several arrays, each with a name</td><td><code>.npz</code> (a zip of .npy files)</td></tr>
               <tr><td><code>np.savez_compressed(...)</code></td><td>same, but compressed (made smaller)</td><td>smaller <code>.npz</code></td></tr>
               <tr><td><code>np.load("X.npy", mmap_mode="r")</code></td><td>memory-maps the file: reads only the parts you use</td><td>for arrays bigger than RAM</td></tr>

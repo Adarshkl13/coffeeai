@@ -60,7 +60,7 @@ module AiMedicalResearchContent
             <thead><tr><th>Study type</th><th>What it does</th><th>Made-up example</th><th>Main weakness</th></tr></thead>
             <tbody>
               <tr><td><strong>Case report or case series</strong></td><td>Describes one patient, or a few patients</td><td>A doctor describes 5 patients whose sugar improved after SMS reminders</td><td>No comparison group, so we cannot say the SMS caused it</td></tr>
-              <tr><td><strong>Cross-sectional study</strong></td><td>Looks at a group at one point in time</td><td>A survey of 300 OPD patients: do SMS users have lower HbA1c today?</td><td>Cannot show what came first</td></tr>
+              <tr><td><strong>Cross-sectional study</strong></td><td>Looks at a group at one point in time</td><td>A survey of 300 outpatient department (OPD) patients: do SMS users have lower HbA1c today?</td><td>Cannot show what came first</td></tr>
               <tr><td><strong>Case-control study</strong></td><td>Starts with people who have an outcome and people who do not, then looks back</td><td>Patients with poor control compared with well-controlled patients: who used reminders?</td><td>Depends on memory and old records</td></tr>
               <tr><td><strong>Cohort study</strong></td><td>Follows a group forward in time</td><td>1,000 patients followed for 2 years; SMS users compared with non-users</td><td>Confounding (a third factor, such as motivation, that affects both)</td></tr>
               <tr><td><strong>RCT (randomised controlled trial)</strong></td><td>Chance decides who gets the treatment and who gets usual care</td><td>400 patients randomly split: SMS programme or usual care for 12 months</td><td>Costly, and trial patients may differ from your patients</td></tr>
@@ -1941,10 +1941,11 @@ module AiMedicalResearchContent
         Kingdom and Mexico were included. In all five, HbA1c fell more with
         messages than with usual care. Differences ranged from 0.1 to 0.5
         percentage points. The three trials at lower risk of bias found
-        differences of 0.5, 0.2 and 0.1 points; the smallest was not
-        statistically significant. Two other trials also found 0.5 points,
-        but one lost many patients and analysed only completers, and one
-        was company-funded with possible selective reporting.
+        differences of 0.5, 0.2 and 0.1 points; the 0.2 result was
+        borderline and the 0.1 result was not significant. Two other
+        trials also found 0.5 points, but one lost many patients and
+        analysed only completers, and one was company-funded with
+        possible selective reporting.
 
         Conclusions: Text and WhatsApp reminder programmes probably lower
         HbA1c a little, by about 0.2 to 0.5 percentage points. Certainty is
@@ -1955,9 +1956,9 @@ module AiMedicalResearchContent
             <tbody>
               <tr><td>Background</td><td>29</td><td>One problem and one aim. No long history.</td></tr>
               <tr><td>Methods</td><td>74</td><td>Databases, date, criteria, two reviewers</td></tr>
-              <tr><td>Results</td><td>92</td><td>240, 17, 5 and 2,320 match the flow diagram</td></tr>
+              <tr><td>Results</td><td>98</td><td>240, 17, 5 and 2,320 match the flow diagram</td></tr>
               <tr><td>Conclusions</td><td>38</td><td>No claim stronger than the results</td></tr>
-              <tr><td><strong>Total with headings</strong></td><td><strong>233</strong></td><td>Under 250. The title (20 words) is not counted here, but some conferences count it.</td></tr>
+              <tr><td><strong>Total with headings</strong></td><td><strong>239</strong></td><td>Under 250. The title (20 words) is not counted here, but some conferences count it.</td></tr>
             </tbody>
           </table>
           <p>Tips: write the abstract last. Do not put references in it. Define each abbreviation once, or avoid it. Give numbers, not only words like "improved". And if an AI tool shortens your text, compare every number with your review table again.</p>
@@ -1995,7 +1996,7 @@ module AiMedicalResearchContent
         Make my poster.
 
         Better prompt:
-        Here is my 233-word abstract (below). Turn it into poster text:
+        Here is my 239-word abstract (below). Turn it into poster text:
         a title under 15 words, one main message under 20 words, and
         3 short bullet points each for Methods, Results and Conclusions.
         Keep every number exactly as written. Suggest one chart that
@@ -2029,7 +2030,7 @@ module AiMedicalResearchContent
         - Searched: PubMed, Cochrane CENTRAL, Google Scholar, CTRI, ClinicalTrials.gov, [September 2026].
         - Screened 240 records, assessed 17 full texts, included 5 randomised trials, 2,320 participants.
         - All 5 favoured messages. Differences: 0.1 to 0.5 percentage points.
-        - Lower risk of bias trials: 0.5, 0.2 and 0.1 (the 0.1 not significant).
+        - Lower risk of bias trials: 0.5, 0.2 and 0.1 (the 0.2 borderline, the 0.1 not significant).
         - Two trials with problems (high dropout; company funding) both found 0.5.
         - No meta-analysis.
 

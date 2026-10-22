@@ -1436,7 +1436,7 @@ module AiPeopleManagersContent
           <pre><code>Marcus Bell was rude on Slack. Tell me how to tell him off.</code></pre>
           <p><strong>Better prompt:</strong></p>
           <pre><code>Role-play a conversation with me. You are a senior developer with
-        6 years at the company. Two weeks ago you posted a frustrated
+        6 years at the company. About three weeks ago you posted a frustrated
         comment about late design changes in a Slack channel the client
         can read. You feel the design process is unfair to developers.
         I am your team lead. Start a little defensive. Reply in 2 to 3
@@ -1474,7 +1474,7 @@ module AiPeopleManagersContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a coach who helps managers prepare difficult conversations. Use simple English.
 
-        The situation (roles only, no names): [A senior developer posted a frustrated comment about late design changes in a Slack channel the client can read. It happened two weeks ago and I have not raised it yet. He prefers feedback in writing first.]
+        The situation (roles only, no names): [A senior developer posted a frustrated comment about late design changes in a Slack channel the client can read. It happened almost three weeks ago and I have not raised it yet. He prefers feedback in writing first.]
         What I want: [concerns raised privately or in the team channel, not where clients can see]
 
         Please:
@@ -2153,7 +2153,7 @@ module AiPeopleManagersContent
           <div class="lc-badge le-badge le-badge-mgmt">Management</div>
           <h1 class="lc-title">Capstone: A 90-Day Plan for Hannah's Team at Bluefern Digital</h1>
         </div>
-        <p class="lc-lead">In this capstone you bring the whole course together. You will help Hannah build a 90-day plan for her team at Bluefern Digital. It covers Q4 2026, from Friday 2 October to Thursday 31 December. The plan has six parts: a team profile, a 1:1 plan, goals, feedback notes, a hard conversation plan and a growth plan. You will see how AI helps her draft and organise it. You will also see where she must check, decide and talk to people. Then you will build a plan for your own team.</p>
+        <p class="lc-lead">In this capstone you bring the whole course together. You will help Hannah build a 90-day plan for her team at Bluefern Digital. It covers Q4 2026. The plan starts on Friday 2 October and ends on Thursday 31 December. The plan has six parts: a team profile, a 1:1 plan, goals, feedback notes, a hard conversation plan and a growth plan. You will see how AI helps her draft and organise it. You will also see where she must check, decide and talk to people. Then you will build a plan for your own team.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 310" role="img" aria-label="A timeline of Hannah's 90-day plan from 2 October to 31 December 2026, in three phases. October: listen and fix. November: deliver and welcome. December: launch and grow. Milestones: 2 October plan starts, 13 October conflict agreement, 30 October all 8 development plans, 9 to 11 November usability tests, 16 November Priya starts, 26 November Thames Valley launch, 10 December Greenleaf v2.0, 31 December Q4 review. Below, four measures are checked every Friday: nobody over 40 hours, a weekly 1:1 for everyone, at most 2 late design changes, and 10 or fewer bugs after release.">
             <g font-family="inherit" font-size="13" fill="#e2e0f0">
@@ -2227,7 +2227,7 @@ module AiPeopleManagersContent
             <thead><tr><th>Part</th><th>What Hannah writes (made up)</th><th>Done by</th></tr></thead>
             <tbody>
               <tr><td>1. Team profile</td><td>One row per person: strengths, motivations, how they work best, current goal. Each person checks their own row.</td><td>Done; review in December</td></tr>
-              <tr><td>2. 1:1 plan</td><td>8 weekly 30-minute 1:1s, 4 hours a week (9 and 4.5 hours from 16 Nov, when Priya joins). Never cancelled in launch weeks, only moved. Aisha chooses a format that works for her.</td><td>Every week</td></tr>
+              <tr><td>2. 1:1 plan</td><td>8 weekly 30-minute 1:1s, 4 hours a week (9 1:1s and 4.5 hours a week from 16 Nov, when Priya joins). Never cancelled in launch weeks, only moved. Aisha chooses a format that works for her.</td><td>Every week</td></tr>
               <tr><td>3. Goals</td><td>The five Q4 team goals, each with one owner and one number. For example, Oliver owns "10 or fewer bugs after release".</td><td>Thu 31 Dec</td></tr>
               <tr><td>4. Feedback notes</td><td>Short SBI notes (Situation, Behaviour, Impact) for each person, with praise and growth points. A check that thank-yous are spread fairly.</td><td>Weekly notes</td></tr>
               <tr><td>5. Hard conversation plan</td><td>The design hand-off agreement between Marcus and Sofia, reviewed on Tue 10 Nov. A weekly workload check with Aisha until Priya settles in.</td><td>Tue 10 Nov</td></tr>
@@ -2294,7 +2294,7 @@ module AiPeopleManagersContent
             <pre class="ai-try-prompt">You are an experienced people manager who coaches new team leads. Use simple English.
 
         My team (roles only): [8 people at a digital agency: 3 developers, 1 junior developer, 2 designers, 1 part-time researcher, 1 QA engineer].
-        The next 90 days: [1 Oct to 31 Dec. Two client launches, on 26 Nov and 10 Dec. A new developer starts on 16 Nov.]
+        The next 90 days: [2 Oct to 31 Dec. Two client launches, on 26 Nov and 10 Dec. A new developer starts on 16 Nov.]
         Known people issues: [one developer is overloaded; two seniors disagree about late design changes; every person needs a development plan by 30 Oct].
 
         Please create a 90-day plan with:

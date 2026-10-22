@@ -358,7 +358,7 @@ module AiMedicalImagingContent
           <h3>Worked example: reading a vendor's data sheet</h3>
           <p>The made-up vendor sends Dr Kiran Rao this summary of how LungLens was built:</p>
           <pre><code>LungLens data summary (made up)
-        Training:  1,20,000 adult chest X-rays, 4 hospitals, 2 countries
+        Training:  120,000 adult chest X-rays, 4 hospitals, 2 countries
         Labels:    taken automatically from the original reports
         Test:      6,000 X-rays from the same 4 hospitals
         Machines:  fixed digital X-ray rooms only
@@ -398,7 +398,7 @@ module AiMedicalImagingContent
         Our hospital: [Tarang Diagnostics]. We see adults and children, and we take many portable X-rays in wards and the ICU.
 
         Made-up vendor summary for [LungLens, a chest X-ray AI tool for possible TB]:
-        - Training: 1,20,000 adult chest X-rays from 4 hospitals in 2 countries.
+        - Training: 120,000 adult chest X-rays from 4 hospitals in 2 countries.
         - Labels: taken automatically from the original reports.
         - Test: 6,000 X-rays from the same 4 hospitals.
         - Machines: fixed digital X-ray rooms only. Ages: 18 and over.
@@ -1582,7 +1582,7 @@ module AiMedicalImagingContent
         <div class="lc-card">
           <h3>India: when software is a medical device</h3>
           <p>In India, medical devices are regulated under the Drugs and Cosmetics Act, 1940 and the <strong>Medical Devices Rules, 2017</strong> (MDR 2017). The regulator is the <strong>CDSCO</strong> (Central Drugs Standard Control Organisation). Software made for a medical purpose, such as diagnosis, screening or triage, can be a medical device. CDSCO calls this <strong>MDSW</strong> (medical device software).</p>
-          <p>In 2026, CDSCO issued a final guidance document on medical device software (Doc No. CDSCO/MD/GD/MDSW/01/2026). Its examples include software that reads X-rays to suggest or exclude a condition. They also include AI tools for triage or screening. So a tool like LungLens would usually count as a medical device.</p>
+          <p>CDSCO has published guidance on medical device software. Check the CDSCO website for the latest version. Its examples include software that reads X-rays to suggest or exclude a condition. They also include AI tools for triage or screening. So a tool like LungLens would usually count as a medical device.</p>
           <p>Every medical device gets one of four <strong>risk classes</strong>:</p>
           <table class="lc-table">
             <thead><tr><th>Class</th><th>Risk level</th><th>Who gives the licence (in general)</th></tr></thead>

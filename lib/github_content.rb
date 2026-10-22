@@ -381,7 +381,7 @@ module GithubContent
           <h3>Creating a Repository on the Website</h3>
           <ol class="lc-list">
             <li>Click <strong>+ → New repository</strong>.</li>
-            <li>Choose the owner (you or an organization) and a short, lowercase name like <code>study-notes</code>.</li>
+            <li>Choose the owner (you or an organisation) and a short, lowercase name like <code>study-notes</code>.</li>
             <li>Pick <strong>Public</strong> or <strong>Private</strong>.</li>
             <li><strong>If you already have a local project, leave "Add a README", ".gitignore" and "license" unticked.</strong> An empty repository accepts your first push without problems.</li>
             <li>Click <strong>Create repository</strong>. GitHub then shows the exact commands to push an existing repository.</li>
@@ -485,7 +485,7 @@ module GithubContent
             <li><strong>What</strong> is this project? (one or two sentences)</li>
             <li><strong>Why</strong> would someone use it? A screenshot or GIF helps a lot.</li>
             <li><strong>How</strong> do I install and run it? Exact commands.</li>
-            <li><strong>How</strong> can I contribute, and under which <strong>license</strong>?</li>
+            <li><strong>How</strong> can I contribute, and under which <strong>licence</strong>?</li>
           </ol>
           <p>READMEs are written in <strong>Markdown</strong> (plain text with simple symbols for formatting). GitHub shows <code>README.md</code> as a formatted page on the Code tab.</p>
         </div>
@@ -525,10 +525,10 @@ module GithubContent
         </div>
 
         <div class="lc-card">
-          <h3>Choosing a License</h3>
-          <p>Without a license, normal copyright law applies. People may <em>look</em> at your public code. But they have no legal right to copy, change or reuse it.</p>
+          <h3>Choosing a Licence</h3>
+          <p>Without a licence, normal copyright law applies. People may <em>look</em> at your public code. But they have no legal right to copy, change or reuse it.</p>
           <table class="lc-table">
-            <thead><tr><th>License</th><th>In short</th><th>Common for</th></tr></thead>
+            <thead><tr><th>Licence</th><th>In short</th><th>Common for</th></tr></thead>
             <tbody>
               <tr><td><strong>MIT</strong></td><td>Do almost anything. Keep the copyright notice</td><td>Small libraries, portfolio projects</td></tr>
               <tr><td><strong>Apache-2.0</strong></td><td>Like MIT, plus a clear patent permission</td><td>Open source backed by a company</td></tr>
@@ -587,8 +587,8 @@ module GithubContent
           <ul class="lc-list">
             <li>A README that only says the project name. Add setup steps that a stranger can follow.</li>
             <li>Screenshots linked from a path on your computer (<code>C:\Users\...</code>). They do not show on GitHub. Commit the image and use a relative path (a path starting from the repo folder).</li>
-            <li>No license on a project you want others to use.</li>
-            <li>Copying a license but forgetting to put your name and year in the copyright line.</li>
+            <li>No licence on a project you want others to use.</li>
+            <li>Copying a licence but forgetting to put your name and year in the copyright line.</li>
           </ul>
         </div>
 
@@ -621,8 +621,8 @@ module GithubContent
             <tbody>
               <tr><td><strong>Issue</strong></td><td>One repo</td><td>One bug, feature or task</td><td>"#12 Total shows ₹0 for one item"</td></tr>
               <tr><td><strong>Label</strong></td><td>One repo</td><td>Type or area of work</td><td><code>bug</code>, <code>frontend</code></td></tr>
-              <tr><td><strong>Milestone</strong></td><td>One repo</td><td>A release or deadline with a progress bar</td><td>"v1.1 — 15 Oct"</td></tr>
-              <tr><td><strong>Project</strong></td><td>Your account or organization (can cover many repos)</td><td>Planning board or table with your own fields</td><td>"Semester project board"</td></tr>
+              <tr><td><strong>Milestone</strong></td><td>One repo</td><td>A release or deadline with a progress bar</td><td>"v1.1: 15 Oct"</td></tr>
+              <tr><td><strong>Project</strong></td><td>Your account or organisation (can cover many repos)</td><td>Planning board or table with your own fields</td><td>"Semester project board"</td></tr>
               <tr><td><strong>Discussion</strong></td><td>One repo (turn on in Settings)</td><td>Q&amp;A, ideas, announcements</td><td>"Which database should we use?"</td></tr>
             </tbody>
           </table>
@@ -752,7 +752,7 @@ module GithubContent
               <tr><td>A pasted commit hash</td><td>A short link to that commit</td></tr>
             </tbody>
           </table>
-          <p>Use the <em>Preview</em> tab before you post. <strong>Saved replies</strong> (the reply icon in the comment toolbar) store answers you type often, such as "Thanks — could you add a test?".</p>
+          <p>Use the <em>Preview</em> tab before you post. <strong>Saved replies</strong> (the reply icon in the comment toolbar) store answers you type often, such as "Thanks, could you add a test?".</p>
         </div>
 
         <div class="lc-card">
@@ -1034,11 +1034,11 @@ module GithubContent
 
         <div class="lc-card">
           <h3>Personal Repositories</h3>
-          <p>A repo owned by your personal account has two levels: <strong>you (owner)</strong> and <strong>collaborators</strong>. Invite people with <em>Settings → Collaborators → Add people</em>. A collaborator can push, merge PRs and manage issues. But they cannot change settings or delete the repo. For more detailed control, use an organization.</p>
+          <p>A repo owned by your personal account has two levels: <strong>you (owner)</strong> and <strong>collaborators</strong>. Invite people with <em>Settings → Collaborators → Add people</em>. A collaborator can push, merge PRs and manage issues. But they cannot change settings or delete the repo. For more detailed control, use an organisation.</p>
         </div>
 
         <div class="lc-card">
-          <h3>Organization Repository Roles</h3>
+          <h3>Organisation Repository Roles</h3>
           <table class="lc-table">
             <thead><tr><th>Role</th><th>Can do</th><th>Typical person</th></tr></thead>
             <tbody>
@@ -1049,7 +1049,7 @@ module GithubContent
               <tr><td><strong>Admin</strong></td><td>Everything, including security settings, deleting and moving the repo</td><td>Very few people</td></tr>
             </tbody>
           </table>
-          <p>An <strong>organization</strong> (free for public and private repos) groups people and repositories. It is a good fit for a college club or a startup. Inside it, <strong>teams</strong> such as <code>@chai-org/backend</code> get a role on many repos at once. You can also mention teams or ask them to review.</p>
+          <p>An <strong>organisation</strong> (free for public and private repos) groups people and repositories. It is a good fit for a college club or a startup. Inside it, <strong>teams</strong> such as <code>@chai-org/backend</code> get a role on many repos at once. You can also mention teams or ask them to review.</p>
         </div>
 
         <div class="lc-card">
@@ -1100,7 +1100,7 @@ module GithubContent
           <h3>Try It</h3>
           <ol class="lc-list">
             <li>Invite a friend as a collaborator on a practice repo. Ask them to push a branch.</li>
-            <li>Create a free organization for your study group. Move (transfer) or create one repo inside it.</li>
+            <li>Create a free organisation for your study group. Move (transfer) or create one repo inside it.</li>
             <li>Create a team and give it the <strong>Write</strong> role on that repo. Add a <code>CODEOWNERS</code> file that names the team.</li>
             <li>Make a commit with a <code>Co-authored-by:</code> trailer and check that GitHub shows two authors.</li>
           </ol>
@@ -1492,7 +1492,7 @@ module GithubContent
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Requiring 2 approvals in a 2-person team. The author cannot approve their own PR, so nothing can be merged.</li>
-            <li>Adding a required status check with a name that no workflow creates. PRs then wait forever with "Expected — Waiting for status to be reported".</li>
+            <li>Adding a required status check with a name that no workflow creates. PRs then wait forever with the status "Expected" and the message "Waiting for status to be reported".</li>
             <li>Putting everyone on the bypass list. Then the rules do nothing.</li>
             <li>Using <code>--force</code> to "fix" a blocked push. The rule is there for a reason.</li>
           </ul>
@@ -1723,7 +1723,7 @@ module GithubContent
               <tr><td>✓ <code>test (3.13)</code> Successful</td><td>That matrix job passed</td><td>Nothing. Wait for the others.</td></tr>
               <tr><td>✗ <code>test (3.12)</code> Failing</td><td>A step ended with an error, only on Python 3.12</td><td>Click <strong>Details</strong> and open the red step. Run it with that version on your computer to see the error.</td></tr>
               <tr><td>● In progress / Queued</td><td>The job is running, or waiting for a runner</td><td><code>gh pr checks --watch</code></td></tr>
-              <tr><td>Expected — Waiting for status to be reported</td><td>A <em>required</em> check never started. The check name in the ruleset is wrong, or a <code>paths</code> filter skipped the workflow.</td><td>Compare the check names in the ruleset with the job names</td></tr>
+              <tr><td>"Expected", with "Waiting for status to be reported"</td><td>A <em>required</em> check never started. The check name in the ruleset is wrong, or a <code>paths</code> filter skipped the workflow.</td><td>Compare the check names in the ruleset with the job names</td></tr>
               <tr><td>Cancelled</td><td>Someone cancelled it, or a newer push replaced the run</td><td><em>Re-run jobs</em>, or push again</td></tr>
             </tbody>
           </table>
@@ -1786,7 +1786,7 @@ module GithubContent
               <tr><td>Create</td><td><em>Settings → Secrets and variables → Actions</em>, or <code>gh secret set NAME</code></td><td>Same page, or <code>gh variable set NAME --body "value"</code></td></tr>
             </tbody>
           </table>
-          <p>You can create both at three levels: <strong>repository</strong>, <strong>environment</strong> (a named target, e.g. <code>production</code>) or <strong>organization</strong>. An environment can require reviewers to approve before a job may use its secrets.</p>
+          <p>You can create both at three levels: <strong>repository</strong>, <strong>environment</strong> (a named target, e.g. <code>production</code>) or <strong>organisation</strong>. An environment can require reviewers to approve before a job may use its secrets.</p>
         </div>
 
         <div class="lc-card">
@@ -1831,7 +1831,7 @@ module GithubContent
 
         <div class="lc-card">
           <h3>The Built-in GITHUB_TOKEN</h3>
-          <p>Every run gets a short-lived token automatically: <code>${{ secrets.GITHUB_TOKEN }}</code> (also written <code>${{ github.token }}</code>). A token is like a temporary password. It can act on <strong>this</strong> repository and expires when the job ends. You never create it. Its default access depends on your repository and organization settings. So always list exactly what the workflow needs:</p>
+          <p>Every run gets a short-lived token automatically: <code>${{ secrets.GITHUB_TOKEN }}</code> (also written <code>${{ github.token }}</code>). A token is like a temporary password. It can act on <strong>this</strong> repository and expires when the job ends. You never create it. Its default access depends on your repository and organisation settings. So always list exactly what the workflow needs:</p>
           <div class="lc-code-block"><pre><code>permissions:
           contents: read        # checkout code
           pull-requests: write  # e.g. post a comment on the PR</code></pre></div>
@@ -2046,7 +2046,7 @@ module GithubContent
               - run: echo &quot;${{ needs.tests.outputs.result }}&quot;</code></pre></div>
           <ul class="lc-list">
             <li><code>with:</code> passes inputs. <code>needs.tests.outputs.result</code> reads the reusable workflow's output.</li>
-            <li>Secrets are <strong>not</strong> passed automatically. Pass them one by one under <code>secrets:</code>. Or use <code>secrets: inherit</code> for workflows in the same organization.</li>
+            <li>Secrets are <strong>not</strong> passed automatically. Pass them one by one under <code>secrets:</code>. Or use <code>secrets: inherit</code> for workflows in the same organisation.</li>
             <li>From another repository: <code>uses: chai-org/ci-templates/.github/workflows/python-tests.yml@v1</code>. If that repository is private, it must allow access.</li>
           </ul>
         </div>
@@ -2225,7 +2225,7 @@ module GithubContent
               <tr><td>Created with</td><td><code>git tag -a</code></td><td>Web UI, <code>gh release create</code>, or a workflow</td></tr>
               <tr><td>Contains</td><td>Name + commit (+ message if annotated)</td><td>Tag + title + notes + assets (zip, binaries)</td></tr>
               <tr><td>Where</td><td>In every clone</td><td>Only on GitHub (<em>Releases</em> in the sidebar)</td></tr>
-              <tr><td>Special states</td><td>—</td><td>Draft, pre-release, "Latest"</td></tr>
+              <tr><td>Special states</td><td>n/a</td><td>Draft, pre-release, "Latest"</td></tr>
             </tbody>
           </table>
           <p>Use Semantic Versioning (a standard way to number versions): <code>vMAJOR.MINOR.PATCH</code> (breaking change / new feature / bug fix).</p>
@@ -2477,8 +2477,8 @@ module GithubContent
             <tbody>
               <tr><td><strong>github.dev</strong></td><td>VS Code in the browser for quick edits</td><td>No, there is no terminal</td><td>Free</td></tr>
               <tr><td><strong>Codespaces</strong></td><td>A full computer in the cloud (a container) with VS Code and a terminal</td><td>Yes</td><td>Free amount each month, then paid</td></tr>
-              <tr><td><strong>Copilot code review</strong></td><td>Copilot as a reviewer on a pull request</td><td>—</td><td>Copilot Student or a paid Copilot plan</td></tr>
-              <tr><td><strong>Copilot cloud agent</strong> (earlier called "coding agent")</td><td>Copilot works on a task in the background and prepares a pull request</td><td>Yes, in a GitHub Actions environment</td><td>Copilot Student or a paid Copilot plan</td></tr>
+              <tr><td><strong>Copilot code review</strong></td><td>Copilot as a reviewer on a pull request</td><td>n/a</td><td>A paid Copilot plan, or free student access through GitHub Education</td></tr>
+              <tr><td><strong>Copilot cloud agent</strong> (earlier called "coding agent")</td><td>Copilot works on a task in the background and prepares a pull request</td><td>Yes, in a GitHub Actions environment</td><td>A paid Copilot plan, or free student access through GitHub Education</td></tr>
             </tbody>
           </table>
           <p>We checked these facts against docs.github.com in September 2026. Plans, prices and limits change often. Check the official pages before you trust a number.</p>
@@ -2525,12 +2525,11 @@ module GithubContent
             <thead><tr><th>Plan</th><th>Price</th><th>Code review on PRs</th><th>Cloud agent</th></tr></thead>
             <tbody>
               <tr><td>Copilot Free</td><td>Free (limited, e.g. 2,000 code completions a month)</td><td>Only "Review selection" in VS Code</td><td>No</td></tr>
-              <tr><td>Copilot Student</td><td>Free for verified students (GitHub Education)</td><td>Yes</td><td>Yes (no third-party agents)</td></tr>
-              <tr><td>Copilot Pro / Pro+ / Max</td><td>$10 / $39 / $100 per month</td><td>Yes</td><td>Yes</td></tr>
-              <tr><td>Copilot Business / Enterprise</td><td>$19 / $39 per user per month (organizations)</td><td>Yes</td><td>Yes, after an admin turns it on</td></tr>
+              <tr><td>Copilot Pro / Pro+</td><td>$10 / $39 per month</td><td>Yes</td><td>Yes</td></tr>
+              <tr><td>Copilot Business / Enterprise</td><td>$19 / $39 per user per month (organisations)</td><td>Yes</td><td>Yes, after an admin turns it on</td></tr>
             </tbody>
           </table>
-          <p>Verified teachers and maintainers of popular open-source projects may also get Copilot Pro for free.</p>
+          <p>Prices are at the time of writing. GitHub changes its Copilot plans often, so check the Copilot plans page on github.com for the current list. Verified students, teachers and maintainers of popular open-source projects can get Copilot for free through GitHub Education or the open-source programme.</p>
         </div>
 
         <div class="lc-card">
@@ -2640,12 +2639,12 @@ module GithubContent
           <ol class="lc-list">
             <li>Open any of your repositories and press <kbd>.</kbd> to open github.dev. Edit the README and commit it to a new branch.</li>
             <li>Add the <code>devcontainer.json</code> above to a Python repo. Merge it and create a codespace. Check that the tests ran and that <code>python3 --version</code> prints 3.13.</li>
-            <li>If you have Copilot Student or a paid plan, open a PR and request a review from Copilot. Apply one suggestion and resolve one comment.</li>
+            <li>If you have free student access or a paid Copilot plan, open a PR and request a review from Copilot. Apply one suggestion and resolve one comment.</li>
             <li>Stop and delete the codespace. Then check your usage in <em>Settings → Billing and licensing</em>.</li>
           </ol>
         </div>
 
-        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Students: apply for GitHub Education with your college email. You get Copilot Student and other benefits for free. Then practise: assign a small, well-written issue to Copilot. Review its PR as carefully as you would review a classmate's work.</p></div>
+        <div class="lc-tip"><span class="lc-tip-icon">💡</span><p>Students: apply for GitHub Education with your college email. You can get Copilot and other benefits for free. Then practise: assign a small, well-written issue to Copilot. Review its PR as carefully as you would review a classmate's work.</p></div>
       HTML
     },
 
@@ -2655,7 +2654,7 @@ module GithubContent
           <div class="lc-badge le-badge le-badge-github">GitHub</div>
           <h1 class="lc-title">Capstone: Ship a Project on GitHub</h1>
         </div>
-        <p class="lc-lead">You will run a small project the way professional teams do. It is an <strong>expense-splitter</strong> for friends who share a bill. At the end, your repository will have a README and license, a protected <code>main</code>, issues, reviewed PRs, CI, Dependabot, a release and a Pages site.</p>
+        <p class="lc-lead">You will run a small project the way professional teams do. It is an <strong>expense-splitter</strong> for friends who share a bill. At the end, your repository will have a README and licence, a protected <code>main</code>, issues, reviewed PRs, CI, Dependabot, a release and a Pages site.</p>
 
         <div class="lc-card">
           <h3>Step 1: Repository with Tests and CI</h3>
@@ -2750,7 +2749,7 @@ module GithubContent
           <table class="lc-table">
             <thead><tr><th>Item</th><th>How to check</th></tr></thead>
             <tbody>
-              <tr><td>README, LICENSE, .gitignore</td><td>You can see them on the Code tab. The sidebar shows the license.</td></tr>
+              <tr><td>README, LICENSE, .gitignore</td><td>You can see them on the Code tab. The sidebar shows the licence.</td></tr>
               <tr><td>Protected main</td><td>A direct <code>git push origin main</code> is rejected</td></tr>
               <tr><td>At least 3 issues closed by PRs</td><td>Each closed issue links to its PR</td></tr>
               <tr><td>CI passing</td><td>Green tick on the latest <code>main</code> commit, and a badge in the README</td></tr>

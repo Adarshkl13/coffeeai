@@ -11,31 +11,32 @@ namespace :content do
       c.position    = 18
       c.published   = true
     end
+    course.update!(description: "Learn how to build real AI apps. Start with how LLMs and Transformers work. Then build RAG systems, AI agents and apps ready for production. You write Python code for every main idea.")   # keep the description in sync on every run
     puts "Course: #{course.title}"
 
     titles = {
       1 => "The AI Landscape",
       2 => "How Models Learn: Neurons, Loss & Gradient Descent",
       3 => "Transformers and Large Language Models",
-      4 => "Tokenisation — How Text Becomes Numbers",
+      4 => "Tokenisation: How Text Becomes Numbers",
       5 => "Embeddings and Vector Space",
       6 => "Prompt Engineering Fundamentals",
-      7 => "Advanced Prompting — Reasoning and Structured Outputs",
-      8 => "Working with AI APIs — Responses and Messages",
+      7 => "Advanced Prompting: Reasoning and Structured Outputs",
+      8 => "Working with AI APIs: Responses and Messages",
       9 => "Conversations, Context Windows & Memory",
       10 => "Vector Databases and Semantic Search",
-      11 => "RAG — Retrieval Augmented Generation",
-      12 => "AI Agents — Tool Calling and MCP",
-      13 => "Agent Workflows — Chains, Routing and Multi-Agent Systems",
+      11 => "RAG: Retrieval Augmented Generation",
+      12 => "AI Agents: Tool Calling and MCP",
+      13 => "Agent Workflows: Chains, Routing and Multi-Agent Systems",
       14 => "Evaluating AI Systems",
       15 => "AI Safety, Hallucination, and Reliability",
-      16 => "Open-Weight Models — Self-Hosting and Quantisation",
-      17 => "Fine-tuning — When and How",
-      18 => "AI in Production — Streaming, Caching, Batching, Rate Limits",
-      19 => "Building AI Applications — Architecture Patterns",
-      20 => "Multimodal AI — Vision, Audio, and Beyond",
+      16 => "Open-Weight Models: Self-Hosting and Quantisation",
+      17 => "Fine-tuning: When and How",
+      18 => "AI in Production: Streaming, Caching, Batching, Rate Limits",
+      19 => "Building AI Applications: Architecture Patterns",
+      20 => "Multimodal AI: Vision, Audio, and Beyond",
       21 => "Cost Optimisation and Model Selection",
-      22 => "Practical AI Review — Building Your AI Portfolio"
+      22 => "Building Your AI Portfolio"
     }
 
     descriptions = {
@@ -60,7 +61,7 @@ namespace :content do
       19 => "Choose an architecture pattern. Add gateways, fallbacks, circuit breakers and human review.",
       20 => "Send images and audio to models. Build document-processing pipelines that check their output.",
       21 => "Estimate and cut AI costs with model choice, effort, caching, batching and routing.",
-      22 => "Review the full practical AI stack. Plan, build and test a Q&A final project that cites its sources.",
+      22 => "Plan, build and test a Q&A final project that cites its sources. Add it to your AI portfolio.",
     }
 
     exercises = {

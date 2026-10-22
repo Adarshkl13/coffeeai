@@ -74,9 +74,9 @@ TOOLS = {"add": lambda a, b: a + b}
 
 def run_agent(goal, max_steps=5):
     messages = [{"role": "user", "content": goal}]  # memory
-    for step in range(max_steps):                    # stop rule 1
+    for step in range(max_steps):                    # stop rule 2
         reply = fake_model(messages)
-        if "answer" in reply:                        # stop rule 2
+        if "answer" in reply:                        # stop rule 1
             return reply["answer"]
         result = TOOLS[reply["tool"]](**reply["args"])
         print(f"Step {step + 1}: called {reply['tool']} -> {result}")

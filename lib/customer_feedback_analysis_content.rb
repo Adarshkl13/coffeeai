@@ -116,7 +116,7 @@ module CustomerFeedbackAnalysisContent
         </div>
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Ask the AI to sort a small mix of feedback, find patterns and flag urgent items. Then check that every pattern is backed by real items. F7 uses a made-up Malayalam slang word ("adipoli"). A native speaker should check examples like this.</p>
+          <p>Ask the AI to sort a small mix of feedback, find patterns and flag urgent items. Then check that every pattern is backed by real items. F7 uses a common Malayalam slang word ("adipoli", meaning excellent). A native speaker should check examples like this.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a customer experience analyst for [Backwater Trails, a travel agency in Kerala that sells houseboat and hill trips]. Below is feedback from different sources, with names removed.
 
@@ -217,7 +217,7 @@ module CustomerFeedbackAnalysisContent
               <tr><td><strong>Finding themes</strong></td><td>Grouping comments by topic. A theme is a topic that many comments share.</td><td>"AC hours", "pickup delays", "booking on WhatsApp"</td><td>Read 10 to 20 comments in each theme. Are they really about the same thing?</td></tr>
               <tr><td><strong>Sentiment</strong></td><td>Labelling the feeling in a comment: positive, negative, mixed or neutral.</td><td>"Food was great but the AC was off all afternoon" is mixed.</td><td>Sarcasm and mixed comments are often labelled wrongly.</td></tr>
               <tr><td><strong>Summaries</strong></td><td>A short overview of many comments.</td><td>"The 5 main issues in 180 WhatsApp messages"</td><td>Check the counts. Look for important issues the summary left out.</td></tr>
-              <tr><td><strong>Translation</strong></td><td>Turning Malayalam, Hindi, Tamil or mixed-language comments into English.</td><td>Manglish (Malayalam words in English letters): "Food adipoli!" means "The food was excellent!" (a made-up example for a native speaker to check)</td><td>Ask a native speaker to check a sample. Local words are easy to get wrong.</td></tr>
+              <tr><td><strong>Translation</strong></td><td>Turning Malayalam, Hindi, Tamil or mixed-language comments into English.</td><td>Manglish (Malayalam words in English letters): "Food adipoli!" means "The food was excellent!" (a sample comment; ask a native speaker to check local words)</td><td>Ask a native speaker to check a sample. Local words are easy to get wrong.</td></tr>
             </tbody>
           </table>
           <p>AI is fast at the first pass. It does not know your business, your guests or what happened on the trip. You add that knowledge when you check its work.</p>
@@ -1948,7 +1948,7 @@ module CustomerFeedbackAnalysisContent
         </div>
         <div class="lc-card">
           <h3>Linking feedback to tickets and churn</h3>
-          <p><strong>Churn</strong> means customers you lose. For a software company like LedgerLite, churn is a business that cancels its subscription. For Backwater Trails, guests rarely book every month. So Anjali uses cancelled bookings and the reasons guests give.</p>
+          <p><strong>Churn</strong> means customers you lose. For a software company, such as an accounting app that small businesses pay for each month, churn is a business that cancels its subscription. For Backwater Trails, guests rarely book every month. So Anjali uses cancelled bookings and the reasons guests give.</p>
           <p>The links above changed her view. T6 has fewer mentions than T4, but it caused 14 of the 52 cancellations. It is also the main reason in 21 tickets. It also creates a legal risk, because hidden charges can be seen as misleading (this is general information, not legal advice). That is why its impact is 5.</p>
           <p><strong>Watch for blind spots.</strong> No detractor comment mentions refunds. This does not mean refunds are fine. Guests whose trips were cancelled never get the post-trip survey. Their pain shows up in tickets instead: 26 of the 96 tickets are about refunds.</p>
           <p><strong>A link is not proof.</strong> Detractors often mention booking problems. That does not prove the booking problems caused their low scores. Read the detractor comments before you say "X causes Y".</p>

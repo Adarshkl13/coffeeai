@@ -247,7 +247,7 @@ module MachineLearningContent
         </div>
         <div class="lc-card">
           <h3>Separating X and y with Pandas</h3>
-          <div class="lc-code">import pandas as pd<br><br>df = pd.DataFrame({<br>    "area_sqft": [850, 1200, 1500, 950],<br>    "bedrooms":  [2, 3, 3, 2],<br>    "city":      ["London", "San Francisco", "London", "Los Angeles"],<br>    "price_lakh":[48, 95, 88, 60],<br>})<br>X = df.drop(columns="price_lakh")   # features<br>y = df["price_lakh"]                # label<br>print(X.shape, y.shape)<br>print(list(X.columns))</div>
+          <div class="lc-code">import pandas as pd<br><br>df = pd.DataFrame({<br>    "area_sqft": [850, 1200, 1500, 950],<br>    "bedrooms":  [2, 3, 3, 2],<br>    "city":      ["City A", "City B", "City A", "City C"],<br>    "price_lakh":[48, 95, 88, 60],<br>})<br>X = df.drop(columns="price_lakh")   # features<br>y = df["price_lakh"]                # label<br>print(X.shape, y.shape)<br>print(list(X.columns))</div>
           <p><strong>Output:</strong></p>
           <div class="lc-code">(4, 3) (4,)<br>['area_sqft', 'bedrooms', 'city']</div>
           <p>X is 2D (4 rows × 3 features). y is 1D (4 answers). Row <em>i</em> of X always goes with element <em>i</em> of y. Never sort or filter one without the other.</p>
@@ -339,7 +339,7 @@ module MachineLearningContent
         flats = pd.DataFrame({
             "flat_id":    [101, 102, 103, 104, 105, 106],
             "area_sqft":  [650, 850, 1200, np.nan, 950, 1800],
-            "city":       ["London", "London", "San Francisco", "Los Angeles", "Los Angeles", "San Francisco"],
+            "city":       ["City A", "City A", "City B", "City C", "City C", "City B"],
             "price_lakh": [38, 50, 95, 70, 55, 150],
         })
         print("Missing values per column:", flats.isna().sum().to_dict())
@@ -971,7 +971,7 @@ module MachineLearningContent
           <div class="lc-code">class_weight=None     precision=0.62 recall=0.47 PR-AUC=0.60<br>class_weight=balanced precision=0.27 recall=0.88 PR-AUC=0.55<br>tuned threshold=0.15 precision=0.42 recall=0.78</div>
           <ul class="lc-list">
             <li><strong><code>class_weight="balanced"</code></strong> makes each mistake on the rare class cost more during training. Recall jumps from 0.47 to 0.88. But precision falls to 0.27, so there are many more false alarms. Most scikit-learn classifiers (LogisticRegression, SVC, trees, forests) accept it.</li>
-            <li><strong>Threshold selection with cross-validation:</strong> <code>TunedThresholdClassifierCV</code> (scikit-learn 1.5+) keeps the normal model. It picks the threshold that gives the best value of your chosen score (here F1). It uses cross-validation on the <em>training</em> set only. Here it chose 0.15 instead of 0.5, which is a middle point. You can do the same by hand with <code>cross_val_predict(..., method="predict_proba")</code> and <code>precision_recall_curve</code>.</li>
+            <li><strong>Threshold selection with cross-validation:</strong> <code>TunedThresholdClassifierCV</code> (scikit-learn 1.5+) keeps the normal model. It picks the threshold that gives the best value of your chosen score (here F1). It uses cross-validation on the <em>training</em> set only. Here it chose 0.15 instead of the default 0.5. You can do the same by hand with <code>cross_val_predict(..., method="predict_proba")</code> and <code>precision_recall_curve</code>.</li>
             <li><strong>Report PR-AUC</strong> (plus precision and recall at your chosen threshold), not accuracy. Always predicting "not fraud" is 95% accurate, but it catches nothing.</li>
             <li>Also use <code>stratify=y</code> in every split, and <code>StratifiedKFold</code> for cross-validation. Then every fold (part of the data) has some positives.</li>
           </ul>
@@ -1401,7 +1401,7 @@ module MachineLearningContent
               <tr><td>Training score</td><td>Low</td><td>High</td><td>Very high (almost perfect)</td></tr>
               <tr><td>Test score</td><td>Low</td><td>High</td><td>Much lower than training</td></tr>
               <tr><td>Like a student who…</td><td>Did not study</td><td>Understood the ideas</td><td>Memorised last year's answers</td></tr>
-              <tr><td>Fix</td><td>More complex model, better features</td><td>—</td><td>Simpler model, regularisation, more data</td></tr>
+              <tr><td>Fix</td><td>More complex model, better features</td><td>n/a</td><td>Simpler model, regularisation, more data</td></tr>
             </tbody>
           </table>
         </div>
@@ -1627,7 +1627,7 @@ module MachineLearningContent
           <div class="lc-badge le-badge le-badge-ai">Machine Learning</div>
           <h1 class="lc-title">Feature Scaling and Encoding</h1>
         </div>
-        <p class="lc-lead">Models only understand numbers. Many models get confused when numbers are on very different scales. <strong>Scaling</strong> puts numeric features in a similar range. <strong>Encoding</strong> turns text categories, like city names, into numbers.</p>
+        <p class="lc-lead">Models only understand numbers. Many models get confused when numbers are on very different scales. <strong>Scaling</strong> puts numeric features in a similar range. <strong>Encoding</strong> turns text categories, like state names, into numbers.</p>
         <div class="lc-card">
           <h3>Why Scale?</h3>
           <p>Think of a loan dataset with <code>income_lakh</code> (2–50) and <code>cibil_score</code> (300–900). For k-NN, a difference of 100 CIBIL points looks 50 times bigger than a difference of 2 lakhs. This happens even if income matters more. Scaling fixes this.</p>
@@ -1649,20 +1649,20 @@ module MachineLearningContent
         </div>
         <div class="lc-card">
           <h3>Encoding Categories</h3>
-          <div class="lc-code">from sklearn.preprocessing import OneHotEncoder<br><br>cities = [["Chicago"], ["New York"], ["Chicago"], ["Philadelphia"]]<br>enc = OneHotEncoder(handle_unknown="ignore", sparse_output=False)<br>print(enc.fit_transform(cities))<br>print(enc.get_feature_names_out())</div>
+          <div class="lc-code">from sklearn.preprocessing import OneHotEncoder<br><br>states = [["Gujarat"], ["Kerala"], ["Gujarat"], ["Punjab"]]<br>enc = OneHotEncoder(handle_unknown="ignore", sparse_output=False)<br>print(enc.fit_transform(states))<br>print(enc.get_feature_names_out())</div>
           <p><strong>Output:</strong></p>
-          <div class="lc-code">[[1. 0. 0.]<br> [0. 1. 0.]<br> [1. 0. 0.]<br> [0. 0. 1.]]<br>['x0_Chicago' 'x0_New York' 'x0_Philadelphia']</div>
-          <p>The categories are sorted in alphabetical order, with one column each. (With a DataFrame column, the names become <code>city_Chicago</code> and so on, as in the starter.) By default, the encoder returns a sparse matrix, which saves memory. <code>sparse_output=False</code> gives a normal NumPy array.</p>
+          <div class="lc-code">[[1. 0. 0.]<br> [0. 1. 0.]<br> [1. 0. 0.]<br> [0. 0. 1.]]<br>['x0_Gujarat' 'x0_Kerala' 'x0_Punjab']</div>
+          <p>The categories are sorted in alphabetical order, with one column each. (With a DataFrame column, the names become <code>state_Gujarat</code> and so on, as in the starter.) By default, the encoder returns a sparse matrix, which saves memory. <code>sparse_output=False</code> gives a normal NumPy array.</p>
           <ul class="lc-list">
-            <li><strong>One-hot encoding</strong>: one 0/1 column for each category. Use it for categories with no order (city, crop type).</li>
+            <li><strong>One-hot encoding</strong>: one 0/1 column for each category. Use it for categories with no order (state, crop type).</li>
             <li><strong>Ordinal encoding</strong>: map categories to 0, 1, 2… Use it only when there is a real order (low &lt; medium &lt; high). In a pipeline, use <code>OrdinalEncoder(categories=[["12th", "UG", "PG"]])</code> so you control the order. By default, it would sort in alphabetical order: 12th, PG, UG. That is wrong.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Scaling in Numbers</h3>
           <p>In the starter, the training means are 10.27 lakhs (income) and 715 (CIBIL). After <code>StandardScaler</code>, the first applicant (4.5 lakhs, 640) becomes <code>[-0.80, -0.95]</code>. This means "a bit below average on both". Now a difference of 1 means "one standard deviation" for both features. So neither feature controls a distance calculation.</p>
-          <div class="lc-code">StandardScaler means: [ 10.27 715.  ]<br>   income_lakh  cibil_score<br>0        -0.80        -0.95<br>1         0.24         0.82<br>...<br>One-hot columns: ['city_Chicago', 'city_Los Angeles', 'city_New York', 'city_Philadelphia']<br>Unseen city 'London' -&gt; [[0. 0. 0. 0.]]</div>
-          <p>A city the encoder has not seen becomes all zeros. It does not crash the model.</p>
+          <div class="lc-code">StandardScaler means: [ 10.27 715.  ]<br>   income_lakh  cibil_score<br>0        -0.80        -0.95<br>1         0.24         0.82<br>...<br>One-hot columns: ['state_Gujarat', 'state_Karnataka', 'state_Kerala', 'state_Punjab']<br>Unseen state 'Assam' -&gt; [[0. 0. 0. 0.]]</div>
+          <p>A state the encoder has not seen becomes all zeros. It does not crash the model.</p>
         </div>
         <div class="lc-card">
           <h3>Missing Values: Imputation</h3>
@@ -1672,8 +1672,8 @@ module MachineLearningContent
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Fitting the scaler on all data</strong>: fit it on training data only. Then <code>transform</code> both train and test. Otherwise, test information leaks into training.</li>
-            <li><strong>Label-encoding cities as 0, 1, 2</strong>: the model thinks Philadelphia (2) is "twice" New York (1). Use one-hot instead.</li>
-            <li><strong>Crashing on unseen categories</strong>: a new city in the test set breaks the encoder. To stop this, set <code>handle_unknown="ignore"</code>.</li>
+            <li><strong>Label-encoding states as 0, 1, 2</strong>: the model thinks Punjab (2) is "twice" Kerala (1). Use one-hot instead.</li>
+            <li><strong>Crashing on unseen categories</strong>: a new state in the test set breaks the encoder. To stop this, set <code>handle_unknown="ignore"</code>.</li>
             <li><strong>Using the old argument name</strong>: <code>OneHotEncoder(sparse=False)</code> was removed. The current name is <code>sparse_output</code>.</li>
           </ul>
         </div>
@@ -1698,7 +1698,7 @@ module MachineLearningContent
         loans = pd.DataFrame({
             "income_lakh": [4.5, 12.0, 7.2, 25.0, 3.1, 9.8],
             "cibil_score": [640, 780, 710, 820, 590, 750],
-            "city":        ["Chicago", "New York", "Chicago", "Philadelphia", "New York", "Los Angeles"],
+            "state":       ["Gujarat", "Kerala", "Gujarat", "Punjab", "Kerala", "Karnataka"],
             "education":   ["12th", "PG", "UG", "PG", "12th", "UG"],
         })
         print(loans, "\n")
@@ -1710,12 +1710,12 @@ module MachineLearningContent
         print("MinMaxScaler (0 to 1):")
         print(pd.DataFrame(MinMaxScaler().fit_transform(nums), columns=nums.columns).round(2), "\n")
 
-        # One-hot encode city (cities have no natural order)
+        # One-hot encode state (states have no natural order)
         enc = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
-        city_oh = enc.fit_transform(loans[["city"]])
+        state_oh = enc.fit_transform(loans[["state"]])
         print("One-hot columns:", list(enc.get_feature_names_out()))
-        print(city_oh[:3])
-        print("Unseen city 'London' ->", enc.transform(pd.DataFrame({"city": ["London"]})))
+        print(state_oh[:3])
+        print("Unseen state 'Assam' ->", enc.transform(pd.DataFrame({"state": ["Assam"]})))
 
         # Ordinal encoding for education (here there IS an order)
         order = {"12th": 0, "UG": 1, "PG": 2}
@@ -1724,7 +1724,7 @@ module MachineLearningContent
         # Everything together with ColumnTransformer
         ct = ColumnTransformer([
             ("num", StandardScaler(), ["income_lakh", "cibil_score"]),
-            ("cat", OneHotEncoder(handle_unknown="ignore"), ["city"]),
+            ("cat", OneHotEncoder(handle_unknown="ignore"), ["state"]),
         ], sparse_threshold=0)
         out = ct.fit_transform(loans)
         print("\nColumnTransformer output shape:", out.shape)
@@ -1863,7 +1863,7 @@ module MachineLearningContent
           <table class="lc-table">
             <thead><tr><th>Setting</th><th>What it does</th><th>Small value</th><th>Large value</th></tr></thead>
             <tbody>
-              <tr><td><code>kernel</code></td><td><code>"linear"</code> = straight boundary; <code>"rbf"</code> (default) = smooth curves; <code>"poly"</code> = polynomial curves</td><td>—</td><td>—</td></tr>
+              <tr><td><code>kernel</code></td><td><code>"linear"</code> = straight boundary; <code>"rbf"</code> (default) = smooth curves; <code>"poly"</code> = polynomial curves</td><td>n/a</td><td>n/a</td></tr>
               <tr><td><code>C</code> (default 1.0)</td><td>Penalty for points on the wrong side</td><td>Wide, soft margin: simpler model (more regularisation)</td><td>Tries to get every training point right: may overfit</td></tr>
               <tr><td><code>gamma</code> (rbf/poly; default <code>"scale"</code>)</td><td>How far the effect of one training point reaches</td><td>Far: very smooth boundary</td><td>Very local: wiggly boundary around single points</td></tr>
             </tbody>
@@ -2139,7 +2139,7 @@ module MachineLearningContent
           <table class="lc-table">
             <thead><tr><th>k</th><th>Inertia (starter output)</th><th>Drop</th><th>Silhouette</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td>600.0</td><td>—</td><td>—</td></tr>
+              <tr><td>1</td><td>600.0</td><td>n/a</td><td>n/a</td></tr>
               <tr><td>2</td><td>347.3</td><td>253</td><td>0.417</td></tr>
               <tr><td>3</td><td>187.7</td><td>160</td><td><strong>0.495</strong></td></tr>
               <tr><td>4</td><td>135.0</td><td>53 ← drops become small: elbow at k = 3</td><td>0.466</td></tr>

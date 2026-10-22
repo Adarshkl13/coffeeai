@@ -170,7 +170,7 @@ module PracticalAiContent
           <div class="lc-code"># One training step by hand for the model y_hat = w * x, with one example<br>x, y = 3.0, 6.0          # the right answer is w = 2<br>w, lr = 0.5, 0.05<br>y_hat = w * x            # forward pass<br>loss = (y_hat - y) ** 2  # squared error<br>grad = 2 * (y_hat - y) * x<br>w_new = w - lr * grad    # gradient descent update<br>print(f"prediction {y_hat}, loss {loss}, gradient {grad}, new w {w_new:.2f}")<br>print(f"new loss {(w_new * x - y) ** 2:.2f}")</div>
           <p><strong>Output:</strong></p>
           <div class="lc-code">prediction 1.5, loss 20.25, gradient -27.0, new w 1.85<br>new loss 0.20</div>
-          <p>The gradient is negative, so increasing w lowers the loss. The update increases w from 0.5 to 1.85. The loss falls from 20.25 to 0.20. Training an LLM uses this same step. It repeats it trillions of times over billions of weights.</p>
+          <p>The gradient is negative, so increasing w lowers the loss. The update increases w from 0.5 to 1.85. The loss falls from 20.25 to 0.20. Training an LLM uses this same step. It repeats it hundreds of thousands of times or more, updating billions of weights each time, while the model reads trillions of tokens.</p>
         </div>
         <div class="lc-card">
           <h3>Key Hyperparameters</h3>
@@ -180,7 +180,7 @@ module PracticalAiContent
               <tr><td>Learning rate</td><td>1e-4 to 1e-2 (Adam)</td><td>Learns very slowly / loss explodes</td></tr>
               <tr><td>Batch size</td><td>32–512 examples</td><td>Noisy / needs more memory</td></tr>
               <tr><td>Epochs</td><td>Until validation loss stops falling</td><td>Underfits (learns too little) / overfits (memorises the training data)</td></tr>
-              <tr><td>Optimiser</td><td>AdamW (Adam with decoupled weight decay)</td><td>—</td></tr>
+              <tr><td>Optimiser</td><td>AdamW (Adam with decoupled weight decay)</td><td>n/a</td></tr>
             </tbody>
           </table>
         </div>
@@ -378,7 +378,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">Tokenisation — How Text Becomes Numbers</h1>
+          <h1 class="lc-title">Tokenisation: How Text Becomes Numbers</h1>
         </div>
         <p class="lc-lead">LLMs don't see words or characters. They see <strong>tokens</strong>: whole-number IDs from a fixed vocabulary (the list of all tokens a model knows). Tokenisation explains three things. It shows why LLMs are bad at spelling, why longer prompts cost more, and why context limits are counted in tokens.</p>
         <div class="lc-card">
@@ -398,7 +398,7 @@ module PracticalAiContent
           </ul>
         </div>
         <div class="lc-card">
-          <h3>Context Windows (current models)</h3>
+          <h3>Context Windows (at the time of writing)</h3>
           <table class="lc-table">
             <thead><tr><th>Model</th><th>Context window</th><th>Max output</th></tr></thead>
             <tbody>
@@ -409,7 +409,7 @@ module PracticalAiContent
               <tr><td>GPT-6 Luna (<code>gpt-6-luna</code>)</td><td>~1.05M tokens</td><td>128K</td></tr>
             </tbody>
           </table>
-          <p>Always check the provider's model page, or ask the API. Anthropic's Models API (<code>client.models.retrieve(...)</code>) gives <code>max_input_tokens</code> and <code>max_tokens</code> for each model. These limits change with each release.</p>
+          <p>These model names and limits are correct at the time of writing. Always check the provider's current model list, or ask the API. Anthropic's Models API (<code>client.models.retrieve(...)</code>) gives <code>max_input_tokens</code> and <code>max_tokens</code> for each model. These limits change with each release.</p>
         </div>
         <div class="lc-card">
           <h3>Counting Tokens for Real</h3>
@@ -738,7 +738,7 @@ module PracticalAiContent
 
         vague = "Summarise this review and make it good: The pizza was cold but the staff were lovely."
         good = build_prompt(
-            role="a customer-feedback analyst for a restaurant chain in London",
+            role="a customer-feedback analyst for a restaurant chain in India",
             task="Summarise the review in the document in one sentence and label its sentiment.",
             context="The pizza was cold but the staff were lovely.",
             examples=[("Great biryani, slow delivery.", '{"summary": "Tasty food, slow delivery.", "sentiment": "mixed"}')],
@@ -757,7 +757,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">Advanced Prompting — Reasoning and Structured Outputs</h1>
+          <h1 class="lc-title">Advanced Prompting: Reasoning and Structured Outputs</h1>
         </div>
         <p class="lc-lead">After basic prompting, the next step is to mix reasoning methods with API features that <em>enforce</em> (force) the shape of the output. The goal is answers that are well reasoned and that code can always read.</p>
         <div class="lc-card">
@@ -869,7 +869,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">Working with AI APIs — Responses and Messages</h1>
+          <h1 class="lc-title">Working with AI APIs: Responses and Messages</h1>
         </div>
         <p class="lc-lead">OpenAI's <strong>Responses API</strong> and Anthropic's <strong>Messages API</strong> have the same shape. For new projects, OpenAI recommends the Responses API over the older Chat Completions API. In both, you send instructions + conversation, and you get back content blocks + token usage. Learn the request and response structure, error handling and retries once. Then you can use either API.</p>
         <div class="lc-card">
@@ -911,14 +911,14 @@ module PracticalAiContent
         <div class="lc-card">
           <h3>Worked example: read a response and work out its cost</h3>
           <p>Responses are lists of <em>content blocks</em>. With reasoning models, the list can start with a thinking block. So never assume the text is at index 0:</p>
-          <div class="lc-code"># What a Messages API response looks like (as a dict), and how to read it safely<br>message = {<br>    "model": "claude-opus-5-5",<br>    "stop_reason": "end_turn",<br>    "content": [<br>        {"type": "thinking", "thinking": ""},                 # reasoning is not shown by default<br>        {"type": "text", "text": "Embeddings turn text into lists of numbers "},<br>        {"type": "text", "text": "so that similar meanings end up close together."},<br>    ],<br>    "usage": {"input_tokens": 1200, "output_tokens": 850},<br>}<br>if message["stop_reason"] == "max_tokens":<br>    print("WARNING: answer was cut off")<br>text = "".join(b["text"] for b in message["content"] if b["type"] == "text")<br>print(text)<br><br>PRICE = {"claude-opus-5-5": (4.00, 20.00), "gpt-6-sol": (2.00, 10.00)}  # $ per 1M tokens, Sept 2026<br>inp, out = PRICE[message["model"]]<br>u = message["usage"]<br>cost = (u["input_tokens"] * inp + u["output_tokens"] * out) / 1_000_000<br>print(f"cost: ${cost:.4f}  (= {cost * 1000:.2f} dollars per 1,000 such requests)")</div>
+          <div class="lc-code"># What a Messages API response looks like (as a dict), and how to read it safely<br>message = {<br>    "model": "claude-opus-5-5",<br>    "stop_reason": "end_turn",<br>    "content": [<br>        {"type": "thinking", "thinking": ""},                 # reasoning is not shown by default<br>        {"type": "text", "text": "Embeddings turn text into lists of numbers "},<br>        {"type": "text", "text": "so that similar meanings end up close together."},<br>    ],<br>    "usage": {"input_tokens": 1200, "output_tokens": 850},<br>}<br>if message["stop_reason"] == "max_tokens":<br>    print("WARNING: answer was cut off")<br>text = "".join(b["text"] for b in message["content"] if b["type"] == "text")<br>print(text)<br><br>PRICE = {"claude-opus-5-5": (4.00, 20.00), "gpt-6-sol": (2.00, 10.00)}  # $ per 1M tokens, at the time of writing<br>inp, out = PRICE[message["model"]]<br>u = message["usage"]<br>cost = (u["input_tokens"] * inp + u["output_tokens"] * out) / 1_000_000<br>print(f"cost: ${cost:.4f}  (= {cost * 1000:.2f} dollars per 1,000 such requests)")</div>
           <p><strong>Output:</strong></p>
           <div class="lc-code">Embeddings turn text into lists of numbers so that similar meanings end up close together.<br>cost: $0.0218  (= 21.80 dollars per 1,000 such requests)</div>
           <p>About 2 US cents per request looks tiny. But at 1,000 requests a day, that is about $650 a month. Log usage on every call. Prices can differ many times over between models (Lesson 21).</p>
         </div>
         <div class="lc-card">
           <h3>Gemini Too</h3>
-          <p>For new projects, Google recommends the <strong>Interactions API</strong> in the <code>google-genai</code> SDK. The older <code>generateContent</code> API still works:</p>
+          <p>At the time of writing, Google suggests the newer <strong>Interactions API</strong> in the <code>google-genai</code> SDK for new projects. The older <code>generateContent</code> API still works. Check Google's current Gemini API docs, because these APIs change:</p>
           <div class="lc-code">from google import genai<br>client = genai.Client()   # reads GEMINI_API_KEY<br><br>interaction = client.interactions.create(<br>    model="gemini-3.8-flash",<br>    system_instruction="You are a helpful tutor.",<br>    input="Explain embeddings simply.",<br>)<br>print(interaction.output_text)</div>
         </div>
         <div class="lc-card">
@@ -1208,7 +1208,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">RAG — Retrieval Augmented Generation</h1>
+          <h1 class="lc-title">RAG: Retrieval Augmented Generation</h1>
         </div>
         <p class="lc-lead">RAG fixes the biggest limit of LLMs: they can't see information outside their training data. RAG finds the relevant context and adds it to the prompt. This gives LLMs access to your private knowledge base, without fine-tuning.</p>
         <div class="lc-card">
@@ -1330,7 +1330,7 @@ module PracticalAiContent
 
         print(f"{len(chunks)} chunks from {len(handbook)} documents\n")
         for q in ["How many days of leave can I carry forward?",
-                  "What is the food allowance in New York?",
+                  "What is the food allowance on a work trip to another state?",
                   "Can I get a company car?"]:
             hits = retrieve(q)
             print(f"Q: {q}")
@@ -1346,7 +1346,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">AI Agents — Tool Calling and MCP</h1>
+          <h1 class="lc-title">AI Agents: Tool Calling and MCP</h1>
         </div>
         <p class="lc-lead">An AI agent is an LLM (a large language model) that runs in a loop. It can call <strong>tools</strong> (search, code execution, your APIs). It reads the results and decides what to do next. It repeats this until the goal is reached. Tool calling is how this works. The Model Context Protocol (MCP) is the standard way to connect tools and data to many AI apps at once.</p>
         <div class="lc-card">
@@ -1360,7 +1360,7 @@ module PracticalAiContent
         </div>
         <div class="lc-card">
           <h3>Function Calling Loop (OpenAI Responses API)</h3>
-          <div class="lc-code">tools = [{<br>    "type": "function",<br>    "name": "get_weather",<br>    "description": "Current weather for a city.",<br>    "strict": True,<br>    "parameters": {<br>        "type": "object",<br>        "properties": {"city": {"type": "string"}},<br>        "required": ["city"],<br>        "additionalProperties": False,<br>    },<br>}]<br><br>input_list = [{"role": "user", "content": "Do I need an umbrella in London?"}]<br>for step in range(MAX_STEPS):<br>    response = client.responses.create(model="gpt-6-sol", tools=tools, input=input_list)<br>    input_list += response.output<br>    calls = [item for item in response.output if item.type == "function_call"]<br>    if not calls:<br>        break                                   # final answer in response.output_text<br>    for call in calls:<br>        args = json.loads(call.arguments)<br>        result = get_weather(**args)<br>        input_list.append({"type": "function_call_output",<br>                           "call_id": call.call_id, "output": json.dumps(result)})</div>
+          <div class="lc-code">tools = [{<br>    "type": "function",<br>    "name": "get_weather",<br>    "description": "Current weather for a place.",<br>    "strict": True,<br>    "parameters": {<br>        "type": "object",<br>        "properties": {"place": {"type": "string"}},<br>        "required": ["place"],<br>        "additionalProperties": False,<br>    },<br>}]<br><br>input_list = [{"role": "user", "content": "Do I need an umbrella in Kerala?"}]<br>for step in range(MAX_STEPS):<br>    response = client.responses.create(model="gpt-6-sol", tools=tools, input=input_list)<br>    input_list += response.output<br>    calls = [item for item in response.output if item.type == "function_call"]<br>    if not calls:<br>        break                                   # final answer in response.output_text<br>    for call in calls:<br>        args = json.loads(call.arguments)<br>        result = get_weather(**args)<br>        input_list.append({"type": "function_call_output",<br>                           "call_id": call.call_id, "output": json.dumps(result)})</div>
           <p>Anthropic's Messages API uses the same loop with different names. Tools use <code>input_schema</code>. The model returns <code>tool_use</code> blocks with <code>stop_reason == "tool_use"</code>. You reply with <code>tool_result</code> blocks that carry the matching <code>tool_use_id</code>.</p>
         </div>
         <div class="lc-card">
@@ -1371,15 +1371,15 @@ module PracticalAiContent
             <tbody>
               <tr><td>Host</td><td>The AI app (an IDE or a chat app). It uses one client for each server</td></tr>
               <tr><td>Server</td><td>A program that offers <strong>tools</strong> (actions the model can call), <strong>resources</strong> (data) and <strong>prompts</strong> (templates)</td></tr>
-              <tr><td>Client features</td><td>A server may need <strong>elicitation</strong> (asking the user for more input). In 2026-07-28 it returns an <code>"input_required"</code> result. The client then sends the request again with the answers. <strong>Sampling</strong> (asking the model) and <strong>roots</strong> (which folders the server may use) still work. But they are <em>deprecated</em> in the 2026-07-28 spec (SEP-2577). This means they are the old way, so do not use them in new code. Instead, call your LLM provider directly. Pass folders as tool arguments or in the server settings.</td></tr>
+              <tr><td>Client features</td><td>A server may need <strong>elicitation</strong> (asking the user for more input). In the 2026-07-28 spec it returns an <code>"input_required"</code> result. The client then sends the request again with the answers. <strong>Sampling</strong> (asking the model) and <strong>roots</strong> (which folders the server may use) still work. But they are <em>deprecated</em> in the 2026-07-28 spec (SEP-2577). This means they are the old way, so do not use them in new code. Instead, call your LLM provider directly. Pass folders as tool arguments or in the server settings.</td></tr>
               <tr><td>Transports</td><td><strong>stdio</strong> for local servers. <strong>Streamable HTTP</strong> for remote servers (with login based on OAuth)</td></tr>
               <tr><td>Key methods</td><td><code>tools/list</code> finds the tools. <code>tools/call</code> runs one. <code>resources/read</code> gets data. <code>server/discover</code> tells which versions and features the server supports. Every server MUST have it. Clients MAY call it first</td></tr>
             </tbody>
           </table>
-          <p><strong>The current spec (2026-07-28) is stateless.</strong> Stateless means the server does not remember earlier requests. Older versions (2025-11-25 and earlier) started a session with an <code>initialize</code> handshake. Now there is no handshake. Every request carries the protocol version and the client features in its <code>_meta</code> field. Each request is handled on its own. Many servers support both styles while people move to the new one.</p>
-          <div class="lc-code">{"jsonrpc": "2.0", "id": 2, "method": "tools/call",<br> "params": {"name": "get_weather", "arguments": {"city": "London"},<br>            "_meta": {"io.modelcontextprotocol/protocolVersion": "2026-07-28",<br>                      "io.modelcontextprotocol/clientCapabilities": {}}}}<br><br>{"jsonrpc": "2.0", "id": 2,<br> "result": {"resultType": "complete",<br>            "content": [{"type": "text", "text": "light rain, 24°C"}], "isError": false}}</div>
+          <p><strong>At the time of writing, the newest spec (2026-07-28) is stateless.</strong> Stateless means the server does not remember earlier requests. Older versions (2025-11-25 and earlier) started a session with an <code>initialize</code> handshake. Now there is no handshake. Every request carries the protocol version and the client features in its <code>_meta</code> field. Each request is handled on its own. Many servers support both styles while people move to the new one. Check modelcontextprotocol.io for the current spec version.</p>
+          <div class="lc-code">{"jsonrpc": "2.0", "id": 2, "method": "tools/call",<br> "params": {"name": "get_weather", "arguments": {"place": "Kerala"},<br>            "_meta": {"io.modelcontextprotocol/protocolVersion": "2026-07-28",<br>                      "io.modelcontextprotocol/clientCapabilities": {}}}}<br><br>{"jsonrpc": "2.0", "id": 2,<br> "result": {"resultType": "complete",<br>            "content": [{"type": "text", "text": "light rain, 24°C"}], "isError": false}}</div>
           <p>List results (<code>tools/list</code>, <code>resources/list</code>, <code>prompts/list</code>, <code>resources/read</code>) must also include two fields (SEP-2549). <code>ttlMs</code> is how many milliseconds the client may cache (save and reuse) the answer. <code>cacheScope</code> is <code>"public"</code> or <code>"private"</code>. It says if shared caches may keep the answer. Say a client cached the tool list for 60 seconds. Then it does not need to ask again on every turn.</p>
-          <p>A tool can fail inside (a bad city, or the API is down). This comes back as a normal result with <code>"isError": true</code>. The model can read it and try again. Protocol problems (an unknown tool, a broken request) are JSON-RPC errors.</p>
+          <p>A tool can fail inside (a bad place name, or the API is down). This comes back as a normal result with <code>"isError": true</code>. The model can read it and try again. Protocol problems (an unknown tool, a broken request) are JSON-RPC errors.</p>
         </div>
         <div class="lc-card">
           <h3>Agent Patterns</h3>
@@ -1395,9 +1395,9 @@ module PracticalAiContent
         </div>
         <div class="lc-card">
           <h3>Worked example: one tool round-trip, Anthropic style</h3>
-          <div class="lc-code">import json<br># One tool round-trip in Anthropic's Messages API format (content blocks as dicts)<br>assistant_turn = {"role": "assistant", "content": [<br>    {"type": "text", "text": "Let me check the weather."},<br>    {"type": "tool_use", "id": "toolu_01", "name": "get_weather", "input": {"city": "London"}}]}<br># stop_reason was "tool_use": YOUR code runs the tool, then replies with the result<br>calls = [b for b in assistant_turn["content"] if b["type"] == "tool_use"]<br>results = [{"type": "tool_result", "tool_use_id": c["id"], "content": "light rain, 24°C"}<br>           for c in calls]<br>user_turn = {"role": "user", "content": results}     # all results in ONE user message<br>print("tool requested:", calls[0]["name"], calls[0]["input"])<br>print(json.dumps(user_turn, ensure_ascii=False))</div>
+          <div class="lc-code">import json<br># One tool round-trip in Anthropic's Messages API format (content blocks as dicts)<br>assistant_turn = {"role": "assistant", "content": [<br>    {"type": "text", "text": "Let me check the weather."},<br>    {"type": "tool_use", "id": "toolu_01", "name": "get_weather", "input": {"place": "Kerala"}}]}<br># stop_reason was "tool_use": YOUR code runs the tool, then replies with the result<br>calls = [b for b in assistant_turn["content"] if b["type"] == "tool_use"]<br>results = [{"type": "tool_result", "tool_use_id": c["id"], "content": "light rain, 24°C"}<br>           for c in calls]<br>user_turn = {"role": "user", "content": results}     # all results in ONE user message<br>print("tool requested:", calls[0]["name"], calls[0]["input"])<br>print(json.dumps(user_turn, ensure_ascii=False))</div>
           <p><strong>Output:</strong></p>
-          <div class="lc-code">tool requested: get_weather {'city': 'London'}<br>{"role": "user", "content": [{"type": "tool_result", "tool_use_id": "toolu_01", "content": "light rain, 24°C"}]}</div>
+          <div class="lc-code">tool requested: get_weather {'place': 'Kerala'}<br>{"role": "user", "content": [{"type": "tool_result", "tool_use_id": "toolu_01", "content": "light rain, 24°C"}]}</div>
           <p>The <code>tool_use_id</code> must match the <code>id</code> of the request. The model may ask for several tools at once. Then run them all (at the same time if you like). Return every <code>tool_result</code> together in one user message. If a tool fails, do not skip it. Send a <code>tool_result</code> with <code>"is_error": true</code>.</p>
         </div>
         <div class="lc-card">
@@ -1413,7 +1413,7 @@ module PracticalAiContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>In the starter change the city the fake model asks for to <code>"Inverness"</code>. The server returns <code>isError: true</code>. The final answer says sorry instead of making up a forecast.</li>
+            <li>In the starter change the place the fake model asks for to <code>"Ladakh"</code>. The server returns <code>isError: true</code>. The final answer says sorry instead of making up a forecast.</li>
             <li>Add a second tool <code>"get_time"</code> to <code>TOOLS</code>. Check that <code>tools/list</code> now finds two tools.</li>
             <li>Change the loop to <code>range(1, 2)</code>. Only one step is allowed, so the agent stops before it can answer. Decide what your app should tell the user in that case.</li>
           </ol>
@@ -1426,10 +1426,10 @@ module PracticalAiContent
         # Runs locally: a fake MCP-style tool server (JSON-RPC 2.0) and an agent loop with a step limit
         import json
 
-        TOOLS = {"get_weather": {"description": "Current weather for a city.",
-                                 "inputSchema": {"type": "object", "properties": {"city": {"type": "string"}},
-                                                 "required": ["city"]}}}
-        WEATHER = {"London": "light rain, 24°C", "Manchester": "sunny, 35°C"}
+        TOOLS = {"get_weather": {"description": "Current weather for a place.",
+                                 "inputSchema": {"type": "object", "properties": {"place": {"type": "string"}},
+                                                 "required": ["place"]}}}
+        WEATHER = {"Kerala": "light rain, 24°C", "Rajasthan": "sunny, 35°C"}
 
         def mcp_server(request):
             """Handles tools/list and tools/call, like an MCP server would."""
@@ -1437,11 +1437,11 @@ module PracticalAiContent
             if method == "tools/list":
                 result = {"tools": [{"name": n, **t} for n, t in TOOLS.items()], "ttlMs": 60000, "cacheScope": "public"}
             elif method == "tools/call":
-                city = params["arguments"].get("city", "")
-                if city in WEATHER:
-                    result = {"content": [{"type": "text", "text": WEATHER[city]}], "isError": False}
+                place = params["arguments"].get("place", "")
+                if place in WEATHER:
+                    result = {"content": [{"type": "text", "text": WEATHER[place]}], "isError": False}
                 else:                                   # a tool error the model can read and recover from
-                    result = {"content": [{"type": "text", "text": f"No data for {city!r}"}], "isError": True}
+                    result = {"content": [{"type": "text", "text": f"No data for {place!r}"}], "isError": True}
             else:
                 return {"jsonrpc": "2.0", "id": request["id"], "error": {"code": -32601, "message": "Method not found"}}
             return {"jsonrpc": "2.0", "id": request["id"], "result": {"resultType": "complete", **result}}
@@ -1456,13 +1456,13 @@ module PracticalAiContent
             """Stands in for the LLM: asks for a tool until it has a result, then answers."""
             results = [m for m in conversation if m["role"] == "tool"]
             if not results:
-                return {"tool_call": {"name": "get_weather", "arguments": {"city": "London"}}}
+                return {"tool_call": {"name": "get_weather", "arguments": {"place": "Kerala"}}}
             weather = results[-1]["content"]
             if weather.startswith("No data"):
-                return {"text": "Sorry, I couldn't get the weather for that city."}
+                return {"text": "Sorry, I couldn't get the weather for that place."}
             return {"text": f"It's {weather}. " + ("Yes, take an umbrella!" if "rain" in weather else "No umbrella needed.")}
 
-        conversation = [{"role": "user", "content": "Do I need an umbrella in London today?"}]
+        conversation = [{"role": "user", "content": "Do I need an umbrella in Kerala today?"}]
         for step in range(1, 6):                        # never loop forever: cap the steps
             reply = fake_model(conversation)
             if "text" in reply:
@@ -1479,7 +1479,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">Agent Workflows — Chains, Routing and Multi-Agent Systems</h1>
+          <h1 class="lc-title">Agent Workflows: Chains, Routing and Multi-Agent Systems</h1>
         </div>
         <p class="lc-lead">In Lesson 12 you built one model that calls tools in a loop. Real products join several model calls into a <strong>workflow</strong> (a fixed series of steps). One call sorts the input, another pulls out data, and a third checks the result. This lesson shows the standard patterns. It also shows when a free-running agent is worth its cost. Finally, it shows how several agents can work together while you stay in control.</p>
         <div class="lc-card">
@@ -1864,7 +1864,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">Open-Weight Models — Self-Hosting and Quantisation</h1>
+          <h1 class="lc-title">Open-Weight Models: Self-Hosting and Quantisation</h1>
         </div>
         <p class="lc-lead">So far, every model was behind a provider's API. <strong>Open-weight</strong> models share their trained weights (the numbers the model learned). You can download them and run them on your own laptop or servers. This gives you control over privacy, cost and customisation. But you must also run the hardware yourself. This lesson shows when that is worth it. It also shows how quantisation makes big models fit.</p>
         <div class="lc-card">
@@ -1980,7 +1980,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">Fine-tuning — When and How</h1>
+          <h1 class="lc-title">Fine-tuning: When and How</h1>
         </div>
         <p class="lc-lead">Fine-tuning changes a pre-trained model to fit your own field, format or task. It does this by training the model more on your examples. On narrow tasks it can do better than prompting alone. But it has real costs. Only evals can prove that it helped.</p>
         <div class="lc-card">
@@ -2010,7 +2010,7 @@ module PracticalAiContent
             <li>Include edge cases (unusual inputs) and known failures in the training data</li>
             <li>Keep 10–20% aside for evaluation before you train</li>
             <li>First, always compare against a strong prompt baseline (the best result you get with prompting alone). Also compare against a newer base model. New models often close the gap</li>
-            <li>Check which models your provider lets you fine-tune. Usually it is only some of their models, and often not the newest top model. Access also changes. Since May 2026, OpenAI no longer lets new organisations start fine-tuning jobs. On 6 January 2027 it also stops them for existing customers. So a LoRA on an open-weight model (Lesson 16) is often the practical choice. Open-source trainers such as Hugging Face TRL also accept the chat JSONL format above.</li>
+            <li>Check which models your provider lets you fine-tune. Usually it is only some of their models, and often not the newest top model. Access also changes. Providers can also limit or close their fine-tuning services, so check your provider's current fine-tuning docs before you plan a project. A LoRA on an open-weight model (Lesson 16) is often the practical choice. Open-source trainers such as Hugging Face TRL also accept the chat JSONL format above.</li>
             <li>Watch for overfitting (the model memorises the training data). Validation loss should go down too</li>
           </ul>
         </div>
@@ -2100,7 +2100,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">AI in Production — Streaming, Caching, Batching, Rate Limits</h1>
+          <h1 class="lc-title">AI in Production: Streaming, Caching, Batching, Rate Limits</h1>
         </div>
         <p class="lc-lead">To move an AI prototype to production (real users), you must solve latency (waiting time), reliability, cost and scale. Four tools do most of the work: streaming, prompt caching, batch APIs and careful handling of rate limits.</p>
         <div class="lc-card">
@@ -2155,7 +2155,7 @@ module PracticalAiContent
           <div class="lc-code">import numpy as np<br><br># Latency (seconds) of 20 requests from your logs: averages hide the slow tail<br>latency = np.array([1.2, 1.4, 1.1, 1.3, 9.8, 1.2, 1.5, 1.3, 1.1, 1.4,<br>                    1.2, 7.5, 1.3, 1.6, 1.2, 1.4, 1.3, 1.1, 1.2, 1.5])<br>print(f"mean {latency.mean():.2f}s | p50 {np.percentile(latency, 50):.2f}s | "<br>      f"p95 {np.percentile(latency, 95):.2f}s | max {latency.max():.1f}s")<br>print("requests slower than 5 s:", int((latency &gt; 5).sum()), "of", len(latency))</div>
           <p><strong>Output:</strong></p>
           <div class="lc-code">mean 2.03s | p50 1.30s | p95 7.62s | max 9.8s<br>requests slower than 5 s: 2 of 20</div>
-          <p>The median user waits 1.3 s. But 1 in 20 users waits over 7 s. The mean (2.03 s) does not match any real user. Track p50 and p95 for each model and each feature. Set alerts on p95.</p>
+          <p>The median user waits 1.3 s. But 2 in 20 users (1 in 10) wait over 7 s. The mean (2.03 s) does not match any real user. Track p50 and p95 for each model and each feature. Set alerts on p95.</p>
         </div>
         <div class="lc-card">
           <h3>Which Tool for Which Problem?</h3>
@@ -2220,7 +2220,7 @@ module PracticalAiContent
 
         # 3. Provider prompt caching: a long prefix that stays the same costs less after the first call
         PREFIX, QUESTION, CALLS = 20_000, 300, 1_000     # tokens and number of requests
-        price, write, read = 2.00, 2.50, 0.20              # $/1M input: normal, cache write, cache read (gpt-6-sol)
+        price, write, read = 2.00, 2.50, 0.20              # $/1M input: normal, cache write, cache read (example prices; check the price page)
         no_cache = CALLS * (PREFIX + QUESTION) * price / 1e6
         with_cache = (PREFIX * write + (CALLS - 1) * PREFIX * read + CALLS * QUESTION * price) / 1e6
         print(f"input cost for {CALLS} calls: ${no_cache:.2f} without caching, ${with_cache:.2f} with caching")
@@ -2246,7 +2246,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">Building AI Applications — Architecture Patterns</h1>
+          <h1 class="lc-title">Building AI Applications: Architecture Patterns</h1>
         </div>
         <p class="lc-lead">Real AI apps follow design patterns that are known to work. When you understand these patterns, you can design better systems from day one. They will be reliable, easy to maintain and good value for money.</p>
         <div class="lc-card">
@@ -2376,7 +2376,7 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">Multimodal AI — Vision, Audio, and Beyond</h1>
+          <h1 class="lc-title">Multimodal AI: Vision, Audio, and Beyond</h1>
         </div>
         <p class="lc-lead">Modern AI models work with more than text. The top models from OpenAI, Anthropic and Google all accept images as input. Special models handle speech-to-text, text-to-speech, and making images and videos. This makes whole new kinds of apps possible.</p>
         <div class="lc-card">
@@ -2392,6 +2392,7 @@ module PracticalAiContent
               <tr><td>Text → video</td><td>Video generation models (an area that changes fast)</td><td>Short clips, marketing, prototypes</td></tr>
             </tbody>
           </table>
+          <p>These model names are examples at the time of writing. Check each provider's current model list before you build.</p>
         </div>
         <div class="lc-card">
           <h3>Vision Input (OpenAI Responses API)</h3>
@@ -2401,7 +2402,7 @@ module PracticalAiContent
         <div class="lc-card">
           <h3>Speech-to-Text</h3>
           <div class="lc-code">with open("meeting.wav", "rb") as audio_file:<br>    transcription = client.audio.transcriptions.create(<br>        model="gpt-transcribe",<br>        file=audio_file,<br>    )<br>print(transcription.text)</div>
-          <p>Use <code>gpt-transcribe</code> for recorded files and <code>gpt-live-transcribe</code> for audio that is still coming in (a call or a microphone). <strong>Old way, don't use:</strong> <code>whisper-1</code>, <code>gpt-4o-transcribe</code> and <code>gpt-4o-mini-transcribe</code> were deprecated (marked as old) on 26 August 2026. They will be removed from the API on 26 February 2027. Do not build anything new on them. Move old code to <code>gpt-transcribe</code> or <code>gpt-live-transcribe</code>.</p>
+          <p>Use <code>gpt-transcribe</code> for recorded files and <code>gpt-live-transcribe</code> for audio that is still coming in (a call or a microphone). <strong>Old way, don't use:</strong> <code>whisper-1</code>, <code>gpt-4o-transcribe</code> and <code>gpt-4o-mini-transcribe</code> are listed as deprecated (marked as old) at the time of writing, with a date when they will be removed. Check OpenAI's deprecations page for the dates. Do not build anything new on them. Move old code to <code>gpt-transcribe</code> or <code>gpt-live-transcribe</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Worked example: the shape of a vision request</h3>
@@ -2493,17 +2494,17 @@ module PracticalAiContent
         </div>
         <p class="lc-lead">AI API bills grow with tokens × price × traffic. You can cut costs a lot. Choose the right model tier (level), set the reasoning effort, and use caching, batching and routing. But measure quality with evals while you do it.</p>
         <div class="lc-card">
-          <h3>Model Tiers (September 2026: always check again)</h3>
+          <h3>Model Tiers (at the time of writing: always check again)</h3>
           <table class="lc-table">
             <thead><tr><th>Tier</th><th>Anthropic</th><th>OpenAI</th><th>Google</th><th>Use for</th></tr></thead>
             <tbody>
               <tr><td>Small / fast</td><td><code>claude-haiku-4-5</code></td><td><code>gpt-6-luna</code></td><td><code>gemini-3.5-flash-lite</code></td><td>Classification, routing, bulk extraction</td></tr>
               <tr><td>Balanced</td><td><code>claude-sonnet-5</code></td><td><code>gpt-6-sol</code></td><td><code>gemini-3.8-flash</code></td><td>Most product features, coding, RAG answers</td></tr>
               <tr><td>Frontier</td><td><code>claude-opus-5-5</code>, <code>claude-fable-5-1</code></td><td><code>gpt-6-astra</code></td><td><code>gemini-3.1-pro-preview</code></td><td>Hard reasoning, long agent tasks</td></tr>
-              <tr><td>Embeddings</td><td>—</td><td><code>text-embedding-3-small</code></td><td><code>gemini-embedding-001</code></td><td>Search, RAG retrieval</td></tr>
+              <tr><td>Embeddings</td><td>n/a</td><td><code>text-embedding-3-small</code></td><td><code>gemini-embedding-001</code></td><td>Search, RAG retrieval</td></tr>
             </tbody>
           </table>
-          <p>Prices between tiers can differ many times over, and they change often. Look them up on each provider's pricing page. Do not hard-code them (write them directly into your code). For steady, high-volume work, a self-hosted open-weight model such as <code>gpt-oss-20b</code> is a fourth option (Lesson 16).</p>
+          <p>Prices between tiers can differ many times over, and they change often. Model names change too. Check each provider's current model list and look up prices on each provider's pricing page. Do not hard-code them (write them directly into your code). For steady, high-volume work, a self-hosted open-weight model such as <code>gpt-oss-20b</code> is a fourth option (Lesson 16).</p>
         </div>
         <div class="lc-card">
           <h3>Cost Reduction Techniques</h3>
@@ -2519,7 +2520,7 @@ module PracticalAiContent
         </div>
         <div class="lc-card">
           <h3>Worked example: what reasoning effort costs</h3>
-          <div class="lc-code"># Same model, different reasoning effort: output (incl. hidden reasoning) drives the bill<br>price_in, price_out = 2.00, 10.00           # gpt-6-sol, $ per 1M tokens (Sept 2026)<br>requests = 100_000<br>for effort, reasoning_tokens in [("low", 200), ("medium", 1_200), ("high", 4_000)]:<br>    out = 300 + reasoning_tokens            # 300 visible tokens + hidden reasoning<br>    cost = requests * (1_000 * price_in + out * price_out) / 1e6<br>    print(f"effort={effort:&lt;6} ~{out:&gt;5} output tokens/request -&gt; ${cost:,.0f} per 100k requests")<br>print("(reasoning token counts are illustrative; measure yours from usage fields)")</div>
+          <div class="lc-code"># Same model, different reasoning effort: output (incl. hidden reasoning) drives the bill<br>price_in, price_out = 2.00, 10.00           # example gpt-6-sol prices at the time of writing, $ per 1M tokens<br>requests = 100_000<br>for effort, reasoning_tokens in [("low", 200), ("medium", 1_200), ("high", 4_000)]:<br>    out = 300 + reasoning_tokens            # 300 visible tokens + hidden reasoning<br>    cost = requests * (1_000 * price_in + out * price_out) / 1e6<br>    print(f"effort={effort:&lt;6} ~{out:&gt;5} output tokens/request -&gt; ${cost:,.0f} per 100k requests")<br>print("(reasoning token counts are illustrative; measure yours from usage fields)")</div>
           <p><strong>Output:</strong></p>
           <div class="lc-code">effort=low    ~  500 output tokens/request -&gt; $700 per 100k requests<br>effort=medium ~ 1500 output tokens/request -&gt; $1,700 per 100k requests<br>effort=high   ~ 4300 output tokens/request -&gt; $4,500 per 100k requests<br>(reasoning token counts are illustrative; measure yours from usage fields)</div>
           <p>Here, output tokens cost five times as much as input tokens. Hidden reasoning counts as output. For easy, high-volume tasks, low effort can cut the bill by more than half. Keep high effort for the hard cases where evals show it helps.</p>
@@ -2555,7 +2556,7 @@ module PracticalAiContent
         </div>
       HTML
       starter_code: <<~'PYTHON'
-        # Monthly cost of one feature with different models (list prices, Sept 2026: check them again!)
+        # Monthly cost of one feature with different models (example list prices at the time of writing: check each price page!)
         PRICES = {  # $ per 1M tokens: (input, output)
             "gpt-6-luna": (0.10, 0.50), "gpt-6-sol": (2.00, 10.00), "gpt-6-astra": (10.00, 50.00),
             "claude-haiku-4-5": (1.00, 5.00), "claude-sonnet-5": (2.00, 10.00), "claude-opus-5-5": (4.00, 20.00),
@@ -2591,30 +2592,9 @@ module PracticalAiContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Practical AI</div>
-          <h1 class="lc-title">Practical AI Review — Building Your AI Portfolio</h1>
+          <h1 class="lc-title">Building Your AI Portfolio</h1>
         </div>
-        <p class="lc-lead">You have learned the full practical AI stack: from how LLMs work to production design. This last lesson connects your skills to real projects. It also shows the path to becoming an AI engineer.</p>
-        <div class="lc-card">
-          <h3>The Practical AI Stack: Complete</h3>
-          <table class="lc-table">
-            <thead><tr><th>Layer</th><th>What you know</th></tr></thead>
-            <tbody>
-              <tr><td>Theory</td><td>Transformers, attention, tokenisation, embeddings, reasoning models</td></tr>
-              <tr><td>Prompting</td><td>Zero/few-shot, CoT, marking context with clear borders, reasoning effort</td></tr>
-              <tr><td>APIs</td><td>OpenAI Responses API, Anthropic Messages API, Gemini Interactions API, streaming, error handling</td></tr>
-              <tr><td>Conversations</td><td>Stateless APIs, context budgets, summary and retrieval memory</td></tr>
-              <tr><td>Structured outputs</td><td>JSON schema, strict mode, checking in code</td></tr>
-              <tr><td>RAG</td><td>Chunking, embedding, retrieval, hybrid search, citations</td></tr>
-              <tr><td>Agents</td><td>Tool/function calling loops, MCP servers, step limits, workflow patterns, multi-agent systems</td></tr>
-              <tr><td>Self-hosting</td><td>Open-weight models, quantisation, OpenAI-compatible local servers</td></tr>
-              <tr><td>Training</td><td>SFT, DPO, RFT, LoRA, dataset quality</td></tr>
-              <tr><td>Evaluation</td><td>Code graders, LLM-as-judge, regression gates in CI</td></tr>
-              <tr><td>Safety</td><td>Hallucination, direct &amp; indirect injection, least privilege</td></tr>
-              <tr><td>Production</td><td>Prompt caching, batch APIs, rate limits, routing, observability</td></tr>
-              <tr><td>Multimodal</td><td>Vision input, transcription, TTS, document pipelines</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <p class="lc-lead">A portfolio of real projects shows employers what you can build. In this lesson you plan a capstone project, a cited Q&amp;A assistant, and learn how to present your results so others can trust them.</p>
         <div class="lc-card">
           <h3>Portfolio Projects (in order of impact)</h3>
           <ol class="lc-list">
@@ -2654,7 +2634,7 @@ module PracticalAiContent
         </div>
         <div class="lc-card">
           <h3>Worked example: the results table for your README</h3>
-          <div class="lc-code"># The results table for your capstone README, computed from logged eval runs<br>runs = [  # (question id, answer correct?, cited a source?, tokens in, tokens out)<br>    (1, True, True, 1800, 220), (2, True, True, 2100, 180), (3, False, True, 1900, 260),<br>    (4, True, False, 1700, 150), (5, True, True, 2300, 240), (6, True, True, 2000, 200),<br>]<br>n = len(runs)<br>accuracy = sum(r[1] for r in runs) / n<br>cited = sum(r[2] for r in runs) / n<br>cost = sum(r[3] * 0.10 + r[4] * 0.50 for r in runs) / 1e6 / n * 1000   # gpt-6-luna prices<br>print(f"| metric                  | value |")<br>print(f"| answer accuracy         | {accuracy:.0%} |")<br>print(f"| answers with a citation | {cited:.0%} |")<br>print(f"| cost per 1,000 answers  | ${cost:.2f} |")</div>
+          <div class="lc-code"># The results table for your capstone README, computed from logged eval runs<br>runs = [  # (question id, answer correct?, cited a source?, tokens in, tokens out)<br>    (1, True, True, 1800, 220), (2, True, True, 2100, 180), (3, False, True, 1900, 260),<br>    (4, True, False, 1700, 150), (5, True, True, 2300, 240), (6, True, True, 2000, 200),<br>]<br>n = len(runs)<br>accuracy = sum(r[1] for r in runs) / n<br>cited = sum(r[2] for r in runs) / n<br>cost = sum(r[3] * 0.10 + r[4] * 0.50 for r in runs) / 1e6 / n * 1000   # example prices per 1M tokens (check the current price page)<br>print(f"| metric                  | value |")<br>print(f"| answer accuracy         | {accuracy:.0%} |")<br>print(f"| answers with a citation | {cited:.0%} |")<br>print(f"| cost per 1,000 answers  | ${cost:.2f} |")</div>
           <p><strong>Output:</strong></p>
           <div class="lc-code">| metric                  | value |<br>| answer accuracy         | 83% |<br>| answers with a citation | 83% |<br>| cost per 1,000 answers  | $0.30 |</div>
           <p>Numbers like these, measured on your own eval set, make a portfolio project convincing. They show that you know how good the system is, where it fails and what it costs.</p>

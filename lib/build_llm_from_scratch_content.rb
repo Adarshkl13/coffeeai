@@ -115,7 +115,7 @@ module BuildLlmFromScratchContent
           <h3>What you will build: TinyGPT</h3>
           <p>TinyGPT is a small GPT-style model. GPT means "generative pre-trained transformer". A <strong>transformer</strong> is the type of neural network inside most LLMs. Your model works like the big ones, but it is small enough to train quickly.</p>
           <ul class="lc-list">
-            <li><strong>Data and tokens:</strong> collect a tiny corpus (a set of training text) about a café in York, clean it, and write a tokenizer.</li>
+            <li><strong>Data and tokens:</strong> collect a tiny corpus (a set of training text) about a café in York, clean it, and write a tokeniser.</li>
             <li><strong>The model:</strong> code embeddings, self-attention and transformer blocks.</li>
             <li><strong>Training:</strong> write the training loop, train, save the model and generate text.</li>
             <li><strong>Scaling up:</strong> learn how big models are trained on many GPUs.</li>
@@ -128,7 +128,7 @@ module BuildLlmFromScratchContent
               <tr><td>B</td><td>batch size: texts processed at once</td><td>set when training</td></tr>
               <tr><td>T (block_size)</td><td>context length: tokens the model can see</td><td>16</td></tr>
               <tr><td>C (n_embd)</td><td>size of the vector for each token</td><td>32</td></tr>
-              <tr><td>V</td><td>vocabulary size: how many different tokens</td><td>set by the tokenizer</td></tr>
+              <tr><td>V</td><td>vocabulary size: how many different tokens</td><td>set by the tokeniser</td></tr>
               <tr><td>n_head, n_layer</td><td>attention heads and transformer blocks</td><td>4 and 2</td></tr>
             </tbody>
           </table>
@@ -650,7 +650,7 @@ module BuildLlmFromScratchContent
           <h3>Step 1: normalise the text</h3>
           <p>To <strong>normalise</strong> text means to write the same thing in one standard way. Two common problems are extra spaces and letters with accents.</p>
           <p>The letter "é" can be stored as one character. It can also be stored as "e" plus a separate accent mark. Both look the same on screen, but the computer sees different text. The first "café" has 4 characters and the second has 5, so Python says they are not equal. Part 1 in the code editor below shows this.</p>
-          <p><code>NFC</code> is a Unicode rule that joins the letter and the accent into one character. After it, both strings are equal. Without it, the tokenizer would treat the two "café" words as different tokens.</p>
+          <p><code>NFC</code> is a Unicode rule that joins the letter and the accent into one character. After it, both strings are equal. Without it, the tokeniser would treat the two "café" words as different tokens.</p>
           <p>Some projects also make all text lower case. We keep capital letters, so TinyGPT can learn that "York" and "Molly" start with a capital.</p>
         </div>
         <div class="lc-card">
@@ -702,7 +702,7 @@ module BuildLlmFromScratchContent
           <p>In the code editor, Part 1 compares two forms of "café" and Part 2 prints two Jaccard scores. Part 3 cleans a 12-line messy sample of the café text. It prints the count after every step and then the clean lines.</p>
           <ol class="lc-list">
             <li>Set <code>MASK = True</code>. In Part 3, the email and phone lines come back with <code>[EMAIL]</code> and <code>[PHONE]</code>.</li>
-            <li>Set <code>MIN_WORDS = 5</code>. Which good line does Part 3 now remove by mistake?</li>
+            <li>Set <code>MIN_WORDS = 5</code>. Part 3 now removes three good lines by mistake. Which ones, and why?</li>
             <li>Add your own messy line to <code>DIRTY</code>, such as <code>"!!!!!!!!"</code> or a copy of a line with extra spaces. Which step in Part 3 catches it?</li>
             <li>Set <code>MIN_LETTERS = 0.6</code>. Does the spam line get through Part 3 now?</li>
             <li>In Part 2, compare <code>"Tom makes a hot tea."</code> with <code>"Tom makes a latte."</code>. Is the score above 0.8?</li>
@@ -793,9 +793,9 @@ module BuildLlmFromScratchContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-scratch">LLM from Scratch</div>
-          <h1 class="lc-title">Building a Tokenizer (BPE)</h1>
+          <h1 class="lc-title">Building a Tokeniser (BPE)</h1>
         </div>
-        <p class="lc-lead">A model cannot read letters. It reads numbers. A <strong>tokenizer</strong> turns text into a list of token IDs, and turns IDs back into text. In this lesson you will build the kind of tokenizer that GPT models use: <strong>byte-pair encoding</strong> (BPE). You will train it on the café text, then use it to encode and decode new sentences.</p>
+        <p class="lc-lead">A model cannot read letters. It reads numbers. A <strong>tokeniser</strong> turns text into a list of token IDs, and turns IDs back into text. In this lesson you will build the kind of tokeniser that GPT models use: <strong>byte-pair encoding</strong> (BPE). You will train it on the café text, then use it to encode and decode new sentences.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 262" role="img" aria-label="On the left, the word ' the' starts as four bytes: space 32, t 116, h 104, e 101. Merge 1 joins h and e into token 256. Merge 4 joins space and t into 259. Merge 6 joins 259 and 256 into one token, 261. On the right, the training loop: count every pair, pick the most common pair, give it a new ID, replace the pair everywhere, repeat. The café text goes from 945 bytes to 621 tokens after 30 merges.">
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
@@ -878,10 +878,10 @@ module BuildLlmFromScratchContent
         <div class="lc-card">
           <h3>Activity: put BPE training in order</h3>
           <div class="lcw" data-controller="sequence">
-            <p class="lcw-prompt">Put the steps of training a BPE tokenizer in the right order.</p>
+            <p class="lcw-prompt">Put the steps of training a BPE tokeniser in the right order.</p>
             <ol data-sequence-target="list">
               <li data-order="1">Split the text into word chunks, each with its leading space</li>
-              <li data-order="2">Turn every chunk into UTF-8 bytes, so IDs start from 0 to 255</li>
+              <li data-order="2">Turn every chunk into UTF-8 bytes, so the starting IDs are 0 to 255</li>
               <li data-order="3">Count every pair of next-door IDs in all chunks</li>
               <li data-order="4">Take the most common pair and give it the next new ID, such as 256</li>
               <li data-order="5">Replace that pair everywhere and save the rule in the merges table</li>
@@ -890,8 +890,8 @@ module BuildLlmFromScratchContent
           </div>
         </div>
         <div class="lc-card">
-          <h3>Activity: see a real BPE tokenizer</h3>
-          <p>This box uses GPT-2's real BPE tokenizer. Look at how " café" and "York" are split. Then type a made-up word and watch it break into pieces.</p>
+          <h3>Activity: see a real BPE tokeniser</h3>
+          <p>This box uses GPT-2's real BPE tokeniser. Look at how " café" and "York" are split. Then type a made-up word and watch it break into pieces.</p>
           <div class="lcw" data-controller="tokenizer" data-tokenizer-text-value="Tom makes a latte at The Little Bean café in York."></div>
         </div>
         <div class="lc-card">
@@ -1017,7 +1017,7 @@ module BuildLlmFromScratchContent
           <div class="lc-badge le-badge le-badge-scratch">LLM from Scratch</div>
           <h1 class="lc-title">Creating Token and Position Embeddings</h1>
         </div>
-        <p class="lc-lead">Your tokenizer turns text into token IDs. But an ID such as 75 is only a name. It says nothing about the meaning of the token. In this lesson you build the first layer of TinyGPT. It turns each ID into a list of numbers called an <strong>embedding</strong>. It also adds a second embedding that tells the model <em>where</em> each token sits. You will learn the shape <code>(B, T, C)</code>, which you will see in every layer from now on.</p>
+        <p class="lc-lead">Your tokeniser turns text into token IDs. But an ID such as 75 is only a name. It says nothing about the meaning of the token. In this lesson you build the first layer of TinyGPT. It turns each ID into a list of numbers called an <strong>embedding</strong>. It also adds a second embedding that tells the model <em>where</em> each token sits. You will learn the shape <code>(B, T, C)</code>, which you will see in every layer from now on.</p>
         <figure class="lc-diagram">
         <svg viewBox="0 0 760 306" role="img" aria-label="Embedding lookup for the line tom makes a hot. Each token ID picks one row of 8 numbers from the token table. Each position, 0 to 3, picks one row from the position table. The two rows are added to give x. Shapes: idx (2, 4), token rows (2, 4, 8), position rows (4, 8), x (2, 4, 8).">
             <defs><marker id="ls6a" markerUnits="userSpaceOnUse" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9b99b8"/></marker></defs>
@@ -1069,7 +1069,7 @@ module BuildLlmFromScratchContent
           <p>An <strong>embedding</strong> is a list of numbers (a vector) that stands for one token. The <strong>embedding table</strong> has one row for every token in the vocabulary. Each row has C numbers. C is the <strong>embedding size</strong>, also called <code>n_embd</code>.</p>
           <p>So the table has the shape <code>(V, C)</code>. To embed token 75, you simply take row 75. Nothing is multiplied. It is a lookup.</p>
           <p>At the start, the rows are random numbers. During training, the model changes them a little at every step. Tokens that are used in the same way, such as "latte" and "tea", slowly get similar rows. Nobody tells the model to do this. It is learned.</p>
-          <p>To keep the numbers small, Part 1 in the code editor uses whole words from the café text as tokens. That gives a vocabulary of V = 85. With your BPE tokenizer it works the same way. Only V changes.</p>
+          <p>To keep the numbers small, Part 1 in the code editor uses whole words from the café text as tokens. That gives a vocabulary of V = 85. With your BPE tokeniser it works the same way. Only V changes.</p>
         </div>
         <div class="lc-card">
           <h3>Why we need position embeddings</h3>
@@ -1088,7 +1088,7 @@ module BuildLlmFromScratchContent
               <tr><td>B</td><td>Batch size: lines in one batch</td><td>2</td><td>you choose</td></tr>
               <tr><td>T</td><td>Time: tokens in each line (at most block_size)</td><td>4</td><td>up to 16</td></tr>
               <tr><td>C</td><td>Channels: numbers per token (n_embd)</td><td>8</td><td>32</td></tr>
-              <tr><td>V</td><td>Vocabulary size</td><td>85</td><td>depends on the tokenizer</td></tr>
+              <tr><td>V</td><td>Vocabulary size</td><td>85</td><td>depends on the tokeniser</td></tr>
             </tbody>
           </table>
           <p>The IDs have the shape <code>(B, T)</code>. After the lookup, each ID has become C numbers, so the shape is <code>(B, T, C)</code>. The position rows have the shape <code>(T, C)</code>. When you add them, NumPy and PyTorch add the same position rows to every line in the batch. This is called <strong>broadcasting</strong>.</p>
@@ -1112,7 +1112,7 @@ module BuildLlmFromScratchContent
             <ul data-sorter-target="pool">
               <li data-bucket="vc" data-why="It has one row of C numbers for every token in the vocabulary.">The token embedding table</li>
               <li data-bucket="tc" data-why="It has one row for every position the model can read.">The position embedding table</li>
-              <li data-bucket="bt" data-why="Each line in the batch is a list of T whole-number IDs. No embedding yet.">The batch of token IDs from the tokenizer</li>
+              <li data-bucket="bt" data-why="Each line in the batch is a list of T whole-number IDs. No embedding yet.">The batch of token IDs from the tokeniser</li>
               <li data-bucket="btc" data-why="Every ID in every line has become C numbers.">The result of looking up every ID in the token table</li>
               <li data-bucket="tc" data-why="You take one row for each of the T positions. The same rows are used for every line.">The position rows for positions 0 to T - 1</li>
               <li data-bucket="btc" data-why="Adding (B, T, C) and (T, C) broadcasts to (B, T, C).">x, the sum that goes into the first transformer block</li>
@@ -2270,12 +2270,12 @@ module BuildLlmFromScratchContent
               <text x="380" y="276" font-size="12.5" fill="#fcd34d">One window of T = 8 gives 8 examples. y is just x moved one place to the left.</text>
             </g>
           </svg>
-          <figcaption>The first 9 characters of the café text, with their IDs from the character tokenizer. A space is shown as ␣.</figcaption>
+          <figcaption>The first 9 characters of the café text, with their IDs from the character tokeniser. A space is shown as ␣.</figcaption>
         </figure>
         <div class="lc-card">
           <h3>Step 1: tokenise the whole corpus</h3>
           <p>First you turn all of CAFE_TEXT into one long list of token IDs. You do this once, before training.</p>
-          <p>To keep the code short, this lesson uses a <strong>character tokenizer</strong>. Every different character gets one ID. The café text has 938 characters and 35 different ones, so V = 35. Your BPE tokenizer from earlier plugs in the same way. On the café text it gives 621 tokens and V = 286.</p>
+          <p>To keep the code short, this lesson uses a <strong>character tokeniser</strong>. Every different character gets one ID. The café text has 938 characters and 35 different ones, so V = 35. Your BPE tokeniser from earlier plugs in the same way. On the café text it gives 621 tokens and V = 286.</p>
           <table class="lc-table">
             <thead><tr><th>Character</th><th>newline</th><th>space</th><th>.</th><th>T</th><th>e</th><th>h</th></tr></thead>
             <tbody><tr><td>ID</td><td>0</td><td>1</td><td>2</td><td>9</td><td>15</td><td>18</td></tr></tbody>
@@ -2285,7 +2285,7 @@ module BuildLlmFromScratchContent
         <div class="lc-card">
           <h3>Step 2: split into train and validation</h3>
           <p>You keep the first 90% of the IDs for <strong>training</strong>. You keep the last 10% for <strong>validation</strong>. The model never learns from the validation part. You only use it to check how well the model does on text it has not seen.</p>
-          <p>For the café text, <code>n = int(0.9 * 938)</code> = 844. So training gets 844 tokens and validation gets 94. The validation part is the end of the story: Tom cleans the machine, Ellie counts the cakes, and Molly closes the café.</p>
+          <p>For the café text, <code>n = int(0.9 * 938)</code> = 844. So training gets 844 tokens and validation gets 94. The validation part is the end of the story. It starts in the middle of the line about Ellie counting the cakes. Then Molly closes the café, and the café will open again tomorrow.</p>
           <p>Why split by position and not at random? Nearby text is very similar. A random split would put almost the same sentences in both parts. Then the validation score would look better than it really is.</p>
         </div>
         <div class="lc-card">
@@ -2538,7 +2538,7 @@ module BuildLlmFromScratchContent
             <li><strong>Loss:</strong> compare the logits with y using <strong>cross-entropy</strong>. The loss is one number. Lower is better.</li>
             <li><strong>Zero the gradients:</strong> clear the gradients from the last step.</li>
             <li><strong>Backward pass:</strong> work out the gradient of the loss for every parameter. A <strong>gradient</strong> says which way, and how strongly, to change a weight to lower the loss.</li>
-            <li><strong>Optimizer step:</strong> change every weight a small amount against its gradient.</li>
+            <li><strong>Optimiser step:</strong> change every weight a small amount against its gradient.</li>
           </ol>
           <p>One pass through these steps is one <strong>training step</strong>. The size of each change is set by the <strong>learning rate</strong>.</p>
         </div>
@@ -2551,9 +2551,9 @@ module BuildLlmFromScratchContent
         </div>
         <div class="lc-card">
           <h3>The loop in PyTorch</h3>
-          <p>This uses <code>TinyGPT</code> and <code>get_batch</code> from earlier in this course, with T = 16 and B = 4. <strong>AdamW</strong> is the optimizer most LLMs use. It changes each weight using its gradient, with a size that adapts for every weight.</p>
+          <p>This uses <code>TinyGPT</code> and <code>get_batch</code> from earlier in this course, with T = 16 and B = 4. <strong>AdamW</strong> is the optimiser most LLMs use. It changes each weight using its gradient, with a size that adapts for every weight.</p>
           <p>Part 3 in the code editor below has the full PyTorch code. <code>compute_loss</code> runs the model on x and returns the cross-entropy loss.</p>
-          <p>The optimizer is <code>torch.optim.AdamW(model.parameters(), lr=1e-3)</code>. Then each step of the loop is four lines: <code>loss = compute_loss(x, y)</code>, <code>optimizer.zero_grad()</code>, <code>loss.backward()</code> and <code>optimizer.step()</code>.</p>
+          <p>The optimiser is <code>torch.optim.AdamW(model.parameters(), lr=1e-3)</code>. Then each step of the loop is four lines: <code>loss = compute_loss(x, y)</code>, <code>optimizer.zero_grad()</code>, <code>loss.backward()</code> and <code>optimizer.step()</code>.</p>
           <p>The full PyTorch run takes a few seconds on a laptop CPU. Every 200 steps it prints the train and val loss. The chart at the top of this lesson shows those numbers. PyTorch does not run in the browser, so Part 2 runs a NumPy version of the same loop.</p>
         </div>
         <div class="lc-card">
@@ -2603,7 +2603,7 @@ module BuildLlmFromScratchContent
             <ul data-sorter-target="pool">
               <li data-bucket="flat" data-why="Without optimizer.step(), the weights never change. The loss stays near ln(V).">You forgot optimizer.step()</li>
               <li data-bucket="wild" data-why="Old gradients pile up. Each step pushes in old directions, so the loss stalls at a poor value or goes up.">You forgot optimizer.zero_grad()</li>
-              <li data-bucket="flat" data-why="Without loss.backward(), there are no gradients. The optimizer has nothing to use.">You forgot loss.backward()</li>
+              <li data-bucket="flat" data-why="Without loss.backward(), there are no gradients. The optimiser has nothing to use.">You forgot loss.backward()</li>
               <li data-bucket="wild" data-why="Each step is far too big, so the weights overshoot.">The learning rate is much too high</li>
               <li data-bucket="flat" data-why="A learning rate of 0 makes every change zero.">You set the learning rate to 0</li>
             </ul>
@@ -2888,7 +2888,7 @@ module BuildLlmFromScratchContent
         </figure>
         <div class="lc-card">
           <h3>The pretraining script</h3>
-          <p>Part 3 in the code editor below is the full pretraining script in PyTorch. It uses the parts you built earlier in this course: <code>TinyGPT</code>, <code>get_batch()</code> and <code>estimate_loss()</code>. The text is the café corpus with a character tokenizer, so V = 35. It is the training loop from earlier, run for longer, with a bigger batch.</p>
+          <p>Part 3 in the code editor below is the full pretraining script in PyTorch. It uses the parts you built earlier in this course: <code>TinyGPT</code>, <code>get_batch()</code> and <code>estimate_loss()</code>. The text is the café corpus with a character tokeniser, so V = 35. It is the training loop from earlier, run for longer, with a bigger batch.</p>
           <p>The new part is that it remembers the step with the best validation loss. Every 200 steps it measures both losses. If val loss is a new low, it saves that step in <code>best_step</code>.</p>
           <p>On a laptop CPU this run takes from a few seconds to under a minute. You do not need a GPU for a model this small. The chart at the top shows the losses it printed. The best val loss is 2.026, at step 200.</p>
         </div>
@@ -2907,7 +2907,7 @@ module BuildLlmFromScratchContent
               <tr><td>0.28 (final train)</td><td>1.3</td><td>Almost sure of every character it has already seen</td></tr>
             </tbody>
           </table>
-          <p>Only compare losses that use the same tokenizer. A BPE model and a character model predict different things, so their numbers are not comparable.</p>
+          <p>Only compare losses that use the same tokeniser. A BPE model and a character model predict different things, so their numbers are not comparable.</p>
         </div>
         <div class="lc-card">
           <h3>Compute and time</h3>
@@ -2937,9 +2937,9 @@ module BuildLlmFromScratchContent
             <p class="lcw-prompt">Put the steps of a pretraining run in the right order.</p>
             <ol data-sequence-target="list">
               <li data-order="1">Tokenise the corpus and split it into train and validation parts</li>
-              <li data-order="2">Create the model and the optimizer with a fixed seed</li>
+              <li data-order="2">Create the model and the optimiser with a fixed seed</li>
               <li data-order="3">Check that the first loss is close to ln(V)</li>
-              <li data-order="4">Run the loop: batch, forward, loss, backward, optimizer step</li>
+              <li data-order="4">Run the loop: batch, forward, loss, backward, optimiser step</li>
               <li data-order="5">Every few hundred steps, measure train and validation loss</li>
               <li data-order="6">Keep the model with the lowest validation loss</li>
             </ol>
@@ -3198,7 +3198,7 @@ module BuildLlmFromScratchContent
         </div>
         <p class="lc-lead">Training can stop at any time. The power can fail, a cloud machine can be taken away, or you may just want a break. A <strong>checkpoint</strong> is a saved copy of everything you need to carry on. In this lesson you save TinyGPT, load it again, and resume training as if nothing happened. You also learn the safetensors format for sharing weights.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 310" role="img" aria-label="A training timeline. The run starts at step 0, saves a checkpoint at step 200 and at step 400, then crashes at step 470. The step 400 checkpoint is loaded and training resumes at step 401. Below, ckpt.pt holds the model weights, the optimizer state, the step number, the config and the best validation loss. tinygpt.safetensors holds the weights only.">
+          <svg viewBox="0 0 760 310" role="img" aria-label="A training timeline. The run starts at step 0, saves a checkpoint at step 200 and at step 400, then crashes at step 470. The step 400 checkpoint is loaded and training resumes at step 401. Below, ckpt.pt holds the model weights, the optimiser state, the step number, the config and the best validation loss. tinygpt.safetensors holds the weights only.">
             <defs><marker id="ls14a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12.5" fill="#e2e0f0" text-anchor="middle">
               <rect x="20" y="20" width="150" height="50" rx="10" fill="#27274e" stroke="#3b82f6"/>
@@ -3220,7 +3220,7 @@ module BuildLlmFromScratchContent
               <text x="230" y="192" font-weight="700" fill="#6ee7b7">ckpt.pt: to resume training (about 350 KB)</text>
               <g text-anchor="start" font-size="12">
                 <text x="36" y="218">model weights</text><text x="200" y="218" fill="#9b99b8">26,912 numbers</text>
-                <text x="36" y="240">optimizer state (AdamW)</text><text x="200" y="240" fill="#9b99b8">2 more numbers per weight</text>
+                <text x="36" y="240">optimiser state (AdamW)</text><text x="200" y="240" fill="#9b99b8">2 more numbers per weight</text>
                 <text x="36" y="262">step, config, best_val</text><text x="200" y="262" fill="#9b99b8">400, sizes, 2.026</text>
                 <text x="36" y="284" font-size="11" fill="#9b99b8">optional: random number state, for the same batches</text>
               </g>
@@ -3241,7 +3241,7 @@ module BuildLlmFromScratchContent
           <p>In PyTorch, every model has a <code>state_dict()</code>. It is a dictionary. Each key is the name of a tensor, and each value is the tensor itself.</p>
           <p>For TinyGPT, <code>model.state_dict()</code> holds 29 tensors. The first ones are <code>tok_emb.weight</code> with shape (35, 32) and <code>pos_emb.weight</code> with shape (16, 32). Then come the tensors of the first block, such as <code>blocks.0.ln1.weight</code> with shape (32,). Part 2a in the code editor below prints them.</p>
           <p>Why 29? Each block has 12 tensors, so two blocks give 24. Add the two embedding tables, the final layer norm (weight and bias) and <code>lm_head</code>. One tensor in each block is the attention mask. It is a <strong>buffer</strong>: a saved tensor that training does not change. Because of weight tying, <code>lm_head.weight</code> and <code>tok_emb.weight</code> are the same tensor under two names.</p>
-          <p>The optimizer has a <code>state_dict()</code> too. AdamW keeps two running averages for every weight. They decide how big the next steps are.</p>
+          <p>The optimiser has a <code>state_dict()</code> too. AdamW keeps two running averages for every weight. They decide how big the next steps are.</p>
         </div>
         <div class="lc-card">
           <h3>Save a full checkpoint</h3>
@@ -3252,8 +3252,8 @@ module BuildLlmFromScratchContent
         </div>
         <div class="lc-card">
           <h3>Load and resume</h3>
-          <p>Part 2c in the code editor below loads the file with <code>torch.load("ckpt.pt", map_location="cpu")</code>. It rebuilds the model and the optimizer, then loads their state_dicts.</p>
-          <p>Build the model first, with the same config. Then load the weights into it. Do the same for the optimizer. Then start your loop at <code>start_step</code> instead of 0. If you saved at step 200, the loop carries on at step 201.</p>
+          <p>Part 2c in the code editor below loads the file with <code>torch.load("ckpt.pt", map_location="cpu")</code>. It rebuilds the model and the optimiser, then loads their state_dicts.</p>
+          <p>Build the model first, with the same config. Then load the weights into it. Do the same for the optimiser. Then start your loop at <code>start_step</code> instead of 0. If you saved at step 200, the loop carries on at step 201.</p>
           <p>Recent versions of PyTorch load only tensors and simple Python values by default. This is the <code>weights_only=True</code> setting. It is safer, because an old-style pickle file can run code when you load it. Never load a <code>.pt</code> file from someone you do not trust.</p>
         </div>
         <div class="lc-card">
@@ -3264,7 +3264,7 @@ module BuildLlmFromScratchContent
           <table class="lc-table">
             <thead><tr><th></th><th>ckpt.pt (torch.save)</th><th>.safetensors</th></tr></thead>
             <tbody>
-              <tr><td>Holds</td><td>Weights, optimizer, step, config</td><td>Weights (plus a small text header)</td></tr>
+              <tr><td>Holds</td><td>Weights, optimiser, step, config</td><td>Weights (plus a small text header)</td></tr>
               <tr><td>Use it to</td><td>Resume your own training</td><td>Share a model or run it</td></tr>
               <tr><td>Safe from untrusted sources</td><td>Only with weights_only=True</td><td>Yes, it holds no code</td></tr>
             </tbody>
@@ -3282,13 +3282,13 @@ module BuildLlmFromScratchContent
             <ul data-sorter-target="pool">
               <li data-bucket="run" data-why="Without the weights there is no trained model.">The model state_dict</li>
               <li data-bucket="run" data-why="You must build a model with the same sizes before you can load the weights.">The config (n_embd, n_head, n_layer, block_size, vocab_size)</li>
-              <li data-bucket="resume" data-why="AdamW's running averages control the next steps. Without them, training takes different steps.">The optimizer state_dict</li>
+              <li data-bucket="resume" data-why="AdamW's running averages control the next steps. Without them, training takes different steps.">The optimiser state_dict</li>
               <li data-bucket="resume" data-why="It tells the loop where to carry on and when to evaluate next.">The step number</li>
               <li data-bucket="none" data-why="Gradients are cleared by zero_grad and made again by backward. They are not saved.">The gradients from the last backward pass</li>
               <li data-bucket="none" data-why="The batch is thrown away after each step. A new one comes from get_batch.">The last batch x and y</li>
             </ul>
           </div>
-          <p>One more thing: you also need the same tokenizer to run the model. Keep its vocabulary file next to the weights.</p>
+          <p>One more thing: you also need the same tokeniser to run the model. Keep its vocabulary file next to the weights.</p>
         </div>
         <div class="lc-card">
           <h3>Try It</h3>
@@ -3302,7 +3302,7 @@ module BuildLlmFromScratchContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Key Insight:</strong> To resume training exactly, save the weights, the optimizer state, the step and the config. To share or run a model, the weights and config are enough. Safetensors is the safe way to store them.
+          <strong>Key Insight:</strong> To resume training exactly, save the weights, the optimiser state, the step and the config. To share or run a model, the weights and config are enough. Safetensors is the safe way to store them.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -3699,7 +3699,7 @@ module BuildLlmFromScratchContent
           <p>Part 3 in the code editor below has a PyTorch <code>generate()</code> function. It adds one token at a time. It uses the order shown above: temperature, then top-k, then top-p, then sample.</p>
           <p>Each turn of its loop keeps the last block_size tokens and runs the model. It takes the logits for the last position, picks one token, and adds it to the input.</p>
           <p>Besides temperature, it has three more parts. If the temperature is 0, it uses greedy with <code>argmax</code>. If top_k is set, it keeps the k highest logits. If top_p is set, it sorts the logits and keeps the top tokens until their total reaches p. Parts 1 and 2 of the editor write each of these steps in NumPy.</p>
-          <p>Call it like <code>generate(model, start, 200, temperature=0.8)</code>. Here <code>start</code> holds the token IDs of your prompt, with shape (1, T). The result holds the prompt plus 200 new IDs. Decode them with your tokenizer to read the text. Note the first line inside the loop. TinyGPT has only 16 positions, so the model sees just the last 16 tokens.</p>
+          <p>Call it like <code>generate(model, start, 200, temperature=0.8)</code>. Here <code>start</code> holds the token IDs of your prompt, with shape (1, T). The result holds the prompt plus 200 new IDs. Decode them with your tokeniser to read the text. Note the first line inside the loop. TinyGPT has only 16 positions, so the model sees just the last 16 tokens.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: one sampling step with top-p</h3>
@@ -4078,7 +4078,7 @@ module BuildLlmFromScratchContent
           <div class="lc-badge le-badge le-badge-scratch">LLM from Scratch</div>
           <h1 class="lc-title">Training on Multiple GPUs</h1>
         </div>
-        <p class="lc-lead">TinyGPT trains on one computer in minutes. A real LLM is far too big for that. Its weights, gradients and optimizer state do not fit in one GPU's memory. Even if they did fit, one GPU would take years. In this lesson you learn the main ways to spread training over many GPUs: <strong>data parallel</strong>, <strong>sharding</strong> (FSDP and ZeRO), and <strong>model parallel</strong> (tensor and pipeline). You also learn the memory arithmetic that tells you which one you need.</p>
+        <p class="lc-lead">TinyGPT trains on one computer in minutes. A real LLM is far too big for that. Its weights, gradients and optimiser state do not fit in one GPU's memory. Even if they did fit, one GPU would take years. In this lesson you learn the main ways to spread training over many GPUs: <strong>data parallel</strong>, <strong>sharding</strong> (FSDP and ZeRO), and <strong>model parallel</strong> (tensor and pipeline). You also learn the memory arithmetic that tells you which one you need.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 300" role="img" aria-label="Data parallel training. A batch of 16 examples is split into 4 slices of 4. Each of 4 GPUs has a full copy of the model and computes gradients on its slice. An all-reduce step averages the 4 gradients. Every GPU then makes the same update, so all copies stay identical.">
             <defs><marker id="ls17a" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9b99b8"/></marker></defs>
@@ -4121,7 +4121,7 @@ module BuildLlmFromScratchContent
         </figure>
         <div class="lc-card">
           <h3>Why one GPU is not enough</h3>
-          <p>Training needs memory for more than the weights. With the Adam optimizer and <strong>mixed precision</strong>, a common setup stores these numbers for <em>every</em> parameter. Mixed precision means most maths uses 16-bit numbers, while the optimizer keeps 32-bit copies.</p>
+          <p>Training needs memory for more than the weights. With the Adam optimiser and <strong>mixed precision</strong>, a common setup stores these numbers for <em>every</em> parameter. Mixed precision means most maths uses 16-bit numbers, while the optimiser keeps 32-bit copies.</p>
           <table class="lc-table">
             <thead><tr><th>What is stored</th><th>Number type</th><th>Bytes per parameter</th></tr></thead>
             <tbody>
@@ -4144,7 +4144,7 @@ module BuildLlmFromScratchContent
             <li>Each GPU gets a different slice of the batch.</li>
             <li>Each GPU runs the forward pass and the backward pass on its slice.</li>
             <li>An <strong>all-reduce</strong> step averages the gradients across all GPUs. Every GPU gets the same average.</li>
-            <li>Every GPU runs the same optimizer step. The copies stay identical.</li>
+            <li>Every GPU runs the same optimiser step. The copies stay identical.</li>
           </ol>
           <p>With 4 GPUs and 16 examples per GPU, one step uses 64 examples. This is the <strong>effective batch size</strong>. The averaged gradient is the same as one GPU computing on all 64 examples. Part 1 in the code editor below checks this with real numbers.</p>
           <p>In PyTorch, you wrap the model once. Part 3 in the code editor below is a complete DDP script. It starts a process group, gives every worker the same start weights, and wraps the model in <code>DDP</code>. Then <code>loss.backward()</code> averages the gradients across the workers.</p>
@@ -4153,8 +4153,8 @@ module BuildLlmFromScratchContent
         </div>
         <div class="lc-card">
           <h3>Sharding: ZeRO and FSDP</h3>
-          <p>DDP has a cost. Every GPU stores the <em>full</em> 16 bytes per parameter. With 4 GPUs, you keep 4 identical copies of the optimizer state. That is a lot of wasted memory.</p>
-          <p><strong>Sharding</strong> fixes this. A shard is one piece of a bigger thing. Each GPU keeps only its own piece, such as one quarter of the optimizer state. When a GPU needs a piece it does not have, the GPUs send it over the network.</p>
+          <p>DDP has a cost. Every GPU stores the <em>full</em> 16 bytes per parameter. With 4 GPUs, you keep 4 identical copies of the optimiser state. That is a lot of wasted memory.</p>
+          <p><strong>Sharding</strong> fixes this. A shard is one piece of a bigger thing. Each GPU keeps only its own piece, such as one quarter of the optimiser state. When a GPU needs a piece it does not have, the GPUs send it over the network.</p>
           <figure class="lc-diagram">
             <svg viewBox="0 0 760 260" role="img" aria-label="Bar chart of memory per GPU for a 7 billion parameter model on 4 GPUs. DDP needs 112 GB. ZeRO-1 needs 49 GB. ZeRO-2 needs 38.5 GB. ZeRO-3 or FSDP needs 28 GB. A dashed line marks 80 GB. Only DDP is above the line.">
               <g font-family="inherit" font-size="13" fill="#e2e0f0">
@@ -4162,7 +4162,7 @@ module BuildLlmFromScratchContent
                 <text x="20" y="69">DDP</text>
                 <text x="20" y="85" font-size="11.5" fill="#9b99b8">full copy on each GPU</text>
                 <text x="20" y="117">ZeRO-1</text>
-                <text x="20" y="133" font-size="11.5" fill="#9b99b8">shard optimizer state</text>
+                <text x="20" y="133" font-size="11.5" fill="#9b99b8">shard optimiser state</text>
                 <text x="20" y="165">ZeRO-2</text>
                 <text x="20" y="181" font-size="11.5" fill="#9b99b8">+ shard gradients</text>
                 <text x="20" y="213">ZeRO-3 / FSDP</text>
@@ -4181,7 +4181,7 @@ module BuildLlmFromScratchContent
             </svg>
             <figcaption>Memory per GPU for the 7B model, before activations. Each ZeRO stage splits one more kind of data across the 4 GPUs. The numbers come from Part 2 in the code editor.</figcaption>
           </figure>
-          <p><strong>ZeRO</strong> comes from the DeepSpeed library. It has three stages. Stage 1 shards the optimizer state. Stage 2 also shards the gradients. Stage 3 also shards the weights. <strong>FSDP</strong> (Fully Sharded Data Parallel) is PyTorch's own version of stage 3.</p>
+          <p><strong>ZeRO</strong> comes from the DeepSpeed library. It has three stages. Stage 1 shards the optimiser state. Stage 2 also shards the gradients. Stage 3 also shards the weights. <strong>FSDP</strong> (Fully Sharded Data Parallel) is PyTorch's own version of stage 3.</p>
           <p>With full sharding, a GPU does not hold the whole model. Before it runs a layer, the GPUs gather that layer's weights. After the layer, each GPU frees the pieces it does not own. You save a lot of memory, but you send more data between GPUs. The APIs change between versions, so check the current PyTorch and DeepSpeed docs.</p>
         </div>
         <div class="lc-card">
@@ -4193,7 +4193,7 @@ module BuildLlmFromScratchContent
             <thead><tr><th>Method</th><th>What is split</th><th>Good for</th></tr></thead>
             <tbody>
               <tr><td>Data parallel (DDP)</td><td>The batch</td><td>Models that fit on one GPU</td></tr>
-              <tr><td>FSDP / ZeRO</td><td>Batch, plus weights, gradients and optimizer state</td><td>Models a bit too big for one GPU</td></tr>
+              <tr><td>FSDP / ZeRO</td><td>Batch, plus weights, gradients and optimiser state</td><td>Models a bit too big for one GPU</td></tr>
               <tr><td>Tensor parallel</td><td>Each weight matrix</td><td>Very wide layers, GPUs in one machine</td></tr>
               <tr><td>Pipeline parallel</td><td>The stack of layers</td><td>Very deep models across machines</td></tr>
             </tbody>
@@ -4212,8 +4212,8 @@ module BuildLlmFromScratchContent
             </div>
             <ul data-sorter-target="pool">
               <li data-bucket="ddp" data-why="The model fits on one GPU. You only want more examples per second, so copy the model and split the batch.">TinyGPT fits on one GPU, but you want to train 8 times faster</li>
-              <li data-bucket="fsdp" data-why="Training needs 112 GB per GPU with DDP. Sharding weights, gradients and optimizer state brings it down to 28 GB on 4 GPUs.">A 7B model needs 112 GB per GPU with DDP</li>
-              <li data-bucket="fsdp" data-why="ZeRO stage 1 and stage 2 remove the repeated optimizer state and gradients. Each GPU keeps only its share.">Every GPU stores the same Adam state, and you want to stop that waste</li>
+              <li data-bucket="fsdp" data-why="Training needs 112 GB per GPU with DDP. Sharding weights, gradients and optimiser state brings it down to 28 GB on 4 GPUs.">A 7B model needs 112 GB per GPU with DDP</li>
+              <li data-bucket="fsdp" data-why="ZeRO stage 1 and stage 2 remove the repeated optimiser state and gradients. Each GPU keeps only its share.">Every GPU stores the same Adam state, and you want to stop that waste</li>
               <li data-bucket="tensor" data-why="Tensor parallel splits each weight matrix, so each GPU holds part of every layer.">One weight matrix is too big for a single GPU</li>
               <li data-bucket="pipe" data-why="Pipeline parallel puts groups of layers on different GPUs and passes activations between them.">You put layers 1-40 on one machine and layers 41-80 on another</li>
               <li data-bucket="pipe" data-why="Micro-batches let the next stage start early. This shrinks the idle time called the bubble.">You cut the batch into micro-batches to keep every stage busy</li>
@@ -4376,7 +4376,7 @@ module BuildLlmFromScratchContent
           <h3>Chat templates</h3>
           <p>The model only reads one long list of tokens. So how does it know who is speaking? A <strong>chat template</strong> joins the messages into one text with <strong>special tokens</strong> as markers. For TinyGPT you can use three new tokens: <code>&lt;|user|&gt;</code>, <code>&lt;|assistant|&gt;</code> and <code>&lt;|end|&gt;</code>. Part 1 in the code editor below prints each example in this template.</p>
           <ul class="lc-list">
-            <li>You add the special tokens to the tokenizer, so each one gets a single new ID.</li>
+            <li>You add the special tokens to the tokeniser, so each one gets a single new ID.</li>
             <li>The embedding table and the output layer each get a new row for every new token.</li>
             <li>The <code>&lt;|end|&gt;</code> token teaches the model to stop. At chat time, the loop stops when the model writes it.</li>
           </ul>
@@ -4427,7 +4427,7 @@ module BuildLlmFromScratchContent
           </ul>
           <p>B starts at zero, so B·A starts at zero. The model behaves exactly like the base model before training begins. Part 4 in the code editor below is a full LoRA layer in PyTorch, called <code>LoRALinear</code>. It freezes the base weight and bias, makes A with small random numbers and B with zeros, and adds <code>(x @ A.T @ B.T) * scale</code> to the base output. The scale is alpha / r.</p>
           <p>For a 512 × 512 layer with r = 8, LoRA adds 2 × 8 × 512 = 8,192 trained weights. The frozen layer has 262,656 weights, counting its bias. So only about 3% of the layer is trained. Part 4 prints these counts in PyTorch. Part 2 does the same sum with NumPy, so you can run it in the browser. It also checks that the LoRA layer starts with the same output as the frozen layer.</p>
-          <p>The optimizer only stores Adam state for the trained weights, so memory drops a lot. After training, you can add B·A into W once and remove the extra matrices. In practice you use a library such as Hugging Face PEFT. Check its docs for the current options. A related method, <strong>QLoRA</strong>, also stores the frozen base model in 4-bit numbers. You will learn about 4-bit numbers later in this course.</p>
+          <p>The optimiser only stores Adam state for the trained weights, so memory drops a lot. After training, you can add B·A into W once and remove the extra matrices. In practice you use a library such as Hugging Face PEFT. Check its docs for the current options. A related method, <strong>QLoRA</strong>, also stores the frozen base model in 4-bit numbers. You will learn about 4-bit numbers later in this course.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: the fine-tuning steps in order</h3>
@@ -4436,7 +4436,7 @@ module BuildLlmFromScratchContent
             <ol data-sequence-target="list">
               <li data-order="1">Pretrain TinyGPT on the café corpus to get a base model</li>
               <li data-order="2">Write instruction and response pairs, and check every answer</li>
-              <li data-order="3">Add special tokens such as &lt;|user|&gt; and &lt;|end|&gt; to the tokenizer</li>
+              <li data-order="3">Add special tokens such as &lt;|user|&gt; and &lt;|end|&gt; to the tokeniser</li>
               <li data-order="4">Format each pair with the chat template and tokenise it</li>
               <li data-order="5">Set the prompt targets to -100 so only the response is graded</li>
               <li data-order="6">Train for a short time with a small learning rate, then chat using the same template</li>
@@ -4846,7 +4846,7 @@ module BuildLlmFromScratchContent
           <p><code>perplexity = e ^ (average cross-entropy loss)</code></p>
           <p>Perplexity says: "On average, the model is as unsure as if it picked from this many equal choices." Our café text has 35 different characters. A model that guesses at random has perplexity 35. A model with loss 2.033 has perplexity e ^ 2.033 = 7.64. It is as unsure as choosing between about 7 or 8 characters.</p>
           <p>Each token's loss is -log of the probability the model gave to the correct token. A probability of 0.8 gives a small loss (0.223). A probability of 0.1 gives a big loss (2.303). Part 4 in the code editor below works out the mean loss and the perplexity for four such tokens. The mean loss is 1.151, so the perplexity is e ^ 1.151 = 3.16. The model was as unsure as choosing from about 3 tokens.</p>
-          <p>Two warnings. First, compare perplexity only between models with the <em>same tokenizer</em> and the <em>same validation text</em>. A character model and a BPE model predict different things. Second, low perplexity does not prove the model is helpful or honest. It only proves it predicts this text well.</p>
+          <p>Two warnings. First, compare perplexity only between models with the <em>same tokeniser</em> and the <em>same validation text</em>. A character model and a BPE model predict different things. Second, low perplexity does not prove the model is helpful or honest. It only proves it predicts this text well.</p>
         </div>
         <div class="lc-card">
           <h3>Benchmarks and their limits</h3>
@@ -5042,9 +5042,9 @@ module BuildLlmFromScratchContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-scratch">LLM from Scratch</div>
-          <h1 class="lc-title">Quantization and Running Models Locally</h1>
+          <h1 class="lc-title">Quantisation and Running Models Locally</h1>
         </div>
-        <p class="lc-lead">A model is mostly a big pile of numbers. Each number usually takes 2 or 4 bytes. <strong>Quantization</strong> stores each number with fewer bits, for example 8 or 4. The model gets much smaller and often runs faster, and the answers change only a little. In this lesson you will do the memory arithmetic, quantise a weight matrix in NumPy, and meet the tools that run quantised models on a laptop.</p>
+        <p class="lc-lead">A model is mostly a big pile of numbers. Each number usually takes 2 or 4 bytes. <strong>Quantisation</strong> stores each number with fewer bits, for example 8 or 4. The model gets much smaller and often runs faster, and the answers change only a little. In this lesson you will do the memory arithmetic, quantise a weight matrix in NumPy, and meet the tools that run quantised models on a laptop.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 300" role="img" aria-label="Left: four float32 weights, minus 1.30, 0.07, 0.42 and 0.88, are divided by a scale of 0.01024 and rounded to int8 codes minus 127, 7, 41 and 86. The scale is 1.3 divided by 127. Right: a 7 billion parameter model needs 28 GB in float32, 14 GB in float16, 7 GB in int8 and 3.5 GB in 4-bit.">
             <defs><marker id="ls21a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -5233,7 +5233,7 @@ module BuildLlmFromScratchContent
           <div class="lc-badge le-badge le-badge-scratch">LLM from Scratch</div>
           <h1 class="lc-title">Project: Build and Chat with Your Own Mini LLM</h1>
         </div>
-        <p class="lc-lead">This is the final project. You will put the whole course together in one program: data, tokenizer, model, training loop and sampling. The editor below trains a tiny character model on the café text, right in your browser, in a few seconds. Then you chat with it. You will also see how to chat with the PyTorch TinyGPT on your own computer.</p>
+        <p class="lc-lead">This is the final project. You will put the whole course together in one program: data, tokeniser, model, training loop and sampling. The editor below trains a tiny character model on the café text, right in your browser, in a few seconds. Then you chat with it. You will also see how to chat with the PyTorch TinyGPT on your own computer.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 314" role="img" aria-label="The project pipeline. Top row: 1 data, the café text with 30 sentences. 2 tokenise, one ID per character, V equals 35. 3 model, 8 characters to embeddings, a hidden layer of 64 and 35 logits. 4 train, 150 Adam steps, loss falls from 3.56 to 0.14. Bottom row, the chat loop: you type Tom makes, the model scores 35 next characters, one is sampled with temperature 0.5, it is added to the text, and the loop repeats until a newline.">
             <defs><marker id="ls22a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -5291,7 +5291,7 @@ module BuildLlmFromScratchContent
           <table class="lc-table">
             <thead><tr><th>Part</th><th>In the editor (NumPy)</th><th>In TinyGPT (PyTorch)</th></tr></thead>
             <tbody>
-              <tr><td>Tokenizer</td><td>Characters, V = 35</td><td>Characters, V = 35</td></tr>
+              <tr><td>Tokeniser</td><td>Characters, V = 35</td><td>Characters, V = 35</td></tr>
               <tr><td>Context</td><td>Last 8 characters</td><td>Last 16 characters (block_size)</td></tr>
               <tr><td>Mixing the context</td><td>Join 8 embeddings, then one hidden layer</td><td>2 transformer blocks with 4 attention heads</td></tr>
               <tr><td>Output</td><td>35 logits, softmax</td><td>35 logits, softmax</td></tr>
@@ -5334,7 +5334,7 @@ module BuildLlmFromScratchContent
           <p>Part 3 in the code editor below is the full PyTorch program. PyTorch does not run in the browser editor, so there Part 3 only prints a short message. Copy it to your own computer, together with the <code>CAFE_TEXT</code> lines at the top, and run <code>pip install torch</code> first.</p>
           <p>It builds TinyGPT with the default tiny config: n_embd = 32, n_head = 4, n_layer = 2 and block_size = 16. This version builds attention slightly differently from the one you coded earlier. It uses PyTorch's built-in <code>nn.MultiheadAttention</code>, which does the same job. The <code>mask</code> stops each token from looking at later tokens. The built-in layer also has a bias for each of the query, key and value maps. So this model has 27,104 parameters, not 26,912.</p>
           <p>On a laptop CPU, training takes well under a minute. The loss starts near 3.57, close to ln(35). It falls below 0.4 by the end. Then the program finishes three prompts. "Tom makes" often ends with a drink from the café text. To type your own prompts, read them in a loop with Python's <code>input</code> function and stop on an empty line.</p>
-          <p>Ideas to take it further: train it on a bigger public-domain book, use your BPE tokenizer instead of characters, save a checkpoint, and measure validation perplexity.</p>
+          <p>Ideas to take it further: train it on a bigger public-domain book, use your BPE tokeniser instead of characters, save a checkpoint, and measure validation perplexity.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: build your mini LLM in order</h3>
@@ -5342,7 +5342,7 @@ module BuildLlmFromScratchContent
             <p class="lcw-prompt">Put the project steps in the right order.</p>
             <ol data-sequence-target="list">
               <li data-order="1">Load and clean the café text</li>
-              <li data-order="2">Build the tokenizer and turn the text into IDs</li>
+              <li data-order="2">Build the tokeniser and turn the text into IDs</li>
               <li data-order="3">Make inputs x and targets y, shifted by one token</li>
               <li data-order="4">Create the model with small random weights</li>
               <li data-order="5">Train: forward, loss, backward, update, many times</li>
@@ -5356,10 +5356,10 @@ module BuildLlmFromScratchContent
           <p>Run the code editor. Part 1 trains the NumPy model for about 3 seconds and prints the loss. Part 2 answers five prompts. Part 3 is the PyTorch TinyGPT, for your own computer.</p>
           <ol class="lc-list">
             <li>In Part 2, add your own prompts to the list in the last loop, such as <code>"A tourist"</code> or <code>"Ellie counts"</code>. Use only characters that appear in the café text.</li>
-            <li>In Part 2, change <code>temperature=0.5</code> to <code>1.5</code>. The replies change more between runs, and the "A dog" reply gets even longer and stranger. Then try <code>0.1</code>: the model almost always picks its top choice.</li>
+            <li>In Part 2, change <code>temperature=0.5</code> to <code>1.5</code>. The replies get more random, and the "A dog" reply gets even longer and stranger. Then try <code>0.1</code>: the model almost always picks its top choice. Note: the code fixes the random seed with <code>np.random.seed(42)</code>, so running it again with the same settings gives the same replies. Change 42 to another number to see different replies.</li>
             <li>In Part 1, change <code>lr, steps = 0.02, 150</code> to <code>lr, steps = 0.02, 20</code>. With too little training, the replies are mostly nonsense.</li>
             <li>In Part 1, change <code>T = 8</code> to <code>T = 3</code>. With a short context, the model mixes up sentences much more often.</li>
-            <li>On your own computer, run Part 3. In <code>reply_gpt</code>, change <code>top_k=5</code> to <code>top_k=1</code>. Do the replies stop changing between runs?</li>
+            <li>On your own computer, run Part 3. In <code>reply_gpt</code>, change <code>top_k=5</code> to <code>top_k=1</code>. Now the model always picks its top choice, so sampling adds no randomness. Compare these replies with the <code>top_k=5</code> replies. Which look more like the café text?</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">

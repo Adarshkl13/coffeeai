@@ -8,7 +8,7 @@ module AiPricingInventoryContent
           <div class="lc-badge le-badge le-badge-ecom">E-commerce</div>
           <h1 class="lc-title">Pricing and Inventory Basics</h1>
         </div>
-        <p class="lc-lead">Two decisions shape the profit of every online shop: the <strong>price</strong> you charge and the <strong>stock</strong> you keep. A price that is too low leaves no money after fees and shipping. Too little stock loses sales. Too much stock locks up your cash. In this lesson you will learn the key numbers for price and stock and see how they connect. You will follow <strong>Rangrez Crafts</strong>, a made-up Manchester handicrafts brand, all through this course. Its owner Neha sells about 20 products on her own Shopify store, Amazon and Flipkart. She is getting ready for Diwali on Sunday 8 November 2026.</p>
+        <p class="lc-lead">Two decisions shape the profit of every online shop: the <strong>price</strong> you charge and the <strong>stock</strong> you keep. A price that is too low leaves no money after fees and shipping. Too little stock loses sales. Too much stock locks up your cash. In this lesson you will learn the key numbers for price and stock and see how they connect. You will follow <strong>Rangrez Crafts</strong>, a made-up handicrafts brand in Rajasthan, all through this course. Its owner Neha sells about 20 products on her own Shopify store, Amazon and Flipkart. She is getting ready for Diwali on Sunday 8 November 2026.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 300" role="img" aria-label="How price and stock drive profit for the Buta Bagh bedsheet set in September. Price 1,899 rupees gives about 473 rupees per order after all costs. Times 122 orders gives 57,711 rupees. Stock on hand of 240 sets limits orders. Too little stock causes stockouts and lost orders. Too much stock locks up cash and can become dead stock.">
             <defs><marker id="pi1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -121,7 +121,7 @@ module AiPricingInventoryContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a pricing and stock analyst for a small online shop in India. Explain in simple English.
 
-        My shop: [Rangrez Crafts, a Manchester handicrafts brand selling on its own store, Amazon and Flipkart].
+        My shop: [Rangrez Crafts, a Rajasthan handicrafts brand selling on its own store, Amazon and Flipkart].
         Big sale date: [Diwali, Sunday 8 November 2026]. Today: [1 October 2026].
         Prices include GST. Use [5%] as an example GST rate only.
 
@@ -269,7 +269,7 @@ module AiPricingInventoryContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an operations coach for small online sellers in India. Use simple English.
 
-        My shop: [Rangrez Crafts, a Manchester handicrafts brand with about 20 products on its own Shopify store, Amazon and Flipkart].
+        My shop: [Rangrez Crafts, a Rajasthan handicrafts brand with about 20 products on its own Shopify store, Amazon and Flipkart].
         Team: [owner Neha, and Kabir who packs orders and counts stock].
         Tools: [Google Sheets, the seller dashboards, and an AI assistant].
         Big event coming: [Diwali, Sunday 8 November 2026].
@@ -623,7 +623,7 @@ module AiPricingInventoryContent
             <thead><tr><th>Strategy</th><th>How it works</th><th>Buta Bagh example</th><th>Watch out</th></tr></thead>
             <tbody>
               <tr><td><strong>Cost-plus</strong></td><td>Add a fixed markup to your costs.</td><td>Costs ₹850 (product, packing, shipping) × 2 = ₹1,700, plus 5% example GST = ₹1,785. Round to ₹1,799.</td><td>It ignores the fee, which is a % of the price. On Amazon, ₹1,799 leaves only ₹557 per kept order.</td></tr>
-              <tr><td><strong>Value-based</strong></td><td>Price by what the buyer gets and what they compare it with.</td><td>Hand block-printed in Sanganer, double size, 2 pillow covers. Buyers compare it with machine-printed sets.</td><td>Use only true product facts. Never invent features, awards or reviews.</td></tr>
+              <tr><td><strong>Value-based</strong></td><td>Price by what the buyer gets and what they compare it with.</td><td>Hand block-printed in Rajasthan, double size, 2 pillow covers. Buyers compare it with machine-printed sets.</td><td>Use only true product facts. Never invent features, awards or reviews.</td></tr>
               <tr><td><strong>Competitive</strong></td><td>Price against similar products that shoppers see.</td><td>Similar hand-block sets sell for ₹1,650 to ₹2,299 (made-up range).</td><td>Compare like with like: size, fabric, print method, pillow covers.</td></tr>
               <tr><td><strong>Psychological</strong></td><td>Use price points that feel right to buyers.</td><td>₹1,899, not ₹1,900. The honest MRP of ₹2,499 shows a real 24% saving.</td><td>No fake "was" prices, false urgency or charges hidden until checkout.</td></tr>
               <tr><td><strong>Bundles</strong></td><td>Sell items together for one price.</td><td>Buta Bagh + Neel Kamal cushion covers for ₹2,699, instead of ₹2,898 bought separately.</td><td>Check the bundle still earns enough. Show clearly what is inside.</td></tr>
@@ -689,7 +689,7 @@ module AiPricingInventoryContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a pricing adviser for small Indian online sellers. Use simple English.
 
-        Product: [Buta Bagh bedsheet set: hand block-printed in Sanganer, double size, 2 pillow covers].
+        Product: [Buta Bagh bedsheet set: hand block-printed in Rajasthan, double size, 2 pillow covers].
         Costs per order: [product ₹720, packing ₹40, shipping ₹90].
         Channel: [Amazon], fee [17%] of price (made-up example; I will check the current fee pages).
         Prices include GST. Use [5%] as an example GST rate only.
@@ -782,7 +782,7 @@ module AiPricingInventoryContent
         </div>
         <div class="lc-card">
           <h3>Compare like with like</h3>
-          <p>Neha's product: hand block-printed in Sanganer, 100% cotton, double size, 2 pillow covers, ₹1,899 with free delivery. Kabir found 8 listings on 1 October 2026 (made-up examples).</p>
+          <p>Neha's product: hand block-printed in Rajasthan, 100% cotton, double size, 2 pillow covers, ₹1,899 with free delivery. Kabir found 8 listings on 1 October 2026 (made-up examples).</p>
           <table class="lc-table">
             <thead><tr><th>Listing</th><th>Product facts</th><th>Price + delivery</th><th>Delivered price</th><th>Decision</th></tr></thead>
             <tbody>
@@ -809,7 +809,7 @@ module AiPricingInventoryContent
           <ul class="lc-list">
             <li>Rangrez is in the middle of the hand block sets. There is no need to cut the price.</li>
             <li>E charges ₹2,299 for natural dyes. If Rangrez ever uses natural dyes for real, there is room at the top.</li>
-            <li>F is much cheaper, but it is a different product. Say "hand block-printed in Sanganer" clearly in the listing, so shoppers see the difference.</li>
+            <li>F is much cheaper, but it is a different product. Say "hand block-printed in Rajasthan" clearly in the listing, so shoppers see the difference.</li>
           </ul>
           <p><strong>Weak prompt:</strong></p>
           <pre><code>What do other sellers charge for block print bedsheets? Is my ₹1,899 price OK?</code></pre>
@@ -853,7 +853,7 @@ module AiPricingInventoryContent
             <pre class="ai-try-prompt">You are a pricing analyst for a small Indian online seller. Use simple English.
 
         My product: [bedsheet set: hand block, 100% cotton, double, 2 pillow covers], [₹1,899] incl. GST, free delivery.
-        Listings I checked by hand on [1 October 2026], pincode [302001]:
+        Listings I checked by hand on [1 October 2026], pincode [your pincode]:
         [A: hand block, cotton, double, 2 covers, ₹1,650, free
         B: hand block, cotton, double, 2 covers, ₹1,749 + ₹50 delivery
         C: hand block, cotton, double, 2 covers, ₹1,949, free
@@ -1203,7 +1203,7 @@ module AiPricingInventoryContent
             <tbody>
               <tr><td>Buta Bagh bedsheet set</td><td>96</td><td>88</td><td>84</td><td>90</td><td>104</td><td>122</td><td>584</td></tr>
               <tr><td>Neel Kamal cushion covers</td><td>126</td><td>118</td><td>112</td><td>120</td><td>138</td><td>164</td><td>778</td></tr>
-              <tr><td>Jaipuri razai</td><td>14</td><td>8</td><td>6</td><td>7</td><td>12</td><td>26</td><td>73</td></tr>
+              <tr><td>Cotton razai</td><td>14</td><td>8</td><td>6</td><td>7</td><td>12</td><td>26</td><td>73</td></tr>
               <tr><td>Gota Patti potli bags</td><td>40</td><td>38</td><td>36</td><td>52</td><td>70</td><td>96</td><td>332</td></tr>
             </tbody>
           </table>
@@ -1247,7 +1247,7 @@ module AiPricingInventoryContent
             <tbody>
               <tr><td>Buta Bagh bedsheet set</td><td>6.10</td><td>231.8</td><td>240</td><td>+8.2 (very tight)</td></tr>
               <tr><td>Neel Kamal cushion covers</td><td>8.20</td><td>311.6</td><td>180</td><td>−131.6 short</td></tr>
-              <tr><td>Jaipuri razai</td><td>1.30</td><td>49.4</td><td>60</td><td>+10.6</td></tr>
+              <tr><td>Cotton razai</td><td>1.30</td><td>49.4</td><td>60</td><td>+10.6</td></tr>
               <tr><td>Chandni table runner</td><td>4.30</td><td>163.4</td><td>210</td><td>+46.6</td></tr>
               <tr><td>Mor Pankh dhurrie</td><td>0.95</td><td>36.1</td><td>55</td><td>+18.9</td></tr>
               <tr><td>Gota Patti potli bags</td><td>4.80</td><td>182.4</td><td>90</td><td>−92.4 short</td></tr>
@@ -1356,7 +1356,7 @@ module AiPricingInventoryContent
         </div>
         <div class="lc-card">
           <h3>Worked example: Neel Kamal cushion covers</h3>
-          <p>September sales were 164 sets. Neha's festival forecast assumes 1.5 times the September daily rate. The Sanganer unit is often up to a week late in October (made-up), so she keeps 7 <strong>safety days</strong> of stock. Column C shows what each formula returns.</p>
+          <p>September sales were 164 sets. Neha's festival forecast assumes 1.5 times the September daily rate. The block-print unit is often up to a week late in October (made-up), so she keeps 7 <strong>safety days</strong> of stock. Column C shows what each formula returns.</p>
           <pre><code>    A                            B                          C (result)
         1   September sales              164
         2   Uplift (assumption)          1.5
@@ -1383,14 +1383,14 @@ module AiPricingInventoryContent
             <tbody>
               <tr><td>Buta Bagh bedsheet set</td><td>6.1</td><td>21</td><td>170.8</td><td>240</td><td>12 Oct</td><td>2 Nov</td><td>11 Oct</td></tr>
               <tr><td>Neel Kamal cushion covers</td><td>8.2</td><td>14</td><td>172.2</td><td>180</td><td>1 Oct</td><td>15 Oct</td><td>18 Oct</td></tr>
-              <tr><td>Jaipuri razai</td><td>1.3</td><td>28</td><td>45.5</td><td>60</td><td>12 Oct</td><td>9 Nov</td><td>4 Oct</td></tr>
+              <tr><td>Cotton razai</td><td>1.3</td><td>28</td><td>45.5</td><td>60</td><td>12 Oct</td><td>9 Nov</td><td>4 Oct</td></tr>
               <tr><td>Chandni table runner</td><td>4.3</td><td>14</td><td>90.3</td><td>210</td><td>28 Oct</td><td>11 Nov</td><td>18 Oct</td></tr>
               <tr><td>Mor Pankh dhurrie</td><td>0.95</td><td>35</td><td>39.9</td><td>55</td><td>16 Oct</td><td>20 Nov</td><td>27 Sep (passed)</td></tr>
               <tr><td>Gota Patti potli bags</td><td>4.8</td><td>10</td><td>81.6</td><td>90</td><td>2 Oct</td><td>12 Oct</td><td>22 Oct</td></tr>
             </tbody>
           </table>
           <p>Formulas for Buta Bagh: <code>=122/30*1.5*(21+7)</code> gives 170.8. <code>=DATE(2026,10,1)+MAX(0,ROUNDDOWN((240-170.8)/6.1,0))</code> gives 12 October 2026. <code>=DATE(2026,11,1)-21</code> gives 11 October 2026.</p>
-          <p><strong>Why the festival check matters.</strong> The rule says order Buta Bagh on 12 October. That stock arrives on 2 November, with only about 45 sets left. That is too close to Diwali, and the Sanganer unit is often late in October. Neha wants festival stock in the workroom by 1 November. So she orders a week early, on 5 October, and the sets arrive on 26 October. Cushion covers and potlis need orders now. The dhurrie cannot arrive before 1 November, but its 55 in stock cover the forecast of 36.1.</p>
+          <p><strong>Why the festival check matters.</strong> The rule says order Buta Bagh on 12 October. That stock arrives on 2 November, with only about 45 sets left. That is too close to Diwali, and the block-print unit is often late in October. Neha wants festival stock in the workroom by 1 November. So she orders a week early, on 5 October, and the sets arrive on 26 October. Cushion covers and potlis need orders now. The dhurrie cannot arrive before 1 November, but its 55 in stock cover the forecast of 36.1.</p>
           <p><strong>Ask AI to build the sheet, not to decide.</strong> Give it your lead times, forecast rates and safety days. Ask for formulas and both dates for each product. Then check one row by hand.</p>
         </div>
         <div class="lc-card">
@@ -1402,7 +1402,7 @@ module AiPricingInventoryContent
               <div data-sorter-target="bucket" data-bucket="less" data-label="Less safety stock"></div>
             </div>
             <ul data-sorter-target="pool">
-              <li data-bucket="more" data-why="A late supplier means more days of sales before new stock arrives.">The Sanganer unit is often up to a week late in October.</li>
+              <li data-bucket="more" data-why="A late supplier means more days of sales before new stock arrives.">The block-print unit is often up to a week late in October.</li>
               <li data-bucket="more" data-why="Big swings in daily sales make a stockout more likely, so you need a bigger buffer.">Potli sales jump between 1 and 9 sets a day in festival weeks.</li>
               <li data-bucket="more" data-why="A higher cost of running out justifies a higher service level.">Running out in Diwali week would lose many high-value orders.</li>
               <li data-bucket="less" data-why="A short, reliable lead time means you can refill quickly.">A local unit can now deliver table runners in 3 days.</li>
@@ -1422,7 +1422,7 @@ module AiPricingInventoryContent
         [Buta Bagh bedsheet set: 122, 240, 21
         Neel Kamal cushion covers: 164, 180, 14
         Gota Patti potli bags: 96, 90, 10
-        Jaipuri razai: 26, 60, 28]
+        Cotton razai: 26, 60, 28]
         My assumption: festival daily demand = September ÷ 30 × [1.5]. Safety stock = [7] days of demand.
 
         Please:
@@ -1454,7 +1454,7 @@ module AiPricingInventoryContent
         </div>
         <p class="lc-lead">You cannot watch every product every day. ABC analysis helps you choose where to spend your time. You rank your products by how much money they bring in. The few top products are your <strong>A items</strong>. They get the most care. In this lesson you will run an ABC analysis on Rangrez Crafts' 6 key products in a spreadsheet. You will also learn what to do with each class, and when the ranking can mislead you.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 340" role="img" aria-label="Bar chart of each product's share of sales value from April to September 2026. Buta Bagh bedsheet 38.9 percent, class A. Neel Kamal cushions 27.3 percent, cumulative 66.2 percent, class A. Mor Pankh dhurrie 11.6 percent, class B. Chandni table runner 8.6 percent, class B. Jaipuri razai 7.2 percent, class C. Gota Patti potli 6.4 percent, class C.">
+          <svg viewBox="0 0 760 340" role="img" aria-label="Bar chart of each product's share of sales value from April to September 2026. Buta Bagh bedsheet 38.9 percent, class A. Neel Kamal cushions 27.3 percent, cumulative 66.2 percent, class A. Mor Pankh dhurrie 11.6 percent, class B. Chandni table runner 8.6 percent, class B. Cotton razai 7.2 percent, class C. Gota Patti potli 6.4 percent, class C.">
             <defs><marker id="pi11a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0">
               <text x="380" y="22" font-weight="700" fill="#c4b5fd" text-anchor="middle">Share of sales value, April to September 2026 (made-up numbers)</text>
@@ -1490,7 +1490,7 @@ module AiPricingInventoryContent
               <rect x="705" y="173" width="30" height="22" rx="6" fill="#1f1f44" stroke="#3b82f6"/>
               <text x="720" y="188" text-anchor="middle" font-weight="700" fill="#93c5fd">B</text>
               <line x1="20" y1="205" x2="740" y2="205" stroke="#9b99b8" stroke-dasharray="4 4"/>
-              <text x="20" y="226">Jaipuri razai</text>
+              <text x="20" y="226">Cotton razai</text>
               <rect x="230" y="211" width="61" height="22" rx="4" fill="#f59e0b"/>
               <text x="299" y="226">7.2%</text>
               <text x="650" y="226" text-anchor="middle">93.6%</text>
@@ -1537,7 +1537,7 @@ module AiPricingInventoryContent
               <tr><td>RC-CC-02 Neel Kamal cushion covers</td><td>778</td><td>999</td><td>7,77,222</td><td>27.3%</td><td>66.2%</td><td><strong>A</strong></td></tr>
               <tr><td>RC-DR-05 Mor Pankh dhurrie</td><td>83</td><td>3,999</td><td>3,31,917</td><td>11.6%</td><td>77.8%</td><td><strong>B</strong></td></tr>
               <tr><td>RC-TR-04 Chandni table runner</td><td>380</td><td>649</td><td>2,46,620</td><td>8.6%</td><td>86.4%</td><td><strong>B</strong></td></tr>
-              <tr><td>RC-QT-03 Jaipuri razai</td><td>73</td><td>2,799</td><td>2,04,327</td><td>7.2%</td><td>93.6%</td><td><strong>C</strong></td></tr>
+              <tr><td>RC-QT-03 Cotton razai</td><td>73</td><td>2,799</td><td>2,04,327</td><td>7.2%</td><td>93.6%</td><td><strong>C</strong></td></tr>
               <tr><td>RC-PT-06 Gota Patti potli bags</td><td>332</td><td>549</td><td>1,82,268</td><td>6.4%</td><td>100.0%</td><td><strong>C</strong></td></tr>
             </tbody>
           </table>
@@ -1598,7 +1598,7 @@ module AiPricingInventoryContent
               <li data-bucket="a" data-why="Share 26.5%. Cumulative 37.7% + 26.5% = 64.2%, still under 70%.">Neel Kamal cushion covers: ₹4,21,578</li>
               <li data-bucket="b" data-why="Share 11.6%. Cumulative 75.8% is above 70% but under 90%.">Mor Pankh dhurrie: ₹1,83,954</li>
               <li data-bucket="b" data-why="Share 8.8%. Cumulative 84.6%, under 90%.">Chandni table runner: ₹1,40,184</li>
-              <li data-bucket="c" data-why="Share 7.9%. Cumulative 92.5% is above 90%. But it is a winter item, so watch it.">Jaipuri razai: ₹1,25,955</li>
+              <li data-bucket="c" data-why="Share 7.9%. Cumulative 92.5% is above 90%. But it is a winter item, so watch it.">Cotton razai: ₹1,25,955</li>
               <li data-bucket="c" data-why="Share 7.5%. Cumulative reaches 100%. Its share is growing fast before Diwali.">Gota Patti potli bags: ₹1,19,682</li>
             </ul>
           </div>
@@ -1788,12 +1788,12 @@ module AiPricingInventoryContent
         </div>
         <p class="lc-lead">When you sell on your own store and on marketplaces, the same stock shows in several places. If the numbers do not match, you sell stock you do not have. Then you cancel orders and upset shoppers. In this lesson you will learn to run one shared stock across channels. You will set a small buffer and catch sync errors. You will also decide when to send stock to a marketplace warehouse. You will plan Rangrez Crafts' Buta Bagh stock for Diwali.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 300" role="img" aria-label="Buta Bagh stock plan. The Manchester workroom keeps 180 sets as one shared stock for the own Shopify store at 1.5 sets a day and Flipkart at 1.8 a day. 60 sets are sent to a marketplace warehouse that serves Amazon at 2.8 a day. A stock sync box shows that an order on any channel lowers stock on the others, with a buffer of 5 units hidden from marketplaces.">
+          <svg viewBox="0 0 760 300" role="img" aria-label="Buta Bagh stock plan. The Rajasthan workroom keeps 180 sets as one shared stock for the own Shopify store at 1.5 sets a day and Flipkart at 1.8 a day. 60 sets are sent to a marketplace warehouse that serves Amazon at 2.8 a day. A stock sync box shows that an order on any channel lowers stock on the others, with a buffer of 5 units hidden from marketplaces.">
             <defs><marker id="pi13a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <text x="380" y="22" font-weight="700" fill="#c4b5fd">Buta Bagh stock for Diwali: festive sales per day (made-up)</text>
               <rect x="20" y="56" width="210" height="124" rx="10" fill="#1f1f44" stroke="#f59e0b"/>
-              <text x="125" y="82" font-weight="700">Manchester workroom</text>
+              <text x="125" y="82" font-weight="700">Rajasthan workroom</text>
               <text x="125" y="104" font-size="12" fill="#9b99b8">one shared stock</text>
               <text x="125" y="130" fill="#fcd34d">Buta Bagh: 180 sets</text>
               <text x="125" y="152" font-size="11" fill="#9b99b8">3.3 a day, about 54 days</text>
@@ -1823,11 +1823,11 @@ module AiPricingInventoryContent
               <g stroke="#10b981" stroke-width="1.2" stroke-dasharray="4 4"><line x1="512" y1="69" x2="558" y2="100"/><line x1="512" y1="137" x2="558" y2="146"/><line x1="512" y1="254" x2="558" y2="210"/></g>
             </g>
           </svg>
-          <figcaption>The Manchester stock serves the own store and Flipkart. A marketplace warehouse holds a separate stock for Amazon. A sync keeps every channel's number up to date.</figcaption>
+          <figcaption>The workroom stock serves the own store and Flipkart. A marketplace warehouse holds a separate stock for Amazon. A sync keeps every channel's number up to date.</figcaption>
         </figure>
         <div class="lc-card">
           <h3>One stock, three shop windows</h3>
-          <p>Rangrez Crafts ships every order from one Manchester workroom. The same 240 Buta Bagh sets show on Shopify, Amazon and Flipkart. This is called <strong>pooled stock</strong>: one stock that all channels share.</p>
+          <p>Rangrez Crafts ships every order from one Rajasthan workroom. The same 240 Buta Bagh sets show on Shopify, Amazon and Flipkart. This is called <strong>pooled stock</strong>: one stock that all channels share.</p>
           <p>Pooled stock works well for a small shop. You do not need to guess each channel's share. But every channel must know the real number. When a set sells on Amazon, the number on Shopify and Flipkart must drop too. This is <strong>stock sync</strong>. Many sellers use an inventory app or the store's own marketplace connection for it. Check how often your tool syncs: every few minutes, or once a day.</p>
           <p>If the sync fails, you <strong>oversell</strong>: you accept an order for stock you do not have. You must cancel it. Marketplaces track seller cancellations. Too many can hurt your listings or your account. Check Seller Central or Seller Hub help for the current rules.</p>
           <p><strong>Common sync errors:</strong></p>
@@ -1860,7 +1860,7 @@ module AiPricingInventoryContent
           <p>Amazon's service is called Fulfillment by Amazon (FBA). Flipkart has its own fulfilment service too. The idea is the same: you send stock to the marketplace's warehouse. The marketplace stores it, packs orders, ships them and handles many returns. It can make delivery faster and may make your listing eligible for faster-delivery labels.</p>
           <p><strong>What it costs.</strong> You pay transport to the warehouse, fulfilment fees per order and storage fees. Stock that sits for a long time can cost more. Taking unsold stock back also costs money. If the warehouse is in another state, you usually need a GST registration in that state too, with the warehouse added as a place of business. Ask your CA before you send stock. The fees, rules and programme names change, so check Seller Central or Seller Hub help.</p>
           <p><strong>The stock is split.</strong> Stock in a marketplace warehouse serves only that marketplace. It cannot fill a Shopify order. You now have two stocks to watch.</p>
-          <p><strong>Worked example.</strong> In September, 56 of the 122 Buta Bagh sets sold on Amazon (45.9%). The festive forecast is 6.1 sets a day, so Amazon's share is about 2.8 a day. Neha sends three weeks of Amazon sales: 2.8 × 21 = 58.8, so 60 sets. Manchester keeps 180 sets for the own store and Flipkart. At 3.3 a day, that lasts about 54 days.</p>
+          <p><strong>Worked example.</strong> In September, 56 of the 122 Buta Bagh sets sold on Amazon (45.9%). The festive forecast is 6.1 sets a day, so Amazon's share is about 2.8 a day. Neha sends three weeks of Amazon sales: 2.8 × 21 = 58.8, so 60 sets. The workroom keeps 180 sets for the own store and Flipkart. At 3.3 a day, that lasts about 54 days.</p>
           <table class="lc-table">
             <thead><tr><th>Good fit for a marketplace warehouse</th><th>Poor fit</th></tr></thead>
             <tbody>
@@ -1884,7 +1884,7 @@ module AiPricingInventoryContent
               <li data-bucket="risky" data-why="Orders come in all day in the festive season. A nightly sync can oversell many units.">Sync stock to all channels once a night</li>
               <li data-bucket="safe" data-why="The count in the workroom is the truth. Weekly counts catch sync errors early.">Count stock every week and fix any channel that is wrong</li>
               <li data-bucket="risky" data-why="A slow, bulky item in a marketplace warehouse can pile up storage fees, and it cannot serve other channels.">Send all 55 dhurries to a marketplace warehouse</li>
-              <li data-bucket="safe" data-why="Three weeks of Amazon sales leaves plenty of stock in Manchester for the other channels.">Send 60 Buta Bagh sets to a marketplace warehouse and keep 180 in Manchester</li>
+              <li data-bucket="safe" data-why="Three weeks of Amazon sales leaves plenty of stock in the workroom for the other channels.">Send 60 Buta Bagh sets to a marketplace warehouse and keep 180 in the workroom</li>
               <li data-bucket="risky" data-why="A bundle can only sell as many as its scarcest item, and both items must go down.">Show the bundle stock as 240 because there are 240 bedsheets</li>
               <li data-bucket="risky" data-why="Hand edits on one channel are easy to forget on the others.">Change Flipkart stock by hand in the evening</li>
             </ul>
@@ -1896,7 +1896,7 @@ module AiPricingInventoryContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an e-commerce operations adviser for a small Indian seller. Use simple English.
 
-        I sell on [my own Shopify store, Amazon and Flipkart] and ship from [one workroom in Manchester].
+        I sell on [my own Shopify store, Amazon and Flipkart] and ship from [one workroom in Rajasthan].
         Busy season: [Diwali], [38] days away.
         Products (stock now, forecast sales per day, share of sales by channel own/Amazon/Flipkart):
         [Bedsheet set: 240, 6.1, 25%/46%/29%
@@ -2010,7 +2010,7 @@ module AiPricingInventoryContent
           <h3>Where Neha changes the sheet's answer</h3>
           <p>The sheet gives a first answer. Neha knows things the sheet does not.</p>
           <ul class="lc-list">
-            <li><strong>Buta Bagh: order a week early.</strong> The rule date is 12 October, so the sets would arrive on 2 November, with only about 45 left. That is too close to Diwali, and the Sanganer unit is often late in October. Many workshops also close for a few days around the festival. Neha orders a week early, on 5 October, so the sets arrive on 26 October.</li>
+            <li><strong>Buta Bagh: order a week early.</strong> The rule date is 12 October, so the sets would arrive on 2 November, with only about 45 left. That is too close to Diwali, and the block-print unit is often late in October. Many workshops also close for a few days around the festival. Neha orders a week early, on 5 October, so the sets arrive on 26 October.</li>
             <li><strong>Buta Bagh: accept the MOQ.</strong> The need is only 35 sets, but the MOQ is 100. That is 65 extra sets, or ₹46,800. It is an A item, and 65 sets is about 16 days of September sales. Neha accepts.</li>
             <li><strong>Potli bags: split the order.</strong> She orders 70 now and 60 more on 17 October, after checking real sales. Both parts meet the MOQ of 60. If gift sales are weaker, she can cut the second order.</li>
             <li><strong>Razai: order for winter.</strong> The need until Diwali is below zero. But stock hits the reorder point on 12 October, and winter sales come after Diwali. She orders the MOQ of 40 on 12 October.</li>
@@ -2034,11 +2034,11 @@ module AiPricingInventoryContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Write a message to my supplier to send more cushion covers fast.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>Write a short, polite purchase order message to my supplier, [Sanganer block-print unit].
+          <pre><code>Write a short, polite purchase order message to my supplier, [our block-print unit].
         PO number [RC-PO-2026-041], date [1 October 2026].
         Item: [Neel Kamal cushion covers, set of 5, indigo print, 16 x 16 inch], SKU [RC-CC-02].
         Quantity: [190 sets]. Price: [₹310 per set, as per your last quote]. GST as per invoice.
-        Deliver to: [our Manchester workroom] by [15 October 2026].
+        Deliver to: [our Rajasthan workroom] by [15 October 2026].
         Ask them to confirm quantity, price and date in writing today.
         Ask if they close for Diwali, and if part delivery is possible.
         Give an English version and a simple Hindi version. Do not add any terms I did not give.</code></pre>
@@ -2167,15 +2167,18 @@ module AiPricingInventoryContent
           <h3>Step 4: prices and offers that fit the stock</h3>
           <p>The rule is simple: <strong>do not discount a product that is already short</strong>. Neel Kamal and the potli bags only just have enough stock with the new POs. A discount would bring more orders than the stock can fill. So they stay at full price.</p>
           <p>Buta Bagh has spare stock: 340 sets for a forecast of about 232. Neha tests a Diwali price of ₹1,799. The MRP stays ₹2,499, so the offer is 28.0% below the real MRP.</p>
+          <p><strong>Why this differs from Lesson 7.</strong> In Lesson 7, Neha kept ₹1,899, because 240 sets only just covered the festival estimate. Now the new PO adds 100 sets on 26 October, so there is spare stock. Also, ₹1,799 is a smaller cut than the ₹1,699 she turned down there.</p>
+          <p>The offer runs only for the 13 days from 26 October to 7 November. At 6.1 sets a day, full price would sell about 79.3 sets in those days. So she compares the offer with those 13 days, not with the whole 38-day forecast.</p>
           <pre><code>    A                                     B                                C (result)
         1   Contribution per order at ₹1,899      473.53
         2   Contribution per order at ₹1,799      406.38
         3   Change                                =B2/B1-1                         -14.2%
-        4   Orders needed to earn the same        =ROUNDUP(231.8*B1/B2,0)          271
-        5   Extra orders needed                   =B4/231.8-1                      16.9%
-        6   Daily orders needed (6.1 now)         =6.1*B1/B2                       7.11
-        7   Stock left if 271 sell                =240+100-B4                      69</code></pre>
-          <p>In plain words: each order earns about 14% less, so Neha needs about 17% more orders to earn the same. That is about 7.1 orders a day instead of 6.1. The stock can cover it and still leave 69 sets, above the safety stock of about 43.</p>
+        4   Full-price orders in the 13 offer days =6.1*13                         79.3
+        5   Orders needed to earn the same        =ROUNDUP(B4*B1/B2,0)             93
+        6   Extra orders needed                   =B5/B4-1                         17.3%
+        7   Daily orders needed (6.1 now)         =6.1*B1/B2                       7.11
+        8   Stock left at Diwali                  =240+100-6.1*25-B5               94.5</code></pre>
+          <p>In plain words: each order earns about 14% less, so Neha needs about 17% more orders to earn the same. That is about 93 orders in the 13 offer days instead of 79, or about 7.1 a day instead of 6.1. Row 8 assumes 6.1 a day at full price for the first 25 days (1 to 25 October). The stock can cover it and still leave about 95 sets at Diwali, above the safety stock of about 43.</p>
           <p>She starts the offer on 26 October, when the new sets arrive. She shows the real end date. She tracks daily orders every Monday. If orders stay near 6.1 a day, the offer earns less than full price did. Then she will not repeat it next year.</p>
           <p><strong>Keep every offer honest.</strong> Show the discount from the real MRP. Show the total price, with any shipping, before the shopper pays. No fake countdown timers and no "only 2 left" when you have 100. These are dark patterns under India's CCPA guidelines. This is general education, not legal advice.</p>
         </div>
@@ -2208,11 +2211,11 @@ module AiPricingInventoryContent
               <li data-kind="user" data-label="Neha asks">Here is my stock, forecast and contribution per order for 6 products. Suggest Diwali offers.</li>
               <li data-kind="answer" data-label="AI replies">Give 20% off everything in Diwali week to boost sales.</li>
               <li data-kind="warn" data-label="The mistake">Potli bags and Neel Kamal only just have enough stock. A discount would cause stockouts and earn less on every order.</li>
-              <li data-kind="user" data-label="Neha asks again">Only suggest offers for products with spare stock. For Buta Bagh at ₹1,799 instead of ₹1,899, contribution falls from ₹473.53 to ₹406.38. How many orders do I need to earn the same as 231.8 orders now?</li>
-              <li data-kind="answer" data-label="AI replies">231.8 × 473.53 ÷ 406.38 = 270.1, so about 271 orders. That is about 17% more.</li>
-              <li data-kind="tool" data-label="Google Sheets">Kabir types =ROUNDUP(231.8*473.53/406.38,0) into the plan.</li>
-              <li data-kind="result" data-label="Sheet shows">271</li>
-              <li data-kind="check" data-label="Kabir checks stock">240 sets now + 100 on order = 340. After 271 sales, 69 are left. That is above the safety stock.</li>
+              <li data-kind="user" data-label="Neha asks again">Only suggest offers for products with spare stock. For Buta Bagh at ₹1,799 instead of ₹1,899, contribution falls from ₹473.53 to ₹406.38. The offer runs for 13 days, 26 October to 7 November, when I expect 79.3 orders at full price. How many orders do I need to earn the same?</li>
+              <li data-kind="answer" data-label="AI replies">79.3 × 473.53 ÷ 406.38 = 92.4, so about 93 orders. That is about 17% more.</li>
+              <li data-kind="tool" data-label="Google Sheets">Kabir types =ROUNDUP(79.3*473.53/406.38,0) into the plan.</li>
+              <li data-kind="result" data-label="Sheet shows">93</li>
+              <li data-kind="check" data-label="Kabir checks stock">240 sets now + 100 on order = 340. After about 152.5 full-price sales (25 days × 6.1) and 93 offer sales, about 95 are left. That is above the safety stock.</li>
               <li data-kind="check" data-label="Neha decides">She runs ₹1,799 from 26 October with a real end date. She will check each Monday if daily orders reach about 7.1.</li>
             </ol>
           </div>

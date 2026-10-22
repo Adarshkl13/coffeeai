@@ -1781,7 +1781,7 @@ module AiLegalDraftingContent
             <li><strong>Fixed-term staff.</strong> A fixed-term employee (hired for a set period) gets the same pay and benefits as a permanent employee doing the same work. Gratuity is payable after one year of continuous service.</li>
             <li><strong>Wider social security.</strong> The Social Security Code also covers gig and platform workers.</li>
           </ul>
-          <p>The central rules under the Codes were notified in 2026. Many states are still finalising their own rules. State laws, such as the Karnataka shops and commercial establishments law, and the POSH Act 2013 still apply. Some transition rules also apply to older matters. Check the current Codes, the rules and your state's position on India Code and the labour department websites. This is general education, not legal advice.</p>
+          <p>The central and state rules under the Codes are being brought in step by step, and many states are still finalising their own rules. State laws, such as the Karnataka shops and commercial establishments law, and the POSH Act 2013 still apply. Some transition rules also apply to older matters. Check the current Codes, the rules and your state's position on India Code and the labour department websites. This is general education, not legal advice.</p>
           <p>A salary structure the payroll team can check against the 50% idea:</p>
           <table class="lc-table">
             <thead><tr><th>Part of pay</th><th>Amount a year (₹)</th><th>Share of total</th></tr></thead>

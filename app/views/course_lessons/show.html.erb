@@ -160,7 +160,7 @@
         <div class="user-avatar"><%= current_user.email[0].upcase %></div>
         <div class="user-info">
           <p class="user-email"><%= current_user.email %></p>
-          <%= link_to "Sign out", destroy_user_session_path, class: "sign-out-link", data: { turbo_method: :delete } %>
+          <%= link_to "Log out", destroy_user_session_path, class: "sign-out-link", data: { turbo_method: :delete } %>
         </div>
       </div>
       <%= link_to dashboard_path, class: "back-to-dash" do %>← Back to Dashboard<% end %>
@@ -392,7 +392,7 @@
             Skip
           </button>
         </div>
-        <p class="skip-note">Skipping unlocks the next lesson.</p>
+        <p class="skip-note"><%= full_access? ? "Skipped lessons do not count towards your certificate." : "Skipping unlocks the next lesson but won't count as completed." %></p>
       <% end %>
 
     </div>

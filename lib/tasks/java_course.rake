@@ -11,6 +11,7 @@ namespace :content do
       c.position    = 8
       c.published   = true
     end
+    course.update!(description: "Learn modern Java (17+), from your first program to records, enums, sealed types, collections, streams, java.time, files, basic concurrency, packages, build tools and JUnit testing. Then build a full library management project.")   # keep the description in sync on every run
     puts "Course: #{course.title}"
 
     titles = {

@@ -42,11 +42,11 @@ namespace :content do
       2 => "Log in for git push with Git Credential Manager, personal access tokens, SSH keys or gh auth login. Sign your commits with an SSH key.",
       3 => "Install gh and log in. Manage repositories, issues and pull requests from the terminal.",
       4 => "Create a repository on GitHub. Push a project you already have and clone repositories.",
-      5 => "Write a clear README and pick an open-source license. Build a profile that shows your work.",
+      5 => "Write a clear README and pick an open-source licence. Build a profile that shows your work.",
       6 => "Track work with issues, labels and issue forms, and close issues from pull requests. Plan with milestones, Projects boards and Discussions.",
       7 => "Open pull requests, link issues and use drafts. Choose between merge, squash and rebase merges.",
       8 => "Review pull requests with comments and suggestions. Test them on your computer and reply to feedback.",
-      9 => "Give people the right access with collaborators, organizations, teams, roles and CODEOWNERS.",
+      9 => "Give people the right access with collaborators, organisations, teams, roles and CODEOWNERS.",
       10 => "Practise the daily cycle: branch, pull request, review, merge and clean up.",
       11 => "Fork a project and keep your fork up to date with upstream. Send your first open-source pull request.",
       12 => "Protect main with rulesets. Require pull requests, reviews and passing checks.",
@@ -82,7 +82,7 @@ namespace :content do
       18 => { type: "true_false", q: "gh release create v1.0.0 --generate-notes writes release notes from the pull requests merged since the last release.", opts: ["True", "False"], ans: "True" },
       19 => { type: "multiple_choice", q: "User asha publishes a Pages site from her repository chai-menu. What is its default URL?", opts: ["A) https://github.com/asha/chai-menu.io", "B) https://asha.github.io/chai-menu/", "C) https://chai-menu.github.io/asha/"], ans: "B" },
       20 => { type: "multiple_choice", q: "Which statement about a pull request opened by Copilot cloud agent is correct?", opts: ["A) A human must review and merge it; Copilot can't approve or merge it itself", "B) Copilot merges it by itself as soon as its own tests pass in GitHub Actions", "C) It skips your ruleset, because Copilot is a GitHub app and not a normal user"], ans: "A" },
-      21 => { type: "multiple_choice", q: "A required status check in your ruleset stays at \"Expected — Waiting for status to be reported\". What is the most likely cause?", opts: ["A) The repository has too many open issues for checks to start", "B) Pull requests need at least two reviewers before checks can run", "C) The required check name does not match any job that really runs"], ans: "C" }
+      21 => { type: "multiple_choice", q: "A required status check in your ruleset stays at \"Expected\", with the message \"Waiting for status to be reported\". What is the most likely cause?", opts: ["A) The repository has too many open issues for checks to start", "B) Pull requests need at least two reviewers before checks can run", "C) The required check name does not match any job that really runs"], ans: "C" }
     }
 
     GithubContent::LESSONS.each do |position, data|

@@ -8,7 +8,7 @@ module AiImagesDesignContent
           <div class="lc-badge le-badge le-badge-create">Content Creation</div>
           <h1 class="lc-title">How AI Image Generators Work</h1>
         </div>
-        <p class="lc-lead">You type a sentence, and a few seconds later you get a picture. It feels like magic, but it is not. In this lesson, you will learn how most AI image generators work, in plain words. You will learn the three main ways to use them: text-to-image, image-to-image and editing. When you know how the tool "thinks", you write better prompts. You also know what it will get wrong, so you can check it. Our example all through this course is <strong>Sweet Crumbs</strong>, a small bakery in Islington, London. The owner, Anjali, and her helper Diya need pictures for their Christmas 2026 plum cake campaign.</p>
+        <p class="lc-lead">You type a sentence, and a few seconds later you get a picture. It feels like magic, but it is not. In this lesson, you will learn how most AI image generators work, in plain words. You will learn the three main ways to use them: text-to-image, image-to-image and editing. When you know how the tool "thinks", you write better prompts. You also know what it will get wrong, so you can check it. Our example all through this course is <strong>Sweet Crumbs</strong>, a small bakery in Maharashtra. The owner, Anjali, and her helper Diya need pictures for their Christmas 2026 plum cake campaign.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 330" role="img" aria-label="Top row, training: a clear photo gets more and more noise until it is only noise, and the model learns to remove the noise. Bottom row, making an image: the model starts from random noise and removes it step by step, guided by your prompt, until a finished image appears.">
             <defs><marker id="img1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -127,7 +127,7 @@ module AiImagesDesignContent
 
         First, explain how a diffusion image generator works in 5 short, simple sentences, in [simple English with a few Hinglish words]. Use one everyday example, such as cleaning a foggy window.
 
-        Then help me plan. My business: [Sweet Crumbs, a small bakery in London. We need visuals for a Christmas plum cake campaign: an Instagram launch post, 5 carousel slides, a Story, a WhatsApp status, a printed A3 shop poster and product photos of our real cakes.]
+        Then help me plan. My business: [Sweet Crumbs, a small bakery in Maharashtra. We need visuals for a Christmas plum cake campaign: an Instagram launch post, 5 carousel slides, a Story, a WhatsApp status, a printed A3 shop poster and product photos of our real cakes.]
 
         Make a table with these columns: Visual | Best way (text-to-image, image-to-image, editing a real photo, or no AI: real photo or design tool) | Why | One thing that could go wrong | How I will check it.
 
@@ -260,7 +260,7 @@ module AiImagesDesignContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a practical design adviser for small brands and creators in India who do their own visuals.
 
-        My project: [Christmas 2026 plum cake campaign for Sweet Crumbs, a small London bakery]
+        My project: [Christmas 2026 plum cake campaign for Sweet Crumbs, a small bakery in Maharashtra]
         Visuals I need: [Instagram launch post, 5-slide carousel, Story, WhatsApp status, printed A3 poster, photos of 5 real products]
         My skills: [good with a phone camera, basic Canva, new to AI image tools]
         Budget: [small; I can pay for one tool for one month]
@@ -382,7 +382,7 @@ module AiImagesDesignContent
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Diya asks">"Give me 3 ideas for our Christmas poster image. Make it eye-catching."</li>
-              <li data-kind="answer" data-label="AI replies">"1. A famous Bollywood actress in a Santa hat holding your plum cake. 2. A plum cake in the style of a famous animation studio. 3. A cosy illustrated London street at Christmas with your cake in a shop window."</li>
+              <li data-kind="answer" data-label="AI replies">"1. A famous Bollywood actress in a Santa hat holding your plum cake. 2. A plum cake in the style of a famous animation studio. 3. A cosy illustrated Indian street at Christmas with your cake in a shop window."</li>
               <li data-kind="warn" data-label="Mistake to catch">Idea 1 uses a real star's face, which breaks personality rights. Idea 2 copies a famous studio's style and may look like its characters.</li>
               <li data-kind="tool" data-label="Tool terms">Diya opens her image tool's terms and help pages. She looks for "commercial use" and "uploads".</li>
               <li data-kind="result" data-label="What she finds">In this made-up example, the paid plan allows business use of images. It does not allow images that copy other people's rights.</li>
@@ -397,7 +397,7 @@ module AiImagesDesignContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a careful content adviser for small brands and creators in India. You give general information only, not legal advice.
 
-        The image I plan to use: [an AI-made illustration of a cosy London street at Christmas, with a real photo of our plum cake added in Canva, and our own logo]
+        The image I plan to use: [an AI-made illustration of a cosy Indian street at Christmas, with a real photo of our plum cake added in Canva, and our own logo]
         Where it will go: [Instagram feed post, WhatsApp status and a printed A3 shop poster]
         Tool used: [an AI image generator on a paid plan]
         People shown: [none]
@@ -521,7 +521,7 @@ module AiImagesDesignContent
         Aspect ratio 4:5.
 
         P3 Story background (9:16):
-        A cosy London bakery window at night in December, fairy lights and a
+        A cosy home bakery window at night in December, fairy lights and a
         small paper star lantern, blurred street lights outside. Warm golden
         glow. Empty space in the middle for a product photo and text.
         No people, no text, no logos. Aspect ratio 9:16.</code></pre>
@@ -555,7 +555,7 @@ module AiImagesDesignContent
             <pre class="ai-try-prompt">You are an expert at writing prompts for AI image generators, for small brands in India.
 
         My rough idea: [a festive background for our Christmas plum cake launch post. Our real cake photo will be added later in Canva.]
-        Brand: [Sweet Crumbs, a warm, homely bakery in London. Colours: deep brown, cream, berry red, small touches of pistachio green.]
+        Brand: [Sweet Crumbs, a warm, homely bakery in Maharashtra. Colours: deep brown, cream, berry red, small touches of pistachio green.]
         Where it goes: [Instagram feed post, 1080 x 1350 pixels]
 
         Write 3 different prompts. Each prompt must:
@@ -681,7 +681,7 @@ module AiImagesDesignContent
 
         S3 Scene (with the sheet uploaded as a character reference):
         Using the attached character as the same character: Cocoa is
-        carrying a plum cake in a red gift box through a busy London street
+        carrying a plum cake in a red gift box through a busy Indian street
         market decorated with Christmas stars and fairy lights. Same outfit,
         same colours, same flat vector style. Space at the top for a
         headline. No text. Aspect ratio 4:5.</code></pre>
@@ -722,7 +722,7 @@ module AiImagesDesignContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a brand designer who helps small businesses and creators in India keep their AI images consistent.
 
-        My brand: [Sweet Crumbs, a warm, homely bakery in London]
+        My brand: [Sweet Crumbs, a warm, homely bakery in Maharashtra]
         Brand colours: [Crumb Brown #6B3E26, Cream #FFF4E0, Berry Red #B8323A, Pistachio Green #7A9E5C, Butter Gold #E0A63A]
         Fonts: [Playfair Display for headings, Poppins for body text]
         Campaign: [Christmas plum cakes: Instagram posts, Stories and a printed poster]
@@ -984,7 +984,7 @@ module AiImagesDesignContent
           <p>Ask the AI for a picture with <strong>no text</strong> and <strong>empty space</strong> where the words will go. Then add the text in Canva from the brand kit (the saved brand fonts, colours and logo).</p>
           <pre><code>Weak:
         A Christmas poster for Sweet Crumbs bakery with the text "Merry
-        Christmas, London! Pre-orders open Tue 1 Dec. 10% off till 13 Dec.
+        Christmas from Sweet Crumbs! Pre-orders open Tue 1 Dec. 10% off till 13 Dec.
         1 kg plum cake Rs 1,200".
 
         Better:
@@ -1003,12 +1003,12 @@ module AiImagesDesignContent
           <table class="lc-table">
             <thead><tr><th>Order</th><th>Exact words</th><th>Font</th><th>Size</th><th>Colour</th></tr></thead>
             <tbody>
-              <tr><td>1. Headline</td><td>Merry Christmas, London! (two lines)</td><td>Playfair Display Bold</td><td>96 px</td><td>Crumb Brown <code>#6B3E26</code></td></tr>
+              <tr><td>1. Headline</td><td>Merry Christmas from Sweet Crumbs! (two lines)</td><td>Playfair Display Bold</td><td>96 px</td><td>Crumb Brown <code>#6B3E26</code></td></tr>
               <tr><td>2. What</td><td>Plum cake pre-orders open Tue 1 Dec</td><td>Poppins SemiBold</td><td>44 px</td><td>Crumb Brown</td></tr>
               <tr><td>3. Offer</td><td>10% early-bird off till Sun 13 Dec</td><td>Poppins Bold</td><td>40 px</td><td>Berry Red <code>#B8323A</code></td></tr>
               <tr><td>4. Price</td><td>Plum cakes from ₹480</td><td>Poppins Medium</td><td>40 px</td><td>Crumb Brown</td></tr>
               <tr><td>5. Action</td><td>Order on WhatsApp</td><td>Poppins SemiBold</td><td>36 px</td><td>Cream <code>#FFF4E0</code> on a Berry Red button</td></tr>
-              <tr><td>6. Small print</td><td>Last order Sun 20 Dec. Pickup 21 to 24 Dec, Islington.</td><td>Poppins Regular</td><td>30 px</td><td>Crumb Brown</td></tr>
+              <tr><td>6. Small print</td><td>Last order Sun 20 Dec. Pickup 21 to 24 Dec from our kitchen.</td><td>Poppins Regular</td><td>30 px</td><td>Crumb Brown</td></tr>
             </tbody>
           </table>
           <ul class="lc-list">
@@ -1024,8 +1024,8 @@ module AiImagesDesignContent
           <h3>Activity: Diya's first poster attempt</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="user" data-label="Diya prompts">She asks an image tool for a poster with the words "Merry Christmas, London! Pre-orders open Tue 1 Dec. 1 kg plum cake ₹1,200".</li>
-              <li data-kind="result" data-label="The image">The picture is lovely. But the text says "Merry Chrismas, London!" and "₹1,2O0". A jar in the background has strange letters.</li>
+              <li data-kind="user" data-label="Diya prompts">She asks an image tool for a poster with the words "Merry Christmas from Sweet Crumbs! Pre-orders open Tue 1 Dec. 1 kg plum cake ₹1,200".</li>
+              <li data-kind="result" data-label="The image">The picture is lovely. But the text says "Merry Chrismas from Sweet Crumbs!" and "₹1,2O0". A jar in the background has strange letters.</li>
               <li data-kind="warn" data-label="Mistake to catch">If she posts it, customers see a misspelt word and a price with a letter O. She also cannot change the price later.</li>
               <li data-kind="thought" data-label="Diya thinks">She could try again ten times, but the fonts would still not be Playfair Display and Poppins. She changes her method.</li>
               <li data-kind="tool" data-label="Canva">She makes a new background with "no text, no letters, no numbers". In Canva, she adds each line from the brand kit fonts and colours, and places the real logo file.</li>
@@ -1043,7 +1043,7 @@ module AiImagesDesignContent
         Design: [Instagram launch post, 1080 x 1350 px]
         Brand fonts: [Playfair Display for headings, Poppins for body text]
         Brand colours: [Crumb Brown #6B3E26, Cream #FFF4E0, Berry Red #B8323A]
-        Facts (copy exactly, do not change): [Plum cake pre-orders open Tue 1 Dec 2026. 10% early-bird off on orders by Sun 13 Dec. Last order Sun 20 Dec. Pickup 21 to 24 Dec in Islington, London. Cakes from Rs 480. Order on WhatsApp.]
+        Facts (copy exactly, do not change): [Plum cake pre-orders open Tue 1 Dec 2026. 10% early-bird off on orders by Sun 13 Dec. Last order Sun 20 Dec. Pickup 21 to 24 Dec from our home kitchen. Cakes from Rs 480. Order on WhatsApp.]
 
         Please give me:
         1. A table of at most 6 text layers, most important first: Layer | Exact words | Font and weight | Size in px | Colour (hex).
@@ -1163,7 +1163,7 @@ module AiImagesDesignContent
               <tr><td>2</td><td>Eggless plum cake</td><td>500 g ₹600. Alcohol-free: fruits soaked in orange juice.</td><td>₹540</td></tr>
               <tr><td>3</td><td>Mini plum cakes</td><td>Box of 4 x 100 g, ₹480.</td><td>₹432</td></tr>
               <tr><td>4</td><td>Christmas gift box</td><td>500 g classic plum cake, 12 butter cookies and a card, ₹999.</td><td>₹899 (₹899.10 rounded)</td></tr>
-              <tr><td>5</td><td>How to order</td><td>Order on WhatsApp by Sun 20 Dec. 10% off till Sun 13 Dec. Pickup or London delivery 21 to 24 Dec.</td><td>-</td></tr>
+              <tr><td>5</td><td>How to order</td><td>Order on WhatsApp by Sun 20 Dec. 10% off till Sun 13 Dec. Pickup or local delivery 21 to 24 Dec.</td><td>-</td></tr>
             </tbody>
           </table>
           <p>Diya asks an AI chat assistant to draft the slide words. Then she checks every price with a calculator.</p>
@@ -1171,12 +1171,12 @@ module AiImagesDesignContent
         Write a carousel for my plum cakes.
 
         Better:
-        You are a social media writer for a small London bakery. Write the
+        You are a social media writer for a small bakery in Maharashtra. Write the
         words for a 5-slide Instagram carousel, 1080 x 1350 px. One slide
         per product and a last "how to order" slide. For each slide give:
         headline (max 5 words), 2 short detail lines, and alt text. Use only
         these facts: [paste the product table and dates]. Tone: warm,
-        homely, a little Hinglish. No "best in London" claims.</code></pre>
+        homely, a little Hinglish. No "best in Maharashtra" claims.</code></pre>
         </div>
         <div class="lc-card">
           <h3>Activity: which size is it?</h3>
@@ -1204,7 +1204,7 @@ module AiImagesDesignContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a social media designer for small brands and creators in India.
 
-        Brand: [Sweet Crumbs, a home-style bakery in Islington, London]
+        Brand: [Sweet Crumbs, a home-style bakery in Maharashtra]
         Brand kit: [colours Crumb Brown #6B3E26, Cream #FFF4E0, Berry Red #B8323A; fonts Playfair Display and Poppins; a round logo; a bear mascot called Cocoa]
         Offer and facts (use only these): [Christmas plum cakes. 500 g Rs 650, 1 kg Rs 1,200, eggless 500 g Rs 600, mini box of 4 Rs 480, gift box Rs 999. 10% early-bird off till Sun 13 Dec. Last order Sun 20 Dec. Order on WhatsApp.]
         Tone: [warm, homely, a little Hinglish]
@@ -1281,7 +1281,7 @@ module AiImagesDesignContent
             <tbody>
               <tr><td><strong>Product photo</strong></td><td>A clear photo of what the customer buys. Sweet Crumbs uses 2000 x 2000 px photos for the WhatsApp catalogue.</td><td>Clean or replace the background, fix light, remove clutter.</td><td>The cake, its size, its toppings and the box.</td></tr>
               <tr><td><strong>Mock-up</strong></td><td>A picture that shows how a design will look on a real object. For example, a poster in the shop window or a label on the gift box.</td><td>Make the setting, such as a shop window at night. Many design tools also have ready mock-up templates.</td><td>Your design file. If the item is not made yet, call it a "design preview".</td></tr>
-              <tr><td><strong>Lifestyle scene</strong></td><td>The product in a real-life moment, such as a family Christmas table in a London flat.</td><td>Make the table, the room, the lights and the mood.</td><td>The cake: place the real cut-out photo into the scene.</td></tr>
+              <tr><td><strong>Lifestyle scene</strong></td><td>The product in a real-life moment, such as a family Christmas table in an Indian home.</td><td>Make the table, the room, the lights and the mood.</td><td>The cake: place the real cut-out photo into the scene.</td></tr>
             </tbody>
           </table>
           <p>Diya makes a lifestyle scene with AI. Look at how the better prompt leaves space for the real cake and avoids fake customers.</p>
@@ -1289,7 +1289,7 @@ module AiImagesDesignContent
         A happy Indian family eating Sweet Crumbs plum cake at Christmas.
 
         Better:
-        A warm Christmas dinner table in a London apartment in the evening.
+        A warm Christmas dinner table in an Indian apartment in the evening.
         Fairy lights, a small paper star lantern, plates and teacups.
         Hands passing plates, no faces. An empty wooden cake stand in the
         centre, for our real product photo. Realistic photo, soft warm
@@ -1350,7 +1350,7 @@ module AiImagesDesignContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a careful marketing reviewer for small businesses in India. You help make ad images honest and clear. Give general guidance only, not legal advice.
 
-        Business: [Sweet Crumbs, a home bakery in London, selling Christmas plum cakes on Instagram and WhatsApp]
+        Business: [Sweet Crumbs, a home bakery in Maharashtra, selling Christmas plum cakes on Instagram and WhatsApp]
         Products (facts): [Classic plum cake 500 g Rs 650 and 1 kg Rs 1,200 (contains alcohol, egg, nuts); eggless 500 g Rs 600; gift box Rs 999 with a 500 g cake, 12 butter cookies and a card]
         My planned visuals:
         [1. Real cake photo on an AI-made festive background
@@ -1440,7 +1440,7 @@ module AiImagesDesignContent
           <h3>Hierarchy: what people see first</h3>
           <p><strong>Hierarchy</strong> means the order in which people see things. On a phone, people look at a post for a second or two. So one thing must stand out first. Decide the order before you design:</p>
           <ol class="lc-list">
-            <li><strong>Headline:</strong> "Merry Christmas, London!" (biggest, Playfair Display, 96 px)</li>
+            <li><strong>Headline:</strong> "Merry Christmas from Sweet Crumbs!" (biggest, Playfair Display, 96 px)</li>
             <li><strong>Product:</strong> the real plum cake photo (the biggest picture)</li>
             <li><strong>Offer:</strong> "10% early-bird off till Sun 13 Dec" (Berry Red, 40 px)</li>
             <li><strong>Action:</strong> the "Order on WhatsApp" button</li>
@@ -1512,7 +1512,7 @@ module AiImagesDesignContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a graphic designer who teaches design basics to small business owners in India.
 
-        My brand: [Sweet Crumbs, a home bakery in London]
+        My brand: [Sweet Crumbs, a home bakery in Maharashtra]
         Colours: [Crumb Brown #6B3E26, Cream #FFF4E0, Berry Red #B8323A, Pistachio Green #7A9E5C, Butter Gold #E0A63A]
         Fonts: [Playfair Display for headings, Poppins for body text]
         Main format: [Instagram post, 1080 x 1350 px]
@@ -1621,18 +1621,18 @@ module AiImagesDesignContent
         </div>
         <div class="lc-card">
           <h3>Slides that people can read</h3>
-          <p>Anjali wants to sell the Christmas gift box to offices. She will show 5 slides to the team at a made-up office in Canary Wharf. AI can help her plan the slides and make background images.</p>
+          <p>Anjali wants to sell the Christmas gift box to offices. She will show 5 slides to the team at a made-up office in Maharashtra. AI can help her plan the slides and make background images.</p>
           <pre><code>Weak prompt:
         Make a presentation about my Christmas cakes.
 
         Better prompt:
-        You are a sales presentation coach for a small London bakery. Plan 5 slides
+        You are a sales presentation coach for a small bakery in Maharashtra. Plan 5 slides
         (16:9) to sell our Christmas gift box to an office team of about 40 people.
         Gift box: 500 g classic plum cake (contains alcohol, egg, nuts), 12 butter
         cookies and a card, ₹999. Early-bird price ₹899 if ordered by Sun 13 Dec.
         Last order Sun 20 Dec. For each slide give: a headline of up to 8 words,
         3 short points, and a background image idea with empty space for text.
-        Warm, honest tone. No "best in London" claims.</code></pre>
+        Warm, honest tone. No "best in Maharashtra" claims.</code></pre>
           <ul class="lc-list">
             <li><strong>One idea per slide.</strong> Big headline, a few words, one image.</li>
             <li><strong>Check every number yourself.</strong> 40 boxes x ₹999 = ₹39,960. At the early-bird price, 40 x ₹899 = ₹35,960.</li>
@@ -1647,7 +1647,7 @@ module AiImagesDesignContent
             <li>Canva's "PDF Print" download has an option for crop marks and bleed. A CMYK colour option is offered on paid plans. Check Canva's current help pages, because menus change.</li>
             <li>Many local print shops accept RGB PDFs and convert them. Ask what they prefer.</li>
             <li>Ask for a <strong>proof</strong> (one printed sample) before the full order. Hold it next to your real cake box and check the colours.</li>
-            <li>Test print at home on A4 first. A4 is about 71% of the width and height of A3, so small text that is hard to read on A4 will be tight on A3.</li>
+            <li>Test print at home on A4 first. A4 is about 71% of the width and height of A3, so everything on the A4 print is smaller than on the real poster. If the small text is easy to read on A4, it will be easy to read on A3. If it is hard to read on A4, make it bigger.</li>
           </ul>
           <table class="lc-table">
             <thead><tr><th>Ask the printer</th><th>Why</th></tr></thead>
@@ -1670,7 +1670,7 @@ module AiImagesDesignContent
               <li data-kind="tool" data-label="Fix">She upscales the background 4x to 4096 x 6144 and places it again. She checks the edges for strange shapes.</li>
               <li data-kind="warn" data-label="Second mistake">The date line "Last order: Sun 20 Dec" sits only 4 mm from the trim edge. It could be cut or look crowded.</li>
               <li data-kind="check" data-label="Diya checks">She moves all text 10 mm inside the trim. She reads every date and price aloud against the brief.</li>
-              <li data-kind="result" data-label="Printer's proof">Islington Print Point (made up) prints one proof. The Berry Red is a little darker than on screen, but still clear. Anjali approves 20 copies.</li>
+              <li data-kind="result" data-label="Printer's proof">Print Point, a made-up local print shop, prints one proof. The Berry Red is a little darker than on screen, but still clear. Anjali approves 20 copies.</li>
             </ol>
           </div>
         </div>
@@ -1780,7 +1780,7 @@ module AiImagesDesignContent
         Our cakes look magical this year!
 
         Honest caption:
-        Merry Christmas, London! Plum cake pre-orders open Tue 1 Dec.
+        Merry Christmas from Sweet Crumbs! Plum cake pre-orders open Tue 1 Dec.
         The cake in this photo is our real 1 kg classic plum cake
         (contains alcohol, egg and nuts). Scene created with AI.</code></pre>
         </div>
@@ -1843,7 +1843,7 @@ module AiImagesDesignContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an honest marketing adviser for small brands and creators in India. You give general information only, not legal advice.
 
-        My brand: [Sweet Crumbs, a small home-style bakery in London]
+        My brand: [Sweet Crumbs, a small home-style bakery in Maharashtra]
         My visuals:
         1. [Real cake photo on an AI-made kitchen background, Instagram post]
         2. [AI-illustrated bear mascot, Instagram Story]
@@ -1880,7 +1880,7 @@ module AiImagesDesignContent
         </div>
         <p class="lc-lead">Ask an AI tool for "a baker" and you may get a man in a white chef's hat, again and again. Ask for "a beautiful Indian woman" and you may get only fair skin. This is <strong>bias</strong>: the AI repeats patterns and stereotypes from the images it learned from. In this lesson, you will learn how to spot bias in AI images and test a batch of results. You will also write prompts for respectful, true-to-life images of people in India. Your customers should see themselves in your brand, shown with respect.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 290" role="img" aria-label="Left: a four-step loop. Make 12 images, count who appears, rewrite the prompt, ask real people, then repeat. Right: a made-up test of the prompt a customer at a London bakery. Default prompt: light skin 10 of 12, under 35 9 of 12, over 50 2 of 12, baker is a man 11 of 12. Rewritten prompt: 5, 6, 4 and 6 of 12.">
+          <svg viewBox="0 0 760 290" role="img" aria-label="Left: a four-step loop. Make 12 images, count who appears, rewrite the prompt, ask real people, then repeat. Right: a made-up test of the prompt a customer at an Indian bakery. Default prompt: light skin 10 of 12, under 35 9 of 12, over 50 2 of 12, baker is a man 11 of 12. Rewritten prompt: 5, 6, 4 and 6 of 12.">
             <defs><marker id="img13a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12.5" fill="#e2e0f0">
               <text x="192" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#c4b5fd">A bias check loop</text>
@@ -1933,7 +1933,7 @@ module AiImagesDesignContent
                 <rect x="490" y="216" width="120" height="13" rx="3" fill="#10b981"/>
                 <text x="616" y="227" font-size="11">6/12</text>
               </g>
-              <text x="580" y="262" text-anchor="middle" font-size="11" fill="#9b99b8">Prompt: "a customer buying cake at a London bakery"</text>
+              <text x="580" y="262" text-anchor="middle" font-size="11" fill="#9b99b8">Prompt: "a customer buying cake at an Indian bakery"</text>
               <text x="380" y="282" text-anchor="middle" font-size="11" fill="#9b99b8">The goal is true to life and respectful, not a fixed quota.</text>
             </g>
           </svg>
@@ -1948,7 +1948,7 @@ module AiImagesDesignContent
               <tr><td>"a baker"</td><td>A man in a white chef's hat</td><td>Women bakers, like Anjali, disappear</td></tr>
               <tr><td>"a beautiful Indian woman"</td><td>Very fair skin, one body type</td><td>Tells people that fair skin is "beautiful"</td></tr>
               <tr><td>"an Indian street"</td><td>Dusty, crowded, poor</td><td>Shows one narrow picture of a whole country</td></tr>
-              <tr><td>"an Indian family at Christmas"</td><td>One look, one region, often wrong clothes</td><td>Ignores that people of many faiths and regions celebrate in London</td></tr>
+              <tr><td>"an Indian family at Christmas"</td><td>One look, one region, often wrong clothes</td><td>Ignores that people of many faiths and regions celebrate Christmas in India</td></tr>
               <tr><td>"a shop sign in Marathi"</td><td>Letters that look like Devanagari but mean nothing</td><td>Looks careless to people who read the script</td></tr>
             </tbody>
           </table>
@@ -1961,7 +1961,7 @@ module AiImagesDesignContent
         A happy Indian family eating Christmas cake.
 
         Better prompt:
-        Three generations of a family in a London flat at Christmas: a grandmother
+        Three generations of a family in an Indian home at Christmas: a grandmother
         in a cotton sari, a father in a kurta, a mother in jeans and a sweater,
         and a teenage daughter. A natural, true-to-life range of Indian skin tones.
         A relaxed, real moment: sharing slices of plum cake at a dining table,
@@ -1978,13 +1978,13 @@ module AiImagesDesignContent
         <div class="lc-card">
           <h3>People in marketing: when to use AI and when not to</h3>
           <p>AI people are not real customers. So an AI "family eating our cake" must never be shown as a real review. Use AI people only for clear lifestyle or mood images, and label them. For proof, like "our customers love it", use real photos of real customers, taken with their written consent.</p>
-          <p>A mascot can also help. Cocoa the bear stands for the brand without showing any group of people. That is one reason Sweet Crumbs uses Cocoa on most posts. For people images, check the batch, not only the best image. Then show your shortlist to 2 or 3 people from different backgrounds, such as Diya, a regular customer and a neighbour. Ask: "Does anyone here look like a joke or a cliché? Does anything look wrong for London?"</p>
+          <p>A mascot can also help. Cocoa the bear stands for the brand without showing any group of people. That is one reason Sweet Crumbs uses Cocoa on most posts. For people images, check the batch, not only the best image. Then show your shortlist to 2 or 3 people from different backgrounds, such as Diya, a regular customer and a neighbour. Ask: "Does anyone here look like a joke or a cliché? Does anything look wrong for our customers?"</p>
         </div>
         <div class="lc-card">
           <h3>Activity: Diya's batch test</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="user" data-label="Diya prompts">"A customer buying cake at a London bakery, Christmas, warm light." She makes 12 images with the same prompt.</li>
+              <li data-kind="user" data-label="Diya prompts">"A customer buying cake at an Indian bakery, Christmas, warm light." She makes 12 images with the same prompt.</li>
               <li data-kind="tool" data-label="Spreadsheet">She notes each image in a simple sheet: apparent age group, skin tone, gender, role and any errors.</li>
               <li data-kind="result" data-label="Count">Light skin in 10 of 12 (83%). Under 35 in 9 of 12 (75%). Over 50 in only 2 of 12 (17%). The baker is a man in 11 of 12 (92%).</li>
               <li data-kind="warn" data-label="Mistake to catch">Three images also show a shop sign with fake Devanagari letters. One shows a Diwali rangoli next to a Christmas tree for no reason.</li>
@@ -2001,7 +2001,7 @@ module AiImagesDesignContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a careful, respectful creative reviewer. You help Indian brands make AI images that show people fairly and true to life.
 
-        My brand: [Sweet Crumbs, a small bakery in Islington, London]
+        My brand: [Sweet Crumbs, a small bakery in Maharashtra]
         My real customers: [families, students, office workers and older neighbours from many regions and faiths]
         My image prompt: [A happy Indian family eating Christmas cake at home.]
         What I saw in 12 results (optional): [10 of 12 had very fair skin, all were under 40, and the women were serving while the men sat]
@@ -2101,8 +2101,8 @@ module AiImagesDesignContent
           <p>A <strong>brief</strong> is a short document that says what a design must do. It stops you from making 20 pretty images that do not sell anything. Write it before you open any AI tool. AI can help you draft it, but the owner must check every fact.</p>
           <pre><code>DESIGN BRIEF: Launch post, Sweet Crumbs Christmas 2026
         Goal:        Get pre-orders on WhatsApp in the first week
-        Audience:    Families and office teams in Islington and nearby London areas
-        Key message: Merry Christmas, London! Plum cakes, ghar jaisa taste.
+        Audience:    Families and office teams near us in Maharashtra
+        Key message: Merry Christmas from Sweet Crumbs! Plum cakes, ghar jaisa taste.
         Must show:   Pre-orders from Tue 1 Dec. 10% early-bird till Sun 13 Dec.
                      Classic plum cake 1 kg ₹1,200 (early-bird ₹1,080).
                      "Contains alcohol" for the classic cake.
@@ -2179,7 +2179,7 @@ module AiImagesDesignContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a design project manager for a small business that makes its own visuals with AI and Canva.
 
-        My business: [Sweet Crumbs, a small bakery in London]
+        My business: [Sweet Crumbs, a small bakery in Maharashtra]
         Campaign: [Christmas plum cakes. Pre-orders open Tue 1 Dec 2026. Early-bird 10% off till Sun 13 Dec. Last order Sun 20 Dec.]
         Visuals needed: [launch post 1080 x 1350, Story cover 1080 x 1920, WhatsApp image 1080 x 1080, A3 poster with 3 mm bleed]
         Team: [owner Anjali approves; Diya designs]
@@ -2284,7 +2284,7 @@ module AiImagesDesignContent
           <table class="lc-table">
             <thead><tr><th>#</th><th>Design</th><th>Size</th><th>Main text (added in Canva)</th><th>AI part</th><th>Real part</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td>Launch post</td><td>1080 x 1350 (4:5)</td><td>"Merry Christmas, London!" and "Plum cake pre-orders open Tue 1 Dec"</td><td>Kitchen background (P1)</td><td>Classic plum cake photo, logo</td></tr>
+              <tr><td>1</td><td>Launch post</td><td>1080 x 1350 (4:5)</td><td>"Merry Christmas from Sweet Crumbs!" and "Plum cake pre-orders open Tue 1 Dec"</td><td>Kitchen background (P1)</td><td>Classic plum cake photo, logo</td></tr>
               <tr><td>2</td><td>Carousel, 5 slides</td><td>1080 x 1350 each</td><td>Slide 1: classic 500 g ₹650 and 1 kg ₹1,200. Slides 2 to 4: eggless ₹600, minis ₹480, gift box ₹999. Slide 5: how to order.</td><td>Flat-lay (P2) for the classic slide</td><td>Photos of all products</td></tr>
               <tr><td>3</td><td>Story and Reel cover</td><td>1080 x 1920 (9:16)</td><td>"Pre-orders open. 10% off till Sun 13 Dec"</td><td>Window background (P3), Cocoa (S3)</td><td>Gift box photo, logo</td></tr>
               <tr><td>4</td><td>WhatsApp status</td><td>1080 x 1920 (9:16)</td><td>"Early-bird ends Sun 13 Dec!"</td><td>Cocoa waving (S3)</td><td>Price tags, logo</td></tr>
@@ -2299,7 +2299,7 @@ module AiImagesDesignContent
           <p>A <strong>mood board</strong> is a set of images that shows the look and feel of a campaign before you design. It helps Anjali say "yes, this feels like us" early. Use three prompts, each ending with the style block S1.</p>
           <pre><code>Mood board prompt 1 (textures and colours):
         A mood board grid of 6 square photos for a warm home bakery at Christmas
-        in London: dark plum cake crumbs, cream linen, a red ribbon, a sprig of holly,
+        in Maharashtra: dark plum cake crumbs, cream linen, a red ribbon, a sprig of holly,
         brass fairy lights, a wooden table. Colours: chocolate brown, warm cream,
         berry red, small touches of pistachio green and butter gold. Soft natural
         light. No text, no logos, no people. [Add style block S1]
@@ -2332,7 +2332,7 @@ module AiImagesDesignContent
           <table class="lc-table">
             <thead><tr><th>Design</th><th>Alt text</th></tr></thead>
             <tbody>
-              <tr><td>Launch post</td><td>A dark plum cake on a cream plate, with dried fruits and cinnamon on a wooden table. Text: Merry Christmas, London! Plum cake pre-orders open Tuesday 1 December.</td></tr>
+              <tr><td>Launch post</td><td>A dark plum cake on a cream plate, with dried fruits and cinnamon on a wooden table. Text: Merry Christmas from Sweet Crumbs! Plum cake pre-orders open Tuesday 1 December.</td></tr>
               <tr><td>WhatsApp status</td><td>Cocoa, an illustrated bear baker in a red scarf, waves next to price tags. Text: Early-bird 10% off ends Sunday 13 December.</td></tr>
               <tr><td>A3 poster (for the website copy)</td><td>Sweet Crumbs Christmas poster with a plum cake photo, prices from ₹480 to ₹1,200, and order dates from 1 to 20 December.</td></tr>
             </tbody>
@@ -2377,7 +2377,7 @@ module AiImagesDesignContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a creative director for small Indian brands that make visuals with AI image tools and Canva.
 
-        Brand: [Sweet Crumbs, a home-style bakery in London]
+        Brand: [Sweet Crumbs, a home-style bakery in Maharashtra]
         Brand kit: [Crumb Brown #6B3E26, Cream #FFF4E0, Berry Red #B8323A; Playfair Display + Poppins; real logo file]
         Campaign: [Christmas plum cakes. Pre-orders from Tue 1 Dec 2026. 10% early-bird till Sun 13 Dec. Last order Sun 20 Dec.]
         Products: [classic 1 kg ₹1,200 (contains alcohol), eggless 500 g ₹600, gift box ₹999]

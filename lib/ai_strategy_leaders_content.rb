@@ -362,7 +362,7 @@ module AiStrategyLeadersContent
           <p><strong>The EU AI Act</strong> sorts AI uses by risk level:</p>
           <ul class="lc-list">
             <li><strong>Banned:</strong> a short list of harmful uses, such as social scoring of people. These bans have applied since February 2025.</li>
-            <li><strong>High-risk:</strong> for example, AI used to hire or manage workers, or AI inside medical devices. These uses need strict controls. A 2026 change to the Act, Regulation (EU) 2026/1744, moved most of these rules to December 2027 or later.</li>
+            <li><strong>High-risk:</strong> for example, AI used to hire or manage workers, or AI inside medical devices. These uses need strict controls. EU changes to the Act (the "Digital Omnibus") delay most of these rules to December 2027 or later. Check the official EU AI Act timeline.</li>
             <li><strong>Transparency:</strong> for example, people must be told when they are talking to a chatbot. Most of these duties apply from August 2026.</li>
             <li><strong>Minimal risk:</strong> most everyday uses, such as drafting an email, have few extra duties.</li>
           </ul>
@@ -1932,7 +1932,7 @@ module AiStrategyLeadersContent
             <li><strong>A role module:</strong> the exact tool and task for each group. Front desk staff learn the reminder and rebooking texts. Clinicians learn the ClearNote scribe.</li>
             <li><strong>Practice and support:</strong> protected time to try the tool on real work, with help close by.</li>
           </ul>
-          <p>This kind of basic understanding is often called <strong>AI literacy</strong> (knowing enough about AI to use it safely and judge its output). Some rules now expect it. The EU AI Act asks organisations that provide or use AI systems to take steps to support AI literacy among their staff. A 2026 change to the Act, Regulation (EU) 2026/1744, says this means taking steps to support AI literacy. It does not require a guaranteed level. Bluefern Digital, a made-up London agency with clients in the EU, should ask its lawyer how this applies to it. This is general education, not legal advice.</p>
+          <p>This kind of basic understanding is often called <strong>AI literacy</strong> (knowing enough about AI to use it safely and judge its output). Some rules now expect it. The EU AI Act asks organisations that provide or use AI systems to take steps to build AI literacy among their staff. It asks for reasonable effort, not a guaranteed level of skill. The EU has proposed changes to this duty, so check the current official text. Bluefern Digital, a made-up London agency with clients in the EU, should ask its lawyer how this applies to it. This is general education, not legal advice.</p>
           <p>Every role module should teach three things: <strong>how to use the tool</strong>, <strong>how to check its output</strong> and <strong>when not to use it</strong>. The checking part matters most. A clinician who signs an AI note without reading it is less safe than one with no AI at all.</p>
         </div>
         <div class="lc-card">

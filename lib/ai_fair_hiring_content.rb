@@ -757,7 +757,7 @@ module AiFairHiringContent
           <table class="lc-table">
             <thead><tr><th>Criterion</th><th>Type</th><th>Evidence to look for</th><th>How to score</th></tr></thead>
             <tbody>
-              <tr><td>B.Sc (Chemistry, Microbiology or Food Science) or Diploma in Food Technology</td><td>Must have</td><td>Qualification listed</td><td>Yes / No</td></tr>
+              <tr><td>B.Sc (Chemistry, Microbiology or Food Science), Diploma in Food Technology, or equal experience (2 years or more of quality checks)</td><td>Must have</td><td>Qualification or work experience listed</td><td>Yes / No</td></tr>
               <tr><td>Can read labels in English and Marathi or Hindi</td><td>Must have</td><td>Languages section or application form</td><td>Yes / No</td></tr>
               <tr><td>Can work rotating shifts</td><td>Must have</td><td>Same yes/no question on every application form</td><td>Yes / No</td></tr>
               <tr><td>Quality or lab checks, in any industry</td><td>Nice to have</td><td>Jobs, internships, projects</td><td>0 = none, 1 = some, 2 = clear</td></tr>
@@ -799,10 +799,10 @@ module AiFairHiringContent
             <tbody>
               <tr><td>C-014</td><td>B.Sc Microbiology</td><td>Yes</td><td>Yes</td><td>2: "8 months testing milk samples in a dairy lab"</td><td>1: "one-day hygiene session"</td><td>Must-haves met, 3 of 4</td></tr>
               <tr><td>C-027</td><td>Diploma, Food Technology</td><td>Yes</td><td>Yes</td><td>1: "internship: checked weights on a packing line"</td><td>2: "food safety supervisor training certificate"</td><td>Must-haves met, 3 of 4</td></tr>
-              <tr><td>C-031</td><td>B.Com</td><td>Yes</td><td>Yes</td><td>2: "3 years of quality checks at a bakery unit"</td><td>0: Not stated</td><td>Qualification not met: human review</td></tr>
+              <tr><td>C-031</td><td>B.Com</td><td>Yes</td><td>Yes</td><td>2: "3 years of quality checks at a bakery unit"</td><td>0: Not stated</td><td>Must-haves met through experience, 2 of 4: human check</td></tr>
             </tbody>
           </table>
-          <p>Look at C-031. The degree does not match, but the experience is strong. The AI must not reject this person. Sunita asks the quality manager if the degree rule is really needed. That is a human decision.</p>
+          <p>Look at C-031. There is no science degree or diploma, but 3 years of quality checks count as equal experience. A tool that only searches for "B.Sc" or "Diploma" would wrongly reject this person. So Sunita checks every "equal experience" case herself. That is a human decision.</p>
           <p>Before you use any AI scores, a person must:</p>
           <ul class="lc-list">
             <li>Check that every quote really appears in the CV. AI can invent evidence.</li>
@@ -1168,7 +1168,7 @@ module AiFairHiringContent
           <pre><code>Selection rate = number selected ÷ number who applied (or entered the stage)</code></pre>
           <p>The <strong>impact ratio</strong> compares each group with the group that has the highest rate:</p>
           <pre><code>Impact ratio = a group's selection rate ÷ the highest group's selection rate</code></pre>
-          <p>The <strong>four-fifths ratio</strong> idea comes from the US Uniform Guidelines on Employee Selection Procedures (1978). US agencies have long used it as a rule of thumb. In 2026, the US EEOC announced plans to withdraw these guidelines, but the idea is still widely used to spot gaps. If a group's rate is less than four-fifths (80%, or 0.8) of the highest rate, treat it as a warning sign. It is not a legal test in India, and it is not proof of discrimination. It simply tells you where to look.</p>
+          <p>The <strong>four-fifths ratio</strong> idea comes from the US Uniform Guidelines on Employee Selection Procedures (1978). US agencies have long used it as a rule of thumb. Their future has been under review in the US, so check their current status. The idea is still widely used to spot gaps. If a group's rate is less than four-fifths (80%, or 0.8) of the highest rate, treat it as a warning sign. It is not a legal test in India, and it is not proof of discrimination. It simply tells you where to look.</p>
           <p>Here is the made-up overall result for the 20 Quality Inspector jobs. Candidates could choose to share their gender on an optional form. Only the HR analyst saw it, and it was never used in decisions.</p>
           <table class="lc-table">
             <thead><tr><th>Group</th><th>Applied</th><th>Hired</th><th>Selection rate</th><th>Impact ratio</th></tr></thead>
@@ -1351,7 +1351,7 @@ module AiFairHiringContent
           <p>Laws are starting to require this kind of work. Some examples, described generally:</p>
           <ul class="lc-list">
             <li><strong>New York City Local Law 144</strong> requires an independent bias audit, done within the past year, for some automated hiring tools. Employers must publish a summary and tell candidates.</li>
-            <li><strong>The EU AI Act</strong> treats AI used in hiring as high-risk. A 2026 change moved the main duties for these systems to December 2027.</li>
+            <li><strong>The EU AI Act</strong> treats AI used in hiring as high-risk. The EU has proposed delaying the main duties for these systems, so check the official EU AI Act timeline.</li>
             <li><strong>India</strong> has no separate law for AI hiring tools at the time of writing. The DPDP Act and anti-discrimination laws still apply.</li>
           </ul>
           <p>Rules change often. This is general education, not legal advice. Check the current rules with HR legal counsel.</p>
@@ -1560,7 +1560,7 @@ module AiFairHiringContent
         </div>
         <p class="lc-lead">Fair hiring is not only good practice. In many places it is also the law. When you use AI, the same laws still apply, and some new AI rules are added. In this lesson you will get a simple map of the main rules in India, the United States and the European Union, with their current dates. You will learn what each rule means for your hiring steps. <strong>This lesson is general education, not legal advice.</strong> Laws change often. Always check with your HR legal counsel before you decide.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 300" role="img" aria-label="Three panels. India: the Code on Wages 2019 (in force since November 2025) covers equal pay and no sex bias in hiring; the RPwD Act 2016 covers access and reasonable adjustments; the DPDP Act and Rules 2025 cover candidate data, fully in force by May 2027. United States: Title VII, ADA and ADEA still apply when AI is used; EEOC AI guidance was removed in January 2025; NYC Local Law 144 needs a bias audit and a 10-day notice. European Union: the AI Act treats hiring AI as high-risk; emotion recognition at work banned since February 2025; high-risk duties apply from 2 December 2027. All three lead to one note: not legal advice, check with HR legal counsel.">
+          <svg viewBox="0 0 760 300" role="img" aria-label="Three panels. India: the Code on Wages 2019 (in force since November 2025) covers equal pay and no sex bias in hiring; the RPwD Act 2016 covers access and reasonable adjustments; the DPDP Act and Rules 2025 cover candidate data, fully in force by May 2027. United States: Title VII, ADA and ADEA still apply when AI is used; EEOC AI guidance was removed in January 2025; NYC Local Law 144 needs a bias audit and a 10-day notice. European Union: the AI Act treats hiring AI as high-risk; emotion recognition at work banned since February 2025; the start date for high-risk duties may be delayed, so check the official timeline. All three lead to one note: not legal advice, check with HR legal counsel.">
             <defs><marker id="fh12a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12" fill="#e2e0f0" text-anchor="middle">
               <rect x="10" y="10" width="236" height="206" rx="12" fill="#1f1f44" stroke="#f59e0b"/>
@@ -1586,7 +1586,7 @@ module AiFairHiringContent
               <text x="632" y="118" font-weight="700">Emotion recognition</text>
               <text x="632" y="135" font-size="11" fill="#9b99b8">at work banned since Feb 2025</text>
               <text x="632" y="170" font-weight="700">High-risk duties</text>
-              <text x="632" y="187" font-size="11" fill="#9b99b8">apply from 2 Dec 2027</text>
+              <text x="632" y="187" font-size="11" fill="#9b99b8">start date: check EU timeline</text>
               <g stroke="#9b99b8" stroke-width="1.5" fill="none" marker-end="url(#fh12a)">
                 <line x1="128" y1="218" x2="128" y2="246"/>
                 <line x1="380" y1="218" x2="380" y2="246"/>
@@ -1613,7 +1613,7 @@ module AiFairHiringContent
         </div>
         <div class="lc-card">
           <h3>United States: federal rules and New York City's Local Law 144</h3>
-          <p>The EEOC (Equal Employment Opportunity Commission) is the US agency for job discrimination. It published AI guidance in 2022 and 2023. It removed those pages in January 2025. In April 2025, an executive order told federal agencies to step back from "disparate impact" cases. Disparate impact means a rule that looks neutral but harms one group more. In 2026, the EEOC announced plans to withdraw the 1978 guidelines where the four-fifths rule comes from. Check whether this has happened.</p>
+          <p>The EEOC (Equal Employment Opportunity Commission) is the US agency for job discrimination. It published AI guidance in 2022 and 2023. It removed those pages in January 2025. In April 2025, an executive order told federal agencies to step back from "disparate impact" cases. Disparate impact means a rule that looks neutral but harms one group more. The future of the 1978 guidelines where the four-fifths rule comes from has also been under review. Check their current status.</p>
           <p>But the main laws have not changed. Title VII (race, colour, religion, sex and national origin), the ADA (disability) and the ADEA (age 40 and over) still apply when AI is used. People can still bring their own cases. Some states now have their own AI hiring rules. For example, since 1 January 2026, an Illinois law says employers must tell applicants and workers when AI is used in job decisions. It also bans AI use that discriminates, including using zip codes as a stand-in for a protected group.</p>
           <p><strong>New York City Local Law 144</strong> covers an AEDT (automated employment decision tool). This is a computer tool that scores, sorts or recommends candidates and gives real weight to the decision. For jobs in New York City, the employer must:</p>
           <ul class="lc-list">
@@ -1631,8 +1631,7 @@ module AiFairHiringContent
             <tbody>
               <tr><td>1 August 2024</td><td>The AI Act came into force.</td></tr>
               <tr><td>2 February 2025</td><td>Bans started. They include emotion recognition at work and in education, except for medical or safety reasons.</td></tr>
-              <tr><td>27 July 2026</td><td>The "Digital Omnibus on AI" (Regulation (EU) 2026/1744) came into force. It moved the start date for high-risk employment AI.</td></tr>
-              <tr><td>2 December 2027</td><td>High-risk duties for employment AI apply (moved from 2 August 2026).</td></tr>
+              <tr><td>2 August 2026 (original plan)</td><td>High-risk duties for employment AI were set to apply. The EU has proposed delaying this date (the "Digital Omnibus" proposal), so check the official EU AI Act timeline.</td></tr>
             </tbody>
           </table>
           <p>For high-risk AI, an employer that uses the tool must follow the vendor's instructions for use. Trained people must oversee it. The employer must watch for problems and keep the tool's logs. It must tell workers and their representatives before using such a tool at work. People must also be told when such a tool helps make decisions about them. Dates can change again, so check the current official text.</p>
@@ -1665,7 +1664,7 @@ module AiFairHiringContent
               <li data-bucket="us" data-why="NYC Local Law 144 requires notice at least 10 business days before an AEDT is used.">Candidates must get notice 10 business days before an automated tool is used</li>
               <li data-bucket="us" data-why="The EEOC removed its AI guidance pages in January 2025. The main anti-discrimination laws still apply.">The job discrimination agency removed its AI guidance pages in January 2025</li>
               <li data-bucket="eu" data-why="The EU AI Act has banned emotion recognition at work since 2 February 2025, with narrow exceptions.">Emotion recognition at work is banned</li>
-              <li data-bucket="eu" data-why="The AI Act lists employment AI as high-risk. Its duties apply from 2 December 2027.">AI that filters job applications is classed as high-risk</li>
+              <li data-bucket="eu" data-why="The AI Act lists employment AI as high-risk. Check the official EU timeline for when its duties start.">AI that filters job applications is classed as high-risk</li>
             </ul>
           </div>
         </div>

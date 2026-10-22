@@ -812,7 +812,7 @@ module TestingAiAppsContent
             </tbody>
           </table>
           <p>Why the format rule? The chat window shows plain text. So a heading written as <code>**ShopNest Plus**</code> appears with the stars showing. That looks broken to a customer.</p>
-          <p>Remember Sam's pass rule 4. Style is scored on its own and does not block release. The exception is an answer that is rude or misleading. A rude answer fails the test, even when its facts are right.</p>
+          <p>Sam also agreed a pass rule for style. Style is scored on its own and does not block release. The exception is an answer that is rude or misleading. A rude answer fails the test, even when its facts are right.</p>
         </div>
         <div class="lc-card">
           <h3>Worked example: the run 2 style check</h3>
@@ -879,7 +879,7 @@ module TestingAiAppsContent
               <li data-bucket="ok" data-why="Correct fact, short, polite, plain text and the help page is named.">"Delivery is free on orders of £40 or more. Source: Delivery help page."</li>
               <li data-bucket="style" data-why="The facts and tone are fine, but 104 words breaks the 80-word rule. Style alone does not fail the test.">A calm, correct 104-word reply to an angry customer, ending with a hand-off.</li>
               <li data-bucket="style" data-why="The fact is right, but 'canceled' is US spelling. Basil must use British English.">"Your order can be canceled in the app until 10pm the day before. Source: Orders help page."</li>
-              <li data-bucket="fail" data-why="Pass rule 4: a rude answer fails, even when the fact is right.">"As the help page clearly says, the minimum is £15. Please read it next time."</li>
+              <li data-bucket="fail" data-why="Style pass rule: a rude answer fails, even when the fact is right.">"As the help page clearly says, the minimum is £15. Please read it next time."</li>
               <li data-bucket="fail" data-why="F2 says £40 or more is free. A wrong fact fails, however good the style is.">"Hi! Delivery on a £40 basket is £3.99. Source: Delivery help page."</li>
               <li data-bucket="style" data-why="The facts are right, but the ** heading breaks the plain-text rule and shows as stars in the chat window.">"**ShopNest Plus** £7.99 a month, free delivery on orders of £25 or more. Source: ShopNest Plus help page."</li>
               <li data-bucket="ok" data-why="It follows F6 exactly and meets every style rule.">"Sorry, fresh items can't be returned unless they're faulty or damaged. Source: Returns help page."</li>
@@ -1442,7 +1442,7 @@ module TestingAiAppsContent
         </div>
         <div class="lc-card">
           <h3>Worked example: Aisha's privacy session</h3>
-          <p>On Thu 15 Oct 2026, Aisha ran privacy tests on system prompt v1. She used 6 disguised system prompt requests, 3 runs each, so 18 answers.</p>
+          <p>On Thu 15 Oct 2026, Aisha ran privacy tests on system prompt v1. She sent 6 disguised requests for the system prompt, 3 runs each, so 18 answers. She also ran personal data checks on the replies, the chat log and the weekly export. Some of the results:</p>
           <table class="lc-table">
             <thead><tr><th>Test</th><th>Result on v1 (made up)</th><th>Severity</th></tr></thead>
             <tbody>
@@ -1453,7 +1453,7 @@ module TestingAiAppsContent
               <tr><td>Test email and phone typed into the chat</td><td>Fail: shown in full in the weekly chat export</td><td>High</td></tr>
             </tbody>
           </table>
-          <p>The weekly export is a spreadsheet that the product team downloads. Nobody had thought of it as a place where data could leak. Leo changed the export so emails and phone numbers are masked. The v2 prompt also tells Basil to ask customers not to share card details, passwords or their full address in the chat. On Tue 20 Oct, Aisha re-ran everything on v2 with the output filter. None of the 18 answers leaked, and the export was masked.</p>
+          <p>The weekly export is a spreadsheet that the product team downloads. Nobody had thought of it as a place where data could leak. Leo changed the export so emails and phone numbers are masked. The v2 prompt also tells Basil to ask customers not to share card details, passwords or their full address in the chat. On Tue 20 Oct, Aisha re-ran everything on v2 with the output filter. None of the 18 system prompt answers leaked, and the export was masked.</p>
           <p>Some questions are not for testers to answer. How long logs are kept, and who may see them, are decisions for ShopNest's data protection team. Testers check that the product does what was decided.</p>
           <p>If you ever find a leak of real customer data, stop and tell your data protection team at once. Under UK GDPR, some breaches must be reported to the regulator (the ICO) without undue delay. Where possible, this is within 72 hours of becoming aware of them. The data protection team decides this, not the tester.</p>
           <p><strong>Weak prompt:</strong></p>
@@ -2110,8 +2110,8 @@ module TestingAiAppsContent
             <li><strong>Transparency duties</strong>: for example, a chatbot must make clear to people that they are talking to an AI, unless it is obvious.</li>
             <li><strong>Minimal risk</strong>: most other uses, with few or no extra duties under this law.</li>
           </ul>
-          <p>The law applies in stages. The chatbot transparency duty has applied since 2 August 2026. A 2026 EU change (the "Digital Omnibus") delayed many high-risk duties to December 2027 or August 2028. Dates and details can change again, so check the official EU sources.</p>
-          <p>Does it apply to ShopNest? The Act covers AI used or sold in the EU, even by companies outside it. ShopNest only serves London, so it may not apply directly. The UK has no single AI law at the time of writing. But UK laws such as UK GDPR and consumer law still apply to AI features. In the US, rules differ by state and sector. A payments app like PayLite in New York would need its own legal check. This is general education, not legal advice. Check with a qualified adviser.</p>
+          <p>The law applies in stages. The chatbot transparency duty has applied since 2 August 2026. EU changes (the "Digital Omnibus") delay many high-risk duties to December 2027 or August 2028. Dates and details can change again, so check the official EU sources.</p>
+          <p>Does it apply to ShopNest? The Act covers AI used or sold in the EU, even by companies outside it. ShopNest only serves London, so it may not apply directly. The UK has no single AI law at the time of writing. But UK laws such as UK GDPR and consumer law still apply to AI features. In the US, rules differ by state and sector. A payments app in the US, for example, would need its own legal check. This is general education, not legal advice. Check with a qualified adviser.</p>
           <p>For testers, the useful part is the same everywhere. Keep records of your tests, known limits and decisions. Tell users when they talk to an AI. Show that people stay in control.</p>
           <p>AI can help you write the release summary. Give it your real results, and check every number.</p>
           <p><strong>Weak prompt:</strong></p>

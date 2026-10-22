@@ -51,7 +51,7 @@ Take the sentence "The cat sat on the mat because it was tired." What does "it" 
 
 In a model that writes text, each token can only look at the tokens **before** it, not after. This makes sense, because when writing, the future words do not exist yet.
 
-If you want to see each layer step by step, our [How Transformers Work](/courses/how-transformers-work) course explains it with simple pictures.
+If you want to see each layer step by step, our [How AI Transformers Work](/courses/how-transformers-work) course explains it with simple pictures.
 
 ## Step 4: Predicting the next token
 

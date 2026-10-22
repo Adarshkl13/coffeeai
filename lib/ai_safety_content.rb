@@ -32,7 +32,7 @@ module AiSafetyContent
           <figcaption>Safety is not one feature. Each group adds its own layer of protection.</figcaption>
         </figure>
         <div class="lc-card">
-          <h3>Two areas of AI safety</h3>
+          <h3>Two areas, four parts</h3>
           <table class="lc-table">
             <thead><tr><th>Area</th><th>Main question</th><th>Examples</th></tr></thead>
             <tbody>
@@ -2565,7 +2565,7 @@ module AiSafetyContent
               <tr><td>Minimal risk</td><td>Spam filters, AI in video games</td><td>No new duties</td></tr>
             </tbody>
           </table>
-          <p>There are also duties for providers of general-purpose AI models, the large models that many apps are built on. The duties start in phases. The law came into force in August 2024. Bans started in February 2025, and duties for general-purpose AI models in August 2025. In 2026, an EU change called the Digital Omnibus moved many high-risk deadlines to December 2027 or August 2028. Dates can change again, so always check the current rules.</p>
+          <p>There are also duties for providers of general-purpose AI models, the large models that many apps are built on. The duties start in phases. The law came into force in August 2024. Bans started in February 2025, and duties for general-purpose AI models in August 2025. The EU has proposed changes, called the Digital Omnibus, that would move many high-risk deadlines later, to December 2027 or August 2028. Dates can change, so always check the official EU AI Act timeline.</p>
         </div>
         <div class="lc-card">
           <h3>NIST AI RMF and the OWASP list</h3>
@@ -2576,8 +2576,8 @@ module AiSafetyContent
             <li><strong>Measure:</strong> test and track the risks, for example with evals and fairness checks.</li>
             <li><strong>Manage:</strong> decide what to do about each risk, and act on it.</li>
           </ul>
-          <p>NIST also has a Generative AI Profile with extra guidance for generative models. NIST says the framework is being revised, so check for the latest version.</p>
-          <p>The <strong>OWASP Top 10 for LLM Applications</strong> is a community list of the biggest security risks in LLM apps. OWASP is a non-profit security community. A new 2026 edition was released in August 2026. Prompt injection and sensitive information disclosure are still at the top. Risks from agents with too much power have moved higher. Use the list as a checklist for your threat model and your red-team tests.</p>
+          <p>NIST also has a Generative AI Profile with extra guidance for generative models. NIST updates its guidance over time, so check for the latest version.</p>
+          <p>The <strong>OWASP Top 10 for LLM Applications</strong> is a community list of the biggest security risks in LLM apps. OWASP is a non-profit security community. OWASP updates the list from time to time, so check for the latest edition. In recent editions, prompt injection and sensitive information disclosure are at the top, and risks from agents with too much power (excessive agency) are on the list. Use the list as a checklist for your threat model and your red-team tests.</p>
         </div>
         <div class="lc-card">
           <h3>Company AI policies</h3>
@@ -2716,7 +2716,7 @@ module AiSafetyContent
         <div class="lc-card">
           <h3>Responsible scaling policies</h3>
           <p>Newer models can do more. Some abilities could cause serious harm if misused. A <strong>responsible scaling policy</strong> is a public promise by a lab: test each new model for dangerous abilities, and add stronger safeguards as abilities grow. The exact promises differ between labs, and they change over time.</p>
-          <p>Anthropic's Responsible Scaling Policy introduced AI Safety Levels (ASL) for this. Each level is a set of safeguards, and higher levels are stricter. Version 3.0 of the policy, from 2026, also adds regular public risk reports. Other major labs publish similar frameworks. These policies are updated over time, so read the current version on each lab's website.</p>
+          <p>Anthropic's Responsible Scaling Policy introduced AI Safety Levels (ASL) for this. Each level is a set of safeguards, and higher levels are stricter. Other major labs publish similar frameworks. These policies are updated over time, so read the current version on each lab's website.</p>
         </div>
         <div class="lc-card">
           <h3>Open problems and careers</h3>

@@ -128,9 +128,9 @@ module AiBankingFraudContent
 
         Made-up statement lines (Navkar Bank, a made-up bank):
         01-09-2026 | NEFT CR LEDGERLITE PVT LTD SALARY | in 62,000
-        02-09-2026 | UPI/SWEET CRUMBS/PUNE | out 450
-        04-09-2026 | POS 4XXX DMART PUNE | out 2,318
-        06-09-2026 | ATM WDL KOTHRUD | out 5,000
+        02-09-2026 | UPI/SWEET CRUMBS/BAKERY | out 450
+        04-09-2026 | POS 4XXX DMART STORE | out 2,318
+        06-09-2026 | ATM WDL NAVKAR BANK | out 5,000
         08-09-2026 | IMPS/P2A/RAVI | out 3,000
         10-09-2026 | CHG SMS ALERT QTR | out 15
 
@@ -1157,7 +1157,7 @@ module AiBankingFraudContent
             <li><strong>Report scam calls and messages</strong> on the government's Sanchar Saathi portal. Check the portal for the current reporting options.</li>
           </ul>
           <p><strong>RBI rules on customer liability (general).</strong> RBI (the Reserve Bank of India) has rules that limit what a customer loses in an unauthorised electronic transaction. Under the long-standing rules, your loss can be zero if the bank was at fault. It can also be zero if the fault lay elsewhere and you reported quickly, within three working days. If you report later, you may have to bear part of the loss. If you shared your OTP or PIN, you may bear the loss until you report it. The bank is also expected to credit the disputed amount while it investigates, within a set number of days.</p>
-          <p>In 2026, RBI issued an updated customer protection framework for electronic banking fraud. It covers more types of scams and puts more duty on banks. It is due to apply to transactions from 1 January 2027. Rules change, so check the RBI website and your bank's customer protection policy for the rules that apply today.</p>
+          <p>RBI has been working on an updated customer protection framework for electronic banking fraud, which may cover more types of scams and put more duty on banks. Rules and start dates change, so check the RBI website and your bank's customer protection policy for the rules that apply today.</p>
           <p>If your bank does not reply within 30 days, or you are unhappy with its reply, you can complain to the RBI Ombudsman at cms.rbi.org.in. This is free, under the Reserve Bank - Integrated Ombudsman Scheme. Time limits apply, so check the portal. For legal help, speak to a qualified lawyer.</p>
         </div>
         <div class="lc-card">

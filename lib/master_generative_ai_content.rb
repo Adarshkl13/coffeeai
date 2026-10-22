@@ -977,7 +977,7 @@ module MasterGenerativeAiContent
         </div>
         <div class="lc-card">
           <h3>Latency and cost trade-offs</h3>
-          <p>Users feel two numbers. <strong>Time to first token (TTFT)</strong> is the wait before text starts. <strong>Output speed</strong> is tokens per second after that. Look at the <strong>p95</strong> (the time 95% of requests beat), not only the average. The numbers below are made up. Ledgerline has 144,000 requests a month, each with 3,500 input and 220 output tokens:</p>
+          <p>Users feel two numbers. <strong>Time to first token (TTFT)</strong> is the wait before text starts. <strong>Output speed</strong> is tokens per second after that. Look at the <strong>p95</strong> (the time 95% of requests beat), not only the average. The numbers below are made up. Ledgerline has 36,000 chats a month. Each chat makes about 4 model calls, so that is 144,000 requests a month, each with 3,500 input and 220 output tokens. "Per chat" is the monthly cost divided by 36,000 chats:</p>
           <table class="lc-table">
             <thead><tr><th>Option</th><th>Monthly cost</th><th>Per chat</th><th>TTFT p50 / p95</th><th>Speed</th><th>Typical full reply</th></tr></thead>
             <tbody>
@@ -1444,7 +1444,7 @@ module MasterGenerativeAiContent
           <pre><code>import torch
         from datasets import load_dataset
         from peft import LoraConfig
-        from transformers import BitsAndBytesConfig
+        from transformers import AutoModelForCausalLM, BitsAndBytesConfig
         from trl import SFTConfig, SFTTrainer
 
         data = load_dataset("json", data_files={"train": "ll_train.jsonl",
@@ -1455,6 +1455,11 @@ module MasterGenerativeAiContent
                                  bnb_4bit_compute_dtype=torch.bfloat16)
         lora = LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05,
                           target_modules="all-linear", task_type="CAUSAL_LM")
+        model = AutoModelForCausalLM.from_pretrained(
+            "Qwen/Qwen3-8B",                     # example 8B open-weight model; check its licence
+            quantization_config=bnb,             # 4-bit base + LoRA = QLoRA
+            dtype=torch.bfloat16,
+        )
         args = SFTConfig(
             output_dir="ledgerline-support-v3",
             num_train_epochs=2,
@@ -1464,15 +1469,13 @@ module MasterGenerativeAiContent
             max_length=2048,
             assistant_only_loss=True,            # loss on assistant turns only
             eval_strategy="steps", eval_steps=50,
-            model_init_kwargs={"dtype": torch.bfloat16},
         )
         trainer = SFTTrainer(
-            model="Qwen/Qwen3-8B",               # example 8B open-weight model; check its licence
+            model=model,                         # the 4-bit model loaded above
             args=args,
             train_dataset=data["train"],
             eval_dataset=data["validation"],
             peft_config=lora,
-            quantization_config=bnb,             # 4-bit base + LoRA = QLoRA
         )
         trainer.train()
         trainer.save_model("ledgerline-support-v3")         # saves only the small adapter</code></pre>
@@ -1978,9 +1981,9 @@ module MasterGenerativeAiContent
           <ul class="lc-list">
             <li>An <strong>MCP server</strong> offers <strong>tools</strong> (actions), <strong>resources</strong> (data to read) and <strong>prompts</strong> (reusable templates).</li>
             <li>An <strong>MCP client</strong> inside your app connects to servers and passes their tools to the model.</li>
-            <li>The spec is versioned by date. The 2026-07-28 version moved to a stateless request-and-response core. Check the spec site for the current version and your SDK's support.</li>
+            <li>The spec is versioned by date, and newer versions change how clients and servers talk to each other. Check the spec site for the current version and your SDK's support.</li>
           </ul>
-          <p>Marcus Reid wraps the help-centre search as an MCP server, so the support assistant and internal tools can share it. This uses the official Python SDK, version 2 (Python 3.10 or newer):</p>
+          <p>Marcus Reid wraps the help-centre search as an MCP server, so the support assistant and internal tools can share it. This uses the official Python SDK as it was at the time of writing (version 2, Python 3.10 or newer). In version 1.x the class was called <code>FastMCP</code>, so check your SDK's docs:</p>
           <pre><code>from mcp.server import MCPServer
         from mcp.types import ToolAnnotations
 
@@ -3037,8 +3040,8 @@ module MasterGenerativeAiContent
             <li>have a policy to respect EU copyright law;</li>
             <li>publish a summary of the content used for training.</li>
           </ul>
-          <p>Models with <strong>systemic risk</strong> have extra duties: model evaluations including adversarial testing, serious incident reporting and cybersecurity. A model is presumed to have systemic risk above 10<sup>25</sup> FLOP of training compute. Models placed on the market before 2 August 2025 have until 2 August 2027 to comply. The Commission's enforcement powers for GPAI duties started on 2 August 2026. A voluntary GPAI Code of Practice, published in July 2025, helps providers show they comply.</p>
-          <p><strong>Transparency.</strong> From 2 August 2026, the Act's transparency rules require that people are told when they talk to an AI system. Providers must also mark AI-generated content in a machine-readable way. Systems already on the market before 2 August 2026 have until 2 December 2026 for this marking. The Digital Omnibus on AI entered into force on 27 July 2026. It delayed duties for stand-alone high-risk systems to 2 December 2027, and for high-risk AI inside regulated products to 2 August 2028. It did not move the GPAI dates above.</p>
+          <p>Models with <strong>systemic risk</strong> have extra duties: model evaluations including adversarial testing, serious incident reporting and cybersecurity. A model is presumed to have systemic risk above 10<sup>25</sup> FLOP (10 to the power of 25 operations) of training compute. Models placed on the market before 2 August 2025 have until 2 August 2027 to comply. The Commission's enforcement powers for GPAI duties start one year after the duties began. A voluntary GPAI Code of Practice, published in July 2025, helps providers show they comply.</p>
+          <p><strong>Transparency.</strong> Under the Act's original timeline, from 2 August 2026 its transparency rules require that people are told when they talk to an AI system. Providers must also mark AI-generated content in a machine-readable way. The EU has proposed delaying some dates in the Act, mainly for high-risk systems, through a "Digital Omnibus" package. Dates can change, so check the official EU AI Act timeline before you plan.</p>
           <p><strong>What this means for Ledgerline.</strong> Ledgerline builds a system on a vendor's model, so it is not usually the GPAI model provider. Commission guidelines (July 2025) say a company that modifies a model may become its provider. Their rough test is whether the modification used more than one third of the original training compute. A LoRA fine-tune of Option D uses far less. Ledgerline serves UK customers, so the Act may not apply directly. Dev still tells customers they are chatting with an AI assistant, because it is good practice. Ask a qualified adviser how these rules apply to you. This is not legal advice.</p>
         </div>
         <div class="lc-card">

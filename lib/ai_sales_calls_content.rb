@@ -13,7 +13,7 @@ module AiSalesCallsContent
           <svg viewBox="0 0 760 260" role="img" aria-label="Four sales calls in order: discovery, demo, negotiation and closing. Each box shows the goal of the call and an example from LedgerLite's deal with Tulsi Textiles. A line at the bottom lists what every good call has.">
             <defs><marker id="sc1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12" fill="#e2e0f0" text-anchor="middle">
-              <text x="20" y="22" text-anchor="start" font-size="12" fill="#c4b5fd">Kavya (LedgerLite) and Tulsi Textiles, Birmingham: one deal, four calls</text>
+              <text x="20" y="22" text-anchor="start" font-size="12" fill="#c4b5fd">Kavya (LedgerLite) and Tulsi Textiles, Gujarat: one deal, four calls</text>
               <rect x="15" y="40" width="160" height="150" rx="10" fill="#1f1f44" stroke="#3b82f6"/>
               <text x="95" y="66" font-size="14" font-weight="700" fill="#93c5fd">1. Discovery</text>
               <text x="95" y="92" fill="#9b99b8" font-size="11">Goal</text>
@@ -55,7 +55,7 @@ module AiSalesCallsContent
         </figure>
         <div class="lc-card">
           <h3>The four main call types</h3>
-          <p>Here is the example we use in this course. Kavya is a sales rep at LedgerLite, a San Francisco accounting software startup. Her prospect (a possible buyer) is Meena Shah, Finance Head of Tulsi Textiles in Birmingham. All names and numbers are made up.</p>
+          <p>Here is the example we use in this course. Kavya is a sales rep at LedgerLite, an accounting software startup in Karnataka. Her prospect (a possible buyer) is Meena Shah, Finance Head of Tulsi Textiles in Gujarat. All names and numbers are made up.</p>
           <table class="lc-table">
             <thead><tr><th>Call type</th><th>Main goal</th><th>Who talks most</th><th>A good ending</th></tr></thead>
             <tbody>
@@ -65,7 +65,7 @@ module AiSalesCallsContent
               <tr><td><strong>Closing</strong></td><td>Get a clear decision and plan the start.</td><td>Both</td><td>A signed order, or a clear "no" with a reason.</td></tr>
             </tbody>
           </table>
-          <p>Small deals often use fewer calls. For example, Sweet Crumbs, a London bakery, sells office catering. One 15-minute call can cover the office's needs, the menu and the price. Large deals may need several calls of each type. The names matter less than the goal. Always know the goal of <em>this</em> call.</p>
+          <p>Small deals often use fewer calls. For example, Sweet Crumbs, a home bakery in Maharashtra, sells office catering. One 15-minute call can cover the office's needs, the menu and the price. Large deals may need several calls of each type. The names matter less than the goal. Always know the goal of <em>this</em> call.</p>
         </div>
         <div class="lc-card">
           <h3>What makes a good call</h3>
@@ -94,7 +94,7 @@ module AiSalesCallsContent
         Better:
         I sell LedgerLite, accounting software for small businesses in India.
         Tomorrow I have a first call with the Finance Head of a textile
-        company in Birmingham. From her email I know two facts: month-end close
+        company in Gujarat. From her email I know two facts: month-end close
         takes about 10 days, and they process 400+ invoices a month.
         Tell me: (1) what type of call this is, (2) one main goal,
         (3) five questions to ask, (4) a good next step to ask for.
@@ -128,7 +128,7 @@ module AiSalesCallsContent
             <pre class="ai-try-prompt">You are an experienced B2B sales coach. Be practical and honest.
 
         My product: [LedgerLite, accounting software for small businesses in India]
-        My buyer: [Meena Shah, Finance Head of Tulsi Textiles, Birmingham]
+        My buyer: [Meena Shah, Finance Head of Tulsi Textiles, Gujarat]
         What has happened so far: [She replied to my email. She said month-end close takes about 10 days and they handle 400+ invoices a month. We have not spoken yet.]
         My next call: [30 minutes, video call, next Thursday]
 
@@ -251,7 +251,7 @@ module AiSalesCallsContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a sales operations adviser who helps small teams use AI safely.
 
-        About me: I am a [sales rep] at [LedgerLite, an accounting software startup in San Francisco]. I sell to [small and mid-size businesses in India]. I do about [10] sales calls a week, mostly on [video calls]. My tools: [Google Sheets, email and Zoho CRM].
+        About me: I am a [sales rep] at [LedgerLite, an accounting software startup in Karnataka]. I sell to [small and mid-size businesses in India]. I do about [10] sales calls a week, mostly on [video calls]. My tools: [Google Sheets, email and Zoho CRM].
 
         Please make a table with these columns: Stage (before, during, after, coaching), Task, How AI can help, Risk, What I must check myself. Give 2 tasks for each stage.
 
@@ -325,7 +325,7 @@ module AiSalesCallsContent
           <table class="lc-table">
             <thead><tr><th>Part</th><th>Kavya's brief</th><th>Source</th></tr></thead>
             <tbody>
-              <tr><td><strong>Account</strong></td><td>Tulsi Textiles, Birmingham. Makes and sells fabric to shops and traders.</td><td>Company website</td></tr>
+              <tr><td><strong>Account</strong></td><td>Tulsi Textiles, Gujarat. Makes and sells fabric to shops and traders.</td><td>Company website</td></tr>
               <tr><td><strong>Attendees</strong></td><td>Meena Shah, Finance Head. Has been in the role for about 3 years.</td><td>Her LinkedIn profile</td></tr>
               <tr><td><strong>What we know</strong></td><td>Month-end close takes about 10 days. They process 400+ invoices a month.</td><td>Meena's email reply</td></tr>
               <tr><td><strong>Goal</strong></td><td>Understand how they close the month and where time is lost. If it is a fit, book a demo.</td><td>Kavya decides</td></tr>
@@ -339,7 +339,7 @@ module AiSalesCallsContent
           <h3>Use AI to organise, not to research alone</h3>
           <p>If you ask an AI chat about a small company, it may invent facts that sound real. It may give a wrong revenue, a wrong owner or a product they do not sell. So collect the facts yourself, then give them to the AI.</p>
           <pre><code>Weak:
-        Tell me everything about Tulsi Textiles, Birmingham and write a call brief.
+        Tell me everything about Tulsi Textiles, Gujarat and write a call brief.
 
         Better:
         Make a one-page call prep brief for my discovery call.
@@ -349,7 +349,7 @@ module AiSalesCallsContent
         Sections: Account, Attendees, What we know, Goal, Agenda (30 min),
         Likely objections with a calm one-line answer, Questions to ask.
         My notes:
-        - Website: fabric maker in Birmingham, sells to shops and traders.
+        - Website: fabric maker in Gujarat, sells to shops and traders.
         - Meena Shah, Finance Head (LinkedIn).
         - Her email: "Our month-end close takes about 10 days.
           We process 400+ invoices a month."</code></pre>
@@ -388,7 +388,7 @@ module AiSalesCallsContent
         Call: [discovery call, 30 minutes, video]
         My product: [LedgerLite, accounting software for small businesses in India]
         My notes (the ONLY facts you may use):
-        [- Website: Tulsi Textiles, Birmingham. Makes fabric and sells to shops and traders.
+        [- Website: Tulsi Textiles, Gujarat. Makes fabric and sells to shops and traders.
         - LinkedIn: Meena Shah, Finance Head.
         - Her email: "Our month-end close takes about 10 days. We process 400+ invoices a month."
         - CRM: She downloaded our GST invoice guide last month.]
@@ -548,7 +548,7 @@ module AiSalesCallsContent
             <pre class="ai-try-prompt">You are a B2B sales trainer. Build a discovery question bank for me.
 
         What I sell: [LedgerLite, accounting software for small businesses in India]
-        Who I call: [Finance heads at manufacturing and trading companies with 50 to 300 staff, for example a textile company in Birmingham]
+        Who I call: [Finance heads at manufacturing and trading companies with 50 to 300 staff, for example a textile company in Gujarat]
         The problem we usually solve: [slow month-end close and too much manual invoice entry]
 
         Please write:
@@ -753,7 +753,7 @@ module AiSalesCallsContent
         </figure>
         <div class="lc-card">
           <h3>Tailor the demo to the pain</h3>
-          <p>In discovery, Kavya from LedgerLite learned a lot about Tulsi Textiles, Birmingham. Meena Shah, the Finance Head, said the month-end close takes about 10 days. Her team types 400+ invoices a month by hand, first into Excel and then into their accounting software. The MD (managing director) wants the numbers by the 5th of each month. The <strong>month-end close</strong> is the work of finishing and checking the books for the month.</p>
+          <p>In discovery, Kavya from LedgerLite learned a lot about Tulsi Textiles, Gujarat. Meena Shah, the Finance Head, said the month-end close takes about 10 days. Her team types 400+ invoices a month by hand, first into Excel and then into their accounting software. The MD (managing director) wants the numbers by the 5th of each month. The <strong>month-end close</strong> is the work of finishing and checking the books for the month.</p>
           <p>The demo is on Tuesday 6 October 2026 at 11 am. Their accounts lead will also join. After discovery, Kavya sent Meena a short note on GST reports on Friday 2 October. Meena sent 20 sample invoices on Monday 5 October.</p>
           <p>Kavya does not plan to show all 40 LedgerLite features. She links each pain to one demo moment and one checking question.</p>
           <table class="lc-table">
@@ -774,7 +774,7 @@ module AiSalesCallsContent
           <p>A better prompt gives the AI your discovery notes, your real feature list and clear rules:</p>
           <pre><code>You are a sales coach. Plan a 30-minute demo of LedgerLite, an accounting
         software for small businesses.
-        Buyer: Meena Shah, Finance Head, Tulsi Textiles, Birmingham.
+        Buyer: Meena Shah, Finance Head, Tulsi Textiles, Gujarat.
         Discovery notes: month-end close takes about 10 days; 400+ invoices a
         month typed twice, into Excel and then our old software; bank
         matching done in Excel; the MD wants numbers by the 5th and approves
@@ -831,7 +831,7 @@ module AiSalesCallsContent
         My product: [LedgerLite, accounting software for small businesses in India].
         Features we really have (use only these): [invoice reading from PDFs, automatic bank matching, month-end checklist, read-only access for the CA, GST reports].
 
-        Buyer: [Meena Shah, Finance Head, Tulsi Textiles, Birmingham].
+        Buyer: [Meena Shah, Finance Head, Tulsi Textiles, Gujarat].
         Discovery notes: [month-end close takes about 10 days; 400+ invoices a month typed twice, into Excel and then the accounting software; bank matching done in Excel; the MD wants the numbers by the 5th and approves new software; she asked about GST reports].
 
         Give me:
@@ -956,7 +956,7 @@ module AiSalesCallsContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">Let us do a sales role-play. You play the buyer. I am the sales rep.
 
-        Buyer: [Meena Shah, Finance Head at Tulsi Textiles, Birmingham]. Careful with money, polite but direct.
+        Buyer: [Meena Shah, Finance Head at Tulsi Textiles, Gujarat]. Careful with money, polite but direct.
         Situation: I just showed a demo of [LedgerLite, accounting software]. She liked it. Her pains: [month-end close takes about 10 days; 400+ invoices a month typed by hand].
         What I can offer: [a 14-day trial with her own invoices; a security document; a call with our founder]. I cannot approve discounts above [10%].
 
@@ -1231,7 +1231,7 @@ module AiSalesCallsContent
 
         Thanks again,
         Kavya
-        LedgerLite, San Francisco</code></pre>
+        LedgerLite</code></pre>
           <p>Notice what is <strong>not</strong> in the email. There is no "save 50% of your time" claim, and no pressure. The trial is not called "agreed", because Meena only said "maybe".</p>
         </div>
         <div class="lc-card">
@@ -1275,8 +1275,8 @@ module AiSalesCallsContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a helpful sales writing assistant. Write a follow-up email after a sales call.
 
-        From: [Kavya, sales rep at LedgerLite, accounting software, San Francisco]
-        To: [Meena Shah, Finance Head, Tulsi Textiles, Birmingham]
+        From: [Kavya, sales rep at LedgerLite, accounting software, Karnataka]
+        To: [Meena Shah, Finance Head, Tulsi Textiles, Gujarat]
         Call date: [Tuesday 6 October 2026]
 
         Checked call notes (use only these facts):
@@ -1364,7 +1364,7 @@ module AiSalesCallsContent
           <table class="lc-table">
             <thead><tr><th>Problem</th><th>Example</th><th>What to do</th></tr></thead>
             <tbody>
-              <tr><td>Names and places</td><td>"Tulsi" becomes "Tulsa". "Birmingham" becomes "Burning ham".</td><td>Add a word list if your tool allows it. Check names.</td></tr>
+              <tr><td>Names and places</td><td>"Tulsi" becomes "Tulsa". "LedgerLite" becomes "Ledger Light".</td><td>Add a word list if your tool allows it. Check names.</td></tr>
               <tr><td>Numbers</td><td>"four hundred" becomes "40". "1 lakh" becomes "one luck".</td><td>Check every number against the recording.</td></tr>
               <tr><td>Mixed languages</td><td>A Hindi or Gujarati phrase in an English sentence is dropped or wrong.</td><td>Choose a tool that supports your languages. Mark unclear parts.</td></tr>
               <tr><td>Speaker labels</td><td>Kavya's promise is shown as Meena's words.</td><td>Check who said each promise.</td></tr>
@@ -1395,7 +1395,7 @@ module AiSalesCallsContent
             <ul data-sorter-target="pool">
               <li data-bucket="good" data-why="Clear notice and a clear yes, written down. This is the honest habit.">Asking "Is it OK if I record?" at the start and noting the yes in the CRM</li>
               <li data-bucket="bad" data-why="Secret recording breaks trust. Personal data rules also expect notice and consent.">Recording secretly because "only one person needs to agree"</li>
-              <li data-bucket="check" data-why="Some US states need all parties to agree. Ask everyone, and check the rules with your legal team.">Recording a call from New York to a buyer in California</li>
+              <li data-bucket="check" data-why="Rules differ between countries, and some places need everyone on the call to agree. Ask everyone, and check the rules with your legal team.">Recording a call with a buyer in another country</li>
               <li data-bucket="bad" data-why="This puts private customer data into a tool your company has not approved.">Pasting a transcript with a buyer's phone number into a free public chatbot</li>
               <li data-bucket="good" data-why="An approved tool and a set retention time keep the data safe.">Using the company's approved tool and deleting recordings after the set time</li>
               <li data-bucket="bad" data-why="People must know a bot is recording. Tell everyone before it joins.">Letting an AI note-taker bot join a buyer's meeting without telling anyone</li>
@@ -1410,7 +1410,7 @@ module AiSalesCallsContent
             <pre class="ai-try-prompt">You are a careful transcript editor for a sales team in India.
         Below is a machine transcript of a sales call. It has errors from accents, mixed Hindi, Gujarati and English, and a poor network.
 
-        Known names and terms: [Kavya (LedgerLite), Meena Shah, Tulsi Textiles, Birmingham, MD, GST, lakh, Diwali].
+        Known names and terms: [Kavya (LedgerLite), Meena Shah, Tulsi Textiles, Gujarat, MD, GST, lakh, Diwali].
 
         Transcript:
         [Kavya: Is it okay if I record this for my notes?
@@ -1499,7 +1499,7 @@ module AiSalesCallsContent
         </figure>
         <div class="lc-card">
           <h3>What to look for in many calls</h3>
-          <p>Rohit is the sales manager at Nimbus Logistics, a delivery company in New York. His team sells delivery contracts to online stores. Last month, his team had 40 recorded discovery calls. He wants to know what customers say again and again. He looks for four kinds of patterns.</p>
+          <p>Rohit is the sales manager at Nimbus Logistics, a delivery company in India. His team sells delivery contracts to online stores. Last month, his team had 40 recorded discovery calls. He wants to know what customers say again and again. He looks for four kinds of patterns.</p>
           <table class="lc-table">
             <thead><tr><th>Pattern</th><th>What it means</th><th>Example from a Nimbus call</th></tr></thead>
             <tbody>
@@ -1562,7 +1562,7 @@ module AiSalesCallsContent
           <ul class="lc-list">
             <li><strong>The words.</strong> The AI wrote: "Most customers complain about price." But 14 of 40 is 35%. It is the top theme, but it is not "most".</li>
             <li><strong>The quotes.</strong> He opens 2 or 3 calls for each theme. He makes sure each quote is real and means what the AI says.</li>
-            <li><strong>The sample.</strong> These are only recorded calls from one month, mostly with New York stores. The pattern may not be true for every region.</li>
+            <li><strong>The sample.</strong> These are only recorded calls from one month, mostly with stores in one state. The pattern may not be true for every region.</li>
             <li><strong>The next action.</strong> He improves the team's answer about rate per parcel. He asks finance if faster COD payouts are possible. Until finance says yes, nobody promises faster payouts on a call.</li>
           </ul>
         </div>
@@ -1578,7 +1578,7 @@ module AiSalesCallsContent
             <ul data-sorter-target="pool">
               <li data-bucket="obj" data-why="The customer gives a reason not to switch: the price is higher.">"Your rate per parcel is ₹8 higher than what we pay now."</li>
               <li data-bucket="obj" data-why="The customer states a problem with your offer. That is an objection about the COD payout time.">"We cannot wait 7 days for our COD money."</li>
-              <li data-bucket="comp" data-why="The customer names another company they already use.">"We already use Competitor B for our London orders."</li>
+              <li data-bucket="comp" data-why="The customer names another company they already use.">"We already use Competitor B for our Gujarat orders."</li>
               <li data-bucket="comp" data-why="The customer talks about what a competitor offers. Count it as a competitor mention.">"Competitor A's app shows live tracking to our buyers."</li>
               <li data-bucket="q" data-why="The customer wants information before deciding. It is not a reason to say no.">"Do you pick up from Secaucus warehouses on Sundays?"</li>
               <li data-bucket="q" data-why="This is a question about how the service works. Add it to the sales FAQ.">"How does a refused parcel come back to us?"</li>
@@ -1589,7 +1589,7 @@ module AiSalesCallsContent
           <h3>Try It</h3>
           <p>Give AI six short, anonymised call notes and ask it to find the patterns. Then count the calls yourself and compare.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a sales analyst. Below are short notes from [6] sales calls for [Nimbus Logistics, a New York company that sells delivery contracts to online stores]. Names and contact details are already removed.
+            <pre class="ai-try-prompt">You are a sales analyst. Below are short notes from [6] sales calls for [Nimbus Logistics, a company in India that sells delivery contracts to online stores]. Names and contact details are already removed.
 
         C01: Rate per parcel feels high. Asked about Sunday pickups. Uses Competitor A.
         C02: Wants COD money faster than 7 days. Asked how returns are picked up.
@@ -1692,7 +1692,7 @@ module AiSalesCallsContent
         </div>
         <div class="lc-card">
           <h3>Let AI draft the review, then check it</h3>
-          <p>Imran, a rep in Rohit's team, had a discovery call with Ravi, the operations head of GreenLeaf Organics, Denver. The call was recorded with consent. The transcript is in the company's approved call tool. Rohit asks AI for a first draft of the review.</p>
+          <p>Imran, a rep in Rohit's team, had a discovery call with Ravi, the operations head of GreenLeaf Organics, Punjab. The call was recorded with consent. The transcript is in the company's approved call tool. Rohit asks AI for a first draft of the review.</p>
           <pre><code>Weak:
         Rate this sales call out of 10.</code></pre>
           <pre><code>Better:
@@ -1724,7 +1724,7 @@ module AiSalesCallsContent
           </table>
           <p><strong>AI as a practice partner.</strong> After the review, Imran practises the one change. He asks AI to play the customer:</p>
           <pre><code>Act as Ravi, operations head of GreenLeaf Organics, an online store
-        in Denver that sells organic food. You get many returns.
+        in Punjab that sells organic food. You get many returns.
         You are busy and a little doubtful. Answer my discovery questions
         in 1 to 3 sentences. Do not give away your problems unless I ask
         good follow-up questions. When I type END, score my questions
@@ -1755,7 +1755,7 @@ module AiSalesCallsContent
         1. Opening and agenda  2. Discovery questions  3. Listening
         4. Value linked to pain  5. Objection handling  6. Clear next step
 
-        Excerpt: [Imran], a rep at [Nimbus Logistics, a delivery company], talks to [Ravi, operations head of GreenLeaf Organics, an online store in Denver].
+        Excerpt: [Imran], a rep at [Nimbus Logistics, a delivery company], talks to [Ravi, operations head of GreenLeaf Organics, an online store in Punjab].
         [00:30] Imran: Thanks for your time. Let me tell you about Nimbus. We cover a lot of pin codes.
         [03:10] Ravi: Our real problem is returns. Many orders come back.
         [03:20] Imran: We handle returns too. Our rate is ₹42 per parcel.
@@ -1817,7 +1817,7 @@ module AiSalesCallsContent
         </figure>
         <div class="lc-card">
           <h3>Prepare before the call</h3>
-          <p>Kavya is a sales rep at LedgerLite, an accounting software startup in San Francisco. Her prospect is Meena Shah, Finance Head of Tulsi Textiles, Birmingham. Their month-end close takes about 10 days. The month-end close is the work of checking and finishing the month's accounts. The team also processes 400+ invoices a month. After the demo, Meena's team did LedgerLite's free 14-day trial in November, after Diwali. Now Meena wants a lower price.</p>
+          <p>Kavya is a sales rep at LedgerLite, an accounting software startup in Karnataka. Her prospect is Meena Shah, Finance Head of Tulsi Textiles, Gujarat. Their month-end close takes about 10 days. The month-end close is the work of checking and finishing the month's accounts. The team also processes 400+ invoices a month. After the demo, Meena's team did LedgerLite's free 14-day trial in November, after Diwali. Now Meena wants a lower price.</p>
           <p>Before the negotiation call, Kavya writes down these five things:</p>
           <table class="lc-table">
             <thead><tr><th>Item</th><th>What it means</th><th>Kavya's answer (made-up numbers)</th></tr></thead>
@@ -1898,7 +1898,7 @@ module AiSalesCallsContent
             <pre class="ai-try-prompt">You are a B2B negotiation coach. Help me prepare an honest negotiation call.
 
         Deal: [LedgerLite accounting software, 10 users at ₹1,000 per user per month, so ₹1,20,000 a year before tax].
-        Buyer: [Meena Shah, Finance Head, Tulsi Textiles, Birmingham]. [The MD approves any new software.]
+        Buyer: [Meena Shah, Finance Head, Tulsi Textiles, Gujarat]. [The MD approves any new software.]
         Buyer's ask: [20% off, or they will stay with their current software].
         My limit: [up to 10% off without approval].
         Things I can trade: [2-year term, free onboarding, start with fewer users].
@@ -1986,7 +1986,7 @@ module AiSalesCallsContent
             <thead><tr><th>Risky claim</th><th>Why it is a problem</th><th>Honest version</th></tr></thead>
             <tbody>
               <tr><td>"Our customers close their books in 3 days."</td><td>Based on one customer only</td><td>"One customer, a trading firm, now closes in about 4 days. Your result may differ."</td></tr>
-              <tr><td>"We are the fastest courier in India."</td><td>Cannot be proved</td><td>"Last quarter, 9 out of 10 of our New York parcels arrived on the promised day." (Only if your data shows this.)</td></tr>
+              <tr><td>"We are the fastest courier in India."</td><td>Cannot be proved</td><td>"Last quarter, 9 out of 10 of our Maharashtra parcels arrived on the promised day." (Only if your data shows this.)</td></tr>
               <tr><td>"Competitor A loses parcels all the time."</td><td>Unfair and unproven</td><td>"Here is our lost-parcel policy. Compare it with what you have today."</td></tr>
               <tr><td>"Yes, we support that bank's format."</td><td>Said without checking</td><td>"I am not sure. I will check and email you by Thursday."</td></tr>
             </tbody>
@@ -2003,7 +2003,7 @@ module AiSalesCallsContent
             <li><strong>Hiding costs.</strong> Leaving out setup fees or extra charges until the contract.</li>
             <li><strong>Skipping the decision maker.</strong> Pushing someone to sign before the person who must approve has seen it.</li>
           </ul>
-          <p>Real urgency is fine when it is true and you explain why. Sweet Crumbs, a London bakery, sells office catering. It can honestly say: "Your party is on 20 November. We need final numbers by 16 November, because we buy fresh ingredients for each order."</p>
+          <p>Real urgency is fine when it is true and you explain why. Sweet Crumbs, a home bakery in Maharashtra, sells office catering. It can honestly say: "Your party is on 20 November. We need final numbers by 16 November, because we buy fresh ingredients for each order."</p>
           <pre><code>Weak prompt:
         Write a closing script that makes the customer feel they must buy today.</code></pre>
           <pre><code>Better prompt:
@@ -2046,7 +2046,7 @@ module AiSalesCallsContent
           <h3>Try It</h3>
           <p>Ask AI to review a made-up call script for honesty, pressure and consent problems, and to rewrite it. Remember that AI's answer is not legal advice.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a sales ethics reviewer. Read this call script from [a sales rep at Nimbus Logistics, a New York delivery company that sells to online stores]. Find the problems and rewrite it honestly.
+            <pre class="ai-try-prompt">You are a sales ethics reviewer. Read this call script from [a sales rep at Nimbus Logistics, a delivery company in India that sells to online stores]. Find the problems and rewrite it honestly.
 
         Script:
         "Hi, this is [Imran] from Nimbus. I'm recording this call. We are the fastest courier in India. From next month, our COD payouts will be next-day. Only 3 contract slots are left at this price, so you must decide today. Everyone who switched to us cut their returns by half. I got your number from a list, so I'll keep calling until we find a time."
@@ -2076,12 +2076,12 @@ module AiSalesCallsContent
           <div class="lc-badge le-badge le-badge-sales">Sales & CRM</div>
           <h1 class="lc-title">Capstone: Plan, Run and Review a Sales Call</h1>
         </div>
-        <p class="lc-lead">In this capstone, you will use everything from this course on one sales call. You will follow Kavya from LedgerLite through her discovery call with Meena Shah, Finance Head of Tulsi Textiles, Birmingham. You will make five things: a prep brief, a question plan, a call summary, a follow-up email and a coaching scorecard. At each step, AI does the first draft. You check the facts, names, numbers and promises.</p>
+        <p class="lc-lead">In this capstone, you will use everything from this course on one sales call. You will follow Kavya from LedgerLite through her discovery call with Meena Shah, Finance Head of Tulsi Textiles, Gujarat. You will make five things: a prep brief, a question plan, a call summary, a follow-up email and a coaching scorecard. At each step, AI does the first draft. You check the facts, names, numbers and promises.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 250" role="img" aria-label="Five capstone steps. Before the call: 1 prep brief, 2 question plan. After the call: 3 call summary, 4 follow-up email, 5 scorecard. Under each step is what you check: facts are real, open not leading, names and dates, no new promises, quotes match.">
             <defs><marker id="sc15a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
-              <text x="380" y="22" font-size="12" fill="#9b99b8">Tulsi Textiles, Birmingham · Meena Shah, Finance Head · 10-day close · 400+ invoices a month</text>
+              <text x="380" y="22" font-size="12" fill="#9b99b8">Tulsi Textiles, Gujarat · Meena Shah, Finance Head · 10-day close · 400+ invoices a month</text>
               <text x="150" y="48" font-size="12" font-weight="700" fill="#93c5fd">Before the call</text>
               <text x="522" y="48" font-size="12" font-weight="700" fill="#6ee7b7">After the call</text>
               <rect x="10" y="60" width="128" height="64" rx="8" fill="#27274e" stroke="#3b82f6"/>
@@ -2132,7 +2132,7 @@ module AiSalesCallsContent
         </figure>
         <div class="lc-card">
           <h3>The project</h3>
-          <p>Kavya is a sales rep at LedgerLite, an accounting software startup in San Francisco. Meena Shah sent LedgerLite an enquiry. It says two things: the month-end close takes about 10 days, and the team processes 400+ invoices a month. The month-end close is the work of checking and finishing the month's accounts. The discovery call is on Thursday 1 October 2026 at 3 pm, for 30 minutes. All names and details are made up.</p>
+          <p>Kavya is a sales rep at LedgerLite, an accounting software startup in Karnataka. Meena Shah sent LedgerLite an enquiry. It says two things: the month-end close takes about 10 days, and the team processes 400+ invoices a month. The month-end close is the work of checking and finishing the month's accounts. The discovery call is on Thursday 1 October 2026 at 3 pm, for 30 minutes. All names and details are made up.</p>
           <table class="lc-table">
             <thead><tr><th>Part</th><th>What you make</th><th>AI helps with</th><th>You must check</th></tr></thead>
             <tbody>
@@ -2147,7 +2147,7 @@ module AiSalesCallsContent
         <div class="lc-card">
           <h3>Parts 1 and 2: prep brief and question plan</h3>
           <p>Kavya asks AI to turn her notes into a brief. She marks every guess clearly.</p>
-          <pre><code>PREP BRIEF: Tulsi Textiles, Birmingham (discovery call, Thu 1 Oct 2026, 3 pm, 30 min)
+          <pre><code>PREP BRIEF: Tulsi Textiles, Gujarat (discovery call, Thu 1 Oct 2026, 3 pm, 30 min)
         Who: Meena Shah, Finance Head.
         Known (from her enquiry): month-end close takes about 10 days;
           400+ invoices a month.
@@ -2264,7 +2264,7 @@ module AiSalesCallsContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are my sales coach. Guide me through a practice sales call project, one step at a time. Wait for my reply after each step.
 
-        Scenario: I am [Kavya, a sales rep at LedgerLite, a San Francisco accounting software startup]. My prospect is [Meena Shah, Finance Head of Tulsi Textiles, Birmingham]. Known facts: [month-end close takes about 10 days; 400+ invoices a month]. Do not invent other facts about the company. Mark any guess as [guess].
+        Scenario: I am [Kavya, a sales rep at LedgerLite, an accounting software startup in Karnataka]. My prospect is [Meena Shah, Finance Head of Tulsi Textiles, Gujarat]. Known facts: [month-end close takes about 10 days; 400+ invoices a month]. Do not invent other facts about the company. Mark any guess as [guess].
 
         Step 1: Write a short prep brief: goal, a 30-minute agenda, 3 likely objections, 3 things I do not know yet.
         Step 2: Give me 6 open discovery questions about process, pain, impact and decision process.

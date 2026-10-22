@@ -1,8 +1,8 @@
 # How AI Image Generators Work (Diffusion Explained Simply)
 
-*Learn how AI image generators work in simple steps: text encoders, noise, denoising and latent space, plus prompt tips and the ethics of text to image AI.*
+*Learn how AI image generators work in simple steps: text encoders, noise, denoising and latent space, plus prompt tips and the ethics of text-to-image AI.*
 
-Here is how AI image generators work: they turn your words into numbers, start from a picture of pure random noise, and then remove that noise step by step until an image that matches your words appears. This method is called diffusion, and it is behind most popular text to image AI tools today.
+Here is how AI image generators work: they turn your words into numbers, start from a picture of pure random noise, and then remove that noise step by step until an image that matches your words appears. This method is called diffusion, and it is behind most popular text-to-image AI tools today.
 
 ![How AI image generators work: a text prompt becomes noise, then less noise, then a clear image of a cat in a hat](images/cover.svg)
 

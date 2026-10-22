@@ -77,6 +77,7 @@ module NodejsContent
             <li>Lines 1 and 2 are synchronous, so they always print first. This is true even though the code asked for the file before line 2.</li>
             <li>The second timer asked for 0 ms, but it had to wait for the 200 ms busy loop. <strong>A timer's delay is a minimum, not a promise</strong>. Every other callback waits the same way. On a server, this includes every other user's request.</li>
             <li>The file arrives last. Reading it takes several trips to libuv's thread pool. Node handles each result on a later turn of the loop.</li>
+            <li>The file has 15 lines of code. It ends with a newline, so <code>split("\n")</code> also returns one empty piece at the end. That is why it prints 16. If you save the file without the last newline, you see 15.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -657,7 +658,7 @@ module NodejsContent
               <tr><td>Join chunks from a stream</td><td><code>Buffer.concat(chunks)</code>, then decode once</td></tr>
             </tbody>
           </table>
-          <p>Hindi, emoji and most non-English text use 2&ndash;4 bytes per character in UTF-8. So the 6-character word needs 18 bytes. If you cut a Buffer in the middle of a character, you get the replacement symbol <code>�</code>. Collect all the chunks and decode once. Or use <code>setEncoding("utf8")</code> on a stream, which handles split characters for you. <code>new Buffer()</code> is the old, deprecated (no longer recommended) way. Always use <code>Buffer.from</code> or <code>Buffer.alloc</code>.</p>
+          <p>Hindi, emoji and most non-English text use 2–4 bytes per character in UTF-8. So the 6-character word needs 18 bytes. If you cut a Buffer in the middle of a character, you get the replacement symbol <code>�</code>. Collect all the chunks and decode once. Or use <code>setEncoding("utf8")</code> on a stream, which handles split characters for you. <code>new Buffer()</code> is the old, deprecated (no longer recommended) way. Always use <code>Buffer.from</code> or <code>Buffer.alloc</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1610,17 +1611,17 @@ module NodejsContent
           <div class="lc-badge le-badge le-badge-nodejs">Node.js</div>
           <h1 class="lc-title">Building a REST API</h1>
         </div>
-        <p class="lc-lead">A <strong>REST API</strong> gives access to <em>resources</em> (things like notes or users) at easy-to-guess URLs. It uses HTTP methods and status codes in the same way every time. Here is a complete notes API in Express. It has all five CRUD (create, read, update, delete) operations.</p>
+        <p class="lc-lead">A <strong>REST API</strong> gives access to <em>resources</em> (things like notes or users) at easy-to-guess URLs. It uses HTTP methods and status codes in the same way every time. Here is a complete notes API in Express. It covers all four CRUD operations (create, read, update, delete) with five routes: list, read one, create, update and delete.</p>
         <div class="lc-card">
           <h3>The Contract (What the API Promises)</h3>
           <table class="lc-table">
             <thead><tr><th>Method &amp; path</th><th>Action</th><th>Success</th><th>Common errors</th></tr></thead>
             <tbody>
-              <tr><td><code>GET /api/notes</code></td><td>List all (with filters)</td><td>200 + array</td><td>&mdash;</td></tr>
+              <tr><td><code>GET /api/notes</code></td><td>List all (with filters)</td><td>200 + array</td><td>n/a</td></tr>
               <tr><td><code>GET /api/notes/:id</code></td><td>Read one</td><td>200 + object</td><td>404</td></tr>
               <tr><td><code>POST /api/notes</code></td><td>Create</td><td>201 + object + <code>Location</code> header</td><td>400 / 422</td></tr>
               <tr><td><code>PATCH /api/notes/:id</code></td><td>Update some fields</td><td>200 + updated object</td><td>404, 422</td></tr>
-              <tr><td><code>PUT /api/notes/:id</code></td><td>Replace the whole note</td><td>200</td><td>404, 422</td></tr>
+              <tr><td><code>PUT /api/notes/:id</code></td><td>Replace the whole note (optional; not built in the router below)</td><td>200</td><td>404, 422</td></tr>
               <tr><td><code>DELETE /api/notes/:id</code></td><td>Delete</td><td>204, no body</td><td>404</td></tr>
             </tbody>
           </table>
@@ -1993,7 +1994,7 @@ module NodejsContent
         <p class="lc-lead">Data in memory arrays is lost when the app restarts. Real apps store data in a database. You will see two options. <strong>SQLite</strong> keeps everything in a single file and is great for learning and small apps. <strong>PostgreSQL</strong> with the <code>pg</code> client is the common choice for production (the live app).</p>
         <div class="lc-card">
           <h3>SQLite with node:sqlite</h3>
-          <p>Node 22.13+ and Node 24 come with a built-in, synchronous SQLite module. You do not need to install anything. In Node 24 it is marked <strong>release candidate</strong> (stability 1.2, since 24.15). You can use it, but small API changes are still possible. The popular <code>better-sqlite3</code> package has almost the same API.</p>
+          <p>Node 22.13+ and Node 24 come with a built-in, synchronous SQLite module. You do not need to install anything. It is not yet marked fully stable (check its current stability level in the Node docs). You can use it, but small API changes are still possible. The popular <code>better-sqlite3</code> package has almost the same API.</p>
           <div class="lc-code">// db.js<br>import { DatabaseSync } from "node:sqlite";<br><br>export const db = new DatabaseSync("notes.db");<br><br>db.exec(`<br>  CREATE TABLE IF NOT EXISTS notes (<br>    id         INTEGER PRIMARY KEY AUTOINCREMENT,<br>    title      TEXT NOT NULL,<br>    body       TEXT NOT NULL DEFAULT '',<br>    created_at TEXT NOT NULL DEFAULT (datetime('now'))<br>  )<br>`);<br><br>const insert = db.prepare("INSERT INTO notes (title, body) VALUES (?, ?)");<br>const byId   = db.prepare("SELECT * FROM notes WHERE id = ?");<br><br>const { lastInsertRowid } = insert.run("Buy milk", "2 litres");<br>console.log(byId.get(lastInsertRowid));<br>console.log(db.prepare("SELECT id, title FROM notes ORDER BY id DESC").all());</div>
         </div>
         <div class="lc-card">
@@ -2229,7 +2230,7 @@ module NodejsContent
           <div class="lc-badge le-badge le-badge-nodejs">Node.js</div>
           <h1 class="lc-title">Authentication: Passwords, Sessions &amp; JWT</h1>
         </div>
-        <p class="lc-lead"><strong>Authentication</strong> checks who a user is. <strong>Authorization</strong> decides what they are allowed to do. Get the basics right. First, hash passwords with a slow algorithm. Then remember the user with a server-side <strong>session</strong> or a signed <strong>token</strong>.</p>
+        <p class="lc-lead"><strong>Authentication</strong> checks who a user is. <strong>Authorisation</strong> decides what they are allowed to do. Get the basics right. First, hash passwords with a slow algorithm. Then remember the user with a server-side <strong>session</strong> or a signed <strong>token</strong>.</p>
         <div class="lc-card">
           <h3>Step 1: Hash Passwords Properly</h3>
           <p>Never store plain passwords or fast hashes like SHA-256. Use an algorithm that is slow on purpose and salted (mixed with random data): <strong>argon2</strong> or <strong>bcrypt</strong>.</p>
@@ -2265,7 +2266,7 @@ module NodejsContent
             <li>Limit how often people can call <code>/login</code> and <code>/register</code> (for example with <code>express-rate-limit</code>).</li>
             <li>Give the same error for "no such user" and "wrong password".</li>
             <li>Serve everything over HTTPS. Set cookies to <code>httpOnly</code> and <code>secure</code>.</li>
-            <li>Check authorization on every resource. User 5 must not read <code>/api/notes/17</code> if it belongs to user 8.</li>
+            <li>Check authorisation on every resource. User 5 must not read <code>/api/notes/17</code> if it belongs to user 8.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2654,8 +2655,8 @@ module NodejsContent
           <table class="lc-table">
             <thead><tr><th>Requirement</th><th>Lessons</th></tr></thead>
             <tbody>
-              <tr><td>ESM project, npm scripts <code>dev</code> / <code>start</code> / <code>test</code></td><td>2&ndash;4</td></tr>
-              <tr><td>Express 5 app with a <code>/api/notes</code> router and full CRUD</td><td>10&ndash;13</td></tr>
+              <tr><td>ESM project, npm scripts <code>dev</code> / <code>start</code> / <code>test</code></td><td>2–4</td></tr>
+              <tr><td>Express 5 app with a <code>/api/notes</code> router and full CRUD</td><td>10–13</td></tr>
               <tr><td>zod validation, <code>HttpError</code>, one central error handler, 404 handler</td><td>14</td></tr>
               <tr><td>SQLite or Postgres with parameterised queries</td><td>16</td></tr>
               <tr><td>Config from <code>--env-file</code>, checked when the app starts</td><td>17</td></tr>

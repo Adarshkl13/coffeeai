@@ -82,7 +82,7 @@ namespace :content do
               opts: ["A) 0 and 1", "B) 0 and 2", "C) 1 and 2"], ans: "B" },
        7 => { type: "multiple_choice", q: "Which usort() callback sorts $students by 'marks' from highest to lowest?",
               opts: ["A) fn($a, $b) => $a['marks'] <=> $b['marks']", "B) fn($a, $b) => $a['marks'] > $b['marks']", "C) fn($a, $b) => $b['marks'] <=> $a['marks']"], ans: "C" },
-       8 => { type: "true_false", q: "Given function makeTicket(string $from, string $to, int $seats = 1, string $class = \"Sleeper\", bool $tatkal = false), the call makeTicket(\"London\", \"Miami\", tatkal: true) is valid. It keeps the default values for $seats and $class.",
+       8 => { type: "true_false", q: "Given function makeTicket(string $from, string $to, int $seats = 1, string $class = \"Sleeper\", bool $tatkal = false), the call makeTicket(\"Kerala\", \"Punjab\", tatkal: true) is valid. It keeps the default values for $seats and $class.",
               opts: ["True", "False"], ans: "True" },
        9 => { type: "multiple_choice", q: "A file starts with declare(strict_types=1); and defines function add(int $a, int $b): int. What does add(\"5\", 3) do in that file?",
               opts: ["A) Returns 8", "B) Throws a TypeError", "C) Returns \"53\""], ans: "B" },

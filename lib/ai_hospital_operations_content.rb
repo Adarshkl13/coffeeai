@@ -1023,7 +1023,7 @@ module AiHospitalOperationsContent
               <li data-kind="user" data-label="Vikram">Here are today's totals, with codes only. Make a checklist for the 10:00 bed meeting to get 5 Medicine patients home by noon.</li>
               <li data-kind="answer" data-label="AI">A checklist. Confirm the 13 EDDs on the ward round. List who is waiting for summaries, bills, medicines or insurance. Give each task an owner and a time.</li>
               <li data-kind="warn" data-label="Catch this">The AI also suggests "discharge the patients with the longest stays first". That is a medical decision. Doctors decide who is ready, not the length of stay.</li>
-              <li data-kind="check" data-label="Sister Mary">She checks the list with the ward nurses. Two patients are not ready, so the team moves them to tomorrow's list.</li>
+              <li data-kind="check" data-label="Sister Mary">Sister Mary checks the list with the ward nurses. Two patients are not ready, so the team moves them to tomorrow's list.</li>
               <li data-kind="result" data-label="By 12:00">5 patients have left. The patients waiting in emergency get Medicine beds early in the afternoon. Vikram records the discharge-by-noon rate for the day.</li>
             </ol>
           </div>
@@ -2566,7 +2566,7 @@ module AiHospitalOperationsContent
               <tr><td>Beds</td><td>Hospital 86.0% full, but Medicine and ICU 95.0%. Only 240 of 1,200 discharges (20.0%) left before noon.</td><td>Late discharge summaries and slow insurance approvals. In a sample of 10 Medicine discharges, insurance cases took about 353 minutes from order to leaving; others about 158.</td></tr>
               <tr><td>OPD</td><td>Average wait 45.9 min; Medicine 58.6 min. No-show rate 16.2% (723 of 4,470 bookings).</td><td>62.6% of patients are walk-ins, and most arrive early in the morning. ENT (22.0%) and Medicine (19.0%) have the most no-shows.</td></tr>
               <tr><td>OT</td><td>Utilisation 67.5% (561.6 of 832 hours); OT4 only 55.0%. 40 of 444 cases (9.0%) cancelled on the day.</td><td>List overruns (10), no bed (9) and patient not fit (8) are the top three reasons.</td></tr>
-              <tr><td>Stock</td><td>NS1 kits and surgical gloves are below the reorder point. 800 ceftriaxone vials expire in November 2026.</td><td>Orders did not keep up with use. NS1 use rose with dengue, and glove lead time is 10 days.</td></tr>
+              <tr><td>Stock</td><td>NS1 kits and sterile gloves are below the reorder point. 800 ceftriaxone vials expire in November 2026.</td><td>Orders did not keep up with use. NS1 use rose with dengue, and glove lead time is 10 days.</td></tr>
               <tr><td>Equipment</td><td>PM done on time 84.6% (33 of 39). One ventilator was down 72 hours.</td><td>Overdue defibrillator and pump PM; no spare flow sensor.</td></tr>
               <tr><td>Money and safety</td><td>Claim denial rate 11.7% (84 of 720). Hand hygiene 80.0%.</td><td>Missing documents and pre-authorisation problems cause 54.8% of denials.</td></tr>
             </tbody>

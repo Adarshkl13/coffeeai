@@ -14,7 +14,7 @@ module PythonContent
           <p>You write your code in a <code>.py</code> file. The Python interpreter (the program that runs Python code) is usually <strong>CPython</strong>. It first turns your file into <em>bytecode</em> (simple instructions for the computer). Then it runs that bytecode line by line. You never run a separate compile step yourself. That is why Python is called an <strong>interpreted</strong> language.</p>
           <ul class="lc-list">
             <li><strong>Python 3</strong> is the only version you should learn. Python 2 stopped getting updates in 2020.</li>
-            <li>The latest stable version in 2026 is <strong>Python 3.14</strong>. The editor in this course runs <strong>Python 3.13</strong> inside your browser (using Pyodide). So everything you learn here works on current Python.</li>
+            <li>New Python versions come out every year, so use a recent one, such as <strong>Python 3.14</strong> or newer. The editor in this course runs <strong>Python 3.13</strong> inside your browser (using Pyodide). So everything you learn here works on current Python.</li>
             <li>You can also try code line by line in the <strong>REPL</strong> (an interactive mode where you type one line and see the result). Type <code>python</code> (or <code>python3</code>, or <code>py</code> on Windows) in a terminal. You then see a <code>&gt;&gt;&gt;</code> prompt.</li>
           </ul>
         </div>
@@ -174,7 +174,7 @@ module PythonContent
             </tbody>
           </table>
           <p>Precedence (the order of operations) is like school maths: <code>**</code> first, then <code>* / // %</code>, then <code>+ -</code>. Use brackets to make it clear: <code>(a + b) / 2</code>. Short forms like <code>score += 5</code> mean <code>score = score + 5</code>.</p>
-          <p><code>//</code> rounds <strong>down</strong> (toward minus infinity), so <code>-17 // 5</code> is <code>-4</code>, not <code>-3</code>.</p>
+          <p><code>//</code> rounds <strong>down</strong> (towards minus infinity), so <code>-17 // 5</code> is <code>-4</code>, not <code>-3</code>.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>Converting Between Types</h2>
@@ -525,9 +525,9 @@ module PythonContent
         is_raining = False
         if temperature > 30 and not is_raining:
             print("Hot and dry: drink water!")
-        city = "London"
-        if city in ("London", "Manchester", "Leeds"):
-            print(city, "is in England")
+        state = "Kerala"
+        if state in ("Kerala", "Tamil Nadu", "Karnataka"):
+            print(state, "is in South India")
 
         print("--- match ---")
         for command in ["start", "quit", "dance"]:
@@ -591,7 +591,7 @@ module PythonContent
             balance = balance * 1.08    # 8% interest per year
             years += 1
         print(years, "years")           # 10 years</code></pre></div>
-          <p>Something inside the loop must move it toward the end. If not, it will run forever. This is an <strong>infinite loop</strong>.</p>
+          <p>Something inside the loop must move it towards the end. If not, it will run forever. This is an <strong>infinite loop</strong>.</p>
         </div>
         <div class="lc-section lc-card">
           <h2>break, continue and else</h2>
@@ -832,7 +832,7 @@ module PythonContent
         </div>
         <div class="lc-section lc-card">
           <h2>Unpacking</h2>
-          <div class="lc-code-block"><pre><code>name, age, city = ("Asha", 21, "Los Angeles")
+          <div class="lc-code-block"><pre><code>name, age, state = ("Asha", 21, "Kerala")
         a, b = 1, 2
         a, b = b, a                  # swap in one line
         first, *rest = [1, 2, 3, 4]  # first = 1, rest = [2, 3, 4]
@@ -934,8 +934,8 @@ module PythonContent
         print("low:", low, "| high:", high)
 
         # Tuples can be dictionary keys
-        distances = {("London", "Oxford"): 90, ("New York", "Boston"): 346}
-        print("New York to Boston:", distances[("New York", "Boston")], "km")
+        seats = {("Row A", 1): "Asha", ("Row B", 4): "Ben"}
+        print("Row B, seat 4:", seats[("Row B", 4)])
 
         print("--- sets ---")
         tags = {"python", "ai", "python", "web"}
@@ -967,7 +967,7 @@ module PythonContent
         </div>
         <div class="lc-section lc-card">
           <h2>Creating and Reading</h2>
-          <div class="lc-code-block"><pre><code>student = {"name": "Asha", "age": 21, "city": "Los Angeles"}
+          <div class="lc-code-block"><pre><code>student = {"name": "Asha", "age": 21, "state": "Kerala"}
 
         print(student["name"])              # Asha
         print(student.get("email"))         # None  (no error)
@@ -979,7 +979,7 @@ module PythonContent
           <h2>Changing a Dictionary</h2>
           <div class="lc-code-block"><pre><code>student["age"] = 22                  # update an existing key
         student["email"] = "asha@example.com" # add a new key
-        student.update({"city": "Glasgow", "year": 3})
+        student.update({"state": "Punjab", "year": 3})
         removed = student.pop("year")        # remove and return the value
         del student["email"]                 # remove a key
         merged = {"a": 1} | {"b": 2}         # {'a': 1, 'b': 2}  (Python 3.9+)</code></pre></div>
@@ -1051,14 +1051,14 @@ module PythonContent
         # Lesson 8: Dictionaries
         from collections import Counter, defaultdict
 
-        student = {"name": "Asha", "age": 21, "city": "Los Angeles"}
+        student = {"name": "Asha", "age": 21, "state": "Kerala"}
         print("name:", student["name"])
         print("get email:", student.get("email"))
         print("get email with default:", student.get("email", "N/A"))
 
         student["age"] = 22
         student["email"] = "asha@example.com"
-        student.update({"city": "Glasgow", "year": 3})
+        student.update({"state": "Punjab", "year": 3})
         print("updated:", student)
         print("popped year:", student.pop("year"))
         del student["email"]
@@ -1133,7 +1133,7 @@ module PythonContent
 
         def profile(**info):       # any number of keyword arguments -&gt; dict
             return info
-        print(profile(name="Ben", city="Boston"))   # {'name': 'Ben', 'city': 'Boston'}</code></pre></div>
+        print(profile(name="Ben", state="Assam"))   # {'name': 'Ben', 'state': 'Assam'}</code></pre></div>
           <table class="lc-table">
             <thead><tr><th>Form</th><th>Example</th><th>Inside the function</th></tr></thead>
             <tbody>
@@ -1251,7 +1251,7 @@ module PythonContent
         </div>
         <div class="lc-section lc-card">
           <h2>Try It</h2>
-          <p>Write <code>bmi(weight_kg, height_m)</code>. It returns the BMI rounded to 1 decimal place. Write <code>bmi_category(value)</code>. It returns <code>"Underweight"</code> (below 18.5), <code>"Normal"</code> (below 25) or <code>"Overweight"</code>. Call both for three people. Finally, use a lambda to sort <code>["New York", "Miami", "San Francisco", "Chicago"]</code> by the <strong>last letter</strong> of each name. Bonus: write a recursive <code>power(base, exp)</code> with the base case <code>exp == 0</code>. Check that <code>power(2, 10)</code> returns <code>1024</code>.</p>
+          <p>Write <code>bmi(weight_kg, height_m)</code>. It returns the BMI rounded to 1 decimal place. Write <code>bmi_category(value)</code>. It returns <code>"Underweight"</code> (below 18.5), <code>"Normal"</code> (below 25) or <code>"Overweight"</code>. Call both for three people. Finally, use a lambda to sort <code>["Kerala", "Assam", "Punjab", "Goa"]</code> by the <strong>last letter</strong> of each name. Bonus: write a recursive <code>power(base, exp)</code> with the base case <code>exp == 0</code>. Check that <code>power(2, 10)</code> returns <code>1024</code>.</p>
         </div>
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> A good function does <strong>one job</strong> and has a name that starts with a verb: <code>calculate_total</code>, <code>send_email</code>, <code>is_valid</code>.</p></div>
       HTML
@@ -1272,7 +1272,7 @@ module PythonContent
             return sum(nums)
         def profile(**info):
             return info
-        print("total(1, 2, 3):", total(1, 2, 3), "| profile:", profile(name="Ben", city="Boston"))
+        print("total(1, 2, 3):", total(1, 2, 3), "| profile:", profile(name="Ben", state="Assam"))
 
         def stats(nums):
             return min(nums), max(nums), sum(nums) / len(nums)
@@ -1897,7 +1897,7 @@ module PythonContent
         </div>
         <div class="lc-section lc-card">
           <h2>Try It</h2>
-          <p>Use <code>datetime.date</code> to count the days from 25 September 2026 until 1 January 2027. Then use <code>random.seed(7)</code> and <code>random.sample</code> to pick 3 quiz winners from a list of 8 names. Last, build an <code>argparse</code> parser with a required <code>city</code> and an optional <code>--days</code> (an <code>int</code>, default 7). Test it with <code>parser.parse_args(["Boston", "--days", "3"])</code>.</p>
+          <p>Use <code>datetime.date</code> to count the days from 25 September 2026 until 1 January 2027. Then use <code>random.seed(7)</code> and <code>random.sample</code> to pick 3 quiz winners from a list of 8 names. Last, build an <code>argparse</code> parser with a required <code>state</code> and an optional <code>--days</code> (an <code>int</code>, default 7). Test it with <code>parser.parse_args(["Kerala", "--days", "3"])</code>.</p>
         </div>
         <div class="lc-tip lc-card--tip"><span class="lc-tip-icon">💡</span><p><strong>Tip:</strong> Before you install a package, check the standard library. Many tasks need no install at all: dates, JSON, CSV, statistics and zip files.</p></div>
       HTML
@@ -2010,9 +2010,9 @@ module PythonContent
 
         print(bool(re.fullmatch(r"[6-9]\d{9}", "9876543210")))    # True: a valid mobile number
         print(bool(re.fullmatch(r"[6-9]\d{9}", "98765 43210")))   # False: the space breaks it
-        print(re.findall(r"\d{5}", "Boston 02109, Chicago 60601"))  # ['02109', '60601']
+        print(re.findall(r"\d{6}", "Office 560001, Store 400001"))  # ['560001', '400001']
         print(re.findall(r"(\w+)=(\d+)", "a=1, b=22"))            # [('a', '1'), ('b', '22')]
-        print(re.split(r"[,;]\s*", "Boston, London;Chicago,  Miami"))    # ['Boston', 'London', 'Chicago', 'Miami']</code></pre></div>
+        print(re.split(r"[,;]\s*", "Kerala, Goa;Assam,  Punjab"))    # ['Kerala', 'Goa', 'Assam', 'Punjab']</code></pre></div>
         </div>
         <div class="lc-section lc-card">
           <h2>Named Groups, compile() and sub()</h2>
@@ -2089,7 +2089,7 @@ module PythonContent
         print("--- sub and split ---")
         print("ISO dates:", date.sub(r"\g<year>-\g<month>-\g<day>", text))
         print("tidy:", re.sub(r"\s+", " ", "  too    many   spaces ").strip())
-        print("split:", re.split(r"[,;]\s*", "Boston, London;Chicago,  Miami"))
+        print("split:", re.split(r"[,;]\s*", "Kerala, Goa;Assam,  Punjab"))
 
         print("--- greedy vs lazy ---")
         html = "<b>Asha</b> scored <b>95</b>"
@@ -2708,7 +2708,7 @@ module PythonContent
         def fib(n):
             return n if n &lt; 2 else fib(n - 1) + fib(n - 2)
 
-        print(fib(80))    # 23416728348467685 — instant, because results are cached</code></pre></div>
+        print(fib(80))    # 23416728348467685: instant, because results are cached</code></pre></div>
           <p><code>fib</code> is a recursive function (a function that calls itself, Lesson 9). Without the cache, <code>fib(80)</code> would take far too long to finish. It would calculate the same smaller values trillions of times.</p>
           <p>When you put several decorators on one function, the one <strong>closest to the function</strong> is applied first.</p>
         </div>
@@ -2816,7 +2816,7 @@ module PythonContent
           <div class="lc-code-block"><pre><code>def double(n: int) -&gt; int:
             return n * 2
 
-        print(double("ha"))    # haha  — runs fine! Python doesn't check the hint
+        print(double("ha"))    # haha: runs fine! Python doesn't check the hint
 
         # But a type checker catches it before you run anything:
         # $ mypy app.py

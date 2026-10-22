@@ -61,7 +61,7 @@ module HtmlCssContent
           <table class="lc-table">
             <thead><tr><th>Element</th><th>What it does</th><th>Example</th></tr></thead>
             <tbody>
-              <tr><td><code>&lt;br&gt;</code></td><td>Line break inside text</td><td><code>Market Street&lt;br&gt;San Francisco</code></td></tr>
+              <tr><td><code>&lt;br&gt;</code></td><td>Line break inside text</td><td><code>Station Road&lt;br&gt;Maharashtra</code></td></tr>
               <tr><td><code>&lt;hr&gt;</code></td><td>A break between topics</td><td><code>&lt;hr&gt;</code></td></tr>
               <tr><td><code>&lt;img&gt;</code></td><td>Shows an image</td><td><code>&lt;img src="cup.png" alt="Cup of chai"&gt;</code></td></tr>
               <tr><td><code>&lt;input&gt;</code></td><td>Form field</td><td><code>&lt;input type="email"&gt;</code></td></tr>
@@ -98,7 +98,7 @@ module HtmlCssContent
         <div class="lc-section">
           <h2>More Useful Things in the Head</h2>
           <p>A real site adds a few more lines to the head. None of them show on the page. But they control how the page looks in search results and in the browser tab. They also control how it looks when someone shares the link on WhatsApp or LinkedIn.</p>
-          <div class="lc-code-block"><pre><code>&lt;meta name="description" content="Cutting chai, samosas and filter coffee in London. Open 7am–10pm."&gt;<br>&lt;link rel="icon" href="/favicon.svg" type="image/svg+xml"&gt;<br>&lt;link rel="stylesheet" href="styles.css"&gt;<br>&lt;meta property="og:title" content="Sharma Chai Point"&gt;<br>&lt;meta property="og:image" content="https://sharmachai.in/share.jpg"&gt;</code></pre></div>
+          <div class="lc-code-block"><pre><code>&lt;meta name="description" content="Cutting chai, samosas and filter coffee in Maharashtra. Open 7am–10pm."&gt;<br>&lt;link rel="icon" href="/favicon.svg" type="image/svg+xml"&gt;<br>&lt;link rel="stylesheet" href="styles.css"&gt;<br>&lt;meta property="og:title" content="Sharma Chai Point"&gt;<br>&lt;meta property="og:image" content="https://sharmachai.in/share.jpg"&gt;</code></pre></div>
           <table class="lc-table">
             <thead><tr><th>Line</th><th>Used for</th></tr></thead>
             <tbody>
@@ -131,7 +131,7 @@ module HtmlCssContent
           <h2>Try It</h2>
           <ol class="lc-list">
             <li>In the starter code, find the paragraph under "2. Nesting". Delete its <code>&lt;/strong&gt;</code> tag and look at the preview. The rest of the text becomes bold. Put the tag back.</li>
-            <li>Under "3. Void elements", add another <code>&lt;br&gt;</code> after "London" and type a postcode such as NW1 8QL. It appears on a new line.</li>
+            <li>Under "3. Void elements", add another <code>&lt;br&gt;</code> after "Maharashtra" and type a six-digit PIN code. It appears on a new line.</li>
             <li>Add a comment <code>&lt;!-- my note --&gt;</code> anywhere in the body. Nothing changes in the preview.</li>
             <li>Right-click the heading in the preview and choose Inspect. Find the <code>&lt;h1&gt;</code> in the Elements panel and see how the children of the body are nested.</li>
           </ol>
@@ -160,7 +160,7 @@ module HtmlCssContent
           <p>Try our <strong>masala chai</strong> with fresh ginger.</p>
 
           <p class="label">3. Void elements: br and hr (no closing tag)</p>
-          <p>Camden High Street<br>London</p>
+          <p>Station Road<br>Maharashtra</p>
           <hr>
 
           <p class="label">4. A comment (you will not see it below)</p>
@@ -298,7 +298,7 @@ module HtmlCssContent
           <p class="label">2. Whitespace collapses; br keeps lines together</p>
           <p>Doors     open
              at 9 am.</p>
-          <p>Main Auditorium<br>IIT Madras</p>
+          <p>Main Auditorium<br>City Engineering College</p>
 
           <p class="label">3. Meaning, not looks</p>
           <p><strong>Carry your college ID.</strong> The last date is 30 September.</p>
@@ -578,7 +578,7 @@ module HtmlCssContent
           <h2>Try It</h2>
           <ol class="lc-list">
             <li>In section 2 of the starter code, add <code>reversed</code> to the <code>&lt;ol&gt;</code>. The numbers now count down 3, 2, 1.</li>
-            <li>In section 3, add a third item "San Francisco" inside the nested city list. It appears indented, with an empty circle bullet.</li>
+            <li>In section 3, add a third item "Punjab" inside the nested state list. It appears indented, with an empty circle bullet.</li>
             <li>In the table, remove <code>border-collapse: collapse;</code> from the CSS. You now see double borders. Put it back.</li>
             <li>Add a new day-1 row for "Quiz" at "4 pm". "Day 1" has <code>rowspan="2"</code>, so change it to <code>rowspan="3"</code>. Give your new row only two cells.</li>
           </ol>
@@ -618,10 +618,10 @@ module HtmlCssContent
 
           <p class="label">3. Nested list and description list</p>
           <ul id="rules">
-            <li>Teams of 2–4 from these cities:
+            <li>Teams of 2–4 from these states:
               <ul>
-                <li>London</li>
-                <li>Boston</li>
+                <li>Kerala</li>
+                <li>Gujarat</li>
               </ul>
             </li>
           </ul>
@@ -663,7 +663,7 @@ module HtmlCssContent
           <table class="lc-table">
             <thead><tr><th></th><th>GET</th><th>POST</th></tr></thead>
             <tbody>
-              <tr><td>Where the data goes</td><td>In the URL: <code>?q=chai&amp;city=London</code></td><td>In the request body (the hidden part of the request), not the URL</td></tr>
+              <tr><td>Where the data goes</td><td>In the URL: <code>?q=chai&amp;state=Kerala</code></td><td>In the request body (the hidden part of the request), not the URL</td></tr>
               <tr><td>Can be bookmarked or shared</td><td>Yes</td><td>No</td></tr>
               <tr><td>Use for</td><td>Searches and filters that only read data</td><td>Sign-ups, logins, orders, file uploads: anything that changes data</td></tr>
               <tr><td>Passwords?</td><td>Never (they would appear in the URL and history)</td><td>Yes, over HTTPS</td></tr>
@@ -696,8 +696,8 @@ module HtmlCssContent
             </tbody>
           </table>
           <p>Other controls: <code>&lt;textarea&gt;</code> for text with many lines (it has a closing tag). Use <code>&lt;select&gt;</code> with <code>&lt;option value="…"&gt;</code> items for a dropdown. Put related controls together in a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code> caption. This is very important for radio groups. Then screen readers read the question too ("Event: Hackathon, radio button").</p>
-          <div class="lc-code-block"><pre><code>&lt;fieldset&gt;<br>  &lt;legend&gt;Choose one event&lt;/legend&gt;<br>  &lt;label&gt;&lt;input type="radio" name="event" value="hack" required&gt; Hackathon&lt;/label&gt;<br>  &lt;label&gt;&lt;input type="radio" name="event" value="robo"&gt; Robo Race&lt;/label&gt;<br>&lt;/fieldset&gt;<br>&lt;label for="city"&gt;City&lt;/label&gt;<br>&lt;select id="city" name="city"&gt;<br>  &lt;option value="london"&gt;London&lt;/option&gt;<br>  &lt;option value="boston"&gt;Boston&lt;/option&gt;<br>&lt;/select&gt;</code></pre></div>
-          <p><strong>What you will see:</strong> a box with the caption "Choose one event" on its border, and two radio buttons. When you select Robo Race, Hackathon is unselected. This happens because they share <code>name="event"</code>. Below it is a dropdown that shows "London". If you choose Robo Race and Boston, the data sent is <code>event=robo&amp;city=boston</code>.</p>
+          <div class="lc-code-block"><pre><code>&lt;fieldset&gt;<br>  &lt;legend&gt;Choose one event&lt;/legend&gt;<br>  &lt;label&gt;&lt;input type="radio" name="event" value="hack" required&gt; Hackathon&lt;/label&gt;<br>  &lt;label&gt;&lt;input type="radio" name="event" value="robo"&gt; Robo Race&lt;/label&gt;<br>&lt;/fieldset&gt;<br>&lt;label for="state"&gt;State&lt;/label&gt;<br>&lt;select id="state" name="state"&gt;<br>  &lt;option value="kerala"&gt;Kerala&lt;/option&gt;<br>  &lt;option value="gujarat"&gt;Gujarat&lt;/option&gt;<br>&lt;/select&gt;</code></pre></div>
+          <p><strong>What you will see:</strong> a box with the caption "Choose one event" on its border, and two radio buttons. When you select Robo Race, Hackathon is unselected. This happens because they share <code>name="event"</code>. Below it is a dropdown that shows "Kerala". If you choose Robo Race and Gujarat, the data sent is <code>event=robo&amp;state=gujarat</code>.</p>
         </div>
         <div class="lc-section">
           <h2>Buttons</h2>
@@ -784,10 +784,10 @@ module HtmlCssContent
             </fieldset>
 
             <!-- 5. select, checkbox and textarea -->
-            <label for="city">City</label>
-            <select id="city" name="city">
-              <option value="london">London</option>
-              <option value="boston">Boston</option>
+            <label for="state">State</label>
+            <select id="state" name="state">
+              <option value="kerala">Kerala</option>
+              <option value="gujarat">Gujarat</option>
             </select>
             <label><input type="checkbox" name="veg" value="yes"> Veg food only</label>
             <label for="note">Anything else?</label>
@@ -860,8 +860,8 @@ module HtmlCssContent
             <li><code>&lt;address&gt;</code>: <em>contact details</em> for the page, or for the author of the nearest article (email, phone, office). It is not for any postal address in your text.</li>
           </ul>
           <h3>Example: a blog post</h3>
-          <div class="lc-code-block"><pre><code>&lt;article&gt;<br>  &lt;header&gt;<br>    &lt;h2&gt;Best Chai Spots in London&lt;/h2&gt;<br>    &lt;p&gt;Posted &lt;time datetime="2026-10-03"&gt;3 Oct 2026&lt;/time&gt;&lt;/p&gt;<br>  &lt;/header&gt;<br>  &lt;p&gt;Five stalls worth the queue...&lt;/p&gt;<br>  &lt;figure&gt;<br>    &lt;div class="photo"&gt;☕&lt;/div&gt;<br>    &lt;figcaption&gt;Cutting chai, ₹15&lt;/figcaption&gt;<br>  &lt;/figure&gt;<br>  &lt;footer&gt;<br>    &lt;address&gt;Written by &lt;a href="mailto:riya@example.com"&gt;Riya&lt;/a&gt;&lt;/address&gt;<br>  &lt;/footer&gt;<br>&lt;/article&gt;</code></pre></div>
-          <p><strong>What you will see:</strong> a heading "Best Chai Spots in London" and the line "Posted 3 Oct 2026". Then a paragraph, and a ☕ box with the caption "Cutting chai, ₹15" under it. Last, "Written by Riya" in <em>italics</em> (browsers show <code>&lt;address&gt;</code> in italics by default). Nothing looks special. The value is in the meaning. Note that this <code>&lt;header&gt;</code> and <code>&lt;footer&gt;</code> belong to the article. So they are not page landmarks.</p>
+          <div class="lc-code-block"><pre><code>&lt;article&gt;<br>  &lt;header&gt;<br>    &lt;h2&gt;Best Chai Spots in Maharashtra&lt;/h2&gt;<br>    &lt;p&gt;Posted &lt;time datetime="2026-10-03"&gt;3 Oct 2026&lt;/time&gt;&lt;/p&gt;<br>  &lt;/header&gt;<br>  &lt;p&gt;Five stalls worth the queue...&lt;/p&gt;<br>  &lt;figure&gt;<br>    &lt;div class="photo"&gt;☕&lt;/div&gt;<br>    &lt;figcaption&gt;Cutting chai, ₹15&lt;/figcaption&gt;<br>  &lt;/figure&gt;<br>  &lt;footer&gt;<br>    &lt;address&gt;Written by &lt;a href="mailto:riya@example.com"&gt;Riya&lt;/a&gt;&lt;/address&gt;<br>  &lt;/footer&gt;<br>&lt;/article&gt;</code></pre></div>
+          <p><strong>What you will see:</strong> a heading "Best Chai Spots in Maharashtra" and the line "Posted 3 Oct 2026". Then a paragraph, and a ☕ box with the caption "Cutting chai, ₹15" under it. Last, "Written by Riya" in <em>italics</em> (browsers show <code>&lt;address&gt;</code> in italics by default). Nothing looks special. The value is in the meaning. Note that this <code>&lt;header&gt;</code> and <code>&lt;footer&gt;</code> belong to the article. So they are not page landmarks.</p>
         </div>
         <div class="lc-section">
           <h2>Why It Matters</h2>
@@ -922,7 +922,7 @@ module HtmlCssContent
               <span class="tag">&lt;main&gt; (only one per page)</span>
               <article>
                 <span class="tag">&lt;article&gt;</span>
-                <h2>Best Chai Spots in London</h2>
+                <h2>Best Chai Spots in Maharashtra</h2>
                 <p>Posted <time datetime="2026-10-03">3 Oct 2026</time></p>
                 <figure>
                   <div class="photo">☕</div>
@@ -1500,7 +1500,7 @@ module HtmlCssContent
           <h3>Example: a star for required fields</h3>
           <div class="lc-code-block"><pre><code>&lt;label for="name" class="req"&gt;Name&lt;/label&gt;<br><br>.req::after {<br>  content: " *";<br>  color: #dc2626;<br>}</code></pre></div>
           <p><strong>What you will see:</strong> "Name *" with a red star. The star is not in the HTML. <code>::before</code> and <code>::after</code> do not reliably work on <code>&lt;img&gt;</code> or <code>&lt;input&gt;</code>, because those elements have no content of their own to add to. Screen readers usually read generated text. But users cannot select or copy it. So keep important information in the HTML (here, the input should also have the <code>required</code> attribute).</p>
-          <p><strong>One colon or two?</strong> CSS3 added <code>::</code> to separate pseudo-elements from pseudo-classes. Browsers still accept the old form with one colon for the four original ones (<code>:before</code>, <code>:after</code>, <code>:first-line</code>, <code>:first-letter</code>), But write <code>::</code> in new code. Newer ones like <code>::placeholder</code> only work with two colons.</p>
+          <p><strong>One colon or two?</strong> CSS3 added <code>::</code> to separate pseudo-elements from pseudo-classes. Browsers still accept the old form with one colon for the four original ones (<code>:before</code>, <code>:after</code>, <code>:first-line</code>, <code>:first-letter</code>). But write <code>::</code> in new code. Newer ones like <code>::placeholder</code> only work with two colons.</p>
         </div>
         <div class="lc-section">
           <h2>Specificity Summary</h2>
@@ -1705,7 +1705,7 @@ module HtmlCssContent
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Colors, Backgrounds, and Units</title>
+          <title>Colours, Backgrounds and Units</title>
           <style>
             body { font-family: system-ui, sans-serif; padding: 1rem; color: #1f2937; }
             .row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -2074,7 +2074,7 @@ module HtmlCssContent
         </head>
         <body>
           <p class="label">1. Fluid heading</p>
-          <h1>New York Tech Fest 2026: Workshops, Hackathons and Chai</h1>
+          <h1>College Tech Fest 2026: Workshops, Hackathons and Chai</h1>
           <p class="label">2. Readable width (65ch)</p>
           <p class="readable">This paragraph stops at about 65 characters per line. Long lines make the eye lose its place when jumping back to the start of the next line, so limiting width makes reading more comfortable on big screens.</p>
           <p class="label">3. Ellipsis</p>
@@ -2516,7 +2516,7 @@ module HtmlCssContent
         </head>
         <body>
           <div class="page">
-            <header><strong>Annapurna Canteen</strong> — grid-template-areas</header>
+            <header><strong>Annapurna Canteen</strong>: grid-template-areas</header>
             <aside>Sidebar<br>(sidebar area)</aside>
             <main>
               <div class="menu">
@@ -2528,7 +2528,7 @@ module HtmlCssContent
                 <div class="item"><strong>Pav Bhaji</strong>₹70</div>
               </div>
             </main>
-            <footer>Footer area — resize the preview to see the menu reflow</footer>
+            <footer>Footer area: resize the preview to see the menu reflow</footer>
           </div>
         </body>
         </html>
@@ -2644,7 +2644,7 @@ module HtmlCssContent
             .badge::after { content: "Phone layout (< 768px)"; }
             .cards { display: grid; gap: 1rem; padding: 1rem; }
             .card { padding: 1rem; border: 1px solid #99f6e4; border-radius: 8px; }
-            /* TABLET: 768px and up — add, don't undo */
+            /* TABLET: 768px and up: add, don't undo */
             @media (min-width: 768px) {
               nav ul { display: flex; }
               .cards { grid-template-columns: 1fr 1fr; }
@@ -3067,7 +3067,7 @@ module HtmlCssContent
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Chai Point — College Café</title>
+          <title>Chai Point: College Café</title>
           <style>
             :root { --brand: #9a3412; --accent: #fed7aa; --text: #1c1917; --radius: 12px; --space: 1rem; }
             *, *::before, *::after { box-sizing: border-box; }

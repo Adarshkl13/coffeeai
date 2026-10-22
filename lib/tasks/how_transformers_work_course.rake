@@ -18,7 +18,7 @@ namespace :content do
     titles = {
       1 => "The Problem with Old Models (RNN Limits)",
       2 => "Why Transformers Were Invented",
-      3 => "Tokens and Tokenization",
+      3 => "Tokens and Tokenisation",
       4 => "Word Embeddings",
       5 => "Positional Encoding",
       6 => "What is Attention?",
@@ -33,7 +33,7 @@ namespace :content do
       15 => "How a Transformer Predicts the Next Word",
       16 => "Encoder-Only vs Decoder-Only Models (BERT vs GPT)",
       17 => "Vision Transformers (ViT)",
-      18 => "Visualizing Attention",
+      18 => "Visualising Attention",
       19 => "Project: Build a Mini Transformer"
     }
 

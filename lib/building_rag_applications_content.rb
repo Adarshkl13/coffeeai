@@ -675,8 +675,10 @@ module BuildingRagApplicationsContent
                 return [text[i:i + max_chars] for i in range(0, len(text), max_chars)]
             sep, rest = seps[0], seps[1:]
             chunks, current = [], ""
-            for part in text.split(sep):
-                piece = part + (sep if sep == ". " else "")
+            parts = text.split(sep)
+            for n, part in enumerate(parts):
+                # put ". " back on every sentence except the last (it keeps its own full stop)
+                piece = part + (sep if sep == ". " and n < len(parts) - 1 else "")
                 if len(current) + len(piece) <= max_chars:
                     current += piece if not current else (sep if sep != ". " else "") + piece
                 else:
@@ -1016,7 +1018,7 @@ module BuildingRagApplicationsContent
             <ol data-stepper-target="steps">
               <li data-kind="tool" data-label="List sources">412 documents, with hashes made from the cleaned text</li>
               <li data-kind="tool" data-label="Compare">with the 410 documents in the index</li>
-              <li data-kind="result" data-label="Diff">3 new · 5 changed · 1 deleted · 403 unchanged</li>
+              <li data-kind="result" data-label="Diff">3 new · 5 changed · 1 deleted · 404 unchanged</li>
               <li data-kind="tool" data-label="Changed">delete chunks where doc_id in (5 ids) → re-chunk, re-embed, upsert 61 chunks</li>
               <li data-kind="tool" data-label="New + deleted">upsert 29 chunks for 3 new docs · delete chunks of 1 removed doc</li>
               <li data-kind="check" data-label="Log">sync finished in 42 s. It embedded 90 chunks instead of 5,000</li>
@@ -1547,7 +1549,7 @@ module BuildingRagApplicationsContent
         </div>
         <div class="lc-card">
           <h3>Calling Claude from Python</h3>
-          <p>Here is the generation step with the official Anthropic Python SDK. Install it with <code>pip install anthropic</code> and put your key in <code>ANTHROPIC_API_KEY</code>. The RAG Lab's server does the same thing in Ruby.</p>
+          <p>Here is the generation step with the official Anthropic Python SDK. Install it with <code>pip install anthropic</code> and put your key in <code>ANTHROPIC_API_KEY</code>. The RAG Lab's server makes the same kind of call in Ruby, using whichever AI model the site is set to use.</p>
           <pre class="lc-code">
         import anthropic
 
@@ -2460,9 +2462,9 @@ module BuildingRagApplicationsContent
           <div class="lc-badge le-badge le-badge-rag">Building RAG Applications</div>
           <h1 class="lc-title">Capstone Lab: Chat with Your Documents</h1>
         </div>
-        <p class="lc-lead">Build a real RAG chatbot that answers from documents you choose. The <strong>RAG Lab</strong> splits your documents into chunks and embeds them in your browser. It stores the chunks in your own Qdrant collection. For each question, it retrieves the best chunks. When AI answers are switched on for the site, it also asks Gemini for an answer with citations. You can see every step: the chunks, their scores and the exact prompt.</p>
+        <p class="lc-lead">Build a real RAG chatbot that answers from documents you choose. The <strong>RAG Lab</strong> splits your documents into chunks and embeds them in your browser. It stores the chunks in your own Qdrant collection. For each question, it retrieves the best chunks. When AI answers are switched on for the site, it also asks the site's AI model (for example Gemini or Claude) for an answer with citations. You can see every step: the chunks, their scores and the exact prompt.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 230" role="img" aria-label="How the RAG Lab works: the browser chunks and embeds documents and questions. The server stores chunks in Qdrant, retrieves them and calls Gemini with a grounded prompt. The answer comes back with citations and the retrieved chunks.">
+          <svg viewBox="0 0 760 230" role="img" aria-label="How the RAG Lab works: the browser chunks and embeds documents and questions. The server stores chunks in Qdrant, retrieves them and calls the site's AI model with a grounded prompt. The answer comes back with citations and the retrieved chunks.">
             <defs><marker id="r25a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12" fill="#e2e0f0" text-anchor="middle">
               <rect x="10" y="30" width="210" height="170" rx="12" fill="#1f1f44" stroke="#3b82f6"/>
@@ -2473,7 +2475,7 @@ module BuildingRagApplicationsContent
               <text x="382" y="55" font-weight="700" fill="#c4b5fd">Academy server</text>
               <text x="382" y="85">checks limits</text><text x="382" y="108">retrieve top-k</text><text x="382" y="131">threshold gate</text><text x="382" y="154">grounded prompt</text><text x="382" y="177">citations</text>
               <rect x="540" y="20" width="210" height="80" rx="12" fill="#1f1f44" stroke="#ec4899"/><text x="645" y="52" font-weight="700" fill="#f9a8d4">Qdrant</text><text x="645" y="74" fill="#9b99b8" font-size="11">rag_u&lt;your id&gt;: your chunks</text>
-              <rect x="540" y="130" width="210" height="80" rx="12" fill="#1f1f44" stroke="#10b981"/><text x="645" y="162" font-weight="700" fill="#6ee7b7">Gemini</text><text x="645" y="184" fill="#9b99b8" font-size="11">answers only from the sources</text>
+              <rect x="540" y="130" width="210" height="80" rx="12" fill="#1f1f44" stroke="#10b981"/><text x="645" y="162" font-weight="700" fill="#6ee7b7">AI model</text><text x="645" y="184" fill="#9b99b8" font-size="11">answers only from the sources</text>
             </g>
           </svg>
           <figcaption>Everything you built in this course, in one working system.</figcaption>

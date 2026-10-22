@@ -987,10 +987,10 @@ module AiAssistedDevelopmentContent
 
         vague = "Make the search better."
 
-        good = """Goal: fix search so 'Los Angeles' also matches 'los angeles' and ' Los Angeles '.
-        Context: search.py (find_city), Python 3.12.
-        Constraints: do not change find_city's signature; no new packages.
-        Example: input ' LOS ANGELES ' -> returns the Los Angeles record.
+        good = """Goal: fix search so 'Tamil Nadu' also matches 'tamil nadu' and ' Tamil Nadu '.
+        Context: search.py (find_state), Python 3.12.
+        Constraints: do not change find_state's signature; no new packages.
+        Example: input ' TAMIL NADU ' -> returns the Tamil Nadu record.
         Output: a short plan, then a diff.
         Done when: new tests for case and spaces pass and the old tests still pass."""
 
@@ -1652,7 +1652,7 @@ module AiAssistedDevelopmentContent
           <div class="lc-badge le-badge le-badge-aad">AI Assisted Development</div>
           <h1 class="lc-title">The Safe AI Coding Loop</h1>
         </div>
-        <p class="lc-lead">Safe AI-assisted development is not one big "generate" button. It is a short loop that you repeat many times: <strong>plan → generate → review → test → commit</strong>. Each pass is small, so it is easy to understand. It is also cheap to throw away. This unit explains each step in detail. This lesson shows how the steps fit together.</p>
+        <p class="lc-lead">Safe AI-assisted development is not one big "generate" button. It is a short loop that you repeat many times: <strong>plan → generate → review → test → commit</strong>. Each pass is small, so it is easy to understand. It is also cheap to throw away. Later lessons explain each step in detail. This lesson shows how the steps fit together.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 300" role="img" aria-label="A loop: plan, generate, review, test, commit, then back to plan. If the review or the tests fail, go back to generate. If it fails again and again, revert.">
             <defs><marker id="l16a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9d5cf6"/></marker>
@@ -1681,11 +1681,11 @@ module AiAssistedDevelopmentContent
           <table class="lc-table">
             <thead><tr><th>Step</th><th>What you do</th><th>Lesson</th></tr></thead>
             <tbody>
-              <tr><td>1 Plan</td><td>Pick the next small step from the spec. Say what "done" means for this step.</td><td>12</td></tr>
-              <tr><td>2 Generate</td><td>Ask for only that step. Give context and constraints (rules the code must follow).</td><td>9–11</td></tr>
-              <tr><td>3 Review</td><td>Read the diff. Does it do only this step? Do you see any risky patterns?</td><td>18, 20–22</td></tr>
-              <tr><td>4 Test</td><td>Run the tests yourself. New behaviour needs a new test.</td><td>19</td></tr>
-              <tr><td>5 Commit</td><td>Commit with a clear message. This commit is your next safe checkpoint.</td><td>17</td></tr>
+              <tr><td>1 Plan</td><td>Pick the next small step from the spec. Say what "done" means for this step.</td><td>11</td></tr>
+              <tr><td>2 Generate</td><td>Ask for only that step. Give context and constraints (rules the code must follow).</td><td>8–10</td></tr>
+              <tr><td>3 Review</td><td>Read the diff. Does it do only this step? Do you see any risky patterns?</td><td>16, 18–21</td></tr>
+              <tr><td>4 Test</td><td>Run the tests yourself. New behaviour needs a new test.</td><td>17</td></tr>
+              <tr><td>5 Commit</td><td>Commit with a clear message. This commit is your next safe checkpoint.</td><td>15</td></tr>
             </tbody>
           </table>
         </div>
@@ -2750,7 +2750,7 @@ module AiAssistedDevelopmentContent
               <rect x="434" y="45" width="90" height="60" rx="10" fill="#1f1f44" stroke="#f59e0b"/><text x="479" y="72" font-weight="700">5 Fix</text><text x="479" y="90" fill="#9b99b8" font-size="10.5">you + AI</text>
               <rect x="540" y="45" width="90" height="60" rx="10" fill="#1f1f44" stroke="#c4b5fd"/><text x="585" y="72" font-weight="700">6 Gate</text><text x="585" y="90" fill="#9b99b8" font-size="10.5">safety checks</text>
               <rect x="646" y="45" width="104" height="60" rx="10" fill="rgba(16,185,129,.15)" stroke="#10b981"/><text x="698" y="72" font-weight="700">7 Commit</text><text x="698" y="90" fill="#9b99b8" font-size="10.5">8/8 + gate ✓</text>
-              <text x="380" y="145" fill="#c4b5fd">Everything from Units 1–3, in one small feature.</text>
+              <text x="380" y="145" fill="#c4b5fd">Everything from this course, in one small feature.</text>
             </g>
           </svg>
           <figcaption>The plan for the capstone.</figcaption>
@@ -2819,7 +2819,7 @@ module AiAssistedDevelopmentContent
           <h3>Try It: your capstone</h3>
           <ol class="lc-list">
             <li>Run the starter. The AI draft passes only <strong>3 of 8</strong> tests. The gate reports what is wrong.</li>
-            <li>Fix <code>parse_duration</code> yourself. Or ask an AI, using the prompt patterns from Unit 2, and paste the failing test output. <strong>Do not edit <code>TESTS</code></strong>: the gate checks its fingerprint.</li>
+            <li>Fix <code>parse_duration</code> yourself. Or ask an AI, using the prompt patterns from Lessons 8 and 13, and paste the failing test output. <strong>Do not edit <code>TESTS</code></strong>: the gate checks its fingerprint.</li>
             <li>You are done when the output ends with <code>SHIP IT</code>.</li>
             <li>Extra challenge: add a test for <code>"1h 1h"</code>. Should the same unit be allowed twice? Decide, write it in the spec, then make the code match.</li>
           </ol>

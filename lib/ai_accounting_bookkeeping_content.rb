@@ -68,7 +68,8 @@ module AiAccountingBookkeepingContent
         </div>
         <div class="lc-card">
           <h3>Worked example: a day at Sweet Crumbs</h3>
-          <p>Sweet Crumbs is a small bakery in London. On 1 September it starts the day with ₹20,000 in cash and bank together. This is its <strong>opening balance</strong> (the money at the start of the day). Here is its simple cash book.</p>
+          <p>Sweet Crumbs is a small home bakery in Maharashtra. On 1 September it starts the day with ₹20,000 in cash and bank together. This is its <strong>opening balance</strong> (the money at the start of the day). Here is its simple cash book.</p>
+          <p><strong>Note:</strong> Sweet Crumbs comes back in many lessons of this course. Each lesson uses its own made-up month of figures, so amounts such as cash, rent and bills can be different from one lesson to the next.</p>
           <table class="lc-table">
             <thead><tr><th>Date</th><th>Details</th><th>Money in (₹)</th><th>Money out (₹)</th><th>Balance (₹)</th></tr></thead>
             <tbody>
@@ -102,7 +103,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Ask AI to explain the basics in simple words and to build a starter cash book for a business you know.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a friendly bookkeeping tutor for small business owners in India. I run [Sweet Crumbs, a small bakery in London]. I am new to bookkeeping.
+            <pre class="ai-try-prompt">You are a friendly bookkeeping tutor for small business owners in India. I run [Sweet Crumbs, a small bakery in Maharashtra]. I am new to bookkeeping.
 
         1. Explain bookkeeping and accounting in 5 simple sentences.
         2. Explain these words in one line each: transaction, invoice, receipt, cash book, profit.
@@ -194,7 +195,7 @@ module AiAccountingBookkeepingContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Categorise these transactions.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>You help Sweet Crumbs, a small bakery in London, sort its bank lines.
+          <pre><code>You help Sweet Crumbs, a small bakery in Maharashtra, sort its bank lines.
         Use only these categories: Cake sales, Raw materials, Rent,
         Electricity, Packaging, Salaries, Owner drawings, Unsure.
         For each line give: date, amount, category and a one-line reason.
@@ -226,7 +227,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Ask AI to categorise six made-up bank lines. Then check its work like an accountant would.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a careful bookkeeping assistant for [Sweet Crumbs, a small bakery in London].
+            <pre class="ai-try-prompt">You are a careful bookkeeping assistant for [Sweet Crumbs, a small bakery in Maharashtra].
 
         Categorise the bank lines below. Use only these categories: Cake sales, Raw materials, Rent, Electricity, Packaging, Salaries, Owner drawings, Unsure.
 
@@ -237,7 +238,7 @@ module AiAccountingBookkeepingContent
 
         Bank lines (made up):
         01-09-2026 | UPI/ANNAPURNA MILLS | out 3,450
-        03-09-2026 | UPI/PUNE CAFE HOUSE | in 6,500
+        03-09-2026 | UPI/GREEN LEAF CAFE | in 6,500
         05-09-2026 | NEFT/SHOP RENT SEPT | out 18,000
         07-09-2026 | BILLPAY/ELECTRICITY | out 2,200
         09-09-2026 | UPI/RAHUL K | out 2,000
@@ -393,7 +394,7 @@ module AiAccountingBookkeepingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a bookkeeping tutor for beginners in India.
 
-        Business: [Rangrez Crafts, a handicrafts store in Manchester].
+        Business: [Rangrez Crafts, a handicrafts store in Rajasthan].
         Use only these accounts: Bank, Stock purchases, Creditors, Owner's capital, Sales, Rent.
         Ignore GST in this exercise.
 
@@ -510,7 +511,7 @@ module AiAccountingBookkeepingContent
           <h3>Activity: a safe duplicate check</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="thought" data-label="The task">You work in the accounts team at LedgerLite Pvt Ltd, a software company in San Francisco. Your manager asks you to find possible duplicate vendor payments in last month's 200 payments.</li>
+              <li data-kind="thought" data-label="The task">You work in the accounts team at LedgerLite Pvt Ltd, an accounting software company in Karnataka. Your manager asks you to find possible duplicate vendor payments in last month's 200 payments.</li>
               <li data-kind="warn" data-label="Stop">The export has vendor names, bank account numbers and PAN. Pasting it into a free AI chat would share private data outside the company.</li>
               <li data-kind="check" data-label="Check the policy">You read the company AI policy. It allows the approved AI tool for internal data after personal and bank details are removed.</li>
               <li data-kind="tool" data-label="Spreadsheet">You delete the PAN and account number columns. You replace vendor names with codes like V001. You save the code list in a separate private file.</li>
@@ -530,7 +531,7 @@ module AiAccountingBookkeepingContent
 
         1. A checklist of 8 short points to check before I paste any accounts data into an AI tool.
 
-        2. A fully made-up practice table of 8 sales invoices for [Rangrez Crafts, a handicrafts store in Manchester]. Columns: Invoice no, Date (DD-MM-YYYY), Customer code, Amount (₹), Paid (Yes/No). Use codes like C01 instead of customer names. Do not include any PAN, Aadhaar, bank account, phone number or email, even fake ones.
+        2. A fully made-up practice table of 8 sales invoices for [Rangrez Crafts, a handicrafts store in Rajasthan]. Columns: Invoice no, Date (DD-MM-YYYY), Customer code, Amount (₹), Paid (Yes/No). Use codes like C01 instead of customer names. Do not include any PAN, Aadhaar, bank account, phone number or email, even fake ones.
 
         3. Five questions I should ask my manager about our company's AI policy.
 
@@ -587,7 +588,7 @@ module AiAccountingBookkeepingContent
                 <text x="660" y="58" font-weight="700">Total</text>
                 <text x="720" y="58" font-weight="700">Check</text>
                 <rect x="395" y="68" width="350" height="28" fill="#27274e"/>
-                <text x="445" y="86">London Pack</text><text x="530" y="86">5,000</text><text x="595" y="86">900</text><text x="660" y="86">5,900</text><text x="720" y="86" fill="#6ee7b7">OK</text>
+                <text x="445" y="86">Shree Pack</text><text x="530" y="86">5,000</text><text x="595" y="86">900</text><text x="660" y="86">5,900</text><text x="720" y="86" fill="#6ee7b7">OK</text>
                 <rect x="395" y="96" width="350" height="28" fill="#1f1f44"/>
                 <text x="445" y="114">Deccan Dairy</text><text x="530" y="114">12,400</text><text x="595" y="114">620</text><text x="660" y="114">13,020</text><text x="720" y="114" fill="#6ee7b7">OK</text>
                 <rect x="395" y="124" width="350" height="28" fill="#27274e" stroke="#ec4899"/>
@@ -621,7 +622,7 @@ module AiAccountingBookkeepingContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Read these receipts.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>Read the 3 attached receipts for Sweet Crumbs, a bakery in London.
+          <pre><code>Read the 3 attached receipts for Sweet Crumbs, a bakery in Maharashtra.
         Make a table with columns: Vendor, Invoice no, Date (DD-MM-YYYY),
         Taxable value (₹), GST (₹), Total (₹).
         Copy every number exactly as printed. Do not calculate or fix any number.
@@ -635,7 +636,7 @@ module AiAccountingBookkeepingContent
           <table class="lc-table">
             <thead><tr><th>Vendor</th><th>Invoice no</th><th>Date</th><th>Taxable (₹)</th><th>GST (₹)</th><th>Total (₹)</th><th>Check</th></tr></thead>
             <tbody>
-              <tr><td>London Pack House</td><td>INV-2291</td><td>03-09-2026</td><td>5,000.00</td><td>900.00</td><td>5,900.00</td><td>OK</td></tr>
+              <tr><td>Shree Pack House</td><td>INV-2291</td><td>03-09-2026</td><td>5,000.00</td><td>900.00</td><td>5,900.00</td><td>OK</td></tr>
               <tr><td>Deccan Dairy Supplies</td><td>DDS/118</td><td>05-09-2026</td><td>12,400.00</td><td>620.00</td><td>13,020.00</td><td>OK</td></tr>
               <tr><td>Shree Gas Agency</td><td>SG-7781</td><td>08-09-2026</td><td>2,330.00</td><td>428.40</td><td>2,808.40</td><td>CHECK</td></tr>
             </tbody>
@@ -652,7 +653,7 @@ module AiAccountingBookkeepingContent
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Your prompt">Read these 3 made-up Sweet Crumbs receipts. Make a table: Vendor, Invoice no, Date (DD-MM-YYYY), Taxable, GST, Total. Copy numbers exactly. Write UNCLEAR if you cannot read a field.</li>
-              <li data-kind="answer" data-label="AI table">London Pack House: 5,000, 900, 5,900. Deccan Dairy Supplies: 12,400, 620, 13,020. Shree Gas Agency: 2,330, 428.40, 2,808.40. "All fields were read clearly."</li>
+              <li data-kind="answer" data-label="AI table">Shree Pack House: 5,000, 900, 5,900. Deccan Dairy Supplies: 12,400, 620, 13,020. Shree Gas Agency: 2,330, 428.40, 2,808.40. "All fields were read clearly."</li>
               <li data-kind="warn" data-label="Catch this">The AI says everything is clear. That is not proof. Always run your own checks.</li>
               <li data-kind="tool" data-label="Spreadsheet">You paste the table into Google Sheets. You add the Check column with the ROUND formula.</li>
               <li data-kind="result" data-label="Check column">Rows 1 and 2 show OK. Row 3 shows CHECK: 2,330 + 428.40 = 2,758.40, not 2,808.40.</li>
@@ -665,7 +666,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Ask AI to extract four made-up receipts into a table with a check column. One receipt has a wrong total. See if the AI flags it.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a careful bookkeeping assistant for [Rangrez Crafts, a handicrafts store in Manchester].
+            <pre class="ai-try-prompt">You are a careful bookkeeping assistant for [Rangrez Crafts, a handicrafts store in Rajasthan].
 
         Read the made-up receipts below. Dates are in Indian format (DD/MM/YYYY).
         Make a table with columns: Vendor, Bill no, Date (DD-MM-YYYY), Taxable (₹), GST (₹), Total (₹), Check.
@@ -674,10 +675,10 @@ module AiAccountingBookkeepingContent
         In the Check column, write OK if Taxable + GST equals Total. Otherwise write CHECK and show the sum.
         After the table, list any receipt that needs a person to look at it, and why.
 
-        Receipt A: Trafford Print Works. Bill TPW/0457. 12/09/2026. 20 cotton bedsheets at ₹450 each = ₹9,000. GST ₹450. Total ₹9,450.
+        Receipt A: Tara Print Works. Bill TPW/0457. 12/09/2026. 20 cotton bedsheets at ₹450 each = ₹9,000. GST ₹450. Total ₹9,450.
         Receipt B: Pink City Couriers. Bill 8812. 14/09/2026. Courier charges ₹1,200. GST ₹216. Total ₹1,416.
         Receipt C: Handwritten note. Tea and snacks for staff. 15/09/2026. ₹340 paid in cash.
-        Receipt D: Manchester Stationers. Bill MS-332. 16/09/2026. Taxable ₹800. GST ₹144. Total ₹954.</pre>
+        Receipt D: Mehta Stationers. Bill MS-332. 16/09/2026. Taxable ₹800. GST ₹144. Total ₹954.</pre>
             <ul class="ai-try-checks">
               <li>Receipt D is flagged: 800 + 144 = 944, not 954.</li>
               <li>Receipt C shows MISSING for the bill number, vendor and GST.</li>
@@ -719,7 +720,7 @@ module AiAccountingBookkeepingContent
               <text x="24" y="195" text-anchor="start">UPI/ANIKET JOSHI/CAKE ORDER   +₹1,850</text>
               <text x="736" y="195" text-anchor="end" fill="#c4b5fd">Sales (AI suggestion, you approve)</text>
               <rect x="10" y="214" width="740" height="32" rx="6" fill="#27274e" stroke="#f59e0b"/>
-              <text x="24" y="235" text-anchor="start">ATM WDL BANER   −₹5,000</text>
+              <text x="24" y="235" text-anchor="start">ATM WDL MAIN RD   −₹5,000</text>
               <text x="736" y="235" text-anchor="end" fill="#fcd34d">Unclear: Suspense, ask the owner</text>
             </g>
           </svg>
@@ -728,15 +729,15 @@ module AiAccountingBookkeepingContent
         <div class="lc-card">
           <h3>What categorising means</h3>
           <p>Your <strong>chart of accounts</strong> is the list of account names your business uses, such as Sales, Rent and Salaries. Categorising means you choose one of these accounts for each bank line. Accounting software such as Tally, Zoho Books or QuickBooks can import a bank statement and suggest accounts. You can also do it in a spreadsheet.</p>
-          <p>Here is one week of sample lines from Sweet Crumbs, a small bakery in London. The names and amounts are made up.</p>
+          <p>Here is one week of sample lines from Sweet Crumbs, a small bakery in Maharashtra. The names and amounts are made up.</p>
           <table class="lc-table">
             <thead><tr><th>Date</th><th>Bank description</th><th>In (₹)</th><th>Out (₹)</th><th>Account</th></tr></thead>
             <tbody>
               <tr><td>01 Sep</td><td>UPI/ANIKET JOSHI/CAKE ORDER</td><td>1,850</td><td></td><td>Sales</td></tr>
               <tr><td>02 Sep</td><td>NEFT/SHREE FLOUR MILLS</td><td></td><td>6,400</td><td>Raw Materials</td></tr>
-              <tr><td>03 Sep</td><td>RENT SEP SHOP BANER</td><td></td><td>18,000</td><td>Rent</td></tr>
+              <tr><td>03 Sep</td><td>RENT SEP SHOP MAIN RD</td><td></td><td>18,000</td><td>Rent</td></tr>
               <tr><td>04 Sep</td><td>FOOD APP SETTLEMENT</td><td>12,640</td><td></td><td>Sales (see note below)</td></tr>
-              <tr><td>05 Sep</td><td>ATM WDL BANER</td><td></td><td>5,000</td><td>Suspense: ask the owner</td></tr>
+              <tr><td>05 Sep</td><td>ATM WDL MAIN RD</td><td></td><td>5,000</td><td>Suspense: ask the owner</td></tr>
               <tr><td>05 Sep</td><td>BANK CHARGES SMS</td><td></td><td>59</td><td>Bank Charges</td></tr>
               <tr><td>06 Sep</td><td>UPI/RK PACKAGING</td><td></td><td>2,360</td><td>Packaging</td></tr>
               <tr><td>07 Sep</td><td>IMPS/MEENAKSHI K/SALARY</td><td></td><td>12,000</td><td>Salaries</td></tr>
@@ -789,7 +790,7 @@ module AiAccountingBookkeepingContent
               <li data-bucket="income" data-why="A customer paid for a cake order. This is a sale.">UPI/ANIKET JOSHI/CAKE ORDER, +₹1,850</li>
               <li data-bucket="expense" data-why="Flour is a raw material for the bakery.">NEFT/SHREE FLOUR MILLS, −₹6,400</li>
               <li data-bucket="expense" data-why="The bank took a small fee. This is a bank charge.">BANK CHARGES SMS, −₹59</li>
-              <li data-bucket="ask" data-why="The cash could be petty cash for the shop or money for the owner. Only the owner knows.">ATM WDL BANER, −₹5,000</li>
+              <li data-bucket="ask" data-why="The cash could be petty cash for the shop or money for the owner. Only the owner knows.">ATM WDL MAIN RD, −₹5,000</li>
               <li data-bucket="ask" data-why="Money moved to the owner's own account is not a business expense. Ask how the owner wants it recorded.">IMPS to owner's savings account, −₹20,000</li>
               <li data-bucket="expense" data-why="Boxes and bags for cakes are a packaging cost.">UPI/RK PACKAGING, −₹2,360</li>
               <li data-bucket="ask" data-why="A credit with only a reference number could be a sale, a loan or the owner's money.">NEFT CREDIT REF 88213, +₹9,000</li>
@@ -800,7 +801,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Ask the AI to categorise a week of sample bank lines using only your chart of accounts. Then check its totals yourself.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a careful bookkeeping assistant for [Sweet Crumbs, a small bakery in London].
+            <pre class="ai-try-prompt">You are a careful bookkeeping assistant for [Sweet Crumbs, a small bakery in Maharashtra].
         Task: put each bank line below into ONE account from my chart of accounts.
 
         Chart of accounts: Sales, Raw Materials, Packaging, Rent, Electricity, Salaries, Bank Charges, Owner's Drawings, Suspense.
@@ -808,8 +809,8 @@ module AiAccountingBookkeepingContent
         Bank lines (made-up sample data):
         01-09 | UPI/ANIKET JOSHI/CAKE ORDER | in 1,850
         02-09 | NEFT/SHREE FLOUR MILLS | out 6,400
-        03-09 | RENT SEP SHOP BANER | out 18,000
-        05-09 | ATM WDL BANER | out 5,000
+        03-09 | RENT SEP SHOP MAIN RD | out 18,000
+        05-09 | ATM WDL MAIN RD | out 5,000
         05-09 | BANK CHARGES SMS | out 59
         06-09 | UPI/RK PACKAGING | out 2,360
         07-09 | IMPS/MEENAKSHI K/SALARY | out 12,000
@@ -935,7 +936,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Give the AI a sample list of unmatched items and ask it to build a reconciliation. Then check that both sides really balance.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a bookkeeping assistant for [Sweet Crumbs, a small bakery in London]. Help me reconcile the bank account for [September 2026].
+            <pre class="ai-try-prompt">You are a bookkeeping assistant for [Sweet Crumbs, a small bakery in Maharashtra]. Help me reconcile the bank account for [September 2026].
 
         Made-up sample data:
         Bank statement closing balance: ₹62,480
@@ -996,15 +997,15 @@ module AiAccountingBookkeepingContent
         </figure>
         <div class="lc-card">
           <h3>The ageing report</h3>
-          <p>Each sales invoice has <strong>credit terms</strong> (how many days the customer gets to pay), for example 30 days. The <strong>due date</strong> is the invoice date plus those days. An <strong>ageing report</strong> groups unpaid invoices by how many days they are past the due date. Here are sample invoices for Rangrez Crafts, a handicrafts store in Manchester.</p>
+          <p>Each sales invoice has <strong>credit terms</strong> (how many days the customer gets to pay), for example 30 days. The <strong>due date</strong> is the invoice date plus those days. An <strong>ageing report</strong> groups unpaid invoices by how many days they are past the due date. Here are sample invoices for Rangrez Crafts, a handicrafts store in Rajasthan.</p>
           <table class="lc-table">
             <thead><tr><th>Invoice</th><th>Customer</th><th>Amount (₹)</th><th>Due date</th><th>Days overdue on 30 Sep</th><th>Group</th></tr></thead>
             <tbody>
-              <tr><td>RC-097</td><td>Craft Corner, New York</td><td>6,200</td><td>20 Jun 2026</td><td>102</td><td>Over 90</td></tr>
-              <tr><td>RC-118</td><td>Hotel Amber Stay, Manchester</td><td>42,000</td><td>09 Aug 2026</td><td>52</td><td>31–60</td></tr>
-              <tr><td>RC-124</td><td>Lotus Home Decor, Chicago</td><td>18,500</td><td>15 Sep 2026</td><td>15</td><td>1–30</td></tr>
-              <tr><td>RC-127</td><td>Hotel Amber Stay, Manchester</td><td>12,000</td><td>25 Sep 2026</td><td>5</td><td>1–30</td></tr>
-              <tr><td>RC-131</td><td>Neel Boutique, Cambridge</td><td>9,800</td><td>10 Oct 2026</td><td>0</td><td>Not yet due</td></tr>
+              <tr><td>RC-097</td><td>Craft Corner, Punjab</td><td>6,200</td><td>20 Jun 2026</td><td>102</td><td>Over 90</td></tr>
+              <tr><td>RC-118</td><td>Hotel Amber Stay, Rajasthan</td><td>42,000</td><td>09 Aug 2026</td><td>52</td><td>31–60</td></tr>
+              <tr><td>RC-124</td><td>Lotus Home Decor, Karnataka</td><td>18,500</td><td>15 Sep 2026</td><td>15</td><td>1–30</td></tr>
+              <tr><td>RC-127</td><td>Hotel Amber Stay, Rajasthan</td><td>12,000</td><td>25 Sep 2026</td><td>5</td><td>1–30</td></tr>
+              <tr><td>RC-131</td><td>Neel Boutique, Gujarat</td><td>9,800</td><td>10 Oct 2026</td><td>0</td><td>Not yet due</td></tr>
               <tr><td></td><td><strong>Total</strong></td><td><strong>88,500</strong></td><td></td><td></td><td></td></tr>
             </tbody>
           </table>
@@ -1020,8 +1021,8 @@ module AiAccountingBookkeepingContent
           <table class="lc-table">
             <thead><tr><th>Supplier</th><th>Bill amount (₹)</th><th>Due date</th></tr></thead>
             <tbody>
-              <tr><td>Manchester Packaging Co</td><td>3,540</td><td>02 Oct 2026</td></tr>
-              <tr><td>Trafford Block Printers</td><td>24,000</td><td>05 Oct 2026</td></tr>
+              <tr><td>Mahavir Packaging Co</td><td>3,540</td><td>02 Oct 2026</td></tr>
+              <tr><td>Tara Block Printers</td><td>24,000</td><td>05 Oct 2026</td></tr>
               <tr><td>Blue Pottery Works</td><td>15,000</td><td>12 Oct 2026</td></tr>
               <tr><td><strong>Total</strong></td><td><strong>42,540</strong></td><td></td></tr>
             </tbody>
@@ -1033,7 +1034,7 @@ module AiAccountingBookkeepingContent
           <p>Before you send any reminder, check the bank and UPI records. The customer may have already paid. A reminder for a paid invoice looks careless. Here is a weak prompt:</p>
           <pre><code>Write an email telling Hotel Amber Stay to pay us now.</code></pre>
           <p>This can give a rude or threatening email. A better prompt gives the facts, the tone and the limits:</p>
-          <pre><code>Write a polite payment reminder from Rangrez Crafts, Manchester.
+          <pre><code>Write a polite payment reminder from Rangrez Crafts, Rajasthan.
         Customer: Hotel Amber Stay. Invoice RC-118, ₹42,000,
         due 9 August 2026. Today is 30 September 2026.
         Tone: friendly and respectful. We value this customer.
@@ -1062,7 +1063,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Ask the AI to write three reminder emails for one overdue sample invoice, from friendly to firm.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an accounts assistant for [Rangrez Crafts, a handicrafts store in Manchester].
+            <pre class="ai-try-prompt">You are an accounts assistant for [Rangrez Crafts, a handicrafts store in Rajasthan].
         Write three short payment reminder emails for this overdue invoice (made-up sample data):
 
         Customer: [Hotel Amber Stay], contact person [Mr Mehta]
@@ -1134,7 +1135,7 @@ module AiAccountingBookkeepingContent
         </figure>
         <div class="lc-card">
           <h3>Check claims against the policy</h3>
-          <p>An <strong>expense policy</strong> is the company's written rule book for claims. Here is a made-up sample policy for LedgerLite Pvt Ltd, a software company in San Francisco. Your company's real policy will be different.</p>
+          <p>An <strong>expense policy</strong> is the company's written rule book for claims. Here is a made-up sample policy for LedgerLite Pvt Ltd, an accounting software company in Karnataka. Your company's real policy will be different.</p>
           <ul class="lc-list">
             <li>Every claim needs a receipt or bill.</li>
             <li>Meals on work travel: up to ₹800 per day.</li>
@@ -1149,7 +1150,7 @@ module AiAccountingBookkeepingContent
               <tr><td>C-01</td><td>Kiran</td><td>03 Sep</td><td>Cab to airport, bill CB-5521</td><td>1,150</td><td>Approve</td></tr>
               <tr><td>C-02</td><td>Kiran</td><td>03 Sep</td><td>Cab to airport, bill CB-5521</td><td>1,150</td><td>Reject: same bill as C-01</td></tr>
               <tr><td>C-03</td><td>Divya</td><td>08 Sep</td><td>Dinner on a work trip</td><td>1,350</td><td>Hold: ₹550 over the meal limit</td></tr>
-              <tr><td>C-04</td><td>Divya</td><td>09 Sep</td><td>Hotel, Seattle, 1 night</td><td>3,800</td><td>Approve</td></tr>
+              <tr><td>C-04</td><td>Divya</td><td>09 Sep</td><td>Hotel, Gujarat, 1 night</td><td>3,800</td><td>Approve</td></tr>
               <tr><td>C-05</td><td>Kiran</td><td>14 Sep</td><td>Printer ink, no receipt</td><td>2,200</td><td>Hold: ask for the receipt</td></tr>
               <tr><td>C-06</td><td>Farhan</td><td>21 Jun</td><td>Taxi to client office</td><td>640</td><td>Hold: older than 30 days</td></tr>
             </tbody>
@@ -1210,7 +1211,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Ask the AI to check a list of sample claims against a sample policy. Then compare its answer with the worked example above.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an accounts assistant at [LedgerLite Pvt Ltd, a software company in San Francisco]. Check these expense claims against our policy.
+            <pre class="ai-try-prompt">You are an accounts assistant at [LedgerLite Pvt Ltd, an accounting software company in Karnataka]. Check these expense claims against our policy.
 
         Policy (made-up sample):
         - Every claim needs a receipt or bill.
@@ -1302,7 +1303,7 @@ module AiAccountingBookkeepingContent
               <tr><td>Other</td><td>Place of supply (with the state name for inter-state sales), whether reverse charge applies, and the supplier's signature or digital signature</td></tr>
             </tbody>
           </table>
-          <p>Here is a sample calculation for Rangrez Crafts in Manchester. It uses a <strong>made-up 10% rate</strong>, only to make the maths easy. Real rates depend on the item, so check the official rate lists.</p>
+          <p>Here is a sample calculation for Rangrez Crafts in Rajasthan. It uses a <strong>made-up 10% rate</strong>, only to make the maths easy. Real rates depend on the item, so check the official rate lists.</p>
           <pre><code>SAMPLE ONLY (made-up 10% rate)
         Taxable value of a sale:             ₹10,000
         Sale within the same state:  CGST 5% = ₹500, SGST 5% = ₹500
@@ -1342,11 +1343,11 @@ module AiAccountingBookkeepingContent
           <table class="lc-table">
             <thead><tr><th>Supplier, invoice</th><th>Tax in books (₹)</th><th>Tax in GSTR-2B (₹)</th><th>Status</th></tr></thead>
             <tbody>
-              <tr><td>Trafford Block Printers, TBP/211</td><td>2,400</td><td>2,400</td><td>Matched</td></tr>
-              <tr><td>Manchester Packaging Co, MPC-88</td><td>540</td><td>540</td><td>Matched</td></tr>
+              <tr><td>Tara Block Printers, TBP/211</td><td>2,400</td><td>2,400</td><td>Matched</td></tr>
+              <tr><td>Mahavir Packaging Co, MPC-88</td><td>540</td><td>540</td><td>Matched</td></tr>
               <tr><td>Blue Pottery Works, BPW-045</td><td>1,500</td><td>not shown</td><td>Ask the supplier to report it</td></tr>
               <tr><td>Thar Textiles, TT/1190</td><td>3,200</td><td>2,300</td><td>Check the paper invoice</td></tr>
-              <tr><td>Phoenix Dyes, PD-72</td><td>860</td><td>860</td><td>Matched</td></tr>
+              <tr><td>Peacock Dyes, PD-72</td><td>860</td><td>860</td><td>Matched</td></tr>
               <tr><td>Marudhar Traders, MT-19</td><td>not in books</td><td>350</td><td>Did we buy this? Check.</td></tr>
               <tr><td><strong>Total</strong></td><td><strong>8,500</strong></td><td><strong>6,450</strong></td><td>Difference ₹2,050</td></tr>
             </tbody>
@@ -1371,20 +1372,20 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Ask the AI to match a sample purchase register with a sample GSTR-2B list, and to draft a follow-up email.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a GST data assistant for [Rangrez Crafts, a handicrafts store in Manchester]. This is for learning. Use only the made-up sample data below.
+            <pre class="ai-try-prompt">You are a GST data assistant for [Rangrez Crafts, a handicrafts store in Rajasthan]. This is for learning. Use only the made-up sample data below.
 
         Our purchase register (supplier | invoice | GST amount):
-        Trafford Block Printers | TBP/211 | ₹2,400
-        Manchester Packaging Co | MPC-88 | ₹540
+        Tara Block Printers | TBP/211 | ₹2,400
+        Mahavir Packaging Co | MPC-88 | ₹540
         Blue Pottery Works | BPW-045 | ₹1,500
         Thar Textiles | TT/1190 | ₹3,200
-        Phoenix Dyes | PD-72 | ₹860
+        Peacock Dyes | PD-72 | ₹860
 
         GSTR-2B list (supplier | invoice | GST amount):
-        Trafford Block Printers | TBP/211 | ₹2,400
-        Manchester Packaging Co | MPC-88 | ₹540
+        Tara Block Printers | TBP/211 | ₹2,400
+        Mahavir Packaging Co | MPC-88 | ₹540
         Thar Textiles | TT/1190 | ₹2,300
-        Phoenix Dyes | PD-72 | ₹860
+        Peacock Dyes | PD-72 | ₹860
         Marudhar Traders | MT-19 | ₹350
 
         Tasks:
@@ -1413,7 +1414,7 @@ module AiAccountingBookkeepingContent
           <div class="lc-badge le-badge le-badge-fin">Finance</div>
           <h1 class="lc-title">Month-End Close</h1>
         </div>
-        <p class="lc-lead">The <strong>month-end close</strong> is the set of jobs you do after a month ends. When it is done, the books for that month are complete and correct. Owners, banks and tax filings all depend on these numbers. In this lesson, you will follow a close checklist, learn what an <strong>accrual</strong> is, build a <strong>trial balance</strong> and use AI to help you find errors. We use <em>Sweet Crumbs</em>, a made-up bakery in London, and its August 2026 books.</p>
+        <p class="lc-lead">The <strong>month-end close</strong> is the set of jobs you do after a month ends. When it is done, the books for that month are complete and correct. Owners, banks and tax filings all depend on these numbers. In this lesson, you will follow a close checklist, learn what an <strong>accrual</strong> is, build a <strong>trial balance</strong> and use AI to help you find errors. We use <em>Sweet Crumbs</em>, a made-up home bakery in Maharashtra, and its August 2026 books.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 250" role="img" aria-label="Six month-end close steps in a row: collect, record, reconcile, adjust, trial balance, and review and lock. Below them, one band shows how AI helps and one band shows what you must decide.">
             <defs><marker id="acc11a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -1552,7 +1553,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Give the AI a draft trial balance with an error in it. Ask it to find the difference, suggest causes and list missing adjustments.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a careful bookkeeping assistant. I am closing the month for [Sweet Crumbs, a small bakery in London]. Below is a draft trial balance for [August 2026]. It is made-up sample data.
+            <pre class="ai-try-prompt">You are a careful bookkeeping assistant. I am closing the month for [Sweet Crumbs, a small bakery in Maharashtra]. Below is a draft trial balance for [August 2026]. It is made-up sample data.
 
         Account | Debit ₹ | Credit ₹
         Equipment | 4,10,000 |
@@ -1730,7 +1731,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Ask the AI to build all three statements from sample data and prove that they tie together.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an accounting tutor. Explain in simple English for a small business owner. Use this made-up data for [Sweet Crumbs, a London bakery], [August 2026]. All amounts in ₹, without GST.
+            <pre class="ai-try-prompt">You are an accounting tutor. Explain in simple English for a small business owner. Use this made-up data for [Sweet Crumbs, a Maharashtra bakery], [August 2026]. All amounts in ₹, without GST.
 
         Income and costs: sales 4,20,000; cost of goods sold 1,68,000; salaries 90,000; rent 45,000; electricity 18,000; depreciation 6,000; loan interest 1,500; marketing 7,500.
 
@@ -1884,7 +1885,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Give the AI a two-month table and a list of confirmed facts. Ask for a short owner report that uses only those facts.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are writing a one-page monthly report for the owner of [Sweet Crumbs, a small bakery in London]. The owner is not an accountant. Use simple English. All data is made up.
+            <pre class="ai-try-prompt">You are writing a one-page monthly report for the owner of [Sweet Crumbs, a small bakery in Maharashtra]. The owner is not an accountant. Use simple English. All data is made up.
 
         Item | July ₹ | August ₹
         Sales | 3,80,000 | 4,20,000
@@ -1925,7 +1926,7 @@ module AiAccountingBookkeepingContent
           <div class="lc-badge le-badge le-badge-fin">Finance</div>
           <h1 class="lc-title">Controls and Error Checks</h1>
         </div>
-        <p class="lc-lead"><strong>Internal controls</strong> are simple rules that stop mistakes and fraud before they cause damage. Examples are "a second person approves big payments" and "the software records every change". In this lesson, you will learn four basic controls. You will also learn how to use spreadsheets and AI to spot unusual entries. We use <em>LedgerLite Pvt Ltd</em>, a made-up software company in San Francisco.</p>
+        <p class="lc-lead"><strong>Internal controls</strong> are simple rules that stop mistakes and fraud before they cause damage. Examples are "a second person approves big payments" and "the software records every change". In this lesson, you will learn four basic controls. You will also learn how to use spreadsheets and AI to spot unusual entries. We use <em>LedgerLite Pvt Ltd</em>, a made-up accounting software company in Karnataka that serves small businesses in India.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 280" role="img" aria-label="A payment moves through three different people: Priya enters the bill, Arjun approves it and Kavya releases the payment to Navkar Bank. Below, an audit trail logs who did what and when. A side box lists red flags.">
             <defs><marker id="acc14a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -2037,7 +2038,7 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Ask the AI to review a small, made-up journal export and explain which lines need a closer look.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an internal audit assistant for [LedgerLite Pvt Ltd, a software company in San Francisco]. Company rule: [payments above ₹50,000 need a second approver who is not the person who entered them]. All data below is made up.
+            <pre class="ai-try-prompt">You are an internal audit assistant for [LedgerLite Pvt Ltd, an accounting software company in Karnataka]. Company rule: [payments above ₹50,000 need a second approver who is not the person who entered them]. All data below is made up.
 
         ID | Date | Vendor | Amount ₹ | Entered by | Approved by | Note
         JE-301 | Mon 03 Aug 2026 | Metro Office Rentals | 2,50,000 | Priya | Arjun | August rent
@@ -2072,7 +2073,7 @@ module AiAccountingBookkeepingContent
           <div class="lc-badge le-badge le-badge-fin">Finance</div>
           <h1 class="lc-title">Capstone: Close a Month for a Small Shop</h1>
         </div>
-        <p class="lc-lead">In this capstone, you will close one month for <em>Rangrez Crafts</em>, a made-up handicrafts store in Manchester. You will start with a bank statement and invoices. Then you will categorise the lines, reconcile the bank, make a GST summary, build a profit and loss statement and write an owner report. You will use AI at each step and check every number yourself. All data is made up. This is education only, not tax or financial advice.</p>
+        <p class="lc-lead">In this capstone, you will close one month for <em>Rangrez Crafts</em>, a made-up handicrafts store in Rajasthan. You will start with a bank statement and invoices. Then you will categorise the lines, reconcile the bank, make a GST summary, build a profit and loss statement and write an owner report. You will use AI at each step and check every number yourself. All data is made up. This is education only, not tax or financial advice.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 230" role="img" aria-label="Six capstone steps: documents, categorise, reconcile to 1,35,710 rupees, GST summary with net 4,110 rupees, profit and loss with profit of 44,000 rupees, and an owner report. Under each step is the check to make.">
             <defs><marker id="acc15a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -2129,7 +2130,7 @@ module AiAccountingBookkeepingContent
             <thead><tr><th>Date</th><th>Description</th><th>Money in ₹</th><th>Money out ₹</th></tr></thead>
             <tbody>
               <tr><td>05 Aug</td><td>Shop rent</td><td></td><td>30,000</td></tr>
-              <tr><td>07 Aug</td><td>Trafford Prints (fabric stock)</td><td></td><td>60,000</td></tr>
+              <tr><td>07 Aug</td><td>Tara Prints (fabric stock)</td><td></td><td>60,000</td></tr>
               <tr><td>08 Aug</td><td>UPI collections</td><td>42,000</td><td></td></tr>
               <tr><td>10 Aug</td><td>Salaries (2 staff)</td><td></td><td>36,000</td></tr>
               <tr><td>14 Aug</td><td>Electricity</td><td></td><td>4,200</td></tr>
@@ -2147,9 +2148,9 @@ module AiAccountingBookkeepingContent
           <table class="lc-table">
             <thead><tr><th>Document</th><th>Taxable value</th><th>GST</th><th>Total</th><th>Status</th></tr></thead>
             <tbody>
-              <tr><td>Sales invoices for August</td><td>2,00,000</td><td>10,000</td><td>2,10,000</td><td>UPI 1,87,500 received; card sales 12,600 on 31 Aug; 9,900 owed by a Chicago boutique</td></tr>
-              <tr><td>Trafford Prints, fabric stock</td><td>80,000</td><td>4,000</td><td>84,000</td><td>60,000 paid, 24,000 still owed</td></tr>
-              <tr><td>Manchester Packaging</td><td>7,000</td><td>1,260</td><td>8,260</td><td>Cheque issued 29 Aug, not yet cleared</td></tr>
+              <tr><td>Sales invoices for August</td><td>2,00,000</td><td>10,000</td><td>2,10,000</td><td>UPI 1,87,500 received; card sales 12,600 on 31 Aug; 9,900 owed by a boutique in Gujarat</td></tr>
+              <tr><td>Tara Prints, fabric stock</td><td>80,000</td><td>4,000</td><td>84,000</td><td>60,000 paid, 24,000 still owed</td></tr>
+              <tr><td>Mahavir Packaging</td><td>7,000</td><td>1,260</td><td>8,260</td><td>Cheque issued 29 Aug, not yet cleared</td></tr>
               <tr><td>BlueLine Couriers</td><td>3,500</td><td>630</td><td>4,130</td><td>Paid 25 Aug</td></tr>
             </tbody>
           </table>
@@ -2174,7 +2175,7 @@ module AiAccountingBookkeepingContent
           <h3>GST summary, P&amp;L and owner report</h3>
           <p><strong>GST summary.</strong> Output GST is the GST on your sales. Input tax credit (ITC) is GST on business purchases that you may be able to set off.</p>
           <pre><code>Output GST on sales                           10,000
-        Less ITC: Trafford Prints 4,000 + Manchester Packaging 1,260
+        Less ITC: Tara Prints 4,000 + Mahavir Packaging 1,260
                   + BlueLine Couriers 630             (5,890)
         Estimated net GST for August                   4,110</code></pre>
           <p>Before anyone files the returns, check that your sales invoices match what goes into GSTR-1. Also check that each purchase invoice appears in your GSTR-2B statement on the GST portal. ITC has conditions. A chartered accountant should confirm the final figures and due dates.</p>
@@ -2189,14 +2190,14 @@ module AiAccountingBookkeepingContent
               <tr><td><strong>Net profit</strong></td><td><strong>44,000</strong></td></tr>
             </tbody>
           </table>
-          <p><strong>Owner report (short version).</strong> July had sales of ₹1,80,000 and net profit of ₹38,000. So August sales rose 11.1% and profit rose 15.8%. Bank balance after reconciliation is ₹1,35,710. Customers owe ₹9,900, and ₹12,600 of card money arrives on 1 September. The shop owes Trafford Prints ₹24,000 and about ₹4,110 of GST, subject to checks. Ask the owner for the reasons behind the changes before you add any.</p>
+          <p><strong>Owner report (short version).</strong> July had sales of ₹1,80,000 and net profit of ₹38,000. So August sales rose 11.1% and profit rose 15.8%. Bank balance after reconciliation is ₹1,35,710. Customers owe ₹9,900, and ₹12,600 of card money arrives on 1 September. The shop owes Tara Prints ₹24,000 and about ₹4,110 of GST, subject to checks. Ask the owner for the reasons behind the changes before you add any.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: Walk through the close</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Your prompt">Here is the made-up August bank statement for Rangrez Crafts. Suggest an account for each line in a table.</li>
-              <li data-kind="answer" data-label="AI table">Rent: Rent expense. Trafford Prints: Payables. UPI: Sales receipts. GST payment for July: Tax expense. Courier: Courier expense ₹4,130.</li>
+              <li data-kind="answer" data-label="AI table">Rent: Rent expense. Tara Prints: Payables. UPI: Sales receipts. GST payment for July: Tax expense. Courier: Courier expense ₹4,130.</li>
               <li data-kind="warn" data-label="Two mistakes">The ₹6,500 GST payment clears GST payable, so it is not an expense. The courier line must split into ₹3,500 expense and ₹630 input GST.</li>
               <li data-kind="tool" data-label="Spreadsheet">You total the categorised lines with =SUM() and compare them with the statement.</li>
               <li data-kind="result" data-label="Result">Money in ₹1,87,500 and money out ₹1,41,130. Both match the bank statement, so no line is missing.</li>
@@ -2210,13 +2211,13 @@ module AiAccountingBookkeepingContent
           <h3>Try It</h3>
           <p>Give the AI the whole sample month and ask it to do the close with you. Then check its numbers against this lesson.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a bookkeeping assistant. Help me close [August 2026] for [Rangrez Crafts, a handicrafts shop in Manchester]. All data is made up. Amounts in ₹. Show every sum.
+            <pre class="ai-try-prompt">You are a bookkeeping assistant. Help me close [August 2026] for [Rangrez Crafts, a handicrafts shop in Rajasthan]. All data is made up. Amounts in ₹. Show every sum.
 
         Bank statement, opening balance 85,000:
         In: UPI 42,000; 51,000; 46,500; 48,000
-        Out: rent 30,000; Trafford Prints 60,000; salaries 36,000; electricity 4,200; GST for July 6,500; courier 4,130; bank charges 300
-        Books also show: card sales 12,600 on 31 Aug (bank credits it 1 Sep); cheque 8,260 to Manchester Packaging, not cleared. Bank charges are not in the books yet.
-        Invoices: sales 2,00,000 + GST 10,000. Stock from Trafford Prints 80,000 + GST 4,000. Packaging 7,000 + GST 1,260. Courier 3,500 + GST 630. Rent, salaries, electricity: no GST.
+        Out: rent 30,000; Tara Prints 60,000; salaries 36,000; electricity 4,200; GST for July 6,500; courier 4,130; bank charges 300
+        Books also show: card sales 12,600 on 31 Aug (bank credits it 1 Sep); cheque 8,260 to Mahavir Packaging, not cleared. Bank charges are not in the books yet.
+        Invoices: sales 2,00,000 + GST 10,000. Stock from Tara Prints 80,000 + GST 4,000. Packaging 7,000 + GST 1,260. Courier 3,500 + GST 630. Rent, salaries, electricity: no GST.
         Stock: 1,20,000 on 1 Aug, 1,25,000 on 31 Aug.
 
         Tasks:

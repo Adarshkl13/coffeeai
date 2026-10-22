@@ -17,7 +17,7 @@ namespace :content do
     titles = {
       1 => "What Is a Large Language Model?",
       2 => "Tokens: How Models Read Text",
-      3 => "Byte-Pair Encoding: Building a Tokenizer",
+      3 => "Byte-Pair Encoding: Building a Tokeniser",
       4 => "Embeddings: Words as Vectors",
       5 => "Position: Knowing the Order of Words",
       6 => "The Transformer at a Glance",
@@ -42,7 +42,7 @@ namespace :content do
     descriptions = {
       1 => "Learn what a large language model is: a program that predicts the next token, again and again, in a loop.",
       2 => "See how text is split into tokens and token IDs, and why token counts matter for limits, speed and cost.",
-      3 => "Learn how byte-pair encoding builds a tokenizer by merging the most frequent pairs, and train one in Python.",
+      3 => "Learn how byte-pair encoding builds a tokeniser by merging the most frequent pairs, and train one in Python.",
       4 => "Learn how token IDs become vectors, and measure how similar two vectors are with cosine similarity.",
       5 => "Learn why word order needs extra help in a transformer, and how models add position information to tokens.",
       6 => "See the whole transformer from far away: embeddings, a stack of layers with attention and feed-forward parts, the residual stream and the output layer.",
@@ -61,12 +61,12 @@ namespace :content do
       19 => "Learn why models write false answers that sound right, and simple ways to make this happen less.",
       20 => "Learn why step-by-step thinking helps on hard tasks, how adaptive thinking works, and what it costs.",
       21 => "Learn how images become patch tokens, what vision-language models do well, and where they make mistakes.",
-      22 => "Follow one prompt through a tiny model in Python: tokenize, embed, attend, score, softmax and sample."
+      22 => "Follow one prompt through a tiny model in Python: tokenise, embed, attend, score, softmax and sample."
     }
 
     exercises = {
       1 => { type: "multiple_choice", q: "What does a large language model do at each step when it writes text?", opts: ["A) It looks up the full answer in a database", "B) It predicts the next token", "C) It copies a sentence from the internet"], ans: "B" },
-      2 => { type: "true_false", q: "Every language model uses the same tokenizer, so the same text always gives the same tokens.", opts: ["True", "False"], ans: "False" },
+      2 => { type: "true_false", q: "Every language model uses the same tokeniser, so the same text always gives the same tokens.", opts: ["True", "False"], ans: "False" },
       3 => { type: "multiple_choice", q: "In byte-pair encoding (BPE) training, what happens in each step?", opts: ["A) The most frequent pair of neighbouring tokens is joined into a new token", "B) The longest word is removed from the text", "C) Each word gets a random ID"], ans: "A" },
       4 => { type: "multiple_choice", q: "Two token vectors have a cosine similarity close to 1. What does this mean?", opts: ["A) The tokens have the same ID", "B) The vectors point in opposite directions", "C) The vectors point in almost the same direction, so the tokens are used in similar ways"], ans: "C" },
       5 => { type: "multiple_choice", q: "Why does a transformer need position information?", opts: ["A) Attention alone cannot tell which token came first", "B) It makes the vocabulary smaller", "C) It removes the need for token IDs"], ans: "A" },
@@ -86,7 +86,7 @@ namespace :content do
       19 => { type: "multiple_choice", q: "Why do language models sometimes make things up?", opts: ["A) They copy wrong facts from a secret database", "B) They are built to lie on purpose", "C) They are trained to write likely-sounding text, not to check facts"], ans: "C" },
       20 => { type: "multiple_choice", q: "With adaptive thinking on current Claude models, who decides how much the model thinks?", opts: ["A) The model decides, based on the task, and you can guide it with an effort setting", "B) You must set an exact number of thinking tokens for every request", "C) Nobody, because thinking is always turned off"], ans: "A" },
       21 => { type: "true_false", q: "A vision-language model turns an image into patch tokens, and the transformer reads them together with the text tokens.", opts: ["True", "False"], ans: "True" },
-      22 => { type: "multiple_choice", q: "In the capstone program, which stage turns logits into probabilities?", opts: ["A) Tokenize", "B) Softmax", "C) Embedding"], ans: "B" }
+      22 => { type: "multiple_choice", q: "In the capstone program, which stage turns logits into probabilities?", opts: ["A) Tokenise", "B) Softmax", "C) Embedding"], ans: "B" }
     }
 
     HowLlmsWorkContent::LESSONS.each do |position, data|

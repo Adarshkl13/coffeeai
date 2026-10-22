@@ -8,7 +8,7 @@ module AiLearningDevelopmentContent
           <div class="lc-badge le-badge le-badge-hr">HR & Recruitment</div>
           <h1 class="lc-title">What Learning and Development Is</h1>
         </div>
-        <p class="lc-lead"><strong>Learning and development (L&amp;D)</strong> is the work of helping people get better at their jobs. It includes training for today's job and building skills for tomorrow's job. In this lesson you will learn the difference between training, upskilling and reskilling. You will meet the 70-20-10 idea and the L&amp;D cycle. You will also meet the story that runs through this course: 40 shift supervisors at Sahyadri Foods Ltd, a food factory near London.</p>
+        <p class="lc-lead"><strong>Learning and development (L&amp;D)</strong> is the work of helping people get better at their jobs. It includes training for today's job and building skills for tomorrow's job. In this lesson you will learn the difference between training, upskilling and reskilling. You will meet the 70-20-10 idea and the L&amp;D cycle. You will also meet the story that runs through this course: 40 shift supervisors at Sahyadri Foods Ltd, a food factory in Maharashtra.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 362" role="img" aria-label="The L&amp;D cycle has five steps in a loop: find needs, design, build content, deliver, and measure, then back to find needs. Below it, a bar shows the 70-20-10 idea: 70 percent of learning on the job, 20 percent from other people and 10 percent from formal courses.">
             <defs><marker id="ld1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -51,7 +51,7 @@ module AiLearningDevelopmentContent
             <thead><tr><th>Word</th><th>What it means</th><th>Example</th></tr></thead>
             <tbody>
               <tr><td><strong>Training</strong></td><td>Teaching the skills and rules needed for the current job</td><td>All Sahyadri Foods line workers learn the new hand-washing steps.</td></tr>
-              <tr><td><strong>Upskilling</strong></td><td>Adding deeper or newer skills on the same career path</td><td>At LedgerLite Pvt Ltd, a San Francisco software company, testers learn to use AI tools to write test cases.</td></tr>
+              <tr><td><strong>Upskilling</strong></td><td>Adding deeper or newer skills on the same career path</td><td>At LedgerLite Pvt Ltd, a Karnataka software company, testers learn to use AI tools to write test cases.</td></tr>
               <tr><td><strong>Reskilling</strong></td><td>Learning the skills for a different job</td><td>At Swift Mart, an online grocery company, a delivery rider moves into a warehouse stock-control job.</td></tr>
             </tbody>
           </table>
@@ -72,7 +72,7 @@ module AiLearningDevelopmentContent
         </div>
         <div class="lc-card">
           <h3>Our course story: Sahyadri Foods Ltd</h3>
-          <p>Sahyadri Foods Ltd is a made-up food factory near London with about 800 workers. It has 40 shift supervisors. Many of them were promoted from line workers and never had supervisor training.</p>
+          <p>Sahyadri Foods Ltd is a made-up food factory in Maharashtra with about 800 workers. It has 40 shift supervisors. Many of them were promoted from line workers and never had supervisor training.</p>
           <ul class="lc-list">
             <li><strong>Sunita</strong> is the HR head. She owns the budget and reports to management.</li>
             <li><strong>Mohan</strong> is the training lead. He runs the programme day to day.</li>
@@ -105,7 +105,7 @@ module AiLearningDevelopmentContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an experienced learning and development (L&amp;D) adviser at an Indian company.
 
-        Role: [newly promoted shift supervisor at a food factory near London]
+        Role: [newly promoted shift supervisor at a food factory in Maharashtra]
         Skill to build: [food safety checks and leading a shift team]
         Time frame: [3 months]
 
@@ -235,7 +235,7 @@ module AiLearningDevelopmentContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a workplace trainer in India. Draft a [10]-minute toolbox talk (a short talk a supervisor gives at the start of a shift).
 
-        Audience: [line workers at a food factory near London]
+        Audience: [line workers at a food factory in Maharashtra]
         Topic: [allergen changeover: cleaning a line after a product with peanuts, before a product without peanuts]
 
         Structure:
@@ -823,7 +823,7 @@ module AiLearningDevelopmentContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an experienced instructional designer. Use backward design to make a course outline.
 
-        Learners: [40 shift supervisors at a food factory near London. 14 are newly promoted.]
+        Learners: [40 shift supervisors at a food factory in Maharashtra. 14 are newly promoted.]
         Learning objectives:
         [1. Given a record sheet and readings, fill in every field with no errors on 3 of 3 practice sheets.
         2. When a check fails, hold the product, tell QA within 15 minutes and record the action, as seen in a drill.
@@ -1224,7 +1224,7 @@ module AiLearningDevelopmentContent
         </figure>
         <div class="lc-card">
           <h3>Microlearning: one small task at a time</h3>
-          <p>A micro lesson lasts about 3 to 7 minutes. It covers one objective or one task, and it ends with a question or an action. Supervisors can do it on a phone or a shared tablet during a quiet part of the shift.</p>
+          <p>A micro lesson is short, usually a few minutes. At Sahyadri, Mohan keeps every micro lesson to 5 minutes or less. It covers one objective or one task, and it ends with a question or an action. Supervisors can do it on a phone or a shared tablet during a quiet part of the shift.</p>
           <table class="lc-table">
             <thead><tr><th>Good for microlearning</th><th>Not good for microlearning alone</th></tr></thead>
             <tbody>
@@ -1420,7 +1420,7 @@ module AiLearningDevelopmentContent
             <li><strong>Allow local languages.</strong> Supervisors may discuss in Marathi or Hindi. Clear understanding matters more than English.</li>
             <li><strong>Make mistakes safe.</strong> Mistakes in the drill are for learning. Mohan tells the group that drill results are not sent to their managers.</li>
           </ul>
-          <p>Live online sessions suit office teams better than a factory floor. At LedgerLite Pvt Ltd, a San Francisco software company, Farhan, the HR manager, runs a 60-minute online session for 12 team leads on giving feedback:</p>
+          <p>Live online sessions suit office teams better than a factory floor. At LedgerLite Pvt Ltd, a Karnataka software company, Farhan, the HR manager, runs a 60-minute online session for 12 team leads on giving feedback:</p>
           <table class="lc-table">
             <thead><tr><th>Minutes</th><th>Part</th></tr></thead>
             <tbody>
@@ -2275,7 +2275,7 @@ module AiLearningDevelopmentContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a senior L&amp;D consultant. Build a training programme pack.
 
-        Company: [a food factory near London with 800 workers and 3 shifts]
+        Company: [a food factory in Maharashtra with 800 workers and 3 shifts]
         Learners: [40 shift supervisors, codes S01 to S40; 14 were promoted in the last year]
         Business problem: [72 of 600 food safety record sheets (12%) had errors. Goal: under 3%. Training can fix 30 of the 72. The rest need process, equipment and form fixes.]
         Biggest skill gaps (required level minus rating): [CCP records 1.6, handling failed checks 1.1, feedback to workers 1.0]

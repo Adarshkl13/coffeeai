@@ -1375,7 +1375,7 @@ module PromptEngineeringContent
         </div>
         <div class="lc-card">
           <h3>Built-in thinking and when to use it</h3>
-          <p>Many modern models have a built-in thinking feature. In the Claude API you control it with the <code>thinking</code> parameter. Current models use <code>thinking={"type": "adaptive"}</code>, so the model decides how much to think for each request. On some models, such as <code>claude-opus-5</code>, thinking is on by default. The reply then has separate <code>thinking</code> content blocks before the normal <code>text</code> block. On current models these blocks hold only a summary of the reasoning, or no text at all unless you ask for a summary. You do not need to ask for tags. Thinking tokens still count toward cost, time and <code>max_tokens</code>. The exact options change between models, so check the official docs.</p>
+          <p>Many modern models have a built-in thinking feature. In the Claude API you control it with the <code>thinking</code> parameter. Current models use <code>thinking={"type": "adaptive"}</code>, so the model decides how much to think for each request. On some models, thinking may be on by default, so check your model's docs. The reply then has separate <code>thinking</code> content blocks before the normal <code>text</code> block. On current models these blocks hold only a summary of the reasoning, or no text at all unless you ask for a summary. You do not need to ask for tags. Thinking tokens still count toward cost, time and <code>max_tokens</code>. The exact options change between models, so check the official docs.</p>
           <table class="lc-table">
             <thead><tr><th>Thinking helps</th><th>Thinking mostly adds cost</th></tr></thead>
             <tbody>
@@ -1961,7 +1961,7 @@ module PromptEngineeringContent
               <li data-bucket="technical" data-why="A crash is a bug in the app.">app crashes when i open settings!!!</li>
               <li data-bucket="shipping" data-why="Tracking and delivery belong to shipping.">parcel not come, tracking same since monday</li>
               <li data-bucket="billing" data-why="It is Hindi for 'my refund has not come yet'. Refunds are billing.">mera refund abhi tak nahi aaya</li>
-              <li data-bucket="other" data-why="Office locations do not fit any other label.">Do you have an office in London?</li>
+              <li data-bucket="other" data-why="Office locations do not fit any other label.">Do you have an office in Gujarat?</li>
               <li data-bucket="technical" data-why="Login problems are listed under technical.">cant login, it says password wrong but its correct</li>
             </ul>
           </div>
@@ -1969,7 +1969,7 @@ module PromptEngineeringContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>The starter code has canned outputs from a stand-in model (not a real AI). Some outputs are messy on purpose: capital letters, extra words, a made-up label and no JSON at all.</li>
+            <li>The starter code has canned outputs from a stand-in model (not a real AI). Some outputs are messy on purpose: capital letters, extra words around the JSON and a made-up label.</li>
             <li>Run it. See how <code>parse_label()</code> cleans each output and which tickets go to a person.</li>
             <li>One ticket gets the wrong label, because the model answered "refunds". Add <code>"refunds": "billing"</code> to <code>SYNONYMS</code> and run it again. Accuracy goes up.</li>
             <li>Look at the extraction part. Remove the date from the email output and see the check report it.</li>
@@ -1994,7 +1994,7 @@ module PromptEngineeringContent
             ("app crashes when i open settings!!!", '{"label": "Technical ", "confidence": "high"}', "technical"),
             ("parcel not come, tracking same since monday", 'Here you go: {"label": "shipping", "confidence": "medium"}', "shipping"),
             ("mera refund abhi tak nahi aaya", '{"label": "refunds", "confidence": "medium"}', "billing"),
-            ("Do you have an office in London?", '{"label": "other", "confidence": "high"}', "other"),
+            ("Do you have an office in Gujarat?", '{"label": "other", "confidence": "high"}', "other"),
             ("its broken", '{"label": "technical", "confidence": "low"}', "technical"),
             ("   ", None, "other"),                  # empty ticket: we never call the model
         ]
@@ -2834,7 +2834,7 @@ module PromptEngineeringContent
         </div>
         <div class="lc-card">
           <h3>Randomness: run more than once</h3>
-          <p>Models are not fully predictable. The same prompt can give different answers on different runs. On some models, a setting called <strong>temperature</strong> controls part of this randomness. Lower values usually give more stable answers. Many newer models, including the latest Claude models, do not accept this setting, so running each case more than once matters even more.</p>
+          <p>Models are not fully predictable. The same prompt can give different answers on different runs. On some models, a setting called <strong>temperature</strong> controls part of this randomness. Lower values usually give more stable answers. Some newer models do not accept this setting or limit how you can use it, so check your model's docs. Either way, run each case more than once.</p>
           <ul class="lc-list">
             <li>Run each case 3 to 5 times. Report the pass rate across all runs.</li>
             <li>A case that passes 3 times out of 5 is <em>flaky</em> (sometimes passes, sometimes fails). Treat it as a problem to fix.</li>

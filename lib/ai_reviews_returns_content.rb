@@ -486,7 +486,7 @@ module AiReviewsReturnsContent
             <li>Reviews given in return for a reward, such as a free product, should be clearly disclosed.</li>
             <li>Negative and positive reviews are treated the same way. Genuine negative reviews are not hidden.</li>
           </ul>
-          <p>The standard started as a voluntary standard, with a BIS certification scheme. The government said it could make it mandatory if fake reviews continued. Also, new amendment rules to the E-Commerce Rules were notified on 9 September 2026. They come into force on 1 January 2027. Check the current status of both before you rely on this summary.</p>
+          <p>The standard started as a voluntary standard, with a BIS certification scheme. The government said it could make it mandatory if fake reviews continued. The E-Commerce Rules are also amended from time to time. Check the current status of both before you rely on this summary.</p>
         </div>
         <div class="lc-card">
           <h3>Marketplace rules and your own store</h3>
@@ -1451,7 +1451,7 @@ module AiReviewsReturnsContent
           </ul>
           <p>In general, a seller must not refuse to take back or refund goods that are defective, spurious, not as advertised, or delivered late. Refunds for accepted returns should be paid within a reasonable time.</p>
           <p>Two more rules often apply. The Legal Metrology (Packaged Commodities) Rules cover label details, such as MRP, net quantity and the maker's details. The CCPA guidelines on dark patterns ban tricks such as hiding a fee until the last checkout step. That trick is called <strong>drip pricing</strong>. So show Zari &amp; Co's ₹99 change-of-mind fee early, not only at the end.</p>
-          <p>This is general education, not legal advice. Rules are amended from time to time. For example, amendment rules notified on 9 September 2026 come into force on 1 January 2027. They add more disclosures, such as return shipping costs. Check the current text, and ask a qualified lawyer to review your policy. Marketplaces show many of these details for you, but you must fill them in correctly in your seller account.</p>
+          <p>This is general education, not legal advice. Rules are amended from time to time, and new amendments may add more disclosures, such as return shipping costs. Check the current text, and ask a qualified lawyer to review your policy. Marketplaces show many of these details for you, but you must fill them in correctly in your seller account.</p>
         </div>
         <div class="lc-card">
           <h3>Customer messages for each step</h3>
@@ -1686,7 +1686,7 @@ module AiReviewsReturnsContent
         Current listing text:
         [Pure cotton kurta set. Regular fit. Sizes S-XL as per standard size chart. Colour as shown.]
         Facts from the real product:
-        [Fabric label: cotton blend. Kurta chest (garment): S 37, M 39, L 41, XL 43 inches. Slim fit. Set includes kurta, pant and dupatta.]
+        [Fabric label: cotton blend. Kurta chest (garment): S 37, M 39, L 41, XL 43 inches. Slim fit. Set includes kurta, trousers and dupatta.]
         Return comments from last month:
         [1. Ordered L as per chart, tight at chest
         2. Runs small, go one size up
@@ -1820,7 +1820,7 @@ module AiReviewsReturnsContent
           <p>Check the maths of any discount too. The AI suggested "₹30 off for all prepaid orders". Heena worked it out:</p>
           <pre><code>Saving per order that moves from COD to prepaid:
           (20.0% - 2.2%) × ₹210 = about ₹37
-        If 200 buyers switch: 200 × about ₹37.3 = about ₹7,470 a month
+        If 200 buyers switch: 200 × about ₹37.4 = about ₹7,476 a month
         Cost of the discount: ~2,000 prepaid orders × ₹30 = ₹60,000 a month</code></pre>
           <p>The discount goes to every prepaid buyer, including those who already pay online. So it costs far more than it saves. Zari &amp; Co chose the free, honest nudges instead. This is general education on consumer rules, not legal advice.</p>
         </div>
@@ -2126,7 +2126,7 @@ module AiReviewsReturnsContent
             <thead><tr><th>Why?</th><th>Answer</th><th>Evidence</th></tr></thead>
             <tbody>
               <tr><td>1. Why do buyers return KS-101 for quality?</td><td>The pant seam opens</td><td>28 QC notes and return photos</td></tr>
-              <tr><td>2. Why does the seam open?</td><td>The stitches are too far apart</td><td>Warehouse counted stitches on 10 returned pants</td></tr>
+              <tr><td>2. Why does the seam open?</td><td>The stitches are too far apart</td><td>Warehouse counted stitches on 10 returned trousers</td></tr>
               <tr><td>3. Why are they far apart?</td><td>Batch B-07 came from a new stitching unit</td><td>Supplier's delivery note</td></tr>
               <tr><td>4. Why did the new unit use a different stitch?</td><td>The purchase order had no stitch rule</td><td>Zari &amp; Co's purchase order (PO) for July</td></tr>
               <tr><td>5. Why was it not caught?</td><td>No one checks samples when a batch arrives</td><td>Warehouse process notes</td></tr>
@@ -2272,7 +2272,7 @@ module AiReviewsReturnsContent
               <tr><td><strong>Total</strong></td><td></td><td><strong>₹2,56,560</strong></td><td></td></tr>
             </tbody>
           </table>
-          <p>The reviews agree with the return data. Size/fit was the top review theme (64 of 236 written reviews). Colour vs photo came next among complaints (41 reviews). Two sources pointing to the same problem give you confidence to act.</p>
+          <p>The reviews agree with the return data. Size/fit was the top review theme (64 of 236 written reviews). Colour vs photo also came up in the reviews, and it matches the 41 colour returns for the SR-204 saree. Two sources pointing to the same problem give you confidence to act.</p>
         </div>
         <div class="lc-card">
           <h3>Step 2: reply to the reviews that show the problem</h3>

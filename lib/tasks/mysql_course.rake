@@ -69,11 +69,34 @@ namespace :content do
               opts: ["A) SELECT stock FROM products WHERE id = 1;", "B) UPDATE products SET stock = stock - 1 WHERE id = 1 AND stock >= 1;", "C) SELECT MAX(stock) FROM products;"], ans: "B" }
     }
 
+    summaries = {
+      1  => "Meet MySQL, its LTS versions and the client, and run your first MySQL-style table and queries.",
+      2  => "Pick the right MySQL data types for numbers, text, dates and true/false values.",
+      3  => "Learn how strict sql_mode stops bad data and what MySQL does when it is turned off.",
+      4  => "Store any language and emoji with utf8mb4 and understand how collations compare text.",
+      5  => "Let MySQL number your rows with AUTO_INCREMENT and get the new id with LAST_INSERT_ID().",
+      6  => "Learn which constraints MySQL enforces and the rules for foreign keys in InnoDB.",
+      7  => "Insert or update in one step with ON DUPLICATE KEY UPDATE, and see why REPLACE can be risky.",
+      8  => "Use MySQL string and date functions and join many values into one with GROUP_CONCAT.",
+      9  => "Join tables in MySQL and update or delete rows across several tables at once.",
+      10 => "Write CTEs, recursive queries and window functions such as RANK and running totals.",
+      11 => "Store and query JSON data in MySQL with ->, ->> and the JSON functions.",
+      12 => "Let MySQL calculate column values for you with generated columns, and index them.",
+      13 => "Keep changes safe with InnoDB transactions, isolation levels and row locks.",
+      14 => "Speed up queries with the right indexes and read EXPLAIN plans to check them.",
+      15 => "Save queries as views and whole programs as stored procedures.",
+      16 => "Write stored functions and triggers that run automatically when data changes.",
+      17 => "Create users and roles and give each one only the privileges it needs.",
+      18 => "Back up and restore MySQL safely and learn how replication copies data to other servers.",
+      19 => "Connect apps to MySQL safely with parameterised queries, connection pools and good settings.",
+      20 => "Build a small shop database that brings together everything from the course."
+    }
+
     MysqlContent::LESSONS.each do |position, data|
       lesson = CourseLesson.find_or_create_by!(course: course, position: position) do |l|
         l.title = titles[position]; l.description = ""
       end
-      lesson.update!(title: titles[position], body: data[:body], starter_code: data[:starter_code])
+      lesson.update!(title: titles[position], description: summaries[position], body: data[:body], starter_code: data[:starter_code])
 
       ex = exercises[position]
       Exercise.find_or_initialize_by(course_lesson: lesson).tap do |e|

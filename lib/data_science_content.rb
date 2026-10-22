@@ -80,7 +80,7 @@ module DataScienceContent
       starter_code: <<~'PYTHON'
         import pandas as pd
 
-        # Delivery times (minutes) for a small cloud kitchen in San Francisco
+        # Delivery times (minutes) for a small cloud kitchen in India
         orders = pd.DataFrame({
             'order_id': [101, 102, 103, 104, 105, 106, 107, 108],
             'hour':     [12, 13, 13, 19, 20, 20, 21, 22],
@@ -121,7 +121,7 @@ module DataScienceContent
             <thead><tr><th>Vague</th><th>Sharp</th></tr></thead>
             <tbody>
               <tr><td>Are students doing well?</td><td>What percentage of Class 12 students scored below 40 in Maths this term?</td></tr>
-              <tr><td>Is pollution bad?</td><td>On how many days in November was Chicago's AQI above 300?</td></tr>
+              <tr><td>Is pollution bad?</td><td>On how many days in November was City A's AQI above 300?</td></tr>
               <tr><td>Do customers like us?</td><td>Did the average rating change after we reduced delivery fees?</td></tr>
             </tbody>
           </table>
@@ -129,10 +129,10 @@ module DataScienceContent
         <div class="lc-card">
           <h3>Four Kinds of Questions</h3>
           <ul class="lc-list">
-            <li><strong>Descriptive</strong> &mdash; What happened? <em>Average runs per over in the powerplay.</em></li>
-            <li><strong>Diagnostic</strong> &mdash; Why did it happen? <em>Why did orders drop last Tuesday?</em></li>
-            <li><strong>Predictive</strong> &mdash; What will happen? <em>How much rain will Kerala get in July?</em></li>
-            <li><strong>Prescriptive</strong> &mdash; What should we do? <em>Which areas need more delivery riders?</em></li>
+            <li><strong>Descriptive</strong>: What happened? <em>Average runs per over in the powerplay.</em></li>
+            <li><strong>Diagnostic</strong>: Why did it happen? <em>Why did orders drop last Tuesday?</em></li>
+            <li><strong>Predictive</strong>: What will happen? <em>How much rain will Kerala get in July?</em></li>
+            <li><strong>Prescriptive</strong>: What should we do? <em>Which areas need more delivery riders?</em></li>
           </ul>
           <p>Start with descriptive questions. You cannot explain or predict something before you measure it.</p>
         </div>
@@ -247,10 +247,10 @@ module DataScienceContent
         <div class="lc-card">
           <h3>Python Structures a Data Scientist Uses</h3>
           <ul class="lc-list">
-            <li><strong>list / dict</strong> &mdash; raw records before they become a table</li>
-            <li><strong>NumPy array</strong> &mdash; fast numbers, all of one type</li>
-            <li><strong>pandas Series</strong> &mdash; one column with labels</li>
-            <li><strong>pandas DataFrame</strong> &mdash; the whole table, where each column has its own type</li>
+            <li><strong>list / dict</strong>: raw records before they become a table</li>
+            <li><strong>NumPy array</strong>: fast numbers, all of one type</li>
+            <li><strong>pandas Series</strong>: one column with labels</li>
+            <li><strong>pandas DataFrame</strong>: the whole table, where each column has its own type</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -288,7 +288,7 @@ module DataScienceContent
 
         students = pd.DataFrame({
             'roll_no': [1101, 1102, 1103, 1104, 1105],
-            'city':    ['London', 'Los Angeles', 'London', 'Manchester', 'Boston'],
+            'city':    ['City A', 'City B', 'City A', 'City C', 'City D'],
             'grade':   ['B', 'A', 'C', 'A', 'B'],
             'marks':   ['78', '91', '55', '88', '72'],   # stored as text!
             'siblings': [1, 0, 2, 1, 3],
@@ -337,7 +337,7 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>The Loading Code, in Short</h3>
-          <p>CSV: <code>pd.read_csv(io.StringIO(csv_text), parse_dates=['date'])</code>. Nested JSON: <code>pd.json_normalize(json.loads(json_text))</code>. It flattens nested keys into columns such as <code>customer.city</code>. (<code>io.StringIO</code> makes a string act like a file, because the browser sandbox has no files. The pandas course, lesson 2, covers every reading option.) This lesson focuses on a harder question: <strong>can this data answer my question?</strong></p>
+          <p>CSV: <code>pd.read_csv(io.StringIO(csv_text), parse_dates=['date'])</code>. Nested JSON: <code>pd.json_normalize(json.loads(json_text))</code>. It flattens nested keys into columns such as <code>customer.state</code>. (<code>io.StringIO</code> makes a string act like a file, because the browser sandbox has no files. The pandas course, lesson 2, covers every reading option.) This lesson focuses on a harder question: <strong>can this data answer my question?</strong></p>
         </div>
         <div class="lc-card">
           <h3>Grain and Coverage: What Does One Row Mean?</h3>
@@ -375,8 +375,8 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-          <div class="lc-code">CSV loaded: (6, 3)<br>city            object<br>date    datetime64[ns]<br>aqi              int64<br>...<br>Chicago          365.5<br>...<br>JSON columns: ['id', 'amount', 'customer.name', 'customer.city']<br>...<br>Revenue by city:<br>customer.city<br>Chicago    199<br>London     869</div>
-          <p>We passed <code>parse_dates=['date']</code>, so the date column is a real <code>datetime64</code>, not text. The nested <code>customer</code> object became two flat columns. So we can group by <code>customer.city</code> directly.</p>
+          <div class="lc-code">CSV loaded: (6, 3)<br>city            object<br>date    datetime64[ns]<br>aqi              int64<br>...<br>City A    365.5<br>...<br>JSON columns: ['id', 'amount', 'customer.name', 'customer.state']<br>...<br>Revenue by state:<br>customer.state<br>Kerala         199<br>Maharashtra    869</div>
+          <p>We passed <code>parse_dates=['date']</code>, so the date column is a real <code>datetime64</code>, not text. The nested <code>customer</code> object became two flat columns. So we can group by <code>customer.state</code> directly.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -392,7 +392,7 @@ module DataScienceContent
           <ol class="lc-list">
             <li>Run the starter. Check the dtype of the <code>date</code> column.</li>
             <li>Remove <code>parse_dates=['date']</code> and print <code>aqi.dtypes</code> again. What type is <code>date</code> now?</li>
-            <li>Add a fourth JSON order from Los Angeles for ₹410 and run it again. Does "Revenue by city" include it automatically?</li>
+            <li>Add a fourth JSON order from Gujarat for ₹410 and run it again. Does "Revenue by state" include it automatically?</li>
             <li>Write the "one row = ..." sentence for both datasets. Also write one claim that each dataset can <em>not</em> support.</li>
           </ol>
         </div>
@@ -407,12 +407,12 @@ module DataScienceContent
 
         # --- CSV: daily AQI readings ---
         csv_text = """city,date,aqi
-        Chicago,2024-11-01,342
-        Chicago,2024-11-02,389
-        New York,2024-11-01,156
-        New York,2024-11-02,141
-        San Francisco,2024-11-01,88
-        San Francisco,2024-11-02,95"""
+        City A,2024-11-01,342
+        City A,2024-11-02,389
+        City B,2024-11-01,156
+        City B,2024-11-02,141
+        City C,2024-11-01,88
+        City C,2024-11-02,95"""
 
         aqi = pd.read_csv(io.StringIO(csv_text), parse_dates=['date'])
         print("CSV loaded:", aqi.shape)
@@ -421,17 +421,17 @@ module DataScienceContent
 
         # --- JSON: nested food orders from an app API ---
         json_text = """[
-          {"id": 1, "amount": 349, "customer": {"name": "Riya", "city": "London"}},
-          {"id": 2, "amount": 199, "customer": {"name": "Arjun", "city": "Chicago"}},
-          {"id": 3, "amount": 520, "customer": {"name": "Meera", "city": "London"}}
+          {"id": 1, "amount": 349, "customer": {"name": "Riya", "state": "Maharashtra"}},
+          {"id": 2, "amount": 199, "customer": {"name": "Arjun", "state": "Kerala"}},
+          {"id": 3, "amount": 520, "customer": {"name": "Meera", "state": "Maharashtra"}}
         ]"""
 
         records = json.loads(json_text)
         orders = pd.json_normalize(records)
         print("\nJSON columns:", orders.columns.tolist())
         print(orders)
-        print("\nRevenue by city:")
-        print(orders.groupby('customer.city')['amount'].sum())
+        print("\nRevenue by state:")
+        print(orders.groupby('customer.state')['amount'].sum())
       PYTHON
     },
 
@@ -451,7 +451,7 @@ module DataScienceContent
               <tr><td>A number column has dtype <code>object</code></td><td>Sums and means fail, or they join text together</td><td>pandas course, lesson 7</td></tr>
               <tr><td>count in <code>describe()</code> &lt; number of rows</td><td>Every average uses fewer rows than you think</td><td>Lesson 6</td></tr>
               <tr><td>mean far above the median</td><td>"Average" does not describe the typical row</td><td>Lessons 7 and 10</td></tr>
-              <tr><td>One label spelled three ways</td><td>A group-by splits one city into three</td><td>pandas course, lesson 12</td></tr>
+              <tr><td>One label spelled three ways</td><td>A group-by splits one state into three</td><td>pandas course, lesson 12</td></tr>
               <tr><td>Repeated rows</td><td>Counts and revenue are counted twice</td><td>Lesson 7</td></tr>
             </tbody>
           </table>
@@ -459,7 +459,7 @@ module DataScienceContent
         <div class="lc-card">
           <h3>Reading describe() Like a Detective</h3>
           <ul class="lc-list">
-            <li>A <strong>min of -5</strong> for delivery minutes? Impossible &mdash; a data-entry error.</li>
+            <li>A <strong>min of -5</strong> for delivery minutes? Impossible. It is a data-entry error.</li>
             <li>A <strong>max of 9999</strong>? Probably a placeholder (a stand-in value) for "unknown".</li>
             <li><strong>count</strong> smaller than the number of rows? Missing values.</li>
             <li><strong>mean much larger than median (50%)</strong>? A few very large values pull it up.</li>
@@ -467,27 +467,27 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Spotting Messy Labels</h3>
-          <div class="lc-code">print(df['city'].value_counts())<br># SF               3<br># San Francisco    2<br># san francisco    1   &lt;- same city, three spellings!</div>
+          <div class="lc-code">print(df['state'].value_counts())<br># MH               3<br># Maharashtra      2<br># maharashtra      1   &lt;- same state, three spellings!</div>
           <p>Labels that do not match split one group into several. This quietly makes every group result wrong. (The pandas course covers the string tools to fix them.)</p>
         </div>
         <div class="lc-card">
           <h3>Write Down What You Find</h3>
-          <p>Keep a short list of problems while you inspect: "3 missing ratings, city spelled 3 ways, one negative time". This list becomes your cleaning plan for the next lessons.</p>
+          <p>Keep a short list of problems while you inspect: "3 missing ratings, state spelled 3 ways, one negative time". This list becomes your cleaning plan for the next lessons.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-          <div class="lc-code">Shape: (9, 6)<br>...<br>rating      2          &lt;- missing values<br>...<br>Numeric summary:<br>       amount  minutes  rating<br>count     9.0      9.0     7.0<br>mean    299.0   1133.6     4.3<br>min     129.0     -5.0     3.5<br>50%     299.0     28.0     4.5<br>max     549.0   9999.0     4.8<br><br>City labels:<br>SF               3<br>Seattle          2<br>Los Angeles      2<br>San Francisco    1<br>san francisco    1<br><br>Duplicate rows: 1<br><br>Cleaning plan: missing ratings; impossible delivery times; inconsistent city spellings; duplicate rows</div>
+          <div class="lc-code">Shape: (9, 6)<br>...<br>rating      2          &lt;- missing values<br>...<br>Numeric summary:<br>       amount  minutes  rating<br>count     9.0      9.0     7.0<br>mean    299.0   1133.6     4.3<br>min     129.0     -5.0     3.5<br>50%     299.0     28.0     4.5<br>max     549.0   9999.0     4.8<br><br>State labels:<br>MH             3<br>Karnataka      2<br>Kerala         2<br>Maharashtra    1<br>maharashtra    1<br><br>Duplicate rows: 1<br><br>Cleaning plan: missing ratings; impossible delivery times; inconsistent state spellings; duplicate rows</div>
           <ul class="lc-list">
             <li>The mean delivery time (1133.6 minutes!) makes no sense, but the median (28) looks normal. One placeholder value of 9999 is pulling the mean up.</li>
             <li>A negative minimum (−5) is impossible.</li>
-            <li>One city appears under three names. So a group-by would report three "cities".</li>
+            <li>One state appears under three names. So a group-by would report three "states".</li>
             <li>Order 8 appears twice, so its revenue would be counted twice.</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Only looking at <code>head()</code></strong>: here the first five rows looked fine. The problems were in rows 3, 6, 7 and 9.</li>
+            <li><strong>Only looking at <code>head()</code></strong>: here the first five rows show only some problems. You would miss the 9999 placeholder in row 6, the missing rating in row 7 and the repeated order in row 9.</li>
             <li><strong>Fixing problems while inspecting</strong>: first list every problem. Then clean in a planned order, so you can explain each change.</li>
             <li><strong>Trusting the mean in <code>describe()</code></strong>: always compare it with the median (the 50% row).</li>
             <li><strong>Missing placeholder values</strong>: 9999, 0 or −1 are often codes for "unknown". They are not real measurements.</li>
@@ -509,16 +509,16 @@ module DataScienceContent
         import io
         import pandas as pd
 
-        raw = """order_id,city,cuisine,amount,minutes,rating
-        1,San Francisco,Biryani,349,32,4.5
-        2,SF,Pizza,499,28,4.0
-        3,san francisco,Biryani,299,-5,3.5
-        4,Seattle,Biryani,399,41,
-        5,Seattle,Dosa,149,22,4.8
-        6,Los Angeles,Dosa,129,9999,4.2
-        7,Los Angeles,Pizza,549,35,
-        8,SF,Dosa,159,25,4.6
-        8,SF,Dosa,159,25,4.6"""
+        raw = """order_id,state,cuisine,amount,minutes,rating
+        1,Maharashtra,Biryani,349,32,4.5
+        2,MH,Pizza,499,28,4.0
+        3,maharashtra,Biryani,299,-5,3.5
+        4,Karnataka,Biryani,399,41,
+        5,Karnataka,Dosa,149,22,4.8
+        6,Kerala,Dosa,129,9999,4.2
+        7,Kerala,Pizza,549,35,
+        8,MH,Dosa,159,25,4.6
+        8,MH,Dosa,159,25,4.6"""
 
         df = pd.read_csv(io.StringIO(raw))
 
@@ -527,7 +527,7 @@ module DataScienceContent
         print("\nMissing values per column:\n", df.isna().sum(), sep="")
         print("\nNumeric summary:")
         print(df[['amount', 'minutes', 'rating']].describe().round(1))
-        print("\nCity labels:\n", df['city'].value_counts(), sep="")
+        print("\nState labels:\n", df['state'].value_counts(), sep="")
         print("\nDuplicate rows:", df.duplicated().sum())
 
         # Make the cleaning plan from what we found
@@ -536,8 +536,8 @@ module DataScienceContent
             issues.append("missing ratings")
         if (df['minutes'] < 0).any() or (df['minutes'] > 300).any():
             issues.append("impossible delivery times")
-        if df['city'].str.lower().nunique() < df['city'].nunique():
-            issues.append("inconsistent city spellings")
+        if df['state'].str.lower().nunique() < df['state'].nunique():
+            issues.append("inconsistent state spellings")
         if df.duplicated().any():
             issues.append("duplicate rows")
         print("\nCleaning plan:", "; ".join(issues))
@@ -556,9 +556,9 @@ module DataScienceContent
           <table class="lc-table">
             <thead><tr><th>Pattern</th><th>Example</th><th>Risk</th></tr></thead>
             <tbody>
-              <tr><td>Missing completely at random (MCAR)</td><td>A sensor fault on random days</td><td>Low &mdash; dropping rows loses data but does not bias results</td></tr>
-              <tr><td>Missing at random (MAR) &mdash; explained by other columns</td><td>Ratings missing more often for late orders</td><td>Medium &mdash; dropping biases results; fill using the related columns</td></tr>
-              <tr><td>Missing not at random (MNAR) &mdash; linked to the value itself</td><td>Low scorers choose not to report marks</td><td>High &mdash; any simple fix misleads; report the limit</td></tr>
+              <tr><td>Missing completely at random (MCAR)</td><td>A sensor fault on random days</td><td>Low: dropping rows loses data but does not bias results</td></tr>
+              <tr><td>Missing at random (MAR): explained by other columns</td><td>Ratings missing more often for late orders</td><td>Medium: dropping biases results; fill using the related columns</td></tr>
+              <tr><td>Missing not at random (MNAR): linked to the value itself</td><td>Low scorers choose not to report marks</td><td>High: any simple fix misleads; report the limit</td></tr>
             </tbody>
           </table>
         </div>
@@ -578,11 +578,11 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Group-Aware Filling</h3>
-          <p>Filling missing rainfall for Ketchikan with the national average would be very wrong. Fill inside each group instead:</p>
+          <p>Filling missing rainfall for a very wet station with the average of all stations would be very wrong. Fill inside each group instead:</p>
           <div class="lc-code">df['rain_mm'] = df['rain_mm'].fillna(<br>    df.groupby('station')['rain_mm'].transform('median')<br>)</div>
           <p><strong>Output of the starter</strong>: average daily July rainfall (mm) for each strategy:</p>
-          <div class="lc-code">             dropped  global_median  group_median  interpolated<br>station<br>Ketchikan      410.8          347.6         409.4         412.1<br>Los Angeles     11.2           28.0          11.2          11.3<br>New York        95.0           95.0          95.0          95.0</div>
-          <p>The global median of all stations is 95 mm. If you fill Los Angeles's gap with it, Los Angeles gets a wet day that never happened. Its average jumps from 11 to 28 mm, more than double. It also pulls Ketchikan down. The group-aware and interpolation methods stay close to what each station really recorded. (New York has the same value in all four columns only by chance: its own median is also 95 mm.)</p>
+          <div class="lc-code">           dropped  global_median  group_median  interpolated<br>station<br>Station A    410.8          347.6         409.4         412.1<br>Station B     11.2           28.0          11.2          11.3<br>Station C     95.0           95.0          95.0          95.0</div>
+          <p>The global median of all stations is 95 mm. If you fill Station B's gap with it, Station B gets a wet day that never happened. Its average jumps from 11 to 28 mm, more than double. It also pulls Station A down. The group-aware and interpolation methods stay close to what each station really recorded. (Station C has the same value in all four columns only by chance: its own median is also 95 mm.)</p>
         </div>
         <div class="lc-card">
           <h3>Always Measure the Impact</h3>
@@ -604,9 +604,9 @@ module DataScienceContent
         <div class="lc-card">
           <h3>Try it</h3>
           <ol class="lc-list">
-            <li>Run the starter. Explain why Los Angeles's <code>global_median</code> value is so high.</li>
+            <li>Run the starter. Explain why Station B's <code>global_median</code> value is so high.</li>
             <li>Before filling, add a "flag" column <code>rain['was_missing'] = rain['rain_mm'].isna()</code>. Count the flags for each station.</li>
-            <li>Set another Ketchikan day to <code>np.nan</code>. Which strategy changes the Ketchikan average the most?</li>
+            <li>Set another Station A day to <code>np.nan</code>. Which strategy changes the Station A average the most?</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -619,7 +619,7 @@ module DataScienceContent
 
         # July rainfall (mm) at three stations; NaN = gauge failed
         rain = pd.DataFrame({
-            'station': ['New York'] * 5 + ['Los Angeles'] * 5 + ['Ketchikan'] * 5,
+            'station': ['Station C'] * 5 + ['Station B'] * 5 + ['Station A'] * 5,
             'day':     [1, 2, 3, 4, 5] * 3,
             'rain_mm': [88, np.nan, 102, 95, np.nan,
                         12, 8, np.nan, 15, 10,
@@ -648,7 +648,7 @@ module DataScienceContent
 
         print("\nAverage daily rainfall under each strategy:")
         print(result)
-        print("\nNotice how the global median badly distorts Los Angeles and Ketchikan.")
+        print("\nNotice how the global median badly distorts Station B and Station A.")
       PYTHON
     },
 
@@ -658,7 +658,7 @@ module DataScienceContent
           <div class="lc-badge le-badge">Data Science</div>
           <h1 class="lc-title">Duplicates and Outliers</h1>
         </div>
-        <p class="lc-lead">Duplicates (repeated rows) quietly make counts too big. Outliers (values far from the rest) can pull an average far away from the typical value. You must check both. But an outlier is not always an error &mdash; sometimes it is the most interesting row in the table.</p>
+        <p class="lc-lead">Duplicates (repeated rows) quietly make counts too big. Outliers (values far from the rest) can pull an average far away from the typical value. You must check both. But an outlier is not always an error. Sometimes it is the most interesting row in the table.</p>
         <div class="lc-card">
           <h3>Duplicates: First Decide What "Same" Means</h3>
           <p>The code is short. Use <code>df.duplicated(subset=['order_id']).sum()</code> to count and <code>drop_duplicates(subset=['order_id'])</code> to remove (pandas course, lesson 19). The real thinking is in the <code>subset</code>: what makes a row unique?</p>
@@ -697,7 +697,7 @@ module DataScienceContent
           <h3>Error or Signal? Four Questions</h3>
           <ol class="lc-list">
             <li><strong>Is it possible?</strong> A negative amount or 140% attendance cannot be real &rarr; error.</li>
-            <li><strong>Is it a unit or typing mistake?</strong> ₹12,000 might be ₹120.00 with a lost decimal point &mdash; check the item price.</li>
+            <li><strong>Is it a unit or typing mistake?</strong> ₹12,000 might be ₹120.00 with a lost decimal point, so check the item price.</li>
             <li><strong>Can another source confirm it?</strong> A catering bill for the party order shows it is real.</li>
             <li><strong>Does it matter for the question?</strong> For "typical order value", report the median. For "total revenue", the party order must stay in.</li>
           </ol>
@@ -705,7 +705,7 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Why the Median Is Robust</h3>
-          <p>Salaries of 5 people: 30k, 32k, 35k, 38k and 5 lakh. The mean is (30 + 32 + 35 + 38 + 500) / 5 = 127k, about 1.27 lakh &mdash; nobody earns that! The median, 35k, stays close to the typical person. That is why we call the median robust (not easily moved by extreme values).</p>
+          <p>Salaries of 5 people: 30k, 32k, 35k, 38k and 5 lakh. The mean is (30 + 32 + 35 + 38 + 500) / 5 = 127k, about 1.27 lakh, but nobody earns that! The median, 35k, stays close to the typical person. That is why we call the median robust (not easily moved by extreme values).</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
@@ -791,7 +791,7 @@ module DataScienceContent
               <tr><td>Date parts</td><td>Hour, weekday, month</td><td>df['ts'].dt.hour</td></tr>
               <tr><td>Binning (grouping into ranges)</td><td>AQI &rarr; Good / Poor / Severe</td><td>pd.cut(df['aqi'], bins, labels)</td></tr>
               <tr><td>Flags</td><td>Is it a weekend?</td><td>df['ts'].dt.dayofweek &gt;= 5</td></tr>
-              <tr><td>Text cleanup</td><td>"  London " &rarr; "london"</td><td>df['city'].str.strip().str.lower()</td></tr>
+              <tr><td>Text cleanup</td><td>"  Kerala " &rarr; "kerala"</td><td>df['state'].str.strip().str.lower()</td></tr>
               <tr><td>One-hot encoding</td><td>Cuisine &rarr; 0/1 columns</td><td>pd.get_dummies(df['cuisine'])</td></tr>
             </tbody>
           </table>
@@ -811,9 +811,9 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-          <div class="lc-code">     city  cuisine   km  amount  hour  weekend  late_night distance_band  km_scaled  log_amount<br>0    london  Biryani  2.0     320    13    False       False          near       0.08        5.77<br>1    london    Pizza  6.5     780    20    False       False           far       0.77        6.66<br>2  new york  Biryani  4.0     450    21     True       False           mid       0.38        6.11<br>3  new york     Dosa  1.5     150    12     True       False          near       0.00        5.02<br>4    london    Pizza  8.0    2200    23    False        True           far       1.00        7.70<br>5  new york     Dosa  3.0     260    19    False       False          near       0.23        5.56</div>
+          <div class="lc-code">     state  cuisine   km  amount  hour  weekend  late_night distance_band  km_scaled  log_amount<br>0   kerala  Biryani  2.0     320    13    False       False          near       0.08        5.77<br>1   kerala    Pizza  6.5     780    20    False       False           far       0.77        6.66<br>2  gujarat  Biryani  4.0     450    21     True       False           mid       0.38        6.11<br>3  gujarat     Dosa  1.5     150    12     True       False          near       0.00        5.02<br>4   kerala    Pizza  8.0    2200    23    False        True           far       1.00        7.70<br>5  gujarat     Dosa  3.0     260    19    False       False          near       0.23        5.56</div>
           <ul class="lc-list">
-            <li>Six messy city spellings became two clean labels: "london" and "new york".</li>
+            <li>Six messy state spellings became two clean labels: "kerala" and "gujarat".</li>
             <li>3 and 4 August 2024 were a Saturday and a Sunday. So <code>weekend</code> is True for those rows (<code>dayofweek</code> counts Monday as 0).</li>
             <li><code>pd.cut</code> bins include the right edge. So 3.0 km falls in "near" (0, 3], and 6.5 km falls in "far".</li>
           </ul>
@@ -850,7 +850,7 @@ module DataScienceContent
             'placed_at': pd.to_datetime([
                 '2024-08-02 13:05', '2024-08-02 20:40', '2024-08-03 21:15',
                 '2024-08-04 12:30', '2024-08-05 23:10', '2024-08-06 19:55']),
-            'city':    ['  London', 'london ', 'New York', 'NEW YORK', 'London', 'new york'],
+            'state':   ['  Kerala', 'kerala ', 'Gujarat', 'GUJARAT', 'Kerala', 'gujarat'],
             'cuisine': ['Biryani', 'Pizza', 'Biryani', 'Dosa', 'Pizza', 'Dosa'],
             'km':      [2.0, 6.5, 4.0, 1.5, 8.0, 3.0],
             'amount':  [320, 780, 450, 150, 2200, 260],
@@ -862,7 +862,7 @@ module DataScienceContent
         orders['late_night'] = orders['hour'] >= 22
 
         # Clean up the text
-        orders['city'] = orders['city'].str.strip().str.lower()
+        orders['state'] = orders['state'].str.strip().str.lower()
 
         # Put distances into bins (ranges)
         orders['distance_band'] = pd.cut(orders['km'], bins=[0, 3, 6, 20],
@@ -894,7 +894,7 @@ module DataScienceContent
             <thead><tr><th>Situation</th><th>Operation</th><th>pandas</th></tr></thead>
             <tbody>
               <tr><td>Same columns, more rows (June file + July file)</td><td>Stack (concatenate)</td><td><code>pd.concat([june, july])</code></td></tr>
-              <tr><td>Different columns about the same thing (orders + customer city)</td><td>Join (merge) on a key</td><td><code>orders.merge(customers, on='cust_id')</code></td></tr>
+              <tr><td>Different columns about the same thing (orders + customer state)</td><td>Join (merge) on a key</td><td><code>orders.merge(customers, on='cust_id')</code></td></tr>
               <tr><td>One column per subject/month (wide sheet)</td><td>Reshape to long</td><td><code>wide.melt(id_vars='student')</code></td></tr>
               <tr><td>Long table that you want to read as a grid</td><td>Reshape to wide</td><td><code>long.pivot(index=..., columns=..., values=...)</code></td></tr>
             </tbody>
@@ -919,7 +919,7 @@ module DataScienceContent
             <li><strong>Enforce it</strong> with <code>validate='many_to_one'</code>. If the lookup table has a repeated key, pandas raises a <code>MergeError</code>. Without it, pandas quietly multiplies the rows.</li>
             <li><strong>Count keys with no match</strong> using <code>indicator=True</code>. It adds a <code>_merge</code> column: <code>both</code>, <code>left_only</code> or <code>right_only</code>. Then compare the row counts before and after.</li>
           </ol>
-          <p>Clean the keys first (lesson 8). <code>'London '</code> and <code>'london'</code> will not match. A key stored as text (<code>'101'</code>) will not match a number (<code>101</code>).</p>
+          <p>Clean the keys first (lesson 8). <code>'Kerala '</code> and <code>'kerala'</code> will not match. A key stored as text (<code>'101'</code>) will not match a number (<code>101</code>).</p>
         </div>
         <div class="lc-card">
           <h3>Tidy (Long) Data</h3>
@@ -927,11 +927,11 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-          <div class="lc-code">Stacked orders: (6, 4)<br>  month  order_id  cust_id  amount         city     _merge<br>0   Jun         1      101     450       London       both<br>1   Jun         2      102     320  Los Angeles       both<br>2   Jun         3      101     610       London       both<br>3   Jul         4      103     280       London       both<br>4   Jul         5      109     520          NaN  left_only<br>5   Jul         6      102     390  Los Angeles       both<br><br>Match check: {'both': 5, 'left_only': 1, 'right_only': 0}<br>Rows: orders=6, left join=6, inner join=5<br>With a duplicate customer 101: 8 rows instead of 6<br>validate caught it: Merge keys are not unique in right dataset; not a many-to-one merge<br><br>Long format:<br>   student  subject  marks<br>0    Asha    maths     78<br>1    Ravi    maths     64<br>2    Asha  science     85<br>3    Ravi  science     71<br><br>Mean marks by subject: {'maths': 71.0, 'science': 78.0}<br><br>Back to wide:<br> subject  maths  science<br>student<br>Asha        78       85<br>Ravi        64       71</div>
+          <div class="lc-code">Stacked orders: (6, 4)<br>  month  order_id  cust_id  amount    state     _merge<br>0   Jun         1      101     450   Kerala       both<br>1   Jun         2      102     320  Gujarat       both<br>2   Jun         3      101     610   Kerala       both<br>3   Jul         4      103     280   Kerala       both<br>4   Jul         5      109     520      NaN  left_only<br>5   Jul         6      102     390  Gujarat       both<br><br>Match check: {'both': 5, 'left_only': 1, 'right_only': 0}<br>Rows: orders=6, left join=6, inner join=5<br>With a duplicate customer 101: 8 rows instead of 6<br>validate caught it: Merge keys are not unique in right dataset; not a many-to-one merge<br><br>Long format:<br>   student  subject  marks<br>0    Asha    maths     78<br>1    Ravi    maths     64<br>2    Asha  science     85<br>3    Ravi  science     71<br><br>Mean marks by subject: {'maths': 71.0, 'science': 78.0}<br><br>Back to wide:<br> subject  maths  science<br>student<br>Asha        78       85<br>Ravi        64       71</div>
           <ul class="lc-list">
             <li><code>keys=['Jun', 'Jul']</code> in <code>concat</code> records which file each row came from. This helps if one month turns out to be broken.</li>
-            <li>Customer 109 is not in the customer table. The left join keeps order 5 with a missing city. The inner join quietly drops ₹520 of revenue.</li>
-            <li>A second row for customer 101 (<code>'London '</code> with a space) turns 6 orders into 8 rows. Both of 101's orders are copied, so revenue would be counted too high. <code>validate</code> stops this at once.</li>
+            <li>Customer 109 is not in the customer table. The left join keeps order 5 with a missing state. The inner join quietly drops ₹520 of revenue.</li>
+            <li>A second row for customer 101 (<code>'Kerala '</code> with a space) turns 6 orders into 8 rows. Both of 101's orders are copied, so revenue would be counted too high. <code>validate</code> stops this at once.</li>
             <li>After <code>melt</code>, one <code>groupby</code> gives the mean for each subject.</li>
           </ul>
         </div>
@@ -949,7 +949,7 @@ module DataScienceContent
           <h3>Try it</h3>
           <ol class="lc-list">
             <li>Run the starter. Change the left join to <code>how='outer'</code>. Which new row appears? What does its <code>_merge</code> value say?</li>
-            <li>Add customer <code>109</code> in <code>'New York'</code> to <code>customers</code>. How does the match check change?</li>
+            <li>Add customer <code>109</code> in <code>'Assam'</code> to <code>customers</code>. How does the match check change?</li>
             <li>Add an <code>'english'</code> column to <code>wide</code> with marks 90 and 58, and run it again. How many rows does the long table have now?</li>
           </ol>
         </div>
@@ -970,7 +970,7 @@ module DataScienceContent
 
         # A lookup table: one row per customer
         customers = pd.DataFrame({'cust_id': [101, 102, 103, 104],
-                                  'city': ['London', 'Los Angeles', 'London', 'Chicago']})
+                                  'state': ['Kerala', 'Gujarat', 'Kerala', 'Punjab']})
 
         # Left join + indicator: which orders have no matching customer?
         merged = orders.merge(customers, on='cust_id', how='left',
@@ -983,7 +983,7 @@ module DataScienceContent
         print(f"Rows: orders={len(orders)}, left join={len(merged)}, inner join={len(inner)}")
 
         # A repeated key in the lookup table makes rows multiply
-        dup_customers = pd.concat([customers, pd.DataFrame({'cust_id': [101], 'city': ['London ']})])
+        dup_customers = pd.concat([customers, pd.DataFrame({'cust_id': [101], 'state': ['Kerala ']})])
         exploded = orders.merge(dup_customers, on='cust_id', how='left')
         print(f"With a duplicate customer 101: {len(exploded)} rows instead of {len(orders)}")
         try:
@@ -1038,15 +1038,15 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Comparing Across Scales: Coefficient of Variation</h3>
-          <p>CV = std / mean. It lets you compare how much things vary, even when they use different units or sizes. For example: "Is Los Angeles's rainfall more variable than New York's?", even though New York gets much more rain.</p>
+          <p>CV = std / mean. It lets you compare how much things vary, even when they use different units or sizes. For example: "Is City B's rainfall more variable than City A's?", even though City A gets much more rain.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-          <div class="lc-code">           mean  median  mode   std  range   IQR<br>section_A  70.0    70.0  70.0   2.9     10   3.5<br>section_B  70.0    70.0  40.0  30.2     60  59.0<br><br>pandas std (n-1): 2.944<br>numpy std (n):    2.793<br>numpy std ddof=1: 2.944<br><br>Rainfall CV (%):<br>New York       23.3<br>Los Angeles    51.2</div>
+          <div class="lc-code">           mean  median  mode   std  range   IQR<br>section_A  70.0    70.0  70.0   2.9     10   3.5<br>section_B  70.0    70.0  40.0  30.2     60  59.0<br><br>pandas std (n-1): 2.944<br>numpy std (n):    2.793<br>numpy std ddof=1: 2.944<br><br>Rainfall CV (%):<br>City A    23.3<br>City B    51.2</div>
           <ul class="lc-list">
             <li>Both sections have mean and median 70. But Section B's std (30.2) is ten times Section A's (2.9). The averages hide two very different classrooms.</li>
             <li>Section B has <em>two</em> modes, 40 and 100 (three students each). <code>mode()</code> returns both. <code>.iloc[0]</code> only shows the first. In a distribution with two humps like this, "the average student" does not exist.</li>
-            <li>New York's rainfall std is larger in mm. But compared with its mean, Los Angeles's rainfall varies twice as much (CV 51% vs 23%).</li>
+            <li>City A's rainfall std is larger in mm. But compared with its mean, City B's rainfall varies twice as much (CV 51% vs 23%).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1098,12 +1098,12 @@ module DataScienceContent
         print(f"numpy std ddof=1: {np.std(a, ddof=1):.3f}")
 
         # Coefficient of variation (std / mean) for rainfall
-        rain = pd.DataFrame({'New York': [620, 840, 510, 930, 700],
-                             'Los Angeles': [60, 130, 35, 150, 90]})
+        rain = pd.DataFrame({'City A': [620, 840, 510, 930, 700],
+                     'City B': [60, 130, 35, 150, 90]})
         cv = (rain.std() / rain.mean() * 100).round(1)
         print("\nRainfall CV (%):")
         print(cv)
-        print("Los Angeles gets less rain, but its rainfall is relatively more unpredictable.")
+        print("City B gets less rain, but its rainfall is relatively more unpredictable.")
       PYTHON
     },
 
@@ -1508,7 +1508,7 @@ module DataScienceContent
           <ol class="lc-list">
             <li>Run the starter. Compare the permutation p-value with the t-test p-value.</li>
             <li>In the A/B test, change <code>conv_b</code> to <code>135</code> (5.6%). Is the result still significant at 0.05?</li>
-            <li>Keep the same rates but make both samples twice as big: <code>n_a = n_b = 4800</code> and <code>conv_a, conv_b = 240, 270</code>. What happens to the p-value? What does this tell you about sample size?</li>
+            <li>Keep the rates from the last step (5.0% and 5.6%) but make both samples twice as big: <code>n_a = n_b = 4800</code> and <code>conv_a, conv_b = 240, 270</code>. What happens to the p-value? What does this tell you about sample size?</li>
             <li>Call <code>stats.chi2_contingency(table)</code> without <code>correction=False</code>. Does the p-value go up or down?</li>
             <li>Use <code>n_per_group(0.05, 0.06)</code> to find the visitors you need to detect a 1-point lift. Then try <code>power=0.9</code>.</li>
             <li>Change the multiple-testing loop to 100 tests. About how many false alarms do you expect?</li>
@@ -1847,7 +1847,7 @@ module DataScienceContent
           <div class="lc-code">table = pd.crosstab(df['city'], df['late'])<br>chi2, p, dof, expected = stats.chi2_contingency(table)</div>
           <p><strong>Output:</strong></p>
           <div class="lc-code">Chi-square city vs late: chi2 = 11.8, dof = 3, p = 0.0082<br>Smallest expected count: 4.9 (rule of thumb: at least 5)</div>
-          <p>p = 0.008, so late rates really do differ between cities. The test tells you <em>that</em> they differ, not <em>which</em> city is different. The table shows that it is Philadelphia. Manchester's expected late count (4.9) is just under 5. So treat the p-value as approximate. With more Manchester orders, you could trust it.</p>
+          <p>p = 0.008, so late rates really do differ between cities. The test tells you <em>that</em> they differ, not <em>which</em> city is different. The table shows that it is City C. City D's expected late count (4.9) is just under 5. So treat the p-value as approximate. With more City D orders, you could trust it.</p>
         </div>
         <div class="lc-card">
           <h3>Grouping by Time</h3>
@@ -1859,15 +1859,15 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-          <div class="lc-code">              orders  revenue  avg_value  late_rate  revenue_share_%<br>city<br>Seattle          125    66097      529.0       16.8             42.8<br>London            90    45486      505.0       12.2             29.4<br>Philadelphia      57    28227      495.0       31.6             18.3<br>Manchester        28    14660      524.0        7.1              9.5<br>...<br>Insight: Seattle is the biggest market (42.8% of revenue).<br>Insight: Philadelphia has the highest late rate (31.6% of 57 orders).</div>
-          <p>Philadelphia's late rate is about double that of the other cities. It is based on 57 orders, not 5, so it is worth acting on. Manchester's low 7.1% comes from only 28 orders (2 late ones), so be careful with it.</p>
+          <div class="lc-code">        orders  revenue  avg_value  late_rate  revenue_share_%<br>city<br>City A     125    66097      529.0       16.8             42.8<br>City B      90    45486      505.0       12.2             29.4<br>City C      57    28227      495.0       31.6             18.3<br>City D      28    14660      524.0        7.1              9.5<br>...<br>Insight: City A is the biggest market (42.8% of revenue).<br>Insight: City C has the highest late rate (31.6% of 57 orders).</div>
+          <p>City C's late rate is about double that of the other cities. It is based on 57 orders, not 5, so it is worth acting on. City D's low 7.1% comes from only 28 orders (2 late ones), so be careful with it.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li><strong>Showing rates without counts</strong>: always print the group size next to a percentage.</li>
             <li><strong>Averaging averages</strong>: the mean of four city averages is not the overall average when cities have different numbers of orders.</li>
-            <li><strong>Comparing totals across groups of different size</strong>: Seattle earns the most partly because it has the most orders. Compare values per order too.</li>
+            <li><strong>Comparing totals across groups of different size</strong>: City A earns the most partly because it has the most orders. Compare values per order too.</li>
             <li><strong>Stopping at one level</strong>: as Simpson's paradox shows, a combined result can point the opposite way from every subgroup.</li>
           </ul>
         </div>
@@ -1877,11 +1877,11 @@ module DataScienceContent
             <li>Run the starter. Check that the revenue shares add up to about 100%.</li>
             <li>Add <code>median_value=('amount', 'median')</code> to the <code>agg</code> call. Is the median close to the mean in each city?</li>
             <li>Compute the overall late rate with <code>df['late'].mean()</code>. Compare it with the simple average of the four city late rates. Why are they different?</li>
-            <li>Change Philadelphia's late probability from <code>0.30</code> to <code>0.14</code> and run it again. Is the chi-square test still significant?</li>
+            <li>Change City C's late probability from <code>0.30</code> to <code>0.14</code> and run it again. Is the chi-square test still significant?</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Use <strong>share of total</strong> (e.g. <code>revenue / revenue.sum()</code>) to turn raw numbers into insight. "Seattle brings 42.8% of revenue" is easier to act on than "&#8377;66,097".
+          <strong>Tip:</strong> Use <strong>share of total</strong> (e.g. <code>revenue / revenue.sum()</code>) to turn raw numbers into insight. "City A brings 42.8% of revenue" is easier to act on than "₹66,097".
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1893,11 +1893,11 @@ module DataScienceContent
         n = 300
         df = pd.DataFrame({
             'order_id': range(1, n + 1),
-            'city':     rng.choice(['Seattle', 'London', 'Philadelphia', 'Manchester'], n, p=[0.4, 0.3, 0.2, 0.1]),
+            'city':     rng.choice(['City A', 'City B', 'City C', 'City D'], n, p=[0.4, 0.3, 0.2, 0.1]),
             'cuisine':  rng.choice(['Biryani', 'Dosa', 'Pizza'], n),
             'amount':   rng.integers(120, 900, n),
         })
-        df['late'] = rng.random(n) < np.where(df['city'] == 'Philadelphia', 0.30, 0.12)
+        df['late'] = rng.random(n) < np.where(df['city'] == 'City C', 0.30, 0.12)
 
         summary = df.groupby('city').agg(
             orders=('order_id', 'count'),
@@ -1921,7 +1921,7 @@ module DataScienceContent
         print(f"Insight: {worst} has the highest late rate "
               f"({summary.loc[worst, 'late_rate']}% of {summary.loc[worst, 'orders']} orders).")
 
-        # Is Philadelphia's higher late rate bigger than chance? Chi-square on city x late
+        # Is City C's higher late rate bigger than chance? Chi-square on city x late
         table = pd.crosstab(df['city'], df['late'])
         chi2, p, dof, expected = stats.chi2_contingency(table)
         print(f"Chi-square city vs late: chi2 = {chi2:.1f}, dof = {dof}, p = {p:.4f}")
@@ -1975,11 +1975,11 @@ module DataScienceContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Output of the Starter</h3>
-          <div class="lc-code">1. Overview (36, 4)<br>                 dtype  missing  unique<br>city            object        0       3<br>month            int32        0      12<br>traffic_index  float64        0      35<br>aqi            float64        2      33<br><br>2. AQI summary: count 34, mean 188.6, median 169.5, max 377<br><br>3. corr(traffic, AQI) = 0.16<br>Chicago 255.0, New York 181.0, San Francisco 133.0  (median AQI)<br><br>4. Median AQI by city and season:<br>season         Winter  Spring  Summer  Autumn<br>Chicago         374.0   248.0   150.0   361.0<br>New York        214.0   181.0   102.0   224.0<br>San Francisco   166.0   131.0    93.0   177.0</div>
+          <div class="lc-code">1. Overview (36, 4)<br>                 dtype  missing  unique<br>city            object        0       3<br>month            int32        0      12<br>traffic_index  float64        0      35<br>aqi            float64        2      33<br><br>2. AQI summary: count 34, mean 188.6, median 169.5, max 377<br><br>3. corr(traffic, AQI) = 0.16<br>City A 255.0, City B 181.0, City C 133.0  (median AQI)<br><br>4. Median AQI by city and season:<br>season  Winter  Spring  Summer  Autumn<br>City A   374.0   248.0   150.0   361.0<br>City B   214.0   181.0   102.0   224.0<br>City C   166.0   131.0    93.0   177.0</div>
           <ul class="lc-list">
             <li>Step 1 finds 2 missing AQI values before anything else.</li>
             <li>Step 3 shows that traffic is only weakly linked to AQI (r = 0.16) in this data.</li>
-            <li>Step 4 shows the big story: season. Every city is cleanest in summer and worst in autumn or winter. Chicago's winter median reaches 374.</li>
+            <li>Step 4 shows the big story: season. Every city is cleanest in summer and worst in autumn or winter. City A's winter median reaches 374.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -2009,8 +2009,8 @@ module DataScienceContent
 
         rng = np.random.default_rng(21)
         months = np.tile(np.arange(1, 13), 3)
-        city = np.repeat(['Chicago', 'New York', 'San Francisco'], 12)
-        base = {'Chicago': 200, 'New York': 110, 'San Francisco': 80}
+        city = np.repeat(['City A', 'City B', 'City C'], 12)
+        base = {'City A': 200, 'City B': 110, 'City C': 80}
         season = np.where(np.isin(months, [10, 11, 12, 1]), 1.6,
                           np.where(np.isin(months, [6, 7, 8]), 0.5, 1.0))
         traffic = rng.normal(100, 15, 36)
@@ -2043,7 +2043,7 @@ module DataScienceContent
                              aggfunc='median', observed=False).round(0))
 
         # 5. Notes
-        print("\n5. Findings: Chicago worst overall; every city is cleanest in summer;")
+        print("\n5. Findings: City A worst overall; every city is cleanest in summer;")
         print("   2 missing AQI values to investigate before modelling.")
       PYTHON
     },
@@ -2052,7 +2052,7 @@ module DataScienceContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge">Data Science</div>
-          <h1 class="lc-title">Data Visualization Principles</h1>
+          <h1 class="lc-title">Data Visualisation Principles</h1>
         </div>
         <p class="lc-lead">A good chart makes the main point clear in five seconds. In real projects, you would use libraries like Matplotlib or Seaborn. Here we focus on the <strong>thinking</strong> behind a chart. We practise with text charts, because our sandbox cannot show images.</p>
         <div class="lc-card">
@@ -2266,7 +2266,7 @@ module DataScienceContent
             <li><strong>Confidence</strong>: sample size, uncertainty, limitations.</li>
             <li><strong>Recommendation</strong>: what the reader should do.</li>
           </ol>
-          <div class="lc-code">Headline: Philadelphia orders are late twice as often as other cities.<br>Evidence: 29% late vs 13% elsewhere (based on 61 vs 239 orders).<br>Confidence: Moderate - one month of data; heavy rain may play a role.<br>Action: Pilot 5 extra riders in Philadelphia at dinner time for 2 weeks.</div>
+          <div class="lc-code">Headline: City C orders are late twice as often as other cities.<br>Evidence: 32% late vs 14% elsewhere (based on 57 vs 243 orders).<br>Confidence: Moderate - one month of data; heavy rain may play a role.<br>Action: Pilot 5 extra riders in City C at dinner time for 2 weeks.</div>
         </div>
         <div class="lc-card">
           <h3>Know Your Audience</h3>
@@ -2278,7 +2278,7 @@ module DataScienceContent
               <tr><td>General public</td><td>Plain language, comparisons from daily life</td></tr>
             </tbody>
           </table>
-          <p>Say "customers in Philadelphia wait about 9 minutes longer". Do not say "the coefficient was 9.2 with p &lt; 0.01".</p>
+          <p>Say "customers in City C wait about 9 minutes longer". Do not say "the coefficient was 9.2 with p &lt; 0.01".</p>
         </div>
         <div class="lc-card">
           <h3>Data Ethics Essentials</h3>
@@ -2379,9 +2379,9 @@ module DataScienceContent
               <tr><td>Load &amp; inspect</td><td>shape, dtypes, missing, duplicates, describe()</td><td>4&ndash;5</td></tr>
               <tr><td>Clean</td><td>Fix labels, drop duplicates, handle missing and impossible values</td><td>6&ndash;7</td></tr>
               <tr><td>Features</td><td>Attendance bands, a "long commute" flag</td><td>8</td></tr>
-              <tr><td>Explore</td><td>Distributions, correlations, group comparisons</td><td>9&ndash;16</td></tr>
-              <tr><td>Test</td><td>Is the gap between groups bigger than chance? How big is it (confidence interval)?</td><td>12&ndash;13</td></tr>
-              <tr><td>Communicate</td><td>Headline, evidence, confidence, action</td><td>19</td></tr>
+              <tr><td>Explore</td><td>Distributions, correlations, group comparisons</td><td>10&ndash;11, 15&ndash;18</td></tr>
+              <tr><td>Test</td><td>Is the gap between groups bigger than chance? How big is it (confidence interval)?</td><td>13&ndash;14</td></tr>
+              <tr><td>Communicate</td><td>Headline, evidence, confidence, action</td><td>19, 21</td></tr>
             </tbody>
           </table>
         </div>

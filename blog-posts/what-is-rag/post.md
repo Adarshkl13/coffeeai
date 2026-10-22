@@ -8,7 +8,7 @@ RAG (retrieval-augmented generation) is a way to make an AI model answer questio
 
 ## What is RAG in simple words?
 
-A large language model (LLM) is an AI model that has read a huge amount of text, such as ChatGPT, Claude or Gemini. It is very good at writing ([How LLMs Work](/courses/how-llms-work) explains why). But it has two big limits:
+A large language model (LLM) is an AI model that has read a huge amount of text. Chat tools such as ChatGPT, Claude and Gemini are built on LLMs. It is very good at writing ([How LLMs Work](/courses/how-llms-work) explains why). But it has two big limits:
 
 - It only knows what was in its training data, up to a certain date.
 - It has never seen your private files, such as your company handbook or your product manuals.
@@ -92,7 +92,7 @@ RAG does not remove every mistake. If the search returns the wrong chunks, the a
 
 A simple rule: use RAG when the model needs to **know** something, and fine-tuning when it needs to **behave** in a certain way. Many teams use both.
 
-## Where is RAG in AI used today?
+## Where is RAG used today?
 
 You can find RAG in AI tools you may already use:
 

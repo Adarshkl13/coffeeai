@@ -8,7 +8,7 @@ module AiWritersBloggersContent
           <div class="lc-badge le-badge le-badge-create">Content Creation</div>
           <h1 class="lc-title">Writing in the Age of AI</h1>
         </div>
-        <p class="lc-lead">AI assistants such as Claude can write a blog post in seconds. So why should anyone read <em>your</em> post? Because readers come for the things only you have: your trips, your mistakes, the people you met and the way you tell it. In this lesson, you will learn what AI does well for writers and what it cannot do. You will also see how to keep your own voice when you use it. All through this course, we follow <strong>Meera</strong>, a made-up travel writer from Rajasthan. She writes <strong>Slow Roads</strong>, a blog and newsletter about slow, low-cost travel in Rajasthan and North India.</p>
+        <p class="lc-lead">AI assistants such as Claude can write a blog post in seconds. So why should anyone read <em>your</em> post? Because readers come for the things only you have: your trips, your mistakes, the people you met and the way you tell it. In this lesson, you will learn what AI does well for writers and what it cannot do. You will also see how to keep your own voice when you use it. All through this course, we follow <strong>Meera</strong>, a made-up travel writer from Rajasthan. She writes <strong>Slow Roads</strong>, a blog and newsletter about slow, low-cost travel in Rajasthan and North India. Her posts are about whole regions of Rajasthan, such as Hadoti, Mewar and Shekhawati, so we never name a single town.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 320" role="img" aria-label="Two columns feed into one blog post. On the left, five things AI does well: idea lists, outline options, grammar and clarity, feedback on a draft and headline options. On the right, five things only the writer brings: real trips and receipts, real people, opinions, voice and humour, and the final fact check.">
             <defs><marker id="wb1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -64,7 +64,7 @@ module AiWritersBloggersContent
         </div>
         <div class="lc-card">
           <h3>Worked example: the "AI voice" and Meera's voice</h3>
-          <p>Meera asked an AI tool: "Write an intro for a blog post about Hadoti." Here is the kind of answer she got:</p>
+          <p>Meera asked an AI tool: "Write an intro for a blog post about Hadoti" (a region in south-east Rajasthan). Here is the kind of answer she got:</p>
           <pre><code>Nestled in the heart of Rajasthan, Hadoti is a hidden gem
         waiting to be discovered. With its breathtaking stepwells
         and rich history, this charming region offers an
@@ -344,8 +344,8 @@ module AiWritersBloggersContent
             <tbody>
               <tr><td><strong>Main rule</strong></td><td>Copyright needs a human author. The US Copyright Office says purely AI-generated material is not protected.</td><td>The Copyright Act, 1957 protects original works. For a "computer-generated" work, the author is the person who causes the work to be created.</td></tr>
               <tr><td><strong>Prompts</strong></td><td>The Copyright Office's 2025 report says prompts alone are usually not enough to make you the author.</td><td>How the "computer-generated" rule applies to AI tools is not settled yet.</td></tr>
-              <tr><td><strong>Your own work</strong></td><td>Your own writing is protected. Your creative choice and arrangement of material, and your real changes to AI text, can also be protected.</td><td>Your own writing is protected. In August 2026, the Indian Copyright Office refused to name an AI system as an author. A person must be the author.</td></tr>
-              <tr><td><strong>Recent news</strong></td><td>In March 2026, the US Supreme Court declined to hear the Thaler case. This left the "human author" rule in place.</td><td>A government (DPIIT) committee published a working paper on AI and copyright in December 2025. More policy work may follow.</td></tr>
+              <tr><td><strong>Your own work</strong></td><td>Your own writing is protected. Your creative choice and arrangement of material, and your real changes to AI text, can also be protected.</td><td>Your own writing is protected. Indian law has not clearly accepted an AI system as an author, so a person should be named as the author.</td></tr>
+              <tr><td><strong>Recent news</strong></td><td>US courts have so far kept the "human author" rule, for example in the Thaler case. Check for newer rulings.</td><td>A government (DPIIT) committee published a working paper on AI and copyright in December 2025. More policy work may follow.</td></tr>
             </tbody>
           </table>
           <p>What this means for Meera: the parts she writes herself are clearly hers. Text that AI wrote with little change from her may have weak or no protection. Also, if AI output copies someone else's work, she is responsible for what she publishes. This is general education, not legal advice.</p>
@@ -759,7 +759,7 @@ module AiWritersBloggersContent
             <thead><tr><th>Part</th><th>What it does</th><th>In Meera's post</th></tr></thead>
             <tbody>
               <tr><td><strong>Before</strong></td><td>Shows how things were</td><td>She planned trips like exams. Every hour had a job.</td></tr>
-              <tr><td><strong>Turning point</strong></td><td>Something happens</td><td>A flat tyre outside Mandawa gave her a free afternoon.</td></tr>
+              <tr><td><strong>Turning point</strong></td><td>Something happens</td><td>A flat tyre on a quiet Shekhawati road gave her a free afternoon.</td></tr>
               <tr><td><strong>Change</strong></td><td>What she noticed or learned</td><td>The free afternoon was the best part of the trip.</td></tr>
               <tr><td><strong>Now</strong></td><td>How she does it today</td><td>She plans the mornings and leaves the afternoons empty.</td></tr>
               <tr><td><strong>For you</strong></td><td>What the reader can try</td><td>One practical tip for planning a slower weekend.</td></tr>
@@ -782,7 +782,7 @@ module AiWritersBloggersContent
           <p>Then Meera made her own choices:</p>
           <ul class="lc-list">
             <li><strong>She cut</strong> the history section. She had no notes for it, and a short line in the Day 1 section was enough.</li>
-            <li><strong>She moved the cost box up</strong> to section 2, because cost is Neha's first worry.</li>
+            <li><strong>She moved the cost box up</strong> to section 2, because cost is one of Neha's two main worries.</li>
             <li><strong>She added</strong> "Is it safe alone? What I did". She walked alone at dusk and stayed on busy lanes. That is real experience, and 19 of her 64 survey replies came from solo travellers.</li>
             <li><strong>She added</strong> "What went wrong". She missed the return bus by 10 minutes. Honest problems are part of her voice.</li>
           </ul>
@@ -883,7 +883,7 @@ module AiWritersBloggersContent
           <p>A <strong>voice guide</strong> is a short page that describes how you write. It lists what you always do, what you never do, and gives real examples. Start from 3 pieces of your own writing that readers liked. Do not use AI text as a sample. Meera chose three paragraphs:</p>
           <ul class="lc-list">
             <li><em>"The 7:15 bus to Hadoti left at 7:40. Nobody minded. A man across the aisle shared his peanuts with me…"</em> (By Local Bus to Hadoti)</li>
-            <li><em>"I used to plan trips like exams. Every hour had a job. Then a flat tyre outside Mandawa gave me a free afternoon…"</em> (Why I stopped planning every hour)</li>
+            <li><em>"I used to plan trips like exams. Every hour had a job. Then a flat tyre on a quiet Shekhawati road gave me a free afternoon…"</em> (Why I stopped planning every hour)</li>
             <li><em>"I am listing the one where the hot water worked, the owner remembered my name, and the door locked properly."</em> (Where to Stay in Mewar Under ₹1,200 a Night)</li>
           </ul>
           <p>She asked AI to describe the voice in the samples, with evidence. Then she checked each point herself.</p>
@@ -970,7 +970,7 @@ module AiWritersBloggersContent
 
         Here are 3 samples of my own writing:
         Sample 1: [The 7:15 bus to Hadoti left at 7:40. Nobody minded. A man across the aisle shared his peanuts with me and asked why I was going to Hadoti "when the big city has everything".]
-        Sample 2: [I used to plan trips like exams. Every hour had a job. Then a flat tyre outside Mandawa gave me a free afternoon, and it was the best part of the trip.]
+        Sample 2: [I used to plan trips like exams. Every hour had a job. Then a flat tyre on a quiet Shekhawati road gave me a free afternoon, and it was the best part of the trip.]
         Sample 3: [I am not listing the one with the best rooftop photos. I am listing the one where the hot water worked, the owner remembered my name, and the door locked properly.]
         My reader: [a 31-year-old teacher who reads on her phone and wants honest, low-cost trip advice]
 
@@ -2075,7 +2075,7 @@ module AiWritersBloggersContent
               <tr><td>Sat 3 Oct</td><td>Post 1: the long weekend in Hadoti (Pillar A)</td><td>Her top post is the bus trip to Hadoti (1,450 views, 22.7% of all views). 38 of 64 survey readers (59%) want weekends under ₹5,000.</td></tr>
               <tr><td>Mon 5 Oct</td><td>Instagram carousel from post 1</td><td>Instagram brings 14% of her page views.</td></tr>
               <tr><td>Fri 9 Oct</td><td>Newsletter #50, linking to post 1</td><td>Issue #45, a budget issue, had her best click rate (8.2%).</td></tr>
-              <tr><td>Sat 17 Oct</td><td>Post 2: How I check a guesthouse before I pay (Pillar C)</td><td>19 of 64 readers (30%) travel solo. Safety is Neha's first worry.</td></tr>
+              <tr><td>Sat 17 Oct</td><td>Post 2: How I check a guesthouse before I pay (Pillar C)</td><td>19 of 64 readers (30%) travel solo. Safety is Neha's other main worry.</td></tr>
               <tr><td>Mon 19 Oct</td><td>Instagram carousel from post 2</td><td>Same reason as above</td></tr>
               <tr><td>Fri 23 Oct</td><td>Newsletter #51, linking to post 2</td><td>Answers reader replies about safe stays</td></tr>
             </tbody>

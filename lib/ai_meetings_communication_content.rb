@@ -558,7 +558,7 @@ module AiMeetingsCommunicationContent
             <li><strong>Kept:</strong> design review, client call, leadership update and all 1:1s. They need real discussion.</li>
           </ul>
           <p>Meeting time falls from 53.5 to 38.25 person-hours, a saving of 15.25. Be honest about the cost of writing: the written update takes about 10 minutes per person a week. That is 1.5 person-hours, so the real saving is 13.75 person-hours a week (£550 at £40).</p>
-          <p>Hannah's own meeting time also falls. With the 45-minute Friday all-hands, she spent 660 minutes (11 hours) a week in meetings. Now she spends 555 minutes (9 hours 15 minutes).</p>
+          <p>Hannah's own meeting time also falls. She is in every meeting in the table. Before the audit she spent 615 minutes (10 hours 15 minutes) a week in them. Now she spends 510 minutes (8 hours 30 minutes).</p>
         </div>
         <div class="lc-card">
           <h3>Activity: Hannah audits her meetings with AI</h3>

@@ -54,7 +54,7 @@ COURSE_SEED = [
       { title: "Pseudo-classes and Pseudo-elements", desc: "Style states like :hover, :focus-visible and :checked. Style positions with :nth-child and parents with :has(). Group selectors with zero specificity using :where(). Style parts of elements with ::before and ::first-letter.",
         ex_type: "true_false", question: "Inside <div><h2>Menu</h2><p>Tea</p><p>Coffee</p></div>, the selector p:first-child selects the \"Tea\" paragraph.",
         opts: ["True", "False"], ans: "False" },
-      { title: "Colors, Backgrounds, and Units", desc: "Write colours as hex, rgb(), hsl() or oklch() with alpha. Paint backgrounds with gradients and layers. Choose the right unit: rem for text, px for thin lines, dvh for full height on mobile. Fit images with aspect-ratio and object-fit.",
+      { title: "Colours, Backgrounds and Units", desc: "Write colours as hex, rgb(), hsl() or oklch() with alpha. Paint backgrounds with gradients and layers. Choose the right unit: rem for text, px for thin lines, dvh for full height on mobile. Fit images with aspect-ratio and object-fit.",
         ex_type: "multiple_choice", question: "The html font size is 16px, and .menu { font-size: 1.25em; }. One .menu is inside another .menu. What is the font size of the inner menu?",
         opts: ["A) 25px", "B) 20px", "C) 31.25px"], ans: "A" },
       { title: "The CSS Box Model", desc: "Every element is a box of content, padding, border and margin. Learn how to work out the width for content-box and border-box. Learn margin shorthand, margin collapsing, borders, rounded corners, shadows, and block vs inline display.",

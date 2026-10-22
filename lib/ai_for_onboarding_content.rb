@@ -405,7 +405,7 @@ module AiForOnboardingContent
           <h3>UK changes on the way</h3>
           <p>The Employment Rights Act 2025 is coming into force in stages during 2026 and 2027. Two planned changes affect onboarding:</p>
           <ul class="lc-list">
-            <li><strong>A statement about trade unions.</strong> From January 2027, the plan is that new joiners must get a government-written statement of their right to join a trade union. It comes with their written statement of employment particulars.</li>
+            <li><strong>A statement about trade unions.</strong> Planned UK employment law changes say new joiners must get a government-written statement of their right to join a trade union. It comes with their written statement of employment particulars. Check GOV.UK for the start date.</li>
             <li><strong>Unfair dismissal after six months.</strong> For dismissals from 1 January 2027, the plan is that employees can claim unfair dismissal after six months of work, not two years. So a well-run, well-recorded probation period matters even more.</li>
           </ul>
           <p>Dates can move. Check GOV.UK and ask your HR adviser what is in force before you update your onboarding pack.</p>
@@ -2329,7 +2329,7 @@ module AiForOnboardingContent
               <tr><td>Written statement template</td><td>Priya Shah</td><td>2 Mar 2026</td><td>6</td><td>2 Sep 2026</td><td>REVIEW DUE</td></tr>
             </tbody>
           </table>
-          <p>Do not wait for the date if something changes. Review a document straight away when a policy, a law, a system or a named person changes. Here is an example. The Employment Rights Act 2025 plans a new rule from January 2027. New joiners in the UK must get a statement of their right to join a trade union. That affects the written statement template. Check GOV.UK for what is in force, and ask your HR adviser. This is not legal advice.</p>
+          <p>Do not wait for the date if something changes. Review a document straight away when a policy, a law, a system or a named person changes. Here is an example. Planned UK employment law changes include a new rule: new joiners in the UK must get a statement of their right to join a trade union. That affects the written statement template. Check GOV.UK for what is in force, and ask your HR adviser. This is not legal advice.</p>
           <p>AI can help here. Give it the old and the new policy text. Ask it to list every change and the onboarding documents that may need updating. Then check each change yourself, because AI can miss small but important ones.</p>
           <p>Finally, close the loop. Tell new joiners what you changed because of their feedback: "You said, we did."</p>
         </div>

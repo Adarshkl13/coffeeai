@@ -33,7 +33,7 @@ namespace :content do
       15 => "Image-to-Image and Inpainting",
       16 => "ControlNet",
       17 => "Fine-Tuning with LoRA and DreamBooth",
-      18 => "Project: Generate and Customize Your Own Images"
+      18 => "Project: Generate and Customise Your Own Images"
     }
 
     descriptions = {

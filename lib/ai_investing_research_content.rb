@@ -65,7 +65,7 @@ module AiInvestingResearchContent
         </div>
         <div class="lc-card">
           <h3>A worked example: buying shares</h3>
-          <p>Ananya is a 28-year-old software tester in London. She wants to learn how shares work. These numbers are made up.</p>
+          <p>Ananya is a 28-year-old software tester in Karnataka. She wants to learn how shares work. These numbers are made up.</p>
           <ul class="lc-list">
             <li>She opens a <strong>demat account</strong> (an account that holds shares electronically) and a trading account with a broker.</li>
             <li>She buys 10 shares of Sahyadri Foods Ltd at ₹250 each. She pays 10 × ₹250 = ₹2,500, plus small charges.</li>
@@ -121,7 +121,7 @@ module AiInvestingResearchContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient teacher of personal finance for beginners in India. Use simple English and short sentences.
 
-        About me: [I am a salaried person in London. I have never invested in shares or mutual funds].
+        About me: [I am a salaried person in India. I have never invested in shares or mutual funds].
 
         Please:
         1. Explain what a share, a bond and a mutual fund are. Give a small made-up example with rupee amounts for each.
@@ -333,7 +333,7 @@ module AiInvestingResearchContent
         <div class="lc-card">
           <h3>Time horizon and risk profile</h3>
           <p>Money you need soon should not depend on share prices. Prices can fall just when you need to sell. Money for goals many years away has more time to recover from falls. This is a general idea, not a rule for you.</p>
-          <p>Compare Ananya and Ravi and Meena. Ananya is 28, single, with a steady salary and no loans. Ravi and Meena live in Los Angeles, have one child and pay a home loan. Ananya may have more <em>capacity</em> for risk. But her <em>tolerance</em> may still be low if falls make her panic. Both parts matter.</p>
+          <p>Compare Ananya with Ravi and Meena. Ananya is 28, single, with a steady salary and no loans. Ravi and Meena live in Tamil Nadu, have one child and pay a home loan. Ananya may have more <em>capacity</em> for risk. But her <em>tolerance</em> may still be low if falls make her panic. Both parts matter.</p>
           <p><strong>Weak prompt:</strong></p>
           <pre><code>How much risk should I take?</code></pre>
           <p><strong>Better prompt:</strong></p>
@@ -358,7 +358,7 @@ module AiInvestingResearchContent
               <li data-bucket="medium" data-why="Five years away sits in the middle group.">Ananya: a down payment for a flat in 5 years</li>
               <li data-bucket="long" data-why="Fifteen years gives a lot of time for ups and downs.">Ravi and Meena: their child's college fees in 15 years</li>
               <li data-bucket="long" data-why="Ananya is 28, so retirement at 60 is more than 30 years away.">Ananya: money for retirement at age 60</li>
-              <li data-bucket="medium" data-why="Four years away is a medium time horizon.">The owner of Sweet Crumbs bakery: a new oven in 4 years</li>
+              <li data-bucket="medium" data-why="Four years away is a medium time horizon.">The owner of a small home bakery: a new oven in 4 years</li>
             </ul>
           </div>
         </div>
@@ -593,7 +593,7 @@ module AiInvestingResearchContent
               <tr><td><strong>ETF</strong> (exchange traded fund)</td><td>Often an index</td><td>Trades on the exchange like a share. You need a demat account.</td></tr>
             </tbody>
           </table>
-          <p>An <strong>active fund</strong> has a manager who picks investments and tries to beat an index. An <strong>index fund</strong> (a passive fund) only tries to match the index. It is not trying to beat the index. Its return is usually a little below the index, mainly because of costs. This gap is called <strong>tracking difference</strong>. How much the gap moves around is called <strong>tracking error</strong>. Fund houses publish these numbers. SEBI sets the fund categories. It revised them in February 2026, for example by adding Life Cycle Funds and removing the old solution-oriented category. Rules can change again, so check the current categories on the SEBI or AMFI website.</p>
+          <p>An <strong>active fund</strong> has a manager who picks investments and tries to beat an index. An <strong>index fund</strong> (a passive fund) only tries to match the index. It is not trying to beat the index. Its return is usually a little below the index, mainly because of costs. This gap is called <strong>tracking difference</strong>. How much the gap moves around is called <strong>tracking error</strong>. Fund houses publish these numbers. SEBI sets the fund categories and revises them from time to time. Always check the current categories on the SEBI or AMFI website.</p>
         </div>
         <div class="lc-card">
           <h3>Worked examples: SIP and costs</h3>
@@ -722,7 +722,7 @@ module AiInvestingResearchContent
         </div>
         <div class="lc-card">
           <h3>Worked example: Sahyadri Foods Ltd (made-up numbers)</h3>
-          <p>Ananya, a software tester in London, wants to understand Sahyadri Foods Ltd. She starts with the business model: how does the company make money? The MD&amp;A says it makes packaged snacks and dairy products, and sells them through shops and online. Here is its segment information (the split of sales by business line) for FY2025-26. The amounts are in ₹ crore (1 crore = 10 million).</p>
+          <p>Ananya, a software tester in Karnataka, wants to understand Sahyadri Foods Ltd. She starts with the business model: how does the company make money? The MD&amp;A says it makes packaged snacks and dairy products, and sells them through shops and online. Here is its segment information (the split of sales by business line) for FY2025-26. The amounts are in ₹ crore (1 crore = 10 million).</p>
           <table class="lc-table">
             <thead><tr><th>Segment</th><th>Revenue (₹ crore)</th><th>Share of total</th></tr></thead>
             <tbody>
@@ -1289,7 +1289,7 @@ module AiInvestingResearchContent
         </div>
         <div class="lc-card">
           <h3>Worked example: rebalancing (made-up numbers)</h3>
-          <p>Ravi and Meena, a couple in Los Angeles, chose a target mix with their adviser: 60% equity funds, 30% debt funds and 10% gold. They started with ₹10,00,000. After one year, markets have moved:</p>
+          <p>Ravi and Meena, a couple in Tamil Nadu, chose a target mix with their adviser: 60% equity funds, 30% debt funds and 10% gold. They started with ₹10,00,000. After one year, markets have moved:</p>
           <table class="lc-table">
             <thead><tr><th>Asset</th><th>Value now</th><th>Share now</th><th>Target</th><th>Target value</th><th>Change needed</th></tr></thead>
             <tbody>
@@ -1403,7 +1403,7 @@ module AiInvestingResearchContent
         </figure>
         <div class="lc-card">
           <h3>The sample portfolio</h3>
-          <p>Ananya is a 28-year-old software tester in London. Her made-up portfolio is worth ₹3,00,000. The fund names are made up too.</p>
+          <p>Ananya is a 28-year-old software tester in Karnataka. Her made-up portfolio is worth ₹3,00,000. The fund names are made up too.</p>
           <table class="lc-table">
             <thead><tr><th>Holding</th><th>Type</th><th>Value (₹)</th><th>Share of total</th><th>Expense ratio</th></tr></thead>
             <tbody>
@@ -1564,7 +1564,7 @@ module AiInvestingResearchContent
         </div>
         <div class="lc-card">
           <h3>A before-you-act checklist</h3>
-          <p>Ravi and Meena, a married couple in Los Angeles with one child, keep this list on their phone. They go through it before any buy or sell.</p>
+          <p>Ravi and Meena, a married couple in Tamil Nadu with one child, keep this list on their phone. They go through it before any buy or sell.</p>
           <ol class="lc-list">
             <li>Has my goal, time horizon or income changed? If not, why change the plan?</li>
             <li>Am I acting because of a feeling: fear, excitement or a friend's story?</li>
@@ -1600,7 +1600,7 @@ module AiInvestingResearchContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a calm coach who teaches investors about behavioural mistakes. This is education only. Do not recommend buying or selling anything, and do not predict prices.
 
-        My made-up situation: [I am Ravi, 38, from Los Angeles. I run a monthly SIP of ₹10,000 for my child's education in 12 years. The market fell 12% this month and my friends say they are selling. I want to stop my SIP and sell.]
+        My made-up situation: [I am Ravi, 38, from Tamil Nadu. I run a monthly SIP of ₹10,000 for my child's education in 12 years. The market fell 12% this month and my friends say they are selling. I want to stop my SIP and sell.]
 
         Please:
         1. Name the behavioural mistakes I may be making, with one line each.

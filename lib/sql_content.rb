@@ -62,7 +62,7 @@ module SqlContent
           <ul class="lc-list">
             <li>A statement ends with a semicolon <code>;</code>.</li>
             <li>Keywords are not case-sensitive (<code>select</code> = <code>SELECT</code>). But most people write them in UPPERCASE.</li>
-            <li>Text values go in <strong>single quotes</strong>: <code>'London'</code>. Double quotes are for identifiers (names of columns or tables).</li>
+            <li>Text values go in <strong>single quotes</strong>: <code>'Kerala'</code>. Double quotes are for identifiers (names of columns or tables).</li>
             <li><code>--</code> starts a comment (a note the database ignores). It goes to the end of the line.</li>
           </ul>
         </div>
@@ -70,7 +70,7 @@ module SqlContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li>Writing text in double quotes. <code>WHERE city = "London"</code> is wrong in standard SQL. Use <code>'London'</code>.</li>
+            <li>Writing text in double quotes. <code>WHERE state = "Kerala"</code> is wrong in standard SQL. Use <code>'Kerala'</code>.</li>
             <li>Forgetting the semicolon between two statements.</li>
             <li>Thinking rows come back in a fixed order. Without <code>ORDER BY</code>, the order can change.</li>
           </ul>
@@ -78,7 +78,7 @@ module SqlContent
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>In the starter code, add a sixth student from your own city. Then write a query that shows only students from <code>'Los Angeles'</code>. How many rows do you get?</p>
+          <p>In the starter code, add a sixth student from your own state. Then write a query that shows only students from <code>'Punjab'</code>. How many rows do you get?</p>
         </div>
 
         <div class="lc-card lc-card--tip">
@@ -91,17 +91,17 @@ module SqlContent
         CREATE TABLE students (
             id    INTEGER PRIMARY KEY,
             name  TEXT    NOT NULL,
-            city  TEXT,
+            state  TEXT,
             marks INTEGER
         );
 
         -- 2. DML: add rows
-        INSERT INTO students (id, name, city, marks) VALUES
-            (1, 'Priya', 'Los Angeles', 92),
-            (2, 'Arjun', 'London',      81),
-            (3, 'Meera', 'Chicago',     74),
-            (4, 'Kiran', 'Los Angeles', 85),
-            (5, 'Rahul', 'Manchester',  67);
+        INSERT INTO students (id, name, state, marks) VALUES
+            (1, 'Priya', 'Punjab', 92),
+            (2, 'Arjun', 'Kerala',      81),
+            (3, 'Meera', 'Assam',     74),
+            (4, 'Kiran', 'Punjab', 85),
+            (5, 'Rahul', 'Odisha',  67);
 
         -- 3. Query: every row and column
         SELECT * FROM students;
@@ -373,7 +373,7 @@ module SqlContent
 
         <div class="lc-card">
           <h3>DISTINCT: Unique Rows Only</h3>
-        <div class="lc-code">SELECT DISTINCT department FROM employees;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- each department once<br>SELECT DISTINCT department, city FROM employees;&nbsp;&nbsp;&nbsp;-- each unique PAIR once<br>SELECT COUNT(DISTINCT city) AS cities FROM employees;</div>
+        <div class="lc-code">SELECT DISTINCT department FROM employees;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- each department once<br>SELECT DISTINCT department, state FROM employees;&nbsp;&nbsp;&nbsp;-- each unique PAIR once<br>SELECT COUNT(DISTINCT state) AS states FROM employees;</div>
           <p><code>DISTINCT</code> works on the <strong>whole row</strong> of selected columns, not just the first column.</p>
         </div>
 
@@ -404,7 +404,7 @@ module SqlContent
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Show each employee's name and a <code>daily_rate</code> column. It should be the monthly salary divided by 30, as a decimal. Round it to 2 places with <code>ROUND(..., 2)</code>. Then list the distinct cities.</p>
+          <p>Show each employee's name and a <code>daily_rate</code> column. It should be the monthly salary divided by 30, as a decimal. Round it to 2 places with <code>ROUND(..., 2)</code>. Then list the distinct states.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
@@ -417,15 +417,15 @@ module SqlContent
             id             INTEGER PRIMARY KEY,
             name           TEXT NOT NULL,
             department     TEXT NOT NULL,
-            city           TEXT,
+            state           TEXT,
             monthly_salary INTEGER NOT NULL   -- whole rupees
         );
-        INSERT INTO employees (name, department, city, monthly_salary) VALUES
-            ('Asha',   'Engineering', 'San Francisco', 90000),
-            ('Vikram', 'Sales',       'New York',      60000),
-            ('Neha',   'Engineering', 'San Francisco', 95000),
-            ('Imran',  'Sales',       'Chicago',       55000),
-            ('Divya',  'HR',          'New York',      50000);
+        INSERT INTO employees (name, department, state, monthly_salary) VALUES
+            ('Asha',   'Engineering', 'Karnataka', 90000),
+            ('Vikram', 'Sales',       'Gujarat',      60000),
+            ('Neha',   'Engineering', 'Karnataka', 95000),
+            ('Imran',  'Sales',       'Assam',       55000),
+            ('Divya',  'HR',          'Gujarat',      50000);
 
         -- Chosen columns
         SELECT name, department FROM employees;
@@ -442,8 +442,8 @@ module SqlContent
 
         -- DISTINCT works on the whole row of selected columns
         SELECT DISTINCT department FROM employees;
-        SELECT DISTINCT department, city FROM employees;
-        SELECT COUNT(DISTINCT city) AS cities FROM employees;
+        SELECT DISTINCT department, state FROM employees;
+        SELECT COUNT(DISTINCT state) AS states FROM employees;
 
         -- Alias used in ORDER BY (allowed: ORDER BY runs after SELECT)
         SELECT name, monthly_salary * 12 AS annual_salary
@@ -465,11 +465,11 @@ module SqlContent
           <table class="lc-table">
             <thead><tr><th>Operator</th><th>Meaning</th><th>Example</th></tr></thead>
             <tbody>
-              <tr><td><code>=</code></td><td>equal</td><td><code>city = 'London'</code></td></tr>
+              <tr><td><code>=</code></td><td>equal</td><td><code>state = 'Kerala'</code></td></tr>
               <tr><td><code>&lt;&gt;</code> or <code>!=</code></td><td>not equal</td><td><code>status &lt;&gt; 'cancelled'</code></td></tr>
               <tr><td><code>&lt;  &lt;=  &gt;  &gt;=</code></td><td>less / greater</td><td><code>amount &gt;= 1000</code></td></tr>
               <tr><td><code>BETWEEN a AND b</code></td><td>a ≤ value ≤ b (both ends included)</td><td><code>amount BETWEEN 500 AND 2000</code></td></tr>
-              <tr><td><code>IN (...)</code></td><td>matches any value in a list</td><td><code>city IN ('London', 'Miami')</code></td></tr>
+              <tr><td><code>IN (...)</code></td><td>matches any value in a list</td><td><code>state IN ('Kerala', 'Goa')</code></td></tr>
               <tr><td><code>LIKE</code></td><td>matches a text pattern</td><td><code>name LIKE 'A%'</code></td></tr>
               <tr><td><code>IS NULL</code></td><td>value is missing</td><td><code>coupon IS NULL</code></td></tr>
             </tbody>
@@ -479,8 +479,8 @@ module SqlContent
         <div class="lc-card">
           <h3>AND Runs Before OR</h3>
           <p>Multiplication comes before addition in maths. In the same way, <code>AND</code> is worked out before <code>OR</code>. Use brackets (parentheses) to say what you mean.</p>
-        <div class="lc-code">-- Intended: London orders that are either large OR paid by UPI<br>SELECT id, city, amount, method FROM orders<br>WHERE city = 'London' AND amount &gt; 2000 OR method = 'UPI';&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- WRONG<br>-- Read as: (city = 'London' AND amount &gt; 2000) OR method = 'UPI'<br><br>SELECT id, city, amount, method FROM orders<br>WHERE city = 'London' AND (amount &gt; 2000 OR method = 'UPI');&nbsp;&nbsp;&nbsp;&nbsp;-- RIGHT</div>
-          <p>With the starter data, the first query returns 4 rows (it includes UPI orders from every city). The second returns 3, all from London.</p>
+        <div class="lc-code">-- Intended: Kerala orders that are either large OR paid by UPI<br>SELECT id, state, amount, method FROM orders<br>WHERE state = 'Kerala' AND amount &gt; 2000 OR method = 'UPI';&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- WRONG<br>-- Read as: (state = 'Kerala' AND amount &gt; 2000) OR method = 'UPI'<br><br>SELECT id, state, amount, method FROM orders<br>WHERE state = 'Kerala' AND (amount &gt; 2000 OR method = 'UPI');&nbsp;&nbsp;&nbsp;&nbsp;-- RIGHT</div>
+          <p>With the starter data, the first query returns 4 rows (it includes UPI orders from every state). The second returns 3, all from Kerala.</p>
         </div>
 
         <div class="lc-card">
@@ -522,7 +522,7 @@ module SqlContent
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Find all orders from Chicago or New York (use <code>IN</code>) with an amount between 1000 and 3000, placed in September 2026. Then find customers whose name ends in <code>'a'</code>.</p>
+          <p>Find all orders from Assam or Gujarat (use <code>IN</code>) with an amount between 1000 and 3000, placed in September 2026. Then find customers whose name ends in <code>'a'</code>.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
@@ -534,30 +534,30 @@ module SqlContent
         CREATE TABLE orders (
             id         INTEGER PRIMARY KEY,
             customer   TEXT NOT NULL,
-            city       TEXT NOT NULL,
+            state       TEXT NOT NULL,
             amount     INTEGER NOT NULL,   -- whole rupees
             method     TEXT NOT NULL,      -- UPI / Card / Cash
             order_date TEXT NOT NULL
         );
-        INSERT INTO orders (customer, city, amount, method, order_date) VALUES
-            ('Asha',  'London',   2500, 'Card', '2026-08-28'),
-            ('Rohan', 'London',    800, 'UPI',  '2026-09-02'),
-            ('Kavya', 'Chicago',  1500, 'UPI',  '2026-09-05'),
-            ('Mohan', 'London',   3200, 'Cash', '2026-09-10'),
-            ('Shreya','New York', 1200, 'Card', '2026-09-18'),
-            ('Anand', 'Chicago',  4100, 'Card', '2026-10-01');
+        INSERT INTO orders (customer, state, amount, method, order_date) VALUES
+            ('Asha',  'Kerala',   2500, 'Card', '2026-08-28'),
+            ('Rohan', 'Kerala',    800, 'UPI',  '2026-09-02'),
+            ('Kavya', 'Assam',  1500, 'UPI',  '2026-09-05'),
+            ('Mohan', 'Kerala',   3200, 'Cash', '2026-09-10'),
+            ('Shreya','Gujarat', 1200, 'Card', '2026-09-18'),
+            ('Anand', 'Assam',  4100, 'Card', '2026-10-01');
 
-        -- AND before OR: this is (London AND > 2000) OR UPI
-        SELECT id, customer, city, amount, method FROM orders
-        WHERE city = 'London' AND amount > 2000 OR method = 'UPI';
+        -- AND before OR: this is (Kerala AND > 2000) OR UPI
+        SELECT id, customer, state, amount, method FROM orders
+        WHERE state = 'Kerala' AND amount > 2000 OR method = 'UPI';
 
         -- Parentheses express the real intent
-        SELECT id, customer, city, amount, method FROM orders
-        WHERE city = 'London' AND (amount > 2000 OR method = 'UPI');
+        SELECT id, customer, state, amount, method FROM orders
+        WHERE state = 'Kerala' AND (amount > 2000 OR method = 'UPI');
 
         -- IN and BETWEEN (inclusive)
-        SELECT customer, city, amount FROM orders
-        WHERE city IN ('Chicago', 'New York') AND amount BETWEEN 1200 AND 4100;
+        SELECT customer, state, amount FROM orders
+        WHERE state IN ('Assam', 'Gujarat') AND amount BETWEEN 1200 AND 4100;
 
         -- LIKE: _ is one character, % is any number
         SELECT customer FROM orders WHERE customer LIKE '_ohan';
@@ -692,8 +692,8 @@ module SqlContent
 
         <div class="lc-card">
           <h3>Sorting</h3>
-        <div class="lc-code">SELECT name, city, score FROM players<br>ORDER BY score DESC;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- highest first (ASC is the default)<br><br>SELECT name, city, score FROM players<br>ORDER BY city ASC, score DESC;&nbsp;&nbsp;&nbsp;&nbsp;-- by city, then best score within each city</div>
-          <p>Each column in <code>ORDER BY</code> has its own direction (ascending or descending). <code>ORDER BY city, score DESC</code> sorts city ascending and score descending.</p>
+        <div class="lc-code">SELECT name, state, score FROM players<br>ORDER BY score DESC;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- highest first (ASC is the default)<br><br>SELECT name, state, score FROM players<br>ORDER BY state ASC, score DESC;&nbsp;&nbsp;&nbsp;&nbsp;-- by state, then best score within each state</div>
+          <p>Each column in <code>ORDER BY</code> has its own direction (ascending or descending). <code>ORDER BY state, score DESC</code> sorts state ascending and score descending.</p>
         </div>
 
         <div class="lc-card">
@@ -745,7 +745,7 @@ module SqlContent
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Show the lowest two scores from Los Angeles. Then write page 3 (rows 7–8) of the full leaderboard. Use both the OFFSET style and the keyset style (page 2 ended at score 610, id 4). Kabir appears in one version but not the other. Explain why. (Hint: what is <code>NULL &lt; 610</code>?)</p>
+          <p>Show the lowest two scores from Punjab. Then write page 3 (rows 7–8) of the full leaderboard. Use both the OFFSET style and the keyset style (page 2 ended at score 610, id 4). Kabir appears in one version but not the other. Explain why. (Hint: what is <code>NULL &lt; 610</code>?)</p>
         </div>
 
         <div class="lc-card lc-card--tip">
@@ -757,22 +757,22 @@ module SqlContent
         CREATE TABLE players (
             id    INTEGER PRIMARY KEY,
             name  TEXT NOT NULL,
-            city  TEXT NOT NULL,
+            state  TEXT NOT NULL,
             score INTEGER            -- NULL = has not played yet
         );
-        INSERT INTO players (id, name, city, score) VALUES
-            (1, 'Aman',  'Los Angeles',  720),
-            (2, 'Zoya',  'Philadelphia', 980),
-            (3, 'Dev',   'Los Angeles',  950),
-            (4, 'Riya',  'Philadelphia', 610),
-            (5, 'Kabir', 'Los Angeles',  NULL),
-            (6, 'Lina',  'Philadelphia', 830),
-            (7, 'Tara',  'Los Angeles',  950),
-            (8, 'Om',    'Philadelphia', 500);
+        INSERT INTO players (id, name, state, score) VALUES
+            (1, 'Aman',  'Punjab',  720),
+            (2, 'Zoya',  'Rajasthan', 980),
+            (3, 'Dev',   'Punjab',  950),
+            (4, 'Riya',  'Rajasthan', 610),
+            (5, 'Kabir', 'Punjab',  NULL),
+            (6, 'Lina',  'Rajasthan', 830),
+            (7, 'Tara',  'Punjab',  950),
+            (8, 'Om',    'Rajasthan', 500);
 
         -- Two-level sort, NULL scores pushed to the end
-        SELECT city, name, score FROM players
-        ORDER BY city ASC, score DESC NULLS LAST;
+        SELECT state, name, score FROM players
+        ORDER BY state ASC, score DESC NULLS LAST;
 
         -- Top 3 with a tie-breaker (Dev and Tara both have 950)
         SELECT name, score FROM players
@@ -905,7 +905,7 @@ module SqlContent
           <div class="lc-badge le-badge le-badge-sql">SQL</div>
           <h1 class="lc-title">Aggregates, GROUP BY and HAVING</h1>
         </div>
-        <p class="lc-lead">Aggregate functions turn many rows into one summary value. <code>GROUP BY</code> makes one summary <em>per group</em>, such as sales per city or students per class. <code>HAVING</code> filters those groups.</p>
+        <p class="lc-lead">Aggregate functions turn many rows into one summary value. <code>GROUP BY</code> makes one summary <em>per group</em>, such as sales per state or students per class. <code>HAVING</code> filters those groups.</p>
 
         <div class="lc-card">
           <h3>The Five Core Aggregates</h3>
@@ -923,9 +923,9 @@ module SqlContent
 
         <div class="lc-card">
           <h3>GROUP BY: One Row per Group</h3>
-        <div class="lc-code">SELECT city,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS orders,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUM(amount)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS revenue,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROUND(AVG(amount))&nbsp;&nbsp;AS avg_order<br>FROM sales<br>GROUP BY city<br>ORDER BY revenue DESC;</div>
-        <div class="lc-code">city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orders&nbsp;&nbsp;revenue&nbsp;&nbsp;avg_order<br>-------&nbsp;&nbsp;------&nbsp;&nbsp;-------&nbsp;&nbsp;---------<br>Seattle&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3167<br>Boston&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4300&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1433<br>Leeds&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1900&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;950</div>
-          <p>The rule: every column in SELECT must be either <strong>in GROUP BY</strong> or <strong>inside an aggregate</strong>. <code>SELECT city, product, SUM(amount) ... GROUP BY city</code> is an error in PostgreSQL and in MySQL's default mode. This is because each city has many products. SQLite allows it, but it picks a product from a random row. Do not depend on it.</p>
+        <div class="lc-code">SELECT state,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS orders,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUM(amount)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AS revenue,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ROUND(AVG(amount))&nbsp;&nbsp;AS avg_order<br>FROM sales<br>GROUP BY state<br>ORDER BY revenue DESC;</div>
+        <div class="lc-code">state&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orders&nbsp;&nbsp;revenue&nbsp;&nbsp;avg_order<br>---------&nbsp;&nbsp;------&nbsp;&nbsp;-------&nbsp;&nbsp;---------<br>Karnataka&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3167<br>Punjab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4300&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1433<br>Goa&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1900&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;950</div>
+          <p>The rule: every column in SELECT must be either <strong>in GROUP BY</strong> or <strong>inside an aggregate</strong>. <code>SELECT state, product, SUM(amount) ... GROUP BY state</code> is an error in PostgreSQL and in MySQL's default mode. This is because each state has many products. SQLite allows it, but it picks a product from a random row. Do not depend on it.</p>
         </div>
 
         <div class="lc-card">
@@ -938,7 +938,7 @@ module SqlContent
               <tr><td>Can use aggregates?</td><td>No</td><td>Yes (<code>HAVING SUM(amount) &gt; 5000</code>)</td></tr>
             </tbody>
           </table>
-        <div class="lc-code">SELECT city, SUM(amount) AS revenue<br>FROM sales<br>WHERE status = 'paid'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 1. throw away unpaid rows<br>GROUP BY city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 2. group what is left<br>HAVING SUM(amount) &gt;= 3000;&nbsp;&nbsp;&nbsp;&nbsp;-- 3. keep only big groups</div>
+        <div class="lc-code">SELECT state, SUM(amount) AS revenue<br>FROM sales<br>WHERE status = 'paid'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 1. throw away unpaid rows<br>GROUP BY state&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- 2. group what is left<br>HAVING SUM(amount) &gt;= 3000;&nbsp;&nbsp;&nbsp;&nbsp;-- 3. keep only big groups</div>
         </div>
 
         <div class="lc-card">
@@ -952,7 +952,7 @@ module SqlContent
           <ul class="lc-list">
             <li>Putting an aggregate in WHERE: <code>WHERE SUM(amount) &gt; 100</code> is an error. Use HAVING.</li>
             <li>Selecting a column that is neither grouped nor aggregated.</li>
-            <li>Using HAVING for a plain row filter like <code>HAVING city = 'Boston'</code>. It works, but WHERE is clearer and filters earlier.</li>
+            <li>Using HAVING for a plain row filter like <code>HAVING state = 'Punjab'</code>. It works, but WHERE is clearer and filters earlier.</li>
             <li>Forgetting that <code>AVG</code> of integers is a decimal. Put it inside <code>ROUND(..., 2)</code> to show it.</li>
           </ul>
         </div>
@@ -970,39 +970,39 @@ module SqlContent
         -- Aggregates, GROUP BY and HAVING
         CREATE TABLE sales (
             id        INTEGER PRIMARY KEY,
-            city      TEXT NOT NULL,
+            state      TEXT NOT NULL,
             product   TEXT NOT NULL,
             amount    INTEGER NOT NULL,     -- whole rupees
             status    TEXT NOT NULL,        -- 'paid' or 'pending'
             sale_date TEXT NOT NULL
         );
-        INSERT INTO sales (city, product, amount, status, sale_date) VALUES
-            ('Seattle', 'Biryani Kit', 4000, 'paid',    '2026-08-12'),
-            ('Boston',  'Spices',      1200, 'paid',    '2026-08-20'),
-            ('Seattle', 'Spices',      2500, 'pending', '2026-09-01'),
-            ('Leeds',   'Namkeen',      700, 'paid',    '2026-09-03'),
-            ('Boston',  'Banana Chips',1600, 'paid',    '2026-09-07'),
-            ('Seattle', 'Biryani Kit', 3000, 'paid',    '2026-09-15'),
-            ('Boston',  'Spices',      1500, 'pending', '2026-09-20'),
-            ('Leeds',   'Namkeen',     1200, 'paid',    '2026-09-22');
+        INSERT INTO sales (state, product, amount, status, sale_date) VALUES
+            ('Karnataka', 'Biryani Kit', 4000, 'paid',    '2026-08-12'),
+            ('Punjab',  'Spices',      1200, 'paid',    '2026-08-20'),
+            ('Karnataka', 'Spices',      2500, 'pending', '2026-09-01'),
+            ('Goa',   'Namkeen',      700, 'paid',    '2026-09-03'),
+            ('Punjab',  'Banana Chips',1600, 'paid',    '2026-09-07'),
+            ('Karnataka', 'Biryani Kit', 3000, 'paid',    '2026-09-15'),
+            ('Punjab',  'Spices',      1500, 'pending', '2026-09-20'),
+            ('Goa',   'Namkeen',     1200, 'paid',    '2026-09-22');
 
         -- Whole-table summary
         SELECT COUNT(*) AS orders, SUM(amount) AS revenue,
                MIN(amount) AS smallest, MAX(amount) AS largest
         FROM sales;
 
-        -- One row per city
-        SELECT city, COUNT(*) AS orders, SUM(amount) AS revenue,
+        -- One row per state
+        SELECT state, COUNT(*) AS orders, SUM(amount) AS revenue,
                ROUND(AVG(amount)) AS avg_order
         FROM sales
-        GROUP BY city
+        GROUP BY state
         ORDER BY revenue DESC;
 
         -- WHERE (rows) then GROUP BY then HAVING (groups)
-        SELECT city, SUM(amount) AS paid_revenue
+        SELECT state, SUM(amount) AS paid_revenue
         FROM sales
         WHERE status = 'paid'
-        GROUP BY city
+        GROUP BY state
         HAVING SUM(amount) >= 2000;
 
         -- Group by month, with a conditional count
@@ -1140,7 +1140,7 @@ module SqlContent
         <div class="lc-card">
           <h3>The Tables</h3>
           <p>A college stores students, courses, and an <code>enrollments</code> table that links them. A student takes many courses, and a course has many students. This is a <em>many-to-many</em> relationship:</p>
-        <div class="lc-code">students(id, name, city)<br>courses(id, code, title, credits)<br>enrollments(student_id -&gt; students.id, course_id -&gt; courses.id, grade)</div>
+        <div class="lc-code">students(id, name, state)<br>courses(id, code, title, credits)<br>enrollments(student_id -&gt; students.id, course_id -&gt; courses.id, grade)</div>
         </div>
 
         <div class="lc-card">
@@ -1191,7 +1191,7 @@ module SqlContent
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>List every enrollment with grade <code>'A'</code>. Show the student name, city and course title. Then show each course's code with the number of students enrolled.</p>
+          <p>List every enrollment with grade <code>'A'</code>. Show the student name, state and course title. Then show each course's code with the number of students enrolled.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
@@ -1200,7 +1200,7 @@ module SqlContent
       HTML
       starter_code: <<~'SQL'
         -- INNER JOIN
-        CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT NOT NULL, city TEXT);
+        CREATE TABLE students (id INTEGER PRIMARY KEY, name TEXT NOT NULL, state TEXT);
         CREATE TABLE courses  (id INTEGER PRIMARY KEY, code TEXT NOT NULL UNIQUE,
                                title TEXT NOT NULL, credits INTEGER NOT NULL);
         CREATE TABLE enrollments (
@@ -1209,8 +1209,8 @@ module SqlContent
             grade      TEXT,
             PRIMARY KEY (student_id, course_id)   -- a student enrols once per course
         );
-        INSERT INTO students VALUES (1,'Aditi','Denver'), (2,'Bhavna','Birmingham'),
-                                    (3,'Chetan','Denver'), (4,'Dinesh','Atlanta');
+        INSERT INTO students VALUES (1,'Aditi','Assam'), (2,'Bhavna','Bihar'),
+                                    (3,'Chetan','Assam'), (4,'Dinesh','Goa');
         INSERT INTO courses VALUES (1,'CS101','Programming',4), (2,'DB201','Databases',3),
                                    (3,'MA201','Statistics',3);
         INSERT INTO enrollments VALUES (1,1,'A'), (1,2,'B'), (2,1,'B'),
@@ -1357,13 +1357,13 @@ module SqlContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-sql">SQL</div>
-          <h1 class="lc-title">Normalization and Schema Design</h1>
+          <h1 class="lc-title">Normalisation and Schema Design</h1>
         </div>
-        <p class="lc-lead"><strong>Normalization</strong> means organising tables so that each fact is stored in exactly one place. It stops the data from disagreeing with itself, for example two different phone numbers for the same customer. It also makes updates simple. You design the tables once, but you use them for years.</p>
+        <p class="lc-lead"><strong>Normalisation</strong> means organising tables so that each fact is stored in exactly one place. It stops the data from disagreeing with itself, for example two different phone numbers for the same customer. It also makes updates simple. You design the tables once, but you use them for years.</p>
 
         <div class="lc-card">
           <h3>The Problem: One Big Flat Table</h3>
-        <div class="lc-code">order_id&nbsp;&nbsp;customer&nbsp;&nbsp;phone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;items&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city<br>--------&nbsp;&nbsp;--------&nbsp;&nbsp;----------&nbsp;&nbsp;-----------------------&nbsp;&nbsp;------<br>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pooja&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9800000001&nbsp;&nbsp;Rice 5kg, Dal 1kg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oxford<br>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pooja&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9800000001&nbsp;&nbsp;Oil 1L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oxford<br>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kunal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9800000002&nbsp;&nbsp;Rice 5kg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Detroit</div>
+        <div class="lc-code">order_id&nbsp;&nbsp;customer&nbsp;&nbsp;phone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;items&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;state<br>--------&nbsp;&nbsp;--------&nbsp;&nbsp;----------&nbsp;&nbsp;-----------------------&nbsp;&nbsp;------<br>1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pooja&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9800000001&nbsp;&nbsp;Rice 5kg, Dal 1kg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kerala<br>2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pooja&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9800000001&nbsp;&nbsp;Oil 1L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kerala<br>3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kunal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9800000002&nbsp;&nbsp;Rice 5kg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gujarat</div>
           <ul class="lc-list">
             <li><strong>Update anomaly</strong> (an update problem): Pooja changes her phone. You must update every one of her orders, or the data disagrees with itself.</li>
             <li><strong>Insert anomaly</strong>: you cannot store a new customer until they place an order.</li>
@@ -1379,15 +1379,15 @@ module SqlContent
             <tbody>
               <tr><td>1NF</td><td>One value per cell. No lists or repeating columns (<code>item1, item2, item3</code>)</td><td>Move items to an <code>order_items</code> table, one row per item</td></tr>
               <tr><td>2NF</td><td>Every non-key column depends on the <em>whole</em> key, not just part of it</td><td>In <code>order_items(order_id, product_id, ...)</code>, the product name depends only on <code>product_id</code> → move it to <code>products</code></td></tr>
-              <tr><td>3NF</td><td>Non-key columns depend only on the key, not on other non-key columns</td><td><code>phone</code> and <code>city</code> depend on the customer, not the order → move them to <code>customers</code></td></tr>
+              <tr><td>3NF</td><td>Non-key columns depend only on the key, not on other non-key columns</td><td><code>phone</code> and <code>state</code> depend on the customer, not the order → move them to <code>customers</code></td></tr>
             </tbody>
           </table>
           <p>A popular way to remember it: every column should depend on "the key, the whole key, and nothing but the key".</p>
         </div>
 
         <div class="lc-card">
-          <h3>The Normalized Design</h3>
-        <div class="lc-code">customers(id PK, name, phone UNIQUE, city)<br>products(id PK, name UNIQUE, price_paise)<br>orders(id PK, customer_id FK -&gt; customers, order_date)<br>order_items(order_id FK -&gt; orders, product_id FK -&gt; products, qty,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unit_price_paise,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- price at the time of sale<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (order_id, product_id))</div>
+          <h3>The Normalised Design</h3>
+        <div class="lc-code">customers(id PK, name, phone UNIQUE, state)<br>products(id PK, name UNIQUE, price_paise)<br>orders(id PK, customer_id FK -&gt; customers, order_date)<br>order_items(order_id FK -&gt; orders, product_id FK -&gt; products, qty,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unit_price_paise,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-- price at the time of sale<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (order_id, product_id))</div>
           <p>Notice <code>unit_price_paise</code> in <code>order_items</code>. It looks like a copy, but it is a <em>different fact</em>: the price the customer actually paid. The product's current price may change next month. Old bills must not change.</p>
         </div>
 
@@ -1404,8 +1404,8 @@ module SqlContent
         </div>
 
         <div class="lc-card">
-          <h3>When to Denormalize</h3>
-          <p>Normalize first. Later, you may copy some data on purpose to make queries faster. Examples: a <code>total_paise</code> column on <code>orders</code>, or a report table that is rebuilt every night. Do it on purpose and write it down. Keep one main place where the true value lives.</p>
+          <h3>When to Denormalise</h3>
+          <p>Normalise first. Later, you may copy some data on purpose to make queries faster. Examples: a <code>total_paise</code> column on <code>orders</code>, or a report table that is rebuilt every night. Do it on purpose and write it down. Keep one main place where the true value lives.</p>
         </div>
 
         <div class="lc-card">
@@ -1413,14 +1413,14 @@ module SqlContent
           <ul class="lc-list">
             <li>Comma-separated lists in a column (<code>'tag1,tag2'</code>). Use a separate table instead.</li>
             <li>Columns like <code>phone1, phone2, phone3</code>. This is also a repeating group.</li>
-            <li>Over-normalizing: splitting tiny lookups into dozens of tables, so every query needs a 10-way join.</li>
+            <li>Over-normalising: splitting tiny lookups into dozens of tables, so every query needs a 10-way join.</li>
             <li>Not storing old values (the price at time of sale) because "it is already in products".</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>The starter code moves data from a flat table into normalized tables. Add a query that shows each customer's total spending from the normalized tables. Then change Pooja's phone number with a <em>single-row</em> UPDATE.</p>
+          <p>The starter code moves data from a flat table into normalised tables. Add a query that shows each customer's total spending from the normalised tables. Then change Pooja's phone number with a <em>single-row</em> UPDATE.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
@@ -1428,21 +1428,21 @@ module SqlContent
         </div>
       HTML
       starter_code: <<~'SQL'
-        -- Normalization and Schema Design
-        -- A flat, un-normalized table (one row per order line)
+        -- Normalisation and Schema Design
+        -- A flat, un-normalised table (one row per order line)
         CREATE TABLE flat_orders (
-            order_id INTEGER, customer TEXT, phone TEXT, city TEXT,
+            order_id INTEGER, customer TEXT, phone TEXT, state TEXT,
             product TEXT, price_paise INTEGER, qty INTEGER
         );
         INSERT INTO flat_orders VALUES
-            (1, 'Pooja', '9800000001', 'Oxford', 'Rice 5kg', 42000, 1),
-            (1, 'Pooja', '9800000001', 'Oxford', 'Dal 1kg',  14000, 2),
-            (2, 'Pooja', '9800000001', 'Oxford', 'Oil 1L',   18000, 1),
-            (3, 'Kunal', '9800000002', 'Detroit', 'Rice 5kg', 42000, 2);
+            (1, 'Pooja', '9800000001', 'Kerala', 'Rice 5kg', 42000, 1),
+            (1, 'Pooja', '9800000001', 'Kerala', 'Dal 1kg',  14000, 2),
+            (2, 'Pooja', '9800000001', 'Kerala', 'Oil 1L',   18000, 1),
+            (3, 'Kunal', '9800000002', 'Gujarat', 'Rice 5kg', 42000, 2);
 
-        -- Normalized tables
+        -- Normalised tables
         CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT NOT NULL,
-                                phone TEXT NOT NULL UNIQUE, city TEXT);
+                                phone TEXT NOT NULL UNIQUE, state TEXT);
         CREATE TABLE products  (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE,
                                 price_paise INTEGER NOT NULL);
         CREATE TABLE orders    (id INTEGER PRIMARY KEY,
@@ -1454,8 +1454,8 @@ module SqlContent
             PRIMARY KEY (order_id, product_id));
 
         -- Migrate: each fact goes to exactly one place
-        INSERT INTO customers (name, phone, city)
-            SELECT DISTINCT customer, phone, city FROM flat_orders;
+        INSERT INTO customers (name, phone, state)
+            SELECT DISTINCT customer, phone, state FROM flat_orders;
         INSERT INTO products (name, price_paise)
             SELECT DISTINCT product, price_paise FROM flat_orders;
         INSERT INTO orders (id, customer_id)
@@ -1492,7 +1492,7 @@ module SqlContent
             <thead><tr><th>Kind</th><th>Returns</th><th>Example use</th></tr></thead>
             <tbody>
               <tr><td>Scalar subquery</td><td>one value</td><td><code>WHERE salary &gt; (SELECT AVG(salary) FROM emp)</code></td></tr>
-              <tr><td>List subquery</td><td>one column, many rows</td><td><code>WHERE dept_id IN (SELECT id FROM dept WHERE city = 'London')</code></td></tr>
+              <tr><td>List subquery</td><td>one column, many rows</td><td><code>WHERE dept_id IN (SELECT id FROM dept WHERE state = 'Kerala')</code></td></tr>
               <tr><td>Correlated subquery</td><td>runs again for each outer row</td><td>"above the average of <em>their own</em> department"</td></tr>
               <tr><td>Derived table</td><td>a whole table in FROM</td><td><code>FROM (SELECT ...) AS t</code></td></tr>
             </tbody>
@@ -1509,7 +1509,7 @@ module SqlContent
         <div class="lc-card">
           <h3>EXISTS and NOT EXISTS</h3>
         <div class="lc-code">-- Departments that have at least one employee<br>SELECT d.name FROM dept d<br>WHERE EXISTS (SELECT 1 FROM emp e WHERE e.dept = d.name);<br><br>-- Departments with no employees (safe even when columns contain NULL)<br>SELECT d.name FROM dept d<br>WHERE NOT EXISTS (SELECT 1 FROM emp e WHERE e.dept = d.name);</div>
-          <p><code>EXISTS</code> only asks "is there at least one row?". So people usually write <code>SELECT 1</code> inside it. Use <code>NOT EXISTS</code> instead of <code>NOT IN</code> when the subquery column can be NULL (see the NULL lesson). For <code>IN</code> vs <code>EXISTS</code>, modern optimizers (the part of the database that plans how to run a query) usually make the same plan. Choose the one that is easiest to read.</p>
+          <p><code>EXISTS</code> only asks "is there at least one row?". So people usually write <code>SELECT 1</code> inside it. Use <code>NOT EXISTS</code> instead of <code>NOT IN</code> when the subquery column can be NULL (see the NULL lesson). For <code>IN</code> vs <code>EXISTS</code>, modern optimisers (the part of the database that plans how to run a query) usually make the same plan. Choose the one that is easiest to read.</p>
         </div>
 
         <div class="lc-card">
@@ -1543,7 +1543,7 @@ module SqlContent
 
         <div class="lc-card">
           <h3>Try It</h3>
-          <p>Find the highest-paid employee in each department. Use a correlated subquery (<code>salary = (SELECT MAX(...) ...)</code>). Then list the cities that appear in both the <code>dept</code> table and a new <code>branches</code> table. Use <code>INTERSECT</code> for this.</p>
+          <p>Find the highest-paid employee in each department. Use a correlated subquery (<code>salary = (SELECT MAX(...) ...)</code>). Then list the states that appear in both the <code>dept</code> table and a new <code>branches</code> table. Use <code>INTERSECT</code> for this.</p>
         </div>
 
         <div class="lc-card lc-card--tip">
@@ -1552,9 +1552,9 @@ module SqlContent
       HTML
       starter_code: <<~'SQL'
         -- Subqueries and Set Operations
-        CREATE TABLE dept (name TEXT PRIMARY KEY, city TEXT);
+        CREATE TABLE dept (name TEXT PRIMARY KEY, state TEXT);
         CREATE TABLE emp (id INTEGER PRIMARY KEY, name TEXT, dept TEXT, salary INTEGER);
-        INSERT INTO dept VALUES ('IT','London'), ('Ops','Liverpool'), ('Legal','New York');
+        INSERT INTO dept VALUES ('IT','Kerala'), ('Ops','Odisha'), ('Legal','Gujarat');
         INSERT INTO emp (name, dept, salary) VALUES
             ('Ojas',  'IT',  120000), ('Pallavi', 'IT', 90000),
             ('Qadir', 'Ops',  60000), ('Rekha',  'Ops', 70000);
@@ -1569,7 +1569,7 @@ module SqlContent
 
         -- IN with a list subquery
         SELECT name FROM emp
-        WHERE dept IN (SELECT name FROM dept WHERE city = 'London');
+        WHERE dept IN (SELECT name FROM dept WHERE state = 'Kerala');
 
         -- NOT EXISTS: departments with nobody in them
         SELECT d.name AS empty_dept FROM dept d
@@ -1619,7 +1619,7 @@ module SqlContent
               <tr><td>Replace</td><td><code>replace(s, 'a', 'b')</code></td><td>same</td><td>same</td></tr>
             </tbody>
           </table>
-          <p>Positions start at <strong>1</strong>, not 0: <code>substr('New York', 1, 3)</code> is <code>'New'</code>.</p>
+          <p>Positions start at <strong>1</strong>, not 0: <code>substr('Gujarat', 1, 3)</code> is <code>'Guj'</code>.</p>
         </div>
 
         <div class="lc-card">
@@ -1676,15 +1676,15 @@ module SqlContent
         CREATE TABLE people (
             id    INTEGER PRIMARY KEY,
             name  TEXT NOT NULL,
-            city  TEXT,
+            state  TEXT,
             dob   TEXT NOT NULL,     -- ISO date
             marks INTEGER
         );
-        INSERT INTO people (name, city, dob, marks) VALUES
-            ('  tanvi ', 'new york',  '2000-03-10', 93),
-            ('Uday',     'Edinburgh', '2000-12-01', 78),
-            ('Vani',     'Boston',    '2010-09-25', 49),
-            ('Wasim',    'Aberdeen',  '2008-10-02', 64);
+        INSERT INTO people (name, state, dob, marks) VALUES
+            ('  tanvi ', 'gujarat',   '2000-03-10', 93),
+            ('Uday',     'Maharashtra', '2000-12-01', 78),
+            ('Vani',     'Punjab',    '2010-09-25', 49),
+            ('Wasim',    'Assam',     '2008-10-02', 64);
 
         -- CASE: first true condition wins
         SELECT trim(name) AS name, marks,
@@ -1694,11 +1694,11 @@ module SqlContent
                     ELSE 'Fail' END AS grade
         FROM people;
 
-        -- String functions: tidy names and cities
+        -- String functions: tidy names and states
         SELECT upper(substr(trim(name), 1, 1)) || substr(trim(name), 2) AS clean_name,
-               upper(city) AS city_caps,
+               upper(state) AS state_caps,
                length(trim(name)) AS name_len,
-               instr(city, 'burgh') AS pos_of_burgh
+               instr(state, 'rashtra') AS pos_of_rashtra
         FROM people;
 
         -- Dates (fixed "today" = 2026-09-25 so the output never changes)
@@ -1742,7 +1742,7 @@ module SqlContent
           <ul class="lc-list">
             <li>A normal view stores <strong>the query, not the data</strong>. Every time you select from it, the query runs again on the current data. So it is always up to date.</li>
             <li>Views hide complex queries: a 5-table join becomes <code>SELECT * FROM order_report</code>. They can also hide columns, such as salaries or phone numbers, from some users.</li>
-            <li>PostgreSQL also has <strong>materialized views</strong>. These store the result, and you must refresh them. SQLite and MySQL do not have them.</li>
+            <li>PostgreSQL also has <strong>materialised views</strong>. These store the result, and you must refresh them. SQLite and MySQL do not have them.</li>
             <li>To change a view in SQLite, drop it and create it again. PostgreSQL and MySQL support <code>CREATE OR REPLACE VIEW</code>.</li>
           </ul>
         </div>
@@ -2002,7 +2002,7 @@ module SqlContent
         </div>
 
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> The database always scans tiny tables, even when an index exists, because reading a few pages is faster. Test speed ideas on data of a realistic size. That is why the starter code builds 10,000 rows with a recursive CTE.
+          <strong>Tip:</strong> On a tiny table, an index makes almost no difference, and some databases (such as PostgreSQL) may choose a full scan anyway because reading a few pages is fast. SQLite usually still uses the index. Test speed ideas on data of a realistic size. That is why the starter code builds 10,000 rows with a recursive CTE.
         </div>
       HTML
       starter_code: <<~'SQL'
@@ -2317,15 +2317,15 @@ module SqlContent
         <div class="lc-card">
           <h3>The Brief</h3>
           <ul class="lc-list">
-            <li>Customers (with city), products (with category and price), orders and order lines.</li>
+            <li>Customers (with state), products (with category and price), orders and order lines.</li>
             <li>Money is stored as <strong>INTEGER paise</strong>. Each order line keeps the <strong>price paid</strong>.</li>
-            <li>The owner wants four things: revenue by category, the best customer in each city, monthly revenue with a running total, and a list of customers who have never ordered.</li>
+            <li>The owner wants four things: revenue by category, the best customer in each state, monthly revenue with a running total, and a list of customers who have never ordered.</li>
           </ul>
         </div>
 
         <div class="lc-card">
           <h3>Step 1: Schema With Constraints (Lessons 2, 10, 13)</h3>
-        <div class="lc-code">customers(id PK, name NOT NULL, city NOT NULL)<br>products(id PK, name UNIQUE, category, price_paise CHECK &gt; 0)<br>orders(id PK, customer_id FK, order_date)<br>order_items(order_id FK, product_id FK, qty CHECK &gt; 0, unit_price_paise,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (order_id, product_id))</div>
+        <div class="lc-code">customers(id PK, name NOT NULL, state NOT NULL)<br>products(id PK, name UNIQUE, category, price_paise CHECK &gt; 0)<br>orders(id PK, customer_id FK, order_date)<br>order_items(order_id FK, product_id FK, qty CHECK &gt; 0, unit_price_paise,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (order_id, product_id))</div>
         </div>
 
         <div class="lc-card">
@@ -2339,7 +2339,7 @@ module SqlContent
             <thead><tr><th>Question</th><th>Techniques</th></tr></thead>
             <tbody>
               <tr><td>Revenue per category</td><td>JOIN + GROUP BY + SUM (lessons 9, 11)</td></tr>
-              <tr><td>Best customer in each city</td><td>CTE + RANK() OVER (PARTITION BY city) (lessons 16, 17)</td></tr>
+              <tr><td>Best customer in each state</td><td>CTE + RANK() OVER (PARTITION BY state) (lessons 16, 17)</td></tr>
               <tr><td>Monthly revenue and running total</td><td>GROUP BY month + SUM() OVER (ORDER BY month)</td></tr>
               <tr><td>Customers who never ordered</td><td>NOT EXISTS / LEFT JOIN anti-join (lessons 12, 14)</td></tr>
               <tr><td>A reusable report</td><td>CREATE VIEW (lesson 16)</td></tr>
@@ -2381,7 +2381,7 @@ module SqlContent
       HTML
       starter_code: <<~'SQL'
         -- Capstone: Online Store Analytics ("Kirana Online")
-        CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT NOT NULL, city TEXT NOT NULL);
+        CREATE TABLE customers (id INTEGER PRIMARY KEY, name TEXT NOT NULL, state TEXT NOT NULL);
         CREATE TABLE products  (id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE, category TEXT NOT NULL,
                                 price_paise INTEGER NOT NULL CHECK (price_paise > 0));
         CREATE TABLE orders    (id INTEGER PRIMARY KEY, customer_id INTEGER NOT NULL REFERENCES customers(id),
@@ -2392,7 +2392,7 @@ module SqlContent
         CREATE INDEX idx_items_product ON order_items (product_id);
 
         BEGIN;
-        INSERT INTO customers VALUES (1,'Anjali','Nottingham'), (2,'Bilal','Nottingham'), (3,'Charu','Miami'), (4,'Dhruv','Miami');
+        INSERT INTO customers VALUES (1,'Anjali','Kerala'), (2,'Bilal','Kerala'), (3,'Charu','Goa'), (4,'Dhruv','Goa');
         INSERT INTO products VALUES (1,'Atta 5kg','Staples',26000), (2,'Toor Dal 1kg','Staples',15000),
                                     (3,'Chakli Pack','Snacks',6000);
         INSERT INTO orders VALUES (1,1,'2026-07-03'), (2,2,'2026-07-19'), (3,1,'2026-08-11'), (4,3,'2026-09-02');
@@ -2405,14 +2405,14 @@ module SqlContent
         FROM order_items i JOIN products p ON p.id = i.product_id
         GROUP BY p.category ORDER BY SUM(i.qty * i.unit_price_paise) DESC;
 
-        -- Q2. Best customer in each city
+        -- Q2. Best customer in each state
         WITH spend AS (
-            SELECT c.city, c.name, SUM(i.qty * i.unit_price_paise) AS paise
+            SELECT c.state, c.name, SUM(i.qty * i.unit_price_paise) AS paise
             FROM customers c JOIN orders o ON o.customer_id = c.id
             JOIN order_items i ON i.order_id = o.id
-            GROUP BY c.id, c.city, c.name),
-        ranked AS (SELECT *, RANK() OVER (PARTITION BY city ORDER BY paise DESC) AS rnk FROM spend)
-        SELECT city, name, paise / 100 AS rupees FROM ranked WHERE rnk = 1 ORDER BY city;
+            GROUP BY c.id, c.state, c.name),
+        ranked AS (SELECT *, RANK() OVER (PARTITION BY state ORDER BY paise DESC) AS rnk FROM spend)
+        SELECT state, name, paise / 100 AS rupees FROM ranked WHERE rnk = 1 ORDER BY state;
 
         -- Q3. Monthly revenue with a running total, saved as a view
         CREATE VIEW monthly_revenue AS

@@ -51,8 +51,8 @@ module AiForBrandingContent
           <table class="lc-table">
             <thead><tr><th>Part</th><th>Plain meaning</th><th>Example (made up)</th></tr></thead>
             <tbody>
-              <tr><td><strong>Brand promise</strong></td><td>What customers can always expect from you</td><td>Sweet Crumbs (London, owner Anjali): "Eggless cakes, baked fresh the same morning."</td></tr>
-              <tr><td><strong>Personality</strong></td><td>How your brand would behave if it were a person</td><td>Chai Chowk (Leeds, founder Aman): lively, quick and friendly.</td></tr>
+              <tr><td><strong>Brand promise</strong></td><td>What customers can always expect from you</td><td>Sweet Crumbs (Maharashtra, owner Anjali): "Eggless cakes, baked fresh the same morning."</td></tr>
+              <tr><td><strong>Personality</strong></td><td>How your brand would behave if it were a person</td><td>Chai Chowk (Madhya Pradesh, founder Aman): lively, quick and friendly.</td></tr>
               <tr><td><strong>Positioning</strong></td><td>The place you want to hold in a customer's mind, compared to other choices</td><td>Lakshmi: "Real Kerala home pickles for Malayalis living outside Kerala."</td></tr>
               <tr><td><strong>Look</strong></td><td>Logo, colours, fonts, photos, packing</td><td>A glass jar with a simple label and a hand-drawn chilli</td></tr>
             </tbody>
@@ -102,7 +102,7 @@ module AiForBrandingContent
               <li data-bucket="personality" data-why="It describes how the brand behaves and talks, like a person.">Warm and homely, like chatting with a favourite aunty back home</li>
               <li data-bucket="positioning" data-why="It names who the brand is for and the need it meets.">For Malayalis outside Kerala who miss home pickles</li>
               <li data-bucket="promise" data-why="It is a clear, daily commitment that customers can check.">Sweet Crumbs: eggless cakes baked fresh the same morning</li>
-              <li data-bucket="personality" data-why="Lively, quick and funny are personality traits.">Chai Chowk sounds lively and quick, with a little Indori humour</li>
+              <li data-bucket="personality" data-why="Lively, quick and funny are personality traits.">Chai Chowk sounds lively and quick, with a little local humour</li>
               <li data-bucket="positioning" data-why="It compares the brand with other choices and says why it is different.">Unlike factory pickles, made in small batches from a family recipe</li>
             </ul>
           </div>
@@ -318,7 +318,7 @@ module AiForBrandingContent
           <p>Your <strong>purpose</strong> is why your business exists, beyond making money. Keep it to one sentence that a child could understand.</p>
           <ul class="lc-list">
             <li>Lakshmi: "To bring the taste of a Kerala home kitchen to Malayalis wherever they live."</li>
-            <li>Chai Chowk (Aman, Leeds): "To give busy people a proper cup of chai and a hot snack, fast."</li>
+            <li>Chai Chowk (Aman, Madhya Pradesh): "To give busy people a proper cup of chai and a hot snack, fast."</li>
           </ul>
           <p>Your <strong>target customer</strong> is the person you serve best. "Everyone who eats pickles" is not a target. It is too wide to guide any decision. Lakshmi's first guess:</p>
           <table class="lc-table">
@@ -332,6 +332,7 @@ module AiForBrandingContent
             </tbody>
           </table>
           <p>AI can help you write a <strong>persona</strong> (a short, made-up profile of a typical customer). But a persona from AI is only a guess. Test it by talking to 10 to 15 real people who fit it. Never let AI invent market size numbers for you. If you need numbers, find a real, named source.</p>
+          <p>Lakshmi's persona is <strong>Divya</strong>, 38, an IT project manager who grew up in Kerala and now lives in Karnataka. She misses her mother's pickles and orders most things on her phone. You will meet Divya again in later lessons.</p>
         </div>
         <div class="lc-card">
           <h3>Competitors: how they look and sound</h3>
@@ -475,7 +476,7 @@ module AiForBrandingContent
               <tr><td>Proud of Kerala</td><td>A few Malayalam words, always with the meaning</td><td>"Kadumanga (tender mango) season is here."</td></tr>
             </tbody>
           </table>
-          <p>Compare two other made-up brands. Chai Chowk in Leeds is lively, quick and a bit cheeky: "Chai ready in five. Poha ready now." Sweet Crumbs in London is warm and careful: "Tell us the name for the cake. We will write it neatly."</p>
+          <p>Compare two other made-up brands. Chai Chowk in Madhya Pradesh is lively, quick and a bit cheeky: "Chai ready in five. Poha ready now." Sweet Crumbs in Maharashtra is warm and careful: "Tell us the name for the cake. We will write it neatly."</p>
         </div>
         <div class="lc-card">
           <h3>Values need proof</h3>
@@ -656,7 +657,7 @@ module AiForBrandingContent
               <tr><td>Kochu Bharani</td><td>Warm, homely. Bharani is also a birth star: a good sign.</td><td>No bad meaning found. Sounds a little like "bharna" (to fill).</td><td>Easy after hearing it once.</td><td>Pass</td></tr>
               <tr><td>Bharanika</td><td>Clearly linked to the jar</td><td>Sounds like a girl's name</td><td>Easy to say</td><td>Pass (runner-up)</td></tr>
               <tr><td>Kanthari Kitchen</td><td>Strong, spicy</td><td>Word is not known; no bad meaning found</td><td>Easy</td><td>Pass, but suggests "very hot"</td></tr>
-              <tr><td>Pazhama</td><td>Nice meaning</td><td>Anjali (London) heard "pyjama"</td><td>Also heard as "pyjama"</td><td>Fail</td></tr>
+              <tr><td>Pazhama</td><td>Nice meaning</td><td>Anjali (Maharashtra) heard "pyjama"</td><td>Also heard as "pyjama"</td><td>Fail</td></tr>
             </tbody>
           </table>
           <ul class="lc-list">
@@ -674,7 +675,7 @@ module AiForBrandingContent
               <li data-kind="answer" data-label="AI replies">The list includes "Kerala Spice Co.", "Pazhama" and "Kochu Bharani". It adds: "All these names are available to register."</li>
               <li data-kind="warn" data-label="Mistake to catch">The AI cannot check trademark records, domains or shops. "Available" is a guess. She ignores it.</li>
               <li data-kind="check" data-label="Sound test">She reads 7 names aloud on calls to her mother, a Hindi-speaking friend and two customers in Karnataka.</li>
-              <li data-kind="result" data-label="What she learns">Her friend Anjali in London hears "Pazhama" as "pyjama" and laughs. That name is out.</li>
+              <li data-kind="result" data-label="What she learns">Her friend Anjali in Maharashtra hears "Pazhama" as "pyjama" and laughs. That name is out.</li>
               <li data-kind="tool" data-label="IP India search">She runs a wordmark and a phonetic search for "Kochu Bharani" and "Bharani" in Class 29.</li>
               <li data-kind="result" data-label="What the search shows">In this made-up example, several marks contain "Bharani", but none is the same as "Kochu Bharani".</li>
               <li data-kind="thought" data-label="Lakshmi thinks">The full name stands out more than "Bharani" alone. A first search is not a clearance.</li>
@@ -1625,7 +1626,7 @@ module AiForBrandingContent
         </figure>
         <div class="lc-card">
           <h3>Choose a website builder</h3>
-          <p>A <strong>website builder</strong> is a tool that lets you make a site by choosing a template and typing into boxes. You do not need to write code. There are three common kinds.</p>
+          <p>A <strong>website builder</strong> is a tool that lets you make a site by choosing a template and typing into boxes. You do not need to write code. There are four common kinds.</p>
           <table class="lc-table">
             <thead><tr><th>Kind of builder</th><th>Examples</th><th>Good for</th><th>Watch out</th></tr></thead>
             <tbody>
@@ -2241,7 +2242,7 @@ module AiForBrandingContent
         Texts to check:
         1. Website: "Premium curated Kerala pickles. Call +91 9YYYY YYYYY."
         2. Instagram: "Lime pickle back in stock! Small batch, made on [date]. Order on WhatsApp."
-        3. Shop poster: "BEST PICKLES IN KOCHI!!! LIMITED STOCK!!!"
+        3. Shop poster: "BEST PICKLES IN KERALA!!! LIMITED STOCK!!!"
         4. WhatsApp greeting: "Hello! Thanks for messaging. We reply Mon to Sat, 10 am to 5 pm."
 
         For each text, give: a score from 1 to 3 for voice and for facts, the exact problem words, and a fixed version.

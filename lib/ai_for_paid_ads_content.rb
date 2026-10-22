@@ -20,7 +20,7 @@ module AiForPaidAdsContent
               <rect x="468" y="36" width="128" height="44" rx="8" fill="#1f1f44" stroke="#f59e0b"/><text x="532" y="63">Person clicks</text>
               <rect x="620" y="36" width="128" height="44" rx="8" fill="#1f1f44" stroke="#10b981"/><text x="684" y="63">Buys or enquires</text>
               <g font-size="11.5" fill="#9b99b8">
-                <text x="76" y="100">"cake shop london"</text>
+                <text x="76" y="100">"cake shop near me"</text>
                 <text x="228" y="100">bid + ad quality</text>
                 <text x="380" y="100">= an impression</text>
                 <text x="532" y="100">= a click</text>
@@ -50,11 +50,11 @@ module AiForPaidAdsContent
         </figure>
         <div class="lc-card">
           <h3>The key words</h3>
-          <p>Here is how a made-up home bakery, <strong>Sweet Crumbs</strong> in London, meets each word.</p>
+          <p>Here is how a made-up home bakery, <strong>Sweet Crumbs</strong> in Maharashtra, meets each word.</p>
           <table class="lc-table">
             <thead><tr><th>Word</th><th>Plain meaning</th><th>Sweet Crumbs example</th></tr></thead>
             <tbody>
-              <tr><td><strong>Auction</strong></td><td>A very fast contest that decides which ads show, and in which order. It runs every time a space for an ad is free.</td><td>Five bakeries want to show an ad for "birthday cake london". The auction picks the order.</td></tr>
+              <tr><td><strong>Auction</strong></td><td>A very fast contest that decides which ads show, and in which order. It runs every time a space for an ad is free.</td><td>Five bakeries want to show an ad for "birthday cake near me". The auction picks the order.</td></tr>
               <tr><td><strong>Bid</strong></td><td>The most you are willing to pay for a click or a result. Many advertisers let the platform set bids for them.</td><td>Sweet Crumbs allows up to ₹25 for one click.</td></tr>
               <tr><td><strong>Budget</strong></td><td>The total money you allow the platform to spend, per day or for the whole campaign.</td><td>₹500 a day for 14 days</td></tr>
               <tr><td><strong>Impression</strong></td><td>One time your ad is shown on a screen</td><td>The ad appears 2,000 times in one day.</td></tr>
@@ -84,7 +84,7 @@ module AiForPaidAdsContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Explain Google Ads.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>I run Sweet Crumbs, a home bakery in London. I have never run ads.
+          <pre><code>I run Sweet Crumbs, a home bakery in Maharashtra. I have never run ads.
         Explain how one Google search ad and one Instagram ad would work for me.
         Use these words: auction, bid, budget, impression, click, conversion.
         Use one made-up example with numbers in rupees. Mark them as made up.
@@ -97,7 +97,7 @@ module AiForPaidAdsContent
             <p class="lcw-prompt">Put the steps of a search ad in the right order.</p>
             <ol data-sequence-target="list">
               <li data-order="1">The bakery sets a daily budget and chooses keywords.</li>
-              <li data-order="2">A person searches "eggless birthday cake london".</li>
+              <li data-order="2">A person searches "eggless birthday cake near me".</li>
               <li data-order="3">An auction runs in a fraction of a second.</li>
               <li data-order="4">The ad appears on the results page (an impression).</li>
               <li data-order="5">The person taps the ad (a click).</li>
@@ -110,7 +110,7 @@ module AiForPaidAdsContent
           <p>Ask AI to explain paid ads using your own business. Change the words in brackets first, or send it as it is.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient paid ads teacher. I am new to advertising.
-        I run [a small bakery] in [London]. I sell [cakes and cookies] and most customers are [local families].
+        I run [a small bakery] in [Maharashtra]. I sell [cakes and cookies] and most customers are [local families].
 
         1. Explain how one Google search ad and one Instagram ad would work for my business.
         2. Use and explain these words: auction, bid, budget, impression, click, conversion.
@@ -514,17 +514,17 @@ module AiForPaidAdsContent
         </div>
         <p class="lc-lead">On Google, the main type of text ad is the <strong>responsive search ad</strong>. You write many short headlines and descriptions. Google then mixes them to fit each search. In this lesson, you will use AI to write headlines and descriptions that match what people search for. You will also learn to check the length limits and the claims, because AI often gets both wrong.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 270" role="img" aria-label="A search for eggless cake london leads to your pool of assets: up to 15 headlines of 30 characters and up to 4 descriptions of 90 characters. Google mixes them into the ad that is shown, with two headlines and a description.">
+          <svg viewBox="0 0 760 270" role="img" aria-label="A search for eggless cake near me leads to your pool of assets: up to 15 headlines of 30 characters and up to 4 descriptions of 90 characters. Google mixes them into the ad that is shown, with two headlines and a description.">
             <defs><marker id="ads5a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <rect x="15" y="90" width="180" height="70" rx="10" fill="#1f1f44" stroke="#3b82f6"/>
               <text x="105" y="118" fill="#93c5fd" font-weight="700">Search</text>
-              <text x="105" y="142">eggless cake london</text>
+              <text x="105" y="142">eggless cake near me</text>
               <rect x="225" y="20" width="230" height="212" rx="12" fill="#27274e" stroke="#8b5cf6"/>
               <text x="340" y="44" font-weight="700" fill="#c4b5fd">Your assets</text>
               <g text-anchor="start" font-size="12">
                 <text x="240" y="70" font-size="11" fill="#9b99b8">Headlines: up to 15, 30 chars</text>
-                <text x="240" y="92">Eggless Cakes in London</text>
+                <text x="240" y="92">Eggless Cakes Near You</text>
                 <text x="240" y="112">Same-Day Home Delivery</text>
                 <text x="240" y="132">Order by 2 pm Today</text>
                 <text x="240" y="152">Custom Birthday Cakes</text>
@@ -536,7 +536,7 @@ module AiForPaidAdsContent
               <text x="615" y="64" font-weight="700" fill="#6ee7b7">Ad shown (Google's mix)</text>
               <g text-anchor="start">
                 <text x="500" y="92" font-size="11" fill="#9b99b8">Sponsored · sweetcrumbs.example</text>
-                <text x="500" y="118" fill="#93c5fd">Eggless Cakes in London |</text>
+                <text x="500" y="118" fill="#93c5fd">Eggless Cakes Near You |</text>
                 <text x="500" y="138" fill="#93c5fd">Same-Day Home Delivery</text>
                 <text x="500" y="166" font-size="12">Fresh cakes, baked daily.</text>
                 <text x="500" y="186" font-size="12">Order by 2 pm for today.</text>
@@ -561,11 +561,11 @@ module AiForPaidAdsContent
         </div>
         <div class="lc-card">
           <h3>Match the keyword and the intent</h3>
-          <p>Search intent means what the person wants when they type a search. Your headlines should answer that want. Here is the made-up <strong>Sweet Crumbs</strong> bakery in London.</p>
+          <p>Search intent means what the person wants when they type a search. Your headlines should answer that want. Here is the made-up <strong>Sweet Crumbs</strong> bakery in Maharashtra.</p>
           <table class="lc-table">
             <thead><tr><th>Search</th><th>Intent</th><th>Headline angle</th></tr></thead>
             <tbody>
-              <tr><td>eggless cake delivery london</td><td>Ready to buy now</td><td>"Eggless Cakes in London", "Same-Day Home Delivery"</td></tr>
+              <tr><td>eggless cake delivery near me</td><td>Ready to buy now</td><td>"Eggless Cakes Near You", "Same-Day Home Delivery"</td></tr>
               <tr><td>custom birthday cake price</td><td>Comparing prices</td><td>"Photo Cakes from ₹899" (only if the price is real)</td></tr>
               <tr><td>best cake shop near me</td><td>Looking for trust</td><td>"Rated 4.8 on Google" (only if true today)</td></tr>
             </tbody>
@@ -575,8 +575,8 @@ module AiForPaidAdsContent
           <p><strong>Better prompt:</strong></p>
           <pre><code>Write 15 headlines (max 30 characters) and 4 descriptions (max 90 characters)
         for a Google responsive search ad.
-        Business: Sweet Crumbs, an eggless bakery in London. Same-day delivery if you order by 2 pm.
-        Keywords: eggless cake delivery london, eggless birthday cake.
+        Business: Sweet Crumbs, an eggless bakery in Maharashtra. Same-day delivery if you order by 2 pm.
+        Keywords: eggless cake delivery near me, eggless birthday cake.
         Put the main keyword in at least 3 headlines. Include 2 calls to action.
         Show a character count for each line. Do not invent prices, ratings or awards.</code></pre>
         </div>
@@ -584,7 +584,7 @@ module AiForPaidAdsContent
           <h3>What you must check</h3>
           <ul class="lc-list">
             <li><strong>Length.</strong> AI often counts characters wrongly. Paste the lines into Google Sheets or Excel and use <code>=LEN(A2)</code> to count each one.</li>
-            <li><strong>Claims.</strong> "Best in London" or "No. 1" needs proof. Health claims, such as "sugar-free and safe for diabetics", can break ad policies and can mislead people.</li>
+            <li><strong>Claims.</strong> "Best in Maharashtra" or "No. 1" needs proof. Health claims, such as "sugar-free and safe for diabetics", can break ad policies and can mislead people.</li>
             <li><strong>Facts.</strong> Prices, delivery times and offers must match your landing page today.</li>
             <li><strong>Variety.</strong> Fifteen headlines that say the same thing do not help. Mix product, benefit, offer, trust and call to action.</li>
           </ul>
@@ -594,9 +594,9 @@ module AiForPaidAdsContent
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Prompt">You give the AI the better prompt above, with your keywords and delivery rule.</li>
-              <li data-kind="answer" data-label="AI replies">15 headlines, including "London's Most Loved Eggless Cake Shop (30)" and "Best Eggless Cakes in All of London (29)".</li>
+              <li data-kind="answer" data-label="AI replies">15 headlines, including "Maharashtra's Most Loved Eggless Cake Shop (30)" and "Best Eggless Cakes in All of Maharashtra (29)".</li>
               <li data-kind="tool" data-label="Spreadsheet">You paste all headlines into column A and type <code>=LEN(A2)</code> in column B.</li>
-              <li data-kind="result" data-label="Sheet shows">"London's Most Loved Eggless Cake Shop" has 37 characters. "Best Eggless Cakes in All of London" has 35. Both are too long.</li>
+              <li data-kind="result" data-label="Sheet shows">"Maharashtra's Most Loved Eggless Cake Shop" has 42 characters. "Best Eggless Cakes in All of Maharashtra" has 40. Both are too long.</li>
               <li data-kind="warn" data-label="Claim problem">"Most loved" and "Best" are claims you cannot prove. You remove both headlines.</li>
               <li data-kind="check" data-label="Fact check">You open the landing page. It says "order by 2 pm", so the delivery headline is correct.</li>
               <li data-kind="user" data-label="Follow-up">"Replace the two removed headlines with trust headlines under 30 characters. Use only facts I gave you."</li>
@@ -610,9 +610,9 @@ module AiForPaidAdsContent
             <pre class="ai-try-prompt">You are an expert Google Ads copywriter.
         Write assets for one responsive search ad.
 
-        Business: [Sweet Crumbs, an eggless bakery in London]
-        Main keyword: [eggless cake delivery london]
-        Other keywords: [eggless birthday cake, cake home delivery london]
+        Business: [Sweet Crumbs, an eggless bakery in Maharashtra]
+        Main keyword: [eggless cake delivery near me]
+        Other keywords: [eggless birthday cake, cake home delivery near me]
         Facts you may use: [same-day delivery if ordered by 2 pm; custom photo cakes; 100% eggless kitchen]
         Landing page: [the online order page]
 
@@ -923,16 +923,16 @@ module AiForPaidAdsContent
         </div>
         <p class="lc-lead">Targeting decides who can see your ad. On Meta, you can target by place and age, by interests, by lists of your own customers, and by people who visited your website. Today, the platforms also use AI to find buyers for you. In this lesson, you will learn the main audience types. You will use AI to plan an audience, and learn the privacy rules you must follow.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 310" role="img" aria-label="Three audience types for a made-up London bakery, from cold to warm. New people: broad targeting with Advantage+, interests and location. Similar people: a lookalike audience based on past customers. Warm people: retargeting of website visitors and Instagram engagers, excluding recent buyers. A note at the bottom about privacy.">
+          <svg viewBox="0 0 760 310" role="img" aria-label="Three audience types for a made-up bakery in Maharashtra, from cold to warm. New people: broad targeting with Advantage+, interests and location. Similar people: a lookalike audience based on past customers. Warm people: retargeting of website visitors and Instagram engagers, excluding recent buyers. A note at the bottom about privacy.">
             <defs><marker id="ads8a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
-              <text x="380" y="28" font-weight="700" fill="#fdba74">Sweet Crumbs bakery, London: three kinds of audience</text>
+              <text x="380" y="28" font-weight="700" fill="#fdba74">Sweet Crumbs bakery, Maharashtra: three kinds of audience</text>
               <rect x="20" y="46" width="220" height="200" rx="12" fill="#1f1f44" stroke="#3b82f6"/>
               <text x="130" y="72" font-weight="700" fill="#93c5fd">New people</text>
               <text x="130" y="90" font-size="11.5" fill="#9b99b8">(cold)</text>
               <text x="130" y="122">Broad + Advantage+</text>
               <text x="130" y="148">Interests: baking, cafes</text>
-              <text x="130" y="174">Location: London, 8 km</text>
+              <text x="130" y="174">Location: 8 km radius</text>
               <text x="130" y="228" font-size="11.5" fill="#9b99b8">biggest reach</text>
               <rect x="270" y="46" width="220" height="200" rx="12" fill="#1f1f44" stroke="#8b5cf6"/>
               <text x="380" y="72" font-weight="700" fill="#c4b5fd">Similar people</text>
@@ -961,7 +961,7 @@ module AiForPaidAdsContent
         <div class="lc-card">
           <h3>The main audience types on Meta</h3>
           <table class="lc-table">
-            <thead><tr><th>Audience type</th><th>Plain meaning</th><th>Example (made-up London bakery)</th></tr></thead>
+            <thead><tr><th>Audience type</th><th>Plain meaning</th><th>Example (made-up bakery in Maharashtra)</th></tr></thead>
             <tbody>
               <tr><td><strong>Location, age, language</strong></td><td>Basic settings for who can see the ad</td><td>People within 8 km of the shop</td></tr>
               <tr><td><strong>Detailed targeting</strong></td><td>Interests, behaviours and demographics that Meta has on its users</td><td>Interest in baking or birthday parties</td></tr>
@@ -978,7 +978,7 @@ module AiForPaidAdsContent
           <p>A weak prompt:</p>
           <pre><code>Who should I target for my bakery?</code></pre>
           <p>The AI does not know your offer, area or data. It will guess. A better prompt:</p>
-          <pre><code>I run Sweet Crumbs, a bakery in London. We deliver within 8 km of Camden.
+          <pre><code>I run Sweet Crumbs, a home bakery in Maharashtra. We deliver within 8 km of our kitchen.
         Offer: custom birthday cakes from ₹899, order 1 day ahead.
         Past buyers: mostly parents aged 28-45 ordering for children's birthdays.
         I have: website visitors, an Instagram page with 4,000 followers, and
@@ -1001,7 +1001,7 @@ module AiForPaidAdsContent
           <h3>Activity: plan an audience with AI</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="user" data-label="The owner asks">"I run a bakery in London. Who should I target on Meta for my ₹899 birthday cake offer?"</li>
+              <li data-kind="user" data-label="The owner asks">"I run a bakery in Maharashtra. Who should I target on Meta for my ₹899 birthday cake offer?"</li>
               <li data-kind="answer" data-label="AI suggests">Three ad sets: people within the delivery area aged 25-45 with Advantage+ audience; a lookalike of past buyers; and retargeting of recent website visitors.</li>
               <li data-kind="warn" data-label="Catch this">The AI also suggests "target people with diabetes for sugar-free cakes". That is sensitive health targeting. Do not use it. Show the sugar-free cake to everyone instead.</li>
               <li data-kind="tool" data-label="Meta Ads Manager">The owner sets the location to the real 8 km delivery area and turns on Advantage+ audience with parents and baking as suggestions.</li>
@@ -1015,7 +1015,7 @@ module AiForPaidAdsContent
           <h3>Try It</h3>
           <p>Ask AI for a simple Meta audience plan with three ad sets. Change the brackets to your own business, or leave them as they are.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a Meta ads planner. Make an audience plan for [Sweet Crumbs, a bakery in London that delivers within 8 km].
+            <pre class="ai-try-prompt">You are a Meta ads planner. Make an audience plan for [Sweet Crumbs, a bakery in Maharashtra that delivers within 8 km].
 
         Offer: [custom birthday cakes from ₹899, order 1 day ahead].
         Typical buyers: [parents aged 28-45 ordering for children's birthdays].
@@ -1213,7 +1213,7 @@ module AiForPaidAdsContent
         </figure>
         <div class="lc-card">
           <h3>Budgets: from monthly to daily</h3>
-          <p>Our example is LedgerLite, a made-up San Francisco startup. It sells a billing app for small shops. A conversion is a free trial sign-up.</p>
+          <p>Our example is LedgerLite, a made-up startup in Karnataka. It sells a billing app for small shops. A conversion is a free trial sign-up.</p>
           <ul class="lc-list">
             <li><strong>Daily budget:</strong> the average amount you want to spend each day.</li>
             <li><strong>Lifetime budget (Meta):</strong> one amount for the whole campaign, spread over its dates.</li>
@@ -1286,7 +1286,7 @@ module AiForPaidAdsContent
           <h3>Try It</h3>
           <p>Give AI your budget numbers and ask for a pacing check and a simple bidding plan. Use the sample numbers or your own.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a paid ads budget planner. Help me with budgets and bidding for [LedgerLite, a San Francisco startup with a billing app for small shops]. A conversion is [a free trial sign-up].
+            <pre class="ai-try-prompt">You are a paid ads budget planner. Help me with budgets and bidding for [LedgerLite, a startup in Karnataka with a billing app for small shops]. A conversion is [a free trial sign-up].
 
         My numbers:
         - Monthly budget: [₹60,000]
@@ -1386,7 +1386,7 @@ module AiForPaidAdsContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Give me some better ads to test.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>I run Google search ads for Sweet Crumbs, a home bakery in London.
+          <pre><code>I run Google search ads for Sweet Crumbs, a home bakery in Maharashtra.
         Current headline: "Fresh Cakes Daily". Goal: more online cake orders.
         Suggest 3 A/B tests. For each test, change ONE thing only.
         For each, give: the hypothesis, version A, version B,
@@ -1414,10 +1414,10 @@ module AiForPaidAdsContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a careful paid ads specialist who explains things in simple English.
 
-        My business: [Sweet Crumbs, a home bakery in London selling eggless cakes].
+        My business: [Sweet Crumbs, a home bakery in Maharashtra selling eggless cakes].
         Platform: [Google search ads].
         Current ad headline: [Fresh Cakes Daily].
-        Current ad description: [Order birthday cakes online. Same-day delivery in London.]
+        Current ad description: [Order birthday cakes online. Same-day local delivery.]
         Goal: [more online cake orders].
         Weekly budget: [₹7,000].
 
@@ -1749,7 +1749,7 @@ module AiForPaidAdsContent
             <tbody>
               <tr><td>"Lose 10 kg in 2 weeks, guaranteed!"</td><td>Unproven health result and a guarantee</td><td>"Healthy meal plans made by a certified dietitian"</td></tr>
               <tr><td>"Guaranteed 20% returns every year"</td><td>Financial promises are strictly limited, and returns are never guaranteed</td><td>"Learn the basics of investing in a free webinar"</td></tr>
-              <tr><td>"London's No. 1 bakery"</td><td>A comparison claim you cannot prove</td><td>"Rated 4.8 by our customers on Google" (only if true right now)</td></tr>
+              <tr><td>"Maharashtra's No. 1 bakery"</td><td>A comparison claim you cannot prove</td><td>"Rated 4.8 by our customers on Google" (only if true right now)</td></tr>
               <tr><td>"Are you in debt? Click here."</td><td>Meta's rules do not allow ads that suggest they know a person's personal traits, such as money trouble or health</td><td>"Tips to plan your monthly budget"</td></tr>
               <tr><td>"Only 2 seats left!" (when that is false)</td><td>Fake urgency misleads buyers</td><td>"Batch starts 5 October" (a real date)</td></tr>
             </tbody>
@@ -1801,11 +1801,11 @@ module AiForPaidAdsContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an ad policy reviewer. Explain in simple English.
 
-        Business: [FitFuel, a made-up healthy meal delivery service in San Francisco].
+        Business: [FitFuel, a made-up healthy meal delivery service in India].
         Platforms: [Google search ads and Meta ads].
         My ad:
         [Headline: Lose 5 kg in 30 days, guaranteed!
-        Text: San Francisco's No. 1 diet meals. Are you overweight? Our doctor-approved plans work for everyone. Only 3 slots left today! Free delivery.]
+        Text: India's No. 1 diet meals. Are you overweight? Our doctor-approved plans work for everyone. Only 3 slots left today! Free delivery.]
 
         Tasks:
         1. Quote each risky phrase. Explain in one line why it may break platform ad policies or mislead customers.
@@ -1874,7 +1874,7 @@ module AiForPaidAdsContent
         </figure>
         <div class="lc-card">
           <h3>Your brief</h3>
-          <p>Use your own business, or this made-up one: <strong>Sweet Crumbs</strong>, a home bakery in London. It sells eggless birthday cakes and cookie boxes. It delivers across London. The monthly ad budget is ₹30,000. The goal is more online cake orders.</p>
+          <p>Use your own business, or this made-up one: <strong>Sweet Crumbs</strong>, a home bakery in Maharashtra. It sells eggless birthday cakes and cookie boxes. It delivers within 8 km of its kitchen. The monthly ad budget is ₹30,000. The goal is more online cake orders.</p>
           <table class="lc-table">
             <thead><tr><th>Part</th><th>What it must include</th><th>What you must check</th></tr></thead>
             <tbody>
@@ -1920,7 +1920,7 @@ module AiForPaidAdsContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a senior paid ads planner. Write in simple English.
 
-        Business: [Sweet Crumbs, a home bakery in London selling eggless birthday cakes and cookie boxes, delivery across London].
+        Business: [Sweet Crumbs, a home bakery in Maharashtra selling eggless birthday cakes and cookie boxes, delivery within 8 km of its kitchen].
         Goal: [more online cake orders]. Monthly budget: [₹30,000]. Platforms: [Google search and Meta].
         Landing page: [order page with prices and delivery areas].
 

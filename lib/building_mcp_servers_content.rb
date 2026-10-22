@@ -540,7 +540,7 @@ module BuildingMcpServersContent
         </div>
         <div class="lc-card">
           <h3>The current way: every request carries its details</h3>
-          <p>MCP versions are named by date. In the current version (<code>2026-07-28</code>), MCP is <strong>stateless</strong>. This means the server does not remember anything from earlier requests. So every request carries the version and the client's capabilities in a <code>_meta</code> field:</p>
+          <p>MCP versions are named by date. In the current version at the time of writing (<code>2026-07-28</code>), MCP is <strong>stateless</strong>. This means the server does not remember anything from earlier requests. So every request carries the version and the client's capabilities in a <code>_meta</code> field:</p>
           <pre><code>{"jsonrpc": "2.0", "id": 1, "method": "server/discover",
          "params": {"_meta": {
            "io.modelcontextprotocol/protocolVersion": "2026-07-28",
@@ -793,7 +793,7 @@ module BuildingMcpServersContent
         {"jsonrpc": "2.0", "id": 3, "method": "tools/call",
          "params": {"name": "search_notes", "arguments": {"word": "exam"}, "_meta": {...}}}</code></pre>
           <p><strong>Sessions:</strong> versions from <code>2025-03-26</code> to <code>2025-11-25</code> used a session ID in an <code>Mcp-Session-Id</code> header. The current version removed sessions. If your server must remember something between calls, return an ID from a tool. The client then passes it back as a normal tool argument. Streamable HTTP also replaced an older transport called HTTP+SSE, which is now deprecated.</p>
-          <p><strong>Security:</strong> the server must check the <code>Origin</code> header and reject bad values with <code>403 Forbidden</code>. This blocks some attacks from web pages. A server on your own computer should listen only on <code>127.0.0.1</code>, not on all network addresses. Remote servers also need authorization, which the OAuth lesson covers.</p>
+          <p><strong>Security:</strong> the server must check the <code>Origin</code> header and reject bad values with <code>403 Forbidden</code>. This blocks some attacks from web pages. A server on your own computer should listen only on <code>127.0.0.1</code>, not on all network addresses. Remote servers also need authorisation, which the OAuth lesson covers.</p>
         </div>
         <div class="lc-card">
           <h3>Which one should you pick?</h3>
@@ -838,7 +838,7 @@ module BuildingMcpServersContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Key Insight:</strong> The transport only carries messages. The JSON-RPC inside stays the same. Use stdio for local, single-user servers, and keep stdout for protocol messages only. Use Streamable HTTP for shared, remote servers, and protect them with Origin checks and authorization.
+          <strong>Key Insight:</strong> The transport only carries messages. The JSON-RPC inside stays the same. Use stdio for local, single-user servers, and keep stdout for protocol messages only. Use Streamable HTTP for shared, remote servers, and protect them with Origin checks and authorisation.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1370,7 +1370,7 @@ module BuildingMcpServersContent
                 raise ToolError(f"No note named {name!r}. Existing notes: {close}. "
                                 "Call search_notes if you are not sure of the name.")
             return NOTES[name]</code></pre>
-          <p>If your tool raises any <em>other</em> exception, the SDK still returns <code>isError: true</code>. But it hides the details for safety. The model only sees a short "Error executing tool" message. So raise <code>ToolError</code> with a clear message when the model can act on it.</p>
+          <p>If your tool raises any <em>other</em> exception, the SDK still returns <code>isError: true</code>, but you do not control the message. Depending on the SDK version, the model may get only a short generic message, or a raw Python error that can leak internal details. So raise <code>ToolError</code> with a clear message when the model can act on it.</p>
           <p>Note: on the wire, JSON uses camelCase (<code>isError</code>, <code>structuredContent</code>). In SDK version 2 Python code, the same fields are snake_case: <code>result.is_error</code>, <code>result.structured_content</code>.</p>
         </div>
         <div class="lc-card">
@@ -1404,7 +1404,7 @@ module BuildingMcpServersContent
           <ol class="lc-list">
             <li>The starter code is a tiny server that returns all three outcomes: success, tool error and protocol error.</li>
             <li>Run it. Compare the <code>result</code> answers with the <code>error</code> answer.</li>
-            <li>Look at the call with the wrong argument name. It raises a normal Python error, so the details are hidden. Then change the <code>ToolError</code> message in <code>get_note</code> to just <code>"not found"</code>. Would a model know what to do next?</li>
+            <li>Look at the call with the wrong argument name. It raises a normal Python error, so this teaching server hides the details. Then change the <code>ToolError</code> message in <code>get_note</code> to just <code>"not found"</code>. Would a model know what to do next?</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -1955,7 +1955,7 @@ module BuildingMcpServersContent
               <tr><td>Missing type hints or docstring</td><td>A vague schema, so the model sends wrong arguments</td><td>Add types, a docstring and <code>Field</code> descriptions</td></tr>
               <tr><td>Relative paths in the host config</td><td>The server works in your terminal but not in the host</td><td>Use full paths. The host may start it in another folder.</td></tr>
               <tr><td>Crash on start (missing package or env variable)</td><td>The host shows the server as failed</td><td>Read the host's MCP logs. Run the exact command in a terminal.</td></tr>
-              <tr><td>Plain exceptions in tools</td><td>The model only sees "Error executing tool"</td><td>Raise <code>ToolError</code> with a helpful message</td></tr>
+              <tr><td>Plain exceptions in tools</td><td>The model gets a generic or raw error, not a helpful one</td><td>Raise <code>ToolError</code> with a helpful message</td></tr>
             </tbody>
           </table>
           <p>Note: older spec versions also had a protocol message for logging, so servers could send log lines to the client. The current spec marks it as deprecated. Check modelcontextprotocol.io for the latest guidance.</p>
@@ -2946,18 +2946,21 @@ module BuildingMcpServersContent
         LEVELS = ["debug", "info", "notice", "warning", "error", "critical", "alert", "emergency"]
         NOTES = ["intro", "json-rpc", "lifecycle", "transports", "tools", "resources"]
 
-        # ---------- server: a slow job that yields (seconds_used, message) ----------
-        def export_notes(request_id, token):
+        # ---------- server: a slow job that yields (seconds_used, message or None) ----------
+        def export_notes(request_id, token, log_level=None):
+            def log(level, data):
+                # The server only sends a log if the request asked for this level or a lower one.
+                if log_level and LEVELS.index(level) >= LEVELS.index(log_level):
+                    return {"method": "notifications/message", "params": {"level": level, "data": data}}
+                return None                      # not asked for: the server sends nothing
             try:
                 for i, title in enumerate(NOTES, start=1):
-                    yield 0.2, {"method": "notifications/message",
-                                "params": {"level": "debug", "data": f"opening {title}.md"}}
+                    yield 0.2, log("debug", f"opening {title}.md")
                     yield 1.5, {"method": "notifications/progress",
                                 "params": {"progressToken": token, "progress": i, "total": len(NOTES),
                                            "message": f"Exported note {i} of {len(NOTES)}"}}
                     if i == 2:
-                        yield 0.0, {"method": "notifications/message",
-                                    "params": {"level": "info", "data": "one third done"}}
+                        yield 0.0, log("info", "one third done")
                 yield 0.1, {"id": request_id, "result": {"content": [
                     {"type": "text", "text": f"Exported {len(NOTES)} notes."}], "isError": False}}
             finally:
@@ -2973,7 +2976,7 @@ module BuildingMcpServersContent
             print(f"\n=== Request {request_id}: timeout {timeout} s, logs: {log_level} ===")
             print("t= 0.0s client -> tools/call export_notes")
             clock = 0.0
-            job = export_notes(request_id, f"job-{request_id}")
+            job = export_notes(request_id, f"job-{request_id}", log_level)
             for cost, msg in job:
                 clock += cost
                 if clock > timeout:
@@ -2983,10 +2986,9 @@ module BuildingMcpServersContent
                     job.close()                  # the server stops the work
                     print("        server sends no response. The client stops waiting.")
                     return None
+                if msg is None:
+                    continue                     # work went on, but no message was sent
                 if msg.get("method") == "notifications/message":
-                    wanted = log_level and LEVELS.index(msg["params"]["level"]) >= LEVELS.index(log_level)
-                    if not wanted:
-                        continue                 # the server must not send unrequested logs
                     print(f"t={clock:4.1f}s server -> log [{msg['params']['level']}] {msg['params']['data']}")
                 elif msg.get("method") == "notifications/progress":
                     p = msg["params"]
@@ -3051,7 +3053,7 @@ module BuildingMcpServersContent
         </figure>
         <div class="lc-card">
           <h3>Run a server over HTTP</h3>
-          <p>With the Python SDK you change one line. This example uses version 2 of the SDK. (Version 1 named the class <code>FastMCP</code> and imported it from <code>mcp.server.fastmcp</code>.)</p>
+          <p>With the Python SDK you change one line. This example uses version 2 of the SDK, the newest at the time of writing. (Version 1 named the class <code>FastMCP</code> and imported it from <code>mcp.server.fastmcp</code>.)</p>
           <pre><code>from mcp.server import MCPServer
 
         mcp = MCPServer("notes")
@@ -3095,7 +3097,7 @@ module BuildingMcpServersContent
           <ul class="lc-list">
             <li><strong>Check the <code>Origin</code> header.</strong> Browsers send it to say which website made the request. If it is present and not on your list, reply 403 Forbidden. This blocks <strong>DNS rebinding</strong>, a trick where a web page talks to a server on your own machine.</li>
             <li><strong>Local means localhost.</strong> When you run it on your own computer, bind to <code>127.0.0.1</code>, not <code>0.0.0.0</code> (every network).</li>
-            <li><strong>Use HTTPS and sign-in in production.</strong> Remote servers use OAuth access tokens. The authorization lesson covers this.</li>
+            <li><strong>Use HTTPS and sign-in in production.</strong> Remote servers use OAuth access tokens. The authorisation lesson covers this.</li>
             <li><strong>CORS only when needed.</strong> CORS is the browser's rule for calls between websites. Set it only if a browser app calls your server. Allow only known origins, plus the MCP headers.</li>
           </ul>
         </div>
@@ -3247,16 +3249,16 @@ module BuildingMcpServersContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-mcp">MCP Servers</div>
-          <h1 class="lc-title">Authorization with OAuth</h1>
+          <h1 class="lc-title">Authorisation with OAuth</h1>
         </div>
         <p class="lc-lead">A local stdio server runs on your own computer. Only your host app can talk to it. A remote server is on the internet, so anyone can try to call it. Your server must know <em>who</em> is calling and <em>what</em> they may do. MCP uses <strong>OAuth 2.1</strong> for this. OAuth is a standard way for a user to give an app limited access, without sharing a password. In this lesson you learn the flow in simple steps. You also learn about access tokens and scopes, and two rules that keep tokens safe.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 370" role="img" aria-label="Sequence diagram. The client calls the MCP server without a token and gets 401 with a metadata link. The user signs in at the authorization server, which gives the client an access token. The client calls again with the token. The server checks the token and returns the result.">
+          <svg viewBox="0 0 760 370" role="img" aria-label="Sequence diagram. The client calls the MCP server without a token and gets 401 with a metadata link. The user signs in at the authorisation server, which gives the client an access token. The client calls again with the token. The server checks the token and returns the result.">
             <defs><marker id="mcp17a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12" fill="#e2e0f0" text-anchor="middle">
               <rect x="30" y="15" width="160" height="40" rx="8" fill="#1f1f44" stroke="#3b82f6"/><text x="110" y="40" font-weight="700">MCP client</text>
               <rect x="300" y="15" width="160" height="40" rx="8" fill="#1f1f44" stroke="#f97316"/><text x="380" y="40" font-weight="700">MCP server</text>
-              <rect x="570" y="15" width="160" height="40" rx="8" fill="#1f1f44" stroke="#10b981"/><text x="650" y="40" font-weight="700">Authorization server</text>
+              <rect x="570" y="15" width="160" height="40" rx="8" fill="#1f1f44" stroke="#10b981"/><text x="650" y="40" font-weight="700">Authorisation server</text>
               <g stroke="#4b4a78" stroke-dasharray="4 4"><line x1="110" y1="55" x2="110" y2="355"/><line x1="380" y1="55" x2="380" y2="355"/><line x1="650" y1="55" x2="650" y2="355"/></g>
               <g stroke="#9b99b8" stroke-width="1.5" marker-end="url(#mcp17a)">
                 <line x1="112" y1="95" x2="374" y2="95"/>
@@ -3276,7 +3278,7 @@ module BuildingMcpServersContent
               <text x="245" y="328" fill="#6ee7b7">7. Result (or 401 / 403)</text>
             </g>
           </svg>
-          <figcaption>The user signs in at the authorization server. The MCP server only sees and checks the token.</figcaption>
+          <figcaption>The user signs in at the authorisation server. The MCP server only sees and checks the token.</figcaption>
         </figure>
         <div class="lc-card">
           <h3>Who does what</h3>
@@ -3284,18 +3286,18 @@ module BuildingMcpServersContent
             <thead><tr><th>Role</th><th>Job</th><th>In MCP</th></tr></thead>
             <tbody>
               <tr><td><strong>Resource server</strong></td><td>Holds the data and tools. Checks every token.</td><td>Your MCP server</td></tr>
-              <tr><td><strong>Authorization server</strong></td><td>Logs the user in, asks for consent (permission) and gives out tokens</td><td>Your company login or an identity service</td></tr>
+              <tr><td><strong>Authorisation server</strong></td><td>Logs the user in, asks for consent (permission) and gives out tokens</td><td>Your company login or an identity service</td></tr>
               <tr><td><strong>Client</strong></td><td>Gets a token for the user and sends it with each request</td><td>The MCP client inside the host app</td></tr>
             </tbody>
           </table>
-          <p>Authorization is optional in MCP, but every public remote server needs it. For a <strong>stdio</strong> server, the spec says: do not use this OAuth flow. Read secrets from environment variables instead. The host sets them when it starts your server.</p>
+          <p>Authorisation is optional in MCP, but every public remote server needs it. For a <strong>stdio</strong> server, the spec says: do not use this OAuth flow. Read secrets from environment variables instead. The host sets them when it starts your server.</p>
         </div>
         <div class="lc-card">
           <h3>The flow in simple steps</h3>
           <ol class="lc-list">
             <li>The client calls your server with no token. Your server answers <code>401 Unauthorized</code>.</li>
-            <li>The 401 answer has a <code>WWW-Authenticate</code> header. It points to your <strong>protected resource metadata</strong>: a small JSON file that names your authorization server.</li>
-            <li>The client reads the authorization server's own metadata. It finds the login and token addresses there.</li>
+            <li>The 401 answer has a <code>WWW-Authenticate</code> header. It points to your <strong>protected resource metadata</strong>: a small JSON file that names your authorisation server.</li>
+            <li>The client reads the authorisation server's own metadata. It finds the login and token addresses there.</li>
             <li>The client needs a client ID. The current spec prefers a Client ID Metadata Document (an HTTPS address that describes the client). Pre-registered IDs also work. The older way, Dynamic Client Registration, is now deprecated.</li>
             <li>The browser opens. The user signs in and approves the access.</li>
             <li>The client swaps the one-time code for an <strong>access token</strong>. It then sends the token with every request.</li>
@@ -3310,7 +3312,7 @@ module BuildingMcpServersContent
           "scopes_supported": ["notes:read", "notes:write"]
         }</code></pre>
           <p><strong>PKCE</strong> (Proof Key for Code Exchange) is required. The client makes a random secret and first sends only its hash. Later it sends the secret itself. So a stolen one-time code is useless without the secret. The client also sends a <code>resource</code> parameter with your server's address. The token is then made only for your server.</p>
-          <p>The details change between spec versions. Check the authorization page on modelcontextprotocol.io for the current rules.</p>
+          <p>The details change between spec versions. Check the authorisation page on modelcontextprotocol.io for the current rules.</p>
         </div>
         <div class="lc-card">
           <h3>Tokens and scopes: what your server checks</h3>
@@ -3318,7 +3320,7 @@ module BuildingMcpServersContent
           <table class="lc-table">
             <thead><tr><th>Check</th><th>Why</th><th>If it fails</th></tr></thead>
             <tbody>
-              <tr><td>Signature and issuer</td><td>The token really came from your authorization server</td><td>401</td></tr>
+              <tr><td>Signature and issuer</td><td>The token really came from your authorisation server</td><td>401</td></tr>
               <tr><td>Expiry</td><td>Old or stolen tokens stop working</td><td>401</td></tr>
               <tr><td>Audience (<code>aud</code>)</td><td>The token was made for <em>this</em> server, not another one</td><td>401</td></tr>
               <tr><td>Scope</td><td>The user allowed this action</td><td>403 with <code>error="insufficient_scope"</code></td></tr>
@@ -3363,7 +3365,7 @@ module BuildingMcpServersContent
             <ol data-sequence-target="list">
               <li data-order="1">The client sends an MCP request without a token</li>
               <li data-order="2">The server replies 401 with a resource_metadata link</li>
-              <li data-order="3">The client reads the metadata and finds the authorization server</li>
+              <li data-order="3">The client reads the metadata and finds the authorisation server</li>
               <li data-order="4">The user signs in and approves in the browser (with PKCE)</li>
               <li data-order="5">The client swaps the code for an access token for this server</li>
               <li data-order="6">The client repeats the request with Authorization: Bearer</li>
@@ -3374,7 +3376,7 @@ module BuildingMcpServersContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>The starter code has a tiny fake authorization server and a notes server that checks tokens. It uses a fake clock, so the output is the same every time.</li>
+            <li>The starter code has a tiny fake authorisation server and a notes server that checks tokens. It uses a fake clock, so the output is the same every time.</li>
             <li>Run it. Watch six cases: no token, a good read token, a missing scope, a failed PKCE check, a token for another server, and an expired token.</li>
             <li>Add <code>"notes:write"</code> to the scopes the user approves. The <code>add_note</code> call now works.</li>
             <li>Make the expiry shorter or move the clock forward. See which calls now get 401.</li>
@@ -3673,10 +3675,10 @@ module BuildingMcpServersContent
         TRUSTED_SERVER = False          # hints from an untrusted server are not believed
 
         def needs_confirmation(tool):
+            if not TRUSTED_SERVER:
+                return True             # untrusted server: ignore its hints and always ask
             hints = tool.get("annotations", {})
-            if TRUSTED_SERVER and hints.get("readOnlyHint"):
-                return False
-            return not hints.get("readOnlyHint") or hints.get("destructiveHint", False)
+            return not hints.get("readOnlyHint", False) or hints.get("destructiveHint", False)
 
         user_answers = {"delete_note": "no", "search_notes": "yes"}   # pretend the user clicked these
         for name, args in [("search_notes", {"query": "exam"}), ("delete_note", {"name": "week-3"})]:
@@ -4000,7 +4002,7 @@ module BuildingMcpServersContent
 
         if __name__ == "__main__":
             mcp.run()</code></pre>
-          <p>A <code>ToolError</code> becomes a tool result with <code>isError: true</code> and your message. So the model reads it and can fix its call. Any other exception only shows the model a short "Error executing tool" message. <code>ResourceNotFoundError</code> gives the client error <code>-32602</code> for a note that does not exist. This code uses version 2 of the SDK. Version 1 called the class <code>FastMCP</code> and used camelCase names such as <code>readOnlyHint=True</code>.</p>
+          <p>A <code>ToolError</code> becomes a tool result with <code>isError: true</code> and your message. So the model reads it and can fix its call. With any other exception you do not control the message: it may be too short to help, or it may leak internal details. <code>ResourceNotFoundError</code> gives the client error <code>-32602</code> for a note that does not exist. This code uses version 2 of the SDK. Version 1 called the class <code>FastMCP</code> and used camelCase names such as <code>readOnlyHint=True</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Step 3: test with a checklist, then connect</h3>

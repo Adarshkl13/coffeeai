@@ -73,7 +73,7 @@ module AiVoiceCallCentresContent
         </div>
         <div class="lc-card">
           <h3>Meet the Navkar Bank helpline</h3>
-          <p>Navkar Bank is a made-up bank. Its helpline centre is in London. It has 60 agents on three overlapping shifts, from 8 am to 10 pm. Card blocking works all day and night through the IVR. About 45,000 calls a month reach the agents. That is about 1,500 calls a day. Callers use Marathi (45%), Hindi (30%) and English (25%). Sneha is the supervisor. Arvind is the QA lead.</p>
+          <p>Navkar Bank is a made-up bank. Its helpline centre is in Maharashtra. It has 60 agents on three overlapping shifts, from 8 am to 10 pm. Card blocking works all day and night through the IVR. About 45,000 calls a month reach the agents. That is about 1,500 calls a day. Callers use Marathi (45%), Hindi (30%) and English (25%). Sneha is the supervisor. Arvind is the QA lead.</p>
           <table class="lc-table">
             <thead><tr><th>Why customers call (one month)</th><th>Calls</th><th>Share</th></tr></thead>
             <tbody>
@@ -125,7 +125,7 @@ module AiVoiceCallCentresContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a call centre operations coach. Explain things in simple English.
 
-        Help me map how calls flow in [Navkar Bank's helpline in London: 60 agents, about 45,000 inbound calls a month, in Marathi, Hindi and English].
+        Help me map how calls flow in [Navkar Bank's helpline in Maharashtra: 60 agents, about 45,000 inbound calls a month, in Marathi, Hindi and English].
         Our top call reasons are [balance queries, failed UPI payments, lost cards, app login problems].
 
         Give me:
@@ -259,7 +259,7 @@ module AiVoiceCallCentresContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an adviser who helps call centres use AI safely. Use simple English.
 
-        Our centre: [Navkar Bank helpline, London, 60 agents, 45,000 inbound calls a month, Marathi/Hindi/English].
+        Our centre: [Navkar Bank helpline, Maharashtra, 60 agents, 45,000 inbound calls a month, Marathi/Hindi/English].
         Call reasons per month:
         [Balance and transaction queries 9,900; Failed UPI payments 7,200; Lost or blocked cards 5,400; Card declined or PIN help 4,500; App login problems 4,500; Loan and EMI 4,050; KYC and address change 3,600; Suspected fraud 3,150; Charges complaints and other 2,700]
 
@@ -490,7 +490,7 @@ module AiVoiceCallCentresContent
               <tr><td><strong>Data fiduciary</strong></td><td>The organisation that decides why and how data is used. Here, that is the bank.</td></tr>
               <tr><td><strong>Data processor</strong></td><td>A vendor that handles data for the bank, such as a recording or AI transcription company.</td></tr>
               <tr><td><strong>Notice and consent</strong></td><td>People should get a clear notice of what data is used and why. Where consent is the basis, it must be free, specific and clear, and people can withdraw it. The law also allows some "legitimate uses" without consent. Your legal team decides which basis applies.</td></tr>
-              <tr><td><strong>Security</strong></td><td>The fiduciary must take reasonable security steps. Serious breaches must be reported to the Data Protection Board and the affected people.</td></tr>
+              <tr><td><strong>Security</strong></td><td>The fiduciary must take reasonable security steps. Every personal data breach must be reported to the Data Protection Board and to each affected person.</td></tr>
               <tr><td><strong>Deletion</strong></td><td>Delete data when its purpose is over, unless a law says you must keep it.</td></tr>
               <tr><td><strong>Rights</strong></td><td>People can ask about their data, ask for corrections or deletion, and raise complaints.</td></tr>
             </tbody>
@@ -539,7 +539,7 @@ module AiVoiceCallCentresContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a helper for a call centre privacy team. Use simple English. This is a draft for our legal team, not legal advice.
 
-        We are [Navkar Bank's helpline in London]. We want to use an AI tool to transcribe and summarise recorded calls in [Marathi, Hindi and English].
+        We are [Navkar Bank's helpline in Maharashtra]. We want to use an AI tool to transcribe and summarise recorded calls in [Marathi, Hindi and English].
 
         1. Write a recording announcement of no more than 35 words. Say that calls are recorded, why, and that software may turn calls into text. End with: "We will never ask for your OTP, PIN or CVV."
         2. Give it in [English and Hindi]. Mark the translation "Check with a fluent speaker".
@@ -760,7 +760,7 @@ module AiVoiceCallCentresContent
         </div>
         <div class="lc-card">
           <h3>Worked example: check the draft against the call</h3>
-          <p>Here is part of a made-up call. Agent Pooja speaks with Mr Anil Joshi, a customer in London.</p>
+          <p>Here is part of a made-up call. Agent Pooja speaks with Mr Anil Joshi, a customer in Maharashtra.</p>
           <pre><code>[00:00:10] Customer: You took 590 rupees for the debit card fee.
                    I was told this card is free for life.
         [00:01:40] Agent: Thank you, Mr Joshi, your details are confirmed.
@@ -1127,7 +1127,7 @@ module AiVoiceCallCentresContent
             <pre class="ai-try-prompt">You are a call centre trainer who writes clear talk tracks. Use simple English that a new agent can say out loud.
 
         Write a talk track for this call type: [a customer's debit card was declined at a shop, and they do not know why].
-        Centre: [Navkar Bank helpline, London. Callers speak Marathi, Hindi and English.]
+        Centre: [Navkar Bank helpline, Maharashtra. Callers speak Marathi, Hindi and English.]
 
         Use six parts: Open, Verify, Listen and confirm, Empathy, Solve, Recap and close.
         - Mark each part EXACT WORDS or OWN WORDS.
@@ -1244,7 +1244,7 @@ module AiVoiceCallCentresContent
             </tbody>
           </table>
           <p>Use a <strong>warm transfer</strong>: tell the next person the story before you connect the customer. Then the customer does not have to repeat everything.</p>
-          <p>Customers have the right to escalate outside the bank. If the bank does not reply in time (usually 30 days), or they are unhappy with the reply, they can complain to the RBI Ombudsman. Complaints go online through RBI's complaint portal (cms.rbi.org.in). A new scheme, RB-IOS 2026, applies to complaints made from 1 July 2026. Agents must never discourage this. Check RBI's current rules for the details. This is general information, not legal advice.</p>
+          <p>Customers have the right to escalate outside the bank. If the bank does not reply in time (usually 30 days), or they are unhappy with the reply, they can complain to the RBI Ombudsman. Complaints go online through RBI's complaint portal (cms.rbi.org.in). RBI updates its Ombudsman scheme from time to time, so check which scheme applies when the complaint is made. Agents must never discourage this. Check RBI's current rules for the details. This is general information, not legal advice.</p>
         </div>
         <div class="lc-card">
           <h3>How AI can help, and where it must not</h3>
@@ -1281,7 +1281,7 @@ module AiVoiceCallCentresContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">Let's practise a difficult call. You play the customer. I am the agent at [Navkar Bank's helpline].
 
-        Your character: [Mr Anil Joshi, 58, a retired teacher in London. A ₹590 debit card annual fee was taken from his account. He was told the card was free for life. This is his second call.] He is angry but not abusive. He calms down only if the agent listens, says sorry for the right thing and gives a clear next step with a timeline.
+        Your character: [Mr Anil Joshi, 58, a retired teacher in Maharashtra. A ₹590 debit card annual fee was taken from his account. He was told the card was free for life. This is his second call.] He is angry but not abusive. He calms down only if the agent listens, says sorry for the right thing and gives a clear next step with a timeline.
 
         Rules for you:
         - Stay in character. Reply in 1 to 3 short sentences, then wait for me.
@@ -1420,7 +1420,7 @@ module AiVoiceCallCentresContent
               <li data-kind="answer" data-label="AI replies">It suggests a main menu with 8 options, one for each call reason, plus 0 for an agent.</li>
               <li data-kind="warn" data-label="Catch the problem">8 options is too many to remember, in any language. Sneha keeps the main menu at 5 options plus 0 and 9. She asks for a sub-menu under option 5 instead.</li>
               <li data-kind="tool" data-label="Google Sheets">Sneha splits option 5 by call reason: card declined or PIN 4,500; app login 4,500; loans and EMI 4,050; KYC and address 3,600; charges and other 2,700.</li>
-              <li data-kind="result" data-label="Sheet shows">The five parts add up to 19,350. Each sub-option gets its own trained queue. Charges and other calls go to option 0.</li>
+              <li data-kind="result" data-label="Sheet shows">The five parts add up to 19,350. The first four become sub-options, each with its own trained queue. Charges and other calls go to option 0.</li>
               <li data-kind="user" data-label="Sneha asks again">"Write the sub-menu prompts in English, under 25 words each. For KYC changes, say that address and mobile changes are done in the app or at a branch."</li>
               <li data-kind="check" data-label="Before launch">Native speakers record the Marathi and Hindi prompts. Sneha tests the new menu for 4 weeks. She tracks the transfer rate, IVR hang-ups, abandonment and repeat calls.</li>
             </ol>
@@ -1433,7 +1433,7 @@ module AiVoiceCallCentresContent
             <pre class="ai-try-prompt">You are an IVR designer for call centres. Use simple English.
 
         Review our IVR and suggest a better version.
-        Centre: [Navkar Bank helpline, London]. Languages: [Marathi, Hindi, English].
+        Centre: [Navkar Bank helpline, Maharashtra]. Languages: [Marathi, Hindi, English].
         Current main menu: 1 Lost or stolen card (24x7 block), 2 Fraud or unknown transaction, 3 Balance and recent transactions, 4 UPI or payment problems, 5 Cards, loans and all other services, 0 Agent, 9 Repeat.
         Calls a month reaching agents, by option: [1: 5,400. 2: 3,150. 3: 9,900. 4: 7,200. 5: 19,350.] About 20% of option 5 calls are transferred to another team.
 
@@ -1612,7 +1612,7 @@ module AiVoiceCallCentresContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a conversation designer for a bank voice bot. Use simple English.
 
-        Helpline: [Navkar Bank, London]. Languages: [Marathi, Hindi, English].
+        Helpline: [Navkar Bank, Maharashtra]. Languages: [Marathi, Hindi, English].
         Calls per month: [Balance and transactions 9,900; Failed UPI 7,200; Lost card 5,400; Card declined or PIN 4,500; App login 4,500; Loan and EMI 4,050; KYC or mobile change 3,600; Suspected fraud 3,150; Charges complaints 2,700]
 
         Rules:
@@ -2213,7 +2213,7 @@ module AiVoiceCallCentresContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a call centre improvement coach. Use simple English.
 
-        Centre: [Navkar Bank helpline, London, 60 agents, Marathi/Hindi/English].
+        Centre: [Navkar Bank helpline, Maharashtra, 60 agents, Marathi/Hindi/English].
         Last month: calls offered [45,000]; answered [42,300]; answered in 20 s [32,400]; abandoned [2,700]; AHT [450] s including ACW [75] s; solved first time [28,764]; occupancy [75%].
         Biggest call reasons: [balance 9,900; failed UPI 7,200; lost card 5,400; fraud 3,150].
         Peaks: [Monday mornings and the 1st-5th of the month].

@@ -70,7 +70,7 @@ module AiDoctorsClinicalPracticeContent
               <tr><td><strong>Patient chatbots and symptom checkers</strong></td><td>Answer patient questions</td><td>Appointment and FAQ bot</td><td>May miss an emergency</td></tr>
             </tbody>
           </table>
-          <p>Some AI software counts as a medical device in law. In India, software meant for diagnosis or treatment can come under the CDSCO Medical Devices Rules 2017. In July 2026, CDSCO issued final guidance on medical device software, including AI software. The US FDA publishes a list of AI-enabled medical devices. In the EU, AI in a regulated medical device is usually high-risk under the EU AI Act. Rules change, so check the current official pages. This is general information, not legal advice.</p>
+          <p>Some AI software counts as a medical device in law. In India, software meant for diagnosis or treatment can come under the CDSCO Medical Devices Rules 2017. CDSCO has also published guidance on medical device software, including AI software; check the CDSCO website for the current version. The US FDA publishes a list of AI-enabled medical devices. In the EU, AI in a regulated medical device is usually high-risk under the EU AI Act. Rules change, so check the current official pages. This is general information, not legal advice.</p>
         </div>
         <div class="lc-card">
           <h3>What the doctor must still do</h3>
@@ -321,7 +321,7 @@ module AiDoctorsClinicalPracticeContent
         It does not decide your treatment. I check everything myself.
         Your name and phone number are not put into it.
         Is that all right with you?"</code></pre>
-          <p>Tarang Multispeciality Hospital, plans to pilot an AI scribe. Sister Mary Thomas is writing the consent script and the steps for patients who say no.</p>
+          <p>Tarang Multispeciality Hospital in Maharashtra plans to pilot an AI scribe. Sister Mary Thomas is writing the consent script and the steps for patients who say no.</p>
         </div>
         <div class="lc-card">
           <h3>Privacy: remove identifiers before any AI use</h3>
@@ -612,11 +612,11 @@ module AiDoctorsClinicalPracticeContent
             <thead><tr><th>What Dr Joshi sees</th><th>Blood pressure goal (summary)</th></tr></thead>
             <tbody>
               <tr><td>AI answer</td><td>"Below 130/80 mmHg." No year, no source section.</td></tr>
-              <tr><td>ADA Standards of Care 2026 (the original)</td><td>Below 130/80 if it can be reached safely. A systolic goal below 120 is now encouraged for people at high cardiovascular or kidney risk. Goals may be relaxed for frail older people.</td></tr>
+              <tr><td>The current ADA Standards of Care (the original)</td><td>Below 130/80 if it can be reached safely. A systolic goal below 120 is now encouraged for people at high cardiovascular or kidney risk. Goals may be relaxed for frail older people.</td></tr>
               <tr><td>2025 AHA/ACC high blood pressure guideline</td><td>Below 130/80 for most adults</td></tr>
             </tbody>
           </table>
-          <p>The AI answer was not wrong. But it missed a change in the 2026 version that may matter for Mr Yadav, because of his kidney results. Only the original showed it. Dr Joshi reads the section, then decides a goal with Mr Yadav. He plans to recheck his kidney function too. Guideline wording changes, so always check the current version yourself.</p>
+          <p>The AI answer was not wrong. But it missed a newer change in the current version that may matter for Mr Yadav, because of his kidney results. Only the original showed it. Dr Joshi reads the section, then decides a goal with Mr Yadav. He plans to recheck his kidney function too. Guideline wording changes, so always check the current version yourself.</p>
           <pre><code>Weak:   What is the BP target in diabetes?
 
         Better: Which current guidelines give a blood pressure goal for
@@ -640,7 +640,7 @@ module AiDoctorsClinicalPracticeContent
           <h3>Activity: a guideline check for a pregnant patient</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="user" data-label="Dr Joshi asks">Made-up patient Mrs Pooja Sharma, 27, is 22 weeks pregnant with burning and frequent urination. He asks AI: "Which guidelines cover lower urinary tract infection in pregnancy? Give issuer, title and year."</li>
+              <li data-kind="user" data-label="Dr Joshi asks">Made-up patient Mrs Pooja Sharma, 27, is 22 weeks pregnant with burning and frequent urination. Dr Joshi asks AI: "Which guidelines cover lower urinary tract infection in pregnancy? Give issuer, title and year."</li>
               <li data-kind="answer" data-label="AI replies">It lists NICE guideline NG109, WHO material, the ICMR workflows and "Indian UTI in Pregnancy Guideline 2025". It gives a short summary of each.</li>
               <li data-kind="warn" data-label="Catch this">He cannot find the "Indian UTI in Pregnancy Guideline 2025" on any official website. It may be invented. He drops it.</li>
               <li data-kind="tool" data-label="He opens">He opens NICE NG109 on the NICE website. He also searches the ICMR workflows site for a matching workflow.</li>
@@ -729,7 +729,7 @@ module AiDoctorsClinicalPracticeContent
           <ul class="lc-list">
             <li><strong>Write your own list first.</strong> If you read the AI list first, it can shape your thinking. This is called <strong>anchoring</strong>: sticking to the first idea you see.</li>
             <li><strong>Ask open questions.</strong> "What else could this be?" works better than "This is viral fever, right?" AI tends to agree with you.</li>
-            <li><strong>Give local context.</strong> Say the country, season and what is going around. Dengue in central India in September is very different from fever in London in January.</li>
+            <li><strong>Give local context.</strong> Say the country, season and what is going around. Dengue in central India in September is very different from fever in northern Europe in January.</li>
             <li><strong>Sort the answer.</strong> Group causes into common, cannot miss, and red flags that need action now.</li>
             <li><strong>Treat the list as a prompt for your thinking.</strong> The examination, the tests and the decision stay with you.</li>
           </ul>
@@ -1319,18 +1319,18 @@ module AiDoctorsClinicalPracticeContent
         </figure>
         <div class="lc-card">
           <h3>A review list with targets from a checked guideline</h3>
-          <p>Made-up patient Mr Ramesh Yadav, 56, has type 2 diabetes for 8 years and hypertension for 5 years. Dr Joshi opens the <strong>ADA Standards of Care in Diabetes 2026</strong> (American Diabetes Association) and notes the recommendation numbers. He also checks Indian sources, such as the ICMR Standard Treatment Workflows and the NP-NCD programme guidance. Goals are set for each patient, not copied blindly.</p>
+          <p>Made-up patient Mr Ramesh Yadav, 56, has type 2 diabetes for 8 years and hypertension for 5 years. Dr Joshi opens the <strong>current ADA Standards of Care in Diabetes</strong> (American Diabetes Association) and notes which section each goal comes from. He also checks Indian sources, such as the ICMR Standard Treatment Workflows and the NP-NCD programme guidance. Goals are set for each patient, not copied blindly.</p>
           <table class="lc-table">
-            <thead><tr><th>Review item</th><th>ADA 2026 says (summary)</th><th>Mr Yadav now</th></tr></thead>
+            <thead><tr><th>Review item</th><th>The current ADA Standards of Care say (summary)</th><th>Mr Yadav now</th></tr></thead>
             <tbody>
-              <tr><td>HbA1c</td><td>Goal below 7% for many non-pregnant adults (6.3a). Less strict goals for frailty or high low-sugar risk (6.5). Test at least twice a year, or about every 3 months if not at goal or after a change (6.2).</td><td>8.2%, above goal</td></tr>
-              <tr><td>Blood pressure</td><td>With CKD: below 130/80 if it can be reached safely. A systolic goal below 120 should be encouraged (11.5).</td><td>146/90, then 144/88</td></tr>
-              <tr><td>Kidneys</td><td>Urine ACR and eGFR at least once a year in type 2 diabetes (11.1a). With CKD, 1 to 4 times a year by stage (11.1b).</td><td>eGFR 47, ACR 68: repeat to confirm</td></tr>
-              <tr><td>ACE inhibitor or ARB</td><td>Recommended with ACR 30 to 299 mg/g, up to the highest dose tolerated. Check eGFR and potassium (11.6a, 11.6b).</td><td>On telmisartan; potassium 4.9</td></tr>
-              <tr><td>Kidney and heart protection</td><td>With type 2 diabetes and CKD: an SGLT2 inhibitor, started if eGFR is 20 or more (11.7a). A GLP-1 receptor agonist with proven benefit is also recommended (11.7b).</td><td>Discuss once CKD is confirmed</td></tr>
-              <tr><td>Cholesterol</td><td>Age 40 to 75 at higher heart risk: a high-intensity statin, aiming for LDL below 70 mg/dL (10.20).</td><td>Atorvastatin 20 mg (moderate intensity in the ADA table); no lipid result in file</td></tr>
-              <tr><td>Low sugar</td><td>Reduce or switch sulfonylureas in people at high risk of low sugar (6.6).</td><td>Glimepiride; ask about low-sugar episodes</td></tr>
-              <tr><td>Eyes, feet, vitamin B12</td><td>Eye checks by an eye specialist (12.4, 12.5). Foot check at least once a year (12.23). Consider B12 checks on long-term metformin (3.10).</td><td>None recorded</td></tr>
+              <tr><td>HbA1c</td><td>Goal below 7% for many non-pregnant adults. Less strict goals for frailty or high low-sugar risk. Test at least twice a year, or about every 3 months if not at goal or after a change.</td><td>8.2%, above goal</td></tr>
+              <tr><td>Blood pressure</td><td>With CKD: below 130/80 if it can be reached safely. A systolic goal below 120 should be encouraged.</td><td>146/90, then 144/88</td></tr>
+              <tr><td>Kidneys</td><td>Urine ACR and eGFR at least once a year in type 2 diabetes. With CKD, 1 to 4 times a year by stage.</td><td>eGFR 47, ACR 68: repeat to confirm</td></tr>
+              <tr><td>ACE inhibitor or ARB</td><td>Recommended with ACR 30 to 299 mg/g, up to the highest dose tolerated. Check eGFR and potassium.</td><td>On telmisartan; potassium 4.9</td></tr>
+              <tr><td>Kidney and heart protection</td><td>With type 2 diabetes and CKD: an SGLT2 inhibitor, started if eGFR is 20 or more. A GLP-1 receptor agonist with proven benefit is also recommended.</td><td>Discuss once CKD is confirmed</td></tr>
+              <tr><td>Cholesterol</td><td>Age 40 to 75 at higher heart risk: a high-intensity statin, aiming for LDL below 70 mg/dL.</td><td>Atorvastatin 20 mg (moderate intensity in the ADA table); no lipid result in file</td></tr>
+              <tr><td>Low sugar</td><td>Reduce or switch sulfonylureas in people at high risk of low sugar.</td><td>Glimepiride; ask about low-sugar episodes</td></tr>
+              <tr><td>Eyes, feet, vitamin B12</td><td>Eye checks by an eye specialist. Foot check at least once a year. Consider B12 checks on long-term metformin.</td><td>None recorded</td></tr>
             </tbody>
           </table>
           <p>The ADA Standards are updated every year. Check the current version and your national guidance before you use any goal. Medicine choices need the current formulary and the doctor's judgement.</p>
@@ -1346,7 +1346,8 @@ module AiDoctorsClinicalPracticeContent
           <pre><code>Weak:   What are the diabetes targets?
 
         Better: Below is text I copied from the ADA Standards of Care in
-        Diabetes 2026, sections 6, 10, 11 and 12. [paste text]
+        Diabetes (current version), the sections on glucose goals, heart
+        disease, kidney disease, and eyes and feet. [paste text]
         Using ONLY this text, make a follow-up checklist for a made-up
         man, 56, type 2 diabetes, hypertension, eGFR 47, urine ACR 68.
         Columns: Item | Goal or test | How often | Recommendation number.
@@ -1374,7 +1375,7 @@ module AiDoctorsClinicalPracticeContent
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
               <li data-kind="tool" data-label="Before the visit">Pinky's recall register shows Mr Yadav (code NFC-0231) is due for kidney tests on 5 October. His eye and foot checks are overdue.</li>
-              <li data-kind="user" data-label="Dr Joshi asks">He pastes the ADA 2026 text and de-identified results into the clinic's approved AI tool. He asks for a review checklist using only that text.</li>
+              <li data-kind="user" data-label="Dr Joshi asks">He pastes the text from the current ADA Standards of Care and de-identified results into the clinic's approved AI tool. He asks for a review checklist using only that text.</li>
               <li data-kind="answer" data-label="AI replies">It makes a clear checklist. HbA1c and BP are above goal. It flags the missing lipid, eye and foot checks.</li>
               <li data-kind="warn" data-label="Catch this">The checklist says "HbA1c goal below 6.5% for all". The pasted text says below 7% for many adults, with lower or higher goals for some people.</li>
               <li data-kind="check" data-label="He checks">He corrects the row against the original section, and notes the recommendation numbers.</li>
@@ -1498,7 +1499,7 @@ module AiDoctorsClinicalPracticeContent
               <tr><td>11:36</td><td>26</td><td>Handover to the ambulance team with the ECG copy and a short written note. He goes to the nearest hospital that can treat heart attacks.</td></tr>
             </tbody>
           </table>
-          <p><strong>Aspirin:</strong> for a suspected heart attack, protocols give chewable aspirin if it is safe. Do not give it if there is an allergy or active bleeding. Do not give it if aortic dissection is suspected (for example, tearing pain going through to the back). The ICMR STEMI workflow (January 2026) lists a 325 mg loading dose. The 2025 ACC/AHA acute coronary syndrome guideline gives 162 to 325 mg, chewed. Follow your clinic protocol and check the current formulary.</p>
+          <p><strong>Aspirin:</strong> for a suspected heart attack, protocols give chewable aspirin if it is safe. Do not give it if there is an allergy or active bleeding. Do not give it if aortic dissection is suspected (for example, tearing pain going through to the back). The ICMR STEMI workflow lists a loading dose; check the current version for the exact dose. The 2025 ACC/AHA acute coronary syndrome guideline gives 162 to 325 mg, chewed. Follow your clinic protocol and check the current formulary.</p>
           <p><strong>Where to send:</strong> the ICMR workflow prefers quick angioplasty (PCI: opening the artery with a balloon and stent). Where that is not quickly possible, it advises clot-dissolving medicine (thrombolysis). So the best destination is the nearest suitable hospital, not the hospital you know best. Keep a list of nearby emergency departments, with phone numbers, next to the protocol.</p>
         </div>
         <div class="lc-card">
@@ -1814,7 +1815,7 @@ module AiDoctorsClinicalPracticeContent
             <li><strong>Missed errors (omission):</strong> the tool gives no alert, so nobody looks. Example: no interaction alert appears, so the doctor assumes the prescription is safe.</li>
             <li><strong>Followed errors (commission):</strong> the tool suggests something wrong, and a person accepts it.</li>
           </ul>
-          <p>Tarang Diagnostics, is testing <strong>Tool X (made-up)</strong>. It reads chest X-rays and flags those that may be abnormal, to move them up the worklist. Radiologist Dr Kiran Rao set one rule: every X-ray is still read by a radiologist. "No flag" never means "skip".</p>
+          <p>Tarang Diagnostics in Maharashtra is testing <strong>Tool X (made-up)</strong>. It reads chest X-rays and flags those that may be abnormal, to move them up the worklist. Radiologist Dr Kiran Rao set one rule: every X-ray is still read by a radiologist. "No flag" never means "skip".</p>
           <p>Imagine Tool X has a sensitivity of 90%: it flags 90 of every 100 abnormal X-rays. Its specificity is also 90%: it correctly passes 90 of every 100 normal X-rays. These numbers are made up. Now look at 1,000 X-rays in two settings.</p>
           <table class="lc-table">
             <thead><tr><th>Per 1,000 X-rays</th><th>Emergency department (10% abnormal)</th><th>Health camp screening (1% abnormal)</th></tr></thead>
@@ -1974,12 +1975,12 @@ module AiDoctorsClinicalPracticeContent
         </div>
         <div class="lc-card">
           <h3>Approving a new tool: the hospital version</h3>
-          <p>Tarang Multispeciality Hospital, is bigger, so it has a small AI committee. Dr Farida Shaikh, the medical superintendent, leads it. Members include Sister Mary Thomas (nursing), Vikram (operations), Asha (medical coding), Dr Kiran Rao (radiology) and a physician, Dr Sameer Kale.</p>
+          <p>Tarang Multispeciality Hospital in Maharashtra is bigger, so it has a small AI committee. Dr Farida Shaikh, the medical superintendent, leads it. Members include Sister Mary Thomas (nursing), Vikram (operations), Asha (medical coding), Dr Kiran Rao (radiology) and a physician, Dr Sameer Kale.</p>
           <table class="lc-table">
             <thead><tr><th>Question before approval</th><th>Who checks</th></tr></thead>
             <tbody>
               <tr><td>What exactly will the tool do, and for which patients?</td><td>The clinical lead for that area</td></tr>
-              <tr><td>Is it a medical device? Software meant for diagnosis or treatment can come under the CDSCO Medical Devices Rules 2017. Check CDSCO's current guidance on medical device software (final version July 2026).</td><td>Committee, with the supplier's papers</td></tr>
+              <tr><td>Is it a medical device? Software meant for diagnosis or treatment can come under the CDSCO Medical Devices Rules 2017. Check CDSCO's current guidance on medical device software.</td><td>Committee, with the supplier's papers</td></tr>
               <tr><td>Where is data stored? Is it used to train the supplier's AI? Can it be deleted? Does the contract cover data protection law?</td><td>Vikram, with legal advice</td></tr>
               <tr><td>Was it tested on patients like ours? Can we test it on local cases first?</td><td>Clinical lead, Dr Kiran Rao for imaging</td></tr>
               <tr><td>Who checks each output? How do patients give consent and say no?</td><td>Sister Mary Thomas for the AI scribe pilot</td></tr>
@@ -2122,7 +2123,7 @@ module AiDoctorsClinicalPracticeContent
             <tbody>
               <tr><td>NICE NG226, osteoarthritis (2022)</td><td>Diagnose osteoarthritis clinically, without imaging, in people 45 or over with activity-related joint pain. Morning stiffness should be absent or last 30 minutes or less. Offer therapeutic exercise. Support weight loss: 10% is likely better than 5%. Offer a topical NSAID for knee osteoarthritis. Consider an oral NSAID only if topical medicines do not work or are unsuitable. Take account of kidney, stomach, heart and liver risks. Do not routinely offer paracetamol or weak opioids.</td></tr>
               <tr><td>KDIGO 2024, chronic kidney disease</td><td>CKD means kidney abnormalities present for at least 3 months. Do not assume CKD from one result: it could be a recent, acute change.</td></tr>
-              <tr><td>ADA Standards of Care 2026</td><td>BP goal below 130/80 if safe. A systolic goal below 120 is now encouraged for people at high heart or kidney risk.</td></tr>
+              <tr><td>The current ADA Standards of Care</td><td>BP goal below 130/80 if safe. A systolic goal below 120 is now encouraged for people at high heart or kidney risk.</td></tr>
               <tr><td>ICMR Standard Treatment Workflows</td><td>He searched the site for a matching workflow to compare with the Indian approach.</td></tr>
             </tbody>
           </table>
@@ -2171,7 +2172,7 @@ module AiDoctorsClinicalPracticeContent
            Exercise plan; weight goal agreed. Continue other medicines.
            Low-sugar advice. Repeat creatinine, eGFR, K, ACR in 2 weeks.
            BP recheck then. Return sooner if pain worsens or joint swells.
-        Sources: NICE NG226; KDIGO 2024; ADA 2026; product labels; NFI.
+        Sources: NICE NG226; KDIGO 2024; current ADA Standards of Care; product labels; NFI.
         AI use: approved clinic tool, de-identified, for question,
         differential comparison and Hindi draft. All checked.
         Decisions and signature: Dr Arvind Joshi</code></pre>
@@ -2182,7 +2183,7 @@ module AiDoctorsClinicalPracticeContent
             <ol data-stepper-target="steps">
               <li data-kind="check" data-label="Red flags first">Dr Joshi checks for a hot swollen joint, fever or injury. None. It is safe to take time.</li>
               <li data-kind="user" data-label="He asks">He pastes the PICO question and a de-identified context card into the approved AI tool.</li>
-              <li data-kind="answer" data-label="AI replies">It lists NICE NG226, KDIGO 2024 and ADA 2026, suggests stopping diclofenac, and lists topical NSAIDs, exercise and weight loss.</li>
+              <li data-kind="answer" data-label="AI replies">It lists NICE NG226, KDIGO 2024 and the current ADA Standards of Care, suggests stopping diclofenac, and lists topical NSAIDs, exercise and weight loss.</li>
               <li data-kind="tool" data-label="He opens">He opens each guideline on its official website and checks the version and the exact words.</li>
               <li data-kind="warn" data-label="Catch this">The AI's Hindi leaflet draft adds a paracetamol dose "4 times a day". He never agreed this, and NICE does not routinely advise paracetamol for osteoarthritis. He deletes the line.</li>
               <li data-kind="tool" data-label="Drug check">He runs the interaction checker and reads the labels for metformin, glimepiride and the gel.</li>

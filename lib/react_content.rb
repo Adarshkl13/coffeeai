@@ -10,7 +10,7 @@ module ReactContent
           <div class="lc-badge le-badge le-badge-react">React</div>
           <h1 class="lc-title">Introduction to React and JSX</h1>
         </div>
-        <p class="lc-lead">React is a JavaScript library (ready-made code you can use) for building user interfaces. You build the screen from small pieces that you can reuse. These pieces are called <strong>components</strong>. You say <em>what</em> the screen should show for the current data. React then works out <em>how</em> to update the page. This course teaches <strong>React 19</strong> (the current stable version is 19.3).</p>
+        <p class="lc-lead">React is a JavaScript library (ready-made code you can use) for building user interfaces. You build the screen from small pieces that you can reuse. These pieces are called <strong>components</strong>. You say <em>what</em> the screen should show for the current data. React then works out <em>how</em> to update the page. This course teaches <strong>React 19</strong> (the current stable version at the time of writing is 19.3).</p>
         <div class="lc-card">
           <h3>Why React?</h3>
           <ul class="lc-list">
@@ -85,7 +85,7 @@ module ReactContent
 
         // Plain JavaScript values we will show in the UI
         const name = "React Learner";
-        const city = "San Francisco";
+        const state = "Kerala";
         const skills = ["HTML", "CSS", "JavaScript"];
         const marks = [78, 92, 85];
         const average = marks.reduce((sum, m) => sum + m, 0) / marks.length;
@@ -94,7 +94,7 @@ module ReactContent
         const page = (
           <div style={{ fontFamily: "sans-serif", padding: "1.5rem", maxWidth: 520 }}>
             <h1 style={{ color: "#0891b2" }}>Hello, {name}!</h1>
-            <p>City: <strong>{city}</strong></p>
+            <p>State: <strong>{state}</strong></p>
             <p>Expression demo: 2 + 2 = {2 + 2}</p>
             <p>Average mark: {average.toFixed(1)}</p>
             <p>Skills in UPPERCASE: {skills.join(", ").toUpperCase()}</p>
@@ -573,9 +573,9 @@ module ReactContent
         </div>
         <div class="lc-card">
           <h3>Rendering lists with map()</h3>
-          <div class="lc-code">const students = [<br>&nbsp;&nbsp;{ id: 101, name: "Arjun", marks: 88 },<br>&nbsp;&nbsp;{ id: 102, name: "Diya",  marks: 34 },<br>&nbsp;&nbsp;{ id: 103, name: "Kabir", marks: 72 },<br>];<br><br>&lt;ul&gt;<br>&nbsp;&nbsp;{students.map(s =&gt; (<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;li key={s.id}&gt;{s.name} — {s.marks &gt;= 40 ? "Pass" : "Fail"}&lt;/li&gt;<br>&nbsp;&nbsp;))}<br>&lt;/ul&gt;</div>
+          <div class="lc-code">const students = [<br>&nbsp;&nbsp;{ id: 101, name: "Arjun", marks: 88 },<br>&nbsp;&nbsp;{ id: 102, name: "Diya",  marks: 34 },<br>&nbsp;&nbsp;{ id: 103, name: "Kabir", marks: 72 },<br>];<br><br>&lt;ul&gt;<br>&nbsp;&nbsp;{students.map(s =&gt; (<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;li key={s.id}&gt;{s.name}: {s.marks &gt;= 40 ? "Pass" : "Fail"}&lt;/li&gt;<br>&nbsp;&nbsp;))}<br>&lt;/ul&gt;</div>
           <p><strong>Expected output:</strong></p>
-          <div class="lc-code">• Arjun — Pass<br>• Diya — Fail<br>• Kabir — Pass</div>
+          <div class="lc-code">• Arjun: Pass<br>• Diya: Fail<br>• Kabir: Pass</div>
           <p>Filter or sort <em>before</em> mapping: <code>students.filter(s =&gt; s.marks &gt;= 40).map(...)</code>. Use <code>[...students].sort(...)</code>, so you do not change the original array.</p>
         </div>
         <div class="lc-card">
@@ -624,7 +624,7 @@ module ReactContent
           const passed = student.marks >= 40;
           return (
             <li style={{ color: passed ? "#065f46" : "#b91c1c" }}>
-              {student.name}: {student.marks} — {passed ? "Pass" : "Fail"}
+              {student.name}: {student.marks}, {passed ? "Pass" : "Fail"}
               {student.marks >= 90 && <strong> ⭐ Topper</strong>}
             </li>
           );
@@ -957,7 +957,7 @@ module ReactContent
           <p>A messenger app shows one <code>Chat</code> for the selected contact. Changing the contact only changes a prop. So React keeps the old draft:</p>
           <div class="lc-code">function Chat({ contact }) {<br>&nbsp;&nbsp;const [draft, setDraft] = useState("");<br>&nbsp;&nbsp;return &lt;input value={draft} onChange={e =&gt; setDraft(e.target.value)} /&gt;;<br>}<br><br>// ❌ Bug: switch from Asha to Ravi and Asha's draft is still in the box<br>&lt;Chat contact={to} /&gt;<br><br>// ✅ Fix: a new key for each contact gives each one a fresh Chat<br>&lt;Chat key={to.id} contact={to} /&gt;</div>
           <p><strong>Expected output</strong> (try both with the checkbox in the starter):</p>
-          <div class="lc-code">Type "Hi Asha", then click Ravi:<br>&nbsp;&nbsp;without key → Draft for Ravi: "Hi Asha"   (state kept — wrong)<br>&nbsp;&nbsp;with key    → Draft for Ravi: ""          (state reset — right)</div>
+          <div class="lc-code">Type "Hi Asha", then click Ravi:<br>&nbsp;&nbsp;without key → Draft for Ravi: "Hi Asha"   (state kept: wrong)<br>&nbsp;&nbsp;with key    → Draft for Ravi: ""          (state reset: right)</div>
           <p>This is the correct way to "reset state when a prop changes". You do not need an effect. It is the same <code>key</code> you used with lists in lesson 5.</p>
         </div>
         <div class="lc-card">
@@ -1224,7 +1224,7 @@ module ReactContent
         import { createRoot } from "react-dom/client";
 
         // A stand-in for fetch(): same signature, real Response objects, works offline.
-        const USERS = { 1: { name: "Asha Rao", city: "London" }, 2: { name: "Vikram Singh", city: "Manchester" } };
+        const USERS = { 1: { name: "Asha Rao", state: "Karnataka" }, 2: { name: "Vikram Singh", state: "Punjab" } };
         function fakeFetch(url, { signal } = {}) {
           return new Promise((resolve, reject) => {
             const id = url.split("/").pop();
@@ -1258,7 +1258,7 @@ module ReactContent
 
           if (result.id !== userId) return <p>Loading user {userId}…</p>;
           if (result.error) return <p style={{ color: "#b91c1c" }}>Error: {result.error}</p>;
-          return <p>✅ {result.data.name} from {result.data.city}</p>;
+          return <p>✅ {result.data.name} from {result.data.state}</p>;
         }
 
         function App() {
@@ -1930,7 +1930,7 @@ module ReactContent
         </div>
         <div class="lc-card">
           <h3>React Compiler (v1.0, stable since October 2025)</h3>
-          <p>The React Compiler is a tool that runs when you build your app. It adds this memoisation (remembering results) for you. New Vite projects can start with <code>npm create vite@latest my-app -- --template react-compiler</code>. With the compiler on, you rarely write <code>memo</code>/<code>useMemo</code>/<code>useCallback</code> by hand. But you still need to understand them. They help you read existing code and know <em>why</em> components re-render.</p>
+          <p>The React Compiler is a tool that runs when you build your app. It adds this memoisation (remembering results) for you. You can turn it on in a new Vite project (check the React Compiler docs for the current setup steps). With the compiler on, you rarely write <code>memo</code>/<code>useMemo</code>/<code>useCallback</code> by hand. But you still need to understand them. They help you read existing code and know <em>why</em> components re-render.</p>
         </div>
         <div class="lc-card">
           <h3>Performance checklist</h3>
@@ -2037,7 +2037,7 @@ module ReactContent
           <table class="lc-table">
             <thead><tr><th>API</th><th>Import from</th><th>Gives you</th></tr></thead>
             <tbody>
-              <tr><td><code>&lt;form action={fn}&gt;</code></td><td>—</td><td>calls <code>fn(formData)</code> on submit, with no need for <code>preventDefault</code>; clears uncontrolled fields when the action finishes</td></tr>
+              <tr><td><code>&lt;form action={fn}&gt;</code></td><td>n/a</td><td>calls <code>fn(formData)</code> on submit, with no need for <code>preventDefault</code>; clears uncontrolled fields when the action finishes</td></tr>
               <tr><td><code>useActionState(action, initial)</code></td><td><code>react</code></td><td><code>[state, formAction, isPending]</code>; your action receives <code>(previousState, formData)</code></td></tr>
               <tr><td><code>useFormStatus()</code></td><td><code>react-dom</code></td><td><code>{ pending, data, method, action }</code> of the <strong>parent</strong> form</td></tr>
               <tr><td><code>useOptimistic(value, update)</code></td><td><code>react</code></td><td>a temporary value shown while the action runs</td></tr>
@@ -2174,7 +2174,7 @@ module ReactContent
           </table>
         </div>
         <div class="lc-card">
-          <h3>use(promise) — React 19</h3>
+          <h3>use(promise) in React 19</h3>
           <div class="lc-code">import { Suspense, use } from "react";<br><br>function Quote({ quotePromise }) {<br>&nbsp;&nbsp;const quote = use(quotePromise);     // "pauses" here until the promise resolves<br>&nbsp;&nbsp;return &lt;blockquote&gt;{quote.text}&lt;/blockquote&gt;;<br>}<br><br>const quotePromise = fetchQuote();     // created OUTSIDE render (or cached)<br><br>&lt;Suspense fallback={&lt;p&gt;Loading quote…&lt;/p&gt;}&gt;<br>&nbsp;&nbsp;&lt;Quote quotePromise={quotePromise} /&gt;<br>&lt;/Suspense&gt;</div>
           <p><strong>Expected output:</strong> "Loading quote…" first, then the quote text. The promise must stay the same between renders. A new promise inside the component would start a new request on every render. Frameworks and libraries (Next.js, React Router, TanStack Query) create and cache (save) these promises for you.</p>
         </div>
@@ -2212,7 +2212,7 @@ module ReactContent
         import { createRoot } from "react-dom/client";
 
         const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
-        const COURSES = { 1: "React Basics — 20 lessons", 2: "Node.js APIs — 15 lessons" };
+        const COURSES = { 1: "React Basics: 20 lessons", 2: "Node.js APIs: 15 lessons" };
 
         const cache = new Map(); // one promise per id, created outside render
         function fetchCourse(id) {
@@ -2287,7 +2287,7 @@ module ReactContent
               <tr><td><code>path="*"</code></td><td>catch-all "not found" route</td></tr>
             </tbody>
           </table>
-          <p>React Router's current major version is <strong>v8</strong> (June 2026, needs React 19.2.7+). <strong>Old way, do not use:</strong> v5's <code>&lt;Switch&gt;</code>, <code>component={X}</code>, <code>useHistory</code>, and the separate <code>react-router-dom</code> package (removed in v8; import from <code>react-router</code>).</p>
+          <p>Check the React Router docs for the current major version before you start. <strong>Old way, do not use:</strong> v5's <code>&lt;Switch&gt;</code>, <code>component={X}</code>, <code>useHistory</code>, and imports from the separate <code>react-router-dom</code> package (since v7, import everything from <code>react-router</code>).</p>
         </div>
         <div class="lc-card">
           <h3>From a router to a framework</h3>
@@ -2407,7 +2407,7 @@ module ReactContent
                 <Route path="/" element={<h2>Home</h2>} />
                 <Route path="/courses" element={<CourseList />} />
                 <Route path="/courses/:courseId" element={<Course />} />
-                <Route path="*" element={<h2>404 — page not found</h2>} />
+                <Route path="*" element={<h2>404: page not found</h2>} />
               </Routes>
             </div>
           );
@@ -2593,7 +2593,7 @@ module ReactContent
           <h3>Example: one action through the app</h3>
           <div class="lc-code">// user ticks "Revise hooks"<br>&lt;input type="checkbox" onChange={() =&gt; dispatch({ type: "toggled", id: 2 })} /&gt;<br>// reducer returns a NEW array with task 2's done flipped<br>// TasksProvider re-renders → context value changes → TaskList re-renders<br>// derived counts update: "1 of 3 done"</div>
           <p><strong>Expected output</strong> of the starter on first load (<code>[New task    ]</code> is the empty text input with its placeholder, <code>[✕]</code> is each task's delete button):</p>
-          <div class="lc-code">My Tasks — 1 of 3 done<br>[New task&nbsp;&nbsp;&nbsp;&nbsp;] [Add]<br>[All] [Active] [Done]<br>• ☐ Build a React app [✕]<br>• ☐ Revise hooks [✕]<br>• ☑ Install Vite [✕]</div>
+          <div class="lc-code">My Tasks: 1 of 3 done<br>[New task&nbsp;&nbsp;&nbsp;&nbsp;] [Add]<br>[All] [Active] [Done]<br>• ☐ Build a React app [✕]<br>• ☐ Revise hooks [✕]<br>• ☑ Install Vite [✕]</div>
         </div>
         <div class="lc-card">
           <h3>Extensions (pick at least two)</h3>
@@ -2682,7 +2682,7 @@ module ReactContent
           const doneCount = tasks.filter(t => t.done).length;
           return (
             <div style={{ fontFamily: "sans-serif", padding: "1.5rem", maxWidth: 440 }}>
-              <h2>My Tasks — {doneCount} of {tasks.length} done</h2>
+              <h2>My Tasks: {doneCount} of {tasks.length} done</h2>
               <AddTaskForm />
               <p>{Object.keys(FILTERS).map(f => (
                 <button key={f} onClick={() => setFilter(f)} style={{ fontWeight: f === filter ? "bold" : "normal" }}>{f}</button>

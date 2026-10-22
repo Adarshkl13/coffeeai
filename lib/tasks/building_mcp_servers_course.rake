@@ -31,7 +31,7 @@ namespace :content do
       14 => "Client Features: Sampling, Roots and Elicitation",
       15 => "Progress, Logging and Cancellation",
       16 => "Remote Servers over HTTP",
-      17 => "Authorization with OAuth",
+      17 => "Authorisation with OAuth",
       18 => "MCP Security Risks",
       19 => "Shipping a Server",
       20 => "Capstone: Build a Course Notes Server"
@@ -64,7 +64,7 @@ namespace :content do
       1 => { type: "multiple_choice", q: "What main problem does MCP solve?", opts: ["A) It makes language models run faster on phones", "B) It gives AI apps and tools one shared way to connect, so each service needs only one server", "C) It replaces JSON with a new data format"], ans: "B" },
       2 => { type: "true_false", q: "In MCP, the language model opens its own connection to each server and calls tools directly.", opts: ["True", "False"], ans: "False" },
       3 => { type: "multiple_choice", q: "A JSON-RPC message has a method and params, but no id. What is it, and what should the receiver do?", opts: ["A) A notification, and the receiver must not reply", "B) A response, and the receiver must send it back", "C) A broken request, and the receiver must reply with error -32700"], ans: "A" },
-      4 => { type: "multiple_choice", q: "In the current MCP version (2026-07-28), how does the server learn the client's protocol version and capabilities?", opts: ["A) From a session ID the server created earlier", "B) It guesses them from the client's name", "C) Every request carries them in its _meta field"], ans: "C" },
+      4 => { type: "multiple_choice", q: "In the MCP version this course uses (2026-07-28), how does the server learn the client's protocol version and capabilities?", opts: ["A) From a session ID the server created earlier", "B) It guesses them from the client's name", "C) Every request carries them in its _meta field"], ans: "C" },
       5 => { type: "multiple_choice", q: "Your stdio MCP server has a print(\"debug\") line in a tool. What happens?", opts: ["A) Nothing, because print() output is ignored", "B) The text goes to stdout and breaks the JSON-RPC messages, so log to stderr instead", "C) The host shows it to the user as a tool result"], ans: "B" },
       6 => { type: "multiple_choice", q: "In a server built with the MCP Python SDK, where does a tool's description come from?", opts: ["A) The function's docstring", "B) The server's name", "C) A separate JSON file you must write"], ans: "A" },
       7 => { type: "multiple_choice", q: "A tool has an argument that must be either \"newest\" or \"oldest\". What is the best way to show this in the schema?", opts: ["A) Explain it only in the server's README", "B) Use an enum, for example Literal[\"newest\", \"oldest\"]", "C) Make it a free text string with no limits"], ans: "B" },

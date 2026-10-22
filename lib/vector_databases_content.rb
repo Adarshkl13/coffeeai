@@ -2283,9 +2283,9 @@ module VectorDatabasesContent
             # (question,                                     answerable, rank, top_score)
             ("I can't remember how to log in",                 True,  1, 0.641),
             ("How do I stop paying every month?",               True,  1, 0.629),
-            ("I finished half the course, can I get a refund?", True,  1, 0.747),
-            ("Will I receive proof that I completed it?",       True,  1, 0.539),
-            ("Can I watch lessons on my phone in a flight?",    True,  1, 0.539),
+            ("I finished half the course, can I still get a refund?", True,  1, 0.747),
+            ("Will I receive proof that I completed the course?", True,  1, 0.539),
+            ("Can I watch lessons on my phone during a flight?", True,  1, 0.539),
             ("Is my card information safe with you?",           True,  1, 0.317),
             ("Who do I talk to about buying for 40 employees?", True,  1, 0.299),
             ("The clip is stuck and not loading",               True,  1, 0.356),

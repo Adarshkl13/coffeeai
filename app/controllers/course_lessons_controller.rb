@@ -37,8 +37,15 @@ class CourseLessonsController < ApplicationController
       redirect_to course_lesson_path(course_slug: @course.slug, id: next_l.id),
                   notice: "Lesson complete! Keep it up 🎉"
     else
-      redirect_to course_path(@course),
-                  notice: "🎓 You finished #{@course.title}! Your certificate is ready."
+      # The certificate needs every lesson completed (skipped lessons do not count), so only promise it when it exists.
+      done = @course.fully_completed_count(current_user)
+      total = @course.course_lessons.count
+      notice = if Certificate.award(current_user, @course)
+                 "🎓 You finished #{@course.title}! Your certificate is ready."
+               else
+                 "You reached the last lesson. Complete all #{total} lessons to get your certificate (#{done} of #{total} done)."
+               end
+      redirect_to course_path(@course), notice: notice
     end
   end
 

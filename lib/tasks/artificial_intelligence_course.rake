@@ -11,6 +11,7 @@ namespace :content do
       c.position    = 5
       c.published   = true
     end
+    course.update!(description: "Learn the main parts of AI, from search algorithms to deep learning, LLMs and ethics. See how machines solve problems and where AI is going.")
     puts "Course: #{course.title}"
 
     titles = {

@@ -8,7 +8,7 @@ module AiEmployeeExperienceContent
           <div class="lc-badge le-badge le-badge-hr">HR & Recruitment</div>
           <h1 class="lc-title">What Employee Experience Is</h1>
         </div>
-        <p class="lc-lead"><strong>Employee experience</strong> (EX) is everything a person sees, feels and does at work. It starts with the job offer and ends on the last day. In this lesson you will learn the stages of the employee journey and the "moments that matter" inside it. You will also learn one key number, the attrition rate, and see why good EX saves money and effort. You will follow Swift Mart, a made-up online grocery company in Seattle with about 600 staff.</p>
+        <p class="lc-lead"><strong>Employee experience</strong> (EX) is everything a person sees, feels and does at work. It starts with the job offer and ends on the last day. In this lesson you will learn the stages of the employee journey and the "moments that matter" inside it. You will also learn one key number, the attrition rate, and see why good EX saves money and effort. You will follow Swift Mart, a made-up online grocery company in Telangana with about 600 staff.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 300" role="img" aria-label="The Swift Mart employee journey has six stages: offer, pre-boarding, onboarding, everyday work, growth and exit. Each stage has one moment that matters. A line below shows how a new warehouse associate might feel: excited at the offer, unsure before day one, welcomed on day one, worried at the first salary, valued at the first review and respected at exit.">
             <defs><marker id="ex1a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9b99b8"/></marker></defs>
@@ -117,7 +117,7 @@ module AiEmployeeExperienceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an employee experience adviser for Indian companies.
 
-        Company: [Swift Mart, an online grocery app in Seattle with about 600 staff].
+        Company: [Swift Mart, an online grocery app in Telangana with about 600 staff].
         Group 1: [warehouse and delivery staff on rotating day and night shifts, about 450 people, most use only a phone at work].
         Group 2: [office staff such as analysts and marketers, about 150 people, with laptops and email].
         Our main worry: [many new warehouse staff leave in the first 90 days].
@@ -256,7 +256,7 @@ module AiEmployeeExperienceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an HR operations adviser for companies in India.
 
-        Company: [Swift Mart, an online grocery app in Seattle with about 600 staff, mostly warehouse and delivery staff on shifts].
+        Company: [Swift Mart, an online grocery app in Telangana with about 600 staff, mostly warehouse and delivery staff on shifts].
         HR team: [4 people]. Tools: [a company-approved AI assistant] and [Keka as our HR system].
 
         Write a one-page guide called "How our HR team uses AI". Include:
@@ -359,7 +359,7 @@ module AiEmployeeExperienceContent
           <p>A weak prompt gives AI nothing real to work with:</p>
           <pre><code>Make an employee journey map for a warehouse worker.</code></pre>
           <p>AI will write a general map from its training. It may list problems that your staff do not have. A better prompt gives context, real notes and clear rules:</p>
-          <pre><code>I am an HR partner at an online grocery company in Seattle.
+          <pre><code>I am an HR partner at an online grocery company in Telangana.
         Build a journey map for new warehouse associates on rotating shifts,
         from offer to their first salary. Use only these anonymised notes
         from 6 talks with recent joiners: [paste notes].
@@ -401,7 +401,7 @@ module AiEmployeeExperienceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an employee experience adviser. Help me build a journey map.
 
-        Company: [Swift Mart, an online grocery app in Seattle].
+        Company: [Swift Mart, an online grocery app in Telangana].
         Employee group: [new warehouse associates on rotating day and night shifts].
         Journey: [from the job offer to the first salary].
 
@@ -546,7 +546,7 @@ module AiEmployeeExperienceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an HR communications writer for an Indian company. Rewrite a policy update so every employee understands it.
 
-        Company: [Swift Mart, an online grocery app in Seattle].
+        Company: [Swift Mart, an online grocery app in Telangana].
         Readers: [warehouse and delivery staff on shifts who read on phones, and office staff who read email].
         Approved update (use ONLY these facts):
         [From Monday 2 November 2026, staff whose shift ends after 10 pm get a free cab home. Book in the Swift Mart app before 6 pm on the day of the shift. Questions: your shift lead, or the HR desk, ext. 204, 9 am to 6 pm, Monday to Saturday.]
@@ -647,7 +647,7 @@ module AiEmployeeExperienceContent
           <h3>A pre-boarding checklist and the buddy system</h3>
           <p>Here is Lakshmi's pre-boarding checklist for Ramesh. The days count back from day 1 (D).</p>
           <pre><code>PRE-BOARDING: Ramesh, warehouse associate, morning shift
-        Day 1 (D): Monday 5 October 2026, 8:30 am, Medchal warehouse, Gate 2
+        Day 1 (D): Monday 5 October 2026, 8:30 am, North warehouse, Gate 2
 
         [ ] D-10  Welcome SMS in Telugu and English: date, time, gate, contact   HR ops
         [ ] D-10  Document request sent through the HR system link           HR ops
@@ -672,7 +672,7 @@ module AiEmployeeExperienceContent
           <pre><code>Make an onboarding plan for a new employee.</code></pre>
           <p>The result will fit an office worker with a laptop. It will not fit Ramesh. A better prompt gives the role, the shift, the date and the rules:</p>
           <pre><code>Create an onboarding plan for a new warehouse associate at an online
-        grocery warehouse in Seattle. Day 1: Monday 5 October 2026, 8:30 am.
+        grocery warehouse in Telangana. Day 1: Monday 5 October 2026, 8:30 am.
         From week 2 he works the morning shift (6:00 am to 2:30 pm).
         He uses a phone, not a laptop.
         Include: a pre-boarding checklist (owner, days before joining),
@@ -708,7 +708,7 @@ module AiEmployeeExperienceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an onboarding specialist for Indian companies. Draft an onboarding plan for one new joiner.
 
-        Company: [Swift Mart, an online grocery app in Seattle, about 600 staff].
+        Company: [Swift Mart, an online grocery app in Telangana, about 600 staff].
         Role: [warehouse associate, morning shift 6:00 am to 2:30 pm from week 2, uses a phone, not a laptop].
         Joining date: [Monday 5 October 2026]. Languages: [Telugu, Hindi, English].
         Manager: [a shift lead]. Buddy: [an associate on the same shift].
@@ -779,7 +779,7 @@ module AiEmployeeExperienceContent
         </figure>
         <div class="lc-card">
           <h3>What onboarding content do you need?</h3>
-          <p>Swift Mart is an online grocery company in Seattle. It has about 600 staff. About 450 work in warehouses and delivery on shifts. About 150 work in the office. Lakshmi, the HR business partner, leads employee experience. On Monday 5 October 2026, two people join: Ramesh, a warehouse associate, and Sana, an office analyst.</p>
+          <p>Swift Mart is an online grocery company in Telangana. It has about 600 staff. About 450 work in warehouses and delivery on shifts. About 150 work in the office. Lakshmi, the HR business partner, leads employee experience. On Monday 5 October 2026, two people join: Ramesh, a warehouse associate, and Sana, an office analyst.</p>
           <p>They need different content. Ramesh reads on his phone, between shifts. He prefers Telugu. Sana reads on a laptop and needs to know her tools. Lakshmi lists the pieces first.</p>
           <table class="lc-table">
             <thead><tr><th>Content</th><th>What it answers</th><th>Who checks it</th></tr></thead>
@@ -798,14 +798,14 @@ module AiEmployeeExperienceContent
           <p>Here is a weak prompt:</p>
           <pre><code>Write a welcome guide for new warehouse staff at Swift Mart.</code></pre>
           <p>The AI does not know Swift Mart. So it fills the gaps with guesses. It may add a free canteen, a bus service or a shift time that does not exist. The guess reads well, so nobody notices. A better prompt gives the facts and a clear rule:</p>
-          <pre><code>You are an HR writer at Swift Mart, an online grocery company in Seattle.
+          <pre><code>You are an HR writer at Swift Mart, an online grocery company in Telangana.
         Write a welcome guide for a new warehouse associate.
         Reader: reads on a phone, simple English, will be translated to Telugu.
         Use ONLY the facts below. If something is missing, write [ASK HR].
         Do not add benefits, times, places or names that are not listed.
         Format: 6 short sections with headings. Under 250 words.
         Facts (checked by HR on 28 Sep 2026):
-        - Day 1: Mon 5 Oct 2026, 8:30 am, Medchal warehouse, Gate 2
+        - Day 1: Mon 5 Oct 2026, 8:30 am, North warehouse, Gate 2
         - Ask for: Anil (your buddy, senior associate)
         - Bring: original ID proof and one passport photo
         - Swift Mart gives: 2 uniform T-shirts and safety shoes on day 1
@@ -841,8 +841,8 @@ module AiEmployeeExperienceContent
               <li data-kind="user" data-label="Lakshmi's prompt">Write a first-week guide for a new warehouse associate. Use only the facts below. Write [ASK HR] for anything missing. Simple English, short sections, under 250 words. (Fact sheet pasted below.)</li>
               <li data-kind="answer" data-label="AI draft">A friendly guide with six sections: Day 1, Your buddy, What to bring, Uniform and safety shoes, Your shift, Pay day. It ends with "[ASK HR] Is there transport for the early shift?"</li>
               <li data-kind="check" data-label="Lakshmi checks">She compares each line with the fact sheet. Day 1 time, gate, buddy name and pay day all match.</li>
-              <li data-kind="warn" data-label="Mistake caught">One line says "Free bus from Secunderabad station at 5:15 am." This is not in the facts. The AI invented it. Lakshmi deletes it.</li>
-              <li data-kind="tool" data-label="Admin team">Lakshmi asks the admin team about early-shift transport. They say: a shared van leaves Kompally at 5:20 am. She adds this fact.</li>
+              <li data-kind="warn" data-label="Mistake caught">One line says "Free bus from the railway station at 5:15 am." This is not in the facts. The AI invented it. Lakshmi deletes it.</li>
+              <li data-kind="tool" data-label="Admin team">Lakshmi asks the admin team about early-shift transport. They say: a shared van leaves the main bus stop at 5:20 am. She adds this fact.</li>
               <li data-kind="thought" data-label="Translation">Ramesh prefers Telugu. Lakshmi asks the AI for a Telugu version. She does not send it yet.</li>
               <li data-kind="check" data-label="Human review">Shift lead Venkat reads the Telugu version. He changes two words that sounded too formal. Then he records a short voice note of the guide.</li>
               <li data-kind="result" data-label="Sent">Ramesh gets the guide and the voice note on Thursday 1 October. The footer says "Checked by Lakshmi, 1 Oct 2026."</li>
@@ -853,12 +853,12 @@ module AiEmployeeExperienceContent
           <h3>Try It</h3>
           <p>Ask the AI to turn a short fact sheet into a welcome message, an FAQ and a quiz. Then check that it added nothing new.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an HR writer at [Swift Mart, an online grocery company in Seattle].
+            <pre class="ai-try-prompt">You are an HR writer at [Swift Mart, an online grocery company in Telangana].
         Create onboarding content for a new [warehouse associate] who joins on [Mon 5 Oct 2026].
         Reader: reads on a phone. Use simple English with short sentences.
         Use ONLY these facts. If a new joiner would need something that is not here, write [ASK HR] instead of guessing.
         Facts (made up for practice):
-        - Day 1: 8:30 am, [Medchal warehouse, Gate 2]. Ask for [Anil], your buddy.
+        - Day 1: 8:30 am, [North warehouse, Gate 2]. Ask for [Anil], your buddy.
         - Bring: original ID proof and one passport photo.
         - Day 1 kit: 2 uniform T-shirts and safety shoes.
         - From week 2: [morning shift, 6:00 am to 2:30 pm], 30-minute break.
@@ -1107,7 +1107,7 @@ module AiEmployeeExperienceContent
               <tr><td>Health insurance</td><td>Group health insurance for all staff. Details in the benefits booklet.</td></tr>
             </tbody>
           </table>
-          <p><strong>Laws set the minimums.</strong> In India, the four Labour Codes came into force on 21 November 2025. They cover wages, social security, working conditions and more. The central rules were notified in May 2026, but some state rules were still being finalised. A company policy can give more than the law, not less. Do not ask AI what the law says and publish its answer. Check every rule with HR, payroll and legal counsel.</p>
+          <p><strong>Laws set the minimums.</strong> In India, the four Labour Codes came into force on 21 November 2025. They cover wages, social security, working conditions and more. The central and state rules under them have been rolled out in stages, so check the latest rules for your state. A company policy can give more than the law, not less. Do not ask AI what the law says and publish its answer. Check every rule with HR, payroll and legal counsel.</p>
           <p>Here is a weak prompt:</p>
           <pre><code>How much leave do warehouse workers get in India?</code></pre>
           <p>The AI will give a general answer. It may be out of date, or it may be for a different state or law. A better prompt uses your policy:</p>
@@ -1169,7 +1169,7 @@ module AiEmployeeExperienceContent
           <h3>Try It</h3>
           <p>Ask the AI to answer three common questions from a made-up policy. One needs a calculation, and one is personal and must be sent to payroll.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an HR helpdesk writer at [Swift Mart, an online grocery company in Seattle].
+            <pre class="ai-try-prompt">You are an HR helpdesk writer at [Swift Mart, an online grocery company in Telangana].
         Answer 3 employee questions using ONLY this policy (made up for practice):
         [- Earned leave: 15 days a year, added at 1.25 days a month. Up to 30 days carry forward.
         - Casual and sick leave: 12 days a year. No carry forward.
@@ -1262,7 +1262,7 @@ module AiEmployeeExperienceContent
         Use only the facts in my notes. Do not guess reasons or feelings.
         Do not use labels such as lazy, careless or rude.
         End with one open question I can ask the person.
-        Notes: [Friday sales report. Seattle and London totals did not
+        Notes: [Friday sales report. North and South region totals did not
         match the dashboard. Regional team found it first.]</code></pre>
           <p>Then check the draft. Is every fact true? Would you say these words out loud? Change the draft until it sounds like you.</p>
         </div>
@@ -1297,7 +1297,7 @@ module AiEmployeeExperienceContent
               <li data-kind="warn" data-label="Problem in the draft">One suggested line says: "You clearly don't take this job seriously." This is a judgement, not a fact. Venkat deletes it.</li>
               <li data-kind="thought" data-label="Role-play">Venkat asks the AI to play Ramesh, a little defensive. He practises his opening twice and learns to pause after his question.</li>
               <li data-kind="check" data-label="Check with HR">Venkat asks Lakshmi what the attendance policy says, and what options exist, such as a shift change.</li>
-              <li data-kind="result" data-label="The real talk">Ramesh explains that the shared van from Kompally often leaves late. Venkat and Lakshmi talk to the admin team about the van. Ramesh agrees to message Venkat if the van is late again.</li>
+              <li data-kind="result" data-label="The real talk">Ramesh explains that the shared van often leaves late. Venkat and Lakshmi talk to the admin team about the van. Ramesh agrees to message Venkat if the van is late again.</li>
             </ol>
           </div>
         </div>
@@ -1306,7 +1306,7 @@ module AiEmployeeExperienceContent
           <p>Use AI to prepare for a difficult conversation with made-up facts. Then practise it with a role-play.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a coach for new people managers. Help me prepare a difficult conversation.
-        My role: [shift lead in a grocery warehouse in Seattle].
+        My role: [shift lead in a grocery warehouse in Telangana].
         Team member: [a warehouse associate who joined 3 weeks ago].
         Facts (made up, from records only): [came in 25 to 40 minutes after the 6:00 am shift start on 3 days this week].
         Company policy: [attendance problems are first discussed informally. Formal steps need HR].
@@ -1375,7 +1375,7 @@ module AiEmployeeExperienceContent
             <thead><tr><th>Survey</th><th>What it is</th><th>Swift Mart example</th></tr></thead>
             <tbody>
               <tr><td><strong>Engagement survey</strong></td><td>A longer survey, often once a year. It asks how people feel about their work, manager and company.</td><td>All 600 staff, every January, about 25 questions</td></tr>
-              <tr><td><strong>Pulse survey</strong></td><td>A short survey, sent often, on one or two topics</td><td>5 questions after the new shift roster starts</td></tr>
+              <tr><td><strong>Pulse survey</strong></td><td>A short survey (about 5 to 10 questions), sent often, on one or two topics</td><td>5 questions after the new shift roster starts</td></tr>
               <tr><td><strong>Lifecycle survey</strong></td><td>A survey at a key moment in the employee journey, such as onboarding or exit</td><td>New joiners at day 7 and day 30</td></tr>
             </tbody>
           </table>
@@ -1451,7 +1451,7 @@ module AiEmployeeExperienceContent
           <p>Ask the AI to design a short onboarding pulse survey for new joiners. Then check the questions against this lesson's rules.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an employee survey designer. Design a day-30 onboarding pulse survey.
-        Company: [Swift Mart, an online grocery company in Seattle].
+        Company: [Swift Mart, an online grocery company in Telangana].
         Who answers: [12 new joiners, both warehouse associates on shifts and office staff]. Many answer on a phone. Some prefer Telugu or Hindi.
         Goal: [find out what helped and what was confusing in the first month, so HR can improve onboarding].
         Please give me:
@@ -1506,7 +1506,7 @@ module AiEmployeeExperienceContent
               </g>
               <rect x="470" y="104" width="278" height="186" rx="10" fill="#1f1f44" stroke="#f59e0b"/>
               <text x="609" y="128" font-weight="700" font-size="12.5" fill="#fcd34d">Small-group check</text>
-              <text x="609" y="158" font-size="12">Uppal night shift: 4 replies</text>
+              <text x="609" y="158" font-size="12">East warehouse night shift: 4 replies</text>
               <text x="609" y="180" font-size="12" fill="#fca5a5">Too small to report alone</text>
               <line x1="609" y1="192" x2="609" y2="216" stroke="#9b99b8" stroke-width="1.5" marker-end="url(#ex11a)"/>
               <text x="609" y="238" font-size="12" fill="#6ee7b7">Merge into "All night shifts"</text>
@@ -1517,7 +1517,7 @@ module AiEmployeeExperienceContent
         </figure>
         <div class="lc-card">
           <h3>The example: Swift Mart's September pulse survey</h3>
-          <p>Swift Mart is an online grocery company in Seattle with about 600 staff. Lakshmi, the HR business partner, ran a short pulse survey (a quick survey of 8 to 12 questions) in September 2026. These numbers are made up for this lesson.</p>
+          <p>Swift Mart is an online grocery company in Telangana with about 600 staff. Lakshmi, the HR business partner, ran a pulse survey (a short survey sent often; this one had 10 questions) in September 2026. These numbers are made up for this lesson.</p>
           <table class="lc-table">
             <thead><tr><th>Group</th><th>Invited</th><th>Answered</th><th>Response rate</th></tr></thead>
             <tbody>
@@ -1567,10 +1567,10 @@ module AiEmployeeExperienceContent
               <tr><td>Are the tags right?</td><td>Read about 30 comments yourself. Compare your theme with the AI's theme. If many differ, fix the theme list and run it again.</td></tr>
               <tr><td>Are the quotes real?</td><td>Find each quote in the original comments. AI sometimes "improves" or invents quotes.</td></tr>
               <tr><td>Is the summary fair?</td><td>"Staff are angry about managers" is wrong if only 26 of 173 comments (15%) mention managers.</td></tr>
-              <tr><td>Can anyone be identified?</td><td>Remove quotes like "as the only woman picker on the Uppal night shift". That describes one person.</td></tr>
+              <tr><td>Can anyone be identified?</td><td>Remove quotes like "as the only woman picker on the East warehouse night shift". That describes one person.</td></tr>
             </tbody>
           </table>
-          <p><strong>Small-group anonymity.</strong> Even with no names, a small group can reveal who wrote something. If only 4 people from the Uppal night shift answered, their manager may guess who said what. Many companies set a minimum group size, often 5 or more replies, before they show a group's results. Pick your rule before the survey and apply it to comments, scores and quotes. Merge small groups into a larger one, such as "All night shifts".</p>
+          <p><strong>Small-group anonymity.</strong> Even with no names, a small group can reveal who wrote something. If only 4 people from the East warehouse night shift answered, their manager may guess who said what. Many companies set a minimum group size, often 5 or more replies, before they show a group's results. Pick your rule before the survey and apply it to comments, scores and quotes. Merge small groups into a larger one, such as "All night shifts".</p>
           <p><strong>Urgent comments.</strong> A comment may describe a safety risk or harassment. Do not let AI summarise or judge it. Send it to the right person under your company policy, such as the safety lead or the Internal Committee for sexual harassment.</p>
         </div>
         <div class="lc-card">
@@ -1581,7 +1581,7 @@ module AiEmployeeExperienceContent
               <li data-kind="user" data-label="Prompt">She pastes the comments into the company-approved AI tool with the "better" prompt: fixed theme list, one theme per comment, counts, quotes and urgent flags.</li>
               <li data-kind="answer" data-label="AI reply">The AI returns a table. Shift rosters: 52, Pay and payslips: 38, Breaks and heat: 31, Manager behaviour: 26, Training and growth: 17, Other: 9. It flags comments 44 and 131 as "Needs HR review".</li>
               <li data-kind="check" data-label="Check the maths">Lakshmi adds the counts: 173. The total matches. She reads 30 comments herself. She agrees with 27 of the 30 tags (90%).</li>
-              <li data-kind="warn" data-label="Catch the problem">The AI's summary says "Night staff at Uppal feel unsafe", based on the 4 replies from that shift. That group is below the 5-reply rule. Lakshmi rewrites it as "Some night shift staff raised concerns about travel after late shifts."</li>
+              <li data-kind="warn" data-label="Catch the problem">The AI's summary says "Night staff at the East warehouse feel unsafe", based on the 4 replies from that shift. That group is below the 5-reply rule. Lakshmi rewrites it as "Some night shift staff raised concerns about travel after late shifts."</li>
               <li data-kind="warn" data-label="Catch the quote">One quote mentions "the new supervisor who joined in August". Only one supervisor joined in August. Lakshmi replaces it with a quote that names no one.</li>
               <li data-kind="check" data-label="Urgent comments">Lakshmi opens comments 44 and 131 herself. Comment 44 is a broken loading ramp, so she sends it to the safety lead the same day. Comment 131 needs a private, careful follow-up under the company's policy.</li>
               <li data-kind="result" data-label="Final report">The leaders see six themes with counts, fair quotes and no group smaller than 5. The raw comments stay with HR.</li>
@@ -1592,7 +1592,7 @@ module AiEmployeeExperienceContent
           <h3>Try It</h3>
           <p>Ask AI to sort a set of made-up survey comments into themes. Then check its counts, quotes and anonymity like Lakshmi did.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an HR analyst at [Swift Mart, a grocery app in Seattle]. Here are 12 made-up, anonymous pulse survey comments, each with a number and a group.
+            <pre class="ai-try-prompt">You are an HR analyst at [Swift Mart, a grocery app in Telangana]. Here are 12 made-up, anonymous pulse survey comments, each with a number and a group.
 
         1 Warehouse: Roster comes on Sunday night for Monday.
         2 Office: Good team, but I don't know my growth path.
@@ -1689,7 +1689,7 @@ module AiEmployeeExperienceContent
         Give me wellbeing ideas for employees.</code></pre>
           <pre><code>Better:
         You are an HR business partner at Swift Mart, an online
-        grocery company in Seattle. We have about 450 warehouse
+        grocery company in Telangana. We have about 450 warehouse
         and delivery staff on day and night shifts, and about 150
         office staff. Our last pulse survey showed these themes:
         breaks and heat (31 comments), shift rosters (52 comments).
@@ -1723,7 +1723,7 @@ module AiEmployeeExperienceContent
           <h3>Try It</h3>
           <p>Ask AI to draft a short POSH awareness message for shift staff. Then check it against your company policy and the limits above.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are helping the HR team at [Swift Mart, an online grocery company in Seattle with about 450 shift staff and 150 office staff]. Draft a POSH awareness message for [warehouse and delivery staff].
+            <pre class="ai-try-prompt">You are helping the HR team at [Swift Mart, an online grocery company in Telangana with about 450 shift staff and 150 office staff]. Draft a POSH awareness message for [warehouse and delivery staff].
 
         Rules for the message:
         - Explain in very simple words what sexual harassment at work can include (for example unwelcome touching, comments or messages).
@@ -1788,7 +1788,7 @@ module AiEmployeeExperienceContent
         Give me employee recognition ideas.</code></pre>
           <pre><code>Better:
         You are an HR business partner at Swift Mart, an online
-        grocery company in Seattle. We have 6 warehouses with
+        grocery company in Telangana. We have 6 warehouses with
         about 450 staff on day and night shifts, and about 150
         office staff. Many shift staff read on phones and read
         Telugu or Hindi best.
@@ -1839,7 +1839,7 @@ module AiEmployeeExperienceContent
           <h3>Try It</h3>
           <p>Give AI a supervisor's short note and get back personal recognition messages. Then check that every fact came from you.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are helping a warehouse supervisor at [Swift Mart, an online grocery company in Seattle] write short thank-you messages. Use ONLY the facts below. Do not add achievements, numbers or praise that are not in the notes.
+            <pre class="ai-try-prompt">You are helping a warehouse supervisor at [Swift Mart, an online grocery company in Telangana] write short thank-you messages. Use ONLY the facts below. Do not add achievements, numbers or praise that are not in the notes.
 
         Supervisor's notes (made-up):
         - [Pooja, picker, night shift]: spotted the cold room alarm at 5 am on 12 Sep, moved 40 milk orders to the backup fridge.
@@ -1902,7 +1902,7 @@ module AiEmployeeExperienceContent
         Make an exit checklist.</code></pre>
           <pre><code>Better:
         You are an HR operations lead at Swift Mart, an online
-        grocery company in Seattle. Create two exit checklists:
+        grocery company in Telangana. Create two exit checklists:
         one for a warehouse associate, one for an office analyst.
         Group the tasks under: Resignation, Notice period,
         Last day, After exit. For each task give an owner
@@ -1960,7 +1960,7 @@ module AiEmployeeExperienceContent
           <h3>Try It</h3>
           <p>Ask AI to turn a leaver's rough notes into a handover document. Then check that nothing was invented.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an HR business partner at [Swift Mart, an online grocery company in Seattle]. An [office analyst] is leaving on [Fri 30 Oct]. Turn their rough notes into a clear knowledge handover document.
+            <pre class="ai-try-prompt">You are an HR business partner at [Swift Mart, an online grocery company in Telangana]. An [office analyst] is leaving on [Fri 30 Oct]. Turn their rough notes into a clear knowledge handover document.
 
         Rough notes (made-up):
         - weekly sales report every Mon 10am, data from the orders dashboard, send to ops heads
@@ -2020,7 +2020,7 @@ module AiEmployeeExperienceContent
           <h3>The brief</h3>
           <p>Lakshmi, the HR business partner at Swift Mart, must present an employee experience plan to leaders next week. All details below are made up.</p>
           <ul class="lc-list">
-            <li><strong>Company:</strong> Swift Mart, an online grocery app in Seattle. About 600 staff: about 450 warehouse and delivery staff on day and night shifts, and about 150 office staff.</li>
+            <li><strong>Company:</strong> Swift Mart, an online grocery app in Telangana. About 600 staff: about 450 warehouse and delivery staff on day and night shifts, and about 150 office staff.</li>
             <li><strong>New joiners:</strong> Ramesh, a warehouse associate, and Sana, an office analyst. Both start on Monday 5 October 2026.</li>
             <li><strong>September pulse survey:</strong> 402 of 600 staff answered, a response rate of 402 ÷ 600 = 67%. Top comment themes were shift rosters (52 of 173 comments) and pay and payslips (38 of 173).</li>
             <li><strong>eNPS</strong> (employee Net Promoter Score). Staff score "Would you recommend Swift Mart as a place to work?" from 0 to 10. Promoters score 9 or 10. Detractors score 0 to 6. eNPS is the % of promoters minus the % of detractors. In September, 161 of 402 were promoters and 120 were detractors. That is (161 − 120) ÷ 402 × 100 = 10.2, so about +10.</li>
@@ -2079,7 +2079,7 @@ module AiEmployeeExperienceContent
           <h3>Try It</h3>
           <p>Ask AI for a first draft of the full plan. Then check it part by part, as Lakshmi did.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an HR business partner at [Swift Mart, an online grocery app in Seattle] with about [600] staff: [450] warehouse and delivery staff on day and night shifts, and [150] office staff. All data here is made up.
+            <pre class="ai-try-prompt">You are an HR business partner at [Swift Mart, an online grocery app in Telangana] with about [600] staff: [450] warehouse and delivery staff on day and night shifts, and [150] office staff. All data here is made up.
 
         Draft an employee experience plan with five parts:
         1. Journey map: stages from offer to exit. One row for shift staff, one for office staff. Add 1 pain point per stage, based only on these survey themes: [shift rosters 52 comments, pay and payslips 38, breaks and heat 31].

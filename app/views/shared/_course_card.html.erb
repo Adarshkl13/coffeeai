@@ -6,10 +6,10 @@
   Cards carry data attributes the course-filter controller uses for tabs and search.
 %>
 <%
-  progress = local_assigns[:progress]
+  progress = user_signed_in? ? local_assigns[:progress] : nil   # visitors have no progress to show
   started = progress && progress[:done].to_i > 0
   primary_path =
-    if !user_signed_in? then new_user_registration_path
+    if !user_signed_in? then course_path(course)                  # course pages are public
     elsif progress && progress[:next_lesson] then course_lesson_path(course_slug: course.slug, id: progress[:next_lesson].id)
     else course_path(course)
     end
@@ -24,7 +24,7 @@
     <div class="c-card-icon" aria-hidden="true"><%= course.icon %></div>
     <div class="c-card-heading">
       <span class="c-card-cat"><%= course.category_name %></span>
-      <h3 class="c-card-title"><%= link_to course.title, user_signed_in? ? course_path(course) : new_user_registration_path %></h3>
+      <h3 class="c-card-title"><%= link_to course.title, course_path(course) %></h3>
     </div>
   </div>
   <p class="c-card-desc"><%= truncate(course.description, length: 105, separator: " ") %></p>
@@ -32,7 +32,7 @@
     <% if progress %>
       <span class="c-card-pct"><%= progress[:pct] %>%</span>
     <% else %>
-      <span>Beginner friendly</span>
+      <span><%= pluralize(lessons, "lesson") %></span>
     <% end %>
   </div>
   <% if progress %>

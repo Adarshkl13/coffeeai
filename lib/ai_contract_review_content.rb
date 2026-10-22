@@ -1753,7 +1753,7 @@ module AiContractReviewContent
               <tr><td><strong>Wet ink</strong></td><td>Printed and signed by hand, often with a company stamp</td><td>Initial every page. Keep the original safe.</td></tr>
             </tbody>
           </table>
-          <p>Some documents are outside the IT Act's rules on electronic signatures. The First Schedule lists them, for example wills, trusts and certain powers of attorney. This list was changed in 2022. Check the current First Schedule before you e-sign an unusual document.</p>
+          <p>Some documents are outside the IT Act's rules on electronic signatures. The First Schedule lists them, for example wills, trusts and certain powers of attorney. The government can change this list. Check the current First Schedule before you e-sign an unusual document.</p>
           <p>Evidence matters too. Section 63 of the Bharatiya Sakshya Adhiniyam 2023 replaced section 65B of the Evidence Act. Under it, a certificate may be needed to prove an electronic record in court. So keep the signing platform's audit trail with the signed file.</p>
         </div>
         <div class="lc-card">
@@ -2220,7 +2220,7 @@ module AiContractReviewContent
         CloudDesk has sent v2 (clean Word file, dated
         22 Sept 2026). Their email says they accepted our
         main points and made "no other changes".
-        Deal: 250 seats, Rs 18 lakh a year. The platform
+        Deal: 250 seats, ₹18 lakh a year. The platform
         will hold our end customers' personal data.
         Please send a full review pack by Tue 29 Sept:
         key terms, what changed from v1, issues against

@@ -94,9 +94,7 @@ All four values must be `true`. Leave them like that.
 
 **Prefer the console?** Open the S3 console, choose your region at the top, then choose **General purpose buckets → Create bucket**. Enter the bucket name. Keep **Object Ownership** on "ACLs disabled", keep all four boxes under **Block Public Access settings for this bucket** ticked, and choose **Create bucket**. If the console asks about the bucket namespace, the default is fine.
 
-<!-- SCREENSHOT: replace images/04-screenshot-s3-block-public-access.png with a screenshot of S3 → Create bucket, showing the bucket name, the region eu-west-2 and the four ticked Block Public Access boxes -->
-![Screenshot placeholder: the S3 Create bucket page with Block Public Access settings.](images/04-screenshot-s3-block-public-access.png)
-*The Create bucket page. Keep all four Block Public Access boxes ticked.*
+The Create bucket page. Keep all four Block Public Access boxes ticked.
 
 ## Step 2: Create an IAM role for the EC2 instance
 
@@ -194,9 +192,7 @@ aws iam get-instance-profile --instance-profile-name photobook-ec2-role \
 
 **Prefer the console?** Open **IAM → Roles → Create role**. For **Trusted entity type**, choose **AWS service**. For **Use case**, choose **EC2**. Attach `AWSElasticBeanstalkWebTier`, name the role `photobook-ec2-role` and create it. When you create an EC2 role in the console, IAM also creates an instance profile with the same name. Then open the role, choose **Add permissions → Create inline policy**, paste the S3 policy in the JSON editor and name it `photobook-s3-access`.
 
-<!-- SCREENSHOT: replace images/06-screenshot-iam-role-trusted-entity.png with a screenshot of IAM → Roles → photobook-ec2-role, showing the trusted entity ec2.amazonaws.com or the two attached policies -->
-![Screenshot placeholder: the IAM role photobook-ec2-role with its trusted entity and policies.](images/06-screenshot-iam-role-trusted-entity.png)
-*Your role: EC2 is the trusted entity, and two policies are attached.*
+Your role: EC2 is the trusted entity, and two policies are attached.
 
 ## Step 3: Build the app
 
@@ -637,15 +633,11 @@ Environment details for: photobook-env
 eb open
 ```
 
-<!-- SCREENSHOT: replace images/09-screenshot-eb-environment-health.png with a screenshot of Elastic Beanstalk → Environments → photobook-env, showing Health Ok, the domain and the Python 3.13 platform -->
-![Screenshot placeholder: the Elastic Beanstalk environment overview page with green health.](images/09-screenshot-eb-environment-health.png)
-*The environment page in the Elastic Beanstalk console. Health should be green.*
+The environment page in the Elastic Beanstalk console. Health should be green.
 
 Upload a photo, just like you did on your laptop. You should see "Photo uploaded." and the thumbnail.
 
-<!-- SCREENSHOT: replace images/10-screenshot-photobook-app.png with a screenshot of the PhotoBook app in the browser after an upload, with the elasticbeanstalk.com address visible -->
-![Screenshot placeholder: the PhotoBook page on Elastic Beanstalk with the success message and thumbnails.](images/10-screenshot-photobook-app.png)
-*PhotoBook running on AWS. The photos come straight from your private bucket.*
+PhotoBook running on AWS. The photos come straight from your private bucket.
 
 Right-click a photo and open it in a new tab. Look at the address. It contains `X-Amz-Signature` and `X-Amz-Expires=3600`. That is the presigned URL. Now try to open the photo without the part after `?`. S3 answers with `AccessDenied`, because the bucket is private. Good.
 

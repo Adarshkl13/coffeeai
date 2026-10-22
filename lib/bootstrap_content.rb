@@ -27,7 +27,7 @@ module BootstrapContent
         <div class="lc-card">
           <h3>Bootstrap 5.3 at a glance</h3>
           <ul class="lc-list">
-            <li>The current stable release is <strong>5.3.8</strong>. This course uses it everywhere.</li>
+            <li>The current stable release at the time of writing is <strong>5.3.8</strong>. This course uses it everywhere.</li>
             <li><strong>No jQuery.</strong> Bootstrap 4 needed jQuery. Bootstrap 5 is written in plain (vanilla) JavaScript.</li>
             <li><strong>Mobile-first.</strong> Base classes are for small screens. Breakpoint classes add changes for wider screens.</li>
             <li>It is built on flexbox and uses CSS custom properties (<code>--bs-*</code>). From 5.3, it supports colour modes (light/dark).</li>
@@ -153,7 +153,7 @@ module BootstrapContent
         </head>
         <body class="py-4">
           <div class="container">
-            <h1 class="h3">Chai Point — Hello, Bootstrap!</h1>
+            <h1 class="h3">Chai Point: Hello, Bootstrap!</h1>
             <p class="text-body-secondary">Preview width: <strong id="w"></strong>px</p>
           </div>
 
@@ -164,7 +164,7 @@ module BootstrapContent
 
           <div class="container mt-3">
             <!-- 2. A component: a styled button -->
-            <button type="button" class="btn btn-primary">Order masala chai — ₹30</button>
+            <button type="button" class="btn btn-primary">Order masala chai: ₹30</button>
 
             <!-- 3. Utilities: one class, one job -->
             <p class="mt-3 fw-bold text-center">fw-bold + text-center + mt-3</p>
@@ -222,16 +222,16 @@ module BootstrapContent
 
         <div class="lc-card">
           <h3>Worked example: mobile-first stacking</h3>
-          <div class="lc-code">&lt;div class="container"&gt;<br>  &lt;div class="row"&gt;<br>    &lt;div class="col-12 col-md-6 col-lg-4"&gt;New York&lt;/div&gt;<br>    &lt;div class="col-12 col-md-6 col-lg-4"&gt;Chicago&lt;/div&gt;<br>    &lt;div class="col-12 col-md-6 col-lg-4"&gt;Los Angeles&lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
+          <div class="lc-code">&lt;div class="container"&gt;<br>  &lt;div class="row"&gt;<br>    &lt;div class="col-12 col-md-6 col-lg-4"&gt;Maharashtra&lt;/div&gt;<br>    &lt;div class="col-12 col-md-6 col-lg-4"&gt;Gujarat&lt;/div&gt;<br>    &lt;div class="col-12 col-md-6 col-lg-4"&gt;Kerala&lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
           <table class="lc-table">
             <thead><tr><th>Screen</th><th>Class that wins</th><th>Layout</th><th>Each column</th></tr></thead>
             <tbody>
               <tr><td>375px phone</td><td><code>col-12</code></td><td>3 stacked rows</td><td>375px (full width)</td></tr>
-              <tr><td>800px tablet</td><td><code>col-md-6</code></td><td>2 + 1 (Los Angeles wraps)</td><td>720 ÷ 2 = 360px</td></tr>
+              <tr><td>800px tablet</td><td><code>col-md-6</code></td><td>2 + 1 (Kerala wraps)</td><td>720 ÷ 2 = 360px</td></tr>
               <tr><td>1024px laptop</td><td><code>col-lg-4</code></td><td>3 in one row</td><td>960 ÷ 3 = 320px</td></tr>
             </tbody>
           </table>
-          <p><strong>What you will see:</strong> the widths above include 12px of padding on both sides of each column. So the text area of a 360px column is 336px. Los Angeles wraps to a new line on the tablet because 6 + 6 + 6 = 18 &gt; 12.</p>
+          <p><strong>What you will see:</strong> the widths above include 12px of padding on both sides of each column. So the text area of a 360px column is 336px. Kerala wraps to a new line on the tablet because 6 + 6 + 6 = 18 &gt; 12.</p>
         </div>
 
         <div class="lc-card">
@@ -332,9 +332,9 @@ module BootstrapContent
 
             <h2 class="h5">3. Mobile-first: col-12 col-md-6 col-lg-4</h2>
             <div class="row g-3 mb-4">
-              <div class="col-12 col-md-6 col-lg-4"><div class="box">New York</div></div>
-              <div class="col-12 col-md-6 col-lg-4"><div class="box">Chicago</div></div>
-              <div class="col-12 col-md-6 col-lg-4"><div class="box">Los Angeles</div></div>
+              <div class="col-12 col-md-6 col-lg-4"><div class="box">Maharashtra</div></div>
+              <div class="col-12 col-md-6 col-lg-4"><div class="box">Gujarat</div></div>
+              <div class="col-12 col-md-6 col-lg-4"><div class="box">Kerala</div></div>
             </div>
 
             <h2 class="h5">4. row-cols-2 row-cols-md-4 with g-3</h2>
@@ -405,8 +405,8 @@ module BootstrapContent
 
         <div class="lc-card">
           <h3>Worked example: an event hero</h3>
-          <div class="lc-code">&lt;div class="text-center text-md-start"&gt;<br>  &lt;h1 class="display-5 fw-bold"&gt;TechFest 2026&lt;/h1&gt;<br>  &lt;p class="lead"&gt;Two days of hackathons, talks and robots.&lt;/p&gt;<br>  &lt;p class="text-body-secondary small text-uppercase"&gt;IIT Madras · 14–15 March&lt;/p&gt;<br>&lt;/div&gt;</div>
-          <p><strong>What you will see:</strong> on a phone, all three lines are centred. From 768px, they are left-aligned. "TechFest 2026" is a large bold display heading. The lead line is bigger and lighter than normal text. The last line is small, grey and in capital letters ("IIT MADRAS · 14–15 MARCH").</p>
+          <div class="lc-code">&lt;div class="text-center text-md-start"&gt;<br>  &lt;h1 class="display-5 fw-bold"&gt;TechFest 2026&lt;/h1&gt;<br>  &lt;p class="lead"&gt;Two days of hackathons, talks and robots.&lt;/p&gt;<br>  &lt;p class="text-body-secondary small text-uppercase"&gt;City Tech Campus · 14–15 March&lt;/p&gt;<br>&lt;/div&gt;</div>
+          <p><strong>What you will see:</strong> on a phone, all three lines are centred. From 768px, they are left-aligned. "TechFest 2026" is a large bold display heading. The lead line is bigger and lighter than normal text. The last line is small, grey and in capital letters ("CITY TECH CAMPUS · 14–15 MARCH").</p>
         </div>
 
         <div class="lc-card">
@@ -475,7 +475,7 @@ module BootstrapContent
             <section class="text-center text-md-start mb-4">
               <h1 class="display-5 fw-bold">TechFest 2026</h1>
               <p class="lead">Two days of hackathons, talks and robots.</p>
-              <p class="text-body-secondary small text-uppercase">IIT Madras · 14–15 March</p>
+              <p class="text-body-secondary small text-uppercase">City Tech Campus · 14–15 March</p>
             </section>
 
             <!-- 2. Heading level vs looks -->
@@ -510,7 +510,7 @@ module BootstrapContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-bootstrap">Bootstrap</div>
-          <h1 class="lc-title">Colors and Backgrounds</h1>
+          <h1 class="lc-title">Colours and Backgrounds</h1>
         </div>
         <p class="lc-lead">Bootstrap uses a small set of named theme colours, such as primary, success and danger. You use them for text, backgrounds, borders, buttons and alerts. You use names instead of hex codes (like #0d6efd). So your whole site stays consistent, and you can change the theme in one place. This lesson covers the colour and background utilities in Bootstrap 5.3.</p>
 
@@ -611,7 +611,7 @@ module BootstrapContent
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Bootstrap Colors</title>
+          <title>Bootstrap Colours</title>
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
         </head>
         <body class="bg-body-tertiary">
@@ -688,7 +688,7 @@ module BootstrapContent
 
         <div class="lc-card">
           <h3>Worked example: a centred price box</h3>
-          <div class="lc-code">&lt;div style="width: 600px"&gt;<br>  &lt;div class="w-50 mx-auto px-4 py-2 mb-3 border rounded"&gt;<br>    Masala dosa — ₹80<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
+          <div class="lc-code">&lt;div style="width: 600px"&gt;<br>  &lt;div class="w-50 mx-auto px-4 py-2 mb-3 border rounded"&gt;<br>    Masala dosa: ₹80<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
           <p><strong>What you will see:</strong> a box with a border and rounded corners. It is 300px wide (<code>w-50</code> of 600px). <code>mx-auto</code> centres it, with 150px of empty space on each side. Inside, it has 24px of padding on the left and right (<code>px-4</code>) and 8px on top and bottom (<code>py-2</code>). Bootstrap uses <code>box-sizing: border-box</code>, so the box stays 300px wide. The text area is 300 − 24 − 24 − 2 (the 1px borders) = 250px. Anything after the box starts 16px lower (<code>mb-3</code>).</p>
         </div>
 
@@ -769,7 +769,7 @@ module BootstrapContent
 
             <!-- 2. Centring: w-50 + mx-auto; px-4 py-2 inside -->
             <h2 class="h5">2. w-50 mx-auto px-4 py-2</h2>
-            <div class="w-50 mx-auto px-4 py-2 mb-4 border rounded bg-body">Masala dosa — ₹80</div>
+            <div class="w-50 mx-auto px-4 py-2 mb-4 border rounded bg-body">Masala dosa: ₹80</div>
 
             <!-- 3. Gap between flex children -->
             <h2 class="h5">3. d-flex gap-3</h2>
@@ -855,7 +855,7 @@ module BootstrapContent
 
         <div class="lc-card">
           <h3>Worked example 2: perfect centring and a media object</h3>
-          <div class="lc-code">&lt;!-- Centre a box both ways: the container needs a height --&gt;<br>&lt;div class="d-flex justify-content-center align-items-center bg-body-tertiary" style="height: 200px"&gt;<br>  &lt;div class="p-3 border rounded"&gt;Centred&lt;/div&gt;<br>&lt;/div&gt;<br><br>&lt;!-- Media object: fixed avatar + flexible text --&gt;<br>&lt;div class="d-flex gap-3"&gt;<br>  &lt;div class="flex-shrink-0 fs-1" aria-hidden="true"&gt;👩‍🎓&lt;/div&gt;<br>  &lt;div class="flex-grow-1"&gt;<br>    &lt;h5 class="mb-1"&gt;Priya, London&lt;/h5&gt;<br>    &lt;p class="mb-0"&gt;Loved the college fest workshop!&lt;/p&gt;<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
+          <div class="lc-code">&lt;!-- Centre a box both ways: the container needs a height --&gt;<br>&lt;div class="d-flex justify-content-center align-items-center bg-body-tertiary" style="height: 200px"&gt;<br>  &lt;div class="p-3 border rounded"&gt;Centred&lt;/div&gt;<br>&lt;/div&gt;<br><br>&lt;!-- Media object: fixed avatar + flexible text --&gt;<br>&lt;div class="d-flex gap-3"&gt;<br>  &lt;div class="flex-shrink-0 fs-1" aria-hidden="true"&gt;👩‍🎓&lt;/div&gt;<br>  &lt;div class="flex-grow-1"&gt;<br>    &lt;h5 class="mb-1"&gt;Priya, Maharashtra&lt;/h5&gt;<br>    &lt;p class="mb-0"&gt;Loved the college fest workshop!&lt;/p&gt;<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
           <p><strong>What you will see:</strong> first, a grey panel 200px tall, with the "Centred" box exactly in its middle. Second, a large emoji avatar on the left, and the name and review on the right. The avatar keeps its size even on a narrow screen (<code>flex-shrink-0</code>). The text takes the rest of the width (<code>flex-grow-1</code>).</p>
         </div>
 
@@ -934,7 +934,7 @@ module BootstrapContent
           <div class="d-flex gap-3 p-3 border rounded">
             <div class="flex-shrink-0 rounded-circle text-bg-primary d-flex align-items-center justify-content-center fw-bold" style="width: 56px; height: 56px" aria-hidden="true">P</div>
             <div class="flex-grow-1">
-              <h3 class="h6 mb-1">Priya, London</h3>
+              <h3 class="h6 mb-1">Priya, Maharashtra</h3>
               <p class="mb-0 text-body-secondary">Loved the web design workshop at the college fest. The mentors were super helpful!</p>
             </div>
           </div>
@@ -1153,7 +1153,7 @@ module BootstrapContent
         </div>
 
         <div class="lc-card">
-          <h3>Bootstrap Icons 1.13.1</h3>
+          <h3>Bootstrap Icons (1.13.1 at the time of writing)</h3>
           <div class="lc-code">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"&gt;<br><br>&lt;!-- Icon + text: hide the icon from screen readers --&gt;<br>&lt;button type="button" class="btn btn-success"&gt;<br>  &lt;i class="bi bi-cart-plus me-1" aria-hidden="true"&gt;&lt;/i&gt; Add to cart<br>&lt;/button&gt;<br><br>&lt;!-- Icon only: the button needs a name --&gt;<br>&lt;button type="button" class="btn btn-outline-danger" aria-label="Add to wishlist"&gt;<br>  &lt;i class="bi bi-heart" aria-hidden="true"&gt;&lt;/i&gt;<br>&lt;/button&gt;</div>
           <p><strong>What you will see:</strong> a green "Add to cart" button with a cart-plus icon before the text. You will also see a small button with a red outline and a heart. A screen reader reads the first as "Add to cart, button". It reads the second as "Add to wishlist, button".</p>
           <ul class="lc-list">
@@ -1261,7 +1261,7 @@ module BootstrapContent
 
         <div class="lc-card">
           <h3>Anatomy of a card</h3>
-          <div class="lc-code">&lt;div class="card" style="width: 18rem;"&gt;<br>  &lt;img src="fest.jpg" class="card-img-top" alt="Students dancing at the fest"&gt;<br>  &lt;div class="card-body"&gt;<br>    &lt;h5 class="card-title"&gt;TechFest 2026&lt;/h5&gt;<br>    &lt;h6 class="card-subtitle mb-2 text-body-secondary"&gt;IIT Bombay · 12 Dec&lt;/h6&gt;<br>    &lt;p class="card-text"&gt;Hackathon, robotics and a DJ night.&lt;/p&gt;<br>    &lt;a href="#register" class="btn btn-primary"&gt;Register&lt;/a&gt;<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
+          <div class="lc-code">&lt;div class="card" style="width: 18rem;"&gt;<br>  &lt;img src="fest.jpg" class="card-img-top" alt="Students dancing at the fest"&gt;<br>  &lt;div class="card-body"&gt;<br>    &lt;h5 class="card-title"&gt;TechFest 2026&lt;/h5&gt;<br>    &lt;h6 class="card-subtitle mb-2 text-body-secondary"&gt;City Tech Campus · 12 Dec&lt;/h6&gt;<br>    &lt;p class="card-text"&gt;Hackathon, robotics and a DJ night.&lt;/p&gt;<br>    &lt;a href="#register" class="btn btn-primary"&gt;Register&lt;/a&gt;<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
           <p><strong>What you will see:</strong> a box 18rem (288px) wide, with a thin light border and rounded corners. The image fills the top edge. Its top corners are rounded to match the card. Below it is an area with padding. It has a bold title, a grey subtitle, one line of text and a blue Register button.</p>
           <table class="lc-table">
             <thead><tr><th>Part</th><th>Class</th><th>Typical element</th></tr></thead>
@@ -1620,7 +1620,7 @@ module BootstrapContent
 
         <div class="lc-card">
           <h3>Parts: Trigger + Panel</h3>
-          <div class="lc-code">&lt;!-- Trigger --&gt;<br>&lt;button class="btn btn-primary" type="button"<br>        data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menu"&gt;<br>  Open menu<br>&lt;/button&gt;<br><br>&lt;!-- Panel --&gt;<br>&lt;div class="offcanvas offcanvas-start" tabindex="-1" id="menu" aria-labelledby="menuLabel"&gt;<br>  &lt;div class="offcanvas-header"&gt;<br>    &lt;h5 class="offcanvas-title" id="menuLabel"&gt;Chai Point Menu&lt;/h5&gt;<br>    &lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"&gt;&lt;/button&gt;<br>  &lt;/div&gt;<br>  &lt;div class="offcanvas-body"&gt;<br>    Masala Chai — ₹30 ...<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
+          <div class="lc-code">&lt;!-- Trigger --&gt;<br>&lt;button class="btn btn-primary" type="button"<br>        data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menu"&gt;<br>  Open menu<br>&lt;/button&gt;<br><br>&lt;!-- Panel --&gt;<br>&lt;div class="offcanvas offcanvas-start" tabindex="-1" id="menu" aria-labelledby="menuLabel"&gt;<br>  &lt;div class="offcanvas-header"&gt;<br>    &lt;h5 class="offcanvas-title" id="menuLabel"&gt;Chai Point Menu&lt;/h5&gt;<br>    &lt;button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"&gt;&lt;/button&gt;<br>  &lt;/div&gt;<br>  &lt;div class="offcanvas-body"&gt;<br>    Masala Chai: ₹30 ...<br>  &lt;/div&gt;<br>&lt;/div&gt;</div>
           <p><strong>What you will see:</strong> a blue "Open menu" button. When you click it, a white panel slides in from the <strong>left</strong>. The panel is 400px wide, or the full width on a narrow phone. A dark backdrop dims the rest of the page. The panel has the title "Chai Point Menu" and a ✕ button. To close it, click ✕, click the backdrop or press <kbd>Esc</kbd>.</p>
           <ul class="lc-list">
             <li><code>data-bs-toggle="offcanvas"</code> + <code>data-bs-target="#menu"</code> connect the button to the panel. A link can use <code>href="#menu"</code> with <code>role="button"</code> instead.</li>
@@ -1651,8 +1651,8 @@ module BootstrapContent
             <thead><tr><th>Attribute on <code>.offcanvas</code></th><th>Default</th><th>What it does</th></tr></thead>
             <tbody>
               <tr><td><code>data-bs-backdrop="true"</code></td><td>true</td><td>Dark backdrop. Clicking it closes the panel</td></tr>
-              <tr><td><code>data-bs-backdrop="false"</code></td><td>—</td><td>No backdrop. The page stays bright</td></tr>
-              <tr><td><code>data-bs-backdrop="static"</code></td><td>—</td><td>Backdrop is shown, but clicking it does <strong>not</strong> close the panel</td></tr>
+              <tr><td><code>data-bs-backdrop="false"</code></td><td>n/a</td><td>No backdrop. The page stays bright</td></tr>
+              <tr><td><code>data-bs-backdrop="static"</code></td><td>n/a</td><td>Backdrop is shown, but clicking it does <strong>not</strong> close the panel</td></tr>
               <tr><td><code>data-bs-scroll="true"</code></td><td>false</td><td>You can still scroll the page behind while the panel is open</td></tr>
               <tr><td><code>data-bs-keyboard="false"</code></td><td>true</td><td><kbd>Esc</kbd> no longer closes the panel</td></tr>
             </tbody>
@@ -1741,9 +1741,9 @@ module BootstrapContent
             </div>
             <div class="offcanvas-body">
               <ul class="list-unstyled">
-                <li>Masala Chai — ₹30</li>
-                <li>Ginger Chai — ₹35</li>
-                <li>Samosa — ₹20</li>
+                <li>Masala Chai: ₹30</li>
+                <li>Ginger Chai: ₹35</li>
+                <li>Samosa: ₹20</li>
               </ul>
             </div>
           </div>
@@ -1929,7 +1929,7 @@ module BootstrapContent
             document.getElementById('submitBtn').addEventListener('click', event => {
               event.preventDefault();              // preview sandbox blocks submit, so validate on click
               form.classList.add('was-validated'); // show Bootstrap's red/green styles
-              document.getElementById('result').textContent = form.checkValidity() ? '✅ All fields valid — registered!' : '❌ Fix the red fields.';
+              document.getElementById('result').textContent = form.checkValidity() ? '✅ All fields valid. Registered!' : '❌ Fix the red fields.';
             });
           </script>
         </body>
@@ -2072,7 +2072,7 @@ module BootstrapContent
             <table class="table table-bordered text-nowrap">
               <thead><tr><th scope="col">Match</th><th scope="col">Venue</th><th scope="col">Date</th><th scope="col">Toss</th><th scope="col">Result</th><th scope="col">Player of the match</th></tr></thead>
               <tbody>
-                <tr><td>CSE vs Mech</td><td>Main Ground, London</td><td>12 Feb 2026</td><td>Mech</td><td>CSE won by 6 wickets</td><td>Ananya Rao (CSE)</td></tr>
+                <tr><td>CSE vs Mech</td><td>Main Ground</td><td>12 Feb 2026</td><td>Mech</td><td>CSE won by 6 wickets</td><td>Ananya Rao (CSE)</td></tr>
               </tbody>
             </table>
           </div>
@@ -2814,12 +2814,12 @@ module BootstrapContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-bootstrap">Bootstrap</div>
-          <h1 class="lc-title">Color Modes and Customization</h1>
+          <h1 class="lc-title">Colour Modes and Customisation</h1>
         </div>
         <p class="lc-lead">Every Bootstrap site looks like "a Bootstrap site" until you customise it. In this lesson, you add <strong>dark mode</strong> with Bootstrap 5.3's color modes. Then you change the look with <strong>CSS variables</strong> and <strong>Sass</strong> (a language that compiles to CSS). With Sass you can add new theme colours and new utilities, and make smaller files. You also learn which variables change which parts. This is where most people get stuck.</p>
 
         <div class="lc-card">
-          <h3>Color Modes with data-bs-theme</h3>
+          <h3>Colour Modes with data-bs-theme</h3>
           <div class="lc-code">&lt;!-- whole page dark --&gt;<br>&lt;html lang="en" data-bs-theme="dark"&gt;<br><br>&lt;!-- or just one component --&gt;<br>&lt;div class="card" data-bs-theme="dark"&gt;...&lt;/div&gt;<br>&lt;nav class="navbar bg-body-tertiary" data-bs-theme="dark"&gt;...&lt;/nav&gt;</div>
           <p><strong>What you will see:</strong> put <code>data-bs-theme="dark"</code> on <code>&lt;html&gt;</code>. The page background becomes almost black (<code>#212529</code>) and the text turns light. Cards, forms, dropdowns and tables all switch to dark versions by themselves.</p>
           <ul class="lc-list">
@@ -2924,7 +2924,7 @@ module BootstrapContent
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Color Modes and Customization</title>
+          <title>Colour Modes and Customisation</title>
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
           <style>
             /* Your CSS goes AFTER bootstrap.min.css */
@@ -3055,7 +3055,7 @@ module BootstrapContent
         <head>
           <meta charset="UTF-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>CodeYatra — Coding Bootcamp</title>
+          <title>CodeYatra: Coding Bootcamp</title>
           <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
         </head>

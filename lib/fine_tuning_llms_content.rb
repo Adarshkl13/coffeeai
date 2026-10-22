@@ -1307,12 +1307,13 @@ module FineTuningLlmsContent
 
         client = anthropic.Anthropic()          # reads ANTHROPIC_API_KEY
         reply = client.messages.create(
-            model="claude-opus-5",
+            model="claude-opus-5-5",
             max_tokens=500,
             system=STYLE_GUIDE + "\nReply with JSON only: {\"user\": ..., \"assistant\": ...}",
             messages=[{"role": "user", "content": "Write one example: an angry customer asks about a late refund."}],
         )
-        draft = json.loads(reply.content[0].text)   # check it before you keep it</code></pre>
+        text = next(b.text for b in reply.content if b.type == "text")   # skip thinking blocks
+        draft = json.loads(text)   # check it before you keep it</code></pre>
         </div>
         <div class="lc-card">
           <h3>Risks and how to handle them</h3>
@@ -1401,10 +1402,10 @@ module FineTuningLlmsContent
         drafts = []
         for i in range(20):
             reply = client.messages.create(
-                model="claude-opus-5", max_tokens=300, system=SYSTEM,
+                model="claude-opus-5-5", max_tokens=300, system=SYSTEM,
                 messages=[{"role": "user", "content": f"Write example {i + 1} about refunds. Vary the wording."}],
             )
-            drafts.append(reply.content[0].text)
+            drafts.append(next(b.text for b in reply.content if b.type == "text"))
 
         kept, rejected, seen = [], {"not JSON": 0, "wrong fact": 0, "duplicate": 0}, set()
         for text in drafts:
@@ -2272,7 +2273,8 @@ module FineTuningLlmsContent
               <li data-kind="tool" data-label="Cloud GPU · terminal">pip install -U transformers datasets peft trl accelerate, then python train.py</li>
               <li data-kind="result" data-label="trainer.model.print_trainable_parameters()">About 10 million trainable numbers: less than 2% of the model. With an effective batch of 16, that is 75 steps per epoch and 225 steps in total.</li>
               <li data-kind="check" data-label="Step 50">loss 1.42 · eval_loss 1.35. Both are going down. Checkpoint saved.</li>
-              <li data-kind="check" data-label="Step 150">loss 0.88 · eval_loss 1.12. Still improving, but more slowly.</li>
+              <li data-kind="check" data-label="Step 100">loss 1.08 · eval_loss 1.21. Both are still going down.</li>
+              <li data-kind="check" data-label="Step 150">loss 0.88 · eval_loss 1.12. This is the lowest validation loss so far. Still improving, but more slowly.</li>
               <li data-kind="warn" data-label="Step 200">loss 0.61 · eval_loss 1.19. Validation loss went up. The model is starting to overfit.</li>
               <li data-kind="result" data-label="End of training">load_best_model_at_end keeps the step 150 checkpoint. The adapter is saved to support-lora/final.</li>
               <li data-kind="answer" data-label="Next">Load the adapter, read 20 real answers, and run the test set against the base model. Then stop the GPU machine. (Numbers in this run are made up for the example.)</li>

@@ -8,7 +8,7 @@ module AiPatientChatbotsContent
           <div class="lc-badge le-badge le-badge-health">Healthcare</div>
           <h1 class="lc-title">What Patient Chatbots Do</h1>
         </div>
-        <p class="lc-lead">A patient chatbot is a program that chats with patients on WhatsApp, a website or an app. It can book appointments, answer common questions and send reminders. It must never act like a doctor. In this lesson you will learn what these chatbots do well and what they must not do. In this course you will follow Nirmal Family Clinic (a made-up clinic). Dr Arvind Joshi and his receptionist Pinky get about 120 WhatsApp messages and calls a day. They plan a Hindi and English chatbot called "Nirmal Sahayak".</p>
+        <p class="lc-lead">A patient chatbot is a program that chats with patients on WhatsApp, a website or an app. It can book appointments, answer common questions and send reminders. It must never act like a doctor. In this lesson you will learn what these chatbots do well and what they must not do. In this course you will follow Nirmal Family Clinic (a made-up clinic). Dr Arvind Joshi and his receptionist Pinky get about 120 WhatsApp messages and calls a day. Dr Meera Kulkarni, a children's doctor, visits on some evenings. They plan a Hindi and English chatbot called "Nirmal Sahayak".</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 320" role="img" aria-label="A patient sends a message on WhatsApp or the website to the Nirmal Sahayak chatbot. The chatbot can book, reschedule or cancel appointments, answer FAQs about hours, fees and location, send reminders to patients who agreed, say if a lab report is ready, and share approved general health information. It must not diagnose, suggest or change medicines, or handle an emergency alone. When needed, Pinky or the doctor takes over.">
             <defs><marker id="pc1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -370,7 +370,7 @@ module AiPatientChatbotsContent
         <div class="lc-card">
           <h3>When is chatbot software a medical device?</h3>
           <p>In India, the Medical Devices Rules 2017 regulate medical devices. <strong>CDSCO</strong> (Central Drugs Standard Control Organisation) is the national regulator. Software can count as a medical device when it is meant for diagnosis, prevention, monitoring or treatment.</p>
-          <p>CDSCO published draft guidance on medical device software in October 2025. It issued the final guidance in July 2026. In general, software with no medical purpose, such as hospital admin or booking software, is outside it. Software that diagnoses, triages or guides treatment is placed in a risk class, from Class A (low) to Class D (high). The class depends on how much the software affects care and how serious the condition is.</p>
+          <p>CDSCO has published guidance on medical device software. Check the CDSCO website for the latest version. In general, software with no medical purpose, such as hospital admin or booking software, is outside it. Software that diagnoses, triages or guides treatment is placed in a risk class, from Class A (low) to Class D (high). The class depends on how much the software affects care and how serious the condition is.</p>
           <table class="lc-table">
             <thead><tr><th>Chatbot feature</th><th>Likely view (check with a lawyer)</th></tr></thead>
             <tbody>
@@ -392,7 +392,7 @@ module AiPatientChatbotsContent
             <li>Do not ask for sensitive numbers, such as full card or ID numbers.</li>
             <li>Do not use WhatsApp for health information where the law needs stronger systems.</li>
           </ul>
-          <p>WhatsApp Business Platform prices also change. For example, from 1 October 2026, Meta charges for most replies inside the 24-hour customer service window, after a free monthly allowance. Check the current rates with your vendor.</p>
+          <p>WhatsApp Business Platform prices also change. For example, Meta may charge for some replies inside the 24-hour customer service window, and its pricing rules have changed more than once. Check the current rates with your vendor.</p>
           <table class="lc-table">
             <thead><tr><th>Who</th><th>Is responsible for</th></tr></thead>
             <tbody>
@@ -718,6 +718,7 @@ module AiPatientChatbotsContent
         </div>
         <div class="lc-card">
           <h3>Activity: follow a reschedule chat</h3>
+          <p>Sunita, a made-up patient, wants to move her appointment. Follow the chat step by step.</p>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Sunita (made-up patient)">"Mera kal ka appointment 10:20 ka hai. Shaam ko kar sakte ho?"</li>
@@ -1180,7 +1181,7 @@ module AiPatientChatbotsContent
             </tbody>
           </table>
           <p>For a <strong>call-back</strong>, the chatbot asks only two things: "Is this the right number to call?" and "Morning or evening?". Pinky works through the call-back list at the start of each session.</p>
-          <p>One WhatsApp rule matters here. A business can usually reply freely within 24 hours of the patient's last message. After that, it must use a pre-approved message template. A Sunday message answered on Monday may fall outside this window. From 1 October 2026, most replies inside the window are also charged, after a free monthly allowance. Check Meta's current rules and prices with your vendor.</p>
+          <p>One WhatsApp rule matters here. A business can usually reply freely within 24 hours of the patient's last message. After that, it must use a pre-approved message template. A Sunday message answered on Monday may fall outside this window. Meta may also charge for some replies inside the window. Check Meta's current rules and prices with your vendor.</p>
           <p>Track two numbers each week in a spreadsheet: how many chats were handed over, and how long patients waited for a person. If waits grow, change the promise or add staff time.</p>
         </div>
         <div class="lc-card">
@@ -2298,7 +2299,7 @@ module AiPatientChatbotsContent
             <thead><tr><th>Part</th><th>Nirmal's decision (made-up)</th><th>Who approves</th></tr></thead>
             <tbody>
               <tr><td><strong>Purpose</strong></td><td>Handle routine front-desk work at any hour. 60% of 3,120 monthly contacts are bookings, timings, fees and changes.</td><td>Dr Joshi</td></tr>
-              <tr><td><strong>Scope</strong></td><td>7 in-scope jobs. 11 out-of-scope items, including diagnosis, results, medicines, emergencies and sex determination.</td><td>Dr Joshi</td></tr>
+              <tr><td><strong>Scope</strong></td><td>7 in-scope jobs. 7 out-of-scope items, including diagnosis, results, medicines, emergencies and sex determination.</td><td>Dr Joshi</td></tr>
               <tr><td><strong>Channels and languages</strong></td><td>WhatsApp and the website. Hindi, English and Hinglish. Voice notes go to Pinky.</td><td>Dr Joshi, Pinky</td></tr>
               <tr><td><strong>Flows</strong></td><td>Book in 5 steps. Reschedule and cancel in 2 or 3 steps. Reminders only with opt-in, never naming the illness.</td><td>Pinky</td></tr>
               <tr><td><strong>FAQ library</strong></td><td>Approved answers only, each with an owner and a review date. "I don't know" means hand over.</td><td>Dr Joshi</td></tr>
@@ -2363,6 +2364,7 @@ module AiPatientChatbotsContent
         </div>
         <div class="lc-card">
           <h3>Activity: walk through one chat in the final design</h3>
+          <p>Kavita, a made-up parent, wants to book her son with Dr Kulkarni. Follow the chat step by step.</p>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Kavita (made-up) on WhatsApp, Wednesday 11 am">"Hi, mere bete ke liye Dr Kulkarni ka appointment chahiye."</li>

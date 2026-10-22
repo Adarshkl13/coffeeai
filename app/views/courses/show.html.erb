@@ -62,14 +62,16 @@
         <p class="course-hero-desc"><%= @course.description %></p>
         <div class="course-hero-meta">
           <span><%= @course.course_lessons.count %> lessons</span>
-          <span class="meta-dot">·</span>
-          <span><%= @done_count %> completed</span>
-          <span class="meta-dot">·</span>
-          <span><%= @completion_pct %>% done</span>
+          <% if user_signed_in? %>
+            <span class="meta-dot">·</span>
+            <span><%= @done_count %> completed</span>
+            <span class="meta-dot">·</span>
+            <span><%= @completion_pct %>% done</span>
+          <% end %>
         </div>
       </div>
       <div class="course-hero-action">
-        <div class="course-hero-ring" style="--pct: <%= @completion_pct %>">
+        <div class="course-hero-ring" style="--pct: <%= @completion_pct %>"<%= " hidden" unless user_signed_in? %>>
           <svg class="ring-svg" viewBox="0 0 64 64">
             <circle class="ring-bg" cx="32" cy="32" r="28" fill="none" stroke-width="6"/>
             <circle class="ring-fill" cx="32" cy="32" r="28" fill="none" stroke-width="6"
@@ -111,7 +113,7 @@
         <p class="crt-hint">🏆 To earn your certificate, complete the lessons you skipped (<%= @completed_only %> of <%= @lessons.size %> completed).</p>
       <% end %>
       <h2 class="cls-title">Course Content</h2>
-      <p class="cls-meta"><%= @lessons_with_status.size %> lessons · <%= @done_count %> completed</p>
+      <p class="cls-meta"><%= @lessons_with_status.size %> lessons<% if user_signed_in? %> · <%= @done_count %> completed<% end %></p>
 
       <div class="lessons-list">
         <% @lessons_with_status.each do |lws| %>

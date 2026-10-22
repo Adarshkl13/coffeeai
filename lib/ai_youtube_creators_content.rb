@@ -1549,8 +1549,10 @@ module AiYoutubeCreatorsContent
             <tbody>
               <tr><td>Rajma Rice Without Pressure Cooker?</td><td>3.1%</td><td>30%</td><td>30</td><td>Both weak: few clicks, slow start</td></tr>
               <tr><td>Moong Dal Chilla Tiffin</td><td>4.2%</td><td>49%</td><td>64</td><td>Good video, weak packaging (title and thumbnail)</td></tr>
+              <tr><td>Poha 3 Ways for Kids' Tiffin</td><td>4.6%</td><td>45%</td><td>66</td><td>Good video, weak packaging</td></tr>
               <tr><td>Paneer Bhurji Sandwich</td><td>5.2%</td><td>54%</td><td>58</td><td>Good video, weak packaging</td></tr>
               <tr><td>Leftover Roti Wrap</td><td>6.4%</td><td>55%</td><td>119</td><td>Working well</td></tr>
+              <tr><td>5 Office Tiffins in 15 Minutes</td><td>5.9%</td><td>46%</td><td>139</td><td>About average: close to both lines</td></tr>
               <tr><td>Hostel Student Tiffin: ₹50 a Day</td><td>7.8%</td><td>31%</td><td>198</td><td>Clicks without satisfaction: the start broke the promise</td></tr>
               <tr><td>Sunday Meal Prep</td><td>6.8%</td><td>48%</td><td>370</td><td>Working well: 35% of all 1,044 watch hours</td></tr>
             </tbody>
@@ -2016,7 +2018,7 @@ module AiYoutubeCreatorsContent
         </div>
         <div class="lc-card">
           <h3>A simple content calendar</h3>
-          <p>A content calendar is a table of what you will publish and when. Riya keeps hers in Google Sheets. She rotates her pillars so each type of viewer gets something. Here is a made-up month:</p>
+          <p>A content calendar is a table of what you will publish and when. Riya keeps hers in Google Sheets. She spreads her pillars across the month so each type of viewer gets something. Her main pillar, 15-Minute Office Tiffins, gets two weeks. Here is a made-up month:</p>
           <table class="lc-table">
             <thead><tr><th>Week</th><th>Saturday 11 am long video</th><th>Pillar</th><th>Shorts (Tue and Thu)</th><th>Wednesday post</th></tr></thead>
             <tbody>
@@ -2095,7 +2097,7 @@ module AiYoutubeCreatorsContent
             <ul class="ai-try-checks">
               <li>Each Short's start and end times fall inside the chapters you gave.</li>
               <li>Each Short has a clear start and end, not a random cut.</li>
-              <li>The calendar fits your real free time and rotates your pillars.</li>
+              <li>The calendar fits your real free time and spreads your pillars across the month.</li>
               <li>There is a buffer week or a reserve video in the plan.</li>
             </ul>
           </div>

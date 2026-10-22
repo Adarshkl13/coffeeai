@@ -53,7 +53,7 @@ module AiSalesForecastingContent
         </figure>
         <div class="lc-card">
           <h3>What a forecast is used for</h3>
-          <p>In this course we follow <strong>LedgerLite</strong>, a made-up startup in Karnataka. It sells accounting software to small businesses. Kavya is the sales rep and Arjun is the founder. We also meet <strong>Nimbus Logistics</strong> in Maharashtra (sales manager Rohit) and <strong>Sweet Crumbs</strong>, a bakery in Maharashtra that sells office catering. All names and numbers are made up.</p>
+          <p>In this course we follow <strong>LedgerLite</strong>, a made-up startup in Karnataka. It sells accounting software to small businesses. Kavya is the sales rep and Arjun is the founder. We also meet <strong>Nimbus Logistics</strong>, a delivery company in India (sales manager Rohit), and <strong>Sweet Crumbs</strong>, a bakery in Maharashtra that sells office catering. All names and numbers are made up.</p>
           <table class="lc-table">
             <thead><tr><th>Decision</th><th>Business</th><th>What the forecast tells them</th></tr></thead>
             <tbody>
@@ -2207,7 +2207,7 @@ module AiSalesForecastingContent
           <div class="lc-badge le-badge le-badge-sales">Sales & CRM</div>
           <h1 class="lc-title">Capstone: Build a Quarterly Forecast</h1>
         </div>
-        <p class="lc-lead">In this capstone you will build a full quarterly forecast from start to finish. You will work with Rohit, the sales manager at <strong>Nimbus Logistics</strong>, a made-up company in Maharashtra. Nimbus sells delivery contracts to online stores. You will clean a messy CRM export and build a weighted forecast and a category forecast. Then you will check coverage and the gap, and use win/loss data to plan. Finally, you will write a one-page summary for Nimbus's leaders. All names and numbers are made up.</p>
+        <p class="lc-lead">In this capstone you will build a full quarterly forecast from start to finish. You will work with Rohit, the sales manager at <strong>Nimbus Logistics</strong>, a made-up delivery company in India. Nimbus sells delivery contracts to online stores. You will clean a messy CRM export and build a weighted forecast and a category forecast. Then you will check coverage and the gap, and use win/loss data to plan. Finally, you will write a one-page summary for Nimbus's leaders. All names and numbers are made up.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 280" role="img" aria-label="Six steps of Rohit's Q3 FY27 forecast for Nimbus Logistics. 1: clean the export, 10 rows become 8 open deals worth 40,00,000 rupees. 2: weighted forecast, 21,55,000 rupees. 3: forecast categories, commit 8,00,000 rupees, commit plus best case 22,00,000 rupees. 4: coverage 1.6 times, gap to the 25,00,000 rupee target 3,45,000 rupees. 5: win/loss insights, referrals win 40 percent, cold outreach 7.5 percent. 6: leader summary, range 14,15,000 to 25,10,000 rupees.">
             <defs><marker id="sfc15a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>

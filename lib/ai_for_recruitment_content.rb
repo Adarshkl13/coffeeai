@@ -8,7 +8,7 @@ module AiForRecruitmentContent
           <div class="lc-badge le-badge le-badge-hr">HR & Recruitment</div>
           <h1 class="lc-title">How Recruitment Works</h1>
         </div>
-        <p class="lc-lead">Recruitment is the work of finding, choosing and hiring the right person for a job. Every hire moves through the same stages, from a job request to the new person's first day. In this lesson you will learn these stages, who does what, and the key numbers that show if hiring is going well. You will follow one made-up hire at LedgerLite Pvt Ltd, a 120-person software company in San Francisco. This picture helps you see where AI can help later, and where people must decide.</p>
+        <p class="lc-lead">Recruitment is the work of finding, choosing and hiring the right person for a job. Every hire moves through the same stages, from a job request to the new person's first day. In this lesson you will learn these stages, who does what, and the key numbers that show if hiring is going well. You will follow one made-up hire at LedgerLite Pvt Ltd, a 120-person software company in Karnataka. This picture helps you see where AI can help later, and where people must decide.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 300" role="img" aria-label="A hiring funnel for one made-up role at LedgerLite. 240 people applied, 60 were screened in, 18 had a first interview, 6 had a final interview, 2 got offers and 1 joined. The share that moved on at each stage was 25%, 30%, 33%, 33% and 50%.">
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
@@ -110,7 +110,7 @@ module AiForRecruitmentContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a recruitment coach for small companies in India. Help me understand and track the hiring funnel for one role.
 
-        Role: [Customer Success Associate] at [LedgerLite Pvt Ltd, a 120-person software company in San Francisco].
+        Role: [Customer Success Associate] at [LedgerLite Pvt Ltd, a 120-person software company in Karnataka].
         Made-up funnel numbers: [240] applied, [60] screened in, [18] first interviews, [6] final interviews, [2] offers made, [1] offer accepted and joined.
         Job approved on [1 July 2026]. Offer accepted on [12 August 2026].
 
@@ -199,7 +199,7 @@ module AiForRecruitmentContent
             <li><strong>Made-up claims.</strong> AI can invent facts with confidence. It may add a skill that is not in the CV, a benefit your company does not offer, or a law that does not exist. Check every fact against the source.</li>
           </ul>
           <p><strong>A special warning:</strong> some tools claim to read emotions, honesty or personality from a candidate's face or voice. This is not reliable science. Do not use such tools to judge candidates.</p>
-          <p><strong>Rules around the world.</strong> The EU AI Act treats AI used for hiring as high-risk, with strict duties. For hiring tools, most of these duties now apply from 2 December 2027. The Act has also banned emotion recognition at work since 2 February 2025, except for medical or safety reasons. New York City's Local Law 144 needs a bias audit and a notice to candidates for some automated hiring tools. In the US, anti-discrimination law still applies when an employer uses an AI tool. This is general information, not legal advice. Check with your HR legal counsel.</p>
+          <p><strong>Rules around the world.</strong> The EU AI Act treats AI used for hiring as high-risk, with strict duties. The EU has proposed delaying when most of these duties start, so check the official EU AI Act timeline. The Act has also banned emotion recognition at work since 2 February 2025, except for medical or safety reasons. New York City's Local Law 144 needs a bias audit and a notice to candidates for some automated hiring tools. In the US, anti-discrimination law still applies when an employer uses an AI tool. This is general information, not legal advice. Check with your HR legal counsel.</p>
         </div>
         <div class="lc-card">
           <h3>Weak prompt vs better prompt</h3>
@@ -243,7 +243,7 @@ module AiForRecruitmentContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an HR adviser who helps small companies in India use AI safely in hiring.
 
-        My company: [LedgerLite Pvt Ltd, a 120-person software company in San Francisco].
+        My company: [LedgerLite Pvt Ltd, a 120-person software company in Karnataka].
         The role: [Customer Success Associate].
         Our hiring steps: [job request, job description, job posting, CV screening, phone screen, 2 interview rounds, offer].
         Our tools: [Google Sheets and an AI assistant approved by the company].
@@ -299,7 +299,7 @@ module AiForRecruitmentContent
                 <text x="370" y="98">Must-have: clear English, customer-facing work</text>
                 <text x="370" y="124">Nice-to-have: Kannada or Hindi, GST basics</text>
                 <text x="370" y="150">90 days: 40 onboarding calls on their own</text>
-                <text x="370" y="176">Pay: ₹4.5–6 lakh a year · hybrid, San Francisco</text>
+                <text x="370" y="176">Pay: ₹4.5–6 lakh a year · hybrid, Karnataka</text>
               </g>
               <text x="16" y="236" text-anchor="start" font-size="12" fill="#9b99b8">Hiring plan: 6 weeks</text>
               <rect x="16" y="246" width="140" height="50" rx="8" fill="#27274e" stroke="#8b5cf6"/><text x="86" y="266" font-size="12" fill="#c4b5fd">Week 1</text><text x="86" y="284" font-size="12">JD + job posts</text>
@@ -346,7 +346,7 @@ module AiForRecruitmentContent
               <tr><td><strong>Nice-to-have</strong></td><td>Kannada or Hindi for local customers. Basic idea of GST invoices. Basic spreadsheet use. Has used any SaaS product (software used online on a subscription).</td></tr>
               <tr><td><strong>Not required</strong></td><td>A specific degree or college. Personal details such as age, gender or marital status are never criteria.</td></tr>
               <tr><td><strong>90-day success</strong></td><td>Runs 40 onboarding calls on their own. Replies to customer emails within 1 working day. Average customer rating of 4 out of 5 or more. Writes 2 help articles.</td></tr>
-              <tr><td><strong>Pay and work</strong></td><td>₹4.5–6 lakh a year (made-up). Hybrid: 3 days a week in the San Francisco office.</td></tr>
+              <tr><td><strong>Pay and work</strong></td><td>₹4.5–6 lakh a year (made-up). Hybrid: 3 days a week in the Karnataka office.</td></tr>
             </tbody>
           </table>
           <p><strong>Keep must-haves few.</strong> Every must-have removes candidates. Keep only what the person needs on day one. Three to five is enough. Skills you can teach in a few weeks belong in nice-to-have.</p>
@@ -388,7 +388,7 @@ module AiForRecruitmentContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an experienced recruiter who runs intake meetings with hiring managers in India.
 
-        Role: [Customer Success Associate] at [LedgerLite Pvt Ltd, a 120-person software company in San Francisco].
+        Role: [Customer Success Associate] at [LedgerLite Pvt Ltd, a 120-person software company in Karnataka].
         Made-up intake notes: [Team of 6 is overloaded with new customer setups. New person runs onboarding video calls and answers setup emails. Needs clear English and patience. Some customers prefer Kannada or Hindi. We can teach our product and GST basics. Salary ₹4.5–6 lakh a year. Hybrid, 3 office days.]
 
         Please produce:
@@ -454,7 +454,7 @@ module AiForRecruitmentContent
               <tr><td><strong>What you will do</strong></td><td>4–6 real tasks</td><td>Run onboarding video calls. Answer setup emails. Write short help articles.</td></tr>
               <tr><td><strong>What you need</strong></td><td>Must-haves only, from the scorecard</td><td>1+ year in customer-facing work. Clear spoken and written English.</td></tr>
               <tr><td><strong>Nice to have</strong></td><td>Clearly marked as optional</td><td>Kannada or Hindi. Basic GST invoice knowledge.</td></tr>
-              <tr><td><strong>Pay and work</strong></td><td>Salary range, location and work pattern</td><td>₹4.5–6 lakh a year. Hybrid, 3 office days in San Francisco.</td></tr>
+              <tr><td><strong>Pay and work</strong></td><td>Salary range, location and work pattern</td><td>₹4.5–6 lakh a year. Hybrid, 3 office days in Karnataka.</td></tr>
               <tr><td><strong>Hiring process</strong></td><td>The stages and how long they take</td><td>Phone screen, 2 interviews, decision in about 3 weeks</td></tr>
               <tr><td><strong>Adjustments</strong></td><td>How to ask for support in the process</td><td>Tell us if you need any adjustment for your interviews.</td></tr>
             </tbody>
@@ -511,7 +511,7 @@ module AiForRecruitmentContent
               <li data-bucket="fix" data-why="The scorecard says 1+ year. Five years is not realistic for this salary and shuts out good people.">You must have 5+ years of experience</li>
               <li data-bucket="keep" data-why="It tells candidates, including people with disabilities, that they can ask for support.">Tell us if you need any adjustment during the interview process</li>
               <li data-bucket="fix" data-why="'Native' is about origin. If the job needs it, write 'Can speak Hindi with customers'.">Native Hindi speakers preferred</li>
-              <li data-bucket="keep" data-why="Clear facts about location and work pattern help people decide.">Hybrid: 3 days a week in our San Francisco office</li>
+              <li data-bucket="keep" data-why="Clear facts about location and work pattern help people decide.">Hybrid: 3 days a week in our Karnataka office</li>
             </ul>
           </div>
         </div>
@@ -519,14 +519,14 @@ module AiForRecruitmentContent
           <h3>Try It</h3>
           <p>Turn a made-up scorecard into a full JD, and ask AI to flag any words that could put people off.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a recruiter at [LedgerLite Pvt Ltd, a 120-person software company in San Francisco]. Write a clear, inclusive job description.
+            <pre class="ai-try-prompt">You are a recruiter at [LedgerLite Pvt Ltd, a 120-person software company in Karnataka]. Write a clear, inclusive job description.
 
         Made-up role scorecard:
         - Title: [Customer Success Associate]
         - Purpose: [Help new small-business customers set up our accounting software and keep using it]
         - Must-have: [1+ year in customer-facing work; clear spoken and written English; learns new software quickly]
         - Nice-to-have: [Kannada or Hindi; basic GST invoice knowledge; basic spreadsheet use]
-        - Pay and work: [₹4.5–6 lakh a year; hybrid, 3 office days in San Francisco]
+        - Pay and work: [₹4.5–6 lakh a year; hybrid, 3 office days in Karnataka]
         - Process: [phone screen, 2 interviews, decision in about 3 weeks]
 
         Write about 300 words with these headings: About the role, What you will do, What you need, Nice to have, Pay and work, Hiring process, Adjustments. Use "you", short sentences and simple English.
@@ -603,7 +603,7 @@ module AiForRecruitmentContent
               <tr><td><strong>Careers page</strong></td><td>People who already know your company</td><td>Needs a clear, up-to-date JD</td></tr>
             </tbody>
           </table>
-          <p><strong>Worked example.</strong> Farhan tracks the source of every applicant in the hiring sheet. The <strong>screen-in rate</strong> is screened in ÷ applied × 100. Job boards: 28 ÷ 140 = 20%. LinkedIn: 14 ÷ 55 = 25.5%. Careers page: 6 ÷ 20 = 30%. Referrals: 8 ÷ 15 = 53.3%. Communities: 4 ÷ 10 = 40%. Overall: 60 ÷ 240 = 25%. With applied in column B and screened in in column C, type this in D2 and copy it down:</p>
+          <p><strong>Worked example.</strong> Farhan tracks the source of every applicant in the hiring sheet. The <strong>screen-in rate</strong> is screened in ÷ applied × 100. Job boards: 28 ÷ 140 = 20%. LinkedIn: 14 ÷ 55 = 25.5%. Careers page: 6 ÷ 20 = 30%. Referrals: 8 ÷ 15 = 53.3%. Communities: 4 ÷ 10 = 40%. Overall: 60 ÷ 240 = 25%. With the "applied" count in column B and the "screened in" count in column C, type this in D2 and copy it down:</p>
           <pre><code>=C2/B2</code></pre>
           <p><strong>What this tells Farhan:</strong> job boards had the lowest rate, but they still gave 28 screened-in people, the most of any source. So he keeps them and makes the job post clearer. Referrals worked well, but 15 people is a small, narrow pool. A good plan uses several sources.</p>
         </div>
@@ -651,7 +651,7 @@ module AiForRecruitmentContent
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Farhan">Write a LinkedIn Boolean string for a Customer Success Associate with 1+ year of customer-facing work in software.</li>
               <li data-kind="answer" data-label="AI draft">"customer success" AND "customer support" AND onboarding AND SaaS NOT manager</li>
-              <li data-kind="tool" data-label="LinkedIn search">Farhan pastes the string into the keyword search and sets the location filter to San Francisco.</li>
+              <li data-kind="tool" data-label="LinkedIn search">Farhan pastes the string into the keyword search and sets the location filter to Karnataka.</li>
               <li data-kind="result" data-label="Search shows">Only a handful of profiles. Most are senior people.</li>
               <li data-kind="warn" data-label="Farhan spots the problem">The job titles are joined with AND, so a profile must contain all of them. Titles should be joined with OR inside brackets.</li>
               <li data-kind="user" data-label="Farhan">Join the job titles with OR inside brackets. Add "client onboarding" and implementation. Leave out manager, director and head.</li>
@@ -666,7 +666,7 @@ module AiForRecruitmentContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a sourcing specialist for tech companies in India.
 
-        Role: [Customer Success Associate] at [LedgerLite, a software company in San Francisco].
+        Role: [Customer Success Associate] at [LedgerLite, a software company in Karnataka].
         Must-have: [1+ year in customer-facing work, clear English, learns new software quickly].
         Related job titles: [customer support executive, client onboarding, service desk, inside sales].
 
@@ -747,7 +747,7 @@ module AiForRecruitmentContent
               <tr><td>Speaks Kannada or Hindi</td><td>Nice-to-have</td><td>No mention</td><td>Basic</td><td>Can talk with customers in it</td></tr>
             </tbody>
           </table>
-          <p>LedgerLite's application form also asks every applicant one short question: "In 80 to 100 words, how would you remind a customer about a late payment?" Now every person gives the same writing evidence. The form also has two <strong>knock-out questions</strong> (yes or no questions that decide if the basic terms work): "Can you work from our San Francisco office 3 days a week?" and "Can you join within 60 days?"</p>
+          <p>LedgerLite's application form also asks every applicant one short question: "In 80 to 100 words, how would you remind a customer about a late payment?" Now every person gives the same writing evidence. The form also has two <strong>knock-out questions</strong> (yes or no questions that decide if the basic terms work): "Can you work from our Karnataka office 3 days a week?" and "Can you join within 60 days?"</p>
         </div>
         <div class="lc-card">
           <h3>Step 2: hide details that can cause bias</h3>
@@ -797,7 +797,7 @@ module AiForRecruitmentContent
             </tbody>
           </table>
           <p>The ratio is 20% ÷ 28% = 0.71. This is below 0.8, so Farhan checks the criteria. Did one criterion screen out many women without a clear job reason? The four-fifths rule is a warning sign, not proof of bias. It is also a US rule of thumb, not an Indian law. Small groups give noisy numbers.</p>
-          <p>If you buy an AI screening tool, ask the seller how they test it for bias. New York City's Local Law 144 requires bias audits for some automated hiring tools. The EU AI Act treats AI used in hiring as high-risk, with most duties applying from 2 December 2027. In the US, the EEOC removed its AI guidance pages in January 2025, but US anti-discrimination law still applies to AI tools. Check with HR legal counsel for the rules that apply to you.</p>
+          <p>If you buy an AI screening tool, ask the seller how they test it for bias. New York City's Local Law 144 requires bias audits for some automated hiring tools. The EU AI Act treats AI used in hiring as high-risk, and the EU has proposed delaying when most of these duties start. In the US, the EEOC removed its AI guidance pages in January 2025, but US anti-discrimination law still applies to AI tools. Check with HR legal counsel for the rules that apply to you.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: who does this job?</h3>
@@ -824,7 +824,7 @@ module AiForRecruitmentContent
           <p>Ask the AI to turn your must-haves into a screening sheet, then test it on three made-up, masked CVs. Check every quote it gives.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a fair recruitment assistant.
-        Role: [Customer Success Associate] at [LedgerLite Pvt Ltd, a San Francisco software company].
+        Role: [Customer Success Associate] at [LedgerLite Pvt Ltd, a software company in Karnataka].
         Must-haves: [1+ year in a customer-facing job; clear written English; comfortable learning new software].
         Nice-to-haves: [invoice, payment or GST basics; can speak Kannada or Hindi].
         Step 1: Make a table. For each criterion, describe what 0, 1 and 2 points look like, using only CV evidence.
@@ -962,7 +962,7 @@ module AiForRecruitmentContent
           <p>Ask the AI to build a skills match table for one made-up CV. Then check each quote and the total yourself.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a skills-matching assistant for a recruiter. Compare a job's skills with one made-up, masked CV.
-        Job: [Customer Success Associate at a San Francisco company that sells billing software to small shops].
+        Job: [Customer Success Associate at a Karnataka company that sells billing software to small shops].
         Skills needed:
         1. Handling customer questions (must-have)
         2. Clear written English (must-have)
@@ -1049,14 +1049,14 @@ module AiForRecruitmentContent
           <p><strong>Outreach</strong> means you contact a person who did not apply, for example on LinkedIn. Most outreach messages are ignored because they are long and could be sent to anyone. Here is a weak prompt:</p>
           <pre><code>Write a LinkedIn message to a candidate for a customer success job.</code></pre>
           <p>The AI will write a long, general message full of praise. A better prompt gives the facts and the limits:</p>
-          <pre><code>Write a LinkedIn message from Farhan (HR, LedgerLite Pvt Ltd, San Francisco).
+          <pre><code>Write a LinkedIn message from Farhan (HR, LedgerLite Pvt Ltd, Karnataka).
         Role: Customer Success Associate, ₹4.5–6 lakh a year, hybrid, 3 office days.
         Why this person: [one real, job-related detail from their public profile].
         Under 80 words. Plain English. No flattery, no fake urgency.
         End with one easy next step and an easy way to say no.</code></pre>
           <p>A good result looks like this (the candidate is made up):</p>
           <pre><code>Hi Kavya, I'm Farhan from LedgerLite. We make billing software for small
-        shops in San Francisco. I saw that you help store customers with billing
+        shops across India. I saw that you help store customers with billing
         questions every day. We are hiring a Customer Success Associate
         (₹4.5–6 lakh a year, hybrid). Would a 15-minute call this week be useful?
         If not, just reply "no" and I won't message again.</code></pre>
@@ -1100,7 +1100,7 @@ module AiForRecruitmentContent
           <h3>Try It</h3>
           <p>Ask the AI for a full pack of candidate message templates. Then check the tone, the facts and the placeholders.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a recruitment coordinator who writes clear, kind messages. Write a message pack for the [Customer Success Associate] role at [LedgerLite Pvt Ltd, San Francisco].
+            <pre class="ai-try-prompt">You are a recruitment coordinator who writes clear, kind messages. Write a message pack for the [Customer Success Associate] role at [LedgerLite Pvt Ltd, Karnataka].
         Write 4 messages:
         1. Application received (email, under 80 words). Say when they will hear back: [within 7 working days of the closing date].
         2. Not selected after CV screening (email, under 100 words).
@@ -1240,7 +1240,7 @@ module AiForRecruitmentContent
           <h3>Try It</h3>
           <p>Ask the AI to design a short work sample with a rubric and practice answers. Then do the task yourself to test the time.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an assessment designer for hiring. Create a fair work sample for a [Customer Success Associate] at [a San Francisco company that sells billing software to small shops].
+            <pre class="ai-try-prompt">You are an assessment designer for hiring. Create a fair work sample for a [Customer Success Associate] at [a Karnataka company that sells billing software to small shops].
         Limits: [40] minutes in total, done during the interview. Use only made-up customers and data.
         Give me:
         1. The task brief for candidates. Part A: reply to one upset customer email. Part B: put 5 short support tickets in order of priority, with one line of reason each. Include the email and the 5 tickets.
@@ -1367,7 +1367,7 @@ module AiForRecruitmentContent
           <h3>Try It</h3>
           <p>Ask the AI to build a full structured interview kit for a role. Then remove any question that is not linked to a skill.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an interview design expert. Build a structured interview kit for a [Customer Success Associate] at [LedgerLite Pvt Ltd, a San Francisco billing-software company]. The interview is [45] minutes with [2] panel members.
+            <pre class="ai-try-prompt">You are an interview design expert. Build a structured interview kit for a [Customer Success Associate] at [LedgerLite Pvt Ltd, a billing-software company in Karnataka]. The interview is [45] minutes with [2] panel members.
         Key skills: [handling upset customers; explaining software simply; planning a busy day; learning new tools].
         Give me:
         1. Five questions for every candidate, in a fixed order: 2 behavioural (about a real past event), 2 situational (a made-up work problem) and 1 short role play. Add 1 planned follow-up for each.
@@ -1397,7 +1397,7 @@ module AiForRecruitmentContent
           <div class="lc-badge le-badge le-badge-hr">HR & Recruitment</div>
           <h1 class="lc-title">Interview Notes and Panel Feedback</h1>
         </div>
-        <p class="lc-lead">A good interview is wasted if the notes are poor. Good notes record what the candidate <em>said and did</em>. They do not record feelings like "nice person" or "not a fit". In this lesson, you will use a note template and score each candidate on your own first. You will then use AI to organise the panel's notes and run a fair <strong>debrief</strong> (the meeting where the panel shares evidence and makes a decision). We follow LedgerLite Pvt Ltd, a made-up San Francisco software company. HR manager Farhan and hiring manager Divya are hiring a Customer Success Associate.</p>
+        <p class="lc-lead">A good interview is wasted if the notes are poor. Good notes record what the candidate <em>said and did</em>. They do not record feelings like "nice person" or "not a fit". In this lesson, you will use a note template and score each candidate on your own first. You will then use AI to organise the panel's notes and run a fair <strong>debrief</strong> (the meeting where the panel shares evidence and makes a decision). We follow LedgerLite Pvt Ltd, a made-up software company in Karnataka. HR manager Farhan and hiring manager Divya are hiring a Customer Success Associate.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 250" role="img" aria-label="Five steps in a row: interview, write notes, score alone, AI summary, debrief. Below them, one band shows how AI helps and one band shows what people decide.">
             <defs><marker id="rec11a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -1616,7 +1616,7 @@ module AiForRecruitmentContent
               <tr><td>Education</td><td>Degree, year and institution</td><td>BGV vendor</td><td>Only if the job needs the degree</td></tr>
               <tr><td>Past employment</td><td>Company, dates and job title</td><td>BGV vendor or HR</td><td>Do not contact the current employer without the candidate's permission</td></tr>
               <tr><td>References</td><td>How the person worked, with examples</td><td>Hiring team or HR</td><td>Use the same questions for every candidate</td></tr>
-              <tr><td>Criminal record or address</td><td>Facts needed for trust-heavy roles</td><td>BGV vendor</td><td>Only when the role needs it (for example, Swift Mart delivery staff who enter homes). Get legal advice first.</td></tr>
+              <tr><td>Criminal record or address</td><td>Facts needed for trust-heavy roles</td><td>BGV vendor</td><td>Only when the role needs it (for example, delivery staff who enter homes for Swift Mart, a made-up online grocery app in Telangana). Get legal advice first.</td></tr>
             </tbody>
           </table>
           <p><strong>Do not</strong> look into religion, caste, marriage plans, pregnancy, health or political views. Do not search a candidate's personal social media to judge "personality". Never use a tool that claims to detect lies or honesty from a voice or video call. These claims are not reliable, and they can be unfair and unlawful.</p>
@@ -1686,7 +1686,7 @@ module AiForRecruitmentContent
           <h3>Try It</h3>
           <p>Ask AI to build a complete reference check kit for a role. Then check it for fairness and privacy.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an experienced recruiter in India. Create a reference check kit for a [Customer Success Associate] at [LedgerLite Pvt Ltd, a 120-person software company in San Francisco].
+            <pre class="ai-try-prompt">You are an experienced recruiter in India. Create a reference check kit for a [Customer Success Associate] at [LedgerLite Pvt Ltd, a 120-person software company in Karnataka].
         Key skills for the role: [handling upset customers, clear written updates, learning new software, meeting response-time targets].
 
         Please give:
@@ -1782,7 +1782,7 @@ module AiForRecruitmentContent
             <tbody>
               <tr><td>"You will be promoted to Team Lead within a year."</td><td>No such plan is approved</td><td>"Divya will set growth goals with you in your first quarterly review."</td></tr>
               <tr><td>"You will get a 15% raise every April."</td><td>Raises are not fixed</td><td>"Salaries are reviewed once a year, as per company policy."</td></tr>
-              <tr><td>"Work from home whenever you like."</td><td>The role is hybrid</td><td>"Hybrid: 3 days a week in our San Francisco office."</td></tr>
+              <tr><td>"Work from home whenever you like."</td><td>The role is hybrid</td><td>"Hybrid: 3 days a week in our Karnataka office."</td></tr>
               <tr><td>"Health cover for you and your parents."</td><td>The AI invented this benefit</td><td>List only the benefits in the policy document.</td></tr>
             </tbody>
           </table>
@@ -1834,7 +1834,7 @@ module AiForRecruitmentContent
           <h3>Try It</h3>
           <p>Draft a reply to a salary counter-offer. Then ask the AI to list every number and any risky promise, so you can check them.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an HR partner at [LedgerLite Pvt Ltd, a 120-person software company in San Francisco]. Draft a warm, clear reply to a candidate's salary counter-offer.
+            <pre class="ai-try-prompt">You are an HR partner at [LedgerLite Pvt Ltd, a 120-person software company in Karnataka]. Draft a warm, clear reply to a candidate's salary counter-offer.
 
         Facts (made-up; use ONLY these):
         - Role: [Customer Success Associate], reports to [Divya]
@@ -2059,12 +2059,12 @@ module AiForRecruitmentContent
           <h3>Step 0: one context block for every prompt</h3>
           <p>Write the facts once. Paste the same block at the top of every prompt. Then the job description, the screening sheet and the offer all use the same salary band and skills. All details are made up.</p>
           <pre><code>CONTEXT (made-up; reuse in every prompt)
-        Company: LedgerLite Pvt Ltd, 120 staff, San Francisco.
+        Company: LedgerLite Pvt Ltd, 120 staff, Karnataka.
                  Billing and accounting software for small businesses.
         Role: Customer Success Associate, 1 opening.
               Reports to Divya (hiring manager). HR: Farhan.
         Salary band: ₹4.5–6 lakh a year fixed CTC.
-        Work mode: hybrid, 3 days a week in the San Francisco office.
+        Work mode: hybrid, 3 days a week in the Karnataka office.
         Must-have: 1+ year in a customer-facing job; clear written
                    English; learns new software quickly.
         Nice-to-have: Kannada or Hindi; knows GST invoicing basics.
@@ -2134,7 +2134,7 @@ module AiForRecruitmentContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a senior recruiter helping me run a complete hire. Use only these made-up facts. If something is missing, write [TO CONFIRM]. Do not guess.
 
-        Company: [LedgerLite Pvt Ltd], 120 staff, San Francisco, billing software for small businesses.
+        Company: [LedgerLite Pvt Ltd], 120 staff, Karnataka, billing software for small businesses.
         Role: [Customer Success Associate], 1 opening, reports to [Divya]. Hybrid, 3 office days a week.
         Salary band: [₹4.5–6 lakh a year fixed CTC].
         Must-have: [1+ year in a customer-facing job; clear written English; learns new software fast].

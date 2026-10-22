@@ -32,8 +32,8 @@ namespace :content do
       14 => "Build a Neural Network in Pure Python",
       15 => "Build a Neural Network with PyTorch",
       16 => "Classification vs Regression",
-      17 => "Overfitting, Underfitting and Regularization",
-      18 => "Project: Handwritten Digit Recognizer"
+      17 => "Overfitting, Underfitting and Regularisation",
+      18 => "Project: Handwritten Digit Recogniser"
     }
 
     descriptions = {
@@ -51,7 +51,7 @@ namespace :content do
       12 => "Use the update rule w -= lr * grad, compare batch, mini-batch and stochastic steps, and watch the loss go down in a training loop.",
       13 => "See what happens when the learning rate is too small, about right or too large, with a printed loss table.",
       14 => "Build a complete 2-16-1 network with only NumPy: initialise, forward, loss, backward and update, then measure accuracy on the moons data.",
-      15 => "Build the same moons network in PyTorch with nn.Module, nn.Linear, a loss function, an optimizer and autograd.",
+      15 => "Build the same moons network in PyTorch with nn.Module, nn.Linear, a loss function, an optimiser and autograd.",
       16 => "Choose the right output layer, loss and metrics for classification (softmax and cross-entropy) and regression (linear output and MSE).",
       17 => "Spot overfitting and underfitting with training and validation loss curves, and fix overfitting with L2, dropout, early stopping and more data.",
       18 => "Build a handwritten digit recogniser with scikit-learn's 8x8 digits, read its confusion matrix, and see the PyTorch MNIST version."

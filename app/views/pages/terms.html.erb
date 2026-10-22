@@ -11,7 +11,7 @@
 
   <h2>Plans and payments</h2>
   <ul>
-    <li>Courses and lessons, with the AI tools inside them, need a paid plan. There is no free plan for lessons.</li>
+    <li>Lesson 1 of every course is free (in Beginner AI with Python, all of Module 1 is free). Every other lesson, and the AI tools inside lessons, need a paid plan. There is no free plan.</li>
     <li>Ask CoffeeBean AI and the code Editor do not need a plan. Anyone can ask a few questions and use the Editor. To keep asking, save chats or publish pages, you need an account.</li>
     <li>The plans are: <% Plan::PLANS.each_with_index do |plan, i| %><%= ", " if i.positive? %><strong><%= plan.name %> for ₹<%= number_with_delimiter(plan.price) %></strong><% end %>. Every plan gives full access to all courses, lessons and AI tools from the day the payment is confirmed until the plan ends. If you already have a plan, the new time is added to the end of it.</li>
     <li>Each plan is a one-time payment. It does <strong>not</strong> renew automatically. When it ends, you can no longer open lessons until you buy a new plan. Your progress is kept.</li>

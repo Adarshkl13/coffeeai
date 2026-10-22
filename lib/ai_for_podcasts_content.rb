@@ -83,9 +83,9 @@ module AiForPodcastsContent
           <table class="lc-table">
             <thead><tr><th>Platform</th><th>How your show usually gets there</th><th>Video</th></tr></thead>
             <tbody>
-              <tr><td><strong>Apple Podcasts</strong></td><td>Submit your RSS feed once through Apple's podcaster website</td><td>Supports video episodes. In 2026 Apple added a newer streaming video format (HLS) through some hosting partners.</td></tr>
+              <tr><td><strong>Apple Podcasts</strong></td><td>Submit your RSS feed once through Apple's podcaster website</td><td>Supports video episodes. Some hosting partners can also send a newer streaming video format.</td></tr>
               <tr><td><strong>Spotify</strong></td><td>Submit your RSS feed, or host the show with Spotify's own creator tool</td><td>Video can be uploaded in Spotify's creator tool, or sent by some partner hosts</td></tr>
-              <tr><td><strong>YouTube</strong></td><td>Upload videos to your channel and mark a playlist as a podcast in YouTube Studio</td><td>Video first. In many countries, including India, YouTube can also read an RSS feed and turn audio into a still-image video.</td></tr>
+              <tr><td><strong>YouTube</strong></td><td>Upload videos to your channel and mark a playlist as a podcast in YouTube Studio</td><td>Video first. In some countries, YouTube can also read an RSS feed and turn audio into a still-image video.</td></tr>
               <tr><td><strong>Other apps</strong></td><td>Many apps read public RSS feeds. Some need you to submit the feed.</td><td>Mostly audio</td></tr>
             </tbody>
           </table>
@@ -214,7 +214,7 @@ module AiForPodcastsContent
           <h3>The main risks</h3>
           <ul class="lc-list">
             <li><strong>Invented facts.</strong> AI may say an old waterfront building is "400 years old" with no source. If you repeat it on air, your listeners trust a wrong fact.</li>
-            <li><strong>Wrong names and words.</strong> Transcripts often misspell Malayalam words and place names. For example, "Kumbalangi" may become "come ballangi".</li>
+            <li><strong>Wrong names and words.</strong> Transcripts often misspell Malayalam words and names. For example, "karimeen" (pearl spot fish) may become "carry mean".</li>
             <li><strong>Voice cloning.</strong> Some tools can copy a voice from a short recording. Never copy a guest's voice, or anyone else's, without clear written consent. The consent lesson covers this in detail.</li>
             <li><strong>Private data.</strong> Do not paste a guest's phone number, address or private stories into public AI tools. Check your tool's privacy settings first.</li>
             <li><strong>Losing your voice.</strong> If AI writes all your questions and intros, your show sounds like every other show. Listeners come for Anu and Joel, not for AI.</li>
@@ -237,7 +237,7 @@ module AiForPodcastsContent
           <pre><code>Write show notes for my podcast.</code></pre>
           <p><strong>Better prompt:</strong></p>
           <pre><code>Here is the transcript of our episode with Sarala, a cook
-        at a toddy shop in Kumbalangi. Draft show notes: a 3-sentence
+        at a toddy shop by the Kerala backwaters. Draft show notes: a 3-sentence
         summary, 5 chapters with start times from the transcript,
         and a list of every name and Malayalam word you found,
         so I can check the spellings. Do not add facts that are
@@ -516,7 +516,7 @@ module AiForPodcastsContent
               <tr><td>AI dubbing of an episode into Hindi or Tamil</td><td>Only with each speaker's written consent, and with a clear label</td></tr>
             </tbody>
           </table>
-          <p><strong>Platform disclosure:</strong> YouTube asks you to disclose altered or synthetic content that looks or sounds real, using a setting in YouTube Studio. Instagram and Facebook may show an "AI info" label. In February 2026, India amended its IT Rules to require clear labels on synthetic (AI-made) audio and video that looks real. Platforms must label it, and they may ask you to declare it when you upload. Rules differ by platform and change often. Check each platform's current help pages.</p>
+          <p><strong>Platform disclosure:</strong> YouTube asks you to disclose altered or synthetic content that looks or sounds real, using a setting in YouTube Studio. Instagram and Facebook may show an "AI info" label. India has updated its IT Rules to cover labels on synthetic (AI-made) audio and video that looks real. Platforms may label it, and they may ask you to declare it when you upload. Check the current official text. Rules differ by platform and change often. Check each platform's current help pages.</p>
           <p><strong>Personality rights</strong> protect a person's name, face, voice and likeness from use without permission. Indian courts have protected well-known people against unauthorised use of their voice and likeness, including AI copies. So never copy a real person's voice for your show. This is general education, not legal advice.</p>
         </div>
         <div class="lc-card">
@@ -1494,7 +1494,7 @@ module AiForPodcastsContent
           <p>Episode 1 chapters (made-up times, from the final file):</p>
           <pre><code>00:00  Cold open: the first fish curry Sarala burnt
         01:05  Welcome to The Monsoon Mic
-        03:10  22 years in a Kumbalangi toddy-shop kitchen
+        03:10  22 years in a backwater toddy-shop kitchen
         17:40  How karimeen pollichathu is made, step by step
         32:15  Quick-fire questions
         37:30  Thank you, and next week: life on a houseboat</code></pre>
@@ -1525,7 +1525,7 @@ module AiForPodcastsContent
             <pre class="ai-try-prompt">You are a careful podcast producer. Use simple English.
 
         Show: [The Monsoon Mic, a Kerala podcast]. Episode: [1, "The Toddy-Shop Kitchen"].
-        Guest: [Sarala Kumaran, cook at a toddy shop in Kumbalangi for 22 years].
+        Guest: [Sarala Kumaran, cook at a toddy shop by the Kerala backwaters for 22 years].
         Timestamped notes from the FINAL episode file:
         [00:00 Cold open: Sarala laughs about the first fish curry she burnt.
         01:05 Anu and Joel welcome listeners.
@@ -1636,8 +1636,8 @@ module AiForPodcastsContent
           <pre><code>Find viral clips in this transcript.</code></pre>
           <p><strong>Better prompt:</strong></p>
           <pre><code>Here is the transcript of Episode 1 of The Monsoon Mic, with
-        timestamps. Our guest is Sarala, a cook at a toddy shop in
-        Kumbalangi. Suggest 6 moments for 30- to 60-second vertical
+        timestamps. Our guest is Sarala, a cook at a toddy shop by the
+        Kerala backwaters. Suggest 6 moments for 30- to 60-second vertical
         clips. For each: start and end time, the first line (the hook),
         the one idea, and why a stranger would understand it alone.
         Warn me about any moment that could sound unfair or rude
@@ -1659,7 +1659,7 @@ module AiForPodcastsContent
           <h3>Captions, audiograms and labels</h3>
           <p>Many people scroll with the sound off. So every clip needs <strong>captions</strong> (the spoken words shown as text). <strong>Burned-in captions</strong> are part of the video picture, so they show in every app.</p>
           <ul class="lc-list">
-            <li><strong>Check every word.</strong> Auto-captions often get Malayalam words wrong. "Kappa" may become "copper". "Kumbalangi" may become "come ballangi".</li>
+            <li><strong>Check every word.</strong> Auto-captions often get Malayalam words wrong. "Kappa" may become "copper". "Karimeen" may become "carry mean".</li>
             <li><strong>Explain Malayalam words once.</strong> Show "meen curry (fish curry)" on screen the first time.</li>
             <li><strong>Keep captions short.</strong> Use one or two lines at a time, in big text.</li>
             <li><strong>Keep the safe zone clear.</strong> Apps put buttons and the caption text near the bottom and right edge. Keep your captions away from those areas.</li>
@@ -1768,7 +1768,7 @@ module AiForPodcastsContent
           <table class="lc-table">
             <thead><tr><th>Working title</th><th>Better public title</th></tr></thead>
             <tbody>
-              <tr><td>The Toddy-Shop Kitchen</td><td>The Toddy-Shop Kitchen: 22 Years Cooking in Kumbalangi, with Sarala Chechi</td></tr>
+              <tr><td>The Toddy-Shop Kitchen</td><td>The Toddy-Shop Kitchen: 22 Years Cooking by the Backwaters, with Sarala Chechi</td></tr>
               <tr><td>Life on a Houseboat</td><td>Life on a Houseboat: A Kerala Owner on Monsoon, Tourists and Work</td></tr>
               <tr><td>Nets at Dawn</td><td>Nets at Dawn: A Day with a Chinese Fishing Net Operator on the Kerala Coast</td></tr>
             </tbody>
@@ -2124,7 +2124,7 @@ module AiForPodcastsContent
           <pre><code>Translate these subtitles into everyday spoken Hindi, the kind
         used on YouTube, not formal written Hindi. Keep each line short
         enough to read in 2 seconds. Keep these words as they are:
-        Chechi, kappa, Kumbalangi, toddy shop. Add a short meaning in
+        Chechi, kappa, karimeen, toddy shop. Add a short meaning in
         brackets the first time. Then list every line where you were
         unsure of the tone or meaning, so a native speaker can check it.</code></pre>
           <p>The glossary (a list of words to keep or translate a set way) is the most useful part. Build one for your show and reuse it every week.</p>
@@ -2137,7 +2137,7 @@ module AiForPodcastsContent
             <li><strong>No cloning.</strong> They used a stock AI voice (a voice made by the tool, not a copy of anyone). Both hosts agreed to it.</li>
             <li><strong>Clear label.</strong> The trailer description says: "Hindi voice: AI-generated. Original in English." The Hindi voice also says this at the start.</li>
             <li><strong>Platform labels.</strong> If a platform asks about altered or synthetic content, answer honestly. YouTube has a setting in YouTube Studio. India's IT Rules now also cover labels for synthetic content. Check the current rules.</li>
-            <li><strong>Native check.</strong> Ritu listened to the whole Hindi trailer. The AI voice said "Kumbalangi" wrongly, so they fixed the spelling in the script and tried again.</li>
+            <li><strong>Native check.</strong> Ritu listened to the whole Hindi trailer. The AI voice said "karimeen" wrongly, so they fixed the spelling in the script and tried again.</li>
           </ul>
           <p>If you ever do want to dub a guest with an AI copy of their voice, you need their separate written consent. It must say which languages, where it will be used and for how long. The guest can also say no, and that is fine. This is general education, not legal advice.</p>
         </div>
@@ -2145,11 +2145,11 @@ module AiForPodcastsContent
           <h3>Activity: Ritu checks the Hindi subtitles</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="tool" data-label="Joel prepares">He makes Hindi subtitles for Episode 1 with an AI tool, using the show's glossary.</li>
+              <li data-kind="tool" data-label="Joel prepares">Joel makes Hindi subtitles for Episode 1 with an AI tool, using the show's glossary.</li>
               <li data-kind="result" data-label="Draft ready">The file has 612 subtitle lines. The AI flags 23 lines as "unsure".</li>
               <li data-kind="check" data-label="Ritu watches">Ritu watches the video with the Hindi subtitles on. She checks the 23 flagged lines first, then the rest.</li>
               <li data-kind="warn" data-label="She finds">The AI wrote "22 years" as if Sarala had retired. It also translated "Chechi" as "sister". Neither error was flagged.</li>
-              <li data-kind="thought" data-label="Joel thinks">The unflagged mistakes worry him. The AI's "unsure" list is a help, not a full check.</li>
+              <li data-kind="thought" data-label="Joel thinks">The unflagged mistakes worry Joel. The AI's "unsure" list is a help, not a full check.</li>
               <li data-kind="check" data-label="Timing">Ritu also finds 5 lines that disappear too fast to read. Joel makes them longer.</li>
               <li data-kind="result" data-label="Published">The Hindi subtitles go live, with "Hindi subtitles checked by Ritu" in the description.</li>
             </ol>
@@ -2163,7 +2163,7 @@ module AiForPodcastsContent
 
         Show: [The Monsoon Mic, a Kerala podcast in English with some Malayalam].
         Translate into: [everyday spoken Hindi, as used on YouTube].
-        Glossary, keep these words: [Chechi, kappa, toddy shop, Kumbalangi]. Add a short meaning in brackets the first time.
+        Glossary, keep these words: [Chechi, kappa, toddy shop, karimeen]. Add a short meaning in brackets the first time.
 
         Lines to translate:
         [1. Sarala: I have cooked here for 22 years.
@@ -2278,7 +2278,7 @@ module AiForPodcastsContent
           <table class="lc-table">
             <thead><tr><th>Episode</th><th>Cold open idea</th><th>Deep dive</th><th>Check before recording</th></tr></thead>
             <tbody>
-              <tr><td>1 The Toddy-Shop Kitchen (Sarala, cook, Kumbalangi)</td><td>"The first fish curry I made here, I burnt it."</td><td>A day in a toddy-shop kitchen</td><td>Her 22 years and the name of the shop, from Sarala</td></tr>
+              <tr><td>1 The Toddy-Shop Kitchen (Sarala, cook, Kerala backwaters)</td><td>"The first fish curry I made here, I burnt it."</td><td>A day in a toddy-shop kitchen</td><td>Her 22 years and the name of the shop, from Sarala</td></tr>
               <tr><td>2 Life on a Houseboat (Thomas, houseboat owner)</td><td>The sound of rain on the roof at night</td><td>How a houseboat season works</td><td>Any rules or numbers he mentions, from an official source</td></tr>
               <tr><td>3 Pepper, Price and Patience (Haris, spice market)</td><td>The smell of the shop at 6 am</td><td>How pepper is bought and priced</td><td>No price figures from AI; prices in Haris's own words</td></tr>
             </tbody>
@@ -2320,17 +2320,17 @@ module AiForPodcastsContent
         [ ] Hindi and Malayalam subtitles checked by a native speaker
         [ ] Every clip watched in full and fair to the guest</code></pre>
           <p><strong>Show notes for Episode 1:</strong></p>
-          <pre><code>The Toddy-Shop Kitchen: 22 Years Cooking in Kumbalangi,
+          <pre><code>The Toddy-Shop Kitchen: 22 Years Cooking by the Backwaters,
         with Sarala Chechi
 
         For 22 years, Sarala Chechi has cooked fish curry and kappa
-        (tapioca) at a toddy shop in Kumbalangi. She tells Anu and
+        (tapioca) at a toddy shop by the Kerala backwaters. She tells Anu and
         Joel about her first burnt curry, a day in the kitchen and
         why coconut oil goes in last.
 
         00:00 Cold open: the first fish curry Sarala burnt
         01:05 Welcome to The Monsoon Mic
-        03:10 22 years in a Kumbalangi toddy-shop kitchen
+        03:10 22 years in a backwater toddy-shop kitchen
         17:40 How karimeen pollichathu is made, step by step
         32:15 Quick-fire questions
         37:30 Thank you, and next week: life on a houseboat

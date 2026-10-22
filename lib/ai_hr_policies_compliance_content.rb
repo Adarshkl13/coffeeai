@@ -354,7 +354,7 @@ module AiHrPoliciesComplianceContent
         </div>
         <div class="lc-card">
           <h3>UK changes in 2026 and 2027</h3>
-          <p>The Employment Rights Act 2025 became law in December 2025. Its changes start in stages. Here are some that affect Harbour Lane's policies, from the government's timeline published in September 2026.</p>
+          <p>The Employment Rights Act 2025 became law in December 2025. Its changes start in stages. Here are some that affect Harbour Lane's policies, from the government's latest published timeline.</p>
           <table class="lc-table">
             <thead><tr><th>Date</th><th>Change (general words)</th><th>Harbour Lane policy</th></tr></thead>
             <tbody>
@@ -2166,7 +2166,7 @@ module AiHrPoliciesComplianceContent
             <thead><tr><th>Place</th><th>Rule, in general words</th></tr></thead>
             <tbody>
               <tr><td>New York City</td><td>Local Law 144: an automated tool that helps decide hiring or promotion needs a bias audit (an independent check for unfair results) before use, and candidates must be told. Brightside Software, the made-up New York company, checks this before using any CV-screening tool.</td></tr>
-              <tr><td>European Union</td><td>The EU AI Act treats AI for hiring and managing workers as high-risk. A 2026 change moved most of these high-risk rules to 2 December 2027. The Act already bans AI that infers workers' emotions at work, with narrow exceptions for medical or safety reasons.</td></tr>
+              <tr><td>European Union</td><td>The EU AI Act treats AI for hiring and managing workers as high-risk. A 2026 EU agreement moves most of these high-risk rules to 2 December 2027. Check the official EU AI Act timeline for the current dates. The Act already bans AI that infers workers' emotions at work, with narrow exceptions for medical or safety reasons.</td></tr>
             </tbody>
           </table>
           <p>Harbour Lane operates only in the UK, so EU and US rules do not apply to it directly. Rules change fast, so check the current official pages. This is not legal advice.</p>
@@ -2345,12 +2345,12 @@ module AiHrPoliciesComplianceContent
               <tr><td>H1</td><td>Take reasonable steps to prevent sexual harassment of employees (since 26 October 2024).</td><td>Law</td></tr>
               <tr><td>H2</td><td>From 30 October 2026, take "all reasonable steps" to prevent sexual harassment.</td><td>Law</td></tr>
               <tr><td>H3</td><td>From 30 October 2026, protect employees from harassment by third parties, such as guests. This covers sexual harassment and harassment linked to most protected characteristics, such as race or disability. Check the exact scope with the adviser.</td><td>Law</td></tr>
-              <tr><td>H4</td><td>Carry out a sexual harassment risk assessment for each hotel, with an action plan.</td><td>Guidance (EHRC)</td></tr>
+              <tr><td>H4</td><td>Carry out a sexual harassment risk assessment for each hotel, with an action plan.</td><td>Good practice</td></tr>
               <tr><td>H5</td><td>Explain that reports of sexual harassment can be whistleblowing disclosures (since 6 April 2026). Link to the whistleblowing policy.</td><td>Law</td></tr>
               <tr><td>H6</td><td>Give at least two ways to report, one not through the line manager.</td><td>Good practice</td></tr>
             </tbody>
           </table>
-          <p>The EHRC (Equality and Human Rights Commission) technical guidance says an employer is unlikely to meet the duty without a risk assessment. That is why H4 matters, even though it is guidance. Each GM does the assessment for their own hotel: Sophie Turner (Quayside), James Whitfield (Clifton) and Amira Hassan (Temple Gate).</p>
+          <p>The EHRC (Equality and Human Rights Commission) technical guidance says an employer is unlikely to meet the duty without a risk assessment. That is why H4 matters, even though it is tagged Good practice and not Law. Each GM does the assessment for their own hotel: Sophie Turner (Quayside), James Whitfield (Clifton) and Amira Hassan (Temple Gate).</p>
         </div>
         <div class="lc-card">
           <h3>Steps 2 to 5: from policies to proof</h3>

@@ -62,7 +62,7 @@ module AiLegalResearchContent
           <ul class="lc-list">
             <li><strong>Supreme Court:</strong> Article 141 of the Constitution says the law it declares binds all courts in India.</li>
             <li><strong>High Courts:</strong> a High Court's decision binds the courts below it in its own state or region. There are 25 High Courts. Some cover more than one state.</li>
-            <li><strong>Other High Courts:</strong> a Bombay High Court decision does not bind a court in Rajasthan. It is only <em>persuasive</em> (a court may follow it if it agrees).</li>
+            <li><strong>Other High Courts:</strong> a Gujarat High Court decision does not bind a court in Rajasthan. It is only <em>persuasive</em> (a court may follow it if it agrees).</li>
             <li><strong>Bench size:</strong> a decision by a larger bench (more judges) binds a smaller bench of the same court.</li>
             <li><strong>Foreign judgments:</strong> decisions from the UK or the USA never bind Indian courts. They can only persuade.</li>
           </ul>
@@ -95,7 +95,7 @@ module AiLegalResearchContent
             <ul data-sorter-target="pool">
               <li data-bucket="bind" data-why="Article 141 of the Constitution makes the law declared by the Supreme Court binding on all courts in India.">A Supreme Court judgment on section 74 of the Contract Act</li>
               <li data-bucket="bind" data-why="A High Court's decisions bind the courts below it in its own state.">A Rajasthan High Court judgment on damages for late delivery</li>
-              <li data-bucket="pers" data-why="Another High Court's decision does not bind courts in Rajasthan. A court may still follow it if it agrees.">A Bombay High Court judgment on liquidated damages</li>
+              <li data-bucket="pers" data-why="Another High Court's decision does not bind courts in Rajasthan. A court may still follow it if it agrees.">A Gujarat High Court judgment on liquidated damages</li>
               <li data-bucket="pers" data-why="Foreign judgments never bind Indian courts. They can only help as persuasive ideas.">A UK court judgment on penalty clauses</li>
               <li data-bucket="bind" data-why="A statute passed by Parliament is binding law.">Section 73 of the Indian Contract Act, 1872</li>
               <li data-bucket="not" data-why="A blog post is commentary. It can point you to sources, but you must read those sources yourself.">A law firm's blog post about liquidated damages</li>
@@ -330,7 +330,7 @@ module AiLegalResearchContent
             <thead><tr><th>Where and when</th><th>What happened (in general terms)</th></tr></thead>
             <tbody>
               <tr><td><strong>USA, 2023</strong>: <em>Mata v. Avianca, Inc.</em>, a federal court in New York</td><td>Lawyers filed a brief that cited six cases made up by ChatGPT. When asked, the chatbot had said the cases were real. The judge found the lawyers acted in bad faith. He fined them and their firm US$5,000. He also ordered them to write to the judges falsely named as authors.</td></tr>
-              <tr><td><strong>India, 2026</strong>: the Supreme Court</td><td>In a property case from Andhra Pradesh, a trial court had relied on four "judgments" that did not exist. They had come from an AI tool. The Supreme Court said relying on fake AI-generated judgments would be misconduct with legal consequences. It asked the Attorney General, the Solicitor General and the Bar Council of India to help examine the problem.</td></tr>
+              <tr><td><strong>India</strong>: the Supreme Court</td><td>The Supreme Court has dealt with a case where a trial court relied on "judgments" that did not exist. They had come from an AI tool. The Court warned that relying on fake AI-generated judgments is serious misconduct with legal consequences. Read the official order on the Supreme Court website before you cite it.</td></tr>
               <tr><td><strong>India, 2025</strong>: the Kerala High Court</td><td>It issued a policy for its district courts. AI may only assist. It must not be used to decide cases or write findings, and its output, including citations, must be checked.</td></tr>
             </tbody>
           </table>
@@ -1853,7 +1853,7 @@ module AiLegalResearchContent
             <thead><tr><th>Source</th><th>What it says (in general words)</th><th>Weight in India</th></tr></thead>
             <tbody>
               <tr><td><strong>Kerala High Court</strong>, policy of 19 July 2025</td><td>For its district judiciary: AI only as an assistive tool, not for findings, orders or judgments. AI output, including citations, must be checked. Only approved tools may be used.</td><td>Binding on those courts and their staff. Useful guidance for everyone.</td></tr>
-              <tr><td><strong>Supreme Court of India</strong>, 27 February 2026 (<em>Gummadi Usha Rani v. Sure Mallikarjuna Rao</em>)</td><td>A trial court had relied on four non-existent, AI-generated "judgments". The Court said relying on fake judgments would be misconduct with legal consequences. It sought help from the Attorney General, the Solicitor General and the Bar Council of India.</td><td>A strong signal from the highest court. Check the case for later orders.</td></tr>
+              <tr><td><strong>Supreme Court of India</strong> (a recent order)</td><td>A trial court had relied on non-existent, AI-generated "judgments". The Court warned that relying on fake judgments is misconduct with legal consequences.</td><td>A strong signal from the highest court. Find the official order and check it for later orders before you cite it.</td></tr>
               <tr><td><strong>American Bar Association</strong>, Formal Opinion 512 (29 July 2024)</td><td>US lawyers using generative AI must think about competence, confidentiality, client communication, candour to the court, supervision and reasonable fees.</td><td>Not binding in India. A clear list of issues to consider.</td></tr>
               <tr><td><strong>USA</strong>, <em>Mata v. Avianca, Inc.</em> (2023)</td><td>Lawyers who filed six fake AI cases were fined US$5,000 with their firm, and ordered to write to the judges falsely named.</td><td>Not binding. A warning of what can happen.</td></tr>
             </tbody>
@@ -2066,7 +2066,7 @@ module AiLegalResearchContent
               <tr><td>Indian Contract Act 1872, ss. 55, 73, 74</td><td>India Code</td><td>Current text, including the Explanation to s. 73 on mitigation</td><td>Verified</td></tr>
               <tr><td>Sale of Goods Act 1930, s. 37; Arbitration Act 1996, s. 8</td><td>India Code</td><td>Current text of each section</td><td>Verified</td></tr>
               <tr><td><em>Fateh Chand v. Balkishan Dass</em>, AIR 1963 SC 1405</td><td>Indian Kanoon, SCC Online</td><td>Supreme Court, Constitution Bench, 1963. Still followed in later cases.</td><td>Verified</td></tr>
-              <tr><td><em>Kailash Nath Associates v. DDA</em>, (2015) 4 SCC 136</td><td>SCC Online</td><td>Paragraph 43 summarises the law on s. 74. Later cases checked: <em>K.R. Suresh v. R. Poornima</em> (Supreme Court, 2 May 2025) took a different view on forfeiting earnest money. Our point is not about earnest money.</td><td>Verified</td></tr>
+              <tr><td><em>Kailash Nath Associates v. DDA</em>, (2015) 4 SCC 136</td><td>SCC Online</td><td>Paragraph 43 summarises the law on s. 74. Later cases checked: later Supreme Court rulings on forfeiting earnest money were read. They deal with a different point, and our point is not about earnest money.</td><td>Verified</td></tr>
               <tr><td><em>ONGC v. Saw Pipes</em>, (2003) 5 SCC 705</td><td>SCC Online</td><td>Point on pre-estimate of loss. Its wider view of "public policy" in arbitration was later narrowed.</td><td>Verified, with a note</td></tr>
               <tr><td><em>Murlidhar Chiranjilal v. Harishchandra Dwarkadas</em>, AIR 1962 SC 366</td><td>Indian Kanoon</td><td>Duty to take reasonable steps to reduce loss</td><td>Verified</td></tr>
               <tr><td><em>Welspun Specialty Solutions v. ONGC</em>, (2022) 2 SCC 382</td><td>SCC Online</td><td>Time of the essence depends on the whole contract. Paragraph number still to add.</td><td>In progress</td></tr>

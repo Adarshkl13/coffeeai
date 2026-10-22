@@ -141,4 +141,4 @@ Zero-shot prompting means you ask the AI to do a task with no examples. Few-shot
 
 ## Start learning
 
-Good prompts are a skill you can build in a few hours of practice. Try every tip with real examples in our [Prompt Engineering](/courses/prompt-engineering) course, and learn how the tools work underneath in [Generative AI Fundamentals](/courses/generative-ai-fundamentals).
+Good prompts are a skill you can build in a few hours of practice. Start with [Generative AI Fundamentals](/courses/generative-ai-fundamentals) to see how the tools work and practise these tips with real examples. If you build apps, go further with [Prompt Engineering for Developers](/courses/prompt-engineering).

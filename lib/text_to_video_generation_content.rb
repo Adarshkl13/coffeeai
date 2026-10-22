@@ -667,7 +667,7 @@ module TextToVideoGenerationContent
           <h3>Frame interpolation: fill the gaps</h3>
           <p><strong>Frame interpolation</strong> makes new frames between two existing frames. The existing frames are called <strong>keyframes</strong>. Interpolation can turn 12 fps into 24 fps, or make slow motion. AI models such as RIFE and FILM do this well.</p>
           <p>The naive way is a <strong>crossfade</strong>: mix the two pictures. This does not create motion.</p>
-          <p>Part 1 in the code editor below crossfades two tiny keyframes of 4 pixels: bright on the left, then bright on the right. Halfway, <code>middle</code> is 0.5 everywhere. Halfway, both sides are half bright. You see two faded copies, called <strong>ghosts</strong>, and nothing moves. Good interpolation follows the motion instead. It estimates the optical flow and moves each pixel part of the way along its arrow.</p>
+          <p>Part 1 in the code editor below crossfades two tiny keyframes of 4 pixels: bright on the left, then bright on the right. Halfway, <code>middle</code> is 0.5 everywhere, so both sides are half bright. You see two faded copies, called <strong>ghosts</strong>, and nothing moves. Good interpolation follows the motion instead. It estimates the optical flow and moves each pixel part of the way along its arrow.</p>
           <figure class="lc-diagram">
             <svg viewBox="0 0 760 250" role="img" aria-label="Two keyframes: a square on the left in frame 0 and on the right in frame 4. Crossfade makes in-between frames where two faded copies of the square appear, one fading out and one fading in. Following the motion makes in-between frames where one bright square moves step by step to the right.">
               <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
@@ -1744,12 +1744,12 @@ module TextToVideoGenerationContent
         </div>
         <p class="lc-lead">A video model must make the clip <em>you</em> asked for, not just any clip. Your words reach the model through <strong>text conditioning</strong>. A text encoder turns the prompt into vectors. Then cross-attention lets every part of every frame read those vectors. In this lesson you will see how that works, and how to write prompts that give the model what it needs.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 330" role="img" aria-label="The prompt goes through a tokenizer and a text encoder. This gives one text vector per token, used as keys and values. The noisy video tokens are the queries. Cross-attention mixes word information into every video token. This happens in every block at every denoising step.">
+          <svg viewBox="0 0 760 330" role="img" aria-label="The prompt goes through a tokeniser and a text encoder. This gives one text vector per token, used as keys and values. The noisy video tokens are the queries. Cross-attention mixes word information into every video token. This happens in every block at every denoising step.">
           <defs><marker id="tv9a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
           <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
           <rect x="10" y="40" width="200" height="70" rx="10" fill="#27274e" stroke="#3b82f6"/><text x="110" y="62" font-weight="700" fill="#93c5fd">Prompt</text><text x="110" y="82" font-size="11.5">a paper boat sailing</text><text x="110" y="98" font-size="11.5">down a rainy street ...</text>
           <line x1="212" y1="75" x2="236" y2="75" stroke="#9b99b8" stroke-width="1.5" marker-end="url(#tv9a)"/>
-          <rect x="240" y="40" width="120" height="70" rx="10" fill="#1f1f44" stroke="#8b5cf6"/><text x="300" y="70" font-weight="700" fill="#c4b5fd">Tokenizer</text><text x="300" y="90" font-size="11" fill="#9b99b8">text to token IDs</text>
+          <rect x="240" y="40" width="120" height="70" rx="10" fill="#1f1f44" stroke="#8b5cf6"/><text x="300" y="70" font-weight="700" fill="#c4b5fd">Tokeniser</text><text x="300" y="90" font-size="11" fill="#9b99b8">text to token IDs</text>
           <line x1="362" y1="75" x2="386" y2="75" stroke="#9b99b8" stroke-width="1.5" marker-end="url(#tv9a)"/>
           <rect x="390" y="40" width="140" height="70" rx="10" fill="#1f1f44" stroke="#8b5cf6"/><text x="460" y="70" font-weight="700" fill="#c4b5fd">Text encoder</text><text x="460" y="90" font-size="11" fill="#9b99b8">for example T5</text>
           <line x1="532" y1="75" x2="556" y2="75" stroke="#9b99b8" stroke-width="1.5" marker-end="url(#tv9a)"/>
@@ -1780,7 +1780,7 @@ module TextToVideoGenerationContent
           <h3>From words to vectors</h3>
           <p>The model cannot read letters. So the prompt goes through two steps first.</p>
           <ol class="lc-list">
-            <li>A <strong>tokenizer</strong> splits the text into tokens and gives each token an ID number.</li>
+            <li>A <strong>tokeniser</strong> splits the text into tokens and gives each token an ID number.</li>
             <li>A <strong>text encoder</strong> turns the IDs into vectors. A vector is a list of numbers. The encoder reads the whole prompt, so each vector also carries meaning from the words around it.</li>
           </ol>
           <p>The result is one vector per token. A large T5 encoder, for example, gives 4,096 numbers per token. So a prompt with 20 tokens becomes a table of shape (20, 4096).</p>
@@ -1844,7 +1844,7 @@ module TextToVideoGenerationContent
             <p class="lcw-prompt">Put the steps of text conditioning in the right order.</p>
             <ol data-sequence-target="list">
               <li data-order="1">You write the prompt: subject, action, camera and style</li>
-              <li data-order="2">The tokenizer splits the prompt into tokens with ID numbers</li>
+              <li data-order="2">The tokeniser splits the prompt into tokens with ID numbers</li>
               <li data-order="3">The frozen text encoder turns the tokens into text vectors</li>
               <li data-order="4">The model starts from random noise in latent space</li>
               <li data-order="5">In every block, video tokens use cross-attention to read the text vectors</li>
@@ -3493,7 +3493,7 @@ module TextToVideoGenerationContent
           <p>The shots add up to 4 + 3 + 4 + 5 + 4 = 20 seconds. Each shot fits inside one 5-second clip. That makes it easier to keep each shot smooth.</p>
         </div>
         <div class="lc-card">
-          <h3>Step 2 and 3: shot prompts and a consistency plan</h3>
+          <h3>Steps 2 and 3: shot prompts and a consistency plan</h3>
           <p>Each shot prompt has four parts: <strong>subject</strong>, <strong>action</strong>, <strong>camera</strong> and <strong>style</strong>. The action and the camera change in each shot. The subject and style stay <em>exactly the same</em>. This is your <strong>consistency plan</strong>.</p>
           <p>Part 1 in the code editor below sets the subject and the style once. Then it joins them with the action and camera of shot 1 into a full prompt.</p>
           <p>Words alone are often not enough. Here are more ways to keep shots consistent:</p>

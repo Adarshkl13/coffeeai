@@ -11,6 +11,7 @@ namespace :content do
       c.position    = 7
       c.published   = true
     end
+    course.update!(description: "Ruby is a clean, easy-to-read language made to keep developers happy. Learn modern Ruby: blocks, Enumerable, classes, modules, pattern matching, Data objects and testing. Finish with a final project.")
     puts "Course: #{course.title} (#{course.slug})"
 
     titles = {

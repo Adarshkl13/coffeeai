@@ -8,7 +8,7 @@ module AiTicketManagementContent
           <div class="lc-badge le-badge le-badge-cs">Customer Support</div>
           <h1 class="lc-title">How Ticketing Works</h1>
         </div>
-        <p class="lc-lead">A <strong>ticket</strong> is one customer request, saved as a record in a helpdesk tool. In this lesson you will learn what a ticket contains and where tickets come from. You will also learn what each status means and how queues work. You will follow one ticket from open to closed. This matters because AI can only help a team that already has a clear ticket process. In this course you will follow <em>LedgerLite</em>, a made-up accounting software company in San Francisco. Its support lead, Deepa, runs a team of 8 agents. They handle about 3,000 tickets a month.</p>
+        <p class="lc-lead">A <strong>ticket</strong> is one customer request, saved as a record in a helpdesk tool. In this lesson you will learn what a ticket contains and where tickets come from. You will also learn what each status means and how queues work. You will follow one ticket from open to closed. This matters because AI can only help a team that already has a clear ticket process. In this course you will follow <em>LedgerLite</em>, a made-up accounting software company in Karnataka that serves small businesses in India. Its support lead, Deepa, runs a team of 8 agents. They handle about 3,000 tickets a month.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 280" role="img" aria-label="A ticket's life. Tickets arrive by email, in-app chat or phone and start as New. An agent makes it Open. It can move to Pending while waiting on the customer, or On hold while waiting on another team, and back to Open. Then it becomes Solved, and later Closed. If the customer replies to a solved ticket, it is reopened.">
             <defs><marker id="tm1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -63,7 +63,7 @@ module AiTicketManagementContent
             <thead><tr><th>Field</th><th>Value</th><th>Why it matters</th></tr></thead>
             <tbody>
               <tr><td><strong>Ticket ID</strong></td><td>LL-20413</td><td>Everyone can find the same ticket fast.</td></tr>
-              <tr><td><strong>Requester</strong></td><td>Lakshmi, Kaveri Textiles (Fort Worth)</td><td>The customer who asked. You see their history.</td></tr>
+              <tr><td><strong>Requester</strong></td><td>Lakshmi, Kaveri Textiles (Tamil Nadu)</td><td>The customer who asked. You see their history.</td></tr>
               <tr><td><strong>Channel</strong></td><td>Email</td><td>Where the request came in.</td></tr>
               <tr><td><strong>Subject</strong></td><td>Charged twice for annual plan</td><td>A short line that says what the problem is.</td></tr>
               <tr><td><strong>Status</strong></td><td>Open</td><td>Where the ticket is in its life.</td></tr>
@@ -128,7 +128,7 @@ module AiTicketManagementContent
           <h3>Try It</h3>
           <p>Ask AI to write a one-page status guide for new agents on your team. Change the details in brackets to match your own helpdesk.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a customer support operations coach. I lead support at [LedgerLite, a San Francisco accounting software company for small businesses]. We use [a helpdesk tool such as Freshdesk or Zoho Desk]. Tickets come by [email, in-app chat and phone]. Our statuses are: [New, Open, Pending, On hold, Solved, Closed].
+            <pre class="ai-try-prompt">You are a customer support operations coach. I lead support at [LedgerLite, an accounting software company in Karnataka for small businesses in India]. We use [a helpdesk tool such as Freshdesk or Zoho Desk]. Tickets come by [email, in-app chat and phone]. Our statuses are: [New, Open, Pending, On hold, Solved, Closed].
 
         Write a one-page status guide for new agents. Include:
         1. A table: Status | What it means | Who acts next | Does the reply-time clock usually run? | An example from our business.
@@ -218,7 +218,7 @@ module AiTicketManagementContent
         <div class="lc-card">
           <h3>Worked example: ticket LL-20414</h3>
           <p>Here is a real-looking ticket (made up for this course) and what an AI tool suggested.</p>
-          <pre><code>From: Farhan, accounts head, Noor Pharma Distributors (Tulsa)
+          <pre><code>From: Farhan, accounts head, Noor Pharma Distributors (Telangana)
         Subject: GSTR-1 export totals wrong!!
         Our GSTR-1 report shows ₹4,12,300 in B2B sales. Our invoices
         add up to ₹4,21,300. We must file in 2 days. Please help.
@@ -270,7 +270,7 @@ module AiTicketManagementContent
           <h3>Try It</h3>
           <p>Use AI to plan where AI could help your team first. Replace the sample numbers with your own ticket counts if you have them.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a customer support operations adviser. I lead a team of [8 agents] at [LedgerLite, a San Francisco accounting software company]. We get about [3,000] tickets a month. Our top ticket types last month:
+            <pre class="ai-try-prompt">You are a customer support operations adviser. I lead a team of [8 agents] at [LedgerLite, an accounting software company in Karnataka]. We get about [3,000] tickets a month. Our top ticket types last month:
         - [How-to questions: 690]
         - [Bank feed not syncing: 540]
         - [Login and OTP problems: 420]
@@ -355,8 +355,9 @@ module AiTicketManagementContent
         <div class="lc-card">
           <h3>Median or average?</h3>
           <p>The <strong>average</strong> (mean) adds all values and divides by how many there are. The <strong>median</strong> is the middle value when you sort them. One very slow ticket can pull the average up a lot. The median shows the normal customer's wait better.</p>
-          <p>Here are the first response times of five LedgerLite emails:</p>
-          <pre><code>20 min, 45 min, 90 min, 120 min, 660 min (sent after 7 pm on Saturday, answered at 10 am on Tuesday)
+          <p>Here are the first response times of five LedgerLite emails, counted in business minutes:</p>
+          <pre><code>20 min, 45 min, 90 min, 120 min, 660 min (sent after 7 pm on Saturday, answered at 10 am on Tuesday:
+                 all of Monday's 600 business minutes + 60 on Tuesday)
 
         Average = (20 + 45 + 90 + 120 + 660) ÷ 5 = 935 ÷ 5 = 187 min (3 h 7 min)
         Median  = the middle value of the sorted list  = 90 min (1 h 30 min)</code></pre>
@@ -1067,7 +1068,7 @@ module AiTicketManagementContent
         <div class="lc-card">
           <h3>Activity: route ticket LL-30121</h3>
           <div class="lcw" data-controller="sequence">
-            <p class="lcw-prompt">Sunita from Hampi Heritage Hotels (Hosapete) is an Enterprise customer. She writes in Kannada and English: "Since I reconnected the bank feed, every entry shows twice. Month-end close is in 3 days." Put the routing steps in order.</p>
+            <p class="lcw-prompt">Sunita from Heritage Stay Hotels (Karnataka) is an Enterprise customer. She writes in Kannada and English: "Since I reconnected the bank feed, every entry shows twice. Month-end close is in 3 days." Put the routing steps in order.</p>
             <ol data-sequence-target="list">
               <li data-order="1">The chat arrives and the helpdesk creates LL-30121 as New.</li>
               <li data-order="2">AI suggests the tag bank-sync, the vip flag and the language Kannada. Medium impact and medium urgency give P3. The vip flag raises it to P2.</li>
@@ -1168,7 +1169,7 @@ module AiTicketManagementContent
           <h3>Give AI the right sources</h3>
           <p>A <strong>knowledge base</strong> (KB) is your library of help articles and internal policy pages. It is the most important input for a reply draft. Without it, AI writes what "usually" happens at software companies. That may not be true for your company.</p>
           <p>Here is ticket LL-30131, and the help article that answers it (both made up):</p>
-          <pre><code>Ticket LL-30131 · Email · Anil Kumar, Malabar Spice Traders, Boston
+          <pre><code>Ticket LL-30131 · Email · Anil Kumar, Malabar Spice Traders, Kerala
         Our bank feed stopped after we changed our net banking password on
         Monday. Nothing has come in since. Also, if this makes us miss our
         GST filing date, will LedgerLite pay the late fee?
@@ -1270,7 +1271,7 @@ module AiTicketManagementContent
         3. New invoices will show the new GSTIN.
         4. Invoices already sent keep the old GSTIN. To correct one, issue a credit note, then a new invoice. Ask your CA about the tax effect.
 
-        Ticket [LL-30133] from [Pooja, Shree Balaji Fabrics, Birmingham]:
+        Ticket [LL-30133] from [Pooja, Shree Balaji Fabrics, Gujarat]:
         "Invoice pe hamara purana GSTIN print ho raha hai. Ek customer ne payment rok diya. Kya aap last month ke 12 invoices khud theek kar sakte ho?"
 
         After the draft, list each fact you used and its source, then any [CHECK] items.</pre>
@@ -1345,7 +1346,7 @@ module AiTicketManagementContent
             <li>A <strong>variable</strong> (or placeholder) is a slot that the helpdesk fills in, such as the customer's first name or the ticket ID. Each tool writes variables in its own way. In this lesson we write them like <code>{first_name}</code>.</li>
           </ul>
           <p>Variables stop copy-paste mistakes, such as the wrong customer's name. But the helpdesk can only fill fields it knows. It cannot know a refund reference until someone types it into a field or a note. If a field is empty, the customer may see "Hi ," or a raw code. Test every macro on a real ticket before you share it.</p>
-          <p>WhatsApp works a little differently. On the WhatsApp Business Platform, you can reply freely for a limited time after the customer's last message. This is often called the 24-hour customer service window. To start a conversation after that, you must use a message template that Meta has approved. Harbour Trails, a Boston travel agency, uses approved templates for booking reminders. The rules change, so check Meta's current documentation.</p>
+          <p>WhatsApp works a little differently. On the WhatsApp Business Platform, you can reply freely for a limited time after the customer's last message. This is often called the 24-hour customer service window. To start a conversation after that, you must use a message template that Meta has approved. Backwater Trails, a travel agency in Kerala, uses approved templates for booking reminders. The rules change, so check Meta's current documentation.</p>
         </div>
         <div class="lc-card">
           <h3>What a good macro looks like</h3>
@@ -1511,12 +1512,12 @@ module AiTicketManagementContent
         </div>
         <div class="lc-card">
           <h3>Worked example: ticket LL-30151</h3>
-          <p>Sunrise Diagnostics in Austin is an Enterprise (vip) customer. Its finance manager, Meenakshi, has a Tally import problem. Ananya in Technical Support owns the ticket. Her leave starts on Thursday, so Vikram takes over. Here is the thread in short (made up):</p>
+          <p>Sunrise Diagnostics in Maharashtra is an Enterprise (vip) customer. Its finance manager, Meenakshi, has a Tally import problem. Ananya in Technical Support owns the ticket. Her leave starts on Thursday, so Vikram takes over. Here is the thread in short (made up):</p>
           <pre><code>LL-30151 · data-import · P2 (P3 raised by vip) · 16 messages, 6 days
         Mon  Meenakshi: Tally import done, but opening balances are wrong for
              3 of our 12 branch ledgers. Our auditor visits next Monday.
         Mon  Ananya: asks for the Tally export file and the ledger names.
-        Tue  Meenakshi: sends the file. Ledgers: San Antonio, El Paso, Fort Worth.
+        Tue  Meenakshi: sends the file. Ledgers: Kerala, Goa, Odisha.
         Tue  Ananya: re-imports twice. Same error.
         Wed  Internal note to Engineering: the 3 ledgers use a different
              date format in the Tally export.
@@ -1529,7 +1530,7 @@ module AiTicketManagementContent
           <pre><code>HANDOVER · LL-30151 · Ananya → Vikram · Wed 6 pm
         Customer:   Meenakshi, finance manager, Sunrise Diagnostics (vip)
         Problem:    Opening balances wrong for 3 of 12 branch ledgers
-                    (San Antonio, El Paso, Fort Worth) after Tally import.
+                    (Kerala, Goa, Odisha) after Tally import.
         Cause:      Those 3 ledgers use a different date format in the
                     Tally export. Engineering has the details.
         Done:       2 re-imports, same error. Workaround agreed on a call:
@@ -1590,7 +1591,7 @@ module AiTicketManagementContent
         Headings, one short line each: Customer | Problem | Done so far | Waiting on | Promises (with dates) | Risks | Next step and owner.
         Rules: Use only facts in the thread. If something is unclear, write "Unclear:". Never say a refund is approved unless the thread says so. Under 120 words.
 
-        Thread [LL-30152, Harish, Deccan Auto Parts, Tulsa]:
+        Thread [LL-30152, Harish, Deccan Auto Parts, Telangana]:
         Mon, Harish (email): I cancelled on 20 Aug, but you charged ₹11,800 on 1 Sep for renewal. Refund it.
         Mon, Rohan: Sorry about this. Please send your cancellation confirmation email.
         Tue, Harish: Attached. Also, stop the sales calls to my mobile.
@@ -1670,7 +1671,7 @@ module AiTicketManagementContent
             </tbody>
           </table>
           <p>The goal is to meet each target on at least 95% of tickets, and 98% for P1. A <strong>breach</strong> is a ticket that missed its target.</p>
-          <p><strong>Worked example.</strong> Patil Auto Parts in London emails at 5:30 pm on a Tuesday. The bank feed has not updated for two days. Arjun tags it <code>bank-sync</code> and P2. There are 90 business minutes left on Tuesday. The first reply needs 120 minutes, so 30 minutes carry over to Wednesday. The first reply is due at 9:30 am on Wednesday. The resolution needs 10 business hours: 1.5 on Tuesday and 8.5 on Wednesday. So it is due at 5:30 pm on Wednesday.</p>
+          <p><strong>Worked example.</strong> Patil Auto Parts in Maharashtra emails at 5:30 pm on a Tuesday. The bank feed has not updated for two days. Arjun tags it <code>bank-sync</code> and P2. There are 90 business minutes left on Tuesday. The first reply needs 120 minutes, so 30 minutes carry over to Wednesday. The first reply is due at 9:30 am on Wednesday. The resolution needs 10 business hours: 1.5 on Tuesday and 8.5 on Wednesday. So it is due at 5:30 pm on Wednesday.</p>
           <p>At LedgerLite, the clock pauses while a ticket is Pending, because the customer must act. It keeps running while a ticket is On hold with Finance or Engineering. The customer is still waiting for LedgerLite, so the wait still counts. Helpdesk tools such as Freshdesk, Zendesk and Zoho Desk let you choose these settings. Check your tool's help pages for how it works.</p>
         </div>
         <div class="lc-card">
@@ -1952,7 +1953,7 @@ module AiTicketManagementContent
 
         Policy from our help article: [Finance approves refunds for double charges and confirms within 2 business days. The bank then needs some more days to show the money. Only the support lead can approve a free month.]
 
-        Ticket LL-30225 (email, tag: refund): "I was charged ₹11,800 twice for our annual plan today. Please return one payment. Lalitha, Anand Sweets, Glasgow"
+        Ticket LL-30225 (email, tag: refund): "I was charged ₹11,800 twice for our annual plan today. Please return one payment. Lalitha, Anand Sweets, Andhra Pradesh"
 
         Agent reply: "Hi, no problem, I have refunded ₹11,800 and you will see it today. As a sorry, I have added 1 free month to your plan. Thanks!"
 
@@ -2252,7 +2253,7 @@ module AiTicketManagementContent
           <p>Escalating does not mean forwarding and forgetting. The new owner needs a clear <strong>escalation note</strong>, so nobody asks the customer to repeat the story.</p>
           <pre><code>Escalation note: LL-30250
         Why escalated: legal threat + 4th contact + wrong GST filing
-        Customer: Iyer Hardware, Austin (Pro plan)
+        Customer: Iyer Hardware, Tamil Nadu (Pro plan)
         Problem: duplicate Navkar Bank entries after reconnecting.
           Their CA filed GST figures that included the duplicates.
         Done so far: 3 replies with general steps. Duplicates not removed.
@@ -2267,7 +2268,7 @@ module AiTicketManagementContent
         This is my FOURTH email!! Your bank feed doubled all my Navkar
         Bank entries and my CA filed wrong GST figures because of it.
         Nobody helps. I will send you a legal notice and post about
-        this online. - Suresh Iyer, Iyer Hardware, Austin</code></pre>
+        this online. - Suresh Iyer, Iyer Hardware, Tamil Nadu</code></pre>
           <p>The ticket is <code>bank-sync</code> with the <code>churn-risk</code> flag. Tax data is at risk, so it is at least P2. The legal threat sends it to Deepa. The helpdesk AI drafted this reply:</p>
           <pre><code>AI draft (do not send):
         We are very sorry that our software error caused your wrong GST

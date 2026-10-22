@@ -5,7 +5,7 @@ namespace :content do
   task data_science: :environment do
     course = Course.find_or_create_by!(slug: "data-science") do |c|
       c.title       = "Data Science"
-      c.description = "Turn raw data into useful answers. Learn statistics, Pandas, data visualization and machine learning so you can make decisions based on data."
+      c.description = "Turn raw data into useful answers. Learn statistics, Pandas, data visualisation and machine learning so you can make decisions based on data."
       c.color       = "#10b981"
       c.icon        = "📊"
       c.position    = 6
@@ -32,7 +32,7 @@ namespace :content do
       16 => "Fitting a Trend Line: Simple Linear Regression",
       17 => "Grouping and Aggregation for Insights",
       18 => "The Exploratory Data Analysis Workflow",
-      19 => "Data Visualization Principles",
+      19 => "Data Visualisation Principles",
       20 => "Introduction to Predictive Modelling",
       21 => "Communicating Results and Data Ethics",
       22 => "Capstone EDA Project and Review"
@@ -70,8 +70,8 @@ namespace :content do
               opts: ["True", "False"], ans: "False" },
       3  => { type: "multiple_choice", q: "Which column should you treat as a category label, even though it has digits?",
               opts: ["A) Rainfall in millimetres", "B) Number of sixes hit", "C) PIN code of an area"], ans: "C" },
-      4  => { type: "multiple_choice", q: "What does pd.json_normalize() do with a nested record such as {\"customer\": {\"city\": \"London\"}}?",
-              opts: ["A) Turns nested keys into flat columns like customer.city", "B) Deletes nested fields and keeps only top-level keys", "C) Turns each record into one long text column"], ans: "A" },
+      4  => { type: "multiple_choice", q: "What does pd.json_normalize() do with a nested record such as {\"customer\": {\"state\": \"Kerala\"}}?",
+              opts: ["A) Turns nested keys into flat columns like customer.state", "B) Deletes nested fields and keeps only top-level keys", "C) Turns each record into one long text column"], ans: "A" },
       5  => { type: "true_false",      q: "df.describe() shows a count lower than the number of rows for a column. This means that column has missing values.",
               opts: ["True", "False"], ans: "True" },
       6  => { type: "multiple_choice", q: "Rainfall is missing for a few days at several very different weather stations. Which fill makes the most sense?",

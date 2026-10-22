@@ -2230,7 +2230,7 @@ module AiProjectManagementContent
               <tr><td>Front-desk process and refresher training</td><td>Sofia Ramirez</td><td>Quick reference card, training slides</td></tr>
               <tr><td>Privacy checks and incident steps</td><td>Aisha Bello</td><td>Privacy review, BAA copy, incident process</td></tr>
               <tr><td>Patient promotion</td><td>Tom Walsh</td><td>Campaign results, poster files</td></tr>
-              <tr><td>Benefits measurement</td><td>Dr Lauren Mitchell (sponsor)</td><td>The four goals with baselines and the data source for each</td></tr>
+              <tr><td>Benefits measurement</td><td>Dr Lauren Mitchell (sponsor)</td><td>The three goals with baselines and the data source for each</td></tr>
             </tbody>
           </table>
           <p>Ask AI to draft a handover checklist for your project type. Then walk through it with each new owner. Only they can tell you what they really need.</p>
@@ -2292,7 +2292,7 @@ module AiProjectManagementContent
               <li data-order="3">The team reviews the anonymous survey themes at the retrospective (Wed 7 Jul).</li>
               <li data-order="4">Daniel adds final costs and lessons to the closure report, and the sponsor signs it (Fri 9 Jul).</li>
               <li data-order="5">Files are stored in the project archive and the project is marked closed (Fri 9 Jul, after sign-off).</li>
-              <li data-order="6">The sponsor checks the four goals against their baselines in the benefits review (October 2027).</li>
+              <li data-order="6">The sponsor checks the three goals against their baselines in the benefits review (October 2027).</li>
             </ol>
           </div>
         </div>
@@ -2394,7 +2394,7 @@ module AiProjectManagementContent
           <table class="lc-table">
             <thead><tr><th>Document</th><th>Key content (Maple Street Health)</th><th>Check before you share it</th></tr></thead>
             <tbody>
-              <tr><td><strong>Charter</strong></td><td>4 goals by end of Sep 2027: 35% booked online, phone hold under 4 minutes (from 7), no-shows 8% (from 11%), satisfaction at least 4.2 out of 5. Sponsor: Dr Lauren Mitchell.</td><td>Every goal is SMART and has a baseline and an owner. Scope lists what is out.</td></tr>
+              <tr><td><strong>Charter</strong></td><td>3 goals by end of Sep 2027: 35% booked online, phone hold under 4 minutes (from 7), no-shows 8% (from 11%). Sponsor: Dr Lauren Mitchell.</td><td>Every goal is SMART and has a baseline and an owner. Scope lists what is out.</td></tr>
               <tr><td><strong>Stakeholder map and communication plan</strong></td><td>Influence and interest grid. Weekly 1:1 with the sponsor, monthly steering group, fortnightly clinic call.</td><td>Every "manage closely" person has a named meeting or update.</td></tr>
               <tr><td><strong>Plan</strong> (WBS and RACI)</td><td>18 tasks, A to R, each with one owner. RACI for the key tasks.</td><td>Exactly one A (accountable person) per task. Nothing is missing, such as training or app store review.</td></tr>
               <tr><td><strong>Schedule</strong></td><td>103 working days at first. 111 after CR-01, finish Fri 9 Jul 2027. Critical path: A, B, D, E, G, J, L, M, O, P, R. After CR-03, task N is also critical (no float).</td><td>Dates recalculated with WORKDAY and the 4 holidays. Milestones fall on working days.</td></tr>

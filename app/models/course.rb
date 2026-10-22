@@ -25,9 +25,9 @@ class Course < ApplicationRecord
 
   CATEGORIES = [
     ["Frontend",        %w[html-css javascript react typescript bootstrap]],
-    ["Backend",         %w[python django ruby php java practical-ai nodejs]],
+    ["Backend",         %w[python django ruby php java nodejs]],
     ["Database",        %w[sql mysql postgresql]],
-    ["AI & Data",       %w[machine-learning artificial-intelligence data-science pandas numpy deep-learning
+    ["AI & Data",       %w[practical-ai machine-learning artificial-intelligence data-science pandas numpy deep-learning
                            ai-assisted-development vector-databases building-rag-applications building-ai-agents
                            prompt-engineering how-llms-work building-mcp-servers evaluating-ai-apps computer-vision
                            fine-tuning-llms ai-safety neural-networks training-deep-models how-transformers-work build-llm-from-scratch]],

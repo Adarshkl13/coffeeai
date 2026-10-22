@@ -1,4 +1,4 @@
-<% content_for :title, "Sign Up — CoffeeBean AI" %>
+<% content_for :title, "Sign up — CoffeeBean AI" %>
 <% content_for :description, "Create your CoffeeBean AI account and start learning AI with short, hands-on lessons and podcasts." %>
 
 <div class="auth-page">
@@ -41,11 +41,12 @@
       </div>
 
       <%= f.submit "Create account", class: "auth-submit-btn" %>
+      <p class="auth-terms">By creating an account, you agree to our <%= link_to "Terms of Service", terms_path %> and <%= link_to "Privacy Policy", privacy_path %>.</p>
     <% end %>
 
     <p class="auth-switch">
       Already have an account?
-      <%= link_to "Sign in", new_session_path(resource_name), class: "auth-switch-link" %>
+      <%= link_to "Log in", new_session_path(resource_name), class: "auth-switch-link" %>
     </p>
   </div>
 </div>

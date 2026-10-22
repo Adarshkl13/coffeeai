@@ -191,7 +191,7 @@ module BeginnerAiPythonContent
           <ul class="lc-list">
             <li><strong>Narrow AI</strong> does one specific task, like ChatGPT answering questions. It cannot cook or drive a car.</li>
             <li><strong>General AI</strong> could think and learn anything, like a human. Nobody has built it yet.</li>
-            <li><strong>Super AI</strong> would be smarter than humans and improve itself. It is only a <strong>theory</strong> (an idea that is not proved).</li>
+            <li><strong>Super AI</strong> would be smarter than humans and improve itself. It is only a <strong>theory</strong> (an idea that is not proven).</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -214,7 +214,7 @@ module BeginnerAiPythonContent
               <div data-sorter-target="bucket" data-bucket="super" data-label="Super AI"></div>
             </div>
             <ul data-sorter-target="pool">
-              <li data-bucket="narrow" data-why="It works only with text questions. It is in use today.">ChatGPT answering questions</li>
+              <li data-bucket="narrow" data-why="It is built for one kind of task: chatting and answering. It is in use today.">ChatGPT answering questions</li>
               <li data-bucket="narrow" data-why="It only guesses your next word.">Keyboard prediction on your phone</li>
               <li data-bucket="narrow" data-why="It only checks faces.">Face unlock</li>
               <li data-bucket="general" data-why="It could learn many skills like a human. It is not built yet.">A future robot that can talk, cook, learn and work</li>
@@ -305,7 +305,7 @@ module BeginnerAiPythonContent
           <p>The code uses Python <strong>sets</strong> (groups with no repeats). <code>|</code> joins sets. <code>&lt;=</code> asks: "is every item on the left inside the right?"</p>
           <ol class="lc-list">
             <li>Click <strong>Run</strong> and read the True and False lines.</li>
-            <li>Change <code>"spam filter"</code> on the last but one line to <code>"translation"</code>.</li>
+            <li>In the line <code>print("spam filter -&gt;", ...)</code>, change both <code>"spam filter"</code> texts to <code>"translation"</code>.</li>
             <li>Add <code>"face unlock"</code> to the <code>dl</code> set, then ask <code>smallest_circle("face unlock")</code>.</li>
           </ol>
         </div>
@@ -459,7 +459,7 @@ module BeginnerAiPythonContent
           <h3>Common Variables</h3>
           <div class="lc-code">name = "tony"<br>age = 20<br>question = "What is AI?"</div>
           <p>Text like <code>"tony"</code> has quotes. The number <code>20</code> has none.</p>
-          <p><strong>Exercise 2.1.1:</strong> make a variable <code>city</code> with the value <code>"Japan"</code> and print it. A new value replaces the old one.</p>
+          <p><strong>The picture's exercise:</strong> make a variable <code>city</code> with the value <code>"Japan"</code> and print it. A new value replaces the old one.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: Follow the question</h3>
@@ -978,8 +978,8 @@ module BeginnerAiPythonContent
           <h3>Try It</h3>
           <ol class="lc-list">
             <li>Change <code>arr + 1</code> to <code>arr + 10</code>.</li>
-            <li>Change the array to <code>np.array([5, 10, 15, 20])</code>.</li>
-            <li>Add a line that prints <code>numbers.min()</code>.</li>
+            <li>Change <code>arr = np.array([1, 2, 3])</code> to <code>np.array([5, 10, 15, 20])</code>.</li>
+            <li>At the very end, add a line that prints <code>numbers.min()</code>.</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip"><strong>Key Insight:</strong> NumPy arrays do fast maths on all their numbers at once, which is why AI uses them.</div>
@@ -1031,7 +1031,7 @@ module BeginnerAiPythonContent
         </div>
         <div class="lc-card">
           <h3>Maths on the Whole Table</h3>
-          <div class="lc-code">arr = pd.DataFrame({"A": [1, 2], "B": [3, 4]})<br>print(arr + 1)</div>
+          <div class="lc-code">df = pd.DataFrame({"A": [1, 2], "B": [3, 4]})<br>print(df + 1)</div>
           <p>This adds 1 to every value. Pandas is built on NumPy, so it works like arrays. Like Excel, Pandas can filter and sort, and AI data often lives in tables.</p>
         </div>
         <div class="lc-card">
@@ -1074,9 +1074,9 @@ module BeginnerAiPythonContent
         print(df["Name"])
 
         # 5. Basic operations: add 1 to every value in the table
-        arr = pd.DataFrame({"A": [1, 2], "B": [3, 4]})
+        df = pd.DataFrame({"A": [1, 2], "B": [3, 4]})
         print("\nA and B plus 1:")
-        print(arr + 1)
+        print(df + 1)
 
         # 6. Code example: city temperatures
         data = {"City": ["Tokyo", "New York"],
@@ -1188,7 +1188,7 @@ module BeginnerAiPythonContent
             <li><code>df.fillna(80)</code> fills each gap with a value you choose.</li>
             <li><code>df.replace("NA", 0)</code> swaps an old value for a new one.</li>
           </ul>
-          <p>After <code>fillna()</code>, marks show as decimals (90.0). <code>astype(int)</code> turns them back into whole numbers.</p>
+          <p>The gap (<code>NaN</code>) makes Pandas store the marks as decimals (90.0). After <code>fillna()</code> fills the gap, <code>astype(int)</code> turns them back into whole numbers.</p>
         </div>
         <div class="lc-card">
           <h3>Why clean data?</h3>
@@ -1243,7 +1243,7 @@ module BeginnerAiPythonContent
         # Option 2: fill missing values with a value you choose
         df["Marks"] = df["Marks"].fillna(80)
 
-        # fillna gives decimals like 90.0, so turn them back into whole numbers
+        # the gap made Pandas store decimals like 90.0, so turn them back into whole numbers
         df["Marks"] = df["Marks"].astype(int)
         print("\nClean data after fillna(80):")
         print(df)
@@ -1253,7 +1253,7 @@ module BeginnerAiPythonContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-ai">Beginner AI</div>
-          <h1 class="lc-title">Data Visualization (Graphs)</h1>
+          <h1 class="lc-title">Data Visualisation (Graphs)</h1>
         </div>
         <p class="lc-lead"><strong>Data visualisation</strong> means showing data as charts. In Python, the most popular chart library is <strong>Matplotlib</strong>.</p>
         <div class="lc-card">
@@ -1610,7 +1610,7 @@ module BeginnerAiPythonContent
           <h3>Try It</h3>
           <ol class="lc-list">
             <li>Change <code>y</code> to <code>[40, 60, 80]</code>. What rule does the model learn now?</li>
-            <li>Move <code>model.fit(x, y)</code> below the rule lines. Read the error: the model is not trained yet.</li>
+            <li>Move <code>model.fit(x, y)</code> below the rule lines. Read the error: the model has not learned a rule yet, so it has no <code>coef_</code> to show.</li>
             <li>Put it back, then add a fourth row: <code>[4]</code> and <code>90</code>.</li>
           </ol>
         </div>
@@ -2286,7 +2286,7 @@ module BeginnerAiPythonContent
 
         ANSWERS = {
             "What is AI?": "AI is a system that learns from data and improves over time.",
-            "Explain Machine Learning": "Machine Learning is a system that learns from data and improves over time.",
+            "Explain Machine Learning": "Machine Learning is a type of AI that learns patterns from examples instead of following hand-written rules.",
         }
 
         class FakeOpenAI:
@@ -2325,7 +2325,7 @@ module BeginnerAiPythonContent
 
   # id => title and quiz taken from the lesson's image (image_summary records what the image shows)
   META = {
-    1 => { title: "What is AI?", image_summary: "Title What is AI?; AI is a computer system that can understand, think and respond like a human; Real Example: ChatGPT chat (You: Explain AI in simple words / ChatGPT: AI is a system that helps machines understand and make smart decisions); behind the scenes: 1 Understand, 2 Think (learned data), 3 Respond; Simple Formula Input (You ask) -> AI (Processes) -> Output (AI responds); takeaway AI = Understand -> Think -> Respond", exercise_type: "multiple_choice", question: "Which of the following best describes Artificial Intelligence?", options: ["A) A robot that physically looks like a human", "B) A computer system that can understand, think, and respond like a human", "C) A program that only does math calculations"], correct_answer: "B" },
+    1 => { title: "What is AI?", image_summary: "Title What is AI?; AI is a computer system that can understand, think and respond like a human; Real Example: ChatGPT chat (You: Explain AI in simple words / ChatGPT: AI is a system that helps machines understand and make smart decisions); behind the scenes: 1 Understand, 2 Think (learned data), 3 Respond; Simple Formula Input (You ask) -> AI (Processes) -> Output (AI responds); takeaway AI = Understand -> Think -> Respond", exercise_type: "multiple_choice", question: "Which of the following best describes Artificial Intelligence?", options: ["A) A robot that physically looks like a human", "B) A computer system that can understand, think, and respond like a human", "C) A program that only does maths calculations"], correct_answer: "B" },
     2 => { title: "AI in Real Life", image_summary: "Title AI in Real Life; AI is used in many real-life apps, ChatGPT is the main example; icons Learn, Write, Code, Plan; How people use ChatGPT: 1 Learning (Explain AI in simple words), 2 Writing (Write an email to my manager), 3 Coding (Explain this Python error, debug code), 4 Planning (Create a study plan); What is happening: User Question -> ChatGPT understands -> Helpful Answer; takeaway AI helps humans complete tasks faster and easier", exercise_type: "multiple_choice", question: "Someone asks ChatGPT, \"Explain this Python error\". Which real-life use from the lesson is this?", options: ["A) Learning", "B) Writing", "C) Coding", "D) Planning"], correct_answer: "C" },
     3 => { title: "Types of AI", image_summary: "Title Types of AI; AI classified by capability and intelligence level; 1 Narrow AI (one specific task, ChatGPT answering questions), 2 General AI (think and learn like humans, future human-like robot), 3 Super AI (smarter than humans, not built yet); comparison table Type/Capability/Example/Status: Narrow In Use Today, General Not Built Yet, Super Only a Theory; takeaway Today's AI (like ChatGPT) is Narrow AI", exercise_type: "multiple_choice", question: "Which type of AI is ChatGPT?", options: ["A) General AI", "B) Narrow AI", "C) Super AI"], correct_answer: "B" },
     4 => { title: "AI vs ML vs DL", image_summary: "Title AI vs ML vs DL; related but not the same, like a company, department and team; nested circles AI (big concept) > ML (part of AI) > DL (part of ML); cards with ChatGPT examples; Quick Comparison table Term/What it Means/How it Works/Example with ChatGPT; Explain differences with examples (voice assistants, self-driving cars; spam filters, recommendations; image recognition, ChatGPT, translation); takeaway All DL is ML, all ML is AI, but not all AI is ML", exercise_type: "multiple_choice", question: "What does ML stand for in the context of AI?", options: ["A) Machine Language", "B) Machine Learning", "C) Model Logic"], correct_answer: "B" },
@@ -2340,7 +2340,7 @@ module BeginnerAiPythonContent
     13 => { title: "Pandas Basics (Tables / DataFrames)", image_summary: "Title Pandas Basics (Tables / DataFrames); 1 DataFrame is a 2D table, Index/Name/Marks Tony 90 Mark 85; 2 create DataFrame from dict and print; 3 access df[\"Name\"]; 4 why Pandas: like Excel, data analysis, AI and ML; 5 basic operations DataFrame A,B plus 1; 6 City/Temp example (image says Japan, taught as Tokyo); 7 real world examples and data flow; takeaway Pandas handles table data easily", exercise_type: "true_false", question: "Pandas is a Python library used for data manipulation and analysis.", options: ["True", "False"], correct_answer: "True" },
     14 => { title: "Reading CSV (Real Data Files)", image_summary: "Title Reading CSV (Real Data Files); 1 CSV = Comma Separated Values, students.csv Name,Marks Tony 90 Mark 85, rows by new line, columns by comma; 2 pd.read_csv(\"students.csv\") and print; 3 view df.head() and df.columns; 4 why CSV: real-world data, easy, used in AI; 5 access df['Name'] and df[['Name', 'Marks']]; 6 data flow; takeaway CSV is common and Pandas reads it easily", exercise_type: "multiple_choice", question: "What does CSV stand for?", options: ["A) Computer Saved Values", "B) Comma Separated Values", "C) Column Sorted Variables"], correct_answer: "B" },
     15 => { title: "Data Cleaning (Very Important)", image_summary: "Title Data Cleaning (Very Important); fixing missing, incorrect or inconsistent data; 1 dirty table Japan NULL vs clean table Japan 80; 2 operations dropna, fillna(0), replace(\"NA\", 0); 3 why: accuracy, fewer errors, reliable, better decisions; 4 real example Marks [90, null, 85] -> [90, 80, 85]; 5 data flow raw -> model learns from clean data -> results; code fillna(80) on Marks (real output shows floats, fixed with astype(int)); takeaway clean data gives better AI results", exercise_type: "true_false", question: "Missing or incorrect data in a dataset can negatively affect machine learning model accuracy.", options: ["True", "False"], correct_answer: "True" },
-    16 => { title: "Data Visualization (Graphs)", image_summary: "Title Data Visualization (Graphs); 1 line chart Marks [90, 80, 85] over students 1-3; 2 chart types line (trend), bar (compare), pie (parts of a whole); 3 bar chart A, B, C marks 90, 80, 85; 4 why visualise: easy, patterns, better decisions; 5 data flow; Matplotlib code plt.plot([10, 20, 30], marker='o', color='cyan') with title, labels, grid, show and its graph; takeaway graphs make data easy to understand", exercise_type: "multiple_choice", question: "Which Python library is most commonly used to create data visualizations?", options: ["A) NumPy", "B) Pandas", "C) Matplotlib"], correct_answer: "C" },
+    16 => { title: "Data Visualisation (Graphs)", image_summary: "Title Data Visualisation (Graphs); 1 line chart Marks [90, 80, 85] over students 1-3; 2 chart types line (trend), bar (compare), pie (parts of a whole); 3 bar chart A, B, C marks 90, 80, 85; 4 why visualise: easy, patterns, better decisions; 5 data flow; Matplotlib code plt.plot([10, 20, 30], marker='o', color='cyan') with title, labels, grid, show and its graph; takeaway graphs make data easy to understand", exercise_type: "multiple_choice", question: "Which Python library is most commonly used to create data visualizations?", options: ["A) NumPy", "B) Pandas", "C) Matplotlib"], correct_answer: "C" },
     17 => { title: "What is Machine Learning?", image_summary: "Title What is Machine Learning?; sections: 1 Example (training data 90 Pass, 40 Fail, machine predicts 75 Pass), 2 ML flow Data-Learning-Prediction, 3 Normal programming vs ML, 4 ChatGPT example, Python LinearRegression x=[1,2,3] y=[2,4,6] predict 4 -> [8.], key points learn/predict/improve; takeaway ML = learning patterns from data to make predictions", exercise_type: "multiple_choice", question: "Machine Learning allows computers to:", options: ["A) Work without any power source", "B) Learn from data without being explicitly programmed", "C) Think and feel exactly like humans"], correct_answer: "B" },
     18 => { title: "Training Data", image_summary: "Title Training Data; sections: 1 study hours vs marks table (1-30, 2-50, 3-70), more study more marks, 2 flow Training Data-Learning-Model, 3 Input X hours vs Output Y marks, 4 ChatGPT trained on books/articles/websites, 5 why training data matters, Python fit then print Model trained; takeaway better data, better learning, better results", exercise_type: "multiple_choice", question: "In the study hours and marks example, what is the output (Y)?", options: ["A) Hours of study", "B) Marks", "C) The model"], correct_answer: "B" },
     19 => { title: "Supervised Learning", image_summary: "Title Supervised Learning; sections: 1 hours vs marks labelled table, 2 flow Input Data (with labels)-Learning-Prediction, 3 types Classification (spam/not spam) and Regression (hours to marks), 4 ChatGPT example, Python LinearRegression predict 4 hours -> [90.], key points; takeaway learning from correct answers (labelled data)", exercise_type: "multiple_choice", question: "Which type of supervised learning predicts a number, such as marks from hours of study?", options: ["A) Classification", "B) Regression", "C) Grouping"], correct_answer: "B" },

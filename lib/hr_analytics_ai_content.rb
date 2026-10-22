@@ -48,7 +48,7 @@ module HrAnalyticsAiContent
         </figure>
         <div class="lc-card">
           <h3>The four types, with examples</h3>
-          <p>LedgerLite Pvt Ltd is a made-up software company in San Francisco. It has 120 employees. Farhan is the HR manager. We use its made-up data for the year FY26 (1 April 2025 to 31 March 2026) in this course.</p>
+          <p>LedgerLite Pvt Ltd is a made-up accounting software company in Karnataka. It sells to small businesses in India and has 120 employees. Farhan is the HR manager. We use its made-up data for the year FY26 (1 April 2025 to 31 March 2026) in this course.</p>
           <table class="lc-table">
             <thead><tr><th>Type</th><th>Question</th><th>LedgerLite example</th><th>Typical tools</th></tr></thead>
             <tbody>
@@ -80,7 +80,7 @@ module HrAnalyticsAiContent
           <p>An AI assistant such as Claude can help you plan questions, suggest metrics, write spreadsheet formulas and draft reports. It cannot see your HR system. It can also make maths mistakes and sound very sure. Compare these two prompts from Farhan.</p>
           <pre><code>Weak: Analyse our attrition and tell me why people leave.</code></pre>
           <p>The AI has no data and no context. It will guess common reasons, such as pay or managers, and present them as facts.</p>
-          <pre><code>Better: I am the HR manager at a 120-person software company in San Francisco.
+          <pre><code>Better: I am the HR manager at a 120-person software company in Karnataka.
         Our leaders say "too many people are leaving". Facts from FY26
         (totals only, no names): start headcount 104, end 120, 24 leavers,
         19 of them resigned. One team, Customer Success, lost 6 of about
@@ -116,7 +116,7 @@ module HrAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an HR analytics coach. You help HR teams who do not write code. They use spreadsheets and an HRMS.
 
-        Company: [LedgerLite Pvt Ltd, a 120-person software company in San Francisco].
+        Company: [LedgerLite Pvt Ltd, a 120-person software company in Karnataka].
         Worry from our leaders: [Customer Success keeps losing people, and new joiners leave fast].
         Facts we have (totals only): [FY26: 16 people in Customer Success at year end, 8 joined and 6 left during the year, 2 of them within 90 days. Company eNPS +17, Customer Success eNPS -23].
 
@@ -391,7 +391,7 @@ module HrAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an HR analytics lead who takes employee privacy seriously. You work in India.
 
-        Company: [LedgerLite Pvt Ltd, a 120-person software company in San Francisco].
+        Company: [LedgerLite Pvt Ltd, a 120-person software company in Karnataka].
         Our question: [Why did Customer Success lose 6 of its about 15 people in FY26?].
         Our systems: [Keka as the HRMS, a separate payroll tool, an ATS for hiring, an anonymous survey tool, exit interview notes in a shared folder].
 
@@ -715,7 +715,7 @@ module HrAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an HR analyst. You help an HR manager write a clear headcount summary for leaders.
 
-        Company: [LedgerLite Pvt Ltd, a software company in San Francisco]. Period: [FY26, 1 April 2025 to 31 March 2026].
+        Company: [LedgerLite Pvt Ltd, a software company in Karnataka]. Period: [FY26, 1 April 2025 to 31 March 2026].
         Headcount table (totals only):
         [Department | Start | Joiners | Leavers | End
         Engineering | 48 | 18 | 10 | 56
@@ -1031,7 +1031,7 @@ module HrAnalyticsAiContent
         <div class="lc-card">
           <h3>Check the funnel for fairness</h3>
           <p><strong>Selection rate</strong> is the share of candidates who pass a stage: candidates who pass ÷ candidates who entered the stage. Compare it across groups, such as women and men, at each stage.</p>
-          <p>A common screening test is the <strong>four-fifths rule</strong>. It comes from the US Uniform Guidelines on Employee Selection Procedures (1978). In 2026, US agencies started to withdraw these guidelines, so check the current rules. Many teams still use the rule as a simple first check. If one group's selection rate is less than 80% (four-fifths) of the highest group's rate, look closer. The result, one rate divided by the other, is called the impact ratio.</p>
+          <p>A common screening test is the <strong>four-fifths rule</strong>. It comes from the US Uniform Guidelines on Employee Selection Procedures (1978). US agencies have been reviewing how these guidelines are used, so check the current rules where you work. Many teams still use the rule as a simple first check. If one group's selection rate is less than 80% (four-fifths) of the highest group's rate, look closer. The result, one rate divided by the other, is called the impact ratio.</p>
           <table class="lc-table">
             <thead><tr><th>CV screening, L2 Engineer roles (made up)</th><th>Applied</th><th>Shortlisted</th><th>Selection rate</th></tr></thead>
             <tbody>
@@ -1068,7 +1068,7 @@ module HrAnalyticsAiContent
           <h3>Try It</h3>
           <p>Ask AI to compare your hiring sources on speed, cost and quality, and to flag small numbers. Use totals only, never candidate names.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a recruitment analyst. Help me review hiring sources for [LedgerLite Pvt Ltd, a 120-person software company in San Francisco] for [FY26].
+            <pre class="ai-try-prompt">You are a recruitment analyst. Help me review hiring sources for [LedgerLite Pvt Ltd, a 120-person software company in Karnataka] for [FY26].
 
         Data by source (totals only):
         [Source | Applications | Hires | Avg time to hire (days) | Direct cost (Rs) | Left within 90 days
@@ -1616,7 +1616,7 @@ module HrAnalyticsAiContent
           <h3>Try It</h3>
           <p>Give AI a leavers-versus-stayers summary and ask for possible drivers, confounders and tests. Use totals only, never a list of named employees.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are a people analytics adviser. Help me find possible drivers of attrition at [LedgerLite Pvt Ltd, a 120-person software company in San Francisco] for [FY26].
+            <pre class="ai-try-prompt">You are a people analytics adviser. Help me find possible drivers of attrition at [LedgerLite Pvt Ltd, a 120-person software company in Karnataka] for [FY26].
 
         Summary (totals only):
         [Factor | Leavers | Current staff
@@ -1654,7 +1654,7 @@ module HrAnalyticsAiContent
         </div>
         <p class="lc-lead"><strong>Pay equity</strong> means people who do the same or similar work get fair pay, whatever their gender or other personal group. A pay equity analysis checks this with data. It is easy to get wrong. A company-wide average can show a big gap that is really about who works in senior roles. It can also hide a real gap inside one team. In this lesson you will compare like with like: the same level and the same role. You will use the compa-ratio, protect small groups and plan careful next steps. AI helps you plan the analysis and write formulas. People review each case and decide.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 310" role="img" aria-label="Three panels from left to right. Panel 1, whole company: women average 14.6 lakh rupees, men 17.4 lakh, a raw gap of 15.9 percent that mixes junior and senior roles. Panel 2, same level: gaps of 3.0, 2.8, 4.8 and 2.4 percent for levels L1 to L4, with L3 highlighted and L5 not shown because only 2 women are in it. Panel 3, same level and role, Engineering L3 Senior Engineers: average compa-ratio 0.96 for 6 women and 1.03 for 12 men, with 4 people below 0.90 to review one by one.">
+          <svg viewBox="0 0 760 310" role="img" aria-label="Three panels from left to right. Panel 1, whole company: women average 14.6 lakh rupees, men 17.4 lakh, a raw gap of 16.1 percent that mixes junior and senior roles. Panel 2, same level: gaps of 3.0, 2.8, 4.8 and 2.4 percent for levels L1 to L4, with L3 highlighted and L5 not shown because only 2 women are in it. Panel 3, same level and role, Engineering L3 Senior Engineers: average compa-ratio 0.96 for 6 women and 1.03 for 12 men, with 4 people below 0.90 to review one by one.">
             <defs><marker id="hra11a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12.5" fill="#e2e0f0" text-anchor="middle">
               <text x="16" y="24" text-anchor="start" font-size="13" font-weight="700">From a raw gap to a like-for-like comparison (LedgerLite, made up)</text>
@@ -1669,7 +1669,7 @@ module HrAnalyticsAiContent
                 <rect x="72" y="140" width="100" height="16" rx="3" fill="#3b82f6"/>
                 <text x="178" y="152">17.4</text>
               </g>
-              <text x="123" y="190" font-weight="700" fill="#f9a8d4">Raw gap: 15.9%</text>
+              <text x="123" y="190" font-weight="700" fill="#f9a8d4">Raw gap: 16.1%</text>
               <text x="123" y="214" font-size="11" fill="#9b99b8">Mixes junior and senior</text>
               <text x="123" y="232" font-size="11" fill="#9b99b8">roles. Not like with like.</text>
               <rect x="267" y="40" width="226" height="220" rx="10" fill="#1f1f44" stroke="#8b5cf6"/>
@@ -1708,7 +1708,7 @@ module HrAnalyticsAiContent
           <table class="lc-table">
             <thead><tr><th>Term</th><th>Meaning</th><th>LedgerLite example</th></tr></thead>
             <tbody>
-              <tr><td><strong>Raw pay gap</strong></td><td>The difference between two groups' average pay across the whole company</td><td>Women ₹14.6 lakh, men ₹17.4 lakh. Gap = (17.4 − 14.6) ÷ 17.4 = 15.9%.</td></tr>
+              <tr><td><strong>Raw pay gap</strong></td><td>The difference between two groups' average pay across the whole company</td><td>Women ₹14.6 lakh, men ₹17.4 lakh. Gap = (17.4 − 14.6) ÷ 17.4 = 16.1%.</td></tr>
               <tr><td><strong>Like-for-like gap</strong></td><td>The same difference, but only inside one level and one role</td><td>Engineering L3 Senior Engineers: gap 7.1%</td></tr>
               <tr><td><strong>Compa-ratio</strong></td><td>Salary ÷ the midpoint of the person's pay band. 1.00 means exactly at the midpoint.</td><td>LL-1043, L3, ₹15.2 lakh: 15.2 ÷ 16.5 = 0.92</td></tr>
             </tbody>
@@ -1794,7 +1794,7 @@ module HrAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a careful pay equity analyst. You help HR teams who use spreadsheets, not code.
 
-        Company: [LedgerLite Pvt Ltd, 120 staff, software, San Francisco]. Pay is set by level bands. L3 band: [min 13.0, midpoint 16.5, max 20.0 lakh rupees].
+        Company: [LedgerLite Pvt Ltd, 120 staff, software, Karnataka]. Pay is set by level bands. L3 band: [min 13.0, midpoint 16.5, max 20.0 lakh rupees].
         Summary (no names): [Engineering L3 Senior Engineers. Women: 6, average CTC 15.8 lakh. Men: 12, average CTC 17.0 lakh. Average time at L3: women 1.9 years, men 2.1 years. Rated 4 or 5: women 2 of 6, men 4 of 12. People below compa-ratio 0.90: 3 women, 1 man.]
 
         Please:
@@ -1938,7 +1938,7 @@ module HrAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a workforce planning coach for HR teams who use spreadsheets, not code.
 
-        Company: [LedgerLite Pvt Ltd, software, San Francisco]. Plan year: [FY27, April 2026 to March 2027].
+        Company: [LedgerLite Pvt Ltd, software, Karnataka]. Plan year: [FY27, April 2026 to March 2027].
         Team | Now | Target | Last year's attrition
         [Engineering | 56 | 62 | 19.2%
         Customer Success | 16 | 20 | 40.0%
@@ -2100,7 +2100,7 @@ module HrAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an HR analyst who writes short, clear reports for busy leaders.
 
-        Company: [LedgerLite Pvt Ltd, software, San Francisco]. Month: [March 2026].
+        Company: [LedgerLite Pvt Ltd, software, Karnataka]. Month: [March 2026].
         Metrics (totals only, no names):
         [Headcount 120 (February 119). Joiners 4, leavers 3.
         Monthly attrition: 2.5% (highest this year: August, 2.7%).
@@ -2254,7 +2254,7 @@ module HrAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an ethics reviewer for people analytics. You care about employees, fairness and privacy. You work with HR teams in India.
 
-        Company: [LedgerLite Pvt Ltd, a 120-person software company in San Francisco].
+        Company: [LedgerLite Pvt Ltd, a 120-person software company in Karnataka].
         Proposal from a leader: [Build a "flight risk" score for every employee from laptop activity, login times, chat messages and LinkedIn profile updates, and share the list with managers].
 
         Please:
@@ -2410,7 +2410,7 @@ module HrAnalyticsAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a senior people analytics adviser. Draft a one-page people report for company leaders.
 
-        Company: [LedgerLite Pvt Ltd, software, San Francisco]. Year: [FY26].
+        Company: [LedgerLite Pvt Ltd, software, Karnataka]. Year: [FY26].
         Checked facts (totals only, no names):
         [Headcount 104 to 120. 40 joined, 24 left (19 voluntary). Attrition 21.4%. Early leavers 4 of 40.
         Customer Success: attrition 40.0%, eNPS -23 (company +17). Workload favourable 38% (company 61%). Pay is fair 31% (company 49%).

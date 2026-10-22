@@ -59,10 +59,10 @@ module AiForInsuranceContent
           <table class="lc-table">
             <thead><tr><th>Type</th><th>What it covers</th><th>Example</th></tr></thead>
             <tbody>
-              <tr><td><strong>Life</strong></td><td>Pays money to your family if you die during the policy. A <em>term</em> plan gives pure cover only. An <em>endowment</em> plan mixes cover with savings, so its premium is much higher.</td><td>Ravi and Meena in Los Angeles want money for their child if one of them dies early.</td></tr>
-              <tr><td><strong>Health</strong></td><td>Pays hospital bills for illness or injury, up to a limit.</td><td>Ananya, a software tester in London, gets health cover from her employer and may buy her own plan too.</td></tr>
+              <tr><td><strong>Life</strong></td><td>Pays money to your family if you die during the policy. A <em>term</em> plan gives pure cover only. An <em>endowment</em> plan mixes cover with savings, so its premium is much higher.</td><td>Ravi and Meena in Tamil Nadu want money for their child if one of them dies early.</td></tr>
+              <tr><td><strong>Health</strong></td><td>Pays hospital bills for illness or injury, up to a limit.</td><td>Ananya, a software tester in Karnataka, gets health cover from her employer and may buy her own plan too.</td></tr>
               <tr><td><strong>Motor</strong></td><td>Pays for damage to your vehicle, and for harm your vehicle causes to other people.</td><td>Indian law requires third-party motor insurance for vehicles on public roads.</td></tr>
-              <tr><td><strong>Home and shop</strong></td><td>Pays for damage to a building or its contents from fire, flood, theft and similar events.</td><td>Sweet Crumbs, a London bakery, insures its ovens and stock against fire and burglary.</td></tr>
+              <tr><td><strong>Home and shop</strong></td><td>Pays for damage to a building or its contents from fire, flood, theft and similar events.</td><td>Sweet Crumbs, a bakery in Maharashtra, insures its ovens and stock against fire and burglary.</td></tr>
               <tr><td><strong>Travel</strong></td><td>Pays for medical emergencies abroad, lost baggage or trip problems.</td><td>Rangrez Crafts' owner buys cover for a trade fair trip to Dubai.</td></tr>
             </tbody>
           </table>
@@ -98,7 +98,7 @@ module AiForInsuranceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient teacher who explains insurance to beginners in India. This is for learning only, not advice.
 
-        My situation: [Ananya, a 28-year-old salaried software tester in London].
+        My situation: [Ananya, a 28-year-old salaried software tester in Karnataka].
 
         1. Explain risk pooling in 4 simple sentences.
         2. Explain these words in one line each: premium, policy, claim, insurer, cover.
@@ -339,7 +339,7 @@ module AiForInsuranceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly insurance tutor for beginners in India. This is general education only, not advice.
 
-        The learner: [Ananya, a 28-year-old salaried software tester in London who just got her first health policy].
+        The learner: [Ananya, a 28-year-old salaried software tester in Karnataka who just got her first health policy].
 
         1. Explain these words in one or two simple sentences each, with a small example: premium, sum insured, deductible, co-pay, waiting period, exclusion, rider.
         2. Work through a made-up claim. Covered bill: [₹1,00,000]. Deductible: [₹10,000]. Co-pay: [20]%. Take the deductible first, then the co-pay on the rest. Show every step, what the insurer pays and what the person pays.
@@ -540,7 +540,7 @@ module AiForInsuranceContent
         </div>
         <div class="lc-card">
           <h3>Worked example: Ravi and Meena's policy</h3>
-          <p>Ravi and Meena live in Los Angeles with one child. They have a made-up family floater plan from Suraksha General Insurance. A <strong>family floater</strong> is one sum insured shared by the whole family. Here is a short extract, with no personal details.</p>
+          <p>Ravi and Meena live in Tamil Nadu with one child. They have a made-up family floater plan from Suraksha General Insurance. A <strong>family floater</strong> is one sum insured shared by the whole family. Here is a short extract, with no personal details.</p>
           <pre><code>SAMPLE - NOT A REAL POLICY
         Sum insured: ₹5,00,000 (family floater, 2 adults + 1 child)
         3.1 Hospital stays of 24 hours or more are covered up to the sum insured.
@@ -590,7 +590,7 @@ module AiForInsuranceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a plain-English insurance explainer. This is general education only, not advice.
 
-        Here is a made-up policy extract for [a family of 2 adults and 1 child in Los Angeles]:
+        Here is a made-up policy extract for [a family of 2 adults and 1 child in Tamil Nadu]:
         Sum insured: ₹5,00,000 family floater.
         3.1 Hospital stays of 24 hours or more are covered up to the sum insured.
         3.2 Room rent is covered up to 1% of the sum insured per day.
@@ -719,7 +719,7 @@ module AiForInsuranceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient insurance teacher in India. This is education only, not insurance advice. Do not recommend any plan or insurer.
 
-        Compare these two made-up health plans for [Ananya, 28, a salaried software tester in London]. Use only these facts. Do not add facts.
+        Compare these two made-up health plans for [Ananya, 28, a salaried software tester in Karnataka]. Use only these facts. Do not add facts.
         Plan A: premium [₹9,800] a year, sum insured [₹5,00,000], co-pay [none], room rent [any single private room], waiting period for existing illness [2 years].
         Plan B: premium [₹8,200] a year, sum insured [₹5,00,000], co-pay [20%], room rent [up to ₹4,000 a day], waiting period for existing illness [3 years].
 
@@ -775,7 +775,7 @@ module AiForInsuranceContent
         </figure>
         <div class="lc-card">
           <h3>Cashless or reimbursement?</h3>
-          <p>Meet Ravi and Meena, a made-up couple in Los Angeles with one child. Meena needs a planned surgery. Their family health policy is from Suraksha General Insurance, a made-up insurer.</p>
+          <p>Meet Ravi and Meena, a made-up couple in Tamil Nadu with one child. Meena needs a planned surgery. Their family health policy is from Suraksha General Insurance, a made-up insurer.</p>
           <table class="lc-table">
             <thead><tr><th></th><th>Cashless claim</th><th>Reimbursement claim</th></tr></thead>
             <tbody>
@@ -836,7 +836,7 @@ module AiForInsuranceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient health insurance teacher in India. This is general education only, not insurance or legal advice.
 
-        Made-up situation: [Meena, from Los Angeles,] needs a [planned knee surgery]. She has a family health policy from [Suraksha General Insurance], a made-up insurer. The hospital [is] in the insurer's network.
+        Made-up situation: [Meena, from Tamil Nadu,] needs a [planned knee surgery]. She has a family health policy from [Suraksha General Insurance], a made-up insurer. The hospital [is] in the insurer's network.
 
         Tasks:
         1. Explain the difference between a cashless claim and a reimbursement claim in 4 short sentences.
@@ -1031,7 +1031,7 @@ module AiForInsuranceContent
         <div class="lc-card">
           <h3>Explaining a rejection kindly</h3>
           <p>Kind does not mean vague. Say the decision clearly, then explain it in plain words.</p>
-          <pre><code>Dear Mrs Meena,
+          <pre><code>Dear Meena,
         We are sorry to tell you that we cannot pay this claim.
         Your policy started on [date]. It has a 2-year waiting period
         for knee replacement (policy clause [x]). Your surgery was on
@@ -1066,7 +1066,7 @@ module AiForInsuranceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a writer for the claims team of [Suraksha General Insurance], a made-up health insurer in India. This is a training exercise with made-up data.
 
-        Write a partial payment letter to [Mrs Meena, Los Angeles]. Use only these facts. Do not add any reason or fact.
+        Write a partial payment letter to [Meena, Tamil Nadu]. Use only these facts. Do not add any reason or fact.
         - Claim number: [SGI-CL-0000]
         - Bill total: [₹74,000]
         - Consumables not covered: [₹2,300] (policy clause [4.4])
@@ -1140,7 +1140,7 @@ module AiForInsuranceContent
               <tr><td><strong>Shop or fire</strong></td><td>Building type, what is stored, fire safety equipment, past losses</td></tr>
             </tbody>
           </table>
-          <p>For example, Sweet Crumbs, a small made-up bakery in London, uses ovens and gas every day. Its fire cover may cost more than cover for a shop that only stores books. Fire extinguishers and safe wiring may help its case.</p>
+          <p>For example, Sweet Crumbs, a small made-up bakery in Maharashtra, uses ovens and gas every day. Its fire cover may cost more than cover for a shop that only stores books. Fire extinguishers and safe wiring may help its case.</p>
         </div>
         <div class="lc-card">
           <h3>How a simple price is built (made-up numbers)</h3>
@@ -1185,7 +1185,7 @@ module AiForInsuranceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an insurance teacher in India. This is education only, not insurance advice. Do not name or recommend any real insurer or product.
 
-        Explain underwriting and risk pricing to [a small business owner who runs a bakery in London].
+        Explain underwriting and risk pricing to [a small business owner who runs a bakery in Maharashtra].
 
         Tasks:
         1. Explain what underwriting is in 3 short sentences.
@@ -1259,7 +1259,7 @@ module AiForInsuranceContent
         </div>
         <div class="lc-card">
           <h3>Worked example: two simple checks in a spreadsheet</h3>
-          <p>Here are five made-up motor claims at <strong>Suraksha General Insurance</strong>, a made-up insurer. Claim C-103 is for the delivery van of Sweet Crumbs, a small London bakery.</p>
+          <p>Here are five made-up motor claims at <strong>Suraksha General Insurance</strong>, a made-up insurer. Claim C-103 is for the delivery van of Sweet Crumbs, a small bakery in Maharashtra.</p>
           <table class="lc-table">
             <thead><tr><th>Claim</th><th>Policy start</th><th>Loss date</th><th>Garage</th><th>Amount (₹)</th><th>Bill no.</th><th>Days</th></tr></thead>
             <tbody>
@@ -1433,7 +1433,7 @@ module AiForInsuranceContent
           <h3>Activity: follow a bot chat</h3>
           <div class="lcw" data-controller="stepper">
             <ol data-stepper-target="steps">
-              <li data-kind="user" data-label="Ananya asks">Ananya, a software tester in London, types: "My health policy renews soon. How much do I pay, and by when?"</li>
+              <li data-kind="user" data-label="Ananya asks">Ananya, a software tester in Karnataka, types: "My health policy renews soon. How much do I pay, and by when?"</li>
               <li data-kind="tool" data-label="Identity check">The bot asks for her policy number. It sends an OTP to her registered mobile. It does not ask for Aadhaar or card numbers.</li>
               <li data-kind="result" data-label="Policy record">The made-up record shows: Status active. Renewal due 14-Oct-2026. Renewal premium ₹9,800.</li>
               <li data-kind="answer" data-label="Bot replies">"Your renewal premium is ₹9,800. It is due by 14-Oct-2026. Here is the payment link. Please pay before the due date."</li>
@@ -1667,9 +1667,9 @@ module AiForInsuranceContent
           <table class="lc-table">
             <thead><tr><th>Person (made-up)</th><th>Situation</th><th>Questions to think about</th></tr></thead>
             <tbody>
-              <tr><td>Ananya</td><td>28, single, salaried software tester in London. Has group health cover from her employer.</td><td>Does the employer cover stop if I change jobs? Is the sum insured enough for a big hospital bill? Does anyone depend on my income?</td></tr>
-              <tr><td>Ravi and Meena</td><td>Married, one child, Los Angeles. Home loan. The family depends mainly on Ravi's income.</td><td>How would the family pay expenses and the loan if Ravi died? Does our health cover include all three of us?</td></tr>
-              <tr><td>Owner of Sweet Crumbs</td><td>Small bakery in London with ovens and stock</td><td>What if a fire damages the ovens and stock? What if a customer is hurt in the shop?</td></tr>
+              <tr><td>Ananya</td><td>28, single, salaried software tester in Karnataka. Has group health cover from her employer.</td><td>Does the employer cover stop if I change jobs? Is the sum insured enough for a big hospital bill? Does anyone depend on my income?</td></tr>
+              <tr><td>Ravi and Meena</td><td>Married, one child, Tamil Nadu. Home loan. The family depends mainly on Ravi's income.</td><td>How would the family pay expenses and the loan if Ravi died? Does our health cover include all three of us?</td></tr>
+              <tr><td>Owner of Sweet Crumbs</td><td>Small bakery in Maharashtra with ovens and stock</td><td>What if a fire damages the ovens and stock? What if a customer is hurt in the shop?</td></tr>
             </tbody>
           </table>
           <p>Two life cover words are often mixed up. <strong>Term insurance</strong> pays the <strong>sum assured</strong> (the fixed amount a life policy pays) only if the person dies during the policy term. A plain term plan pays nothing if the person lives. <strong>Endowment</strong> plans mix cover with savings. They pay on death or at maturity, so the premium is usually much higher for the same sum assured. Neither is "better" for everyone. It depends on the need.</p>
@@ -1731,7 +1731,7 @@ module AiForInsuranceContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an insurance educator in India. You explain ideas in simple English. You never recommend a specific product, plan or company, and you do not give personal advice.
 
-        My made-up situation: [Ravi and Meena, a married couple in Los Angeles with one child aged 6. Yearly family expenses ₹6,00,000. Home loan still owed ₹25,00,000. Savings ₹10,00,000. Ravi has group health cover from his job.]
+        My made-up situation: [Ravi and Meena, a married couple in Tamil Nadu with one child aged 6. Yearly family expenses ₹6,00,000. Home loan still owed ₹25,00,000. Savings ₹10,00,000. Ravi has group health cover from his job.]
 
         Please:
         1. List the main money risks for this family in a table: risk, what could happen, kind of cover that exists for it.
@@ -1795,7 +1795,7 @@ module AiForInsuranceContent
         </figure>
         <div class="lc-card">
           <h3>The sample data</h3>
-          <p>For this capstone, imagine Ravi and Meena, the couple in Los Angeles, have moved to a new made-up family health policy from <strong>Suraksha General Insurance</strong>, a made-up insurer. We call it Plan C. Its numbers are different from the sample plans in earlier lessons.</p>
+          <p>For this capstone, imagine Ravi and Meena, the couple in Tamil Nadu, have moved to a new made-up family health policy from <strong>Suraksha General Insurance</strong>, a made-up insurer. We call it Plan C. Its numbers are different from the sample plans in earlier lessons.</p>
           <pre><code>POLICY: Family health cover (Plan C)
         Policy start:     15-Jan-2025
         Sum insured:      ₹10,00,000 for the family each year

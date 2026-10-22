@@ -1903,13 +1903,13 @@ module BuildWithGenerativeAiContent
             <thead><tr><th>Limit (Claude API)</th><th>Value</th><th>What Ella does</th></tr></thead>
             <tbody>
               <tr><td>Image formats</td><td>JPEG, PNG, GIF, WebP</td><td>Rejects other types, such as HEIC photos from some phones</td></tr>
-              <tr><td>Size of one image</td><td>10 MB, measured as base64</td><td>Her own limit is 5 MB per file. Base64 text is about a third bigger than the file.</td></tr>
+              <tr><td>Size of one image</td><td>A fixed limit per image, measured on the base64 text. Check the vision page for the current number.</td><td>Her own limit is 5 MB per file. Base64 text is about a third bigger than the file.</td></tr>
               <tr><td>Image dimensions</td><td>Up to 8000 × 8000 px. Large images are scaled down first.</td><td>Shrinks photos herself, so she controls quality and cost</td></tr>
               <tr><td>Whole request</td><td>32 MB</td><td>One file per request in this feature</td></tr>
               <tr><td>PDF pages</td><td>Up to 600 pages per request on models with a 1M-token context window, fewer on others</td><td>Accepts short worksheets only. No password-protected PDFs.</td></tr>
             </tbody>
           </table>
-          <p><strong>Image cost.</strong> The model sees an image as 28 × 28 pixel squares. Each square is one token: tokens = ceil(width ÷ 28) × ceil(height ÷ 28). On current models, images larger than about 2,576 px on the long edge, or above 4,784 tokens, are scaled down first. Ella shrinks a 4032 × 3024 phone photo to 1568 × 1176. That is 56 × 42 = 2,352 tokens, or about $0.0059 at the course's made-up input price of $2.50 per million. Unshrunk, it could cost up to 4,784 tokens (about $0.012).</p>
+          <p><strong>Image cost.</strong> Bigger images cost more tokens. At the time of writing, the vision page says the model sees an image as 28 × 28 pixel squares, and each square is one token: tokens = ceil(width ÷ 28) × ceil(height ÷ 28). On current models, images larger than about 2,576 px on the long edge, or above 4,784 tokens, are scaled down first. Ella shrinks a 4032 × 3024 phone photo to 1568 × 1176. That is 56 × 42 = 2,352 tokens, or about $0.0059 at the course's made-up input price of $2.50 per million. Unshrunk, it could cost up to 4,784 tokens (about $0.012).</p>
           <pre><code>from PIL import Image, ImageOps
 
 
@@ -3093,7 +3093,7 @@ module BuildWithGenerativeAiContent
             <li>The hash goes in the API request as <code>metadata={"user_id": ...}</code>. Anthropic's API reference says this ID may help it detect abuse, and must not contain names, emails or phone numbers.</li>
             <li>Logs keep the hashed ID, topic, token counts, stop reason and error type. They do not keep the question or answer text. A job deletes logs after 30 days.</li>
           </ul>
-          <p><strong>Rules to know about.</strong> In the UK, UK GDPR applies to personal data. The ICO's Children's code (the Age appropriate design code) applies to online services likely to be accessed by children (under-18s). In the US, COPPA covers children under 13, and state laws and school contracts can add more rules. Under the EU AI Act, AI that grades students or decides admissions is classed as high-risk. Most duties for these systems now apply from December 2027, and dates can change. StudyBuddy explains; it does not grade. Read your model provider's data terms too, such as how long it keeps requests. This is general information, not legal advice. Quillbase and Brightpath must check with a qualified adviser.</p>
+          <p><strong>Rules to know about.</strong> In the UK, UK GDPR applies to personal data. The ICO's Children's code (the Age appropriate design code) applies to online services likely to be accessed by children (under-18s). In the US, COPPA covers children under 13, and state laws and school contracts can add more rules. Under the EU AI Act, AI that grades students or decides admissions is classed as high-risk. The dates when these duties start have changed before and may change again, so check the official EU AI Act timeline. StudyBuddy explains; it does not grade. Read your model provider's data terms too, such as how long it keeps requests. This is general information, not legal advice. Quillbase and Brightpath must check with a qualified adviser.</p>
         </div>
         <div class="lc-card">
           <h3>Output checks and abuse limits</h3>

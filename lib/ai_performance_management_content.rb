@@ -1580,7 +1580,7 @@ module AiPerformanceManagementContent
             <thead><tr><th>Rating</th><th>What the evidence must show</th></tr></thead>
             <tbody>
               <tr><td>5 Far exceeds</td><td>Results well above goals across the year. Rare.</td></tr>
-              <tr><td>4 Exceeds</td><td>All key goals met, plus clear extra impact, with dated examples.</td></tr>
+              <tr><td>4 Exceeds</td><td>Key goals met (or missed only for reasons outside the person's control), plus clear extra impact, with dated examples.</td></tr>
               <tr><td>3 Meets</td><td>Most goals met, or near misses with good reasons. A good result.</td></tr>
               <tr><td>2 Partly meets</td><td>One or more key goals missed, mostly for reasons in the person's control.</td></tr>
               <tr><td>1 Does not meet</td><td>Most goals missed, even after clear support.</td></tr>
@@ -1603,7 +1603,7 @@ module AiPerformanceManagementContent
               <tr><td>Jordan Ellis</td><td>5 to 4</td><td>Both goals met exactly, plus a renewal checklist the team now uses. A 5 needs results well above goals.</td></tr>
             </tbody>
           </table>
-          <p>The other six ratings stayed the same. Each one was checked against the standard first. For example, Fatima Noor kept her 4. She missed the reply-time goal during a staff shortage she did not control. She also covered a colleague's queue and wrote 12 help articles (goal 10). After the changes, Customer Success averages 3.33, and the average for all 8 people is 3.50. The numbers did not drive the changes. The evidence did.</p>
+          <p>The other six ratings stayed the same. Each one was checked against the standard first. For example, Fatima Noor kept her 4. She missed the reply-time goal during a staff shortage she did not control, which the standard allows. She also covered a colleague's queue and wrote 12 help articles (goal 10). After the changes, Customer Success averages 3.33, and the average for all 8 people is 3.50. The numbers did not drive the changes. The evidence did.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: in the pack, or kept out?</h3>
@@ -1785,7 +1785,7 @@ module AiPerformanceManagementContent
             <li>Allow them to bring a companion: a colleague or a trade union representative.</li>
             <li>Give the decision in writing, and offer an appeal.</li>
           </ul>
-          <p>If an employer unreasonably fails to follow the Code, a tribunal can raise compensation by up to 25%. If the employee unreasonably fails to follow it, the tribunal can lower compensation by up to 25%. Acas consulted on a revised Code in 2026, so check the current version. Also, from 1 January 2027, the main unfair dismissal right is due to apply after six months of service, not two years.</p>
+          <p>If an employer unreasonably fails to follow the Code, a tribunal can raise compensation by up to 25%. If the employee unreasonably fails to follow it, the tribunal can lower compensation by up to 25%. Acas updates its Code and guidance from time to time, so check the current version. The UK is also changing how long someone must work before they can claim unfair dismissal, so check the current rule on GOV.UK.</p>
           <p>Example (made up): at Northbridge Logistics in Manchester, picker Chris Doyle averages 92 picks per hour against a target of 110. This has lasted 8 weeks. He has no agreed adjustment. HR adviser Tom Reed asks the manager to start with an informal talk about causes. They then agree a written plan with support.</p>
           <p><strong>US.</strong> Most US jobs are "at will". This means either side can usually end the job without a set process. But anti-discrimination laws such as Title VII, the ADA and the ADEA still apply. Treat similar cases in the same way, offer accommodation where needed and keep dated records. Brightside follows a fair, written process for every case.</p>
           <p>This is general education, not legal advice. Before any formal step, talk to an employment lawyer or a qualified HR adviser.</p>
@@ -2301,7 +2301,7 @@ module AiPerformanceManagementContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an HR analyst preparing a calibration pack. Use simple English. Use ONLY this made-up data. Never suggest a rating.
         Format: name | team | results | self | manager draft | notes logged
-        [Aisha | Platform | 2 P1s (max 3); database move on time; strong demo in Oct | 4 | 4 | 6
+        [Aisha | Platform | 2 P1s (max 3); database move done early; strong demo in Oct | 4 | 4 | 6
         Leo | Platform | tests 78% (goal 75%); API 3 weeks late; 1 outage in Sep | 3 | 3 | 5
         Grace | Platform | uptime 99.92% (goal 99.9%); response 11 min (goal under 15) | 3 | 4 | 2
         Sam | Design | conversion 21% (goal 22%); 5 of 5 test rounds | 4 | 3 | 4

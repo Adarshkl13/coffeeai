@@ -26,9 +26,9 @@ module PandasContent
         <div class="lc-card">
           <h3>Worked Example: Your First DataFrame</h3>
           <p>A DataFrame is a group of Series that share the same row index. The easiest way to make one is from a dictionary. The keys become column names, and the lists become columns.</p>
-          <div class="lc-code">df = pd.DataFrame({<br>    "name":  ["Asha", "Ravi", "Meera"],<br>    "city":  ["London", "Chicago", "Los Angeles"],<br>    "marks": [72, 85, 91],<br>})<br>print(df)<br>print(df.shape)<br>print(df.dtypes)</div>
+          <div class="lc-code">df = pd.DataFrame({<br>    "name":  ["Asha", "Ravi", "Meera"],<br>    "state": ["Kerala", "Gujarat", "West Bengal"],<br>    "marks": [72, 85, 91],<br>})<br>print(df)<br>print(df.shape)<br>print(df.dtypes)</div>
           <p>Output:</p>
-          <div class="lc-code">    name         city  marks<br>0   Asha       London     72<br>1   Ravi      Chicago     85<br>2  Meera  Los Angeles     91<br>(3, 3)<br>name     object<br>city     object<br>marks     int64<br>dtype: object</div>
+          <div class="lc-code">    name        state  marks<br>0   Asha       Kerala     72<br>1   Ravi      Gujarat     85<br>2  Meera  West Bengal     91<br>(3, 3)<br>name     object<br>state    object<br>marks     int64<br>dtype: object</div>
           <p>The numbers on the left (0, 1, 2) are the <strong>index</strong>. <code>shape</code> gives (rows, columns). Text columns show as <code>object</code> in pandas 2. You will learn more about dtypes (data types) in a later lesson.</p>
         </div>
         <div class="lc-card">
@@ -37,7 +37,7 @@ module PandasContent
             <thead><tr><th>Part</th><th>Access</th><th>Example result</th></tr></thead>
             <tbody>
               <tr><td>Row labels</td><td><code>df.index</code></td><td><code>RangeIndex(start=0, stop=3, step=1)</code></td></tr>
-              <tr><td>Column names</td><td><code>df.columns</code></td><td><code>Index(['name', 'city', 'marks'], dtype='object')</code></td></tr>
+              <tr><td>Column names</td><td><code>df.columns</code></td><td><code>Index(['name', 'state', 'marks'], dtype='object')</code></td></tr>
               <tr><td>One column</td><td><code>df["marks"]</code></td><td>a Series</td></tr>
               <tr><td>Several columns</td><td><code>df[["name", "marks"]]</code></td><td>a DataFrame</td></tr>
               <tr><td>Types</td><td><code>df.dtypes</code></td><td>one dtype per column</td></tr>
@@ -80,7 +80,7 @@ module PandasContent
           <ul class="lc-list">
             <li>In the starter code, add a column <code>"state"</code> with one value for each student.</li>
             <li>Print only the <code>name</code> and <code>fees</code> columns.</li>
-            <li>Create a Series of yearly rainfall (mm) for New York, Los Angeles and Philadelphia. Use the city names as the index. Then print the value for Los Angeles.</li>
+            <li>Create a Series of yearly rainfall (mm) for Nagaland, West Bengal and Chhattisgarh. Use the state names as the index. Then print the value for West Bengal.</li>
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
@@ -119,7 +119,7 @@ module PandasContent
         print(df[["name", "fees"]])
 
         print("\n=== From a list of row dictionaries ===")
-        rows = [{"city": "London", "temp": 31}, {"city": "Inverness"}]
+        rows = [{"state": "Kerala", "temp": 31}, {"state": "Rajasthan"}]
         print(pd.DataFrame(rows))
       PYTHON
     },
@@ -134,8 +134,8 @@ module PandasContent
         <div class="lc-card">
           <h3>read_csv</h3>
           <p>With a real file, you write <code>pd.read_csv("sales.csv")</code>. In this course, we keep the data inside the code with <code>io.StringIO</code>. It makes a string act like a file:</p>
-          <div class="lc-code">import io<br>import pandas as pd<br><br>csv_text = """date,city,product,units,price<br>2024-01-05,London,Tea,10,120.5<br>2024-01-06,Chicago,Coffee,,250<br>2024-01-06,London,Tea,7,120.5<br>"""<br>df = pd.read_csv(io.StringIO(csv_text), parse_dates=["date"])<br>print(df)</div>
-          <div class="lc-code">        date     city product  units  price<br>0 2024-01-05   London     Tea   10.0  120.5<br>1 2024-01-06  Chicago  Coffee    NaN  250.0<br>2 2024-01-06   London     Tea    7.0  120.5</div>
+          <div class="lc-code">import io<br>import pandas as pd<br><br>csv_text = """date,state,product,units,price<br>2024-01-05,Kerala,Tea,10,120.5<br>2024-01-06,Gujarat,Coffee,,250<br>2024-01-06,Kerala,Tea,7,120.5<br>"""<br>df = pd.read_csv(io.StringIO(csv_text), parse_dates=["date"])<br>print(df)</div>
+          <div class="lc-code">        date    state product  units  price<br>0 2024-01-05   Kerala     Tea   10.0  120.5<br>1 2024-01-06  Gujarat  Coffee    NaN  250.0<br>2 2024-01-06   Kerala     Tea    7.0  120.5</div>
           <p>The empty <code>units</code> cell became <code>NaN</code> (missing). NaN is a float, so the whole <code>units</code> column became float (10.0, 7.0).</p>
         </div>
         <div class="lc-card">
@@ -144,7 +144,7 @@ module PandasContent
             <thead><tr><th>Option</th><th>What it does</th></tr></thead>
             <tbody>
               <tr><td><code>sep=";"</code></td><td>use a different separator (semicolon, tab <code>"\t"</code>)</td></tr>
-              <tr><td><code>usecols=["city", "units"]</code></td><td>load only some columns</td></tr>
+              <tr><td><code>usecols=["state", "units"]</code></td><td>load only some columns</td></tr>
               <tr><td><code>dtype={"pincode": str}</code></td><td>set a column's type (this keeps leading zeros)</td></tr>
               <tr><td><code>parse_dates=["date"]</code></td><td>turn date text into real dates</td></tr>
               <tr><td><code>na_values=["NA", "-"]</code></td><td>extra strings to treat as missing</td></tr>
@@ -156,7 +156,7 @@ module PandasContent
         <div class="lc-card">
           <h3>Worked Example: Exploring</h3>
           <div class="lc-code">df.info(memory_usage=False)<br>print(df.describe())</div>
-          <div class="lc-code">&lt;class 'pandas.core.frame.DataFrame'&gt;<br>RangeIndex: 3 entries, 0 to 2<br>Data columns (total 5 columns):<br> #   Column   Non-Null Count  Dtype<br>---  ------   --------------  -----<br> 0   date     3 non-null      datetime64[ns]<br> 1   city     3 non-null      object<br> 2   product  3 non-null      object<br> 3   units    2 non-null      float64<br> 4   price    3 non-null      float64<br>dtypes: datetime64[ns](1), float64(2), object(2)<br>         units       price<br>count  2.00000    3.000000<br>...</div>
+          <div class="lc-code">&lt;class 'pandas.core.frame.DataFrame'&gt;<br>RangeIndex: 3 entries, 0 to 2<br>Data columns (total 5 columns):<br> #   Column   Non-Null Count  Dtype<br>---  ------   --------------  -----<br> 0   date     3 non-null      datetime64[ns]<br> 1   state    3 non-null      object<br> 2   product  3 non-null      object<br> 3   units    2 non-null      float64<br> 4   price    3 non-null      float64<br>dtypes: datetime64[ns](1), float64(2), object(2)<br>         units       price<br>count  2.00000    3.000000<br>...</div>
           <p><code>info()</code> shows each column's type. It also shows how many values are <strong>not</strong> missing. "2 non-null" out of 3 tells you <code>units</code> has one gap. <code>describe()</code> gives count, mean, std, min, quartiles and max for number (and date) columns. <code>describe(include="all")</code> also gives counts and the most common value for text columns.</p>
         </div>
         <div class="lc-card">
@@ -206,9 +206,9 @@ module PandasContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ul class="lc-list">
-            <li>In the starter code, load only the <code>city</code> and <code>amount</code> columns with <code>usecols</code>.</li>
-            <li>Add <code>"-"</code> as a missing-value marker with <code>na_values</code>, and check <code>info()</code> again.</li>
-            <li>Save the result with <code>to_csv(index=False)</code> and read it back right away.</li>
+            <li>In the starter code, load only the <code>state</code> and <code>amount</code> columns with <code>usecols</code>.</li>
+            <li>Remove <code>na_values=["-"]</code> from the starter code and run it again. What is the dtype of <code>amount</code> in <code>info()</code> now, and why?</li>
+            <li>Save only the Kerala rows with <code>to_csv(index=False)</code>, read the text back and print its shape.</li>
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
@@ -219,12 +219,12 @@ module PandasContent
         import io
         import pandas as pd
 
-        csv_text = """order_id,date,city,item,qty,amount
-        101,2024-03-01,London,Notebook,3,150
-        102,2024-03-01,Chicago,Pen,10,-
-        103,2024-03-02,London,Bag,1,899
-        104,2024-03-03,Los Angeles,Notebook,5,250
-        105,2024-03-03,Chicago,Bag,2,1798
+        csv_text = """order_id,date,state,item,qty,amount
+        101,2024-03-01,Kerala,Notebook,3,150
+        102,2024-03-01,Gujarat,Pen,10,-
+        103,2024-03-02,Kerala,Bag,1,899
+        104,2024-03-03,West Bengal,Notebook,5,250
+        105,2024-03-03,Gujarat,Bag,2,1798
         """
 
         df = pd.read_csv(io.StringIO(csv_text), parse_dates=["date"], na_values=["-"])
@@ -242,7 +242,7 @@ module PandasContent
         print(df[["qty", "amount"]].describe().round(1))
 
         print("\n=== Categories ===")
-        print(df["city"].value_counts())
+        print(df["state"].value_counts())
         print("unique items:", df["item"].nunique())
 
         print("\n=== Write and read back ===")
@@ -272,7 +272,7 @@ module PandasContent
             <tbody>
               <tr><td>Selects by</td><td>labels (index values, column names)</td><td>integer positions</td></tr>
               <tr><td>Slice end</td><td><strong>included</strong>: <code>loc[1:3]</code> gives labels 1, 2, 3</td><td><strong>excluded</strong>: <code>iloc[1:3]</code> gives positions 1, 2</td></tr>
-              <tr><td>Columns</td><td>by name: <code>"name":"city"</code></td><td>by number: <code>0:2</code></td></tr>
+              <tr><td>Columns</td><td>by name: <code>"name":"state"</code></td><td>by number: <code>0:2</code></td></tr>
               <tr><td>Boolean mask (True/False list)</td><td>yes: <code>loc[df["marks"] &gt; 80]</code></td><td>only a NumPy array or list of booleans</td></tr>
               <tr><td>Single value (fast)</td><td><code>df.at[2, "marks"]</code></td><td><code>df.iat[2, 2]</code></td></tr>
             </tbody>
@@ -280,15 +280,15 @@ module PandasContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Same Idea, Different Rules</h3>
-          <div class="lc-code">df = pd.DataFrame({"name": ["Asha", "Ravi", "Meera", "Kiran", "Dev"],<br>                   "city": ["London", "Chicago", "Los Angeles", "London", "Chicago"],<br>                   "marks": [72, 85, 91, 64, 78]})<br>print(df.loc[1:3, "name":"city"])<br>print(df.iloc[1:3, 0:2])</div>
+          <div class="lc-code">df = pd.DataFrame({"name": ["Asha", "Ravi", "Meera", "Kiran", "Dev"],<br>                   "state": ["Kerala", "Gujarat", "West Bengal", "Kerala", "Gujarat"],<br>                   "marks": [72, 85, 91, 64, 78]})<br>print(df.loc[1:3, "name":"state"])<br>print(df.iloc[1:3, 0:2])</div>
           <p>Output:</p>
-          <div class="lc-code">    name         city<br>1   Ravi      Chicago<br>2  Meera  Los Angeles<br>3  Kiran       London<br>    name         city<br>1   Ravi      Chicago<br>2  Meera  Los Angeles</div>
+          <div class="lc-code">    name        state<br>1   Ravi      Gujarat<br>2  Meera  West Bengal<br>3  Kiran       Kerala<br>    name        state<br>1   Ravi      Gujarat<br>2  Meera  West Bengal</div>
           <p><code>loc[1:3]</code> returned <strong>three</strong> rows (labels 1 to 3, end included). <code>iloc[1:3]</code> returned <strong>two</strong> rows (positions 1 and 2, like normal Python slicing).</p>
         </div>
         <div class="lc-card">
           <h3>When Labels and Positions Differ</h3>
           <p>With the default 0, 1, 2 index, labels and positions look the same. After <code>set_index</code>, sorting or filtering, they are different:</p>
-          <div class="lc-code">s = df.set_index("name")<br>s.loc["Ravi", "marks"]     # 85 — by label<br>s.iloc[1, 1]               # 85 — row 1, column 1 (city is column 0 now)<br>s.loc["Ravi":"Kiran"]      # Ravi, Meera, Kiran (end included)<br>s.loc[0]                   # KeyError: 0 — there is no label 0<br><br>x = pd.DataFrame({"v": [10, 20, 30]}, index=[2, 0, 1])<br>x.loc[0, "v"], x.iloc[0, 0]    # (20, 10) — label 0 vs first row</div>
+          <div class="lc-code">s = df.set_index("name")<br>s.loc["Ravi", "marks"]     # 85 — by label<br>s.iloc[1, 1]               # 85 — row 1, column 1 (state is column 0 now)<br>s.loc["Ravi":"Kiran"]      # Ravi, Meera, Kiran (end included)<br>s.loc[0]                   # KeyError: 0 — there is no label 0<br><br>x = pd.DataFrame({"v": [10, 20, 30]}, index=[2, 0, 1])<br>x.loc[0, "v"], x.iloc[0, 0]    # (20, 10) — label 0 vs first row</div>
         </div>
         <div class="lc-card">
           <h3>Series or DataFrame?</h3>
@@ -297,7 +297,7 @@ module PandasContent
         <div class="lc-card">
           <h3>Changing Values the Right Way</h3>
           <p>Select the rows and the column in <strong>one</strong> <code>.loc</code> call:</p>
-          <div class="lc-code">df.loc[df["city"] == "London", "marks"] += 5    # ✔ updates df<br>df.at[2, "marks"] = 95                         # ✔ one cell<br>df[df["city"] == "London"]["marks"] += 5         # ✘ "chained assignment" — does not update df</div>
+          <div class="lc-code">df.loc[df["state"] == "Kerala", "marks"] += 5   # ✔ updates df<br>df.at[2, "marks"] = 95                         # ✔ one cell<br>df[df["state"] == "Kerala"]["marks"] += 5        # ✘ "chained assignment" — does not update df</div>
           <p>The last line takes a filtered copy and changes only the copy. In pandas 2 it may show a warning (<code>SettingWithCopyWarning</code>). In pandas 3 it never works. The lesson "Copy-on-Write and Method Chaining" explains why.</p>
         </div>
         <div class="lc-card">
@@ -328,56 +328,56 @@ module PandasContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ul class="lc-list">
-            <li>In the starter code, use <code>.loc</code> to print the price of San Francisco and Seattle only.</li>
+            <li>In the starter code, use <code>.loc</code> to print the rent of Karnataka and Haryana only.</li>
             <li>Use <code>.iloc</code> to print the last two rows and the first two columns.</li>
-            <li>Add ₹1500 to <code>rent</code> for every city where it is above 25000. Use a single <code>.loc</code> assignment.</li>
+            <li>Add ₹1500 to <code>rent</code> for every state where it is above 25000. Use a single <code>.loc</code> assignment.</li>
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> Remember it like this: "<strong>loc</strong> = <strong>l</strong>abel, <strong>iloc</strong> = <strong>i</strong>nteger position". If you are not sure, set a useful index (like city names) and use <code>.loc</code>. Code that uses labels is easier to read.
+          <strong>Tip:</strong> Remember it like this: "<strong>loc</strong> = <strong>l</strong>abel, <strong>iloc</strong> = <strong>i</strong>nteger position". If you are not sure, set a useful index (like state names) and use <code>.loc</code>. Code that uses labels is easier to read.
         </div>
       HTML
       starter_code: <<~'PYTHON'
         import pandas as pd
 
         df = pd.DataFrame({
-            "city":  ["New York", "Chicago", "San Francisco", "Seattle", "London"],
-            "country": ["US", "US", "US", "US", "UK"],
+            "state": ["Maharashtra", "Gujarat", "Karnataka", "Haryana", "Kerala"],
+            "region": ["West", "West", "South", "North", "South"],
             "rent":  [42000, 28000, 30000, 22000, 21000],   # 2BHK monthly rent
             "furnished": [True, True, True, True, False],
         })
 
         print("=== Columns ===")
         print(df["rent"].tolist())
-        print(df[["city", "rent"]].head(2))
+        print(df[["state", "rent"]].head(2))
 
         print("\n=== loc: labels, end INCLUDED ===")
-        print(df.loc[1:3, "city":"rent"])
+        print(df.loc[1:3, "state":"rent"])
 
         print("\n=== iloc: positions, end EXCLUDED ===")
         print(df.iloc[1:3, 0:2])
 
         print("\n=== A meaningful index ===")
-        by_city = df.set_index("city")
-        print(by_city.loc[["Chicago", "London"], ["rent"]])
-        print("Chicago rent (loc):", by_city.loc["Chicago", "rent"])
-        print("row 1, col 1 (iloc):", by_city.iloc[1, 1])
+        by_state = df.set_index("state")
+        print(by_state.loc[["Gujarat", "Kerala"], ["rent"]])
+        print("Gujarat rent (loc):", by_state.loc["Gujarat", "rent"])
+        print("row 1, col 1 (iloc):", by_state.iloc[1, 1])
 
         print("\n=== Series vs DataFrame ===")
         print(type(df.loc[0]).__name__, "vs", type(df.loc[[0]]).__name__)
 
         print("\n=== Boolean mask inside loc ===")
-        print(df.loc[df["rent"] > 25000, ["city", "rent"]])
+        print(df.loc[df["rent"] > 25000, ["state", "rent"]])
 
         print("\n=== Updating with one loc call ===")
-        df.loc[df["country"] == "US", "rent"] += 2000      # rows AND column in one call
+        df.loc[df["region"] == "West", "rent"] += 2000      # rows AND column in one call
         df.at[3, "furnished"] = False
         print(df)
 
         print("\n=== Label vs position after sorting ===")
         ranked = df.sort_values("rent")
-        print("first row by position:", ranked.iloc[0]["city"])
-        print("row with label 0     :", ranked.loc[0, "city"])
+        print("first row by position:", ranked.iloc[0]["state"])
+        print("row with label 0     :", ranked.loc[0, "state"])
       PYTHON
     },
 
@@ -387,7 +387,7 @@ module PandasContent
           <div class="lc-badge le-badge le-badge-pandas">Pandas</div>
           <h1 class="lc-title">Filtering Rows and query()</h1>
         </div>
-        <p class="lc-lead">Filtering keeps only the rows that match a condition. For example: "orders above ₹500", "students from London" or "flights more than an hour late". pandas does this with <strong>boolean masks</strong> (lists of True/False values) or with the easy-to-read <code>.query()</code> method.</p>
+        <p class="lc-lead">Filtering keeps only the rows that match a condition. For example: "orders above ₹500", "students from Kerala" or "flights more than an hour late". pandas does this with <strong>boolean masks</strong> (lists of True/False values) or with the easy-to-read <code>.query()</code> method.</p>
         <div class="lc-card">
           <h3>Boolean Masks</h3>
           <p>A comparison on a column gives a Series of True/False values, one for each row. Put it inside square brackets to keep the True rows.</p>
@@ -398,9 +398,9 @@ module PandasContent
           <table class="lc-table">
             <thead><tr><th>Meaning</th><th>Operator</th><th>Example</th></tr></thead>
             <tbody>
-              <tr><td>and</td><td><code>&amp;</code></td><td><code>(df["marks"] &gt;= 70) &amp; (df["city"] != "Chicago")</code></td></tr>
-              <tr><td>or</td><td><code>|</code></td><td><code>(df["city"] == "London") | (df["marks"] &gt; 90)</code></td></tr>
-              <tr><td>not</td><td><code>~</code></td><td><code>~df["city"].isin(["London"])</code></td></tr>
+              <tr><td>and</td><td><code>&amp;</code></td><td><code>(df["marks"] &gt;= 70) &amp; (df["state"] != "Gujarat")</code></td></tr>
+              <tr><td>or</td><td><code>|</code></td><td><code>(df["state"] == "Kerala") | (df["marks"] &gt; 90)</code></td></tr>
+              <tr><td>not</td><td><code>~</code></td><td><code>~df["state"].isin(["Kerala"])</code></td></tr>
             </tbody>
           </table>
           <p>Use <code>&amp; | ~</code>, not Python's <code>and / or / not</code>. Also put <strong>brackets around every condition</strong>.</p>
@@ -410,7 +410,7 @@ module PandasContent
           <table class="lc-table">
             <thead><tr><th>Method</th><th>Keeps rows where…</th></tr></thead>
             <tbody>
-              <tr><td><code>df["city"].isin(["London", "Los Angeles"])</code></td><td>the value is in a list</td></tr>
+              <tr><td><code>df["state"].isin(["Kerala", "West Bengal"])</code></td><td>the value is in a list</td></tr>
               <tr><td><code>df["marks"].between(70, 85)</code></td><td>70 ≤ value ≤ 85 (both ends are included by default)</td></tr>
               <tr><td><code>df["name"].str.contains("an")</code></td><td>the text contains a smaller piece of text</td></tr>
               <tr><td><code>df["name"].str.startswith("K")</code></td><td>the text starts with something</td></tr>
@@ -420,17 +420,17 @@ module PandasContent
         </div>
         <div class="lc-card">
           <h3>Worked Example</h3>
-          <div class="lc-code">print(df[(df["marks"] &gt;= 70) &amp; (df["city"] != "Chicago")])<br>print(df[df["marks"].between(70, 85)])</div>
+          <div class="lc-code">print(df[(df["marks"] &gt;= 70) &amp; (df["state"] != "Gujarat")])<br>print(df[df["marks"].between(70, 85)])</div>
           <p>Output:</p>
-          <div class="lc-code">    name         city  marks<br>0   Asha       London     72<br>2  Meera  Los Angeles     91<br>   name     city  marks<br>0  Asha   London     72<br>1  Ravi  Chicago     85<br>4   Dev  Chicago     78</div>
+          <div class="lc-code">    name        state  marks<br>0   Asha       Kerala     72<br>2  Meera  West Bengal     91<br>   name    state  marks<br>0  Asha   Kerala     72<br>1  Ravi  Gujarat     85<br>4   Dev  Gujarat     78</div>
           <p>Notice that the index labels (0, 2) come from the original rows. Add <code>.reset_index(drop=True)</code> if you want 0, 1, 2 again.</p>
         </div>
         <div class="lc-card">
           <h3>query(): Filters as Easy-to-Read Text</h3>
           <p><code>df.query()</code> takes the condition as a string. Inside it, you can use <code>and</code>, <code>or</code> and <code>not</code>. You can use Python variables with <code>@</code>:</p>
-          <div class="lc-code">df.query("marks &gt; 75 and city == 'Chicago'")<br>limit = 80<br>df.query("marks &gt;= @limit")<br>df.query("city in ['London', 'Los Angeles']")<br>df.query("`first name` == 'Asha'")     # backticks for names with spaces</div>
+          <div class="lc-code">df.query("marks &gt; 75 and state == 'Gujarat'")<br>limit = 80<br>df.query("marks &gt;= @limit")<br>df.query("state in ['Kerala', 'West Bengal']")<br>df.query("`first name` == 'Asha'")     # backticks for names with spaces</div>
           <p>Output of the first line:</p>
-          <div class="lc-code">   name     city  marks<br>1  Ravi  Chicago     85<br>4   Dev  Chicago     78</div>
+          <div class="lc-code">   name    state  marks<br>1  Ravi  Gujarat     85<br>4   Dev  Gujarat     78</div>
         </div>
         <div class="lc-card">
           <h3>Quick Check</h3>
@@ -445,14 +445,14 @@ module PandasContent
           <ul class="lc-list">
             <li>Finding late deliveries</li>
             <li>Selecting a date range</li>
-            <li>Picking customers from certain cities</li>
+            <li>Picking customers from certain states</li>
           </ul>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><code>df[df["marks"] &gt; 70 and df["city"] == "London"]</code> gives the error <code>ValueError: The truth value of a Series is ambiguous</code>. Use <code>&amp;</code> with brackets.</li>
-            <li>Missing brackets: <code>df["marks"] &gt; 70 &amp; df["city"] == "London"</code>. Here <code>&amp;</code> runs first, so the expression fails.</li>
+            <li><code>df[df["marks"] &gt; 70 and df["state"] == "Kerala"]</code> gives the error <code>ValueError: The truth value of a Series is ambiguous</code>. Use <code>&amp;</code> with brackets.</li>
+            <li>Missing brackets: <code>df["marks"] &gt; 70 &amp; df["state"] == "Kerala"</code>. Here <code>&amp;</code> runs first, so the expression fails.</li>
             <li>Using <code>==</code> with a list. Use <code>.isin([...])</code> instead.</li>
             <li>Forgetting <code>@</code> before a variable inside <code>query</code>. Then pandas looks for a <em>column</em> with that name.</li>
           </ul>
@@ -460,7 +460,7 @@ module PandasContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ul class="lc-list">
-            <li>In the starter code, find all IndiGo or Air India flights that are more than 30 minutes late. Do it once with a mask and once with <code>query</code>.</li>
+            <li>In the starter code, find all IndiGo or Akasa Air flights that are more than 10 minutes late. Do it once with a mask and once with <code>query</code>.</li>
             <li>List the flights with a delay between 10 and 60 minutes.</li>
             <li>Store a limit in a variable and use it inside <code>query</code> with <code>@</code>.</li>
           </ul>
@@ -473,9 +473,9 @@ module PandasContent
         import pandas as pd
 
         flights = pd.DataFrame({
-            "flight":  ["6E201", "AI865", "UK995", "6E554", "AI101", "SG117", "UK707"],
-            "airline": ["IndiGo", "Air India", "Vistara", "IndiGo", "Air India", "SpiceJet", "Vistara"],
-            "origin":  ["SFO", "ORD", "JFK", "ORD", "JFK", "SFO", "ORD"],
+            "flight":  ["6E201", "AI865", "QP995", "6E554", "AI101", "SG117", "QP707"],
+            "airline": ["IndiGo", "Air India", "Akasa Air", "IndiGo", "Air India", "SpiceJet", "Akasa Air"],
+            "origin":  ["South", "West", "North", "West", "North", "South", "West"],
             "delay":   [5, 45, 0, 72, 18, 35, 12],     # minutes
         })
 
@@ -485,9 +485,9 @@ module PandasContent
         print(flights[is_late])
 
         print("\n=== & (and), | (or), ~ (not) ===")
-        print(flights[(flights["origin"] == "ORD") & (flights["delay"] > 10)])
+        print(flights[(flights["origin"] == "West") & (flights["delay"] > 10)])
         print(flights[(flights["delay"] == 0) | (flights["delay"] > 60)][["flight", "delay"]])
-        print("not from SFO:", flights[~(flights["origin"] == "SFO")]["flight"].tolist())
+        print("not from South:", flights[~(flights["origin"] == "South")]["flight"].tolist())
 
         print("\n=== isin and between ===")
         big_two = flights["airline"].isin(["IndiGo", "Air India"])
@@ -499,12 +499,12 @@ module PandasContent
 
         print("\n=== The same filters with query() ===")
         limit = 30
-        print(flights.query("delay > @limit and origin != 'SFO'"))
-        print(flights.query("airline in ['Vistara', 'SpiceJet']").reset_index(drop=True))
+        print(flights.query("delay > @limit and origin != 'South'"))
+        print(flights.query("airline in ['Akasa Air', 'SpiceJet']").reset_index(drop=True))
 
         print("\n=== and/or on Series fails ===")
         try:
-            flights[(flights["delay"] > 10) and (flights["origin"] == "ORD")]
+            flights[(flights["delay"] > 10) and (flights["origin"] == "West")]
         except ValueError as e:
             print("ValueError:", str(e).split(".")[0])
       PYTHON
@@ -534,7 +534,7 @@ module PandasContent
           <ul class="lc-list">
             <li><code>df.nlargest(3, "salary")</code> / <code>df.nsmallest(3, "salary")</code> give the top or bottom rows. This is faster than sorting everything.</li>
             <li><code>.reset_index(drop=True)</code> numbers the rows 0, 1, 2… again after sorting. <code>drop=True</code> throws away the old index instead of adding it as a column.</li>
-            <li><code>key=</code> changes the values before comparing them. For example, to sort without caring about capital letters: <code>df.sort_values("name", key=lambda s: s.str.lower())</code>. Without it, capital letters come before small letters: <code>['Dev', 'Meera', 'anil']</code>.</li>
+            <li><code>key=</code> changes the values before comparing them. For example, to sort without caring about capital letters: <code>df.sort_values("name", key=lambda s: s.str.lower())</code>. Without it, capital letters come before small letters. So a name typed in small letters, like "anil", goes last: <code>['Dev', 'Meera', 'anil']</code>. With the <code>key</code>, you get <code>['anil', 'Dev', 'Meera']</code>.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -713,8 +713,8 @@ module PandasContent
           <h3>Try It</h3>
           <ul class="lc-list">
             <li>In the starter code, add <code>discount</code>: 10% of <code>amount</code> for members, else 0 (use <code>np.where</code>).</li>
-            <li>Add <code>tier</code> with <code>np.select</code>: "Gold" if amount ≥ 5000, "Silver" if ≥ 2000, else "Bronze".</li>
-            <li>Rename <code>amount</code> to <code>bill_amount</code> and drop the <code>member</code> column.</li>
+            <li>Add a "Platinum" level to the <code>np.select</code> for <code>tier</code>: amount ≥ 7000. Which customer moves up?</li>
+            <li>Use <code>assign</code> to make a new DataFrame with <code>final</code> = <code>total</code> minus <code>discount</code>. Check that <code>orders</code> has no <code>final</code> column.</li>
             <li>In the alignment part, change <code>jan + feb</code> to <code>jan.sub(feb, fill_value=0)</code>. Guess each value before you run it.</li>
           </ul>
         </div>
@@ -816,7 +816,7 @@ module PandasContent
         </div>
         <div class="lc-card">
           <h3>category: Save Memory, Add Order</h3>
-          <p>Some columns, like <code>city</code>, have a few values repeated thousands of times. You can store them as <code>category</code>. Each value is kept once, and each row stores a small integer code. In the starter code, 30,000 city names get more than 10× smaller. Ordered categories also let you sort and compare labels in a logical order:</p>
+          <p>Some columns, like <code>state</code>, have a few values repeated thousands of times. You can store them as <code>category</code>. Each value is kept once, and each row stores a small integer code. In the starter code, 30,000 state names get more than 10× smaller. Ordered categories also let you sort and compare labels in a logical order:</p>
           <div class="lc-code">size = pd.Categorical(["low", "high", "mid"],<br>                      categories=["low", "mid", "high"], ordered=True)<br>pd.Series(size).sort_values().tolist()   # ['low', 'mid', 'high']</div>
         </div>
         <div class="lc-card">
@@ -851,9 +851,9 @@ module PandasContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ul class="lc-list">
-            <li>In the starter code, convert <code>rating</code> with <code>pd.to_numeric(..., errors="coerce")</code> and count the NaNs.</li>
-            <li>Convert <code>visits</code> to <code>Int64</code> and find its mean.</li>
-            <li>Make <code>plan</code> an ordered category (basic &lt; plus &lt; pro), and filter the rows above "basic".</li>
+            <li>In the starter code, change one rating to <code>"four"</code> and run it again. What does <code>to_numeric</code> do with it, and how many values are missing now?</li>
+            <li>Change the visits of <code>u2</code> from <code>None</code> to <code>0</code>. How do the sum and the mean change, and why?</li>
+            <li>Add a fourth plan, "max", above "pro" in the ordered category. Give one user that plan, then list the users above "plus".</li>
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
@@ -889,9 +889,9 @@ module PandasContent
         print("above basic:", users.loc[users["plan"] > "basic", "user"].tolist())
 
         print("\n=== Memory: object vs category ===")
-        cities = pd.Series(["London", "Chicago", "New York"] * 10_000)
-        obj_mem = cities.memory_usage(deep=True)
-        cat_mem = cities.astype("category").memory_usage(deep=True)
+        states = pd.Series(["Kerala", "Gujarat", "Nagaland"] * 10_000)
+        obj_mem = states.memory_usage(deep=True)
+        cat_mem = states.astype("category").memory_usage(deep=True)
         print("category is more than 10x smaller:", obj_mem > 10 * cat_mem)
 
         print("\n=== convert_dtypes and the pandas 3 string dtype ===")
@@ -945,10 +945,10 @@ module PandasContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Fill Strategies Compared</h3>
-          <div class="lc-code">df = pd.DataFrame({"city": ["London", "London", "Chicago", "Chicago", "Chicago"],<br>                   "temp": [31.0, np.nan, 38.0, np.nan, 40.0]})<br>print(df["temp"].ffill().tolist())<br>print(df["temp"].bfill().tolist())<br>print(df["temp"].interpolate().tolist())<br>city_mean = df.groupby("city")["temp"].transform("mean")<br>print(df["temp"].fillna(city_mean).tolist())</div>
+          <div class="lc-code">df = pd.DataFrame({"state": ["Kerala", "Kerala", "Gujarat", "Gujarat", "Gujarat"],<br>                   "temp": [31.0, np.nan, 38.0, np.nan, 40.0]})<br>print(df["temp"].ffill().tolist())<br>print(df["temp"].bfill().tolist())<br>print(df["temp"].interpolate().tolist())<br>state_mean = df.groupby("state")["temp"].transform("mean")<br>print(df["temp"].fillna(state_mean).tolist())</div>
           <p>Output:</p>
           <div class="lc-code">[31.0, 31.0, 38.0, 38.0, 40.0]<br>[31.0, 38.0, 38.0, 40.0, 40.0]<br>[31.0, 34.5, 38.0, 39.0, 40.0]<br>[31.0, 31.0, 38.0, 39.0, 40.0]</div>
-          <p>Look at row 1 (a London reading). <code>bfill</code> and <code>interpolate</code> took Chicago's 38 °C. That is wrong! Filling with each <strong>city's own mean</strong> keeps the groups separate. This uses <code>groupby(...).transform</code>, which the GroupBy lesson covers. <code>ffill</code>/<code>bfill</code>/<code>interpolate</code> make sense for data in time order within one series.</p>
+          <p>Look at row 1 (a Kerala reading). <code>bfill</code> copied Gujarat's 38 °C, and <code>interpolate</code> gave 34.5, halfway between Kerala's 31 and Gujarat's 38. Both are wrong! Filling with each <strong>state's own mean</strong> keeps the groups separate. This uses <code>groupby(...).transform</code>, which the GroupBy lesson covers. <code>ffill</code>/<code>bfill</code>/<code>interpolate</code> make sense for data in time order within one series.</p>
         </div>
         <div class="lc-card">
           <h3>Which Strategy?</h3>
@@ -1113,7 +1113,7 @@ module PandasContent
           <h3>Where You'll Use This</h3>
           <ul class="lc-list">
             <li>Checking if classes are balanced</li>
-            <li>Finding the busiest city</li>
+            <li>Finding the busiest state</li>
             <li>Finding typing mistakes in categories</li>
           </ul>
         </div>
@@ -1135,7 +1135,7 @@ module PandasContent
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> For categories, run <code>value_counts(dropna=False)</code> early. In one line, it shows typing mistakes ("Chicago" vs "chicago"), rare labels and missing values.
+          <strong>Tip:</strong> For categories, run <code>value_counts(dropna=False)</code> early. In one line, it shows typing mistakes ("Gujarat" vs "gujarat"), rare labels and missing values.
         </div>
       HTML
       starter_code: <<~'PYTHON'
@@ -1179,13 +1179,13 @@ module PandasContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-pandas">Pandas</div>
-          <h1 class="lc-title">GroupBy — Split, Apply, Combine</h1>
+          <h1 class="lc-title">GroupBy: Split, Apply, Combine</h1>
         </div>
-        <p class="lc-lead"><code>groupby</code> answers "per something" questions, such as average salary <em>per department</em> or sales <em>per city per month</em>. It <strong>splits</strong> the rows into groups. It <strong>applies</strong> a calculation to each group. Then it <strong>combines</strong> the results into one table.</p>
+        <p class="lc-lead"><code>groupby</code> answers "per something" questions, such as average salary <em>per department</em> or sales <em>per state per month</em>. It <strong>splits</strong> the rows into groups. It <strong>applies</strong> a calculation to each group. Then it <strong>combines</strong> the results into one table.</p>
         <div class="lc-card">
           <h3>The Example Data</h3>
           <p>Every example in this lesson uses this small staff table. Salary is in thousand rupees, and Arjun's salary is missing:</p>
-          <div class="lc-code">df = pd.DataFrame({<br>    "name":   ["Asha", "Ravi", "Meena", "Kiran", "Vikram", "Priya", "Arjun"],<br>    "dept":   ["IT", "HR", "IT", "HR", "Sales", "IT", "Sales"],<br>    "city":   ["London", "London", "Chicago", "Chicago", "Chicago", "London", "London"],<br>    "salary": [70, 45, 82, 48, 50, 64, None],<br>})</div>
+          <div class="lc-code">df = pd.DataFrame({<br>    "name":   ["Asha", "Ravi", "Meena", "Kiran", "Vikram", "Priya", "Arjun"],<br>    "dept":   ["IT", "HR", "IT", "HR", "Sales", "IT", "Sales"],<br>    "state":  ["Kerala", "Kerala", "Gujarat", "Gujarat", "Gujarat", "Kerala", "Kerala"],<br>    "salary": [70, 45, 82, 48, 50, 64, None],<br>})</div>
         </div>
         <div class="lc-card">
           <h3>Split → Apply → Combine</h3>
@@ -1201,13 +1201,13 @@ module PandasContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Several Keys, size vs count</h3>
-          <div class="lc-code">print(df.groupby(["dept", "city"], as_index=False)["salary"].sum())<br>print(df.groupby("dept").size().tolist(), df.groupby("dept")["salary"].count().tolist())</div>
+          <div class="lc-code">print(df.groupby(["dept", "state"], as_index=False)["salary"].sum())<br>print(df.groupby("dept").size().tolist(), df.groupby("dept")["salary"].count().tolist())</div>
           <p>Output:</p>
-          <div class="lc-code">    dept     city  salary<br>0     HR  Chicago    48.0<br>1     HR   London    45.0<br>2     IT  Chicago    82.0<br>3     IT   London   134.0<br>4  Sales  Chicago    50.0<br>5  Sales   London     0.0<br>[2, 3, 2] [2, 3, 1]</div>
+          <div class="lc-code">    dept    state  salary<br>0     HR  Gujarat    48.0<br>1     HR   Kerala    45.0<br>2     IT  Gujarat    82.0<br>3     IT   Kerala   134.0<br>4  Sales  Gujarat    50.0<br>5  Sales   Kerala     0.0<br>[2, 3, 2] [2, 3, 1]</div>
           <ul class="lc-list">
             <li><code>as_index=False</code> (or <code>.reset_index()</code> afterwards) keeps the keys as normal columns. This makes the next steps easier.</li>
             <li><code>size()</code> counts <strong>rows</strong>. <code>count()</code> counts <strong>values that are not missing</strong>. Sales has 2 rows but only 1 salary.</li>
-            <li>Be careful: Sales/London has only a missing salary, but its <code>sum</code> is <strong>0.0</strong>, not NaN. Use <code>.sum(min_count=1)</code> if a group with only missing values should give NaN.</li>
+            <li>Be careful: Sales/Kerala has only a missing salary, but its <code>sum</code> is <strong>0.0</strong>, not NaN. Use <code>.sum(min_count=1)</code> if a group with only missing values should give NaN.</li>
           </ul>
         </div>
         <div class="lc-card">
@@ -1400,7 +1400,7 @@ module PandasContent
         customers = pd.DataFrame({
             "cust_id": [1, 2, 3, 4],
             "name":    ["Asha", "Ravi", "Meera", "Kiran"],
-            "city":    ["London", "Chicago", "Los Angeles", "London"],
+            "state":   ["Kerala", "Gujarat", "West Bengal", "Kerala"],
         })
         orders = pd.DataFrame({
             "order_id": [101, 102, 103, 104, 105],
@@ -1473,7 +1473,7 @@ module PandasContent
         </div>
         <div class="lc-card">
           <h3>Splitting and Extracting</h3>
-          <div class="lc-code">e = pd.Series(["asha@gmail.com", "ravi@iitb.ac.in"])<br>e.str.split("@").str[1]                 # ['gmail.com', 'iitb.ac.in']<br>e.str.split("@", expand=True)           # two columns: 0 and 1<br><br>p = pd.Series(["Order #123 - Rs 450", "Order #98 - Rs 1,200", "no id"])<br>p.str.extract(r"#(\d+).*Rs ([\d,]+)")<br>#      0      1<br># 0  123    450<br># 1   98  1,200<br># 2  NaN    NaN</div>
+          <div class="lc-code">e = pd.Series(["asha@gmail.com", "ravi@college.ac.in"])<br>e.str.split("@").str[1]                 # ['gmail.com', 'college.ac.in']<br>e.str.split("@", expand=True)           # two columns: 0 and 1<br><br>p = pd.Series(["Order #123 - Rs 450", "Order #98 - Rs 1,200", "no id"])<br>p.str.extract(r"#(\d+).*Rs ([\d,]+)")<br>#      0      1<br># 0  123    450<br># 1   98  1,200<br># 2  NaN    NaN</div>
           <p><code>extract</code> uses a <strong>regular expression</strong> (a pattern for matching text). <code>\d+</code> means "one or more digits". Each pair of brackets becomes a column. Rows that do not match get NaN.</p>
         </div>
         <div class="lc-card">
@@ -1497,15 +1497,15 @@ module PandasContent
         <div class="lc-card">
           <h3>Quick Check</h3>
           <p>What does this print? Guess the answer first, then run it in the editor.</p>
-          <div class="lc-code">s = pd.Series([' London', 'london ', 'LONDON'])<br>print(s.str.strip().str.title().nunique())</div>
+          <div class="lc-code">s = pd.Series([' Kerala', 'kerala ', 'KERALA'])<br>print(s.str.strip().str.title().nunique())</div>
           <p><strong>Answer:</strong></p>
           <div class="lc-code">1</div>
-          <p>After cleaning, all three are 'London'.</p>
+          <p>After cleaning, all three are 'Kerala'.</p>
         </div>
         <div class="lc-card">
           <h3>Where You'll Use This</h3>
           <ul class="lc-list">
-            <li>Cleaning city and product names</li>
+            <li>Cleaning state and product names</li>
             <li>Extracting numbers from text</li>
             <li>Checking emails and phone numbers</li>
           </ul>
@@ -1522,9 +1522,9 @@ module PandasContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ul class="lc-list">
-            <li>In the starter code, get the city from <code>address</code> (the text after the last comma).</li>
-            <li>Count how many customers use a <code>gmail.com</code> email.</li>
-            <li>Get the order amount from the <code>note</code> column with <code>str.extract</code>. Then convert it to a number.</li>
+            <li>In the starter code, make a <code>first_name</code> column with the first word of <code>name</code> (use <code>str.split</code>).</li>
+            <li>Count the digits in each cleaned phone number with <code>str.len()</code>. Which numbers have more than 10 digits, and why?</li>
+            <li>Use <code>str.extract</code> to get the payment method (UPI, cash or card) from the <code>note</code> column. What do you get for the refund row?</li>
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
@@ -1536,9 +1536,9 @@ module PandasContent
 
         customers = pd.DataFrame({
             "name":    ["  asha RAO", "Ravi Kumar ", "MEERA iyer", "kiran shah"],
-            "email":   ["Asha@Gmail.com", "ravi@iitb.ac.in", "meera@yahoo.co.in", None],
+            "email":   ["Asha@Gmail.com", "ravi@college.ac.in", "meera@yahoo.co.in", None],
             "phone":   ["98765-43210", "+91 91234 56789", "9988776655", "(080) 2345 6789"],
-            "address": ["12 Camden High St, London", "4 Walnut St, Philadelphia", "7 Sunset Blvd, Los Angeles", "9 Market St, San Francisco"],
+            "address": ["12 MG Road, Kerala", "4 Station Road, Chhattisgarh", "7 Lake Road, West Bengal", "9 Market Road, Uttar Pradesh"],
             "note":    ["paid Rs 450 via UPI", "paid Rs 1200 cash", "refund", "paid Rs 99 via card"],
         })
 
@@ -1559,7 +1559,7 @@ module PandasContent
 
         print("\n=== Address: split into columns ===")
         parts = customers["address"].str.rsplit(", ", n=1, expand=True)
-        parts.columns = ["street", "city"]
+        parts.columns = ["street", "state"]
         print(parts)
 
         print("\n=== Extract amounts from free text ===")
@@ -1618,11 +1618,11 @@ module PandasContent
               <tr><td><code>"h"</code>, <code>"min"</code></td><td>hour, minute</td></tr>
             </tbody>
           </table>
-          <p><strong>Old way, do not use:</strong> <code>"M"</code>, <code>"Q"</code>, <code>"Y"</code> for month/quarter/year end. They give a FutureWarning in pandas 2.2+. They were removed in pandas 3.0. <code>pd.date_range("2024-01-01", periods=12, freq="ME")</code> creates a sequence of month-end dates.</p>
+          <p><strong>Old way, do not use:</strong> <code>"M"</code>, <code>"Q"</code>, <code>"Y"</code> for month/quarter/year end. They give a FutureWarning in pandas 2.2+. They were removed in pandas 3.0. This is only about these frequency aliases: for periods, <code>to_period("M")</code> is still correct. <code>pd.date_range("2024-01-01", periods=12, freq="ME")</code> creates a sequence of month-end dates.</p>
         </div>
         <div class="lc-card">
           <h3>Time Zones and Resolution</h3>
-          <p>Naive datetimes have no time zone attached. <code>ts.tz_localize("America/New_York")</code> adds New York time as the time zone. <code>.tz_convert("UTC")</code> changes it to another zone: on 5 March 2024, 10:30 EST is 15:30 UTC. From 10 March, New York uses daylight saving time (EDT, UTC-4), and pandas handles this for you. In pandas 2, parsed dates are stored as <code>datetime64[ns]</code> (nanoseconds). <strong>pandas 3.0 parses strings to microsecond resolution (<code>datetime64[us]</code>) by default</strong>. This only matters if you convert dates to raw integers.</p>
+          <p>Naive datetimes have no time zone attached. <code>ts.tz_localize("America/New_York")</code> adds US Eastern time as the time zone. <code>.tz_convert("UTC")</code> changes it to another zone: on 5 March 2024, 10:30 EST is 15:30 UTC. From 10 March, US Eastern time uses daylight saving time (EDT, UTC-4), and pandas handles this for you. In pandas 2, parsed dates are stored as <code>datetime64[ns]</code> (nanoseconds). <strong>pandas 3.0 parses strings to microsecond resolution (<code>datetime64[us]</code>) by default</strong>. This only matters if you convert dates to raw integers.</p>
         </div>
         <div class="lc-card">
           <h3>Quick Check</h3>
@@ -1652,7 +1652,7 @@ module PandasContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ul class="lc-list">
-            <li>In the starter code, add a <code>weekday</code> column. Then find total sales on weekends (<code>dayofweek &gt;= 5</code>).</li>
+            <li>In the starter code, use <code>.dt.dayofweek &gt;= 5</code> to find the total amount ordered on weekends.</li>
             <li>Calculate weekly totals with <code>resample("W")</code>.</li>
             <li>Find the order that took the longest to deliver with <code>idxmax()</code>.</li>
           </ul>
@@ -1728,7 +1728,7 @@ module PandasContent
         <div class="lc-card">
           <h3>crosstab: Counting Combinations</h3>
           <p><code>pd.crosstab</code> counts how often each pair of values appears. It is useful for survey answers, or questions like "how many students of each gender chose each stream".</p>
-          <div class="lc-code">pd.crosstab(df["city"], df["plan"])                        # counts<br>pd.crosstab(df["city"], df["plan"], normalize="index")     # each row sums to 1<br>pd.crosstab(df["city"], df["plan"], margins=True)          # with totals</div>
+          <div class="lc-code">pd.crosstab(df["state"], df["plan"])                        # counts<br>pd.crosstab(df["state"], df["plan"], normalize="index")     # each row sums to 1<br>pd.crosstab(df["state"], df["plan"], margins=True)          # with totals</div>
         </div>
         <div class="lc-card">
           <h3>pivot vs pivot_table vs groupby</h3>
@@ -1749,13 +1749,13 @@ module PandasContent
           <table class="lc-table">
             <thead><tr><th>Call</th><th>Chart</th><th>Good for</th></tr></thead>
             <tbody>
-              <tr><td><code>table.plot(kind="bar")</code></td><td>grouped bars</td><td>comparing categories (city × month)</td></tr>
+              <tr><td><code>table.plot(kind="bar")</code></td><td>grouped bars</td><td>comparing categories (state × month)</td></tr>
               <tr><td><code>monthly.plot()</code></td><td>line (the default)</td><td>trends over time</td></tr>
               <tr><td><code>df["amount"].plot(kind="hist", bins=5)</code></td><td>histogram</td><td>the spread of one number column</td></tr>
               <tr><td><code>df.plot(kind="scatter", x="units", y="amount")</code></td><td>scatter</td><td>the relationship between two columns</td></tr>
             </tbody>
           </table>
-          <div class="lc-code">ax = table.plot(kind="bar", title="Sales by city and month")<br>ax.figure.savefig("sales.png")     # or plt.show() on a laptop</div>
+          <div class="lc-code">ax = table.plot(kind="bar", title="Sales by state and month")<br>ax.figure.savefig("sales.png")     # or plt.show() on a laptop</div>
           <p><code>.plot()</code> returns a Matplotlib <code>Axes</code> object (the chart area). You need Matplotlib installed (<code>pip install matplotlib</code>). In Jupyter, the chart appears below the cell. This course's editor shows only text output. So try charts on your laptop or in Jupyter/Colab.</p>
         </div>
         <div class="lc-card">
@@ -1786,9 +1786,9 @@ module PandasContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ul class="lc-list">
-            <li>In the starter code, change <code>aggfunc</code> to <code>"mean"</code>. Then change it to <code>["sum", "count"]</code>.</li>
-            <li>Build a crosstab of <code>city</code> × <code>payment</code> showing row percentages.</li>
-            <li>Build the region × month table again with <code>groupby</code> and <code>unstack</code>. Check that it matches.</li>
+            <li>In the starter code, make a pivot table of <code>payment</code> × <code>month</code> with the total amount. Which payment method brought in the most in March?</li>
+            <li>Build the <code>state</code> × <code>payment</code> crosstab with <code>normalize="columns"</code>. What does each column add up to now?</li>
+            <li>Use <code>pivot_table</code> with <code>index=["state", "payment"]</code> and <code>columns="month"</code>. How many rows does the new table have?</li>
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
@@ -1800,36 +1800,36 @@ module PandasContent
 
         sales = pd.DataFrame({
             "month":   ["Jan", "Jan", "Jan", "Feb", "Feb", "Feb", "Mar", "Mar", "Mar", "Mar"],
-            "city":    ["London", "Chicago", "London", "Chicago", "London", "Chicago", "London", "Chicago", "Chicago", "London"],
+            "state":   ["Kerala", "Gujarat", "Kerala", "Gujarat", "Kerala", "Gujarat", "Kerala", "Gujarat", "Gujarat", "Kerala"],
             "payment": ["UPI", "Card", "UPI", "UPI", "Cash", "UPI", "Card", "UPI", "Cash", "UPI"],
             "amount":  [500, 1200, 300, 800, 150, 400, 900, 650, 200, 350],
         })
         sales["month"] = pd.Categorical(sales["month"], categories=["Jan", "Feb", "Mar"], ordered=True)
 
-        print("=== Total sales: city x month ===")
-        table = sales.pivot_table(values="amount", index="city", columns="month",
+        print("=== Total sales: state x month ===")
+        table = sales.pivot_table(values="amount", index="state", columns="month",
                                   aggfunc="sum", fill_value=0, margins=True,
                                   observed=True)   # default in pandas 3.0; we set it for 2.x
         print(table)
 
         print("\n=== Default aggfunc is MEAN ===")
-        print(sales.pivot_table(values="amount", index="city", aggfunc="mean").round(1))
+        print(sales.pivot_table(values="amount", index="state", aggfunc="mean").round(1))
 
         print("\n=== Several aggregations ===")
-        print(sales.pivot_table(values="amount", index="city", aggfunc=["sum", "count"]))
+        print(sales.pivot_table(values="amount", index="state", aggfunc=["sum", "count"]))
 
-        print("\n=== crosstab: how often each payment is used per city ===")
-        print(pd.crosstab(sales["city"], sales["payment"], margins=True))
+        print("\n=== crosstab: how often each payment is used per state ===")
+        print(pd.crosstab(sales["state"], sales["payment"], margins=True))
         print("\nrow shares:")
-        print(pd.crosstab(sales["city"], sales["payment"], normalize="index").round(2))
+        print(pd.crosstab(sales["state"], sales["payment"], normalize="index").round(2))
 
         print("\n=== Same table with groupby + unstack ===")
-        g = sales.groupby(["city", "month"], observed=True)["amount"].sum().unstack(fill_value=0)
+        g = sales.groupby(["state", "month"], observed=True)["amount"].sum().unstack(fill_value=0)
         print(g)
 
         print("\n=== pivot (no aggregation) needs unique pairs ===")
         try:
-            sales.pivot(index="city", columns="month", values="amount")
+            sales.pivot(index="state", columns="month", values="amount")
         except ValueError as e:
             print("ValueError:", e)
       PYTHON
@@ -1839,7 +1839,7 @@ module PandasContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-pandas">Pandas</div>
-          <h1 class="lc-title">Reshaping — melt, stack and unstack</h1>
+          <h1 class="lc-title">Reshaping: melt, stack and unstack</h1>
         </div>
         <p class="lc-lead">The same data can be <strong>wide</strong> (one column per month) or <strong>long</strong> (one row per month). Spreadsheets use the wide form. groupby, merging and plotting libraries work better with the long form. Reshaping changes data from one form to the other.</p>
         <div class="lc-card">
@@ -2029,9 +2029,9 @@ module PandasContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ul class="lc-list">
-            <li>In the starter code, replace the <code>apply</code> that calculates GST with a vectorised expression. Check that the results are equal.</li>
-            <li>Use <code>pd.cut</code> to label amounts as "small" (&lt; 500), "medium" (500–1999) and "large" (2000+).</li>
-            <li>Add a <code>"Chicago": "US"</code> entry to the country map so no NaN remains.</li>
+            <li>In the starter code, replace the <code>apply</code> that calculates <code>per_item</code> with a vectorised expression (column ÷ column). Check that the results are equal.</li>
+            <li>Use <code>map</code> with a dict to add a <code>gst_rate</code> column from <code>size</code>: 0.05 for "small", 0.12 for "medium" and 0.18 for "large". Then add <code>gst</code> = <code>amount</code> × <code>gst_rate</code>.</li>
+            <li>Add a <code>"Gujarat": "West"</code> entry to the region map so no NaN remains.</li>
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
@@ -2044,16 +2044,16 @@ module PandasContent
         import pandas as pd
 
         orders = pd.DataFrame({
-            "city":   ["London", "New York", "Chicago", "London", "Los Angeles"],
+            "state":  ["Kerala", "Nagaland", "Gujarat", "Kerala", "West Bengal"],
             "amount": [450, 2300, 780, 5200, 1500],
             "items":  [2, 6, 3, 9, 4],
         })
 
         print("=== Series.map with a dict (unmapped -> NaN) ===")
-        country = {"London": "UK", "New York": "US", "Los Angeles": "US"}
-        orders["country"] = orders["city"].map(country)
-        print(orders[["city", "country"]])
-        print("replace keeps unknowns:", orders["city"].replace(country).tolist())
+        region = {"Kerala": "South", "Nagaland": "North-East", "West Bengal": "East"}
+        orders["region"] = orders["state"].map(region)
+        print(orders[["state", "region"]])
+        print("replace keeps unknowns:", orders["state"].replace(region).tolist())
 
         print("\n=== Series.apply with a function ===")
         def size_label(amount):
@@ -2088,7 +2088,7 @@ module PandasContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-pandas">Pandas</div>
-          <h1 class="lc-title">Window Functions — rolling, expanding, shift</h1>
+          <h1 class="lc-title">Window Functions: rolling, expanding, shift</h1>
         </div>
         <p class="lc-lead">Window functions calculate a value for each row using its <strong>neighbours</strong> (the rows near it). Examples: a 7-day moving average, a running total, yesterday's value, or the change since last month. They are the main tools for time-series data (data recorded over time), such as sales, prices and sensor readings.</p>
         <div class="lc-card">
@@ -2158,7 +2158,7 @@ module PandasContent
           <ul class="lc-list">
             <li>Using window functions on unsorted data. Then the "previous row" is not the previous day.</li>
             <li>Thinking <code>shift(1)</code> gives the <em>next</em> value. It gives the previous one.</li>
-            <li>Forgetting <code>groupby</code> when the table holds several series (stores, stocks, cities).</li>
+            <li>Forgetting <code>groupby</code> when the table holds several series (stores, stocks, states).</li>
             <li>Using <code>rolling(7)</code> on data with missing dates. It covers 7 <em>rows</em>, not 7 days. Use <code>rolling("7D")</code> on a DatetimeIndex.</li>
           </ul>
         </div>
@@ -2233,7 +2233,7 @@ module PandasContent
         <div class="lc-card">
           <h3>The Problem: Views, Copies and Chained Assignment</h3>
           <p>In pandas 2 (default mode), some selections share memory with the original. These are views. Others do not share memory. These are copies. It is hard to know which one you get. Here are two common bugs:</p>
-          <div class="lc-code">d = pd.DataFrame({"city": ["London", "Chicago", "London"], "temp": [30, 35, 31]})<br><br># Bug 1: chained assignment — two steps: select rows, THEN set a column<br>d[d["city"] == "London"]["temp"] = 0        # SettingWithCopyWarning; d is unchanged<br><br># Bug 2: modifying a subset you took earlier<br>sub = d[d["city"] == "London"]<br>sub["temp"] = sub["temp"] + 1             # SettingWithCopyWarning (is d changed or not?)</div>
+          <div class="lc-code">d = pd.DataFrame({"state": ["Kerala", "Gujarat", "Kerala"], "temp": [30, 35, 31]})<br><br># Bug 1: chained assignment — two steps: select rows, THEN set a column<br>d[d["state"] == "Kerala"]["temp"] = 0       # SettingWithCopyWarning; d is unchanged<br><br># Bug 2: modifying a subset you took earlier<br>sub = d[d["state"] == "Kerala"]<br>sub["temp"] = sub["temp"] + 1             # SettingWithCopyWarning (is d changed or not?)</div>
           <p>The warning means "you might be writing to a temporary copy". In both cases, <code>d</code> stays <code>[30, 35, 31]</code>.</p>
         </div>
         <div class="lc-card">
@@ -2241,8 +2241,8 @@ module PandasContent
           <table class="lc-table">
             <thead><tr><th>Goal</th><th>Write</th></tr></thead>
             <tbody>
-              <tr><td>Change rows of the original</td><td><code>d.loc[d["city"] == "London", "temp"] = 0</code>: rows and column in <strong>one</strong> <code>.loc</code></td></tr>
-              <tr><td>Work on a separate subset</td><td><code>sub = d[d["city"] == "London"].copy()</code>, then change <code>sub</code> freely</td></tr>
+              <tr><td>Change rows of the original</td><td><code>d.loc[d["state"] == "Kerala", "temp"] = 0</code>: rows and column in <strong>one</strong> <code>.loc</code></td></tr>
+              <tr><td>Work on a separate subset</td><td><code>sub = d[d["state"] == "Kerala"].copy()</code>, then change <code>sub</code> freely</td></tr>
               <tr><td>Build a new table</td><td><code>d2 = d.assign(temp=d["temp"] + 1)</code></td></tr>
             </tbody>
           </table>
@@ -2313,24 +2313,24 @@ module PandasContent
         import warnings
         import pandas as pd
 
-        temps = pd.DataFrame({"city": ["London", "Chicago", "London", "Los Angeles"],
+        temps = pd.DataFrame({"state": ["Kerala", "Gujarat", "Kerala", "West Bengal"],
                               "temp": [30, 35, 31, 33]})
 
         print("=== 1. Chained assignment does NOT change temps ===")
         with warnings.catch_warnings(record=True) as caught:
             warnings.simplefilter("always")
-            temps[temps["city"] == "London"]["temp"] = 0
+            temps[temps["state"] == "Kerala"]["temp"] = 0
         print("warnings:", [type(w.message).__name__ for w in caught])
         print("temps:", temps["temp"].tolist())
 
         print("\n=== 2. The fix: one .loc call ===")
-        temps.loc[temps["city"] == "London", "temp"] = 29
+        temps.loc[temps["state"] == "Kerala", "temp"] = 29
         print("temps:", temps["temp"].tolist())
 
         print("\n=== 3. A subset you plan to change: .copy() ===")
-        london = temps[temps["city"] == "London"].copy()
-        london["temp"] = london["temp"] + 1        # no warning, temps untouched
-        print("london:", london["temp"].tolist(), "| temps:", temps["temp"].tolist())
+        kerala = temps[temps["state"] == "Kerala"].copy()
+        kerala["temp"] = kerala["temp"] + 1        # no warning, temps untouched
+        print("kerala:", kerala["temp"].tolist(), "| temps:", temps["temp"].tolist())
 
         print("\n=== 4. Default mode vs Copy-on-Write ===")
         e = pd.DataFrame({"a": [1, 2, 3]})
@@ -2375,7 +2375,7 @@ module PandasContent
             <thead><tr><th>Step</th><th>Question</th><th>Tools</th></tr></thead>
             <tbody>
               <tr><td>1. Inspect</td><td>What's here? Which types? What's missing?</td><td><code>shape</code>, <code>info()</code>, <code>isna().sum()</code>, <code>describe()</code></td></tr>
-              <tr><td>2. Standardise text</td><td>Are "london", "LONDON " and "London" the same?</td><td><code>.str.strip()</code>, <code>.str.title()</code>, <code>.str.lower()</code>, <code>replace</code></td></tr>
+              <tr><td>2. Standardise text</td><td>Are "kerala", "KERALA " and "Kerala" the same?</td><td><code>.str.strip()</code>, <code>.str.title()</code>, <code>.str.lower()</code>, <code>replace</code></td></tr>
               <tr><td>3. Duplicates</td><td>Is any row entered twice?</td><td><code>duplicated()</code>, <code>drop_duplicates(subset=..., keep="first")</code></td></tr>
               <tr><td>4. Bad values</td><td>Age 230? Negative price?</td><td><code>between</code>, IQR rule, <code>clip</code>, set to missing</td></tr>
               <tr><td>5. Missing values</td><td>Drop or fill? How?</td><td><code>fillna</code>, group-wise <code>transform</code></td></tr>
@@ -2392,14 +2392,14 @@ module PandasContent
         <div class="lc-card">
           <h3>Worked Example: Before and After</h3>
           <p>The raw data in the starter code has extra spaces, mixed case, a duplicate row, an age of 230 and two missing values. After the workflow:</p>
-          <div class="lc-code">         name      city   plan   age  monthly_fee  churned<br>0    Asha Rao    London    pro  28.0        999.0        0<br>1  Ravi Kumar   Chicago  basic  34.0        299.0        1<br>2  Meera Iyer    London    pro  31.0        999.0        0<br>3  Kiran Shah  New York   plus  41.0        599.0        0<br>4   Dev Patel  New York  basic  31.0        299.0        1<br>5  Priya Nair   Chicago   plus  25.0        599.0        0<br>6  Sam Joseph    London  basic  31.0        299.0        1</div>
-          <p>8 rows became 7 (the duplicate was removed). Each city has one spelling. The impossible age became missing, and was then filled with the median (31). Priya's missing fee was filled with the median fee of her plan (599).</p>
+          <div class="lc-code">         name     state   plan   age  monthly_fee  churned<br>0    Asha Rao    Kerala    pro  28.0        999.0        0<br>1  Ravi Kumar   Gujarat  basic  34.0        299.0        1<br>2  Meera Iyer    Kerala    pro  31.0        999.0        0<br>3  Kiran Shah  Nagaland   plus  41.0        599.0        0<br>4   Dev Patel  Nagaland  basic  31.0        299.0        1<br>5  Priya Nair   Gujarat   plus  25.0        599.0        0<br>6  Sam Joseph    Kerala  basic  31.0        299.0        1</div>
+          <p>8 rows became 7 (the duplicate was removed). Each state has one spelling. The impossible age became missing, and was then filled with the median (31). Priya's missing fee was filled with the median fee of her plan (599).</p>
         </div>
         <div class="lc-card">
           <h3>From Clean Table to Model Input</h3>
           <ul class="lc-list">
             <li><strong>Features and target:</strong> features are the model inputs, and the target is what you predict. <code>X = df[feature_cols]</code>, <code>y = df["churned"]</code>. Never put the target inside X.</li>
-            <li><strong>One-hot encoding</strong> (one 0/1 column per category): <code>pd.get_dummies(X, columns=["city", "plan"], dtype="int64")</code> creates <code>city_Chicago</code>, <code>city_London</code>, … Without <code>dtype</code>, the new columns are <strong>bool</strong> (True/False) in pandas 2+.</li>
+            <li><strong>One-hot encoding</strong> (one 0/1 column per category): <code>pd.get_dummies(X, columns=["state", "plan"], dtype="int64")</code> creates <code>state_Gujarat</code>, <code>state_Kerala</code>, … Without <code>dtype</code>, the new columns are <strong>bool</strong> (True/False) in pandas 2+.</li>
             <li><strong>Ordinal categories</strong> (categories with an order, like basic &lt; plus &lt; pro) can be mapped to numbers instead: <code>df["plan"].map({"basic": 0, "plus": 1, "pro": 2})</code>.</li>
             <li><strong>Split:</strong> <code>train = X.sample(frac=0.8, random_state=42)</code>; <code>test = X.drop(train.index)</code>. Select <code>y</code> with the same index.</li>
             <li><strong>Scale with training statistics only:</strong> calculate mean/std on the training rows. Then use them on both sets. If you use the whole dataset, test information "leaks" into training.</li>
@@ -2426,7 +2426,7 @@ module PandasContent
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
             <li>Cleaning the raw data directly, with no copy. Keep <code>raw</code> unchanged and build <code>df = raw.copy()</code>.</li>
-            <li>Removing duplicates <em>before</em> standardising text. "London" and "london " look different until they are cleaned.</li>
+            <li>Removing duplicates <em>before</em> standardising text. "Kerala" and "kerala " look different until they are cleaned.</li>
             <li>Scaling or filling with statistics from the full dataset before splitting (data leakage).</li>
             <li>Forgetting that <code>get_dummies</code> on test data may create different columns. Make them match with <code>X_test.reindex(columns=X_train.columns, fill_value=0)</code>.</li>
           </ul>
@@ -2434,7 +2434,7 @@ module PandasContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ul class="lc-list">
-            <li>In the starter code, add a row with city <code>"london "</code>. Check that step 2 still gives only three cities.</li>
+            <li>In the starter code, add a row with state <code>"kerala "</code>. Check that step 2 still gives only three states.</li>
             <li>Encode <code>plan</code> as an ordinal number (basic=0, plus=1, pro=2) instead of dummies.</li>
             <li>Add an <code>assert</code> that every <code>monthly_fee</code> is one of 299, 599 or 999.</li>
           </ul>
@@ -2447,15 +2447,15 @@ module PandasContent
         import io
         import pandas as pd
 
-        raw = pd.read_csv(io.StringIO("""name,city,plan,age,monthly_fee,churned
-         Asha Rao ,london,Pro,28,999,0
-        Ravi Kumar,Chicago,basic,34,299,1
-        Meera Iyer,LONDON,pro,,999,0
-        Ravi Kumar,Chicago,basic,34,299,1
-        Kiran Shah,New York,Plus,41,599,0
-        Dev Patel,new york,basic,230,299,1
-        Priya Nair,Chicago,plus,25,,0
-        Sam Joseph,London,basic,31,299,1
+        raw = pd.read_csv(io.StringIO("""name,state,plan,age,monthly_fee,churned
+         Asha Rao ,kerala,Pro,28,999,0
+        Ravi Kumar,Gujarat,basic,34,299,1
+        Meera Iyer,KERALA,pro,,999,0
+        Ravi Kumar,Gujarat,basic,34,299,1
+        Kiran Shah,Nagaland,Plus,41,599,0
+        Dev Patel,nagaland,basic,230,299,1
+        Priya Nair,Gujarat,plus,25,,0
+        Sam Joseph,Kerala,basic,31,299,1
         """))
         print("=== 1. Inspect ===")
         print(raw.shape, "| missing:", raw.isna().sum().to_dict())
@@ -2463,9 +2463,9 @@ module PandasContent
         print("\n=== 2. Standardise text ===")
         df = raw.copy()
         df["name"] = df["name"].str.strip()
-        df["city"] = df["city"].str.strip().str.title()
+        df["state"] = df["state"].str.strip().str.title()
         df["plan"] = df["plan"].str.lower()
-        print(df["city"].value_counts().to_dict(), df["plan"].unique().tolist())
+        print(df["state"].value_counts().to_dict(), df["plan"].unique().tolist())
 
         print("\n=== 3. Duplicates ===")
         print("duplicate rows:", df.duplicated().sum())
@@ -2480,7 +2480,7 @@ module PandasContent
         print(df)
 
         print("\n=== 5. Encode categories ===")
-        X = pd.get_dummies(df[["city", "plan", "age", "monthly_fee"]], columns=["city", "plan"], dtype="int64")
+        X = pd.get_dummies(df[["state", "plan", "age", "monthly_fee"]], columns=["state", "plan"], dtype="int64")
         y = df["churned"]
         print(X.columns.tolist())
 
@@ -2501,11 +2501,11 @@ module PandasContent
           <div class="lc-badge le-badge le-badge-pandas">Pandas</div>
           <h1 class="lc-title">Capstone Project: End-to-End Sales Analysis</h1>
         </div>
-        <p class="lc-lead">You are the data analyst for a small chain of stationery shops. The raw order export is messy. It has Indian-style dates, city names written in different ways, a duplicated order and a missing quantity. Use everything from this course to turn it into a clear business report.</p>
+        <p class="lc-lead">You are the data analyst for a small chain of stationery shops. The raw order export is messy. It has Indian-style dates, state names written in different ways, a duplicated order and a missing quantity. Use everything from this course to turn it into a clear business report.</p>
         <div class="lc-card">
           <h3>The Brief</h3>
           <ul class="lc-list">
-            <li>How much revenue (money from sales) did we make? Which <strong>cities</strong> bring in the most?</li>
+            <li>How much revenue (money from sales) did we make? Which <strong>states</strong> bring in the most?</li>
             <li>Who are our <strong>top 3 customers</strong>?</li>
             <li>How many units of each <strong>product</strong> sold per <strong>month</strong>?</li>
             <li>Is revenue growing <strong>month on month</strong>?</li>
@@ -2528,10 +2528,10 @@ module PandasContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: The Cleaning Chain</h3>
-          <div class="lc-code">orders = (<br>    pd.read_csv(io.StringIO(orders_csv))<br>    .assign(date=lambda d: pd.to_datetime(d["date"], format="%d/%m/%Y"),<br>            city=lambda d: d["city"].str.strip().str.title(),<br>            qty=lambda d: d["qty"].fillna(1).astype("int64"))<br>    .drop_duplicates()            # AFTER standardising, as in Lesson 19<br>)</div>
+          <div class="lc-code">orders = (<br>    pd.read_csv(io.StringIO(orders_csv))<br>    .assign(date=lambda d: pd.to_datetime(d["date"], format="%d/%m/%Y"),<br>            state=lambda d: d["state"].str.strip().str.title(),<br>            qty=lambda d: d["qty"].fillna(1).astype("int64"))<br>    .drop_duplicates()            # AFTER standardising, as in Lesson 19<br>)</div>
           <p>Part of the starter code's output:</p>
-          <div class="lc-code">=== Clean orders: (10, 6) | missing left: 0<br>total revenue: Rs 11,029<br><br>=== Revenue by city ===<br>             revenue  share_%<br>city<br>Los Angeles     4150     37.6<br>Chicago         3810     34.5<br>London          2170     19.7<br>New York         899      8.2<br>...<br>=== Monthly trend ===<br>            revenue  growth_%<br>date<br>2024-01-31     4390       NaN<br>2024-02-29     1759     -59.9<br>2024-03-31     4880     177.4</div>
-          <p>Duplicates are removed <em>after</em> the text is standardised (the order from Lesson 19). <code>" Los Angeles"</code> and <code>"Los Angeles"</code> only count as the same after they are cleaned. 11 raw rows became 10 orders. We assumed the missing quantity was 1. You should state this assumption in the report. February sales were low. March sales rose strongly again.</p>
+          <div class="lc-code">=== Clean orders: (10, 6) | missing left: 0<br>total revenue: Rs 11,029<br><br>=== Revenue by state ===<br>             revenue  share_%<br>state<br>West Bengal     4150     37.6<br>Gujarat         3810     34.5<br>Kerala          2170     19.7<br>Nagaland         899      8.2<br>...<br>=== Monthly trend ===<br>            revenue  growth_%<br>date<br>2024-01-31     4390       NaN<br>2024-02-29     1759     -59.9<br>2024-03-31     4880     177.4</div>
+          <p>Duplicates are removed <em>after</em> the text is standardised (the order from Lesson 19). <code>" West Bengal"</code> and <code>"West Bengal"</code> only count as the same after they are cleaned. 11 raw rows became 10 orders. We assumed the missing quantity was 1. You should state this assumption in the report. February sales were low. March sales rose strongly again.</p>
         </div>
         <div class="lc-card">
           <h3>Course Recap</h3>
@@ -2576,10 +2576,10 @@ module PandasContent
         <div class="lc-card">
           <h3>Try It: Extend the Project</h3>
           <ul class="lc-list">
-            <li>Add average order value per city (<code>revenue</code> sum ÷ number of orders).</li>
+            <li>Add average order value per state (<code>revenue</code> sum ÷ number of orders).</li>
             <li>Find each customer's first and last order date with <code>agg(first=("date", "min"), last=("date", "max"))</code>.</li>
             <li>Add a 2-month rolling average to the monthly trend.</li>
-            <li>Export the city summary with <code>to_csv(index=False)</code> and print the text.</li>
+            <li>Export the state summary with <code>to_csv(index=False)</code> and print the text.</li>
           </ul>
         </div>
         <div class="lc-card lc-card--tip">
@@ -2590,18 +2590,18 @@ module PandasContent
         import io
         import pandas as pd
 
-        orders_csv = """order_id,date,customer,product_id,qty,city
-        1001,05/01/2024,Asha,P1,2,london
-        1002,07/01/2024,Ravi,P2,1,Chicago
-        1003,07/01/2024,Meera,P3,5, Los Angeles
-        1003,07/01/2024,Meera,P3,5,Los Angeles
-        1004,19/01/2024,Asha,P2,,London
-        1005,02/02/2024,Kiran,P1,3,chicago
-        1006,14/02/2024,Ravi,P3,2,Chicago
-        1007,28/02/2024,Dev,P4,1,New York
-        1008,03/03/2024,Asha,P1,4,London
-        1009,15/03/2024,Meera,P2,2,Los Angeles
-        1010,30/03/2024,Kiran,P3,6,Chicago
+        orders_csv = """order_id,date,customer,product_id,qty,state
+        1001,05/01/2024,Asha,P1,2,kerala
+        1002,07/01/2024,Ravi,P2,1,Gujarat
+        1003,07/01/2024,Meera,P3,5, West Bengal
+        1003,07/01/2024,Meera,P3,5,West Bengal
+        1004,19/01/2024,Asha,P2,,Kerala
+        1005,02/02/2024,Kiran,P1,3,gujarat
+        1006,14/02/2024,Ravi,P3,2,Gujarat
+        1007,28/02/2024,Dev,P4,1,Nagaland
+        1008,03/03/2024,Asha,P1,4,Kerala
+        1009,15/03/2024,Meera,P2,2,West Bengal
+        1010,30/03/2024,Kiran,P3,6,Gujarat
         """
         products = pd.DataFrame({"product_id": ["P1", "P2", "P3", "P4"],
                                  "product": ["Notebook", "Backpack", "Pen set", "Lamp"],
@@ -2611,7 +2611,7 @@ module PandasContent
         orders = (
             pd.read_csv(io.StringIO(orders_csv))
             .assign(date=lambda d: pd.to_datetime(d["date"], format="%d/%m/%Y"),
-                    city=lambda d: d["city"].str.strip().str.title(),
+                    state=lambda d: d["state"].str.strip().str.title(),
                     qty=lambda d: d["qty"].fillna(1).astype("int64"))
             .drop_duplicates()            # after standardising text (Lesson 19)
         )
@@ -2621,9 +2621,9 @@ module PandasContent
         sales["revenue"] = sales["qty"] * sales["price"]
         print("total revenue: Rs", f"{sales['revenue'].sum():,}")
         # 3. Who, where, what
-        print("\n=== Revenue by city ===")
-        by_city = sales.groupby("city")["revenue"].sum().sort_values(ascending=False)
-        print(pd.DataFrame({"revenue": by_city, "share_%": (by_city / by_city.sum() * 100).round(1)}))
+        print("\n=== Revenue by state ===")
+        by_state = sales.groupby("state")["revenue"].sum().sort_values(ascending=False)
+        print(pd.DataFrame({"revenue": by_state, "share_%": (by_state / by_state.sum() * 100).round(1)}))
         print("\n=== Top 3 customers ===")
         print(sales.groupby("customer").agg(orders=("order_id", "nunique"), revenue=("revenue", "sum"))
                    .nlargest(3, "revenue"))

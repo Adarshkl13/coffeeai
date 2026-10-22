@@ -3,7 +3,7 @@ require_relative "../postgresql_content"
 namespace :content do
   desc "Create PostgreSQL course and populate all 21 lessons"
   task postgresql: :environment do
-    course_description = "Learn real PostgreSQL 17 in your browser. Cover data types, constraints, database design and normalization, joins, CTEs, window functions, upserts and MERGE. Then learn transactions and MVCC, indexes and EXPLAIN ANALYZE, JSONB, arrays, full-text search, views, functions, triggers, roles, row-level security and backups."
+    course_description = "Learn real PostgreSQL 17 in your browser. Cover data types, constraints, database design and normalisation, joins, CTEs, window functions, upserts and MERGE. Then learn transactions and MVCC, indexes and EXPLAIN ANALYZE, JSONB, arrays, full-text search, views, functions, triggers, roles, row-level security and backups."
     course = Course.find_or_create_by!(slug: "postgresql") do |c|
       c.title       = "PostgreSQL"
       c.description = course_description
@@ -23,7 +23,7 @@ namespace :content do
       5   => "Dates, Times and Time Zones",
       6   => "Aggregates and GROUP BY",
       7   => "JOINs and DISTINCT ON",
-      8   => "Database Design and Normalization",
+      8   => "Database Design and Normalisation",
       9   => "Subqueries, EXISTS and LATERAL",
       10  => "CTEs and Recursive Queries",
       11  => "Window Functions",
@@ -47,7 +47,7 @@ namespace :content do
       5  => "Store moments in time with timestamptz and change time zones. Do interval maths and group by day, week or month.",
       6  => "Summarise data with GROUP BY, HAVING, FILTER, string_agg and ROLLUP subtotals.",
       7  => "Combine tables with inner, left, full and self joins. Find rows with no match, and pick the top row in each group.",
-      8  => "Model one-to-many and many-to-many links. Normalize a messy table to 3NF, and choose between CHECK, ENUM and a lookup table.",
+      8  => "Model one-to-many and many-to-many links. Normalise a messy table to 3NF, and choose between CHECK, ENUM and a lookup table.",
       9  => "Use scalar subqueries, EXISTS and LATERAL. Combine results with UNION, INTERSECT and EXCEPT, and avoid the NOT IN trap with NULLs.",
       10 => "Give names to the steps of a query with WITH. Walk trees like org charts with WITH RECURSIVE.",
       11 => "Rank rows and find running totals and moving averages. Compare rows with their group using OVER.",

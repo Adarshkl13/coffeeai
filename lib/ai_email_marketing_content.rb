@@ -45,7 +45,7 @@ module AiEmailMarketingContent
           <table class="lc-table">
             <thead><tr><th>Part</th><th>What it means</th><th>Example</th></tr></thead>
             <tbody>
-              <tr><td><strong>List</strong></td><td>The people who agreed to get your emails. Each person is a subscriber.</td><td>1,200 customers of a London bakery</td></tr>
+              <tr><td><strong>List</strong></td><td>The people who agreed to get your emails. Each person is a subscriber.</td><td>1,200 customers of a home bakery in Maharashtra</td></tr>
               <tr><td><strong>Email platform</strong></td><td>A tool that stores your list, sends emails and shows reports. Examples are Mailchimp, Brevo and Zoho Campaigns.</td><td>The bakery uses a free plan to start</td></tr>
               <tr><td><strong>Campaign</strong></td><td>One email that you send to many people at one time.</td><td>"Diwali gift boxes are here"</td></tr>
               <tr><td><strong>Automation</strong></td><td>An email that the platform sends by itself when something happens. The "something" is called a trigger.</td><td>A welcome email when someone joins</td></tr>
@@ -87,7 +87,7 @@ module AiEmailMarketingContent
               <li data-bucket="auto" data-why="The trigger is leaving items in the cart without paying.">A reminder to a shopper who left items in the cart</li>
               <li data-bucket="campaign" data-why="You write it and send it once a month to all subscribers.">A monthly newsletter with new recipes</li>
               <li data-bucket="auto" data-why="The trigger is the date in each person's profile.">A birthday discount sent on each customer's birthday</li>
-              <li data-bucket="campaign" data-why="It is a one-time send to a chosen group.">An email about a new San Francisco shop, sent to San Francisco customers only</li>
+              <li data-bucket="campaign" data-why="It is a one-time send to a chosen group.">An email about a new shop in Gujarat, sent to customers in Gujarat only</li>
             </ul>
           </div>
         </div>
@@ -97,7 +97,7 @@ module AiEmailMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly email marketing teacher for small business owners who are new to email.
 
-        My business: [Sweet Crumbs, a home bakery in London that sells eggless cakes and cookies].
+        My business: [Sweet Crumbs, a home bakery in Maharashtra that sells eggless cakes and cookies].
         My customers: [local families and office teams who order for birthdays and festivals].
         My list today: [about 300 customers who agreed to get emails when they ordered].
 
@@ -178,7 +178,7 @@ module AiEmailMarketingContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Write an email about our new cake flavours.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>You write emails for Sweet Crumbs, a home bakery in London.
+          <pre><code>You write emails for Sweet Crumbs, a home bakery in Maharashtra.
         Voice: warm, simple, like a neighbour talking. Short sentences. No hype words.
         Here is an email we liked: [paste a past email].
         Task: write a 120-word email about 2 new eggless flavours:
@@ -217,7 +217,7 @@ module AiEmailMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a brand writer who helps small businesses sound clear and human in emails.
 
-        My business: [Rang Haath Crafts, an online handicrafts store in Manchester that sells block print bedsheets and cushion covers].
+        My business: [Rang Haath Crafts, an online handicrafts store in Rajasthan that sells block print bedsheets and cushion covers].
         My customers: [women aged 25 to 50 in Indian cities who like handmade home decor].
         How I want to sound: [warm, proud of our artisans, simple, never pushy].
         Words I never want to use: [cheap, hurry, best in the world].
@@ -289,10 +289,10 @@ module AiEmailMarketingContent
           <table class="lc-table">
             <thead><tr><th>Business</th><th>Lead magnet idea</th></tr></thead>
             <tbody>
-              <tr><td>London bakery</td><td>"5 eggless tea-time recipes" PDF</td></tr>
-              <tr><td>Manchester handicrafts store</td><td>"How to care for block print cotton" guide</td></tr>
-              <tr><td>San Francisco SaaS startup</td><td>A free invoice template for freelancers</td></tr>
-              <tr><td>Boston travel agency</td><td>"3-day Kerala monsoon trip plan" checklist</td></tr>
+              <tr><td>Home bakery in Maharashtra</td><td>"5 eggless tea-time recipes" PDF</td></tr>
+              <tr><td>Handicrafts store in Rajasthan</td><td>"How to care for block print cotton" guide</td></tr>
+              <tr><td>SaaS startup in Karnataka</td><td>A free invoice template for freelancers</td></tr>
+              <tr><td>Travel agency in Kerala</td><td>"3-day Kerala monsoon trip plan" checklist</td></tr>
             </tbody>
           </table>
           <p>Keep the form short. Often an email address and a first name are enough. Tell people what they will get and how often.</p>
@@ -314,7 +314,7 @@ module AiEmailMarketingContent
           <p><strong>Weak prompt:</strong></p>
           <pre><code>Give me ideas to get 10,000 emails fast.</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>I run a travel agency in Boston. Suggest 5 honest ways to grow my
+          <pre><code>I run a travel agency in Kerala. Suggest 5 honest ways to grow my
         email list with people who want Kerala trip ideas. For each, give
         the place (website, Instagram, office), the offer, and the consent
         text for the form. No bought lists and no pre-ticked boxes.</code></pre>
@@ -343,7 +343,7 @@ module AiEmailMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an email marketing coach who helps small businesses grow their email list honestly.
 
-        My business: [Backwater Trails, a travel agency in Boston that sells Kerala tour packages and houseboat trips].
+        My business: [Backwater Trails, a travel agency in Kerala that sells Kerala tour packages and houseboat trips].
         My ideal subscriber: [families and couples in Indian cities who are planning a Kerala holiday].
         Where people find me: [my website, Instagram and my office].
 
@@ -442,7 +442,7 @@ module AiEmailMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an email marketing analyst who explains reports to beginners.
 
-        Here are the results of one email campaign for [Sweet Crumbs, a home bakery in London]:
+        Here are the results of one email campaign for [Sweet Crumbs, a home bakery in Maharashtra]:
         - Emails sent: [5,000]
         - Bounced: [100]
         - Unique opens: [1,960]
@@ -480,7 +480,7 @@ module AiEmailMarketingContent
         </div>
         <p class="lc-lead">In the inbox, people see three things before they open your email: the sender name, the subject line and the preview text. These few words decide if your email gets opened or ignored. In this lesson you will use AI to write many options, choose the best ones, test them, and avoid spammy words and false promises.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 262" role="img" aria-label="A phone inbox. The top email shows the sender name Sweet Crumbs, the subject line Diwali boxes: order by 25 October, and the preview text Eggless sweets, packed fresh in London. Labels explain each part.">
+          <svg viewBox="0 0 760 262" role="img" aria-label="A phone inbox. The top email shows the sender name Sweet Crumbs, the subject line Diwali boxes: order by 25 October, and the preview text Eggless sweets, packed fresh in Maharashtra. Labels explain each part.">
             <defs><marker id="em5a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0">
               <rect x="30" y="10" width="340" height="242" rx="18" fill="#1f1f44" stroke="#4b4a78"/>
@@ -488,7 +488,7 @@ module AiEmailMarketingContent
               <rect x="45" y="44" width="310" height="86" rx="8" fill="#27274e" stroke="#22d3ee"/>
               <text x="60" y="68" font-weight="700">Sweet Crumbs</text>
               <text x="60" y="92">Diwali boxes: order by 25 Oct</text>
-              <text x="60" y="115" font-size="12" fill="#9b99b8">Eggless sweets, packed fresh in London</text>
+              <text x="60" y="115" font-size="12" fill="#9b99b8">Eggless sweets, packed fresh in Maharashtra</text>
               <rect x="45" y="142" width="310" height="46" rx="8" fill="#27274e"/>
               <rect x="60" y="154" width="140" height="8" rx="4" fill="#4b4a78"/><rect x="60" y="170" width="240" height="8" rx="4" fill="#3a3966"/>
               <rect x="45" y="196" width="310" height="46" rx="8" fill="#27274e"/>
@@ -528,7 +528,7 @@ module AiEmailMarketingContent
           <pre><code>Write a catchy subject line for my Diwali sale.</code></pre>
           <p><strong>Better prompt:</strong></p>
           <pre><code>Write 15 subject lines for a Diwali email from Sweet Crumbs, a home
-        bakery in London. Offer: eggless sweet boxes, order by 25 October.
+        bakery in Maharashtra. Offer: eggless sweet boxes, order by 25 October.
         Audience: past customers. Voice: warm and simple.
         Use 5 styles: clear, question, benefit, deadline, curiosity (3 each).
         Keep each under 45 characters. Put the key words first.
@@ -542,7 +542,7 @@ module AiEmailMarketingContent
           <table class="lc-table">
             <thead><tr><th>Avoid</th><th>Why</th><th>Try instead</th></tr></thead>
             <tbody>
-              <tr><td>"FREE!!! ACT NOW!!!"</td><td>ALL CAPS and many "!" look like spam</td><td>"Free delivery in London this weekend"</td></tr>
+              <tr><td>"FREE!!! ACT NOW!!!"</td><td>ALL CAPS and many "!" look like spam</td><td>"Free delivery in Maharashtra this weekend"</td></tr>
               <tr><td>"Re: your order" (when there is no order)</td><td>Fake replies trick people</td><td>"Your Diwali box menu is here"</td></tr>
               <tr><td>"Last chance!" (sent every week)</td><td>False urgency breaks trust</td><td>Use a real deadline: "Orders close Friday"</td></tr>
               <tr><td>"Guaranteed to double your sales"</td><td>A promise you cannot prove</td><td>"3 ways to plan your festive orders"</td></tr>
@@ -561,14 +561,14 @@ module AiEmailMarketingContent
         <div class="lc-card">
           <h3>Activity: send, fix or never?</h3>
           <div class="lcw" data-controller="sorter">
-            <p class="lcw-prompt">A Manchester handicrafts store has these subject line ideas. Sort each one.</p>
+            <p class="lcw-prompt">A Rajasthan handicrafts store has these subject line ideas. Sort each one.</p>
             <div class="lcw-buckets">
               <div data-sorter-target="bucket" data-bucket="send" data-label="Good to send"></div>
               <div data-sorter-target="bucket" data-bucket="fix" data-label="Needs a fix"></div>
               <div data-sorter-target="bucket" data-bucket="never" data-label="Never send"></div>
             </div>
             <ul data-sorter-target="pool">
-              <li data-bucket="send" data-why="Clear, specific and honest. The key words come first.">New block print bedsheets from our Sanganer artisans</li>
+              <li data-bucket="send" data-why="Clear, specific and honest. The key words come first.">New block print bedsheets from our Rajasthan artisans</li>
               <li data-bucket="fix" data-why="ALL CAPS and many exclamation marks look like spam. Keep the offer and write it calmly.">MEGA SALE!!! 50% OFF!!! OPEN NOW!!!</li>
               <li data-bucket="never" data-why="A fake reply tricks people. It is misleading.">Re: your refund (sent to people with no refund)</li>
               <li data-bucket="fix" data-why="Too long. The key words may be cut on a phone. Shorten it and put the offer first.">We are very happy to share that our brand new winter collection of quilts is finally here</li>
@@ -583,7 +583,7 @@ module AiEmailMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an email copywriter who writes honest, clear subject lines.
 
-        Business: [Rang Haath Crafts, an online handicrafts store in Manchester].
+        Business: [Rang Haath Crafts, an online handicrafts store in Rajasthan].
         Email topic: [our new winter quilt collection, hand block printed].
         Offer (only if real): [free shipping until Sunday].
         Audience: [past customers who bought bedsheets].
@@ -646,7 +646,7 @@ module AiEmailMarketingContent
               </g>
             </g>
           </svg>
-          <figcaption>The parts of a click-friendly email, shown for a made-up London bakery that runs baking workshops.</figcaption>
+          <figcaption>The parts of a click-friendly email, shown for a made-up home bakery in Maharashtra that runs baking workshops.</figcaption>
         </figure>
         <div class="lc-card">
           <h3>One email, one goal</h3>
@@ -680,9 +680,9 @@ module AiEmailMarketingContent
           <p>A weak prompt gives the AI nothing to work with:</p>
           <pre><code>Write a marketing email for my bakery workshop.</code></pre>
           <p>The AI will guess the date, price and tone. It may also add several goals. A better prompt gives facts, one goal and rules:</p>
-          <pre><code>You are an email copywriter for Sweet Crumbs, a home bakery in London.
+          <pre><code>You are an email copywriter for Sweet Crumbs, a home bakery in Maharashtra.
         Goal: get readers to book a seat at our cupcake workshop.
-        Facts: Sunday 18 October, 11 am to 1 pm, Camden studio, ₹1,200, 12 seats.
+        Facts: Sunday 18 October, 11 am to 1 pm, home studio, ₹1,200, 12 seats.
         Reader: past customers who like baking at home.
         Write: 1 hook line, a body of 3 short paragraphs, 1 CTA button text, 1 P.S.
         Rules: under 120 words, friendly and simple, no false urgency.
@@ -711,10 +711,10 @@ module AiEmailMarketingContent
           <h3>Try It</h3>
           <p>Ask the AI to draft a short email with one goal and one clear CTA. Change the brackets to your own business, or leave them to see an example.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an email copywriter for [Sweet Crumbs, a home bakery in London].
+            <pre class="ai-try-prompt">You are an email copywriter for [Sweet Crumbs, a home bakery in Maharashtra].
 
         The one goal of this email: [get readers to book a seat at our cupcake workshop].
-        Facts (use only these): [Sunday 18 October, 11 am to 1 pm, Camden studio, ₹1,200 per person, 12 seats].
+        Facts (use only these): [Sunday 18 October, 11 am to 1 pm, home studio, ₹1,200 per person, 12 seats].
         Readers: [past customers who like baking at home].
         Brand voice: [warm, simple, a little playful].
 
@@ -781,7 +781,7 @@ module AiEmailMarketingContent
           <h3>Plan before you write</h3>
           <p>Answer three questions first. Write the answers in one place, so every issue follows the same plan.</p>
           <ul class="lc-list">
-            <li><strong>Who is it for?</strong> For example: "families in Kerala and San Francisco who like short holidays".</li>
+            <li><strong>Who is it for?</strong> For example: "families in Kerala and other states who like short holidays".</li>
             <li><strong>What do they get?</strong> A clear promise, such as "one trip idea and one money-saving tip every month".</li>
             <li><strong>How often?</strong> Pick a schedule you can keep. A good monthly newsletter is better than a weekly one that stops after a month.</li>
           </ul>
@@ -789,7 +789,7 @@ module AiEmailMarketingContent
         </div>
         <div class="lc-card">
           <h3>A content mix that people read</h3>
-          <p>If every issue only sells, people stop opening it. Give more help than sales. Here is a sample mix for a made-up Boston travel agency, Backwater Trails:</p>
+          <p>If every issue only sells, people stop opening it. Give more help than sales. Here is a sample mix for a made-up Kerala travel agency, Backwater Trails:</p>
           <table class="lc-table">
             <thead><tr><th>Section</th><th>Example</th><th>Where it comes from</th></tr></thead>
             <tbody>
@@ -806,7 +806,7 @@ module AiEmailMarketingContent
           <p><strong>Repurposing</strong> means turning one piece of content into a new format. A weak prompt asks for something new from nothing:</p>
           <pre><code>Write a travel newsletter.</code></pre>
           <p>The AI will fill it with general tips that any agency could send. A better prompt gives your own content:</p>
-          <pre><code>You are the newsletter editor for Backwater Trails, a travel agency in Boston.
+          <pre><code>You are the newsletter editor for Backwater Trails, a travel agency in Kerala.
         Turn the 3 items below into a monthly newsletter with 4 sections:
         main story (80 words + "Read the full guide" link), quick tip (40 words),
         customer question and answer (60 words), one offer (30 words).
@@ -834,8 +834,8 @@ module AiEmailMarketingContent
           <h3>Try It</h3>
           <p>Paste your own content into the brackets, and let the AI build a newsletter issue. If you leave the brackets, it will use sample content.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are the newsletter editor for [Backwater Trails, a small travel agency in Boston].
-        Readers: [families in Kerala and San Francisco who like short holidays].
+            <pre class="ai-try-prompt">You are the newsletter editor for [Backwater Trails, a small travel agency in Kerala].
+        Readers: [families in Kerala and other states who like short holidays].
         Our promise: [one trip idea and one useful tip every month].
 
         Turn my content below into one newsletter issue with these sections:
@@ -919,7 +919,7 @@ module AiEmailMarketingContent
         </div>
         <div class="lc-card">
           <h3>Festival campaigns</h3>
-          <p>Festivals such as Diwali, Onam, Eid, Christmas and Raksha Bandhan are busy selling times. Plan a short series, not one email. Here is a sample plan for a made-up Manchester handicrafts store, Rang Haath Crafts:</p>
+          <p>Festivals such as Diwali, Onam, Eid, Christmas and Raksha Bandhan are busy selling times. Plan a short series, not one email. Here is a sample plan for a made-up Rajasthan handicrafts store, Rang Haath Crafts:</p>
           <table class="lc-table">
             <thead><tr><th>Email</th><th>Timing</th><th>Purpose</th></tr></thead>
             <tbody>
@@ -937,7 +937,7 @@ module AiEmailMarketingContent
           <p>A weak prompt for this email:</p>
           <pre><code>Write an email to make people finish buying.</code></pre>
           <p>A better prompt:</p>
-          <pre><code>You are an email writer for Rang Haath Crafts, a handicrafts store in Manchester.
+          <pre><code>You are an email writer for Rang Haath Crafts, a handicrafts store in Rajasthan.
         Write email 2 of an abandoned-cart sequence. Send time: about a day after the cart was left.
         Goal: answer doubts, not push. Cover: free returns within 7 days, cash on delivery,
         and that each quilt is hand block-printed, so colours can vary slightly.
@@ -963,7 +963,7 @@ module AiEmailMarketingContent
           <h3>Try It</h3>
           <p>Ask the AI to plan a short festival campaign with honest urgency. Change the brackets to your own store, festival and offer.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an email marketer for [Rang Haath Crafts, a small handicrafts store in Manchester].
+            <pre class="ai-try-prompt">You are an email marketer for [Rang Haath Crafts, a small handicrafts store in Rajasthan].
         Festival: [Diwali].
         Offer: [10% off all block-print quilts and cushion covers].
         Offer ends: [3 November, midnight]. Last date for delivery before the festival: [same day].
@@ -1006,7 +1006,7 @@ module AiEmailMarketingContent
               <rect x="20" y="170" width="170" height="60" rx="8" fill="#1f1f44" stroke="#9b99b8"/>
               <text x="105" y="193" font-weight="700">1. Name</text><text x="105" y="214" font-size="12" fill="#9b99b8">"Hi Priya"</text>
               <rect x="200" y="125" width="170" height="105" rx="8" fill="#1f1f44" stroke="#3b82f6"/>
-              <text x="285" y="148" font-weight="700">2. Place, language</text><text x="285" y="169" font-size="12" fill="#9b99b8">"Delivery to London</text><text x="285" y="185" font-size="12" fill="#9b99b8">in 3 days"</text>
+              <text x="285" y="148" font-weight="700">2. Place, language</text><text x="285" y="169" font-size="12" fill="#9b99b8">"Delivery to Kerala</text><text x="285" y="185" font-size="12" fill="#9b99b8">in 3 days"</text>
               <rect x="380" y="80" width="170" height="150" rx="8" fill="#1f1f44" stroke="#8b5cf6"/>
               <text x="465" y="103" font-weight="700">3. Interests</text><text x="465" y="124" font-size="12" fill="#9b99b8">"New blue pottery,</text><text x="465" y="140" font-size="12" fill="#9b99b8">as you asked"</text>
               <rect x="560" y="35" width="180" height="195" rx="8" fill="#1f1f44" stroke="#10b981"/>
@@ -1037,7 +1037,7 @@ module AiEmailMarketingContent
           <p>AI is good at writing these versions. A weak prompt:</p>
           <pre><code>Personalise this email for my customers.</code></pre>
           <p>A better prompt names the groups and the data you have:</p>
-          <pre><code>Here is our new-arrivals email for Rang Haath Crafts, a Manchester handicrafts store.
+          <pre><code>Here is our new-arrivals email for Rang Haath Crafts, a Rajasthan handicrafts store.
         Write 3 versions of the middle paragraph (50 words each), one for each interest group:
         quilts, blue pottery, corporate gifts.
         Keep the subject line, CTA and offer the same in all versions.
@@ -1077,7 +1077,7 @@ module AiEmailMarketingContent
           <h3>Try It</h3>
           <p>Ask the AI to write interest-based versions of one email, with a merge tag and a fallback. Change the brackets to your own business and groups.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an email copywriter for [Rang Haath Crafts, a small handicrafts store in Manchester].
+            <pre class="ai-try-prompt">You are an email copywriter for [Rang Haath Crafts, a small handicrafts store in Rajasthan].
 
         This month's email: [our new winter collection is now online, with free delivery on orders above ₹1,500].
         Our subscribers chose one interest on the sign-up form: [quilts], [blue pottery] or [corporate gifts].
@@ -1113,7 +1113,7 @@ module AiEmailMarketingContent
         </div>
         <p class="lc-lead"><strong>Segmentation</strong> means splitting your email list into smaller groups, called segments, based on something they share. You then send each group the emails that fit them. A new subscriber and a customer who has ordered ten times need different messages. In this lesson, you will learn the main types of segments. You will use AI to suggest segments from a table of your list data. Then you will check the counts yourself in a spreadsheet.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 270" role="img" aria-label="A full list of 2,400 contacts for a made-up London bakery splits into four segments: new subscribers, repeat buyers, inactive contacts and people interested in corporate orders. Each segment shows a sample size and the message it gets.">
+          <svg viewBox="0 0 760 270" role="img" aria-label="A full list of 2,400 contacts for a made-up home bakery in Maharashtra splits into four segments: new subscribers, repeat buyers, inactive contacts and people interested in corporate orders. Each segment shows a sample size and the message it gets.">
             <defs><marker id="em10a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <rect x="260" y="14" width="240" height="54" rx="10" fill="#1f1f44" stroke="#22d3ee" stroke-width="2"/>
@@ -1146,7 +1146,7 @@ module AiEmailMarketingContent
               <text x="657" y="228" font-size="12" fill="#6ee7b7">bulk order menu</text>
             </g>
           </svg>
-          <figcaption>Sample segments for a made-up London bakery. One person can be in more than one segment, so the numbers do not add up to 2,400.</figcaption>
+          <figcaption>Sample segments for a made-up home bakery in Maharashtra. One person can be in more than one segment, so the numbers do not add up to 2,400.</figcaption>
         </figure>
         <div class="lc-card">
           <h3>Four common ways to segment</h3>
@@ -1172,7 +1172,7 @@ module AiEmailMarketingContent
         C004  2026-01-15   0       0        95                     office orders
         C005  2025-06-08   4       3,900    40                     office orders</code></pre>
           <p>A weak prompt: <em>"Segment my customers."</em> A better prompt:</p>
-          <pre><code>You are an email marketer for Sweet Crumbs, a bakery in London.
+          <pre><code>You are an email marketer for Sweet Crumbs, a bakery in Maharashtra.
         Below is a sample of our list (IDs only, no personal data).
         Suggest 3 to 5 segments. For each one give: a name, a clear rule using
         these columns, the message it should get, and a Google Sheets COUNTIFS
@@ -1205,7 +1205,7 @@ module AiEmailMarketingContent
           <h3>Try It</h3>
           <p>Ask the AI to suggest segments from a small, anonymous sample of list data. Replace the sample with your own columns, or keep it to see how it works.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an email marketing adviser for [Sweet Crumbs, a home bakery in London].
+            <pre class="ai-try-prompt">You are an email marketing adviser for [Sweet Crumbs, a home bakery in Maharashtra].
         Below is a small sample of our email list. It has IDs only, no personal data.
         Columns: ID | Joined | Orders | Total spent (₹) | Days since last click | Interest
         [C001 | 2026-09-10 | 1 | 650 | 3 | cakes
@@ -1299,19 +1299,19 @@ module AiEmailMarketingContent
               <tr><td><strong>Trigger</strong></td><td>A person joins your list</td><td>The welcome emails end with no sale, or a person downloads a guide</td></tr>
               <tr><td><strong>Goal</strong></td><td>Say hello, deliver what you promised, build trust, get a first sale</td><td>Stay helpful until the person is ready to buy</td></tr>
               <tr><td><strong>Length</strong></td><td>Often 3 to 6 emails over one or two weeks</td><td>Often 4 to 8 emails, spread over a few weeks</td></tr>
-              <tr><td><strong>Example</strong></td><td>A Manchester handicrafts store welcomes a new subscriber</td><td>A San Francisco software startup sends tips to free-trial users</td></tr>
+              <tr><td><strong>Example</strong></td><td>A Rajasthan handicrafts store welcomes a new subscriber</td><td>A software startup in Karnataka sends tips to free-trial users</td></tr>
             </tbody>
           </table>
           <p>Send the first welcome email right away. People expect it within minutes of signing up. After that, a gap of two or three days between emails is a common starting point. Test what works for your list.</p>
         </div>
         <div class="lc-card">
           <h3>Map the sequence first</h3>
-          <p>Write a simple map in a spreadsheet before you write any email. Here is a map for <em>Rang Haath Crafts</em>, a made-up handicrafts store in Manchester. Its sign-up form promises a free guide to caring for block-print cotton.</p>
+          <p>Write a simple map in a spreadsheet before you write any email. Here is a map for <em>Rang Haath Crafts</em>, a made-up handicrafts store in Rajasthan. Its sign-up form promises a free guide to caring for block-print cotton.</p>
           <table class="lc-table">
             <thead><tr><th>#</th><th>Day</th><th>Goal</th><th>Main idea</th><th>Call to action</th></tr></thead>
             <tbody>
               <tr><td>1</td><td>0</td><td>Deliver the gift</td><td>Thank you, here is your care guide</td><td>Download the guide</td></tr>
-              <tr><td>2</td><td>2</td><td>Build trust</td><td>Meet the artisans in Sanganer</td><td>Watch a 1-minute video</td></tr>
+              <tr><td>2</td><td>2</td><td>Build trust</td><td>Meet our artisans in Rajasthan</td><td>Watch a 1-minute video</td></tr>
               <tr><td>3</td><td>4</td><td>Show products</td><td>Our 3 best-selling quilts</td><td>See the quilts</td></tr>
               <tr><td>4</td><td>7</td><td>Remove doubt</td><td>Customer reviews and our return policy</td><td>Read the reviews</td></tr>
               <tr><td>5</td><td>10</td><td>First sale</td><td>A welcome code for the first order</td><td>Shop with the code</td></tr>
@@ -1326,7 +1326,7 @@ module AiEmailMarketingContent
           <pre><code>Weak:
         Write a welcome email series for my shop.</code></pre>
           <pre><code>Better:
-        You write emails for [Rang Haath Crafts], a handicrafts store in [Manchester].
+        You write emails for [Rang Haath Crafts], a handicrafts store in [Rajasthan].
         Voice: warm, simple, proud of our artisans. No hype.
         Here is my sequence map: [paste the table].
         Write email 3 only. Include: subject line, preview text,
@@ -1361,7 +1361,7 @@ module AiEmailMarketingContent
           <h3>Try It</h3>
           <p>Ask AI to map a welcome sequence for your business and draft the first email. Change the details in [brackets], or leave them to see an example.</p>
           <div class="lcw lcw-lab" data-controller="ai-try">
-            <pre class="ai-try-prompt">You are an email marketer for [Rang Haath Crafts, a small handicrafts store in Manchester that sells block-print quilts and bedsheets online].
+            <pre class="ai-try-prompt">You are an email marketer for [Rang Haath Crafts, a small handicrafts store in Rajasthan that sells block-print quilts and bedsheets online].
         New subscribers get [a free guide to caring for block-print cotton].
         Brand voice: [warm, simple, proud of our artisans].
 
@@ -1472,7 +1472,7 @@ module AiEmailMarketingContent
           <h3>Clean your list, and let AI help</h3>
           <p><strong>List cleaning</strong> means removing addresses that hurt your reputation. Remove hard bounces at once. Most platforms do this for you. For people who have not opened or clicked in a long time (for example six months), send a short <strong>re-engagement email</strong>: "Do you still want our emails?" If they do not respond, stop emailing them.</p>
           <p>Remember that opens are not fully reliable. Some email apps, such as Apple Mail, can load emails automatically. So a person may look "active" when they are not. Clicks are a better sign.</p>
-          <p><strong>Example:</strong> <em>Backwater Trails</em>, a made-up travel agency in Boston, sees more emails going to spam. Its report (sample numbers): 8,000 sent, 3% hard bounces, 2,900 people with no click in a year. A better prompt for AI:</p>
+          <p><strong>Example:</strong> <em>Backwater Trails</em>, a made-up travel agency in Kerala, sees more emails going to spam. Its report (sample numbers): 8,000 sent, 3% hard bounces, 2,900 people with no click in a year. A better prompt for AI:</p>
           <pre><code>You are an email deliverability adviser for a small travel agency.
         Report: 8,000 sent, 3% hard bounces, 0.2% spam complaints,
         2,900 subscribers with no click in 12 months.
@@ -1505,7 +1505,7 @@ module AiEmailMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an email deliverability adviser. Explain things in simple English for a small business owner with no technical skills.
 
-        My business: [Backwater Trails, a travel agency in Boston].
+        My business: [Backwater Trails, a travel agency in Kerala].
         Email platform: [a common email platform].
         List size: [8,000]. We send [one newsletter a week].
         Problem: [more of our emails go to spam. Hard bounces are 3%. About 2,900 people have not clicked in 12 months.]
@@ -1604,7 +1604,7 @@ module AiEmailMarketingContent
               <tr><td><strong>Revenue per email</strong></td><td>Money made for each delivered email</td><td>revenue ÷ delivered</td></tr>
             </tbody>
           </table>
-          <p><strong>Worked example:</strong> <em>Sweet Crumbs</em>, a made-up bakery in London, tested two Diwali subject lines. Sample data in a spreadsheet:</p>
+          <p><strong>Worked example:</strong> <em>Sweet Crumbs</em>, a made-up bakery in Maharashtra, tested two Diwali subject lines. Sample data in a spreadsheet:</p>
           <pre><code>   A          B           C              D        E
         1  Version    Delivered   Unique clicks  Orders   Revenue (₹)
         2  A          1,200       54             9        10,800
@@ -1649,7 +1649,7 @@ module AiEmailMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an email marketing analyst. Use simple English.
 
-        Business: [Sweet Crumbs, a bakery in London]. Campaign: [Diwali sweets box].
+        Business: [Sweet Crumbs, a bakery in Maharashtra]. Campaign: [Diwali sweets box].
         Goal metric (chosen before the test): [click rate].
 
         Test results:
@@ -1698,7 +1698,7 @@ module AiEmailMarketingContent
               <text x="100" y="181" text-anchor="middle" font-size="11">See the quilts</text>
               <line x1="30" y1="192" x2="410" y2="192" stroke="#4b4a78"/>
               <text x="40" y="209" font-size="11" fill="#9b99b8">You get this because you joined on our website.</text>
-              <text x="40" y="232" font-size="11" fill="#9b99b8">Rang Haath Crafts, [street address], Manchester</text>
+              <text x="40" y="232" font-size="11" fill="#9b99b8">Rang Haath Crafts, [street address], Rajasthan</text>
               <text x="40" y="258" font-size="11" fill="#22d3ee">Unsubscribe  |  Email preferences</text>
               <g stroke="#9b99b8" stroke-width="1.5" fill="none" marker-end="url(#em14a)">
                 <line x1="462" y1="52" x2="222" y2="52"/>
@@ -1787,7 +1787,7 @@ module AiEmailMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You help small businesses follow good email marketing practice. This is a general check, not legal advice.
 
-        Business: [Rang Haath Crafts, an online handicrafts store in Manchester]. We email people in [India and the UK].
+        Business: [Rang Haath Crafts, an online handicrafts store in Rajasthan]. We email people in [India and the UK].
 
         Our sign-up form says: "[Enter your email for 10% off. (Box already ticked) I agree to terms and marketing.]"
 
@@ -1862,7 +1862,7 @@ module AiEmailMarketingContent
         </figure>
         <div class="lc-card">
           <h3>The brief</h3>
-          <p>Example business: <em>Backwater Trails</em>, a made-up travel agency in Boston. It sells houseboat stays and 3-day Kerala trips. It has about 2,000 past enquiries who agreed to get emails. It wants more bookings for the October to March season. You may use your own business instead.</p>
+          <p>Example business: <em>Backwater Trails</em>, a made-up travel agency in Kerala. It sells houseboat stays and 3-day Kerala trips. It has about 2,000 past enquiries who agreed to get emails. It wants more bookings for the October to March season. You may use your own business instead.</p>
           <table class="lc-table">
             <thead><tr><th>Part</th><th>What you make</th><th>It is done when</th></tr></thead>
             <tbody>
@@ -1929,7 +1929,7 @@ module AiEmailMarketingContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an email marketing planner for small businesses. Use simple English.
 
-        Business: [Backwater Trails, a travel agency in Boston selling houseboat stays and 3-day Kerala trips].
+        Business: [Backwater Trails, a travel agency in Kerala selling houseboat stays and 3-day Kerala trips].
         List: [about 2,000 past enquiries who agreed to get emails].
         Goal: [more bookings for the October to March season].
         Brand voice: [friendly, calm, local expert].

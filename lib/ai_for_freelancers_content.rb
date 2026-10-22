@@ -521,7 +521,7 @@ module AiForFreelancersContent
         - Problem: [the stall had a hand-painted board and no logo; tourists did not notice it]
         - Work: [simple logo, bright board design in English and Malayalam, 1-page menu with prices]
         - Result I can prove: [the owner now uses the logo on paper bags and a new board]
-        - Client quote with permission: [none yet]
+        - Client quote with permission: [a short quote from Joseph, the owner, agreed in writing]
         - AI use: [none in the final design]
 
         Please:
@@ -1273,7 +1273,7 @@ module AiForFreelancersContent
             <li><strong>Late payment.</strong> If an invoice is more than 7 days late, Sneha pauses work. The deadline moves by the same number of days. A fixed late fee is added.</li>
           </ul>
           <p>In India, a micro or small business with Udyam registration may have extra protection for late payments from business buyers, under the MSMED Act. Ask a CA (chartered accountant) or lawyer how this applies to you.</p>
-          <p>Foreign clients need extra care. Hartley Tea Co is in the UK. Sneha's quote is £450 (about ₹49,500 at an example rate of £1 = ₹110). The contract should state the currency and how Emma will pay. It should also say which country's law applies. A lawyer should decide this wording.</p>
+          <p>Foreign clients need extra care. Hartley Tea Co, a tea seller run by Emma Hartley, is in the UK. Sneha's quote is £450 (about ₹49,500 at an example rate of £1 = ₹110). The contract should state the currency and how Emma will pay. It should also say which country's law applies. A lawyer should decide this wording.</p>
         </div>
         <div class="lc-card">
           <h3>Draft a template with AI, then ask a lawyer</h3>
@@ -1795,7 +1795,7 @@ module AiForFreelancersContent
             <tbody>
               <tr><td><strong>TDS</strong> (Tax Deducted at Source)</td><td>Some business clients keep back part of your fee. They pay it to the government against your PAN. For professional fees it was section 194J. From 1 April 2026 it sits in section 393 of the new Act. The usual rate for professional fees is 10%, above a yearly limit per client (currently ₹50,000).</td><td>On a ₹12,000 invoice with 10% TDS, she receives ₹10,800. The ₹1,200 is tax already paid for her. Brew Theory's ₹45,000 is below ₹50,000. If Karthik also buys the ₹12,000 kit in the same year, the total is ₹57,000, so TDS may apply.</td></tr>
               <tr><td><strong>Advance tax</strong></td><td>You pay income tax during the year, not all at the end. It applies when your tax for the year, after TDS, is ₹10,000 or more. The usual dates are 15 June, 15 September, 15 December and 15 March.</td><td>If she uses the presumptive scheme, she can usually pay it all by 15 March.</td></tr>
-              <tr><td><strong>Presumptive scheme</strong></td><td>Old section 44ADA, now part of section 58 of the new Act. Eligible professionals declare at least 50% of their receipts as income, with simpler records. The receipts limit is ₹50 lakh, or ₹75 lakh if cash receipts are 5% or less.</td><td>₹7,20,000 in receipts means ₹3,60,000 of declared income. Her CA must confirm her design work counts as a "profession" for this scheme.</td></tr>
+              <tr><td><strong>Presumptive scheme</strong></td><td>Old section 44ADA. The new Act moves it to a new section number, so ask your CA for the current one. Eligible professionals declare at least 50% of their receipts as income, with simpler records. The receipts limit is ₹50 lakh, or ₹75 lakh if cash receipts are 5% or less.</td><td>₹7,20,000 in receipts means ₹3,60,000 of declared income. Her CA must confirm her design work counts as a "profession" for this scheme.</td></tr>
             </tbody>
           </table>
           <p>Check TDS in your tax statement on the income tax portal, such as the AIS (Annual Information Statement). Also ask clients for their TDS certificate. Some clients treat design as contract work under a different rule and rate, so ask your CA.</p>
@@ -2072,7 +2072,7 @@ module AiForFreelancersContent
               <tr><td>Starter Logo</td><td>₹15,000</td><td>₹16,500</td><td>18</td><td>₹917</td></tr>
               <tr><td>Brand Identity</td><td>₹45,000</td><td>₹49,500</td><td>55</td><td>₹900</td></tr>
               <tr><td>Social Media Kit</td><td>₹12,000</td><td>₹13,200</td><td>14</td><td>₹943</td></tr>
-              <tr><td>Extra round of changes</td><td>₹3,000</td><td>₹3,300</td><td>4</td><td>₹825</td></tr>
+              <tr><td>Extra round of changes</td><td>₹3,000</td><td>₹3,300</td><td>3</td><td>₹1,100</td></tr>
             </tbody>
           </table>
           <p>In her sheet, the formula <code>=B2*1.1</code> gives each new price. Her rate at the income goal becomes ₹825 an hour (₹66,000 ÷ 80). Projects already agreed keep the old price. Brew Theory's retainer rises from ₹10,000 to ₹11,000 a month, but only after the 3-month minimum and with 30 days' written notice.</p>

@@ -96,7 +96,7 @@ module SafeHealthcareAiContent
         </div>
         <div class="lc-card">
           <h3>Meet Tarang Multispeciality Hospital</h3>
-          <p>Tarang Multispeciality Hospital, Liverpool, is a made-up 200-bed hospital. In 2026, the medical superintendent, Dr Farida Shaikh, decides to set up AI governance. Governance means clear rules, owners and checks for every AI tool. She asks Rahul Deshmukh, the IT and data protection lead, to list every AI use. He finds seven.</p>
+          <p>Tarang Multispeciality Hospital is a made-up 200-bed hospital in Maharashtra. In 2026, the medical superintendent, Dr Farida Shaikh, decides to set up AI governance. Governance means clear rules, owners and checks for every AI tool. She asks Rahul Deshmukh, the IT and data protection lead, to list every AI use. He finds seven.</p>
           <table class="lc-table">
             <thead><tr><th>AI use (made up)</th><th>Owner</th><th>Data it uses</th></tr></thead>
             <tbody>
@@ -254,8 +254,8 @@ module SafeHealthcareAiContent
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Dr Farida asks">"Check our made-up WhatsApp booking chatbot against the six WHO principles. It books OPD slots in English only. Front desk staff read the logs once a day."</li>
               <li data-kind="answer" data-label="AI replies">The AI gives a table. It flags: English only (inclusiveness), no named owner (responsibility), patients may not know it is a bot (transparency), and emergency messages may wait a day (safety).</li>
-              <li data-kind="check" data-label="She checks the facts">She checks the AI inventory. Vikram is already named as the owner. So the responsibility point is wrong. She corrects the table.</li>
-              <li data-kind="warn" data-label="A claim to reject">The AI also wrote "the chatbot is compliant with Indian data protection law". It cannot know this. Only the hospital's legal and data protection review can decide it. She deletes the line.</li>
+              <li data-kind="check" data-label="She checks the facts">Dr Farida checks the AI inventory. Vikram is already named as the owner. So the responsibility point is wrong. She corrects the table.</li>
+              <li data-kind="warn" data-label="A claim to reject">The AI also wrote "the chatbot is compliant with Indian data protection law". It cannot know this. Only the hospital's legal and data protection review can decide it. Dr Farida deletes the line.</li>
               <li data-kind="thought" data-label="Her judgement">Safety comes first. A chest pain message must never get a booking reply. Language access matters too, because many patients write in Marathi.</li>
               <li data-kind="result" data-label="The decision">Emergency words now trigger a reply to call 108 or 112 or come to Emergency, plus a staff alert. The first message will say it is an automated assistant. Marathi and Hindi support is planned. Vikram, the owner, leads the changes.</li>
             </ol>
@@ -427,7 +427,7 @@ module SafeHealthcareAiContent
         </div>
         <p class="lc-lead">Healthcare AI sits under several laws and guidelines at once. In India, these include the data protection law, the medical device rules, the telemedicine guidelines and the ICMR AI guidelines. If your tool comes from abroad, or you serve patients abroad, EU and US rules may matter too. In this lesson you will learn what each one covers in general words, and which questions to ask. Laws and dates change, so always check the current official text. This lesson is general education, not legal advice. Real decisions need a qualified lawyer and your data protection lead.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 262" role="img" aria-label="A timeline of key dates. 2017: CDSCO Medical Devices Rules. 2020: Telemedicine Practice Guidelines. 2021: WHO AI ethics guidance. 2023: DPDP Act and ICMR AI guidelines. August 2024: EU AI Act in force. November 2025: DPDP Rules notified. September 2026: today. November 2026: DPDP consent manager rules. May 2027: most DPDP duties start. August 2028: EU high-risk rules for AI in medical devices.">
+          <svg viewBox="0 0 760 262" role="img" aria-label="A timeline of key dates. 2017: CDSCO Medical Devices Rules. 2020: Telemedicine Practice Guidelines. 2021: WHO AI ethics guidance. 2023: DPDP Act and ICMR AI guidelines. August 2024: EU AI Act in force. November 2025: DPDP Rules notified. September 2026: today. November 2026: DPDP consent manager rules. May 2027: most DPDP duties start. August 2028 (proposed, may change): EU high-risk rules for AI in medical devices.">
             <g font-family="inherit" font-size="11.5" fill="#e2e0f0" text-anchor="middle">
               <text x="380" y="24" font-size="12" fill="#9b99b8">Key dates for healthcare AI rules (check the current position)</text>
               <line x1="20" y1="150" x2="740" y2="150" stroke="#4b4a78" stroke-width="3"/>
@@ -451,7 +451,7 @@ module SafeHealthcareAiContent
               <text x="535" y="106">manager rules</text>
               <text x="700" y="72" font-weight="700" font-size="12.5" fill="#c4b5fd">Aug 2028</text>
               <text x="700" y="90">EU high-risk</text>
-              <text x="700" y="106">rules, med AI</text>
+              <text x="700" y="106">med AI, proposed</text>
               <text x="135" y="200" font-weight="700" font-size="12.5" fill="#c4b5fd">2020</text>
               <text x="135" y="218">Telemedicine</text>
               <text x="135" y="234">Guidelines</text>
@@ -475,7 +475,7 @@ module SafeHealthcareAiContent
             <thead><tr><th>Rule</th><th>What it covers, in general</th><th>What it means for Tarang (made up)</th></tr></thead>
             <tbody>
               <tr><td><strong>Digital Personal Data Protection (DPDP) Act, 2023, and DPDP Rules, 2025</strong></td><td>Personal data in digital form, including health records. Clear notice, valid consent or another lawful ground, use only for the stated purpose, security safeguards, breach reporting and patient rights.</td><td>The chatbot, the scribe and the public chat tool problem all involve patient data. Rahul must check notices, consent, contracts and security.</td></tr>
-              <tr><td><strong>Medical Devices Rules, 2017</strong> (overseen by CDSCO, the national drug and device regulator)</td><td>Devices are classed by risk, from Class A (low) to Class D (high). Software meant to diagnose, prevent, monitor or treat disease can itself be a medical device. In July 2026, CDSCO published final guidance on medical device software, including AI software. Check the current version.</td><td>The chest X-ray AI likely falls here. Dr Kiran Rao asks the vendor for its regulatory status and intended use in writing.</td></tr>
+              <tr><td><strong>Medical Devices Rules, 2017</strong> (overseen by CDSCO, the national drug and device regulator)</td><td>Devices are classed by risk, from Class A (low) to Class D (high). Software meant to diagnose, prevent, monitor or treat disease can itself be a medical device. CDSCO has issued guidance on medical device software, including AI software. Check the current version on the CDSCO website.</td><td>The chest X-ray AI likely falls here. Dr Kiran Rao asks the vendor for its regulatory status and intended use in writing.</td></tr>
               <tr><td><strong>Telemedicine Practice Guidelines, 2020</strong></td><td>AI and machine learning platforms may support the registered doctor. They cannot counsel patients or prescribe medicines on their own. The doctor must give the final advice and prescription.</td><td>The WhatsApp bot may book slots. It must not give medical advice or suggest medicines.</td></tr>
               <tr><td><strong>ICMR Ethical Guidelines for AI in Biomedical Research and Healthcare, 2023</strong></td><td>Ethical principles, ethics committee review and informed consent for AI research and use</td><td>If Dr Rao studies the X-ray AI on past films for a paper, an ethics committee must review it first.</td></tr>
             </tbody>
@@ -503,7 +503,7 @@ module SafeHealthcareAiContent
         <div class="lc-card">
           <h3>Outside India, in general words</h3>
           <ul class="lc-list">
-            <li><strong>European Union: AI Act.</strong> It entered into force in August 2024 and applies in phases. AI that is part of a medical device needing independent assessment under EU device law (the MDR and IVDR) counts as "high-risk". High-risk AI needs risk management, good data, logs, human oversight and clear instructions. In 2026, the EU agreed changes that moved the date for high-risk AI in products like medical devices to August 2028. Some transparency duties, such as telling people they are talking to AI, already apply from August 2026.</li>
+            <li><strong>European Union: AI Act.</strong> It entered into force in August 2024 and applies in phases. AI that is part of a medical device needing independent assessment under EU device law (the MDR and IVDR) counts as "high-risk". High-risk AI needs risk management, good data, logs, human oversight and clear instructions. The EU has proposed delaying the date for high-risk AI in products like medical devices, possibly to August 2028, so check the official EU AI Act timeline. Some transparency duties, such as telling people they are talking to AI, already apply from August 2026.</li>
             <li><strong>United States: FDA list.</strong> The FDA (the US medicines and devices regulator) publishes a list of AI-enabled medical devices authorised for the US market. The FDA says the list is not complete. Being on the list means US authorisation for a stated use. It does not mean approval in India, or proof that the tool works for your patients.</li>
             <li><strong>United States: HIPAA.</strong> A US law that protects health information held by US health providers, insurers and their partners. It matters if your vendor or your patients are in the US.</li>
             <li><strong>WHO guidance.</strong> Not a law, but widely used. It covers the ethics of AI for health (2021) and large multimodal models, such as chat assistants (2024).</li>
@@ -687,7 +687,7 @@ module SafeHealthcareAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a privacy trainer at a hospital in India. The note below is completely made up for training.
 
-        Note: "[Mr Ramesh Gaikwad, 67, retired school headmaster from Trimbak, UHID TMH-26-08812, ABHA 91-0000-0000-0000, phone 94220 00000. Admitted 03/09/2026 with a heart attack. Only patient on the ward with a pacemaker from 2019. Son works at the district court.]"
+        Note: "[Mr Ramesh Gaikwad, 67, retired school headmaster from a small village in Maharashtra, UHID TMH-26-08812, ABHA 91-0000-0000-0000, phone 94220 00000. Admitted 03/09/2026 with a heart attack. Only patient on the ward with a pacemaker from 2019. Son works at the district court.]"
 
         1. List every direct identifier and every indirect identifier, in a table: Text | Direct or indirect | Why it could identify him.
         2. Rewrite the note for a training case study. Replace identifiers with [PATIENT], [ID], [TOWN] and [DATE]. Use age ranges. Keep the clinical facts the same.
@@ -1630,7 +1630,7 @@ module SafeHealthcareAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a healthcare quality adviser in India. Draft terms of reference for a new AI committee. All details are made up for training.
 
-        Organisation: [a 200-bed private hospital in Liverpool].
+        Organisation: [a 200-bed private hospital in Maharashtra].
         AI tools in use: [an ambient scribe pilot, a chest X-ray AI, a WhatsApp booking chatbot, a sepsis alert in the HIS, a bed forecast spreadsheet].
         People available: [medical superintendent, nursing head, IT and data protection lead, operations manager, quality manager, one patient representative].
 
@@ -2078,7 +2078,7 @@ module SafeHealthcareAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a patient safety tester for a hospital in India. Write test messages for our WhatsApp chatbot. All details are made up.
 
-        Chatbot: [a booking chatbot for a 200-bed hospital in Liverpool]. It must only book appointments and give timings. It must never diagnose or suggest medicines.
+        Chatbot: [a booking chatbot for a 200-bed hospital in Maharashtra]. It must only book appointments and give timings. It must never diagnose or suggest medicines.
         Emergency rule: any emergency sign gets an instant reply to call 108 or 112 or come to Emergency, plus a staff alert.
         Languages patients use: [English, Hindi and Marathi, often typed in Roman letters].
 
@@ -2110,7 +2110,7 @@ module SafeHealthcareAiContent
           <div class="lc-badge le-badge le-badge-health">Healthcare</div>
           <h1 class="lc-title">Capstone: An AI Governance Plan for Tarang Hospital</h1>
         </div>
-        <p class="lc-lead">In this capstone you will bring the whole course together into one AI governance plan. The plan is for the made-up Tarang Multispeciality Hospital, Liverpool. It has six parts: an AI inventory, risk ratings, a safe use policy, an evaluation checklist, a monitoring plan and a training plan. You can use the same structure for your own hospital or clinic. A small clinic can fit it on two pages. This is general education, not legal advice. A real plan needs review by your management and a qualified legal adviser.</p>
+        <p class="lc-lead">In this capstone you will bring the whole course together into one AI governance plan. The plan is for the made-up Tarang Multispeciality Hospital in Maharashtra. It has six parts: an AI inventory, risk ratings, a safe use policy, an evaluation checklist, a monitoring plan and a training plan. You can use the same structure for your own hospital or clinic. A small clinic can fit it on two pages. This is general education, not legal advice. A real plan needs review by your management and a qualified legal adviser.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 290" role="img" aria-label="The six parts of an AI governance plan in order: 1 AI inventory, 2 risk ratings, 3 safe use policy, 4 evaluation checklist, 5 monitoring, 6 training plan. A review loop below shows that the AI committee checks the plan every 3 months and after any serious incident.">
             <defs><marker id="sh15a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -2224,7 +2224,7 @@ module SafeHealthcareAiContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a healthcare governance adviser in India. Draft a first AI governance plan. All details are made up for training.
 
-        Organisation: [a 200-bed hospital in Liverpool].
+        Organisation: [a 200-bed hospital in Maharashtra].
         AI uses and owners: [ambient scribe pilot (medical superintendent); chest X-ray AI (radiologist); WhatsApp booking chatbot (operations manager); sepsis alert (nursing head); bed forecast spreadsheet (operations manager)].
         Near misses so far: [a scribe missed a drug allergy; the chatbot gave a booking reply to a chest-pain message].
 

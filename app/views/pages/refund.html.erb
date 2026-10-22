@@ -1,4 +1,4 @@
-<%= render layout: "pages/page", locals: { title: "Refund and Cancellation Policy", subtitle: "Last updated: 4 October 2026" } do %>
+<%= render layout: "pages/page", locals: { title: "Refund and Cancellation Policy", subtitle: "Last updated: 22 October 2026" } do %>
   <p>This policy explains refunds and cancellations for CoffeeBean AI plans. CoffeeBean AI is owned and operated by <strong><%= COMPANY[:legal_name] %></strong>.</p>
 
   <h2>All sales are final</h2>
@@ -23,5 +23,5 @@
   </ul>
 
   <h2>How to ask for help</h2>
-  <p>Write to <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a> from your account email address. Include your order number (you can find it on the <%= link_to "Pricing", pricing_path %> page under "Your payments"), the date and the amount. We reply within 2 working days. Support hours: <%= COMPANY[:hours] %>.</p>
+  <p>Write to <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a> from your account email address. Include your order number (you can find it on the <%= link_to "Pricing", pricing_path %> page under "Your payments"), the date and the amount. We reply within two working days. Support hours: <%= COMPANY[:hours] %>.</p>
 <% end %>

@@ -501,7 +501,7 @@ module BuildingAiAgentsContent
           <div class="lc-badge le-badge le-badge-agt">Building AI Agents</div>
           <h1 class="lc-title">Messages, Roles and Conversation State</h1>
         </div>
-        <p class="lc-lead">Everything an agent knows is kept in one list: the <strong>messages</strong>. The model is stateless. This means it remembers nothing between calls. So at every step, your loop sends the full list again. The list must follow some rules. If the roles are in the wrong order, or a tool request has no result, the API rejects the list. This lesson shows the exact shape of an agent conversation. It also shows how to check it.</p>
+        <p class="lc-lead">Everything an agent knows is kept in one list: the <strong>messages</strong>. The model is stateless. This means it remembers nothing between calls. So at every step, your loop sends the full list again. The list must follow some rules. If a tool request has no result, the API rejects the list. If the roles are in the wrong order, the API may reject the list or quietly merge messages together. This lesson shows the exact shape of an agent conversation. It also shows how to check it.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 300" role="img" aria-label="A conversation. The system prompt is set on its own. Then the user task. Then assistant text plus tool_use id A. Then a user tool_result for id A. Then the assistant's final text.">
             <g font-family="inherit" font-size="12" fill="#e2e0f0">
@@ -521,7 +521,7 @@ module BuildingAiAgentsContent
             <tbody>
               <tr><td>The system prompt goes in its own <code>system</code> field, not in the list</td><td>It holds the agent's role and rules for every step</td></tr>
               <tr><td>The list starts with a <code>user</code> message</td><td>This message is the task</td></tr>
-              <tr><td><code>user</code> and <code>assistant</code> take turns</td><td>Tool results are sent in <code>user</code> messages, so the turns still switch each time</td></tr>
+              <tr><td><code>user</code> and <code>assistant</code> take turns</td><td>Tool results are sent in <code>user</code> messages, so the turns still switch each time. Some APIs reject two messages in a row with the same role, and others merge them, so do not rely on either</td></tr>
               <tr><td>Add the assistant's reply <strong>unchanged</strong></td><td>The model needs to see its own tool_use blocks (and any thinking) to understand the results</td></tr>
               <tr><td>Every <code>tool_use</code> gets a <code>tool_result</code> in the very next user message</td><td>A request with no answer causes an API error</td></tr>
             </tbody>
@@ -541,7 +541,7 @@ module BuildingAiAgentsContent
         </div>
         <div class="lc-card">
           <h3>Two requests, one reply</h3>
-          <p>The model may ask for several tools in one reply, as in the example above. Run them all. Then send <strong>all</strong> the results together in the next user message. Send one <code>tool_result</code> for each <code>tool_use</code>. If you send them in separate messages, you break the rule that the roles take turns.</p>
+          <p>The model may ask for several tools in one reply, as in the example above. Run them all. Then send <strong>all</strong> the results together in the next user message. Send one <code>tool_result</code> for each <code>tool_use</code>. If you send them in separate messages, you break the rule that the roles take turns. Some APIs reject this, and others merge the two messages. Do not rely on either.</p>
         </div>
         <div class="lc-card">
           <h3>Try It</h3>
@@ -884,7 +884,7 @@ module BuildingAiAgentsContent
           <h3>Try It</h3>
           <ol class="lc-list">
             <li>The starter code is the complete loop. It runs four scripted scenarios: a normal run, a reply that is cut off, a refusal and a model that never finishes.</li>
-            <li>Check the <code>stopped</code> reason and the step count for each one. Then change <code>max_steps</code> for the last scenario to 8. Does the result change? Why not?</li>
+            <li>Check the <code>stopped</code> reason and the step count for each one. Then change <code>max_steps</code> from 4 to 8 and run it again. For "never ends", the step count goes up to 8. Does the <code>stopped</code> reason change? Why not?</li>
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
@@ -975,7 +975,7 @@ module BuildingAiAgentsContent
             <li><strong>Traces that are easy to read.</strong> When the agent makes a mistake, the thought before the bad action usually shows why.</li>
             <li><strong>Grounding.</strong> Observations come from tools, not from memory. So each step builds on facts.</li>
           </ul>
-          <p>Modern models can also <strong>think</strong> before they reply (Claude's extended or adaptive thinking). These thinking blocks do the job of the "Thought". In the Agent Lab, you will see their summaries in the timeline, next to each tool call.</p>
+          <p>Modern models can also <strong>think</strong> before they reply (Claude's extended or adaptive thinking). These thinking blocks do the job of the "Thought". Other models, such as Gemini, can think too. In the Agent Lab, when the model shares a summary of its thinking, you will see it in the timeline, next to each tool call.</p>
         </div>
         <div class="lc-card">
           <h3>Text ReAct vs native tool calling</h3>
@@ -2639,9 +2639,9 @@ module BuildingAiAgentsContent
           <div class="lc-badge le-badge le-badge-agt">Building AI Agents</div>
           <h1 class="lc-title">Capstone Lab: Build and Test an Agent</h1>
         </div>
-        <p class="lc-lead">Now you will build a real agent. In the <strong>Agent Lab</strong>, you write the system prompt and choose tools from a fixed, safe list. Then you give the agent a task. You can watch every step of the run: its thinking, each tool call and result, and the final answer. When AI runs are turned on for this site, the agent runs on Gemini. Either way, you can call every tool by hand and step through a recorded run.</p>
+        <p class="lc-lead">Now you will build a real agent. In the <strong>Agent Lab</strong>, you write the system prompt and choose tools from a fixed, safe list. Then you give the agent a task. You can watch every step of the run: its thinking, each tool call and result, and the final answer. When AI runs are turned on for this site, the agent runs on the AI model the site is set up to use (for example Gemini or Claude). Either way, you can call every tool by hand and step through a recorded run.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 240" role="img" aria-label="How the Agent Lab works. The browser sends the system prompt, the chosen tools and the task. The server checks daily limits. It runs the agent loop with Gemini and the safe tool list on demo data. Then it sends back the timeline.">
+          <svg viewBox="0 0 760 240" role="img" aria-label="How the Agent Lab works. The browser sends the system prompt, the chosen tools and the task. The server checks daily limits. It runs the agent loop with the chosen AI model and the safe tool list on demo data. Then it sends back the timeline.">
             <defs><marker id="a30a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12" fill="#e2e0f0" text-anchor="middle">
               <rect x="10" y="30" width="200" height="180" rx="12" fill="#1f1f44" stroke="#3b82f6"/>
@@ -2651,7 +2651,7 @@ module BuildingAiAgentsContent
               <rect x="280" y="30" width="200" height="180" rx="12" fill="#1f1f44" stroke="#9d5cf6"/>
               <text x="380" y="55" font-weight="700" fill="#c4b5fd">Academy server</text>
               <text x="380" y="85">daily limits (runs,</text><text x="380" y="103">model calls)</text><text x="380" y="130">agent loop, ≤ 8 steps</text><text x="380" y="157">allow-list check</text><text x="380" y="184">validated tool calls</text>
-              <rect x="550" y="20" width="200" height="80" rx="12" fill="#1f1f44" stroke="#f59e0b"/><text x="650" y="52" font-weight="700" fill="#fcd34d">Gemini</text><text x="650" y="74" font-size="11" fill="#9b99b8">decides the next step</text>
+              <rect x="550" y="20" width="200" height="80" rx="12" fill="#1f1f44" stroke="#f59e0b"/><text x="650" y="52" font-weight="700" fill="#fcd34d">AI model</text><text x="650" y="74" font-size="11" fill="#9b99b8">decides the next step</text>
               <rect x="550" y="140" width="200" height="80" rx="12" fill="#1f1f44" stroke="#10b981"/><text x="650" y="168" font-weight="700" fill="#6ee7b7">7 safe tools</text><text x="650" y="190" font-size="11" fill="#9b99b8">pure functions, demo data</text>
             </g>
           </svg>

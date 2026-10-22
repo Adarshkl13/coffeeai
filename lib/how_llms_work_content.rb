@@ -170,7 +170,7 @@ module HowLlmsWorkContent
               <rect x="200" y="20" width="360" height="40" rx="8" fill="#27274e" stroke="#3b82f6"/>
               <text x="380" y="45">I love tokenization!</text>
               <line x1="380" y1="62" x2="380" y2="94" stroke="#9b99b8" stroke-width="1.5" marker-end="url(#lw2a)"/>
-              <text x="470" y="84" font-size="11" fill="#9b99b8">split by the tokenizer</text>
+              <text x="470" y="84" font-size="11" fill="#9b99b8">split by the tokeniser</text>
               <rect x="136" y="100" width="60" height="40" rx="8" fill="#1f1f44" stroke="#8b5cf6"/><text x="166" y="125">I</text>
               <rect x="208" y="100" width="100" height="40" rx="8" fill="#1f1f44" stroke="#10b981"/><text x="258" y="125">·love</text>
               <rect x="320" y="100" width="110" height="40" rx="8" fill="#1f1f44" stroke="#f59e0b"/><text x="375" y="125">·token</text>
@@ -183,11 +183,11 @@ module HowLlmsWorkContent
               <text x="380" y="230" font-size="11" fill="#9b99b8">5 tokens · the model only sees these numbers</text>
             </g>
           </svg>
-          <figcaption>A tokenizer splits text into tokens and gives each one an ID. A dot (·) marks a space that is part of the token. These are the real GPT-2 tokens and IDs. Other tokenizers give different ones.</figcaption>
+          <figcaption>A tokeniser splits text into tokens and gives each one an ID. A dot (·) marks a space that is part of the token. These are the real GPT-2 tokens and IDs. Other tokenisers give different ones.</figcaption>
         </figure>
         <div class="lc-card">
           <h3>Words, characters or tokens?</h3>
-          <p>A <strong>tokenizer</strong> is the program that splits text into tokens. It could split text in three ways:</p>
+          <p>A <strong>tokeniser</strong> is the program that splits text into tokens. It could split text in three ways:</p>
           <table class="lc-table">
             <thead><tr><th>Split into</th><th>"unbelievable" becomes</th><th>Problem</th></tr></thead>
             <tbody>
@@ -196,23 +196,23 @@ module HowLlmsWorkContent
               <tr><td>Subword tokens</td><td><code>un believ able</code> (3 pieces, example)</td><td>A good balance. Common words stay whole. Rare words are split into parts.</td></tr>
             </tbody>
           </table>
-          <p>Modern LLMs use subword tokens. The exact splits depend on the tokenizer. Every model family has its own tokenizer, so the same text can give different tokens.</p>
+          <p>Modern LLMs use subword tokens. The exact splits depend on the tokeniser. Every model family has its own tokeniser, so the same text can give different tokens.</p>
         </div>
         <div class="lc-card">
           <h3>Token IDs</h3>
-          <p>The tokenizer has a fixed list of tokens called the <strong>vocabulary</strong>. Each token in the list has a number, its <strong>token ID</strong>. The model only ever sees these IDs.</p>
+          <p>The tokeniser has a fixed list of tokens called the <strong>vocabulary</strong>. Each token in the list has a number, its <strong>token ID</strong>. The model only ever sees these IDs.</p>
           <ul class="lc-list">
-            <li>The GPT-2 tokenizer, a well-known example, has 50,257 tokens. Many newer models use bigger vocabularies.</li>
+            <li>The GPT-2 tokeniser, a well-known example, has 50,257 tokens. Many newer models use bigger vocabularies.</li>
             <li>A space is often part of the token. So <code>" cat"</code> and <code>"cat"</code> can be two different tokens with different IDs.</li>
             <li>Capital letters matter too. <code>"Cat"</code> and <code>"cat"</code> are usually different tokens.</li>
           </ul>
-          <p>When the model writes, it works the other way. It picks a token ID, and the tokenizer turns the ID back into text.</p>
+          <p>When the model writes, it works the other way. It picks a token ID, and the tokeniser turns the ID back into text.</p>
         </div>
         <div class="lc-card">
           <h3>Languages and code use different numbers of tokens</h3>
           <ul class="lc-list">
-            <li><strong>English:</strong> common words are often one token each. A rough rule for many tokenizers is 1 token for about 4 characters of English.</li>
-            <li><strong>Other languages:</strong> text in Hindi, Tamil or Malayalam often needs more tokens for the same meaning. This happens because many tokenizers learned mostly from English text.</li>
+            <li><strong>English:</strong> common words are often one token each. A rough rule for many tokenisers is 1 token for about 4 characters of English.</li>
+            <li><strong>Other languages:</strong> text in Hindi, Tamil or Malayalam often needs more tokens for the same meaning. This happens because many tokenisers learned mostly from English text.</li>
             <li><strong>Code:</strong> spaces, brackets and symbols all use tokens. Deep indentation can add many tokens.</li>
           </ul>
         </div>
@@ -230,15 +230,15 @@ module HowLlmsWorkContent
         </div>
         <div class="lc-card">
           <h3>Activity: see real tokens</h3>
-          <p>This box runs the real GPT-2 tokenizer in your browser. Other models use other tokenizers, but the idea is the same.</p>
+          <p>This box runs the real GPT-2 tokeniser in your browser. Other models use other tokenisers, but the idea is the same.</p>
           <div class="lcw" data-controller="tokenizer" data-tokenizer-text-value="I love tokenization!"></div>
         </div>
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>In the tokenizer box, type <code>cat</code>, then <code> cat</code> with a space, then <code>Cat</code>. Look at the IDs.</li>
+            <li>In the tokeniser box, type <code>cat</code>, then <code> cat</code> with a space, then <code>Cat</code>. Look at the IDs.</li>
             <li>Type a sentence in English. Then type the same meaning in Hindi or another language you know. Compare the token counts.</li>
-            <li>Run the starter code. It builds a character tokenizer and a tiny subword tokenizer. It also counts UTF-8 bytes and estimates a cost.</li>
+            <li>Run the starter code. It builds a character tokeniser and a tiny subword tokeniser. It also counts UTF-8 bytes and estimates a cost.</li>
             <li>Add a new piece to <code>SUBWORDS</code>, such as <code>"able"</code>, and see how the token count changes.</li>
           </ol>
         </div>
@@ -303,9 +303,9 @@ module HowLlmsWorkContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-llm">How LLMs Work</div>
-          <h1 class="lc-title">Byte-Pair Encoding: Building a Tokenizer</h1>
+          <h1 class="lc-title">Byte-Pair Encoding: Building a Tokeniser</h1>
         </div>
-        <p class="lc-lead">Where does a tokenizer's vocabulary come from? Most LLM tokenizers learn it from text with a method called <strong>byte-pair encoding</strong> (BPE). In this lesson, you will learn the BPE idea step by step. Then you will train a tiny BPE tokenizer yourself in Python.</p>
+        <p class="lc-lead">Where does a tokeniser's vocabulary come from? Most LLM tokenisers learn it from text with a method called <strong>byte-pair encoding</strong> (BPE). In this lesson, you will learn the BPE idea step by step. Then you will train a tiny BPE tokeniser yourself in Python.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 330" role="img" aria-label="The word lowest starts as six single letters. Four merges follow: s plus t, e plus st, o plus w, and l plus ow. At the end the word is two tokens: low and est.">
             <defs><marker id="lw3a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -348,7 +348,7 @@ module HowLlmsWorkContent
             <li>Replace that pair everywhere in the text with the new token.</li>
             <li>Repeat until the vocabulary is the size you want.</li>
           </ol>
-          <p>The tokenizer also saves the list of merges, in order. That list <em>is</em> the trained tokenizer.</p>
+          <p>The tokeniser also saves the list of merges, in order. That list <em>is</em> the trained tokeniser.</p>
         </div>
         <div class="lc-card">
           <h3>A worked example</h3>
@@ -363,18 +363,18 @@ module HowLlmsWorkContent
               <tr><td>4</td><td><code>l</code> + <code>ow</code></td><td>7</td><td>low (5) + lower (2)</td></tr>
             </tbody>
           </table>
-          <p>Common endings like <code>est</code> and common words like <code>low</code> quickly become single tokens. When two pairs have the same count, the program needs a rule to choose. Ours picks by alphabet.</p>
+          <p>Common endings like <code>est</code> and common words like <code>low</code> quickly become single tokens. When two pairs have the same count, the program needs a rule to choose. Ours picks the pair that comes last in alphabetical order, so every run gives the same result.</p>
         </div>
         <div class="lc-card">
           <h3>Vocabulary size and unknown words</h3>
           <ul class="lc-list">
             <li><strong>Each merge adds one token.</strong> You choose how many merges to do, so you choose the vocabulary size.</li>
             <li><strong>A bigger vocabulary</strong> means fewer tokens for the same text. But the model needs a bigger table of token vectors to store them.</li>
-            <li><strong>Real tokenizers</strong> have vocabularies from tens of thousands to a few hundred thousand tokens.</li>
+            <li><strong>Real tokenisers</strong> have vocabularies from tens of thousands to a few hundred thousand tokens.</li>
             <li><strong>Unknown words still work.</strong> A new word is split into smaller known pieces. In the worst case, it becomes single characters.</li>
             <li><strong>Byte-level BPE</strong> starts from the 256 possible byte values instead of letters. Every text, in any language, is made of bytes. So no text is ever unknown.</li>
           </ul>
-          <p>To tokenize new text, the tokenizer uses the saved merges in the same order they were learned.</p>
+          <p>To tokenise new text, the tokeniser uses the saved merges in the same order they were learned.</p>
         </div>
         <div class="lc-card">
           <h3>Activity: train BPE in order</h3>
@@ -394,7 +394,7 @@ module HowLlmsWorkContent
           <h3>Try It</h3>
           <ol class="lc-list">
             <li>Run the starter code. It trains BPE on the four words above and prints each merge.</li>
-            <li>Look at how it tokenizes new words like <code>slowest</code>. It never saw that word, but it still splits it into known pieces.</li>
+            <li>Look at how it tokenises new words like <code>slowest</code>. It never saw that word, but it still splits it into known pieces.</li>
             <li>Change <code>NUM_MERGES</code> to 10. Watch whole words become single tokens.</li>
             <li>Add <code>"slower": 8</code> to the corpus. Which merge comes first now?</li>
           </ol>
@@ -440,7 +440,7 @@ module HowLlmsWorkContent
             pairs = count_pairs(words)
             if not pairs:
                 break                                          # every word is one token now
-            best = max(pairs, key=lambda p: (pairs[p], p))     # ties: pick by alphabet, so runs repeat
+            best = max(pairs, key=lambda p: (pairs[p], p))     # ties: pick the pair last in alphabetical order, so runs repeat
             merges.append(best)
             vocab.append(best[0] + best[1])
             words = {merge(pieces, best): count for pieces, count in words.items()}
@@ -1878,7 +1878,7 @@ module HowLlmsWorkContent
           <p>The <strong>learning rate</strong> is a small number that controls the step size. Too big, and training jumps around. Too small, and it is very slow.</p>
           <ul class="lc-list">
             <li>The model learns from a <strong>batch</strong> (a group of text pieces) at each step, not the whole data at once.</li>
-            <li>Real training uses improved versions of this rule, such as the Adam optimizer. The idea stays the same.</li>
+            <li>Real training uses improved versions of this rule, such as the Adam optimiser. The idea stays the same.</li>
             <li>After pre-training, you have a <strong>base model</strong>. It is very good at continuing text. It is not yet a helpful assistant.</li>
           </ul>
         </div>
@@ -3381,13 +3381,13 @@ module HowLlmsWorkContent
           <div class="lc-badge le-badge le-badge-llm">How LLMs Work</div>
           <h1 class="lc-title">Capstone: Trace a Prompt Through a Tiny Model</h1>
         </div>
-        <p class="lc-lead">In this capstone you will follow one short prompt through every stage of a language model. The prompt is "the cat sat on the". A small Python program will tokenize it, embed it, run one attention step, compute logits, apply softmax and sample the next word. The weights are hand-written, so you can read every number. Real models use the same stages, only much bigger.</p>
+        <p class="lc-lead">In this capstone you will follow one short prompt through every stage of a language model. The prompt is "the cat sat on the". A small Python program will tokenise it, embed it, run one attention step, compute logits, apply softmax and sample the next word. The weights are hand-written, so you can read every number. Real models use the same stages, only much bigger.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 260" role="img" aria-label="The pipeline: text is tokenized into IDs, each ID becomes an embedding, an attention step mixes information between tokens, the result gives logits for every word, softmax with temperature turns them into probabilities, one word is sampled, and it is added to the text to repeat.">
+          <svg viewBox="0 0 760 260" role="img" aria-label="The pipeline: text is tokenised into IDs, each ID becomes an embedding, an attention step mixes information between tokens, the result gives logits for every word, softmax with temperature turns them into probabilities, one word is sampled, and it is added to the text to repeat.">
             <defs><marker id="lw22a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="12.5" fill="#e2e0f0" text-anchor="middle">
               <rect x="10" y="30" width="160" height="56" rx="8" fill="#27274e" stroke="#3b82f6"/><text x="90" y="53">Text</text><text x="90" y="72" font-size="10.5" fill="#9b99b8">"the cat sat on the"</text>
-              <rect x="200" y="30" width="160" height="56" rx="8" fill="#27274e" stroke="#8b5cf6"/><text x="280" y="53">Tokenize</text><text x="280" y="72" font-size="10.5" fill="#9b99b8">[0, 1, 3, 5, 0]</text>
+              <rect x="200" y="30" width="160" height="56" rx="8" fill="#27274e" stroke="#8b5cf6"/><text x="280" y="53">Tokenise</text><text x="280" y="72" font-size="10.5" fill="#9b99b8">[0, 1, 3, 5, 0]</text>
               <rect x="390" y="30" width="160" height="56" rx="8" fill="#27274e" stroke="#22d3ee"/><text x="470" y="53">Embed</text><text x="470" y="72" font-size="10.5" fill="#9b99b8">4 numbers per token</text>
               <rect x="580" y="30" width="170" height="56" rx="8" fill="#27274e" stroke="#ec4899"/><text x="665" y="53">Attention</text><text x="665" y="72" font-size="10.5" fill="#9b99b8">last "the" looks at "on"</text>
               <rect x="580" y="160" width="170" height="56" rx="8" fill="#27274e" stroke="#f59e0b"/><text x="665" y="183">Logits</text><text x="665" y="202" font-size="10.5" fill="#9b99b8">one score per word</text>
@@ -3422,7 +3422,7 @@ module HowLlmsWorkContent
           <table class="lc-table">
             <thead><tr><th>Stage</th><th>In the tiny model</th><th>In a real LLM</th></tr></thead>
             <tbody>
-              <tr><td>Tokenize</td><td>Split on words, look up IDs</td><td>A BPE-style tokenizer with a vocabulary of many thousands of tokens (tokens and BPE lessons)</td></tr>
+              <tr><td>Tokenise</td><td>Split on words, look up IDs</td><td>A BPE-style tokeniser with a vocabulary of many thousands of tokens (tokens and BPE lessons)</td></tr>
               <tr><td>Embed</td><td>4 hand-written numbers per word</td><td>A learned embedding table with long vectors (embeddings lesson)</td></tr>
               <tr><td>Position</td><td>A small bonus for more recent tokens</td><td>Position embeddings or rotary positions (position lesson)</td></tr>
               <tr><td>Attention</td><td>One head, one layer, causal (no future tokens)</td><td>Many heads in many layers, plus feed-forward layers and the residual stream (transformer lessons)</td></tr>

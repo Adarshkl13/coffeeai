@@ -116,7 +116,7 @@ module PhpContent
 
         // 6. print_r() shows arrays in a readable way
         echo "\n--- print_r ---\n";
-        print_r(["Chicago", "New York", "Los Angeles"]);
+        print_r(["Kerala", "Gujarat", "Punjab"]);
       PHP
     },
 
@@ -143,7 +143,7 @@ module PhpContent
             <tbody>
               <tr><td>int</td><td><code>$age = 21;</code></td><td><code>int</code></td><td>Whole numbers. 64-bit on almost every server (the lesson editor is 32-bit)</td></tr>
               <tr><td>float</td><td><code>$cgpa = 8.7;</code></td><td><code>float</code></td><td>Decimals. Not always exact!</td></tr>
-              <tr><td>string</td><td><code>$city = "London";</code></td><td><code>string</code></td><td>Text (Lesson 3)</td></tr>
+              <tr><td>string</td><td><code>$state = "Kerala";</code></td><td><code>string</code></td><td>Text (Lesson 3)</td></tr>
               <tr><td>bool</td><td><code>$isAdmin = false;</code></td><td><code>bool</code></td><td><code>true</code> or <code>false</code></td></tr>
               <tr><td>null</td><td><code>$result = null;</code></td><td><code>null</code></td><td>"No value"</td></tr>
               <tr><td>array</td><td><code>$marks = [90, 85];</code></td><td><code>array</code></td><td>Lists and maps (Lesson 6)</td></tr>
@@ -262,13 +262,13 @@ module PhpContent
               <tr><td>Nowdoc <code>&lt;&lt;&lt;'TXT'</code></td><td>No</td><td>No</td><td>Multi-line fixed text or code samples</td></tr>
             </tbody>
           </table>
-          <p>Inside double quotes, put array items and object properties in braces: <code>"City: {$user['city']}"</code>. Join strings with the dot operator <code>.</code>. Add to the end of a string with <code>.=</code>.</p>
+          <p>Inside double quotes, put array items and object properties in braces: <code>"State: {$user['state']}"</code>. Join strings with the dot operator <code>.</code>. Add to the end of a string with <code>.=</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Worked Example: Interpolation and Heredoc</h3>
-          <div class="lc-code">$name = "Asha";<br>$user = ['city' =&gt; 'Boston', 'marks' =&gt; 91];<br><br>echo 'Hello $name\n', "\n";         // single quotes: literal<br>echo "Hello $name from {$user['city']}\n";<br><br>$msg  = "Marks: ";<br>$msg .= $user['marks'];              // append<br>echo $msg, "\n";<br><br>echo &lt;&lt;&lt;TXT<br>    Dear $name,<br>      You scored {$user['marks']}.<br>    TXT;<br>echo "\n";</div>
+          <div class="lc-code">$name = "Asha";<br>$user = ['state' =&gt; 'Kerala', 'marks' =&gt; 91];<br><br>echo 'Hello $name\n', "\n";         // single quotes: literal<br>echo "Hello $name from {$user['state']}\n";<br><br>$msg  = "Marks: ";<br>$msg .= $user['marks'];              // append<br>echo $msg, "\n";<br><br>echo &lt;&lt;&lt;TXT<br>    Dear $name,<br>      You scored {$user['marks']}.<br>    TXT;<br>echo "\n";</div>
           <p><strong>Output:</strong></p>
-          <div class="lc-code">Hello $name\n<br>Hello Asha from Boston<br>Marks: 91<br>Dear Asha,<br>  You scored 91.</div>
+          <div class="lc-code">Hello $name\n<br>Hello Asha from Kerala<br>Marks: 91<br>Dear Asha,<br>  You scored 91.</div>
           <p>Interpolation means putting a variable's value inside a string. Since PHP 7.3, you can indent the closing heredoc marker. PHP then removes that indentation from every line. So the text lines up neatly in your code.</p>
         </div>
         <div class="lc-card">
@@ -277,7 +277,7 @@ module PhpContent
             <thead><tr><th>Function</th><th>Example</th><th>Result</th></tr></thead>
             <tbody>
               <tr><td><code>strlen</code></td><td><code>strlen("hello")</code></td><td><code>5</code> (bytes)</td></tr>
-              <tr><td><code>strtoupper / strtolower</code></td><td><code>strtoupper("pune")</code></td><td><code>"PUNE"</code></td></tr>
+              <tr><td><code>strtoupper / strtolower</code></td><td><code>strtoupper("kerala")</code></td><td><code>"KERALA"</code></td></tr>
               <tr><td><code>ucfirst / ucwords</code></td><td><code>ucwords("rahul kumar")</code></td><td><code>"Rahul Kumar"</code></td></tr>
               <tr><td><code>trim</code></td><td><code>trim("  hi  ")</code></td><td><code>"hi"</code></td></tr>
               <tr><td><code>str_replace</code></td><td><code>str_replace("-", "", "98-76")</code></td><td><code>"9876"</code></td></tr>
@@ -324,9 +324,9 @@ module PhpContent
               <tr><td>flag <code>u</code></td><td>Treat pattern and text as UTF-8</td><td><code>'/^\p{L}+$/u'</code>: letters in any language</td></tr>
             </tbody>
           </table>
-          <div class="lc-code">$phone  = "98765 43210";<br>$digits = preg_replace('/\D/', '', $phone);          // remove every non-digit<br>echo $digits, "\n";<br>var_dump(preg_match('/^[6-9]\d{9}$/', $digits));     // 1 = matched<br>var_dump(preg_match('/^[6-9]\d{9}$/', "12345"));     // 0 = no match<br><br>if (preg_match('/(\d{5})$/', "Beacon Street, Boston 02108", $m)) {<br>    echo "ZIP code: ", $m[1], "\n";                  // $m[0] = whole match, $m[1] = group 1<br>}<br>echo preg_replace('/\s+/', ' ', "too    many   spaces"), "\n";<br>echo implode(" | ", preg_split('/\s*[,;]\s*/', "PHP, MySQL ;Laravel")), "\n";<br>var_dump(preg_match('/^\p{L}+$/u', "José"), preg_match('/^\w+$/', "José"));</div>
+          <div class="lc-code">$phone  = "98765 43210";<br>$digits = preg_replace('/\D/', '', $phone);          // remove every non-digit<br>echo $digits, "\n";<br>var_dump(preg_match('/^[6-9]\d{9}$/', $digits));     // 1 = matched<br>var_dump(preg_match('/^[6-9]\d{9}$/', "12345"));     // 0 = no match<br><br>if (preg_match('/(\d{6})$/', "MG Road, Kerala 695001", $m)) {<br>    echo "PIN code: ", $m[1], "\n";                  // $m[0] = whole match, $m[1] = group 1<br>}<br>echo preg_replace('/\s+/', ' ', "too    many   spaces"), "\n";<br>echo implode(" | ", preg_split('/\s*[,;]\s*/', "PHP, MySQL ;Laravel")), "\n";<br>var_dump(preg_match('/^\p{L}+$/u', "José"), preg_match('/^\w+$/', "José"));</div>
           <p><strong>Output:</strong></p>
-          <div class="lc-code">9876543210<br>int(1)<br>int(0)<br>ZIP code: 02108<br>too many spaces<br>PHP | MySQL | Laravel<br>int(1)<br>int(0)</div>
+          <div class="lc-code">9876543210<br>int(1)<br>int(0)<br>PIN code: 695001<br>too many spaces<br>PHP | MySQL | Laravel<br>int(1)<br>int(0)</div>
           <ul class="lc-list">
             <li><code>preg_match()</code> returns <code>1</code> (found), <code>0</code> (not found) or <code>false</code> (broken pattern). Matches go into the optional third argument.</li>
             <li><code>preg_match_all()</code> finds <em>every</em> match. <code>preg_replace()</code> replaces them. <code>preg_split()</code> splits the text at them.</li>
@@ -339,7 +339,7 @@ module PhpContent
             <li><code>if (strpos($s, "a"))</code> is false when "a" is at position <strong>0</strong>. Use <code>str_contains()</code>, or compare with <code>!== false</code>.</li>
             <li>Using <code>+</code> to join strings. That is addition. Use <code>.</code>.</li>
             <li>Cutting user names with <code>substr()</code>. It can break a multi-byte character and print "�". Use <code>mb_substr()</code>.</li>
-            <li>Writing <code>"{$user[city]}"</code> without quotes inside the braces. Use <code>{$user['city']}</code>.</li>
+            <li>Writing <code>"{$user[state]}"</code> without quotes inside the braces. Use <code>{$user['state']}</code>.</li>
             <li>Forgetting <code>^</code> and <code>$</code> in a checking regex. Then <code>'/[6-9]\d{9}/'</code> also accepts "abc98765432101xyz".</li>
           </ul>
         </div>
@@ -357,7 +357,7 @@ module PhpContent
 
         $first = "priya";
         $last  = "SHARMA";
-        $city  = "San Francisco";
+        $state = "Kerala";
 
         // Build a full name: fix the case, then join with a dot
         $fullName = ucfirst($first) . " " . ucfirst(strtolower($last));
@@ -366,7 +366,7 @@ module PhpContent
 
         // Interpolation with braces for array items
         $student = ['roll' => 7, 'marks' => 87.456];
-        echo "Roll {$student['roll']} lives in $city\n";
+        echo "Roll {$student['roll']} lives in $state\n";
 
         // Search functions
         $email = "priya.sharma@example.in";
@@ -391,8 +391,8 @@ module PhpContent
         $mobile = preg_replace('/\D/', '', "+91 98450-12345");
         $mobile = substr($mobile, -10);                      // keep the last 10 digits
         echo "Mobile $mobile valid? ", preg_match('/^[6-9]\d{9}$/', $mobile) ? "yes" : "no", "\n";
-        preg_match('/(\d{5})$/', "Mission District, San Francisco 94110", $m);
-        echo "ZIP: {$m[1]} | Words: ", implode("/", preg_split('/\s+/', "learn   PHP  fast")), "\n";
+        preg_match('/(\d{6})$/', "Station Road, Gujarat 380001", $m);
+        echo "PIN: {$m[1]} | Words: ", implode("/", preg_split('/\s+/', "learn   PHP  fast")), "\n";
 
         // Heredoc template
         echo <<<MSG
@@ -650,7 +650,7 @@ module PhpContent
         <p class="lc-lead">PHP has one array type. It works as both a <strong>list</strong> and a <strong>dictionary/map</strong> (pairs of keys and values). Database rows, form data, JSON and settings all come as arrays. So knowing arrays well is the most useful skill in everyday PHP.</p>
         <div class="lc-card">
           <h3>Three Shapes of Array</h3>
-          <div class="lc-code">// 1. Indexed (a list): keys 0, 1, 2... are added for you<br>$cities = ["Chicago", "New York", "Philadelphia"];<br>echo $cities[0];              // Chicago<br><br>// 2. Associative (a map): you choose string keys<br>$student = ["name" =&gt; "Meera", "age" =&gt; 20, "course" =&gt; "BCA"];<br>echo $student["course"];      // BCA<br><br>// 3. Nested: arrays inside arrays - like rows of a table<br>$class = [<br>    ["name" =&gt; "Meera", "marks" =&gt; 91],<br>    ["name" =&gt; "Farhan", "marks" =&gt; 84],<br>];<br>echo $class[1]["name"];       // Farhan</div>
+          <div class="lc-code">// 1. Indexed (a list): keys 0, 1, 2... are added for you<br>$states = ["Kerala", "Gujarat", "Punjab"];<br>echo $states[0];              // Kerala<br><br>// 2. Associative (a map): you choose string keys<br>$student = ["name" =&gt; "Meera", "age" =&gt; 20, "course" =&gt; "BCA"];<br>echo $student["course"];      // BCA<br><br>// 3. Nested: arrays inside arrays - like rows of a table<br>$class = [<br>    ["name" =&gt; "Meera", "marks" =&gt; 91],<br>    ["name" =&gt; "Farhan", "marks" =&gt; 84],<br>];<br>echo $class[1]["name"];       // Farhan</div>
           <p>Always use the short <code>[ ]</code> syntax. The old <code>array( )</code> form still works, but modern code does not use it.</p>
         </div>
         <div class="lc-card">
@@ -658,8 +658,8 @@ module PhpContent
           <table class="lc-table">
             <thead><tr><th>Task</th><th>Code</th><th>Notes</th></tr></thead>
             <tbody>
-              <tr><td>Add to end</td><td><code>$cities[] = "London";</code></td><td>Fastest and most common</td></tr>
-              <tr><td>Add / change by key</td><td><code>$student["city"] = "Manchester";</code></td><td>Replaces the value if the key exists</td></tr>
+              <tr><td>Add to end</td><td><code>$states[] = "Assam";</code></td><td>Fastest and most common</td></tr>
+              <tr><td>Add / change by key</td><td><code>$student["state"] = "Goa";</code></td><td>Replaces the value if the key exists</td></tr>
               <tr><td>Remove last / first</td><td><code>array_pop($a)</code> / <code>array_shift($a)</code></td><td>Return the removed item</td></tr>
               <tr><td>Add to start</td><td><code>array_unshift($a, "x")</code></td><td>Numbers the list again</td></tr>
               <tr><td>Delete by key</td><td><code>unset($a[1]);</code></td><td>Leaves a <strong>gap</strong> in the keys</td></tr>
@@ -716,18 +716,18 @@ module PhpContent
         // Lesson 6: Arrays
 
         // Indexed array (list)
-        $cities = ["Chicago", "New York", "Philadelphia"];
-        $cities[] = "Los Angeles";              // add to the end
-        echo "First city: {$cities[0]}, total: " . count($cities) . "\n";
+        $states = ["Kerala", "Gujarat", "Punjab"];
+        $states[] = "Assam";                    // add to the end
+        echo "First state: {$states[0]}, total: " . count($states) . "\n";
 
         // Associative array (map)
         $student = ["name" => "Meera", "age" => 20, "course" => "BCA"];
-        $student["city"] = "Manchester";        // add a new key
-        echo "{$student['name']} studies {$student['course']} in {$student['city']}\n";
+        $student["state"] = "Goa";              // add a new key
+        echo "{$student['name']} studies {$student['course']} in {$student['state']}\n";
 
         // Safe reading of a key that may not exist
         echo "Phone: " . ($student["phone"] ?? "not given") . "\n";
-        var_dump(in_array("New York", $cities, true));
+        var_dump(in_array("Gujarat", $states, true));
 
         // Nested array: a small "table"
         $class = [
@@ -751,8 +751,8 @@ module PhpContent
         print_r($scores);
 
         // Remove, then re-number
-        unset($cities[1]);
-        print_r(array_values($cities));
+        unset($states[1]);
+        print_r(array_values($states));
       PHP
     },
 
@@ -797,7 +797,7 @@ module PhpContent
             <tbody>
               <tr><td><code>array_sum / max / min</code></td><td><code>max([4, 9, 2])</code></td><td><code>9</code></td></tr>
               <tr><td><code>array_keys / array_values</code></td><td><code>array_keys(['a' =&gt; 1, 'b' =&gt; 2])</code></td><td><code>['a', 'b']</code></td></tr>
-              <tr><td><code>array_search</code></td><td><code>array_search('London', $cities, true)</code></td><td>Key of the item, or <code>false</code></td></tr>
+              <tr><td><code>array_search</code></td><td><code>array_search('Kerala', $states, true)</code></td><td>Key of the item, or <code>false</code></td></tr>
               <tr><td><code>array_unique</code></td><td><code>array_unique([1, 2, 2, 3])</code></td><td><code>[0 =&gt; 1, 1 =&gt; 2, 3 =&gt; 3]</code></td></tr>
               <tr><td><code>array_slice</code></td><td><code>array_slice($top, 0, 3)</code></td><td>First 3 items (for example a "Top 3")</td></tr>
               <tr><td><code>array_combine</code></td><td><code>array_combine(['a', 'b'], [1, 2])</code></td><td><code>['a' =&gt; 1, 'b' =&gt; 2]</code></td></tr>
@@ -896,9 +896,9 @@ module PhpContent
         <div class="lc-card">
           <h3>Named Arguments (PHP 8.0+)</h3>
           <p>You can pass arguments by <strong>parameter name</strong>. This lets you skip optional parameters. It also makes calls easy to understand.</p>
-          <div class="lc-code">function makeTicket(string $from, string $to, int $seats = 1,<br>                    string $class = "Sleeper", bool $tatkal = false): string<br>{<br>    $type = $tatkal ? "Tatkal" : "General";<br>    return "$from-$to, $seats seat(s), $class, $type";<br>}<br><br>echo makeTicket("London", "Denver"), "\n";<br>echo makeTicket("London", "Denver", tatkal: true), "\n";<br>echo makeTicket(to: "Miami", from: "New York", class: "3AC"), "\n";<br>echo str_pad("7", 3, pad_type: STR_PAD_LEFT, pad_string: "0"), "\n";</div>
+          <div class="lc-code">function makeTicket(string $from, string $to, int $seats = 1,<br>                    string $class = "Sleeper", bool $tatkal = false): string<br>{<br>    $type = $tatkal ? "Tatkal" : "General";<br>    return "$from-$to, $seats seat(s), $class, $type";<br>}<br><br>echo makeTicket("Kerala", "Goa"), "\n";<br>echo makeTicket("Kerala", "Goa", tatkal: true), "\n";<br>echo makeTicket(to: "Punjab", from: "Assam", class: "3AC"), "\n";<br>echo str_pad("7", 3, pad_type: STR_PAD_LEFT, pad_string: "0"), "\n";</div>
           <p><strong>Output:</strong></p>
-          <div class="lc-code">London-Denver, 1 seat(s), Sleeper, General<br>London-Denver, 1 seat(s), Sleeper, Tatkal<br>New York-Miami, 1 seat(s), 3AC, General<br>007</div>
+          <div class="lc-code">Kerala-Goa, 1 seat(s), Sleeper, General<br>Kerala-Goa, 1 seat(s), Sleeper, Tatkal<br>Assam-Punjab, 1 seat(s), 3AC, General<br>007</div>
           <p>Named arguments also work with built-in functions. Positional arguments (given by order) must come <em>before</em> named ones.</p>
         </div>
         <div class="lc-card">
@@ -941,7 +941,7 @@ module PhpContent
           <p>Write <code>emi(float $principal, float $annualRate, int $months): float</code>. Use the formula <code>P × r × (1 + r)^n / ((1 + r)^n − 1)</code>, where <code>r</code> is the monthly rate. Call it with named arguments for a Rs 5,00,000 loan at 9% for 60 months. The answer is about Rs 10,379 per month.</p>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> If a function has more than three optional parameters, callers should use named arguments. <code>makeTicket("London", "Miami", tatkal: true)</code> is much clearer than <code>makeTicket("London", "Miami", 1, "Sleeper", true)</code>.
+          <strong>Tip:</strong> If a function has more than three optional parameters, callers should use named arguments. <code>makeTicket("Kerala", "Punjab", tatkal: true)</code> is much clearer than <code>makeTicket("Kerala", "Punjab", 1, "Sleeper", true)</code>.
         </div>
       HTML
       starter_code: <<~'PHP'
@@ -980,9 +980,9 @@ module PhpContent
         echo greet(greeting: "Namaskar", name: "Suresh") . "\n";
 
         echo "\n--- Named arguments ---\n";
-        echo makeTicket("London", "Denver") . "\n";
-        echo makeTicket("London", "Denver", tatkal: true) . "\n";
-        echo makeTicket(from: "New York", to: "Miami", seats: 2, class: "3AC") . "\n";
+        echo makeTicket("Kerala", "Goa") . "\n";
+        echo makeTicket("Kerala", "Goa", tatkal: true) . "\n";
+        echo makeTicket(from: "Assam", to: "Punjab", seats: 2, class: "3AC") . "\n";
 
         echo "\n--- Variadics ---\n";
         echo "Average: " . average(70, 80, 90) . "\n";
@@ -1227,11 +1227,11 @@ module PhpContent
         echo "double(7) = ", $double(7), ", triple(7) = ", $triple(7), "\n";
 
         // 5. First-class callable syntax (PHP 8.1+)
-        $cities = ["  pune ", "KOCHI", " surat"];
-        $clean = array_map(trim(...), $cities);
+        $states = ["  kerala ", "GOA", " assam"];
+        $clean = array_map(trim(...), $states);
         $clean = array_map(strtolower(...), $clean);
         $clean = array_map(ucfirst(...), $clean);
-        echo "Cities: ", implode(", ", $clean), "\n";
+        echo "States: ", implode(", ", $clean), "\n";
 
         // 6. Passing callables to your own function
         function applyTwice(callable $fn, int $value): int
@@ -1906,7 +1906,7 @@ module PhpContent
           <table class="lc-table">
             <thead><tr><th>Branch</th><th>Common classes</th><th>Meaning</th></tr></thead>
             <tbody>
-              <tr><td><code>Throwable</code> (interface)</td><td>—</td><td>Catches both branches below</td></tr>
+              <tr><td><code>Throwable</code> (interface)</td><td>n/a</td><td>Catches both branches below</td></tr>
               <tr><td><code>Error</code></td><td><code>TypeError</code>, <code>ValueError</code>, <code>ArgumentCountError</code>, <code>DivisionByZeroError</code>, <code>UnhandledMatchError</code></td><td>Programming bugs that PHP itself finds. Usually you fix the code and do not catch them</td></tr>
               <tr><td><code>Exception</code></td><td><code>RuntimeException</code>, <code>LogicException</code>, <code>InvalidArgumentException</code>, <code>DomainException</code>, <code>JsonException</code></td><td>Problems your program can expect and handle</td></tr>
             </tbody>
@@ -2055,7 +2055,7 @@ module PhpContent
         </div>
         <div class="lc-card">
           <h3>Files (on Your Own Server)</h3>
-          <p>The lesson editor has no disk, so try these on your computer with <code>php file.php</code>.</p>
+          <p>The lesson editor only has a short-lived temporary folder (Lessons 18 and 20 use it). It has no <code>data/</code> folder and nothing is kept between runs, so try these on your computer with <code>php file.php</code>.</p>
           <div class="lc-code">$path = __DIR__ . '/data/orders.json';            // build paths from __DIR__<br><br>file_put_contents($path, json_encode($orders), LOCK_EX);      // write (creates file)<br>file_put_contents(__DIR__ . '/app.log', "Saved\n", FILE_APPEND | LOCK_EX);<br><br>if (is_readable($path)) {<br>    $orders = json_decode(file_get_contents($path), true, flags: JSON_THROW_ON_ERROR);<br>}<br><br>$fh = fopen(__DIR__ . '/big.csv', 'r');             // large files: line by line<br>while (($row = fgetcsv($fh, escape: '')) !== false) {<br>    echo $row[0], PHP_EOL;<br>}<br>fclose($fh);</div>
           <p>Put a loop like this inside a generator (Lesson 15). Then the rest of your code can <code>foreach</code> over a huge file without loading it all.</p>
           <p><strong>Security:</strong> never build a file path directly from user input (<code>"uploads/" . $_GET['file']</code>). A visitor could send <code>../../config.php</code>. Use <code>basename()</code> and an allow-list (a list of files that are allowed).</p>
@@ -2566,7 +2566,7 @@ module PhpContent
         </div>
         <div class="lc-card">
           <h3>Prepared Statements: The Fix</h3>
-          <div class="lc-code">// Positional placeholders<br>$stmt = $pdo-&gt;prepare('SELECT id, name FROM users WHERE email = ?');<br>$stmt-&gt;execute([$email]);<br>$user = $stmt-&gt;fetch();                 // one row, or false if none<br><br>// Named placeholders<br>$stmt = $pdo-&gt;prepare('INSERT INTO users (name, email, city) VALUES (:name, :email, :city)');<br>$stmt-&gt;execute(['name' =&gt; 'Riya', 'email' =&gt; 'riya@example.in', 'city' =&gt; 'London']);<br>$newId = (int) $pdo-&gt;lastInsertId();<br><br>// Other fetch methods<br>$all   = $pdo-&gt;query('SELECT name FROM users ORDER BY name')-&gt;fetchAll();<br>$count = $pdo-&gt;query('SELECT COUNT(*) FROM users')-&gt;fetchColumn();</div>
+          <div class="lc-code">// Positional placeholders<br>$stmt = $pdo-&gt;prepare('SELECT id, name FROM users WHERE email = ?');<br>$stmt-&gt;execute([$email]);<br>$user = $stmt-&gt;fetch();                 // one row, or false if none<br><br>// Named placeholders<br>$stmt = $pdo-&gt;prepare('INSERT INTO users (name, email, state) VALUES (:name, :email, :state)');<br>$stmt-&gt;execute(['name' =&gt; 'Riya', 'email' =&gt; 'riya@example.in', 'state' =&gt; 'Kerala']);<br>$newId = (int) $pdo-&gt;lastInsertId();<br><br>// Other fetch methods<br>$all   = $pdo-&gt;query('SELECT name FROM users ORDER BY name')-&gt;fetchAll();<br>$count = $pdo-&gt;query('SELECT COUNT(*) FROM users')-&gt;fetchColumn();</div>
           <p>The SQL text and the <strong>values</strong> are sent separately. So a value can never change the structure of the query. <code>' OR '1'='1</code> is treated as a strange email address, nothing more.</p>
         </div>
         <div class="lc-card">
@@ -2575,7 +2575,7 @@ module PhpContent
           <table class="lc-table">
             <thead><tr><th>Part of the query</th><th>Can it be a placeholder?</th><th>Safe approach</th></tr></thead>
             <tbody>
-              <tr><td>Values: <code>WHERE city = ?</code></td><td>Yes</td><td>Bind it (pass it as a separate value)</td></tr>
+              <tr><td>Values: <code>WHERE state = ?</code></td><td>Yes</td><td>Bind it (pass it as a separate value)</td></tr>
               <tr><td>Column or table names, <code>ORDER BY name</code>, <code>ASC/DESC</code></td><td>No</td><td>Pick from an <strong>allow-list</strong> of known names</td></tr>
               <tr><td><code>IN (...)</code> lists</td><td>One placeholder per item</td><td>Generate <code>?, ?, ?</code> with <code>array_fill</code></td></tr>
               <tr><td><code>LIMIT</code> numbers</td><td>Yes (with real prepares), or convert with <code>(int)</code></td><td>Bind as int / check the range</td></tr>
@@ -2589,10 +2589,10 @@ module PhpContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: Building a Safe Query</h3>
-          <div class="lc-code">function searchQuery(array $cities, string $sort): array<br>{<br>    $orderBy = match ($sort) {                 // allow-list<br>        'name'   =&gt; 'name ASC',<br>        'newest' =&gt; 'created_at DESC',<br>        default  =&gt; 'id ASC',<br>    };<br>    $marks = implode(', ', array_fill(0, count($cities), '?'));<br>    $sql = "SELECT id, name FROM users WHERE city IN ($marks) ORDER BY $orderBy";<br>    return [$sql, $cities];<br>}<br><br>[$sql, $params] = searchQuery(['London', 'Miami'], 'name; DROP TABLE users');<br>echo $sql, "\n", json_encode($params), "\n";</div>
+          <div class="lc-code">function searchQuery(array $states, string $sort): array<br>{<br>    $orderBy = match ($sort) {                 // allow-list<br>        'name'   =&gt; 'name ASC',<br>        'newest' =&gt; 'created_at DESC',<br>        default  =&gt; 'id ASC',<br>    };<br>    $marks = implode(', ', array_fill(0, count($states), '?'));<br>    $sql = "SELECT id, name FROM users WHERE state IN ($marks) ORDER BY $orderBy";<br>    return [$sql, $states];<br>}<br><br>[$sql, $params] = searchQuery(['Kerala', 'Punjab'], 'name; DROP TABLE users');<br>echo $sql, "\n", json_encode($params), "\n";</div>
           <p><strong>Output:</strong></p>
-          <div class="lc-code">SELECT id, name FROM users WHERE city IN (?, ?) ORDER BY id ASC<br>["London","Miami"]</div>
-          <p>The attack in <code>$sort</code> never reaches the SQL. The cities are sent separately as parameters: <code>$pdo-&gt;prepare($sql)-&gt;execute($params)</code>.</p>
+          <div class="lc-code">SELECT id, name FROM users WHERE state IN (?, ?) ORDER BY id ASC<br>["Kerala","Punjab"]</div>
+          <p>The attack in <code>$sort</code> never reaches the SQL. The state names are sent separately as parameters: <code>$pdo-&gt;prepare($sql)-&gt;execute($params)</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -2626,7 +2626,7 @@ module PhpContent
         echo "SQL:    SELECT * FROM users WHERE email = ?\n";
         echo "Params: ", json_encode([$attack]), "  <- just data, cannot change the SQL\n";
 
-        function searchQuery(array $cities, string $sort, int $limit): array
+        function searchQuery(array $states, string $sort, int $limit): array
         {
             $orderBy = match ($sort) {                 // identifiers: allow-list only
                 'name'   => 'name ASC',
@@ -2634,19 +2634,19 @@ module PhpContent
                 default  => 'id ASC',
             };
             $limit = max(1, min($limit, 50));          // validate numbers
-            $marks = implode(', ', array_fill(0, count($cities), '?'));
-            $sql = "SELECT id, name, city FROM users WHERE city IN ($marks) "
+            $marks = implode(', ', array_fill(0, count($states), '?'));
+            $sql = "SELECT id, name, state FROM users WHERE state IN ($marks) "
                  . "ORDER BY $orderBy LIMIT $limit";
-            return [$sql, array_values($cities)];
+            return [$sql, array_values($states)];
         }
 
         $requests = [
-            [['London', 'Miami'], 'name', 10],
-            [['Chicago'], 'newest', 500],
-            [['Birmingham', 'Boston', 'Washington, D.C.'], 'name; DROP TABLE users', 5],
+            [['Kerala', 'Punjab'], 'name', 10],
+            [['Gujarat'], 'newest', 500],
+            [['Goa', 'Assam', 'Jammu and Kashmir'], 'name; DROP TABLE users', 5],
         ];
-        foreach ($requests as [$cities, $sort, $limit]) {
-            [$sql, $params] = searchQuery($cities, $sort, $limit);
+        foreach ($requests as [$states, $sort, $limit]) {
+            [$sql, $params] = searchQuery($states, $sort, $limit);
             echo "\nSQL:    $sql\n";
             echo "Params: ", json_encode($params), "\n";
         }

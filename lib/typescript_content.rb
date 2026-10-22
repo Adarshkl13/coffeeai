@@ -9,7 +9,7 @@ module TypescriptContent
         <p class="lc-lead">TypeScript is <strong>JavaScript with a type system</strong>. A type says what kind of data a value is, such as a number or text. You describe the type of each variable, parameter and object. Then the TypeScript compiler (the tool that checks and converts your code) checks your code <em>before it runs</em>. It finds typos and wrong values while you type.</p>
         <div class="lc-card">
           <h3>A Bug TypeScript Catches</h3>
-          <div class="lc-code">function totalPrice(price: number, qty: number): number {<br>&nbsp;&nbsp;return price * qty;<br>}<br><br>totalPrice("250", 2);<br>// Error: Argument of type 'string' is not assignable to parameter of type 'number'.<br><br>const user = { name: "Asha", city: "London" };<br>console.log(user.nmae);<br>// Error: Property 'nmae' does not exist on type '{ name: string; city: string; }'.</div>
+          <div class="lc-code">function totalPrice(price: number, qty: number): number {<br>&nbsp;&nbsp;return price * qty;<br>}<br><br>totalPrice("250", 2);<br>// Error: Argument of type 'string' is not assignable to parameter of type 'number'.<br><br>const user = { name: "Asha", state: "Kerala" };<br>console.log(user.nmae);<br>// Error: Property 'nmae' does not exist on type '{ name: string; state: string; }'.</div>
           <p>In plain JavaScript, both lines run. The first line quietly gives <code>500</code> through coercion (JavaScript changes the string to a number). Note that <code>"250" + 2</code> would give the string <code>"2502"</code>. The second line prints <code>undefined</code>. The bug shows up later, far from where it started. TypeScript reports it at once, with the line number.</p>
         </div>
         <div class="lc-card">
@@ -45,7 +45,7 @@ module TypescriptContent
           <h3>Setting Up a Project</h3>
           <div class="lc-code">npm install -D typescript      # install the compiler in the project<br>npx tsc --init                 # create tsconfig.json with recommended settings<br>npx tsc                        # type-check and write .js files<br>npx tsc --noEmit               # only type-check (common with Vite and other bundlers)</div>
           <ul class="lc-list">
-            <li>The current version is <strong>TypeScript 7.0</strong> (July 2026). Its compiler was rewritten in Go. It is often about <strong>10× faster</strong> than TypeScript 6.0. The command is still <code>tsc</code>.</li>
+            <li>This course uses <strong>TypeScript 7</strong>, the version whose compiler was rewritten in Go (at the time of writing; check typescriptlang.org for the latest release). It is often about <strong>10× faster</strong> than TypeScript 6.0. The command is still <code>tsc</code>.</li>
             <li>Since TypeScript 6.0, <code>strict</code> mode is <strong>on by default</strong>. These are the checks this course uses (Lesson 18 covers <code>tsconfig.json</code>).</li>
             <li>Node.js (22.18+ and 23.6+) can run <code>.ts</code> files directly with <code>node app.ts</code>. It does this by removing the types. It does <strong>not</strong> type-check, so you still run <code>tsc --noEmit</code>.</li>
           </ul>
@@ -118,9 +118,9 @@ module TypescriptContent
         // tsc: Argument of type 'string' is not assignable to parameter of type 'number'.
 
         // An object type: TypeScript knows exactly which properties exist
-        type Student = { name: string; city: string; marks: number };
-        const student: Student = { name: "Asha", city: "London", marks: 88 };
-        console.log(`${student.name} from ${student.city} scored ${student.marks}`);
+        type Student = { name: string; state: string; marks: number };
+        const student: Student = { name: "Asha", state: "Kerala", marks: 88 };
+        console.log(`${student.name} from ${student.state} scored ${student.marks}`);
         // console.log(student.nmae);
         // tsc: Property 'nmae' does not exist on type 'Student'.
 
@@ -146,7 +146,7 @@ module TypescriptContent
           <table class="lc-table">
             <thead><tr><th>Type</th><th>Example values</th><th>Notes</th></tr></thead>
             <tbody>
-              <tr><td><code>string</code></td><td><code>"Chicago"</code>, <code>`Hi ${name}`</code></td><td>all text</td></tr>
+              <tr><td><code>string</code></td><td><code>"Assam"</code>, <code>`Hi ${name}`</code></td><td>all text</td></tr>
               <tr><td><code>number</code></td><td><code>42</code>, <code>3.5</code>, <code>NaN</code></td><td>integers and decimals together</td></tr>
               <tr><td><code>boolean</code></td><td><code>true</code>, <code>false</code></td><td></td></tr>
               <tr><td><code>bigint</code></td><td><code>9007199254740993n</code></td><td>very large integers (needs target ES2020+)</td></tr>
@@ -159,7 +159,7 @@ module TypescriptContent
         </div>
         <div class="lc-card">
           <h3>Annotations vs Inference</h3>
-          <div class="lc-code">let city: string = "Los Angeles";   // explicit annotation<br>let zip = 90012;                    // inferred: number<br><br>zip = "90012";<br>// Error: Type 'string' is not assignable to type 'number'.</div>
+          <div class="lc-code">let state: string = "Goa";   // explicit annotation<br>let pin = 560001;                    // inferred: number<br><br>pin = "560001";<br>// Error: Type 'string' is not assignable to type 'number'.</div>
           <p>When you give a variable a starting value, TypeScript already knows its type. Writing the type again only adds clutter. Good places for annotations (type labels):</p>
           <ul class="lc-list">
             <li><strong>Function parameters</strong>: TypeScript cannot guess what callers will pass.</li>
@@ -240,13 +240,13 @@ module TypescriptContent
       HTML
       starter_code: <<~'TS'
         // Lesson 2: primitive types and type inference
-        const city: string = "Los Angeles";  // explicit annotation
-        let zip = 90012;                     // inferred: number
+        const state: string = "Goa";  // explicit annotation
+        let pin = 560001;                     // inferred: number
         const isMetro = true;                // inferred: true (a literal type)
         const big: bigint = 9007199254740993n;
         let middleName: string | null = null; // null must be allowed explicitly
 
-        console.log("city:", city, "| zip:", zip, "| metro:", isMetro);
+        console.log("state:", state, "| pin:", pin, "| metro:", isMetro);
         console.log("bigint + 1n =", (big + 1n).toString());
         middleName = "Kumar";
         console.log("middle name:", middleName.toUpperCase());
@@ -274,7 +274,7 @@ module TypescriptContent
         function logLine(message: string): void {
           console.log("> " + message);
         }
-        logLine("types are erased at runtime: typeof city = " + typeof city);
+        logLine("types are erased at runtime: typeof state = " + typeof state);
       TS
     },
 
@@ -305,7 +305,7 @@ module TypescriptContent
           <h3>Tuples</h3>
           <p>A tuple has a <strong>fixed length</strong> and one type for each position:</p>
           <div class="lc-code">let entry: [string, number] = ["Asha", 88];<br>entry = [88, "Asha"];<br>// Error: Type 'number' is not assignable to type 'string'.<br><br>const [student, score] = entry;   // student: string, score: number</div>
-          <p><strong>Labeled tuples</strong> add names that show in editor hints. A <code>?</code> marks optional positions at the end:</p>
+          <p><strong>Labelled tuples</strong> add names that show in editor hints. A <code>?</code> marks optional positions at the end:</p>
           <div class="lc-code">type Point = [x: number, y: number];<br>type Contact = [name: string, phone: string, email?: string];<br><br>const a: Contact = ["Ravi", "98765 43210"];                  // OK<br>const b: Contact = ["Meera", "91234 56789", "m@example.in"]; // OK</div>
           <p>A <code>readonly [number, number]</code> tuple cannot be changed after you create it. This is good for coordinates.</p>
         </div>
@@ -358,9 +358,9 @@ module TypescriptContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>Add a labeled tuple type <code>Rgb</code> for a colour and print one.</li>
+            <li>Add a labelled tuple type <code>Rgb</code> for a colour and print one.</li>
             <li>Give <code>minMax</code> in the starter a third result: the average.</li>
-            <li>Uncomment the <code>push</code> into <code>readonlyCities</code>. It still runs here, but read the error <code>tsc</code> would give.</li>
+            <li>Uncomment the <code>push</code> into <code>readonlyStates</code>. It still runs here, but read the error <code>tsc</code> would give.</li>
           </ol>
         </div>
         <div class="lc-card">
@@ -389,9 +389,9 @@ module TypescriptContent
         function average(values: readonly number[]): number {
           return values.reduce((a, b) => a + b, 0) / values.length;
         }
-        const readonlyCities: readonly string[] = ["London", "Boston"];
-        // readonlyCities.push("Washington, D.C."); // tsc: Property 'push' does not exist on type 'readonly string[]'.
-        console.log("Average:", average(marks).toFixed(1), "| cities:", readonlyCities.join(", "));
+        const readonlyStates: readonly string[] = ["Kerala", "Punjab"];
+        // readonlyStates.push("Odisha"); // tsc: Property 'push' does not exist on type 'readonly string[]'.
+        console.log("Average:", average(marks).toFixed(1), "| states:", readonlyStates.join(", "));
 
         // Tuples: fixed length, one type per position
         type Contact = [name: string, phone: string, email?: string];
@@ -403,7 +403,7 @@ module TypescriptContent
           console.log(`${person}: ${phone} | ${email ?? "no email"}`);
         }
 
-        // A function returning a labeled tuple
+        // A function returning a labelled tuple
         function minMax(values: readonly number[]): [min: number, max: number] {
           return [Math.min(...values), Math.max(...values)];
         }
@@ -447,7 +447,7 @@ module TypescriptContent
         </div>
         <div class="lc-card">
           <h3>Nested Types</h3>
-          <div class="lc-code">type Address = { city: string; zip: string };<br>type Customer = {<br>&nbsp;&nbsp;name: string;<br>&nbsp;&nbsp;address: Address;          // reuse another alias<br>&nbsp;&nbsp;orders: { id: number; total: number }[];<br>};</div>
+          <div class="lc-code">type Address = { state: string; pin: string };<br>type Customer = {<br>&nbsp;&nbsp;name: string;<br>&nbsp;&nbsp;address: Address;          // reuse another alias<br>&nbsp;&nbsp;orders: { id: number; total: number }[];<br>};</div>
           <p>Build big types from small, named pieces. You can reuse and test each piece on its own.</p>
         </div>
         <div class="lc-card">
@@ -522,7 +522,7 @@ module TypescriptContent
       HTML
       starter_code: <<~'TS'
         // Lesson 4: object types and type aliases
-        type Address = { city: string; zip: string };
+        type Address = { state: string; pin: string };
 
         type Customer = {
           readonly id: number;
@@ -533,10 +533,10 @@ module TypescriptContent
 
         type Product = { id: number; name: string; price: number };
 
-        const customer: Customer = { id: 1, name: "Meera", address: { city: "Boston", zip: "02108" } };
+        const customer: Customer = { id: 1, name: "Meera", address: { state: "Punjab", pin: "682001" } };
         customer.name = "Meera K";
         // customer.id = 2; // tsc: Cannot assign to 'id' because it is a read-only property.
-        console.log(`${customer.name} (#${customer.id}) lives in ${customer.address.city}`);
+        console.log(`${customer.name} (#${customer.id}) lives in ${customer.address.state}`);
         console.log("Email:", customer.email?.toLowerCase() ?? "not given");
 
         const cart: Product[] = [
@@ -782,8 +782,8 @@ module TypescriptContent
         <div class="lc-card">
           <h3>Typing Destructured Parameters</h3>
           <p>Functions often receive an options object. Write the type for the whole object after the destructuring pattern (the curly braces that unpack its properties):</p>
-          <div class="lc-code">type ShipOptions = { city: string; express?: boolean };<br><br>function shippingCost({ city, express = false }: ShipOptions): number {<br>&nbsp;&nbsp;const base = city === "New York" ? 40 : 60;<br>&nbsp;&nbsp;return express ? base * 2 : base;<br>}<br>console.log(shippingCost({ city: "London" }), shippingCost({ city: "New York", express: true }));   // 60 80</div>
-          <p>Do not write <code>{ city: string }</code> inside the pattern. That would <em>rename</em> <code>city</code> to a variable called <code>string</code>. Many beginners make this mistake.</p>
+          <div class="lc-code">type ShipOptions = { state: string; express?: boolean };<br><br>function shippingCost({ state, express = false }: ShipOptions): number {<br>&nbsp;&nbsp;const base = state === "Gujarat" ? 40 : 60;<br>&nbsp;&nbsp;return express ? base * 2 : base;<br>}<br>console.log(shippingCost({ state: "Kerala" }), shippingCost({ state: "Gujarat", express: true }));   // 60 80</div>
+          <p>Do not write <code>{ state: string }</code> inside the pattern. That would <em>rename</em> <code>state</code> to a variable called <code>string</code>. Many beginners make this mistake.</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>
@@ -1023,7 +1023,7 @@ module TypescriptContent
         </div>
         <div class="lc-card">
           <h3>Truthiness and Equality</h3>
-          <div class="lc-code">function greet(name: string | null | undefined): string {<br>&nbsp;&nbsp;if (!name) return "Hello, guest";   // handles null, undefined AND ""<br>&nbsp;&nbsp;return "Hello, " + name;            // name: string<br>}<br><br>function sameCity(a: string | number, b: string | boolean) {<br>&nbsp;&nbsp;if (a === b) {<br>&nbsp;&nbsp;&nbsp;&nbsp;return a.toUpperCase();            // both must be string here<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;return "different";<br>}</div>
+          <div class="lc-code">function greet(name: string | null | undefined): string {<br>&nbsp;&nbsp;if (!name) return "Hello, guest";   // handles null, undefined AND ""<br>&nbsp;&nbsp;return "Hello, " + name;            // name: string<br>}<br><br>function sameState(a: string | number, b: string | boolean) {<br>&nbsp;&nbsp;if (a === b) {<br>&nbsp;&nbsp;&nbsp;&nbsp;return a.toUpperCase();            // both must be string here<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;return "different";<br>}</div>
           <p>Truthiness checks (checks like "if x is truthy") are short. But they also remove <code>0</code> and <code>""</code>. When those are valid values, compare directly: <code>if (count !== undefined)</code> or <code>if (value != null)</code>. The loose <code>!=</code> removes both <code>null</code> and <code>undefined</code>.</p>
         </div>
         <div class="lc-card">
@@ -1283,12 +1283,12 @@ module TypescriptContent
           switch (state.status) {
             case "idle": return "Press Load to start";
             case "loading": return "Loading...";
-            case "success": return `Loaded ${state.data.length} cities: ${state.data.join(", ")}`;
+            case "success": return `Loaded ${state.data.length} states: ${state.data.join(", ")}`;
             case "error": return `Error: ${state.message}`;
           }
         }
         const states: LoadState[] = [{ status: "idle" }, { status: "loading" },
-          { status: "success", data: ["London", "Boston"] }, { status: "error", message: "Network down" }];
+          { status: "success", data: ["Kerala", "Punjab"] }, { status: "error", message: "Network down" }];
         for (const st of states) console.log(render(st));
 
         // Result type instead of throwing
@@ -1327,7 +1327,7 @@ module TypescriptContent
         </div>
         <div class="lc-card">
           <h3>Several Type Parameters</h3>
-          <div class="lc-code">function pair&lt;K, V&gt;(key: K, value: V): [K, V] {<br>&nbsp;&nbsp;return [key, value];<br>}<br>const p = pair("Chicago", 60601);   // [string, number]<br><br>function mapValues&lt;T, U&gt;(items: T[], fn: (item: T) =&gt; U): U[] {<br>&nbsp;&nbsp;return items.map(fn);<br>}<br>const lengths = mapValues(["dosa", "idli"], (s) =&gt; s.length);   // number[]</div>
+          <div class="lc-code">function pair&lt;K, V&gt;(key: K, value: V): [K, V] {<br>&nbsp;&nbsp;return [key, value];<br>}<br>const p = pair("Assam", 781001);   // [string, number]<br><br>function mapValues&lt;T, U&gt;(items: T[], fn: (item: T) =&gt; U): U[] {<br>&nbsp;&nbsp;return items.map(fn);<br>}<br>const lengths = mapValues(["dosa", "idli"], (s) =&gt; s.length);   // number[]</div>
           <p>In <code>mapValues</code>, <code>T</code> comes from the array, and <code>U</code> comes from what your callback returns. The built-in <code>Array.prototype.map</code> is typed exactly like this.</p>
         </div>
         <div class="lc-card">
@@ -1468,17 +1468,17 @@ module TypescriptContent
         <div class="lc-card">
           <h3>The keyof Operator</h3>
           <p><code>keyof T</code> gives a union of the property names of <code>T</code>:</p>
-          <div class="lc-code">type Student = { name: string; marks: number; city: string };<br>type StudentKey = keyof Student;   // "name" | "marks" | "city"<br><br>const k: StudentKey = "marks";     // OK<br>const bad: StudentKey = "age";<br>// Error: Type '"age"' is not assignable to type 'keyof Student'.</div>
+          <div class="lc-code">type Student = { name: string; marks: number; state: string };<br>type StudentKey = keyof Student;   // "name" | "marks" | "state"<br><br>const k: StudentKey = "marks";     // OK<br>const bad: StudentKey = "age";<br>// Error: Type '"age"' is not assignable to type 'keyof Student'.</div>
         </div>
         <div class="lc-card">
           <h3>Indexed Access Types: T[K]</h3>
           <p><code>obj["marks"]</code> reads a value. In the same way, <code>Student["marks"]</code> reads a <em>type</em>:</p>
-          <div class="lc-code">type Marks = Student["marks"];                 // number<br>type NameOrCity = Student["name" | "city"];    // string<br>type AnyValue = Student[keyof Student];        // string | number</div>
+          <div class="lc-code">type Marks = Student["marks"];                 // number<br>type NameOrState = Student["name" | "state"];    // string<br>type AnyValue = Student[keyof Student];        // string | number</div>
         </div>
         <div class="lc-card">
           <h3>The Classic: getProperty</h3>
           <p>Put <code>keyof</code>, a constraint and <code>T[K]</code> together. You get a function that only accepts real keys. It returns the right type for each key:</p>
-          <div class="lc-code">function getProperty&lt;T, K extends keyof T&gt;(obj: T, key: K): T[K] {<br>&nbsp;&nbsp;return obj[key];<br>}<br><br>const s: Student = { name: "Asha", marks: 88, city: "London" };<br>const n = getProperty(s, "name");    // string<br>const m = getProperty(s, "marks");   // number<br>getProperty(s, "age");<br>// Error: Argument of type '"age"' is not assignable to parameter of type 'keyof Student'.</div>
+          <div class="lc-code">function getProperty&lt;T, K extends keyof T&gt;(obj: T, key: K): T[K] {<br>&nbsp;&nbsp;return obj[key];<br>}<br><br>const s: Student = { name: "Asha", marks: 88, state: "Kerala" };<br>const n = getProperty(s, "name");    // string<br>const m = getProperty(s, "marks");   // number<br>getProperty(s, "age");<br>// Error: Argument of type '"age"' is not assignable to parameter of type 'keyof Student'.</div>
           <p>You can use the same idea to build a type-safe "sort by any field" helper. See the starter.</p>
         </div>
         <div class="lc-card">
@@ -1494,9 +1494,9 @@ module TypescriptContent
         </div>
         <div class="lc-card">
           <h3>Worked Example: A Typed "pluck"</h3>
-          <div class="lc-code">function pluck&lt;T, K extends keyof T&gt;(items: T[], key: K): T[K][] {<br>&nbsp;&nbsp;return items.map((item) =&gt; item[key]);<br>}<br><br>const cls: Student[] = [<br>&nbsp;&nbsp;{ name: "Ravi", marks: 67, city: "Boston" },<br>&nbsp;&nbsp;{ name: "Asha", marks: 88, city: "London" },<br>];<br>const allMarks = pluck(cls, "marks");   // number[]<br>const cities = pluck(cls, "city");      // string[]<br>console.log(allMarks.join(", "), "|", cities.join(", "));</div>
+          <div class="lc-code">function pluck&lt;T, K extends keyof T&gt;(items: T[], key: K): T[K][] {<br>&nbsp;&nbsp;return items.map((item) =&gt; item[key]);<br>}<br><br>const cls: Student[] = [<br>&nbsp;&nbsp;{ name: "Ravi", marks: 67, state: "Punjab" },<br>&nbsp;&nbsp;{ name: "Asha", marks: 88, state: "Kerala" },<br>];<br>const allMarks = pluck(cls, "marks");   // number[]<br>const states = pluck(cls, "state");      // string[]<br>console.log(allMarks.join(", "), "|", states.join(", "));</div>
           <p>Output:</p>
-          <div class="lc-code">67, 88 | Boston, London</div>
+          <div class="lc-code">67, 88 | Punjab, Kerala</div>
           <p>The return type <code>T[K][]</code> changes with the key you pass. The compiler knows that <code>allMarks</code> holds numbers. You do not have to write it anywhere.</p>
         </div>
         <div class="lc-card">
@@ -1525,7 +1525,7 @@ module TypescriptContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>Use <code>sortBy</code> in the starter to sort students by <code>city</code>.</li>
+            <li>Use <code>sortBy</code> in the starter to sort students by <code>state</code>.</li>
             <li>Write <code>pluck&lt;T, K extends keyof T&gt;(items: T[], key: K): T[K][]</code>. Use it to get all marks.</li>
             <li>Uncomment the <code>sortBy(students, "age")</code> line. What error would <code>tsc</code> give?</li>
           </ol>
@@ -1558,11 +1558,11 @@ module TypescriptContent
         console.log("book 2:", findById(books, 2)?.title ?? "not found");
 
         // keyof and indexed access
-        type Student = { name: string; marks: number; city: string };
+        type Student = { name: string; marks: number; state: string };
         function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
           return obj[key];
         }
-        const s: Student = { name: "Asha", marks: 88, city: "London" };
+        const s: Student = { name: "Asha", marks: 88, state: "Kerala" };
         const marks: Student["marks"] = getProperty(s, "marks"); // number
         console.log(getProperty(s, "name"), "scored", marks + 2, "after grace marks");
 
@@ -1571,9 +1571,9 @@ module TypescriptContent
           return [...items].sort((a, b) => (a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0));
         }
         const students: Student[] = [
-          { name: "Ravi", marks: 67, city: "Boston" },
-          { name: "Asha", marks: 88, city: "London" },
-          { name: "Meera", marks: 75, city: "Washington, D.C." },
+          { name: "Ravi", marks: 67, state: "Punjab" },
+          { name: "Asha", marks: 88, state: "Kerala" },
+          { name: "Meera", marks: 75, state: "Odisha" },
         ];
         console.log("by marks:", sortBy(students, "marks").map((x) => x.name).join(", "));
         console.log("by name: ", sortBy(students, "name").map((x) => x.name).join(", "));
@@ -1610,7 +1610,7 @@ module TypescriptContent
         </div>
         <div class="lc-card">
           <h3>public, private, protected, readonly</h3>
-          <div class="lc-code">class BankAccount {<br>&nbsp;&nbsp;public readonly owner: string;       // anyone can read, nobody can reassign<br>&nbsp;&nbsp;private balance = 0;                  // only this class<br>&nbsp;&nbsp;protected branch = "London";            // this class and subclasses<br><br>&nbsp;&nbsp;constructor(owner: string) {<br>&nbsp;&nbsp;&nbsp;&nbsp;this.owner = owner;<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;deposit(amount: number): void {<br>&nbsp;&nbsp;&nbsp;&nbsp;this.balance += amount;<br>&nbsp;&nbsp;}<br>}<br><br>const acc = new BankAccount("Meera");<br>// acc.balance = 1000000;<br>// Error: Property 'balance' is private and only accessible within class 'BankAccount'.<br>// acc.owner = "Ravi";<br>// Error: Cannot assign to 'owner' because it is a read-only property.</div>
+          <div class="lc-code">class BankAccount {<br>&nbsp;&nbsp;public readonly owner: string;       // anyone can read, nobody can reassign<br>&nbsp;&nbsp;private balance = 0;                  // only this class<br>&nbsp;&nbsp;protected branch = "Kerala";            // this class and subclasses<br><br>&nbsp;&nbsp;constructor(owner: string) {<br>&nbsp;&nbsp;&nbsp;&nbsp;this.owner = owner;<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;deposit(amount: number): void {<br>&nbsp;&nbsp;&nbsp;&nbsp;this.balance += amount;<br>&nbsp;&nbsp;}<br>}<br><br>const acc = new BankAccount("Meera");<br>// acc.balance = 1000000;<br>// Error: Property 'balance' is private and only accessible within class 'BankAccount'.<br>// acc.owner = "Ravi";<br>// Error: Cannot assign to 'owner' because it is a read-only property.</div>
           <table class="lc-table">
             <thead><tr><th>Modifier</th><th>Who can use it</th></tr></thead>
             <tbody>
@@ -1893,22 +1893,22 @@ module TypescriptContent
         <p class="lc-lead">TypeScript comes with built-in <strong>utility types</strong>. A utility type turns one type into another. It can make every field optional, pick a few fields, remove a field, or get a function's return type. With utility types, you build new types from existing ones. You do not need to copy and paste.</p>
         <div class="lc-card">
           <h3>The Base Type</h3>
-          <div class="lc-code">interface User {<br>&nbsp;&nbsp;id: number;<br>&nbsp;&nbsp;name: string;<br>&nbsp;&nbsp;email: string;<br>&nbsp;&nbsp;city?: string;<br>&nbsp;&nbsp;role: "admin" | "member";<br>}</div>
+          <div class="lc-code">interface User {<br>&nbsp;&nbsp;id: number;<br>&nbsp;&nbsp;name: string;<br>&nbsp;&nbsp;email: string;<br>&nbsp;&nbsp;state?: string;<br>&nbsp;&nbsp;role: "admin" | "member";<br>}</div>
           <p>Every example below is built from this one definition. If you change <code>User</code>, all the types built from it update automatically.</p>
         </div>
         <div class="lc-card">
           <h3>Partial, Required and Readonly</h3>
-          <div class="lc-code">type UserUpdate = Partial&lt;User&gt;;     // every property optional<br>const change: UserUpdate = { city: "London" };        // OK<br><br>type CompleteUser = Required&lt;User&gt;;  // city is now required too<br><br>type FrozenUser = Readonly&lt;User&gt;;    // no property can be reassigned<br>const u: FrozenUser = { id: 1, name: "Asha", email: "a@x.in", role: "member" };<br>// u.name = "Ravi";<br>// Error: Cannot assign to 'name' because it is a read-only property.</div>
+          <div class="lc-code">type UserUpdate = Partial&lt;User&gt;;     // every property optional<br>const change: UserUpdate = { state: "Kerala" };        // OK<br><br>type CompleteUser = Required&lt;User&gt;;  // state is now required too<br><br>type FrozenUser = Readonly&lt;User&gt;;    // no property can be reassigned<br>const u: FrozenUser = { id: 1, name: "Asha", email: "a@x.in", role: "member" };<br>// u.name = "Ravi";<br>// Error: Cannot assign to 'name' because it is a read-only property.</div>
           <p><code>Partial</code> is perfect for "update" functions. In these, the caller sends only the fields that changed.</p>
         </div>
         <div class="lc-card">
           <h3>Pick and Omit</h3>
-          <div class="lc-code">type UserCard = Pick&lt;User, "name" | "city"&gt;;   // { name: string; city?: string }<br>type NewUser = Omit&lt;User, "id"&gt;;                 // everything except id<br><br>function createUser(input: NewUser): User {<br>&nbsp;&nbsp;return { id: Date.now(), ...input };             // the server assigns the id<br>}</div>
+          <div class="lc-code">type UserCard = Pick&lt;User, "name" | "state"&gt;;   // { name: string; state?: string }<br>type NewUser = Omit&lt;User, "id"&gt;;                 // everything except id<br><br>function createUser(input: NewUser): User {<br>&nbsp;&nbsp;return { id: Date.now(), ...input };             // the server assigns the id<br>}</div>
           <p><code>Pick</code> keeps the listed keys. <code>Omit</code> removes them. The keys you give to <code>Pick</code> must exist on the type. <code>Omit</code> accepts any key name, so check the spelling carefully there.</p>
         </div>
         <div class="lc-card">
           <h3>Record, Exclude, Extract, NonNullable</h3>
-          <div class="lc-code">type Role = User["role"];                               // "admin" | "member"<br>type Permissions = Record&lt;Role, string[]&gt;;<br>const perms: Permissions = { admin: ["read", "write"], member: ["read"] };<br><br>type Status = "draft" | "published" | "archived";<br>type Visible = Exclude&lt;Status, "archived"&gt;;             // "draft" | "published"<br>type Final = Extract&lt;Status, "published" | "deleted"&gt;;  // "published"<br>type MaybeCity = string | null | undefined;<br>type City = NonNullable&lt;MaybeCity&gt;;                      // string</div>
+          <div class="lc-code">type Role = User["role"];                               // "admin" | "member"<br>type Permissions = Record&lt;Role, string[]&gt;;<br>const perms: Permissions = { admin: ["read", "write"], member: ["read"] };<br><br>type Status = "draft" | "published" | "archived";<br>type Visible = Exclude&lt;Status, "archived"&gt;;             // "draft" | "published"<br>type Final = Extract&lt;Status, "published" | "deleted"&gt;;  // "published"<br>type MaybeState = string | null | undefined;<br>type State = NonNullable&lt;MaybeState&gt;;                      // string</div>
           <p><code>Exclude</code> and <code>Extract</code> work on <strong>unions</strong> (types like "a" | "b"). <code>Omit</code> and <code>Pick</code> work on <strong>object keys</strong>.</p>
         </div>
         <div class="lc-card">
@@ -1936,14 +1936,14 @@ module TypescriptContent
         <div class="lc-card">
           <h3>Combining Utilities</h3>
           <p>You can put one utility inside another. Here is a typical "edit profile" payload (the data sent). Any field except <code>id</code> and <code>role</code> may be sent:</p>
-          <div class="lc-code">type ProfileEdit = Partial&lt;Omit&lt;User, "id" | "role"&gt;&gt;;<br>// { name?: string; email?: string; city?: string }<br><br>function applyEdit(user: User, edit: ProfileEdit): User {<br>&nbsp;&nbsp;return { ...user, ...edit };<br>}</div>
+          <div class="lc-code">type ProfileEdit = Partial&lt;Omit&lt;User, "id" | "role"&gt;&gt;;<br>// { name?: string; email?: string; state?: string }<br><br>function applyEdit(user: User, edit: ProfileEdit): User {<br>&nbsp;&nbsp;return { ...user, ...edit };<br>}</div>
         </div>
         <div class="lc-card">
           <h3>Worked Example: An API Layer</h3>
           <p>Three endpoints and three payloads. All of them are built from one <code>User</code>:</p>
-          <div class="lc-code">type CreateUserBody = Omit&lt;User, "id"&gt;;<br>type UpdateUserBody = Partial&lt;Omit&lt;User, "id"&gt;&gt;;<br>type UserListItem = Pick&lt;User, "id" | "name"&gt;;<br><br>const body: UpdateUserBody = { city: "Los Angeles" };<br>const list: UserListItem[] = [{ id: 1, name: "Asha" }, { id: 2, name: "Ravi" }];<br>console.log(Object.keys(body).join(", "), list.map((u) =&gt; u.name).join(", "));</div>
+          <div class="lc-code">type CreateUserBody = Omit&lt;User, "id"&gt;;<br>type UpdateUserBody = Partial&lt;Omit&lt;User, "id"&gt;&gt;;<br>type UserListItem = Pick&lt;User, "id" | "name"&gt;;<br><br>const body: UpdateUserBody = { state: "Goa" };<br>const list: UserListItem[] = [{ id: 1, name: "Asha" }, { id: 2, name: "Ravi" }];<br>console.log(Object.keys(body).join(", "), list.map((u) =&gt; u.name).join(", "));</div>
           <p>Output:</p>
-          <div class="lc-code">city Asha, Ravi</div>
+          <div class="lc-code">state Asha, Ravi</div>
           <p>Say you add a new required field such as <code>phone</code> to <code>User</code>. <code>CreateUserBody</code> requires it right away. <code>UpdateUserBody</code> keeps it optional. This is exactly what the API needs.</p>
         </div>
         <div class="lc-card">
@@ -1987,25 +1987,25 @@ module TypescriptContent
           id: number;
           name: string;
           email: string;
-          city?: string;
+          state?: string;
           role: "admin" | "member";
         }
 
         type NewUser = Omit<User, "id">;                    // input for "create"
         type ProfileEdit = Partial<Omit<User, "id" | "role">>; // input for "edit"
-        type UserCard = Pick<User, "name" | "city">;        // what a card shows
+        type UserCard = Pick<User, "name" | "state">;        // what a card shows
         type Role = User["role"];
 
         let nextId = 1;
         const createUser = (input: NewUser): User => ({ id: nextId++, ...input });
         const updateUser = (user: User, edit: ProfileEdit): User => ({ ...user, ...edit });
-        const toCard = ({ name, city }: User): UserCard => ({ name, city });
+        const toCard = ({ name, state }: User): UserCard => ({ name, state });
 
         const asha = createUser({ name: "Asha", email: "asha@example.in", role: "admin" });
-        const ravi = createUser({ name: "Ravi", email: "ravi@example.in", city: "Boston", role: "member" });
-        const moved = updateUser(asha, { city: "London" });
+        const ravi = createUser({ name: "Ravi", email: "ravi@example.in", state: "Punjab", role: "member" });
+        const moved = updateUser(asha, { state: "Kerala" });
         // updateUser(asha, { role: "member" }); // tsc: Object literal may only specify known properties, and 'role' does not exist in type 'Partial<Omit<User, "id" | "role">>'.
-        console.log("card:", JSON.stringify(toCard(moved)), "| original city:", asha.city ?? "none");
+        console.log("card:", JSON.stringify(toCard(moved)), "| original state:", asha.state ?? "none");
 
         const permissions: Record<Role, readonly string[]> = { admin: ["read", "write", "delete"], member: ["read"] };
         for (const u of [moved, ravi]) console.log(`${u.name} (${u.role}) can: ${permissions[u.role].join(", ")}`);
@@ -2124,7 +2124,7 @@ module TypescriptContent
       HTML
       starter_code: <<~'TS'
         // Lesson 15: mapped, conditional and template literal types
-        type Student = { name: string; marks: number; city: string };
+        type Student = { name: string; marks: number; state: string };
 
         // Mapped type with key remapping: generate getter names
         type Getters<T> = { [K in keyof T & string as `get${Capitalize<K>}`]: () => T[K] };
@@ -2136,15 +2136,15 @@ module TypescriptContent
           }
           return out as Getters<T>;
         }
-        const g = makeGetters<Student>({ name: "Asha", marks: 88, city: "London" });
-        console.log(g.getName(), g.getMarks() + 2, g.getCity()); // fully typed getters
+        const g = makeGetters<Student>({ name: "Asha", marks: 88, state: "Kerala" });
+        console.log(g.getName(), g.getMarks() + 2, g.getState()); // fully typed getters
 
         // Conditional type + infer
         type Unwrap<T> = T extends Promise<infer V> ? V : T;
         type ElementType<T> = T extends readonly (infer E)[] ? E : never;
-        const cities: ElementType<string[]>[] = ["Boston", "Chicago"];
+        const states: ElementType<string[]>[] = ["Punjab", "Assam"];
         const later: Unwrap<Promise<number>> = 42;
-        console.log("cities:", cities.join(", "), "| unwrapped:", later);
+        console.log("states:", states.join(", "), "| unwrapped:", later);
 
         // Template literal types: a typed event emitter
         type AppEvents = {
@@ -2386,7 +2386,7 @@ module TypescriptContent
         <div class="lc-card">
           <h3>Try It</h3>
           <ol class="lc-list">
-            <li>In the starter code, add an optional <code>city?: string</code> to <code>User</code>. Update <code>isUser</code> so it accepts the city only if it is a string.</li>
+            <li>In the starter code, add an optional <code>state?: string</code> to <code>User</code>. Update <code>isUser</code> so it accepts the state only if it is a string.</li>
             <li>Add a fourth fake response with <code>"id": "4"</code> (a string). Check that it is rejected.</li>
             <li>Load users 1 and 2 at the same time with <code>Promise.all</code>. Print both names.</li>
           </ol>
@@ -2940,7 +2940,7 @@ module TypescriptContent
               <tr><td><code>Expense</code> shape</td><td>object types, <code>readonly</code></td><td>4</td></tr>
               <tr><td>New / edited expenses</td><td><code>Omit</code>, <code>Partial</code></td><td>14</td></tr>
               <tr><td>Actions and reducer</td><td>discriminated union + <code>never</code> check</td><td>9</td></tr>
-              <tr><td><code>groupBy</code> helper</td><td>generics with <code>K extends PropertyKey</code></td><td>10–11</td></tr>
+              <tr><td><code>sumBy</code> helper</td><td>generics with <code>K extends PropertyKey</code></td><td>10–11</td></tr>
               <tr><td>Budget config</td><td><code>satisfies Record&lt;Category, number&gt;</code></td><td>16</td></tr>
               <tr><td>Store</td><td>class with <code>#private</code> state</td><td>12</td></tr>
               <tr><td>JSON import</td><td><code>unknown</code> + type guard</td><td>8, 17</td></tr>

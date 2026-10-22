@@ -1625,7 +1625,7 @@ module GenerativeAiFundamentalsContent
             <thead><tr><th>Where</th><th>General position (October 2026)</th></tr></thead>
             <tbody>
               <tr><td>United States</td><td>The US Copyright Office says copyright needs a <strong>human author</strong>. Its January 2025 report says a prompt alone is usually not enough. Your own parts can be protected: your writing, your edits, and how you select and arrange material.</td></tr>
-              <tr><td>United Kingdom</td><td>UK law has an old special rule for "computer-generated works". In March 2026 the government said it would prefer to remove this rule. The law has not changed yet, so check current guidance.</td></tr>
+              <tr><td>United Kingdom</td><td>UK law has an old special rule for "computer-generated works". The government has asked for views on whether to remove this rule. The law has not changed yet, so check current guidance.</td></tr>
               <tr><td>European Union</td><td>The EU AI Act includes transparency rules. From 2 August 2026, AI providers must start to mark AI-generated content, with some parts phased in later. People who publish deepfakes must say they are AI-made.</td></tr>
             </tbody>
           </table>

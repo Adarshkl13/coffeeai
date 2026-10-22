@@ -271,10 +271,10 @@ module TextToImageGenerationContent
           <figcaption>Top: every pixel stores three numbers, one for each colour channel. Bottom: the same numbers are rearranged into the shape a model expects. The values come from the starter code.</figcaption>
         </figure>
         <div class="lc-card">
-          <h3>Pixels and grayscale</h3>
+          <h3>Pixels and greyscale</h3>
           <p>A digital image is a grid of tiny squares called <strong>pixels</strong>. Each pixel stores a brightness value.</p>
-          <p>In a <strong>grayscale</strong> image, each pixel holds one number. It usually goes from 0 (black) to 255 (white). Why 255? Each value uses 8 bits, and 8 bits can store 256 different numbers: 0 to 255.</p>
-          <p>Here is an 8 × 8 grayscale image from Part 1 of the code. A grey line runs along the top (120) and a white square (255) sits in the middle. Dark pixels print as spaces and bright pixels as <code>@</code>. The top-left pixel is 120 and the middle pixel is 255. Run the code below to see this image.</p>
+          <p>In a <strong>greyscale</strong> image, each pixel holds one number. It usually goes from 0 (black) to 255 (white). Why 255? Each value uses 8 bits, and 8 bits can store 256 different numbers: 0 to 255.</p>
+          <p>Here is an 8 × 8 greyscale image from Part 1 of the code. A grey line runs along the top (120) and a white square (255) sits in the middle. Dark pixels print as spaces and bright pixels as <code>@</code>. The top-left pixel is 120 and the middle pixel is 255. Run the code below to see this image.</p>
           <p>The image is stored in a NumPy <strong>array</strong>: a grid of numbers with a fixed shape. This one has shape <code>(8, 8)</code>: 8 rows (the <strong>height</strong>, H) and 8 columns (the <strong>width</strong>, W).</p>
         </div>
         <div class="lc-card">
@@ -306,7 +306,7 @@ module TextToImageGenerationContent
         </div>
         <div class="lc-card">
           <h3>Tensors, channels first and batches</h3>
-          <p>A <strong>tensor</strong> is the name for an array of numbers in libraries like PyTorch. It can have any number of dimensions. A grayscale image is a 2D tensor. A colour image is a 3D tensor.</p>
+          <p>A <strong>tensor</strong> is the name for an array of numbers in libraries like PyTorch. It can have any number of dimensions. A greyscale image is a 2D tensor. A colour image is a 3D tensor.</p>
           <p>Libraries do not all use the same order:</p>
           <table class="lc-table">
             <thead><tr><th>Order</th><th>Shape for one 512 × 512 colour image</th><th>Used by</th></tr></thead>
@@ -359,12 +359,12 @@ module TextToImageGenerationContent
             for row in img:
                 print("  " + "".join(CHARS[int(v) * (len(CHARS) - 1) // 255] * 2 for v in row))
 
-        # ── Part 1: a grayscale image, one number per pixel (0 black to 255 white) ──
-        print("== Part 1: a grayscale image ==")
+        # ── Part 1: a greyscale image, one number per pixel (0 black to 255 white) ──
+        print("== Part 1: a greyscale image ==")
         gray = np.zeros((H, W), dtype=np.uint8)
         gray[2:6, 2:6] = 255           # a white square in the middle
         gray[0, :] = 120               # a grey line along the top
-        print("Grayscale image, shape", gray.shape)
+        print("Greyscale image, shape", gray.shape)
         show(gray)
         print("Top-left pixel:", gray[0, 0], " middle pixel:", gray[3, 3])
 
@@ -1785,7 +1785,7 @@ module TextToImageGenerationContent
         def up(x):     # copy each value into a 2x2 block: height and width get 2 times bigger
             return x.repeat(2, axis=0).repeat(2, axis=1)
 
-        # An 8x8 grayscale picture (0 = dark, 1 = bright): a frame with a dot in the middle
+        # An 8x8 greyscale picture (0 = dark, 1 = bright): a frame with a dot in the middle
         img = np.zeros((8, 8))
         img[1, 1:7] = img[6, 1:7] = img[1:7, 1] = img[1:7, 6] = 1.0
         img[3:5, 3:5] = 0.6
@@ -3320,7 +3320,7 @@ module TextToImageGenerationContent
           <ol class="lc-list">
             <li>Run it. In Part 2, check that the zero convolution adds 0 before training.</li>
             <li>In Part 1, change the picture. For example, add <code>image[1:7, 3:5] = 1.0</code> after the square. Watch the edge map change.</li>
-            <li>At the top, change <code>SCALE</code> to <code>0.2</code>. In Part 2, the edge signal in the last picture becomes weaker than the U-Net noise.</li>
+            <li>At the top, change <code>SCALE</code> to <code>0.1</code>. In Part 2, the edge signal in the last picture becomes weaker than the U-Net noise.</li>
             <li>In Part 2, add <code>0.4</code> to the list of weights in the loop. Which value does it add?</li>
             <li>On your own computer with PyTorch, run Part 3. Check that the largest output value is 0.0.</li>
           </ol>
@@ -3349,7 +3349,7 @@ module TextToImageGenerationContent
         # ── Part 1: a picture and its edge map (the condition image) ──
         print("== Part 1: a picture and its edge map ==")
 
-        # An 8x8 grayscale picture: a bright square on a dark background
+        # An 8x8 greyscale picture: a bright square on a dark background
         image = np.zeros((8, 8))
         image[2:6, 2:6] = 1.0
         show("Original picture:", image)
@@ -3432,7 +3432,7 @@ module TextToImageGenerationContent
             image.save("fox_controlnet.png")
             print("Saved fox_controlnet.png")
 
-        # Try it: change SCALE to 0.2, or draw a new shape in Part 1, for example image[1:7, 3:5] = 1.0
+        # Try it: change SCALE to 0.1, or draw a new shape in Part 1, for example image[1:7, 3:5] = 1.0
       PYTHON
     },
     17 => {
@@ -3662,7 +3662,7 @@ module TextToImageGenerationContent
       body: <<~'HTML',
         <div class="lc-header">
           <div class="lc-badge le-badge le-badge-t2i">Text-to-Image AI</div>
-          <h1 class="lc-title">Project: Generate and Customize Your Own Images</h1>
+          <h1 class="lc-title">Project: Generate and Customise Your Own Images</h1>
         </div>
         <p class="lc-lead">In this project, you will put the whole course together. You will plan a prompt, choose settings, generate a few images with fixed seeds, pick the best one and edit it. You will also check your work and share it responsibly. The editor builds a prompt planner and runs a small denoising loop, so you can see the process from start to finish.</p>
         <figure class="lc-diagram">

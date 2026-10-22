@@ -8,7 +8,7 @@ module AiBrandDealsCreatorIncomeContent
           <div class="lc-badge le-badge le-badge-create">Content Creation</div>
           <h1 class="lc-title">How Creators Earn Money</h1>
         </div>
-        <p class="lc-lead">Most creators earn from several places at once. Some money comes from the platform, some from brands and some from your own audience. In this lesson, you will learn the six main income streams and how each one pays. You will also see which streams fit a small, growing or large creator. We will follow <strong>Riya</strong> all through this course. She runs the made-up cooking channel <strong>Tiffin Tales</strong> from her kitchen in London. She wants to earn more from brand deals, without losing her viewers' trust. A clear income map is the first step. Without it, AI advice about "earning more" is only guessing.</p>
+        <p class="lc-lead">Most creators earn from several places at once. Some money comes from the platform, some from brands and some from your own audience. In this lesson, you will learn the six main income streams and how each one pays. You will also see which streams fit a small, growing or large creator. We will follow <strong>Riya</strong> all through this course. She runs the made-up cooking channel <strong>Tiffin Tales</strong> from her kitchen in Maharashtra. She wants to earn more from brand deals, without losing her viewers' trust. A clear income map is the first step. Without it, AI advice about "earning more" is only guessing.</p>
         <figure class="lc-diagram">
           <svg viewBox="0 0 760 300" role="img" aria-label="Bar chart of Riya's made-up average monthly income. Brand deals 22,000 rupees, YouTube ad revenue 18,500, online workshop 6,000, affiliate links 4,200 and e-book 3,300. Total 54,000, costs 33,500, profit 20,500.">
             <defs><marker id="bd1a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
@@ -83,16 +83,16 @@ module AiBrandDealsCreatorIncomeContent
           <table class="lc-table">
             <thead><tr><th>Stage</th><th>Streams that usually fit</th><th>Example</th></tr></thead>
             <tbody>
-              <tr><td><strong>Starting</strong> (small, loyal audience)</td><td>Services, affiliate links, small paid posts for local businesses</td><td>A London bakery pays a new creator to film one Reel for the bakery's own page</td></tr>
+              <tr><td><strong>Starting</strong> (small, loyal audience)</td><td>Services, affiliate links, small paid posts for local businesses</td><td>A local bakery pays a new creator to film one Reel for the bakery's own page</td></tr>
               <tr><td><strong>Growing</strong> (steady views, clear niche)</td><td>Brand deals, platform ad revenue once you qualify, a first product</td><td>Riya today: brand deals, YouTube ads, an e-book and a workshop</td></tr>
               <tr><td><strong>Established</strong> (large, trusted audience)</td><td>Long-term brand partners, memberships, bigger products and courses</td><td>A creator with her own tiffin-box range made with a manufacturer</td></tr>
             </tbody>
           </table>
-          <p>Follower count is not everything. A small creator with a very clear audience can earn well. Brands pay for the <em>right</em> audience, not only a big one. A creator with 8,000 followers who are all new parents in Boston can be perfect for a local baby-food brand.</p>
+          <p>Follower count is not everything. A small creator with a very clear audience can earn well. Brands pay for the <em>right</em> audience, not only a big one. A creator with 8,000 followers who are all new parents in one state can be perfect for a local baby-food brand.</p>
           <p><strong>Weak prompt:</strong></p>
           <pre><code>How can I make more money as a creator?</code></pre>
           <p><strong>Better prompt:</strong></p>
-          <pre><code>I am a home-cooking creator in London. Here is my income for the
+          <pre><code>I am a home-cooking creator in Maharashtra. Here is my income for the
         last 6 months by stream, and my monthly costs. Work out each
         stream's share and my monthly profit. Show your working.
         Then suggest 3 ways to make my income more steady.
@@ -123,7 +123,7 @@ module AiBrandDealsCreatorIncomeContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a friendly business coach for small content creators. Use simple English.
 
-        About me: [home-cooking creator in London, YouTube channel Tiffin Tales and Instagram]
+        About me: [home-cooking creator in Maharashtra, YouTube channel Tiffin Tales and Instagram]
         My average monthly income, last 6 months:
         [Brand deals 22,000 (months: 0, 30,000, 12,000, 0, 55,000, 35,000)
         YouTube ad revenue 18,500
@@ -233,7 +233,7 @@ module AiBrandDealsCreatorIncomeContent
             <ol data-stepper-target="steps">
               <li data-kind="user" data-label="Riya's first prompt">"MilletMunch wants a Reel for its new ragi chips. Write a reply that sells me, and tell me what to charge."</li>
               <li data-kind="answer" data-label="AI draft">"80% of my audience are health-conscious diabetics. I guarantee 5,000 sales. The standard rate for a creator my size is ₹5,000."</li>
-              <li data-kind="warn" data-label="Invented audience fact">Riya has no data about diabetics in her audience. Her YouTube Studio shows age, gender and city only. She deletes the sentence.</li>
+              <li data-kind="warn" data-label="Invented audience fact">Riya has no data about diabetics in her audience. Her YouTube Studio shows age, gender and location only. She deletes the sentence.</li>
               <li data-kind="warn" data-label="Over-promise">She cannot promise sales. She controls the Reel, the timing and the report. She does not control what viewers buy.</li>
               <li data-kind="tool" data-label="Spreadsheet">Riya opens her rate sheet. It works out a price from her hours and costs, not from a "standard rate" the AI guessed.</li>
               <li data-kind="result" data-label="Rate sheet">A new Reel takes her 7 hours. Her rate card price for one Reel is ₹11,000.</li>
@@ -248,7 +248,7 @@ module AiBrandDealsCreatorIncomeContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a practical assistant for a solo content creator. Use simple English.
 
-        I am [a home-cooking creator in London with a YouTube channel and an Instagram account].
+        I am [a home-cooking creator in Maharashtra with a YouTube channel and an Instagram account].
         These are my weekly business jobs:
         [- find 5 new brands that fit my niche
         - reply to brand emails and DMs
@@ -380,7 +380,7 @@ module AiBrandDealsCreatorIncomeContent
               <li data-bucket="none" data-why="She paid for it herself and has no link with the brand. It is not an ad.">She bought a pressure cooker with her own money and praises it in a video</li>
               <li data-bucket="label" data-why="She earns a commission on sales. ASCI lists Affiliate as a label.">She links a knife set that pays her a commission on each sale</li>
               <li data-bucket="label" data-why="A family relationship with the brand is a material connection.">Her brother works at Tadka Tech, and she recommends its mixer grinder</li>
-              <li data-bucket="none" data-why="No money, gift or relationship. It is her honest tip.">She tells viewers about a vegetable market in London that she likes</li>
+              <li data-bucket="none" data-why="No money, gift or relationship. It is her honest tip.">She tells viewers about a vegetable market near her home that she likes</li>
               <li data-bucket="label" data-why="A discount is a benefit from the brand. That is a material connection.">MilletMunch gave her a 50% discount code for her own shopping, and she features the snacks</li>
             </ul>
           </div>
@@ -427,7 +427,7 @@ module AiBrandDealsCreatorIncomeContent
         </div>
         <p class="lc-lead">Brands pay for people, not for posts. They want to know how many people see your content, how many react to it and who those people are. In this lesson, you will learn the key numbers: reach, views, engagement rate, audience age and city. You will calculate them correctly, with Riya's made-up numbers. You will also learn to show your real proof, so a brand can trust you. AI can explain your numbers and spot patterns, but only if you give it correct data.</p>
         <figure class="lc-diagram">
-          <svg viewBox="0 0 760 300" role="img" aria-label="A dashboard of Riya's made-up numbers for the last 90 days. YouTube: 48,600 subscribers, 21,400 average views per long video, 6.5 percent engagement rate by views, 46 percent average viewed. Instagram: 31,200 followers, 14,800 average Reel reach, 9.8 percent engagement rate by reach, 4.6 percent by followers. Audience: mostly women aged 25 to 34 in London and New York.">
+          <svg viewBox="0 0 760 300" role="img" aria-label="A dashboard of Riya's made-up numbers for the last 90 days. YouTube: 48,600 subscribers, 21,400 average views per long video, 6.5 percent engagement rate by views, 46 percent average viewed. Instagram: 31,200 followers, 14,800 average Reel reach, 9.8 percent engagement rate by reach, 4.6 percent by followers. Audience: mostly women aged 25 to 34 in Maharashtra and Karnataka.">
             <defs><marker id="bd4a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9b99b8"/></marker></defs>
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <rect x="10" y="10" width="365" height="200" rx="12" fill="#1f1f44" stroke="#ef4444"/>
@@ -444,7 +444,7 @@ module AiBrandDealsCreatorIncomeContent
               <rect x="573" y="128" width="165" height="70" rx="8" fill="#27274e"/><text x="655" y="156" font-size="20" font-weight="700">4.6%</text><text x="655" y="180" font-size="11" fill="#9b99b8">engagement by followers</text>
               <rect x="10" y="222" width="740" height="66" rx="12" fill="#1f1f44" stroke="#10b981"/>
               <text x="380" y="248" font-weight="700" fill="#6ee7b7">Who watches (YouTube, last 90 days)</text>
-              <text x="380" y="272" font-size="12">62% women · biggest age group 25–34 (46%) · top cities London 14%, New York 12%, San Francisco 9%</text>
+              <text x="380" y="272" font-size="12">62% women · biggest age group 25–34 (46%) · top states Maharashtra 14%, Karnataka 12%, Telangana 9%</text>
             </g>
           </svg>
           <figcaption>Riya's made-up numbers for the 90 days to 31 August 2026. Every number has a date range and a clear method.</figcaption>
@@ -483,7 +483,7 @@ module AiBrandDealsCreatorIncomeContent
         </div>
         <div class="lc-card">
           <h3>Your real proof for brands</h3>
-          <p>Brands want to know if your audience matches their buyers. SteelNest (a made-up tiffin-box brand) sells mainly to working women aged 25 to 34 in London and New York. Riya's data shows 62% women, 46% aged 25 to 34, and London and New York as her top two cities. That match is her strongest selling point. It matters more than her follower count.</p>
+          <p>Brands want to know if your audience matches their buyers. SteelNest (a made-up tiffin-box brand) sells mainly to working women aged 25 to 34 in Maharashtra and Karnataka. Riya's data shows 62% women, 46% aged 25 to 34, and Maharashtra and Karnataka as her top two states. That match is her strongest selling point. It matters more than her follower count.</p>
           <ul class="lc-list">
             <li><strong>Screenshots with dates.</strong> Save your dashboards with the date range shown. Brands often ask for them.</li>
             <li><strong>Averages, not your best post.</strong> One viral video is not your normal reach.</li>
@@ -523,8 +523,8 @@ module AiBrandDealsCreatorIncomeContent
         My numbers, [last 90 days]:
         Instagram: [31,200] followers. Average Reel: reach [14,800], likes [820], comments [64], shares [150], saves [410].
         YouTube: [48,600] subscribers. Average long video: views [21,400], likes [1,180], comments [214], length [11:20], average view duration [5:10].
-        Audience: [62% women; ages 18-24 27%, 25-34 46%, 35-44 17%; top cities London 14%, New York 12%, San Francisco 9%]
-        Brand I want to work with: [a steel tiffin-box brand for working women in London and New York]
+        Audience: [62% women; ages 18-24 27%, 25-34 46%, 35-44 17%; top states Maharashtra 14%, Karnataka 12%, Telangana 9%]
+        Brand I want to work with: [a steel tiffin-box brand for working women in Maharashtra and Karnataka]
 
         Tasks:
         1. Instagram engagement rate by reach and by followers. Show each step.
@@ -559,12 +559,12 @@ module AiBrandDealsCreatorIncomeContent
             <g font-family="inherit" font-size="13" fill="#e2e0f0" text-anchor="middle">
               <rect x="20" y="10" width="470" height="300" rx="12" fill="#1f1f44" stroke="#a855f7"/>
               <rect x="36" y="24" width="438" height="52" rx="8" fill="#27274e"/>
-              <text x="255" y="46" font-weight="700">Riya · Tiffin Tales · London</text>
+              <text x="255" y="46" font-weight="700">Riya · Tiffin Tales · Maharashtra</text>
               <text x="255" y="66" font-size="11" fill="#9b99b8">Quick, healthy Hinglish tiffins for working people</text>
               <rect x="36" y="88" width="212" height="84" rx="8" fill="#27274e" stroke="#3b82f6"/>
               <text x="142" y="112" font-weight="700">Audience</text>
               <text x="142" y="134" font-size="11" fill="#9b99b8">62% women, 46% aged 25–34</text>
-              <text x="142" y="152" font-size="11" fill="#9b99b8">London 14%, New York 12%</text>
+              <text x="142" y="152" font-size="11" fill="#9b99b8">Maharashtra 14%, Karnataka 12%</text>
               <rect x="262" y="88" width="212" height="84" rx="8" fill="#27274e" stroke="#22d3ee"/>
               <text x="368" y="112" font-weight="700">Numbers</text>
               <text x="368" y="134" font-size="11" fill="#9b99b8">21,400 avg views (YouTube)</text>
@@ -598,8 +598,8 @@ module AiBrandDealsCreatorIncomeContent
           <table class="lc-table">
             <thead><tr><th>Section</th><th>What to write</th><th>Riya's version (made up)</th></tr></thead>
             <tbody>
-              <tr><td><strong>Bio</strong></td><td>Who you are, what you make, for whom. Two or three sentences.</td><td>"I'm Riya, a home cook in London. On Tiffin Tales I share quick, healthy tiffins in Hinglish for working people and students."</td></tr>
-              <tr><td><strong>Audience</strong></td><td>Gender, age groups, top cities and countries, from your dashboards</td><td>62% women. 46% aged 25–34. Top cities: London, New York, San Francisco. UK and US 88% of views.</td></tr>
+              <tr><td><strong>Bio</strong></td><td>Who you are, what you make, for whom. Two or three sentences.</td><td>"I'm Riya, a home cook in Maharashtra. On Tiffin Tales I share quick, healthy tiffins in Hinglish for working people and students."</td></tr>
+              <tr><td><strong>Audience</strong></td><td>Gender, age groups, top states and countries, from your dashboards</td><td>62% women. 46% aged 25–34. Top states: Maharashtra, Karnataka, Telangana. India 88% of views.</td></tr>
               <tr><td><strong>Numbers</strong></td><td>Followers, average views or reach, engagement rate with its method, and the date range</td><td>YouTube: 48,600 subscribers, 21,400 average views. Instagram: 31,200 followers, 14,800 average Reel reach, engagement rate 9.8% by reach.</td></tr>
               <tr><td><strong>Past work</strong></td><td>Brands you worked with and real results, with permission to share</td><td>Masala Mitra, May 2026: 1 Reel, 22,300 reach, 310 link clicks, discount code used 46 times</td></tr>
               <tr><td><strong>Packages</strong></td><td>What you offer. Some creators show prices, others write "rates on request".</td><td>Dedicated YouTube video, YouTube integration, Reel, story set, Short, and the "Tiffin Launch Pack"</td></tr>
@@ -617,7 +617,7 @@ module AiBrandDealsCreatorIncomeContent
         Instagram| 31,200 followers | 14,800 average Reel reach
                  | Engagement rate 9.8% (engagements ÷ reach)
         Shorts   | 38,000 average views
-        Audience | 62% women | 46% aged 25–34 | London 14%, New York 12%
+        Audience | 62% women | 46% aged 25–34 | Maharashtra 14%, Karnataka 12%
 
         PACKAGES (prices in rupees)
         Dedicated YouTube video ........ ₹30,000
@@ -671,11 +671,11 @@ module AiBrandDealsCreatorIncomeContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an editor who writes clear, honest media kits for creators. Use simple English.
 
-        About me: [Riya, home cook in London. Tiffin Tales: quick, healthy tiffins in Hinglish for working people and students.]
+        About me: [Riya, home cook in Maharashtra. Tiffin Tales: quick, healthy tiffins in Hinglish for working people and students.]
         Numbers, [1 June to 31 August 2026]:
         [YouTube: 48,600 subscribers, 21,400 average views per long video (last 10 videos), 46% average viewed
         Instagram: 31,200 followers, 14,800 average Reel reach, engagement rate 9.8% by reach, 4.6% by followers
-        Audience: 62% women, 46% aged 25-34, top cities London 14%, New York 12%]
+        Audience: 62% women, 46% aged 25-34, top states Maharashtra 14%, Karnataka 12%]
         Past work: [Masala Mitra spice brand, May 2026: 1 Reel, 22,300 reach, 310 link clicks, code used 46 times]
         Packages: [Reel 11,000 rupees; YouTube integration 9,500; story set 3,000]
         My tone: [warm, practical, a little funny]
@@ -883,7 +883,7 @@ module AiBrandDealsCreatorIncomeContent
               <text x="128" y="172" font-weight="700" fill="#6ee7b7">Strong fit</text>
               <text x="128" y="202" font-size="12">Steel tiffin boxes</text>
               <text x="128" y="222" font-size="12">Buyers: working women</text>
-              <text x="128" y="242" font-size="12">25–34, London, New York</text>
+              <text x="128" y="242" font-size="12">25–34, Maharashtra, Karnataka</text>
               <text x="128" y="268" font-size="11" fill="#9b99b8">It contacted Riya first</text>
               <rect x="262" y="124" width="236" height="160" rx="10" fill="#1f1f44" stroke="#f59e0b" stroke-width="2"/>
               <text x="380" y="150" font-weight="700">Tadka Tech</text>
@@ -907,11 +907,11 @@ module AiBrandDealsCreatorIncomeContent
           <h3>Finding brands that fit</h3>
           <p>The best brands to pitch are often ones you already use. You can speak about them honestly, and your viewers already see them in your videos. Check fit on three points:</p>
           <ul class="lc-list">
-            <li><strong>Audience fit.</strong> Do the brand's buyers look like your viewers? Riya's viewers are mostly women aged 25 to 34 in London and New York who pack tiffins.</li>
+            <li><strong>Audience fit.</strong> Do the brand's buyers look like your viewers? Riya's viewers are mostly women aged 25 to 34 in Maharashtra and Karnataka who pack tiffins.</li>
             <li><strong>Value fit.</strong> Would you be happy to show the product to your viewers without the money? If not, skip it.</li>
             <li><strong>Risk check.</strong> Look for claims you cannot prove, bad reviews about unpaid creators, or deal terms that would block other brands.</li>
           </ul>
-          <p><strong>Where to find brands:</strong> products in your own kitchen or desk, brands that sponsor creators in your niche, local businesses in your city, and stalls at trade fairs. Some platforms also have tools that connect brands and creators. Instagram has a creator marketplace for eligible professional accounts. YouTube has a brand-partnership tool for creators in its Partner Program (called YouTube Creator Partnerships in 2026, earlier BrandConnect). Both are available in India, with rules that change. Check each platform's current help pages.</p>
+          <p><strong>Where to find brands:</strong> products in your own kitchen or desk, brands that sponsor creators in your niche, local businesses in your city, and stalls at trade fairs. Some platforms also have tools that connect brands and creators. Instagram has a creator marketplace for eligible professional accounts. YouTube has a brand-partnership tool for creators in its Partner Program (earlier called BrandConnect; check its current name). Both are available in India, with rules that change. Check each platform's current help pages.</p>
           <p><strong>Agencies and influencer platforms</strong> find deals for creators and take a fee or a share. A good agency can save time. Before you join, check real reviews and read the contract. Never pay a "registration fee" to receive brand deals. Watch for fake brand emails with strange links or attachments.</p>
         </div>
         <div class="lc-card">
@@ -929,7 +929,7 @@ module AiBrandDealsCreatorIncomeContent
         <div class="lc-card">
           <h3>Worked example: Riya's pitch to Tadka Tech</h3>
           <p>Riya found the marketing manager's work email on the brand's website. She sent this on 8 September 2026. Every number comes from her dashboards. She wrote the idea herself and used AI only to make it shorter.</p>
-          <pre><code>Subject: Tiffin Tales x Tadka Tech: hot office lunches in London and New York
+          <pre><code>Subject: Tiffin Tales x Tadka Tech: hot office lunches in Maharashtra and Karnataka
 
         Hi [first name],
 
@@ -938,7 +938,7 @@ module AiBrandDealsCreatorIncomeContent
         subscribers, 21,400 average views per long video.
 
         My viewers pack lunch for work: 62% women, 46% aged 25-34,
-        top cities London and New York (YouTube Studio, last 90 days).
+        top states Maharashtra and Karnataka (YouTube Studio, last 90 days).
 
         Idea: "5 tiffins that reheat well at your desk". I would test
         your lunch-box heater in my own routine for 2 weeks first.
@@ -955,7 +955,7 @@ module AiBrandDealsCreatorIncomeContent
         Could we talk for 15 minutes next week?
         Riya | Tiffin Tales | [work email]</code></pre>
           <p><strong>Why it works:</strong> it is short, it shows the audience match, it offers one clear idea and it gives prices. It also promises honesty and a label, not sales. She never writes "guaranteed results".</p>
-          <p><strong>DM version</strong> (for Instagram, when there is no email): "Hi Tadka Tech! I'm Riya from @tiffintales. My viewers are working people who pack tiffins, mostly in London and New York. I have an idea for your lunch-box heater. Can I email my short proposal? Who is the right person?"</p>
+          <p><strong>DM version</strong> (for Instagram, when there is no email): "Hi Tadka Tech! I'm Riya from @tiffintales. My viewers are working people who pack tiffins, mostly in Maharashtra and Karnataka. I have an idea for your lunch-box heater. Can I email my short proposal? Who is the right person?"</p>
           <p><strong>Follow-ups.</strong> No reply after 7 days? Send one short, friendly reminder (15 September). Send a last one a week later (22 September). Then stop and pitch another brand. If Tadka Tech asks for its usual 90-day exclusivity on "all kitchen products", Riya will ask to narrow it to lunch-box heaters. The wide version would block her from SteelNest.</p>
         </div>
         <div class="lc-card">
@@ -968,7 +968,7 @@ module AiBrandDealsCreatorIncomeContent
               <div data-sorter-target="bucket" data-bucket="skip" data-label="Skip"></div>
             </div>
             <ul data-sorter-target="pool">
-              <li data-bucket="pitch" data-why="She already uses it, her viewers are its buyers and there are no risky claims.">A London spice-box maker whose masala dabba she has used for a year</li>
+              <li data-bucket="pitch" data-why="She already uses it, her viewers are its buyers and there are no risky claims.">A small spice-box maker whose masala dabba she has used for a year</li>
               <li data-bucket="check" data-why="A health claim like this needs strong proof. She must ask before any pitch.">A millet snack brand whose website says it "controls diabetes"</li>
               <li data-bucket="skip" data-why="No link with her audience of home cooks. Viewers would feel it is only for money.">A crypto trading app that offers a high fee for a shout-out</li>
               <li data-bucket="check" data-why="Good product fit, but the exclusivity would block other kitchen brands. She must negotiate it first.">An appliance brand that always asks for 90-day exclusivity on all kitchen products</li>
@@ -984,7 +984,7 @@ module AiBrandDealsCreatorIncomeContent
             <pre class="ai-try-prompt">You are an editor who helps creators write short, honest brand pitches. Use simple, friendly English.
 
         About me: [Riya, Tiffin Tales, Hinglish cooking channel about quick, healthy tiffins for working people]
-        My numbers (with date range): [YouTube 48,600 subscribers, 21,400 average views per long video; audience 62% women, 46% aged 25-34, top cities London and New York; last 90 days]
+        My numbers (with date range): [YouTube 48,600 subscribers, 21,400 average views per long video; audience 62% women, 46% aged 25-34, top states Maharashtra and Karnataka; last 90 days]
         Past work: [Masala Mitra Reel, May 2026: 22,300 reach, 310 link clicks]
         Brand: [Tadka Tech, electric lunch-box heater]
         My content idea: [test it for 2 weeks, then show it in a 60-90 second part of a video about tiffins that reheat well]
@@ -1421,7 +1421,7 @@ module AiBrandDealsCreatorIncomeContent
           <ul class="lc-list">
             <li>India's Drugs and Magic Remedies (Objectionable Advertisements) Act, 1954 bans ads that offer a product to treat or cure certain diseases. Diabetes is on its list.</li>
             <li>FSSAI's food advertising rules (2018) do not allow a food to claim it prevents, treats or cures a disease, unless specially permitted.</li>
-            <li>ASCI's 2025 update says technical health and nutrition advice needs a qualified person, such as a dietitian, who shows the qualification. Riya is a home cook.</li>
+            <li>ASCI's guidelines say technical health and nutrition advice needs a qualified person, such as a dietitian, who shows the qualification. Riya is a home cook.</li>
           </ul>
           <p>So Riya replies: "I'd love to show how I pack your ragi chips in a tiffin, with my honest opinion on the taste. I can't say anything about diabetes or health benefits. If that claim must be in the post, I'll have to say no this time."</p>
           <p>She also drops "100% guilt-free", because it is vague and cannot be proved. She will make the Reel only if MilletMunch agrees in writing. If not, she declines the deal politely.</p>
@@ -1744,7 +1744,7 @@ module AiBrandDealsCreatorIncomeContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a product coach for small content creators. Use simple English.
 
-        About me: [home-cooking creator in London, quick healthy tiffins in Hinglish]
+        About me: [home-cooking creator in Maharashtra, quick healthy tiffins in Hinglish]
         My rate: [670] rupees per hour.
         Top questions from my comments (names removed): [What snacks can I pack? / How do I stop food going soggy? / Tiffin ideas for kids?]
         A poll I ran: [64% of 1,100 voters pack snacks in their tiffins]
@@ -1830,9 +1830,9 @@ module AiBrandDealsCreatorIncomeContent
           <h3>A clear invoice gets you paid faster</h3>
           <p>An <strong>invoice</strong> is a bill that asks the brand to pay you. Send it on the date your contract says. Riya's SteelNest deal is ₹27,150: 50% on signing and 50% within 30 days of posting. She posted on 12 October 2026, so she sends the second invoice that day. It is due on 11 November 2026.</p>
           <pre><code>INVOICE  TT-2026-014          Date: 12 October 2026
-        From: Riya [surname], Tiffin Tales, [address], London
+        From: Riya [surname], Tiffin Tales, [address], Maharashtra
               PAN: [her PAN]   Email: [work email]
-        To:   SteelNest [company name], [address], London
+        To:   SteelNest [company name], [address], Maharashtra
               GSTIN: [SteelNest's GST number]
         For:  Tiffin Launch Pack: 1 YouTube integration, 1 Instagram
               Reel, 2 story sets; 3 months paid-ads use of the Reel
@@ -1899,7 +1899,7 @@ module AiBrandDealsCreatorIncomeContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are an assistant who helps small creators in India with money admin. Use simple English. You are not a tax adviser.
 
-        Me: [Riya, home-cooking creator in London, not registered for GST]
+        Me: [Riya, home-cooking creator in Maharashtra, not registered for GST]
         Deal: [SteelNest, 1 YouTube integration + 1 Reel + 2 story sets, total 27,150 rupees; 50% on signing, 50% within 30 days of posting; posted 12 October 2026]
         Other income this year: [YouTube ads, affiliate links, workshops, e-book]
         Gifted product kept: [tiffin set, value 3,200 rupees]
@@ -2056,7 +2056,7 @@ module AiBrandDealsCreatorIncomeContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a partnerships coach for content creators. Use simple English.
 
-        Me: [Riya, Tiffin Tales, home-cooking creator in London]
+        Me: [Riya, Tiffin Tales, home-cooking creator in Maharashtra]
         Brand: [SteelNest, steel tiffin boxes]. Last campaign results: [Reel reach 19,600 (my average 14,800); 118 discount code uses; top viewer question: which size fits a full meal]
         My rates: [Reel 11,000 rupees; story set 3,000 rupees]. Multi-item discount: [10%]. Exclusivity: [+20% of the Reel fee per 30 days, narrow category, at most 90 days]
         What the brand asked: [6-month ambassador deal, exclusivity in all kitchenware]
@@ -2215,7 +2215,7 @@ module AiBrandDealsCreatorIncomeContent
           <div class="lcw lcw-lab" data-controller="ai-try">
             <pre class="ai-try-prompt">You are a business coach for content creators. Use simple English.
 
-        Me: [Riya, Tiffin Tales, home-cooking creator in London]
+        Me: [Riya, Tiffin Tales, home-cooking creator in Maharashtra]
         Goal: take home [60,000] rupees a month. Costs: [33,500] a month. Hours: [140] a month.
         Income now (monthly): [YouTube ads 18,500; affiliate 4,200; brand deals 22,000 (uneven: 0 to 55,000); workshop 6,000; e-book 3,300]
         Rates: [670 an hour; Reel 11,000; integration 9,500; Launch Pack 23,850]

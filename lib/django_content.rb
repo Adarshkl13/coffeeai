@@ -33,7 +33,7 @@ module DjangoContent
         </div>
         <div class="lc-card">
           <h3>Starting a Real Project on Your Computer</h3>
-          <p>This course teaches <strong>Django 6.1</strong>, the current release (September 2026). Django 6.x needs <strong>Python 3.12 or newer</strong>. Many companies use <strong>Django 5.2 LTS</strong>. LTS means long-term support: it gets security fixes until April 2028. Almost everything in this course works the same on 5.2.</p>
+          <p>This course teaches <strong>Django 6.1</strong>, the current release at the time of writing. Django 6.x needs <strong>Python 3.12 or newer</strong>. Many companies use <strong>Django 5.2 LTS</strong>. LTS means long-term support: it gets security fixes until April 2028. Almost everything in this course works the same on 5.2.</p>
         <div class="lc-code">python -m venv .venv              # create a virtual environment<br>source .venv/bin/activate         # Windows: .venv\Scripts\activate<br>pip install "django==6.1.*"<br>django-admin startproject mysite .<br>python manage.py startapp blog<br>python manage.py runserver        # open http://127.0.0.1:8000/</div>
         </div>
         <div class="lc-card">
@@ -165,7 +165,7 @@ module DjangoContent
               <tr><td><code>DATABASES</code></td><td>Database connection</td><td>SQLite for learning, PostgreSQL in production</td></tr>
               <tr><td><code>MIDDLEWARE</code></td><td>Code that runs on every request (lesson 16)</td><td>Security, sessions, CSRF, auth, messages</td></tr>
               <tr><td><code>TEMPLATES</code></td><td>Where HTML templates are found (lesson 4)</td><td><code>"DIRS": [BASE_DIR / "templates"]</code></td></tr>
-              <tr><td><code>TIME_ZONE</code>, <code>USE_TZ</code></td><td>Time zone handling</td><td><code>"Europe/London"</code>, <code>True</code></td></tr>
+              <tr><td><code>TIME_ZONE</code>, <code>USE_TZ</code></td><td>Time zone handling</td><td><code>"UTC"</code>, <code>True</code></td></tr>
               <tr><td><code>DEFAULT_AUTO_FIELD</code></td><td>Type of automatic <code>id</code> columns</td><td><code>"django.db.models.BigAutoField"</code></td></tr>
             </tbody>
           </table>
@@ -186,7 +186,7 @@ module DjangoContent
         <div class="lc-card">
           <h3>Worked Example: Inspect Settings</h3>
           <p>The starter sets up settings from environment variables and prints them. Then it lists the installed apps and runs the system check:</p>
-        <div class="lc-code">DEBUG: True bool<br>ALLOWED_HOSTS: ['localhost', '127.0.0.1']<br>Database engine: django.db.backends.sqlite3<br>Would-be db file: /home/priya/mysite/db.sqlite3<br>Time zone: Europe/London<br>LANGUAGE_CODE (default): en-us<br>SESSION_COOKIE_AGE (default): 1209600 seconds<br><br>Installed apps (label -&gt; name):<br>&nbsp;&nbsp;contenttypes  django.contrib.contenttypes<br>&nbsp;&nbsp;auth          django.contrib.auth<br>&nbsp;&nbsp;sessions      django.contrib.sessions<br><br>Running the system check framework:<br>System check identified no issues (0 silenced).</div>
+        <div class="lc-code">DEBUG: True bool<br>ALLOWED_HOSTS: ['localhost', '127.0.0.1']<br>Database engine: django.db.backends.sqlite3<br>Would-be db file: /home/priya/mysite/db.sqlite3<br>Time zone: UTC<br>LANGUAGE_CODE (default): en-us<br>SESSION_COOKIE_AGE (default): 1209600 seconds<br><br>Installed apps (label -&gt; name):<br>&nbsp;&nbsp;contenttypes  django.contrib.contenttypes<br>&nbsp;&nbsp;auth          django.contrib.auth<br>&nbsp;&nbsp;sessions      django.contrib.sessions<br><br>Running the system check framework:<br>System check identified no issues (0 silenced).</div>
           <p><code>call_command("check")</code> is the same as running <code>python manage.py check</code>. It looks for common setup mistakes.</p>
         </div>
         <div class="lc-card">
@@ -229,7 +229,7 @@ module DjangoContent
                 "django.contrib.sessions",
             ],
             DATABASES={"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": ":memory:"}},
-            TIME_ZONE="Europe/London",
+            TIME_ZONE="UTC",
             USE_TZ=True,
             STATIC_URL="static/",
             DEFAULT_AUTO_FIELD="django.db.models.BigAutoField",
@@ -2071,10 +2071,10 @@ module DjangoContent
         <div class="lc-card">
           <h3>Built-in Content Security Policy (Django 6.0+)</h3>
           <p>A <strong>Content Security Policy</strong> (CSP) is a response header. It tells the browser which scripts, styles and images it may load. If an attacker secretly adds a <code>&lt;script&gt;</code> to your page, the browser will not run it. Since Django 6.0, CSP is built in. <code>ContentSecurityPolicyMiddleware</code> reads the <code>SECURE_CSP</code> setting and adds the header to every response.</p>
-        <div class="lc-code"># settings.py<br>from django.utils.csp import CSP<br><br>MIDDLEWARE = [..., "django.middleware.csp.ContentSecurityPolicyMiddleware"]<br>SECURE_CSP = {<br>&nbsp;&nbsp;&nbsp;&nbsp;"default-src": [CSP.SELF],               # only load things from our own site<br>&nbsp;&nbsp;&nbsp;&nbsp;"script-src": [CSP.SELF, CSP.NONCE],     # plus inline scripts that carry the nonce<br>}<br># TEMPLATES OPTIONS: add "django.template.context_processors.csp" (gives {{ csp_nonce }})<br><br>{# template #}<br>&lt;script nonce="{{ csp_nonce }}"&gt;hello()&lt;/script&gt;<br>&lt;script {% csp_nonce_attr %}&gt;hello()&lt;/script&gt;   {# Django 6.1 shortcut, same result #}</div>
+        <div class="lc-code"># settings.py<br>from django.utils.csp import CSP<br><br>MIDDLEWARE = [..., "django.middleware.csp.ContentSecurityPolicyMiddleware"]<br>SECURE_CSP = {<br>&nbsp;&nbsp;&nbsp;&nbsp;"default-src": [CSP.SELF],               # only load things from our own site<br>&nbsp;&nbsp;&nbsp;&nbsp;"script-src": [CSP.SELF, CSP.NONCE],     # plus inline scripts that carry the nonce<br>}<br># TEMPLATES OPTIONS: add "django.template.context_processors.csp" (gives {{ csp_nonce }})<br><br>{# template #}<br>&lt;script nonce="{{ csp_nonce }}"&gt;hello()&lt;/script&gt;</div>
           <p><strong>Output</strong> of a test request. The random nonce (a one-time random value) is shown as <code>&lt;nonce&gt;</code>. It changes on every request:</p>
         <div class="lc-code">Header: default-src 'self'; script-src 'self' 'nonce-&lt;nonce&gt;'<br>Page:   &lt;script nonce="&lt;nonce&gt;"&gt;hello()&lt;/script&gt;<br>Same nonce in both: True</div>
-          <p><code>CSP.SELF</code> becomes <code>'self'</code>. <code>CSP.NONCE</code> becomes a new random <code>'nonce-...'</code> value. It matches <code>{{ csp_nonce }}</code> in the page, so only your own inline script runs. <strong>New in 6.1:</strong> the built-in <code>{% csp_nonce_attr %}</code> tag writes the whole <code>nonce="..."</code> attribute for you (on <code>&lt;script&gt;</code> and <code>&lt;link&gt;</code> tags). To test a policy without breaking anything, use <code>SECURE_CSP_REPORT_ONLY</code> first. Then the browser only reports rule breaks. To change the policy for one view, use the <code>@csp_override({...})</code> decorator from <code>django.views.decorators.csp</code>.</p>
+          <p><code>CSP.SELF</code> becomes <code>'self'</code>. <code>CSP.NONCE</code> becomes a new random <code>'nonce-...'</code> value. It matches <code>{{ csp_nonce }}</code> in the page, so only your own inline script runs. To test a policy without breaking anything, use <code>SECURE_CSP_REPORT_ONLY</code> first. Then the browser only reports rule breaks. To change the policy for one view, use the <code>@csp_override({...})</code> decorator from <code>django.views.decorators.csp</code>.</p>
         </div>
         <div class="lc-card">
           <h3>Signals</h3>
@@ -2343,7 +2343,7 @@ module DjangoContent
         </div>
         <div class="lc-card">
           <h3>The Same API with Django REST Framework</h3>
-          <p>DRF is a separate package (<code>pip install djangorestframework</code>). Version 3.18 supports Django 5.2 to 6.1. You cannot install it in this editor. So read this part, and try it in a real project.</p>
+          <p>DRF is a separate package (<code>pip install djangorestframework</code>). Check the DRF release notes to see which Django versions the latest DRF supports. You cannot install it in this editor. So read this part, and try it in a real project.</p>
         <div class="lc-code"># settings.py<br>INSTALLED_APPS += ["rest_framework"]<br><br># api/serializers.py: model -&gt; JSON and JSON -&gt; validated data<br>from rest_framework import serializers<br><br>class BookSerializer(serializers.ModelSerializer):<br>&nbsp;&nbsp;&nbsp;&nbsp;class Meta:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model = Book<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fields = ["id", "title", "price"]<br><br># api/views.py: a ViewSet gives list, create, retrieve, update and delete<br>from rest_framework import viewsets, permissions<br><br>class BookViewSet(viewsets.ModelViewSet):<br>&nbsp;&nbsp;&nbsp;&nbsp;queryset = Book.objects.order_by("id")<br>&nbsp;&nbsp;&nbsp;&nbsp;serializer_class = BookSerializer<br>&nbsp;&nbsp;&nbsp;&nbsp;permission_classes = [permissions.IsAuthenticatedOrReadOnly]<br><br># api/urls.py: the router creates /books/ and /books/&lt;pk&gt;/<br>from rest_framework.routers import DefaultRouter<br>router = DefaultRouter()<br>router.register("books", BookViewSet)<br>urlpatterns = router.urls</div>
         </div>
         <div class="lc-card">
@@ -2682,10 +2682,10 @@ module DjangoContent
             </tbody>
           </table>
           <p>Paste this into the editor to try it:</p>
-        <div class="lc-code">import django<br>from django.conf import settings<br><br>settings.configure(<br>&nbsp;&nbsp;&nbsp;&nbsp;MAILERS={"default": {"BACKEND": "django.core.mail.backends.locmem.EmailBackend"}},<br>&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT_FROM_EMAIL="CoffeeBean AI &lt;noreply@example.com&gt;",<br>)<br>django.setup()<br><br>from django.core import mail<br>from django.core.mail import send_mail, EmailMessage<br><br>sent = send_mail("Welcome, Priya!", "Thanks for joining.", None, ["priya@example.com"])<br>print("send_mail returned:", sent)<br><br>msg = EmailMessage("Your receipt", "Course: Django, Rs 1499", to=["priya@example.com"],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cc=["accounts@example.com"])<br>msg.send()<br><br>print("Outbox size:", len(mail.outbox))<br>for m in mail.outbox:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(f"- {m.subject!r} from {m.from_email} to {m.to} (sent_using={m.sent_using!r})")</div>
+        <div class="lc-code">import django<br>from django.conf import settings<br><br>settings.configure(<br>&nbsp;&nbsp;&nbsp;&nbsp;EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",<br>&nbsp;&nbsp;&nbsp;&nbsp;DEFAULT_FROM_EMAIL="CoffeeBean AI &lt;noreply@example.com&gt;",<br>)<br>django.setup()<br><br>from django.core import mail<br>from django.core.mail import send_mail, EmailMessage<br><br>sent = send_mail("Welcome, Priya!", "Thanks for joining.", None, ["priya@example.com"])<br>print("send_mail returned:", sent)<br><br>msg = EmailMessage("Your receipt", "Course: Django, Rs 1499", to=["priya@example.com"],<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cc=["accounts@example.com"])<br>msg.send()<br><br>print("Outbox size:", len(mail.outbox))<br>for m in mail.outbox:<br>&nbsp;&nbsp;&nbsp;&nbsp;print(f"- {m.subject!r} from {m.from_email} to {m.to} cc {m.cc}")</div>
           <p><strong>Output</strong>:</p>
-        <div class="lc-code">send_mail returned: 1<br>Outbox size: 2<br>- 'Welcome, Priya!' from CoffeeBean AI &lt;noreply@example.com&gt; to ['priya@example.com'] (sent_using='default')<br>- 'Your receipt' from CoffeeBean AI &lt;noreply@example.com&gt; to ['priya@example.com'] (sent_using='default')</div>
-          <p><strong>New in Django 6.1:</strong> you set up backends with the <code>MAILERS</code> setting (as above). New projects get the console backend by default. The old <code>EMAIL_BACKEND</code>, <code>EMAIL_HOST</code>, <code>EMAIL_PORT</code> ... settings still work. But they are deprecated (planned for removal) and will be removed in <strong>Django 2028</strong>. Django now uses calendar versioning (version numbers based on the year). This is the release that was earlier planned as 7.0. <strong>Since Django 6.0:</strong> you must pass optional arguments such as <code>html_message=</code> by keyword. Also, <code>EmailMessage.message()</code> returns Python's modern <code>email.message.EmailMessage</code>. If you can, do not send email inside a slow request. Queue it as a background task (lesson 19).</p>
+        <div class="lc-code">send_mail returned: 1<br>Outbox size: 2<br>- 'Welcome, Priya!' from CoffeeBean AI &lt;noreply@example.com&gt; to ['priya@example.com'] cc []<br>- 'Your receipt' from CoffeeBean AI &lt;noreply@example.com&gt; to ['priya@example.com'] cc ['accounts@example.com']</div>
+          <p>You choose the backend with the <code>EMAIL_BACKEND</code> setting (as above). If you do not set it, Django uses <code>smtp.EmailBackend</code>. For real email, also set <code>EMAIL_HOST</code>, <code>EMAIL_PORT</code>, <code>EMAIL_HOST_USER</code>, <code>EMAIL_HOST_PASSWORD</code> and <code>EMAIL_USE_TLS</code>, and read the password from an environment variable. Email settings can change between Django versions, so check the release notes for your version. <strong>Since Django 6.0:</strong> pass optional arguments such as <code>html_message=</code> by keyword (passing them by position is deprecated). Also, <code>EmailMessage.message()</code> returns Python's modern <code>email.message.EmailMessage</code>. If you can, do not send email inside a slow request. Queue it as a background task (lesson 19).</p>
         </div>
         <div class="lc-card">
           <h3>Common Mistakes</h3>

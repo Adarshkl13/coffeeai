@@ -184,7 +184,7 @@ module DeepLearningContent
         </div>
         <div class="lc-card">
           <h3>The limit of one neuron</h3>
-          <p>A single neuron draws one straight line to separate classes. (With more inputs, it is a flat plane.) It can learn AND and OR. But it can <strong>never</strong> learn <strong>XOR</strong>, which outputs 1 when exactly one input is 1. No single straight line can separate those points. People pointed out this limit in 1969. It caused the first "AI winter", a time when interest and funding for AI dropped. The fix is to stack neurons into <strong>layers</strong> with non-linear activations. This is exactly what deep learning does.</p>
+          <p>A single neuron draws one straight line to separate classes. (With more inputs, it is a flat plane.) It can learn AND and OR. But it can <strong>never</strong> learn <strong>XOR</strong>, which outputs 1 when exactly one input is 1. No single straight line can separate those points. People pointed out this limit in 1969. This helped bring a long drop in interest and funding for neural networks, part of what people call the first "AI winter". The fix is to stack neurons into <strong>layers</strong> with non-linear activations. This is exactly what deep learning does.</p>
           <table class="lc-table">
             <thead><tr><th>x1</th><th>x2</th><th>AND</th><th>OR</th><th>XOR</th></tr></thead>
             <tbody>
@@ -1874,7 +1874,7 @@ module DeepLearningContent
               <tr><td>AlexNet</td><td>2012</td><td>Deep CNN on GPUs with ReLU and dropout. It won the ImageNet contest by a big margin.</td></tr>
               <tr><td>VGG-16</td><td>2014</td><td>Uses only 3×3 convolutions, stacked in many layers</td></tr>
               <tr><td>ResNet</td><td>2015</td><td><strong>Skip connections</strong> (output = F(x) + x) make 100+ layers possible</td></tr>
-              <tr><td>MobileNet / EfficientNet</td><td>2017–19</td><td>Small, fast CNNs for phones. They grow depth, width and resolution together.</td></tr>
+              <tr><td>MobileNet / EfficientNet</td><td>2017–19</td><td>Small, fast CNNs for phones. EfficientNet grows depth, width and resolution together.</td></tr>
               <tr><td>Vision Transformer (ViT)</td><td>2020</td><td>No convolutions. It cuts the image into 16×16 patches and uses a Transformer (Lesson 18).</td></tr>
               <tr><td>ConvNeXt</td><td>2022</td><td>A CNN updated with design ideas from Transformers. It performs about as well as ViTs.</td></tr>
             </tbody>
@@ -2614,7 +2614,7 @@ module DeepLearningContent
         <div class="lc-card">
           <h3>Common Mistakes</h3>
           <ul class="lc-list">
-            <li><strong>Wrong preprocessing.</strong> The model was trained on normalised 224×224 images. If you give it 0–255 pixels, accuracy becomes very bad. Use <code>weights.transforms()</code> or the model's own tokenizer.</li>
+            <li><strong>Wrong preprocessing.</strong> The model was trained on normalised 224×224 images. If you give it 0–255 pixels, accuracy becomes very bad. Use <code>weights.transforms()</code> or the model's own tokeniser.</li>
             <li><strong>Fine-tuning with a large learning rate.</strong> Big steps destroy the pretrained features. This is called "catastrophic forgetting". Use a rate about 10× smaller than for training from scratch.</li>
             <li><strong>Thinking a frozen body is completely fixed.</strong> Frozen weights do not change. But BatchNorm running statistics still update in <code>model.train()</code>. With a small dataset, keep the frozen BN layers in eval mode.</li>
             <li><strong>Ignoring the licence.</strong> Some pretrained weights are for research only.</li>
@@ -2629,7 +2629,7 @@ module DeepLearningContent
           </ol>
         </div>
         <div class="lc-card lc-card--tip">
-          <strong>Tip:</strong> When you fine-tune, you must preprocess your inputs <em>exactly</em> the way the original model expects. Use the same image size, the same normalisation and the same tokenizer. A mismatch here is the most common reason a pretrained model works badly.
+          <strong>Tip:</strong> When you fine-tune, you must preprocess your inputs <em>exactly</em> the way the original model expects. Use the same image size, the same normalisation and the same tokeniser. A mismatch here is the most common reason a pretrained model works badly.
         </div>
       HTML
       starter_code: <<~'PYTHON'
