@@ -3,12 +3,26 @@
    The player card stays dark in both themes (a media "island").
    ════════════════════════════════════════════════════════════════ */
 
-/* Hero: text | player | infographic carousel. */
-.wrap.h-hero-grid.h-hero-podcast { max-width: var(--page-max); grid-template-columns: minmax(0, 1fr) minmax(360px, 440px) minmax(0, 1fr);
-  gap: clamp(24px, 2vw, 40px); align-items: center; }
-.h-hero-podcast .h-title { font-size: clamp(32px, 3.2vw, 70px); }
-.h-hero-podcast .h-sub { font-size: clamp(15px, 1.15vw, 22px); max-width: none; }
-.h-hero-podcast .h-badge { font-size: clamp(13px, .8vw, 15px); }
+/* Hero: centred text on top; below it the player and the infographic carousel, side by side (50/50, same height). */
+.wrap.h-hero-podcast { max-width: var(--page-max); position: relative; }
+/* Title on one line, the description on one line below it, both from the left; little space around them. */
+.h-hero:has(.h-hero-podcast) { padding-top: clamp(16px, 1.8vw, 24px); padding-bottom: clamp(24px, 3vw, 40px); }
+.h-hero-intro { text-align: left; }
+.h-hero-podcast .h-title { font-size: clamp(26px, 2.5vw, 40px); margin: 0 0 4px; }
+.h-hero-podcast .h-sub { font-size: clamp(15px, 1.1vw, 18px); max-width: none; margin: 0; }
+@media (min-width: 1000px) { .h-hero-podcast .h-title { white-space: nowrap; } }
+@media (min-width: 1300px) { .h-hero-podcast .h-sub { white-space: nowrap; } }
+.h-hero-media { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 2.5vw, 40px);
+  align-items: stretch; margin-top: clamp(14px, 1.5vw, 20px); }
+.h-hero-media > .bc { display: flex; }
+.h-hero-media > .bc > .bc-card { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+/* The carousel sits in a dark card like the player, so both columns end level; the picture keeps its own shape, centred. */
+.h-hero-media > .ig { display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 20px;
+  border-radius: 26px; border: 1px solid rgba(139,92,246,.5);
+  background: radial-gradient(420px 220px at 50% 40%, rgba(139,92,246,.18), transparent 70%), linear-gradient(165deg, #1e1b4f 0%, #141235 55%, #0f0d2a 100%);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.03) inset, 0 30px 80px -30px rgba(99,102,241,.85); }
+.h-hero-media > .ig .ig-frame { border-color: rgba(255,255,255,.12); }
+.h-hero-media > .ig .ig-caption { color: #fff; }   /* the card is dark in both themes */
 
 .bc { position: relative; width: 100%; justify-self: center; }
 .bc::before { content: ""; position: absolute; inset: 8% 12%; z-index: 0; pointer-events: none; filter: blur(60px);
@@ -116,15 +130,12 @@ html[data-theme="light"] .bc::before { opacity: .45; }
 @media (hover: none) { .ig-arrow { opacity: 1; } }
 
 @media (max-width: 1360px) {
-  /* Text on top; player and carousel side by side below it. */
-  .wrap.h-hero-grid.h-hero-podcast { grid-template-columns: minmax(340px, 440px) minmax(0, 1fr); }
-  .h-hero-podcast > div:first-child { grid-column: 1 / -1; }
-  .h-hero-podcast .h-title { font-size: clamp(30px, 4vw, 52px); }
   .ig { max-width: none; }
 }
 @media (max-width: 900px) {
-  .wrap.h-hero-grid.h-hero-podcast { grid-template-columns: minmax(0, 1fr); }
-  .bc, .ig { max-width: 560px; }
+  /* Phones and small tablets: text, then the player, then the carousel. */
+  .h-hero-media { grid-template-columns: minmax(0, 1fr); }
+  .h-hero-media > .ig { padding: 14px; border-radius: 22px; }
 }
 @media (max-width: 760px) {
   .bc-card { padding: 18px 16px 16px; border-radius: 22px; }

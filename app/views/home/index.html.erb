@@ -19,19 +19,16 @@
 
   <%# ── Hero ─────────────────────────────────────────────── %>
   <section class="h-hero">
-    <div class="wrap h-hero-grid h-hero-podcast">
-      <div>
-        <span class="h-badge"><b>New</b> AI courses for HR, software testers and managers</span>
+    <div class="wrap h-hero-podcast">
+      <div class="h-hero-intro">
         <h1 class="h-title">Learn AI, one <span class="grad-text">coffee break</span> at a time</h1>
         <p class="h-sub">Learn generative AI, how the AI engine works behind the scenes, how it creates images and how tokens work, with lessons and podcasts for every profession.</p>
-        <div class="h-cta">
-          <%= link_to new_user_registration_path, class: "btn btn-primary btn-lg" do %>Get started <span aria-hidden="true">→</span><% end %>
-          <%= link_to "Explore courses", "#courses", class: "btn btn-ghost btn-lg" %>
-        </div>
       </div>
 
-      <%= render "home/podcast" %>
-      <%= render "home/infographics" %>
+      <div class="h-hero-media">
+        <%= render "home/podcast" %>
+        <%= render "home/infographics" %>
+      </div>
     </div>
   </section>
 

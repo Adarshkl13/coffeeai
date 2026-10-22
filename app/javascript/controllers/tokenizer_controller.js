@@ -7,7 +7,7 @@ import { esc } from "lib/vecviz"
 // Add data-tokenizer-lazy-value="true" (home page) to load the tokenizer only when the box scrolls into view.
 const TRANSFORMERS_URL = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.0/dist/transformers.min.js"
 const MODEL_ID = "Xenova/gpt2"
-const SAMPLES = ["Tokenization splits text into pieces.", "unbelievably", "My name is Alex", "def add(a, b):\n    return a + b", "I ❤️ AI 🤖"]
+const SAMPLES = ["My name is Alex", "unbelievably", "Tokenization splits text into pieces.", "def add(a, b):\n    return a + b", "I ❤️ AI 🤖"]
 let tokenizerPromise = null
 
 // Short button label: the first line, cut at a word with "…" when it is long

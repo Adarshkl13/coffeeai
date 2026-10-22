@@ -4,7 +4,7 @@ import "controllers"
 
 // Keep the saved dark/light theme when Turbo swaps pages.
 document.addEventListener("turbo:before-render", () => {
-  let theme = "dark"
-  try { theme = localStorage.getItem("theme") === "light" ? "light" : "dark" } catch {}
+  let theme = "light"   // light unless dark was chosen
+  try { theme = localStorage.getItem("theme") === "dark" ? "dark" : "light" } catch {}
   document.documentElement.setAttribute("data-theme", theme)
 })

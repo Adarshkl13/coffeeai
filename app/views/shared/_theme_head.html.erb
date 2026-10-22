@@ -1,8 +1,8 @@
-<%# Applies the saved theme before the page is drawn, so there is no dark/light flash. Default: dark. %>
+<%# Applies the saved theme before the page is drawn, so there is no dark/light flash. Default: light. %>
 <script>
   (function () {
-    var t = "dark";
-    try { t = localStorage.getItem("theme") === "light" ? "light" : "dark"; } catch (e) {}
+    var t = "light";
+    try { t = localStorage.getItem("theme") === "dark" ? "dark" : "light"; } catch (e) {}
     document.documentElement.setAttribute("data-theme", t);
     var m = document.querySelector('meta[name="theme-color"]');
     if (m) m.setAttribute("content", t === "light" ? "#f7f7fb" : "#0a0a1c");

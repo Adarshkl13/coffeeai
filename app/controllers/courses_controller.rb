@@ -18,7 +18,7 @@ class CoursesController < ApplicationController
                        {}
                      end
 
-    open = CourseLesson.open_states(@lessons.to_a, all_progresses)
+    open = CourseLesson.open_states(@lessons.to_a, all_progresses, all_open: full_access?)
     @lessons_with_status = @lessons.map do |lesson|
       prog   = all_progresses[lesson.id]
       pro    = !full_access? && lesson.position > 1

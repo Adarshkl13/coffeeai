@@ -1,26 +1,24 @@
 require "test_helper"
 
-# The paid plan: the paywall, Cashfree checkout, the return page and the webhook. Cashfree is replaced by a fake.
+# The paid plan: the paywall, PayU checkout, the PayU return, the return page and the webhook. PayU is replaced by a fake.
 class PaymentsTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  # Stands in for Cashfree: remembers orders and answers fetch_order with whatever status a test sets.
-  class FakeCashfree
-    attr_reader :created
+  # Stands in for PayU's verify_payment API: answers with whatever status and amount a test sets.
+  class FakePayu
     attr_accessor :status, :amount
+    attr_reader :checked
 
-    def initialize = (@created = []; @status = "ACTIVE"; @amount = nil)
+    def initialize = (@status = "pending"; @amount = nil; @checked = [])
 
-    def create_order(**args)
-      @created << args
-      { "payment_session_id" => "session_#{args[:order_id]}", "cf_order_id" => 555 }
-    end
-
-    def fetch_order(order_id)
-      p = Payment.find_by!(order_id: order_id)
-      { "order_id" => order_id, "order_status" => status, "order_amount" => amount || p.amount, "order_currency" => "INR", "cf_order_id" => 555 }
+    def verify(txnid)
+      @checked << txnid
+      p = Payment.find_by!(order_id: txnid)
+      { status: status, amount: (amount || p.amount).to_f, mihpayid: "403993715#{p.id}" }
     end
   end
+
+  KEY, SALT = "testkey", "testsalt"
 
   setup do
     @user = users(:two)
@@ -28,18 +26,27 @@ class PaymentsTest < ActionDispatch::IntegrationTest
                              color: "#123456", icon: "📘", description: "A course for paywall tests.")
     @first = @course.course_lessons.create!(title: "First", position: 1, description: "d")
     @second = @course.course_lessons.create!(title: "Second", position: 2, description: "d")
-    @fake = FakeCashfree.new
-    @originals = { new: Cashfree.method(:new), enabled: Cashfree.method(:enabled?), secret: Cashfree.method(:secret_key) }
+    @fake = FakePayu.new
+    @originals = %i[new key salt mode].to_h { |m| [m, Payu.method(m)] }
     fake = @fake
-    Cashfree.define_singleton_method(:new) { |*| fake }
-    Cashfree.define_singleton_method(:enabled?) { true }
-    Cashfree.define_singleton_method(:secret_key) { "test_secret" }
+    Payu.define_singleton_method(:new) { |*| fake }
+    Payu.define_singleton_method(:key) { KEY }
+    Payu.define_singleton_method(:salt) { SALT }
+    Payu.define_singleton_method(:mode) { "test" }
   end
 
   teardown do
-    Cashfree.define_singleton_method(:new, @originals[:new])
-    Cashfree.define_singleton_method(:enabled?, @originals[:enabled])
-    Cashfree.define_singleton_method(:secret_key, @originals[:secret])
+    @originals.each { |m, orig| Payu.define_singleton_method(m, orig) }
+  end
+
+  # What PayU posts back, with a correct (or a given) reverse hash.
+  def payu_post(payment, status:, amount: nil, hash: nil)
+    amount = Payu.format_amount(amount || payment.amount)
+    p = { key: KEY, txnid: payment.order_id, amount: amount, productinfo: "CoffeeBean AI plan", firstname: "two",
+          email: @user.email, udf1: "user_#{@user.id}", status: status, mihpayid: "403993715" }
+    p[:hash] = hash || Payu.sha512(SALT, status, "", "", "", "", "", "", "", "", "", p[:udf1], p[:email], p[:firstname],
+                                   p[:productinfo], amount, p[:txnid], KEY)
+    p
   end
 
   def unlock_second_lesson
@@ -91,6 +98,24 @@ class PaymentsTest < ActionDispatch::IntegrationTest
     assert_redirected_to pricing_path
   end
 
+  test "with a plan every lesson opens in any order; without a plan they open one after another" do
+    sign_in @user
+    @third = @course.course_lessons.create!(title: "Third", position: 3, description: "d")
+    @user.update!(access_until: 1.month.from_now)
+    get course_lesson_path(course_slug: @course.slug, id: @third.id)   # nothing finished yet
+    assert_response :success
+    assert_select ".lesson-link.locked", 0
+    get lesson_path(4)                                               # Beginner AI, lesson 1.4, lessons 1-3 not done
+    assert_response :success
+    get lesson_path(12)                                              # a Module 3 lesson
+    assert_response :success
+    assert_not CourseProgress.exists?(user: @user, course_lesson: @third, status: :completed), "opening is not finishing"
+
+    @user.update!(access_until: nil)                                 # no plan: Module 1 still opens in order
+    get lesson_path(3)
+    assert_redirected_to lesson_path(1)
+  end
+
   test "course page without a plan: lesson 1 open, the rest and the podcast locked" do
     sign_in @user
     get course_path(@course)
@@ -115,13 +140,18 @@ class PaymentsTest < ActionDispatch::IntegrationTest
     assert_response :payment_required
   end
 
-  test "checkout creates a Cashfree order and access starts only when Cashfree says PAID" do
+  test "checkout signs a PayU form and access starts only when PayU says success" do
     sign_in @user
     payment = buy(phone: "+91 98765-43210")
     assert_response :success
-    assert_equal "session_#{payment.order_id}", response.parsed_body["payment_session_id"]
-    assert_equal ["9876543210", 1999, "user_#{@user.id}"], @fake.created.last.values_at(:phone, :amount, :customer_id)
-    assert_match %r{/payments/return\?order_id=#{payment.order_id}\z}, @fake.created.last[:return_url]
+    body = response.parsed_body
+    assert_equal "https://test.payu.in/_payment", body["action"]
+    f = body["fields"]
+    assert_equal [KEY, payment.order_id, "1999.00", "9876543210", @user.email], f.values_at("key", "txnid", "amount", "phone", "email")
+    assert_equal payments_payu_return_url, f["surl"]
+    expected = Payu.sha512(KEY, f["txnid"], f["amount"], f["productinfo"], f["firstname"], f["email"], f["udf1"],
+                           "", "", "", "", "", "", "", "", "", SALT)
+    assert_equal expected, f["hash"]
     assert_equal "PENDING", payment.status
 
     # Coming back before paying (or with a faked link) does not unlock anything.
@@ -129,66 +159,87 @@ class PaymentsTest < ActionDispatch::IntegrationTest
     assert_redirected_to pricing_path
     assert_not @user.reload.member?
 
-    @fake.status = "PAID"
+    @fake.status = "success"
     travel_to Time.zone.local(2026, 10, 4, 12) do
-      get payments_return_path(order_id: payment.order_id)
-      assert_redirected_to dashboard_path
+      # PayU posts the result (no login cookie on this cross-site POST); we confirm with PayU, then send them on.
+      sign_out @user
+      post payments_payu_return_path, params: payu_post(payment, status: "success")
+      assert_redirected_to payments_return_path(order_id: payment.order_id)
       assert @user.reload.member?
       assert_equal Time.zone.local(2027, 1, 4, 12), @user.access_until   # 3 months
       assert_equal "PAID", payment.reload.status
+      assert_equal "403993715#{payment.id}", payment.gateway_payment_id
 
-      # Visiting the return page again does not add more months.
+      sign_in @user
       get payments_return_path(order_id: payment.order_id)
+      assert_redirected_to dashboard_path
+
+      # Posting the result again does not add more months.
+      post payments_payu_return_path, params: payu_post(payment, status: "success")
       assert_equal Time.zone.local(2027, 1, 4, 12), @user.reload.access_until
 
       # Buying a year adds 12 months to the end of the current plan, at the yearly price.
       second = buy(plan: "12m")
       assert_equal 5000, second.amount
-      get payments_return_path(order_id: second.order_id)
+      post payments_payu_return_path, params: payu_post(second, status: "success")
       assert_equal Time.zone.local(2028, 1, 4, 12), @user.reload.access_until
     end
   end
 
-  test "a wrong amount or a failed order never gives access" do
+  test "a faked success, a wrong amount or a failed payment never gives access" do
     sign_in @user
     payment = buy
-    @fake.status = "PAID"
+
+    # A forged "success" with a bad hash is not trusted; PayU still says pending.
+    post payments_payu_return_path, params: payu_post(payment, status: "success", hash: "0" * 128)
+    assert_redirected_to payments_return_path(order_id: payment.order_id)
+    assert_not @user.reload.member?
+    assert_empty @fake.checked   # a bad hash is not even sent on to PayU
+
+    @fake.status = "success"
     @fake.amount = 1
-    get payments_return_path(order_id: payment.order_id)
+    post payments_payu_return_path, params: payu_post(payment, status: "success")
     assert_not @user.reload.member?
 
-    @fake.status = "EXPIRED"
+    @fake.status = "failure"
     @fake.amount = nil
-    get payments_return_path(order_id: payment.order_id)
+    post payments_payu_return_path, params: payu_post(payment, status: "failure")
     assert_equal "FAILED", payment.reload.status
+    get payments_return_path(order_id: payment.order_id)
+    assert_redirected_to pricing_path
     assert_not @user.reload.member?
   end
 
-  test "checkout checks the phone number and other people's orders" do
+  test "checkout checks the phone number, the plan and other people's orders" do
     sign_in @user
     post payments_path, params: { phone: "12345", plan: "6m" }, as: :json
     assert_response :unprocessable_entity
     post payments_path, params: { phone: "9876543210", plan: "free" }, as: :json
     assert_response :unprocessable_entity
     other = users(:one).payments.create!(order_id: "CBOTHER1", plan: "6m", amount: 3499)
-    @fake.status = "PAID"
+    @fake.status = "success"
     get payments_return_path(order_id: other.order_id)
     assert_redirected_to pricing_path
     assert_not users(:one).reload.member?
   end
 
-  test "the webhook needs a valid signature, then confirms with Cashfree" do
-    payment = @user.payments.create!(order_id: "CBHOOK1", plan: "6m", amount: 3499)
-    body = { type: "PAYMENT_SUCCESS_WEBHOOK", data: { order: { order_id: payment.order_id } } }.to_json
-    ts = Time.current.to_i.to_s
-    good = Base64.strict_encode64(OpenSSL::HMAC.digest("SHA256", "test_secret", "#{ts}#{body}"))
-    headers = { "CONTENT_TYPE" => "application/json", "x-webhook-timestamp" => ts }
+  test "test mode is never used in production" do
+    env = Rails.env
+    env.define_singleton_method(:production?) { true }
+    assert_not Payu.enabled?
+    Payu.define_singleton_method(:mode) { "live" }
+    assert Payu.enabled?
+  ensure
+    env.singleton_class.send(:remove_method, :production?)
+  end
 
-    post payments_webhook_path, params: body, headers: headers.merge("x-webhook-signature" => "bad")
+  test "the webhook needs a valid hash, then confirms with PayU" do
+    payment = @user.payments.create!(order_id: "CBHOOK1", plan: "6m", amount: 3499)
+    post payments_webhook_path, params: payu_post(payment, status: "success", hash: "bad")
     assert_response :unauthorized
 
-    @fake.status = "PAID"
-    post payments_webhook_path, params: body, headers: headers.merge("x-webhook-signature" => good)
+    @fake.status = "success"
+    post payments_webhook_path, params: payu_post(payment, status: "success")
     assert_response :ok
     assert payment.reload.paid?
     assert @user.reload.member?

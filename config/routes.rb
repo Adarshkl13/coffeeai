@@ -69,12 +69,13 @@ Rails.application.routes.draw do
   get "/refund-policy",   to: "pages#refund",   as: :refund_policy
   get "/delivery-policy", to: "pages#delivery", as: :delivery_policy
 
-  # Paid plan (Cashfree)
+  # Paid plan (PayU)
   get  "/pricing",          to: "payments#pricing", as: :pricing
   get  "/certificates/:code", to: "certificates#show", as: :certificate
   post "/payments",         to: "payments#create",  as: :payments
   get  "/payments/return",  to: "payments#finish",  as: :payments_return
-  post "/payments/webhook", to: "payments#webhook", as: :payments_webhook
+  post "/payments/payu/return",  to: "payments#payu_return", as: :payments_payu_return   # PayU posts here after paying
+  post "/payments/payu/webhook", to: "payments#webhook",     as: :payments_webhook
   get "/contact", to: "pages#contact", as: :contact
   get "/privacy", to: "pages#privacy", as: :privacy
   get "/terms",   to: "pages#terms",   as: :terms

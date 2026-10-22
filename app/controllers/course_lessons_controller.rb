@@ -14,7 +14,7 @@ class CourseLessonsController < ApplicationController
                                  .index_by(&:course_lesson_id)
 
     ordered = @course.course_lessons.ordered.to_a
-    open    = CourseLesson.open_states(ordered, all_progresses)
+    open    = CourseLesson.open_states(ordered, all_progresses, all_open: full_access?)
     @lessons_with_status = ordered.map do |l|
       prog   = all_progresses[l.id]
       pro    = !full_access? && l.position > 1
@@ -65,7 +65,7 @@ class CourseLessonsController < ApplicationController
   end
 
   def ensure_accessible
-    return if @lesson.accessible_by?(current_user)
+    return if full_access? || @lesson.accessible_by?(current_user)   # with a plan, any lesson opens
 
     available = @course.course_lessons.ordered.find { |l| l.accessible_by?(current_user) }
     available ||= @course.course_lessons.ordered.first

@@ -471,7 +471,9 @@ textarea, input { font: inherit; }
    RESPONSIVE — MOBILE (max 768px)
 ───────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  html, body { height: auto; overflow: auto; }
+  /* Only body scrolls (html stays visible), so the window scrolls and the sticky navbar stays on top. */
+  html { height: auto; }
+  body { height: auto; overflow: auto; }
 
   /* App shell becomes single column */
   .app-shell {
@@ -549,7 +551,7 @@ textarea, input { font: inherit; }
 /* ─────────────────────────────────────────────────────────────
    HOME PAGE
 ───────────────────────────────────────────────────────────── */
-.home-page { background: var(--bg0); min-height: 100vh; overflow: auto; }
+.home-page { background: var(--bg0); min-height: 100vh; overflow-x: clip; }   /* clip, not auto: a scroll box here would stop the navbar sticking */
 html.home-html, body.home-body { overflow: auto; height: auto; }
 
 /* Site Navbar */

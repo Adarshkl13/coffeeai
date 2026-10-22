@@ -308,8 +308,10 @@ class LessonsController < ApplicationController
                 alert: "Complete or skip the current lesson to unlock this one."
   end
 
+  # With a plan, every lesson opens in any order (the tick still comes from doing the exercise).
+  # Without a plan, lessons open one after another.
   def accessible?(lesson)
-    return true if lesson[:id] == 1
+    return true if lesson[:id] == 1 || full_access?
     prev_lesson = LESSONS.find { |l| l[:id] == lesson[:id] - 1 }
     return true unless prev_lesson
     # All of the learner's progress is loaded once per request (the sidebar checks every lesson)

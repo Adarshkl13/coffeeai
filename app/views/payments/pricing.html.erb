@@ -1,9 +1,6 @@
 <% content_for :title, "Pricing — CoffeeBean AI" %>
 <% content_for :description, "CoffeeBean AI plans: 3 months, 6 months or 1 year of full access to every AI course, lesson, lab and podcast." %>
 <% content_for :body_class, "page-scrollable" %>
-<% content_for :head do %>
-  <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
-<% end %>
 <%
   member = user_signed_in? && current_user.member?
   features = ["All courses and lessons", "AI tools inside lessons", "New courses added during your plan",
@@ -14,7 +11,7 @@
   <%= render "shared/navbar" %>
 
   <div class="dash-body price-body" data-controller="checkout"
-       data-checkout-url-value="<%= payments_path %>" data-checkout-mode-value="<%= Cashfree.mode %>">
+       data-checkout-url-value="<%= payments_path %>">
     <header class="price-head">
       <span class="eyebrow">Pricing</span>
       <h1>Choose your plan. <span class="grad-text">Learn everything.</span></h1>
@@ -65,7 +62,7 @@
 
     <p class="price-small price-terms">
       <% unless user_signed_in? %>Already have an account? <%= link_to "Log in", new_user_session_path %>. <% end %>
-      Prices are in Indian rupees (INR). Payments are processed securely by Cashfree Payments.
+      Prices are in Indian rupees (INR). Payments are processed securely by PayU.
       By paying, you agree to our <%= link_to "Terms", terms_path %> and <%= link_to "Refund Policy", refund_policy_path %>.
     </p>
 
@@ -80,7 +77,7 @@
       <details><summary>I already have a plan. Can I buy more time?</summary>
         <p>Yes. The new plan is added to the end of your current plan, so you do not lose any days.</p></details>
       <details><summary>How do I pay?</summary>
-        <p>You can pay with UPI, debit or credit card, net banking or a wallet, using Cashfree's secure checkout. The options you see depend on Cashfree and your bank.</p></details>
+        <p>You can pay with UPI, debit or credit card, net banking or a wallet, using PayU's secure checkout. The options you see depend on PayU and your bank.</p></details>
       <details><summary>When does my access start?</summary>
         <p>Straight after the payment is confirmed, usually within a few seconds. If it takes longer, refresh the page or write to <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a>.</p></details>
       <details><summary>Can I get a refund?</summary>

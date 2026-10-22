@@ -1,10 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Pricing page checkout: each plan button creates a Cashfree order (PaymentsController#create) for its
-// plan, then opens Cashfree's checkout. Cashfree sends the learner back to /payments/return.
+// Pricing page checkout: each plan button asks PaymentsController#create for a signed PayU form, then posts
+// it to PayU's payment page. PayU sends the learner back to /payments/payu/return, then to /payments/return.
 export default class extends Controller {
   static targets = ["phone", "button", "error"]
-  static values = { url: String, mode: String }
+  static values = { url: String }
 
   async pay(e) {
     const button = e.currentTarget
@@ -14,7 +14,6 @@ export default class extends Controller {
       this.phoneTarget.scrollIntoView({ block: "center", behavior: "smooth" })
       return this.fail("Enter your 10-digit mobile number first.")
     }
-    if (typeof window.Cashfree !== "function") return this.fail("The payment page could not load. Check your internet connection and refresh.")
 
     this.hideError()
     this.busy(button, true)
@@ -26,13 +25,30 @@ export default class extends Controller {
         body: JSON.stringify({ phone, plan: button.dataset.plan })
       })
       const data = await res.json().catch(() => ({}))
-      if (!res.ok || !data.payment_session_id) throw new Error(data.error || "Couldn't start the payment. Please try again.")
-      const cashfree = window.Cashfree({ mode: this.modeValue })
-      await cashfree.checkout({ paymentSessionId: data.payment_session_id, redirectTarget: "_self" })
+      if (!res.ok || !data.action || !data.fields) throw new Error(data.error || "Couldn't start the payment. Please try again.")
+      this.postToPayu(data.action, data.fields)
     } catch (err) {
       this.fail(err.message)
       this.busy(button, false)
     }
+  }
+
+  // A normal form post (not fetch), so the whole page moves to PayU's secure payment page.
+  postToPayu(action, fields) {
+    if (!/^https:\/\/(test|secure)\.payu\.in\//.test(action)) throw new Error("Couldn't start the payment. Please try again.")
+    const form = document.createElement("form")
+    form.method = "POST"
+    form.action = action
+    form.hidden = true
+    Object.entries(fields).forEach(([name, value]) => {
+      const input = document.createElement("input")
+      input.type = "hidden"
+      input.name = name
+      input.value = value
+      form.appendChild(input)
+    })
+    document.body.appendChild(form)
+    form.submit()
   }
 
   busy(button, on) {

@@ -18,8 +18,9 @@ class CourseLesson < ApplicationRecord
 
   # Lock state for a whole ordered list in memory (no query per lesson). progress: { course_lesson_id => CourseProgress }.
   # Same rule as accessible_by?: lesson 1 is open; any other lesson opens when the one before it is done.
-  def self.open_states(ordered_lessons, progress)
-    ordered_lessons.each_with_index.to_h { |l, i| [l.id, i.zero? || l.position == 1 || progress[ordered_lessons[i - 1].id]&.done?] }
+  # Which lessons can be opened: all of them with a plan (all_open), otherwise one after another.
+  def self.open_states(ordered_lessons, progress, all_open: false)
+    ordered_lessons.each_with_index.to_h { |l, i| [l.id, all_open || i.zero? || l.position == 1 || progress[ordered_lessons[i - 1].id]&.done?] }
   end
 
   def accessible_by?(user)

@@ -8,7 +8,7 @@ import { Controller } from "@hotwired/stimulus"
 const DARK = "#0a0a1c", LIGHT = "#f7f7fb"
 
 export function storedTheme() {
-  try { return localStorage.getItem("theme") === "light" ? "light" : "dark" } catch { return "dark" }
+  try { return localStorage.getItem("theme") === "dark" ? "dark" : "light" } catch { return "light" }   // light unless dark was chosen
 }
 
 export function applyTheme(theme) {

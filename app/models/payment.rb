@@ -1,4 +1,5 @@
-# One Cashfree order for a plan (Plan). It becomes PAID only after Cashfree confirms it (PaymentsController).
+# One PayU transaction for a plan (Plan). order_id is PayU's txnid. It becomes PAID only after PayU's
+# verify API confirms it (PaymentsController).
 class Payment < ApplicationRecord
   STATUSES = %w[PENDING PAID FAILED].freeze
 
@@ -16,13 +17,13 @@ class Payment < ApplicationRecord
 
   # Marks the payment as paid and gives (or extends) access. Safe to call more than once,
   # because the return page and the webhook can both arrive.
-  def fulfil!(cf_order_id: nil)
+  def fulfil!(gateway_payment_id: nil)
     with_lock do
       return false if paid?
       user.lock!
       start = [user.access_until, Time.current].compact.max
       finish = start + plan_info.months.months
-      update!(status: "PAID", paid_at: Time.current, cf_order_id: cf_order_id || self.cf_order_id,
+      update!(status: "PAID", paid_at: Time.current, gateway_payment_id: gateway_payment_id || self.gateway_payment_id,
               access_from: start, access_until: finish)
       user.update!(access_until: finish)
       true
