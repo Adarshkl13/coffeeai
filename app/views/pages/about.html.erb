@@ -23,7 +23,7 @@
   <p>We want to make learning about AI and technology easy, practical and affordable for everyone. Our lessons are short, clear and hands-on, so you can learn a little every day, even on a busy day.</p>
 
   <h2>Who we are</h2>
-  <p>CoffeeBean AI is owned and operated by <strong><%= COMPANY[:legal_name] %></strong>. We are a small team of educators and technology people who love teaching. For questions, feedback or support, write to <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a> or visit our <%= link_to "Contact", contact_path %> page.</p>
+  <p>We are a small team of educators and technology people who love teaching. For questions, feedback or support, write to <a href="mailto:<%= COMPANY[:email] %>"><%= COMPANY[:email] %></a> or visit our <%= link_to "Contact", contact_path %> page.</p>
 
   <p>Ready to start? Open <%= link_to "all courses", user_signed_in? ? courses_path : new_user_registration_path %>, see our <%= link_to "pricing", pricing_path %>, or read the <%= link_to "blog", blogs_path %>.</p>
 <% end %>

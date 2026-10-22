@@ -1,0 +1,12 @@
+<%# Google Analytics 4 (measurement ID from GA_MEASUREMENT_ID, default CoffeeBean AI's). Live site only, so local testing is not counted.
+    Turbo page changes are counted by GA's "page changes based on browser history" (enhanced measurement). %>
+<% ga_id = ENV.fetch("GA_MEASUREMENT_ID", "G-R75ZQCZCRN") %>
+<% if Rails.env.production? && ga_id.present? %>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ga_id %>"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '<%= j ga_id %>');
+  </script>
+<% end %>
