@@ -72,7 +72,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "anthropic", "~> 1.73"
+gem "anthropic", "~> 1.80"
 
 # Renders the Markdown blog posts in blog-posts/
 gem "commonmarker", "~> 2.0"
