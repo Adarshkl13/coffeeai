@@ -1,12 +1,28 @@
-<%# Google Analytics 4 (measurement ID from GA_MEASUREMENT_ID, default CoffeeBean AI's). Live site only, so local testing is not counted.
-    Turbo page changes are counted by GA's "page changes based on browser history" (enhanced measurement). %>
-<% ga_id = ENV.fetch("GA_MEASUREMENT_ID", "G-R75ZQCZCRN") %>
-<% if Rails.env.production? && ga_id.present? %>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ga_id %>"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '<%= j ga_id %>');
-  </script>
+<%# Google Analytics 4 and Microsoft Clarity. Live site only, so local testing is not counted.
+    IDs: GA_MEASUREMENT_ID (default G-R75ZQCZCRN), CLARITY_PROJECT_ID (default z20kngxgkv). There is no site-wide
+    Content Security Policy; if one is added, allow https://www.googletagmanager.com, https://www.clarity.ms and
+    https://*.clarity.ms (script-src, connect-src, img-src).
+    Turbo page changes: GA counts them through "page changes based on browser history"; Clarity follows them itself. %>
+<% if Rails.env.production? %>
+  <% ga_id = ENV.fetch("GA_MEASUREMENT_ID", "G-R75ZQCZCRN") %>
+  <% if ga_id.present? %>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%= ga_id %>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '<%= j ga_id %>');
+    </script>
+  <% end %>
+
+  <% clarity_id = ENV.fetch("CLARITY_PROJECT_ID", "z20kngxgkv") %>
+  <% if clarity_id.present? %>
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "<%= j clarity_id %>");
+    </script>
+  <% end %>
 <% end %>
