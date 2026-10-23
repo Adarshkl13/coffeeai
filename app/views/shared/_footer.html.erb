@@ -8,9 +8,9 @@
         <span>CoffeeBean <strong>AI</strong></span>
       </div>
       <p class="footer-tagline">Learn AI, one coffee break at a time.</p>
-      <div class="footer-social">
+      <div class="ft-follow">
         <% COMPANY.fetch(:social, {}).each do |label, url| %>
-          <a href="<%= url %>" target="_blank" rel="noopener" aria-label="CoffeeBean AI on <%= label %>" title="<%= label %>" class="footer-social-link">
+          <a href="<%= url %>" target="_blank" rel="noopener" aria-label="CoffeeBean AI on <%= label %>" title="<%= label %>" class="ft-follow-link">
             <% if label == "Instagram" %>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
             <% else %>
