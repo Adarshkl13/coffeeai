@@ -13,6 +13,7 @@
     <h1 class="auth-title">Create your account</h1>
     <p class="auth-subtitle">Start your AI learning journey today</p>
 
+    <%= render "shared/social_login" %>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "auth-form" }) do |f| %>
 
       <%= render "devise/shared/error_messages", resource: resource %>

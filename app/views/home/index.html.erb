@@ -7,7 +7,7 @@
       { "@type" => "WebSite", "@id" => "#{site_url}/#website", "name" => "CoffeeBean AI", "alternateName" => "CoffeeBeanAI", "url" => "#{site_url}/" },
       { "@type" => "Organization", "@id" => "#{site_url}/#org", "name" => "CoffeeBean AI", "url" => "#{site_url}/",
         "logo" => "#{site_url}/icon-1024.png", "description" => ApplicationHelper::DEFAULT_DESCRIPTION,
-        "email" => COMPANY[:email], "contactPoint" => { "@type" => "ContactPoint", "contactType" => "customer support", "email" => COMPANY[:email] } }
+        "email" => COMPANY[:email], "sameAs" => COMPANY.fetch(:social, {}).values, "contactPoint" => { "@type" => "ContactPoint", "contactType" => "customer support", "email" => COMPANY[:email] } }
     ]
   }.to_json.gsub("</", "<\\/")) %></script>
 <% end %>

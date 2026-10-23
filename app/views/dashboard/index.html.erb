@@ -1,7 +1,7 @@
 <% content_for :title, "Dashboard — CoffeeBean AI" %>
 <% content_for :noindex, "1" %>
 <% content_for :body_class, "page-scrollable" %>
-<% name = current_user.email.split("@").first.tr("._-", " ").split.first.to_s.capitalize %>
+<% name = current_user.display_name.split.first.to_s.capitalize %><%# first name: the saved name (e.g. from Google), else the email name %>
 
 <div class="dash-page">
   <%= render "shared/navbar" %>

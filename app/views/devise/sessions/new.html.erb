@@ -13,6 +13,7 @@
     <h1 class="auth-title">Welcome back</h1>
     <p class="auth-subtitle">Log in to continue your learning journey</p>
 
+    <%= render "shared/social_login" %>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |f| %>
 
       <div class="field-group">

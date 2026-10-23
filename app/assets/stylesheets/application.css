@@ -3122,3 +3122,20 @@ html.home-html, body.home-body { overflow: auto; height: auto; }
   .blog-prose { font-size: 15.5px; }
   .blog-prose h2 { font-size: 21px; }
 }
+
+/* "Continue with Google" (shared/_social_login) */
+.social-login { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.social-form { margin: 0; }
+.social-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 11px 14px; border-radius: 10px;
+  font: 600 14px/1.2 var(--font, inherit); cursor: pointer; transition: background .15s, border-color .15s, transform .1s; }
+.social-btn:active { transform: translateY(1px); }
+.social-btn-google { background: #fff; color: #1f1f1f; border: 1px solid #dadce0; }
+.social-btn-google:hover { background: #f8f9fa; border-color: #c6c9cc; }
+.social-or { display: flex; align-items: center; gap: 12px; margin-top: 6px; color: var(--txt3); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+.social-or::before, .social-or::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+/* Footer social icons (COMPANY[:social]) */
+.footer-social { display: flex; gap: 10px; margin-top: 16px; }
+.footer-social-link { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; border: 1px solid var(--border);
+  color: var(--txt2); transition: color .15s, border-color .15s, background .15s; }
+.footer-social-link:hover { color: var(--txt); border-color: var(--purple-lt, #8b5cf6); background: rgba(139,92,246,.08); }
